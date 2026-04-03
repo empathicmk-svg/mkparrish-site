@@ -174,47 +174,12 @@ const aboutParagraphs: string[] = [
   "My clients are founders who need a voice, revenue teams who need a system, and executives who need someone who can hold the strategy and write the keynote. I work ghost or credited, retained or project-based, fractional or full-send. If your brand is smaller than your ambition — or your copy is not doing its job — that is where I come in.",
 ];
 
-function LuxuryCursor() {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [hovering, setHovering] = useState(false);
-
-  useEffect(() => {
-    const move = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
-    const over = (e: Event) => {
-      const t = e.target as HTMLElement | null;
-      setHovering(Boolean(t?.closest("a, button")));
-    };
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mouseover", over);
-    return () => {
-      window.removeEventListener("mousemove", move);
-      window.removeEventListener("mouseover", over);
-    };
-  }, []);
-
-  return (
-    <>
-      <div
-        className="pointer-events-none fixed z-[100] hidden rounded-full border border-white/40 bg-white/20 mix-blend-screen transition-all duration-75 md:block"
-        style={{ left: pos.x - 6, top: pos.y - 6, width: hovering ? 18 : 10, height: hovering ? 18 : 10 }}
-      />
-      <div
-        className="pointer-events-none fixed z-[90] hidden rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 blur-[2px] transition-all duration-200 md:block"
-        style={{ left: pos.x - 25, top: pos.y - 25, width: hovering ? 70 : 45, height: hovering ? 70 : 45 }}
-      />
-      <div
-        className="pointer-events-none fixed z-[80] hidden rounded-full bg-cyan-400/10 blur-2xl transition-all duration-500 md:block"
-        style={{ left: pos.x - 60, top: pos.y - 60, width: hovering ? 140 : 90, height: hovering ? 140 : 90 }}
-      />
-    </>
-  );
-}
 
 function PhilosopherQuote({ quote, author }: { quote: string; author: string }) {
   return (
     <div className="my-16 flex flex-col items-center gap-4 px-4 text-center animate-fade-in-slow">
       <div className="h-px w-16 bg-gradient-to-r from-transparent via-fuchsia-400/40 to-transparent" />
-      <blockquote className="max-w-2xl text-xl font-light italic leading-9 text-white/55 sm:text-2xl">
+      <blockquote className="max-w-2xl text-xl font-light italic leading-9 text-white/65 sm:text-2xl">
         &ldquo;{quote}&rdquo;
       </blockquote>
       <p className="text-xs uppercase tracking-[0.3em] text-white/30">— {author}</p>
@@ -242,7 +207,7 @@ function VideoModal({ onClose }: { onClose: () => void }) {
         >
           ✕ Close
         </button>
-        <div className="aspect-video overflow-hidden rounded-[1.5rem] border border-white/10 bg-black shadow-[0_40px_120px_rgba(0,0,0,0.8)]">
+        <div className="aspect-video overflow-hidden rounded-[1.5rem] border border-white/15 bg-black shadow-[0_40px_120px_rgba(0,0,0,0.8)]">
           <iframe
             src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`}
             allow="autoplay; fullscreen; picture-in-picture"
@@ -271,7 +236,6 @@ export default function Home() {
       `}</style>
 
       <div className="min-h-screen overflow-x-hidden bg-[#060816] text-white selection:bg-fuchsia-500/30">
-        <LuxuryCursor />
         {videoOpen && <VideoModal onClose={() => setVideoOpen(false)} />}
 
         {/* Background orbs */}
@@ -285,13 +249,13 @@ export default function Home() {
         <div className="relative z-10 mx-auto max-w-7xl px-6 pb-16 pt-8 lg:px-10">
 
           {/* NAV */}
-          <header className="sticky top-0 z-30 mb-10 rounded-full border border-white/10 bg-black/30 px-5 py-4 backdrop-blur-xl">
+          <header className="sticky top-0 z-30 mb-10 rounded-full border border-white/15 bg-black/30 px-5 py-4 backdrop-blur-xl">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.35em] text-white/55">Mary Kate Parrish</p>
+                <p className="text-xs uppercase tracking-[0.35em] text-white/65">Mary Kate Parrish</p>
                 <p className="mt-1 text-sm text-white/75">Fortune 50 polish • corporate luxury • growth brain</p>
               </div>
-              <nav className="hidden items-center gap-6 text-sm text-white/70 md:flex">
+              <nav className="hidden items-center gap-6 text-sm text-white/80 md:flex">
                 <a href="#writing"  className="transition hover:text-white">Writing</a>
                 <a href="#work"     className="transition hover:text-white">Work</a>
                 <a href="#services" className="transition hover:text-white">Services</a>
@@ -322,7 +286,7 @@ export default function Home() {
                   {" "}Then I build the systems that make them grow.
                 </span>
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72 sm:text-xl">
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-white/85 sm:text-xl">
                 Writer energy with enterprise discipline. I ghost for executives, convert for founders, and build demand gen machines for revenue teams who are done guessing. No AI fluff. No generic templates. Just sharp copy and pipeline you can show your board.
               </p>
               <p className="mt-4 max-w-2xl text-base font-medium uppercase tracking-[0.16em] text-fuchsia-200/90">
@@ -352,9 +316,9 @@ export default function Home() {
                   { num: "$40M+", label: "Pipeline Influenced"    },
                   { num: "500+",  label: "Pieces Written & Placed" },
                 ].map((s) => (
-                  <div key={s.label} className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
+                  <div key={s.label} className="rounded-3xl border border-white/15 bg-white/[0.04] p-5">
                     <p className="text-2xl font-semibold text-white">{s.num}</p>
-                    <p className="mt-1 text-xs uppercase tracking-[0.2em] text-white/45">{s.label}</p>
+                    <p className="mt-1 text-xs uppercase tracking-[0.2em] text-white/55">{s.label}</p>
                   </div>
                 ))}
               </div>
@@ -385,8 +349,8 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="absolute bottom-8 left-8 right-8 rounded-2xl border border-white/10 bg-black/50 p-5 backdrop-blur-xl">
-                  <p className="text-xs uppercase tracking-[0.25em] text-white/45">Brand signal</p>
+                <div className="absolute bottom-8 left-8 right-8 rounded-2xl border border-white/15 bg-black/50 p-5 backdrop-blur-xl">
+                  <p className="text-xs uppercase tracking-[0.25em] text-white/55">Brand signal</p>
                   <p className="mt-2 text-lg font-medium text-white">Strategic. Poised. Impossible to ignore.</p>
                 </div>
               </div>
@@ -396,13 +360,13 @@ export default function Home() {
           <PhilosopherQuote quote="You have power over your mind, not outside events. Realize this, and you will find strength." author="Marcus Aurelius" />
 
           {/* LOGO STRIP */}
-          <section className="mb-18 rounded-[2rem] border border-white/10 bg-white/[0.035] px-6 py-6 lg:px-8 animate-fade-in">
-            <p className="text-xs uppercase tracking-[0.35em] text-white/45">Trusted across teams</p>
-            <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-white/70 sm:grid-cols-4 lg:grid-cols-7">
+          <section className="mb-18 rounded-[2rem] border border-white/15 bg-white/[0.035] px-6 py-6 lg:px-8 animate-fade-in">
+            <p className="text-xs uppercase tracking-[0.35em] text-white/55">Trusted across teams</p>
+            <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-white/80 sm:grid-cols-4 lg:grid-cols-7">
               {logos.map((logo) => (
                 <div
                   key={logo}
-                  className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-3 text-center font-medium transition duration-300 hover:scale-[1.03] hover:border-fuchsia-300/25 hover:bg-white/[0.08]"
+                  className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-3 text-center font-medium transition duration-300 hover:scale-[1.03] hover:border-fuchsia-300/25 hover:bg-white/[0.08]"
                 >
                   {logo}
                 </div>
@@ -419,7 +383,7 @@ export default function Home() {
                 <span className="h-1.5 w-1.5 rounded-full bg-fuchsia-400" />
                 <span className="text-xs font-semibold uppercase tracking-[0.2em] text-fuchsia-200">Writer first. Strategist always.</span>
               </div>
-              <p className="text-xs uppercase tracking-[0.35em] text-white/45">Copywriting & Ghostwriting</p>
+              <p className="text-xs uppercase tracking-[0.35em] text-white/55">Copywriting & Ghostwriting</p>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                 Words that carry weight{" "}
                 <span className="bg-gradient-to-r from-fuchsia-400 to-cyan-300 bg-clip-text text-transparent">and convert.</span>
@@ -459,19 +423,19 @@ export default function Home() {
                 ].map((item) => (
                   <div
                     key={item.title}
-                    className="rounded-[1.8rem] border border-white/10 bg-white/[0.04] p-6 transition duration-300 hover:border-fuchsia-300/25 hover:bg-white/[0.06]"
+                    className="rounded-[1.8rem] border border-white/15 bg-white/[0.04] p-6 transition duration-300 hover:border-fuchsia-300/25 hover:bg-white/[0.06]"
                   >
                     <p className="text-xs uppercase tracking-[0.25em] text-white/40">{item.tier}</p>
                     <h3 className="mt-2 text-lg font-semibold text-white">{item.title}</h3>
                     <p className="mt-1 text-base font-semibold text-fuchsia-200">{item.price}</p>
-                    <p className="mt-3 text-sm leading-7 text-white/62">{item.desc}</p>
+                    <p className="mt-3 text-sm leading-7 text-white/75">{item.desc}</p>
                   </div>
                 ))}
               </div>
 
               <div className="flex flex-col justify-between rounded-[2rem] border border-fuchsia-400/25 bg-gradient-to-b from-fuchsia-500/15 to-white/[0.03] p-8 lg:p-10">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.35em] text-white/45">How it works</p>
+                  <p className="text-xs uppercase tracking-[0.35em] text-white/55">How it works</p>
                   <p className="mt-5 text-xl font-medium leading-9 text-white/90">
                     You talk. I write. It sounds exactly like you — only sharper, more deliberate, and built to move people.
                   </p>
@@ -484,7 +448,7 @@ export default function Home() {
                       "White papers & case studies",
                       "Book proposals & manuscript support",
                     ].map((item) => (
-                      <li key={item} className="flex gap-3 text-sm leading-6 text-white/70">
+                      <li key={item} className="flex gap-3 text-sm leading-6 text-white/80">
                         <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-fuchsia-300" />
                         {item}
                       </li>
@@ -519,7 +483,7 @@ export default function Home() {
           <section id="thinking" className="mb-24 animate-fade-in">
             <div className="mb-8 flex items-end justify-between gap-6">
               <div>
-                <p className="text-xs uppercase tracking-[0.35em] text-white/45">How I think</p>
+                <p className="text-xs uppercase tracking-[0.35em] text-white/55">How I think</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                   The strategic point of view behind the work
                 </h2>
@@ -532,10 +496,10 @@ export default function Home() {
               {principles.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.03] p-6"
+                  className="rounded-[2rem] border border-white/15 bg-gradient-to-b from-white/[0.06] to-white/[0.03] p-6"
                 >
                   <p className="text-sm font-semibold uppercase tracking-[0.22em] text-fuchsia-200">{item.title}</p>
-                  <p className="mt-4 text-base leading-8 text-white/72">{item.text}</p>
+                  <p className="mt-4 text-base leading-8 text-white/85">{item.text}</p>
                 </div>
               ))}
             </div>
@@ -545,17 +509,17 @@ export default function Home() {
 
           {/* VIDEO + WRITING */}
           <section id="video" className="mb-24 grid gap-6 lg:grid-cols-[1.05fr_0.95fr] animate-fade-in">
-            <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.025] p-8 lg:p-10">
-              <p className="text-xs uppercase tracking-[0.35em] text-white/45">Video capability</p>
+            <div className="rounded-[2rem] border border-white/15 bg-gradient-to-br from-white/[0.06] to-white/[0.025] p-8 lg:p-10">
+              <p className="text-xs uppercase tracking-[0.35em] text-white/55">Video capability</p>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">
                 This portfolio was built to speak, not just scroll.
               </h2>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-white/68">
+              <p className="mt-5 max-w-2xl text-base leading-8 text-white/80">
                 Watch a 2-minute breakdown of how I think about pipeline, brand authority, and the gap
                 most marketing teams refuse to close.
               </p>
               <div
-                className="relative mt-8 aspect-video cursor-pointer overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/35"
+                className="relative mt-8 aspect-video cursor-pointer overflow-hidden rounded-[1.5rem] border border-white/15 bg-black/35"
                 onClick={() => setVideoOpen(true)}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -576,8 +540,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-8 lg:p-10">
-              <p className="text-xs uppercase tracking-[0.35em] text-white/45">Featured writing</p>
+            <div className="rounded-[2rem] border border-white/15 bg-white/[0.035] p-8 lg:p-10">
+              <p className="text-xs uppercase tracking-[0.35em] text-white/55">Featured writing</p>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">
                 A life portfolio should also reveal the mind behind the strategy.
               </h2>
@@ -585,9 +549,9 @@ export default function Home() {
                 {featuredWriting.map((item) => (
                   <div
                     key={item.title}
-                    className="cursor-pointer rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5 transition hover:border-fuchsia-300/25 hover:bg-white/[0.06]"
+                    className="cursor-pointer rounded-[1.5rem] border border-white/15 bg-white/[0.03] p-5 transition hover:border-fuchsia-300/25 hover:bg-white/[0.06]"
                   >
-                    <p className="text-xs uppercase tracking-[0.24em] text-white/45">{item.type}</p>
+                    <p className="text-xs uppercase tracking-[0.24em] text-white/55">{item.type}</p>
                     <p className="mt-2 text-lg text-white">{item.title}</p>
                   </div>
                 ))}
@@ -601,7 +565,7 @@ export default function Home() {
           <section id="work" className="mb-24 animate-fade-in">
             <div className="mb-8 flex items-end justify-between gap-6">
               <div>
-                <p className="text-xs uppercase tracking-[0.35em] text-white/45">Selected work</p>
+                <p className="text-xs uppercase tracking-[0.35em] text-white/55">Selected work</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                   Strategy → execution → outcomes.
                 </h2>
@@ -615,7 +579,7 @@ export default function Home() {
               {caseStudies.map((item) => (
                 <article
                   key={item.title}
-                  className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.045] p-6 transition duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:border-fuchsia-300/25 hover:shadow-[0_30px_90px_rgba(255,0,170,0.12)]"
+                  className="group relative overflow-hidden rounded-[2rem] border border-white/15 bg-white/[0.045] p-6 transition duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:border-fuchsia-300/25 hover:shadow-[0_30px_90px_rgba(255,0,170,0.12)]"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500/10 via-transparent to-cyan-400/8 opacity-0 transition duration-300 group-hover:opacity-100" />
                   <div className="relative z-10">
@@ -623,9 +587,9 @@ export default function Home() {
                       <span className="text-2xl font-semibold text-fuchsia-200">{item.metric}</span>
                       <span className="text-xs uppercase tracking-[0.14em] text-fuchsia-300/70">{item.metricLabel}</span>
                     </div>
-                    <p className="text-sm text-white/55">{item.subtitle}</p>
+                    <p className="text-sm text-white/65">{item.subtitle}</p>
                     <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white">{item.title}</h3>
-                    <ul className="mt-5 space-y-3 text-sm leading-7 text-white/70">
+                    <ul className="mt-5 space-y-3 text-sm leading-7 text-white/80">
                       {item.bullets.map((bullet) => (
                         <li key={bullet} className="flex gap-3">
                           <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-fuchsia-300" />
@@ -633,8 +597,8 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-6 rounded-[1.4rem] border border-white/10 bg-black/30 p-5">
-                      <p className="text-xs uppercase tracking-[0.22em] text-white/45">Outcome</p>
+                    <div className="mt-6 rounded-[1.4rem] border border-white/15 bg-black/30 p-5">
+                      <p className="text-xs uppercase tracking-[0.22em] text-white/55">Outcome</p>
                       <p className="mt-3 text-sm leading-7 text-white/78">{item.outcome}</p>
                     </div>
                   </div>
@@ -648,13 +612,13 @@ export default function Home() {
           {/* SERVICES + PRICING */}
           <section
             id="services"
-            className="mb-24 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-fuchsia-500/10 via-white/[0.04] to-cyan-400/8 p-8 lg:p-10 animate-fade-in"
+            className="mb-24 rounded-[2.5rem] border border-white/15 bg-gradient-to-br from-fuchsia-500/10 via-white/[0.04] to-cyan-400/8 p-8 lg:p-10 animate-fade-in"
           >
             <div className="mb-10">
-              <p className="text-xs uppercase tracking-[0.35em] text-white/45">Consulting menu</p>
+              <p className="text-xs uppercase tracking-[0.35em] text-white/55">Consulting menu</p>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                 Three ways to work together.{" "}
-                <span className="text-white/55">Everything loops back to pipeline.</span>
+                <span className="text-white/65">Everything loops back to pipeline.</span>
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-8 text-white/65">
                 Choose a lane — or stack them. Every engagement is scoped to your stage, your team, and
@@ -669,7 +633,7 @@ export default function Home() {
                   className={`relative flex flex-col rounded-[2rem] border p-7 transition duration-300 hover:scale-[1.015] ${
                     tier.highlight
                       ? "border-fuchsia-400/40 bg-gradient-to-b from-fuchsia-500/20 to-white/[0.04] shadow-[0_0_80px_rgba(200,60,255,0.15)]"
-                      : "border-white/10 bg-white/[0.04]"
+                      : "border-white/15 bg-white/[0.04]"
                   }`}
                 >
                   {tier.highlight && (
@@ -677,16 +641,16 @@ export default function Home() {
                       Most Popular
                     </div>
                   )}
-                  <p className="text-xs uppercase tracking-[0.25em] text-white/45">{tier.tag}</p>
+                  <p className="text-xs uppercase tracking-[0.25em] text-white/55">{tier.tag}</p>
                   <h3 className="mt-3 text-2xl font-semibold text-white">{tier.title}</h3>
                   <div className="mt-3 flex items-baseline gap-1">
                     <span className="text-3xl font-semibold text-white">{tier.price}</span>
-                    <span className="text-sm text-white/45">{tier.cadence}</span>
+                    <span className="text-sm text-white/55">{tier.cadence}</span>
                   </div>
-                  <p className="mt-3 text-sm leading-7 text-white/62">{tier.description}</p>
+                  <p className="mt-3 text-sm leading-7 text-white/75">{tier.description}</p>
                   <ul className="mt-6 flex-1 space-y-3">
                     {tier.bullets.map((b) => (
-                      <li key={b} className="flex gap-3 text-sm leading-6 text-white/70">
+                      <li key={b} className="flex gap-3 text-sm leading-6 text-white/80">
                         <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-cyan-300" />
                         {b}
                       </li>
@@ -709,7 +673,7 @@ export default function Home() {
                       href={CALENDLY_URL}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex w-full items-center justify-center rounded-full border border-white/10 py-2.5 text-xs font-medium text-white/55 transition hover:text-white"
+                      className="inline-flex w-full items-center justify-center rounded-full border border-white/15 py-2.5 text-xs font-medium text-white/65 transition hover:text-white"
                     >
                       Or schedule a call first →
                     </a>
@@ -718,7 +682,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="mt-12 border-t border-white/10 pt-10">
+            <div className="mt-12 border-t border-white/15 pt-10">
               <p className="mb-5 text-xs uppercase tracking-[0.3em] text-white/40">Also available à la carte</p>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {[
@@ -737,7 +701,7 @@ export default function Home() {
                 ].map((service) => (
                   <div
                     key={service}
-                    className="rounded-[1.5rem] border border-white/10 bg-black/25 p-4 text-sm text-white/75 backdrop-blur-sm transition duration-300 hover:scale-[1.02] hover:border-cyan-300/20 hover:bg-white/[0.06]"
+                    className="rounded-[1.5rem] border border-white/15 bg-black/25 p-4 text-sm text-white/75 backdrop-blur-sm transition duration-300 hover:scale-[1.02] hover:border-cyan-300/20 hover:bg-white/[0.06]"
                   >
                     {service}
                   </div>
@@ -750,13 +714,13 @@ export default function Home() {
 
           {/* ABOUT */}
           <section id="about" className="mb-24 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] animate-fade-in">
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 lg:p-10">
-              <p className="text-xs uppercase tracking-[0.35em] text-white/45">About</p>
+            <div className="rounded-[2rem] border border-white/15 bg-white/[0.04] p-8 lg:p-10">
+              <p className="text-xs uppercase tracking-[0.35em] text-white/55">About</p>
               <h2 className="mt-4 max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl">
                 I started as a writer. Everything else is what I built around it.
               </h2>
             </div>
-            <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.025] p-8 lg:p-10">
+            <div className="rounded-[2rem] border border-white/15 bg-gradient-to-br from-white/[0.06] to-white/[0.025] p-8 lg:p-10">
               <div className="space-y-6 text-base leading-8 text-white/74">
                 {aboutParagraphs.map((para) => (
                   <p key={para}>{para}</p>
@@ -780,15 +744,15 @@ export default function Home() {
           {/* LEAD FUNNEL */}
           <section
             id="lead-funnel"
-            className="mb-24 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-cyan-400/10 via-white/[0.04] to-fuchsia-500/10 p-8 lg:p-10 animate-fade-in"
+            className="mb-24 rounded-[2.5rem] border border-white/15 bg-gradient-to-br from-cyan-400/10 via-white/[0.04] to-fuchsia-500/10 p-8 lg:p-10 animate-fade-in"
           >
             <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
               <div>
-                <p className="text-xs uppercase tracking-[0.35em] text-white/45">The path forward</p>
+                <p className="text-xs uppercase tracking-[0.35em] text-white/55">The path forward</p>
                 <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                   Turn curiosity into clients, calls, and real opportunities.
                 </h2>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/72">
+                <p className="mt-5 max-w-2xl text-base leading-8 text-white/85">
                   This site is built to do three things fast: establish authority, create trust, and convert
                   attention into action. Start with a paid audit, book a call, or reach out directly.
                 </p>
@@ -820,11 +784,11 @@ export default function Home() {
                   <div
                     key={s.step}
                     onClick={s.clickable ? () => setVideoOpen(true) : undefined}
-                    className={`rounded-[1.5rem] border border-white/10 bg-black/25 p-5 transition duration-300 hover:scale-[1.02] ${s.accent} ${s.clickable ? "cursor-pointer" : ""}`}
+                    className={`rounded-[1.5rem] border border-white/15 bg-black/25 p-5 transition duration-300 hover:scale-[1.02] ${s.accent} ${s.clickable ? "cursor-pointer" : ""}`}
                   >
-                    <p className="text-xs uppercase tracking-[0.22em] text-white/45">Step {s.step}</p>
+                    <p className="text-xs uppercase tracking-[0.22em] text-white/55">Step {s.step}</p>
                     <p className="mt-3 text-lg text-white">{s.title}</p>
-                    <p className="mt-2 text-sm leading-7 text-white/68">{s.desc}</p>
+                    <p className="mt-2 text-sm leading-7 text-white/80">{s.desc}</p>
                   </div>
                 ))}
               </div>
@@ -833,12 +797,12 @@ export default function Home() {
 
           {/* CONTACT */}
           <section id="contact" className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-            <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-fuchsia-500/20 via-[#060816] to-cyan-400/10 p-8 lg:p-10">
-              <p className="text-xs uppercase tracking-[0.35em] text-white/45">Let&apos;s build something serious</p>
+            <div className="rounded-[2rem] border border-white/15 bg-gradient-to-br from-fuchsia-500/20 via-[#060816] to-cyan-400/10 p-8 lg:p-10">
+              <p className="text-xs uppercase tracking-[0.35em] text-white/55">Let&apos;s build something serious</p>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                 If you need a revenue-focused partner with taste, clarity, and range — reach out.
               </h2>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-white/72">
+              <p className="mt-5 max-w-2xl text-base leading-8 text-white/85">
                 Full-time leadership, freelance projects, consulting retainers, strategic partnership builds,
                 writing engagements, or high-level brand work. Keep it human, sharp, and outcome-driven.
               </p>
@@ -853,9 +817,9 @@ export default function Home() {
                     href={c.href}
                     target={c.href.startsWith("http") ? "_blank" : undefined}
                     rel="noreferrer"
-                    className="rounded-[1.5rem] border border-white/10 bg-black/25 p-5 transition hover:border-fuchsia-300/25 hover:bg-white/[0.06]"
+                    className="rounded-[1.5rem] border border-white/15 bg-black/25 p-5 transition hover:border-fuchsia-300/25 hover:bg-white/[0.06]"
                   >
-                    <p className="text-xs uppercase tracking-[0.25em] text-white/45">{c.label}</p>
+                    <p className="text-xs uppercase tracking-[0.25em] text-white/55">{c.label}</p>
                     <p className="mt-3 text-sm text-white/90">{c.value}</p>
                   </a>
                 ))}
@@ -872,9 +836,9 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col justify-between rounded-[2rem] border border-white/10 bg-white/[0.035] p-8 lg:p-10">
+            <div className="flex flex-col justify-between rounded-[2rem] border border-white/15 bg-white/[0.035] p-8 lg:p-10">
               <div>
-                <p className="text-xs uppercase tracking-[0.35em] text-white/45">Final impression</p>
+                <p className="text-xs uppercase tracking-[0.35em] text-white/55">Final impression</p>
                 <p className="mt-5 text-2xl font-medium leading-10 text-white/92">
                   The right brand does not just tell people you are good. It changes the room before you enter it.
                 </p>
@@ -890,7 +854,7 @@ export default function Home() {
                     href={item.url}
                     target="_blank"
                     rel="noreferrer"
-                    className={`flex w-full items-center justify-between rounded-[1.5rem] border border-white/10 bg-black/25 px-5 py-4 text-sm text-white/80 transition hover:bg-white/[0.06] ${item.accent}`}
+                    className={`flex w-full items-center justify-between rounded-[1.5rem] border border-white/15 bg-black/25 px-5 py-4 text-sm text-white/80 transition hover:bg-white/[0.06] ${item.accent}`}
                   >
                     <span>{item.label}</span>
                     <span className="text-white/40">→</span>
@@ -901,7 +865,7 @@ export default function Home() {
           </section>
 
           {/* FOOTER */}
-          <footer className="mt-20 border-t border-white/10 py-8 text-sm text-white/50">
+          <footer className="mt-20 border-t border-white/15 py-8 text-sm text-white/50">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="font-medium text-white/80">MK Parrish</p>
