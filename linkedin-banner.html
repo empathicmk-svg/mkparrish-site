@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1584px;
+    height: 396px;
+    overflow: hidden;
+    background: #060816;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  }
+
+  .banner {
+    width: 1584px;
+    height: 396px;
+    position: relative;
+    background: #060816;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+  }
+
+  /* Background orbs */
+  .orb1 {
+    position: absolute;
+    left: -80px;
+    top: -80px;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,60,255,0.35) 0%, transparent 70%);
+    filter: blur(40px);
+  }
+  .orb2 {
+    position: absolute;
+    right: 100px;
+    top: -60px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(34,211,238,0.2) 0%, transparent 70%);
+    filter: blur(40px);
+  }
+  .orb3 {
+    position: absolute;
+    right: -60px;
+    bottom: -80px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%);
+    filter: blur(40px);
+  }
+  .orb4 {
+    position: absolute;
+    left: 40%;
+    top: -100px;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,60,255,0.12) 0%, transparent 70%);
+    filter: blur(60px);
+  }
+
+  /* Subtle grid texture */
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Top radial glow */
+  .top-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 0%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  }
+
+  /* Left content */
+  .left {
+    position: relative;
+    z-index: 10;
+    flex: 1;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 16px;
+  }
+
+  .headline {
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #fff;
+    max-width: 700px;
+  }
+
+  .headline .gradient {
+    background: linear-gradient(90deg, #e879f9, #fff 45%, #67e8f9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tagline {
+    margin-top: 18px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    max-width: 560px;
+  }
+
+  /* Right content */
+  .right {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 16px;
+  }
+
+  .stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 110px;
+  }
+
+  .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+
+  .url-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,60,255,0.12);
+    border: 1px solid rgba(200,60,255,0.3);
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(232,121,249,0.9);
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e879f9;
+    flex-shrink: 0;
+  }
+
+  /* Divider line */
+  .divider {
+    position: absolute;
+    left: 55%;
+    top: 40px;
+    bottom: 40px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent);
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="orb1"></div>
+  <div class="orb2"></div>
+  <div class="orb3"></div>
+  <div class="orb4"></div>
+  <div class="grid"></div>
+  <div class="top-glow"></div>
+  <div class="divider"></div>
+
+  <div class="left">
+    <div class="eyebrow">Copywriting · Ghostwriting · Growth Marketing · Fractional CMO</div>
+    <div class="headline">
+      I write the words that<br/>
+      make brands feel expensive.<br/>
+      <span class="gradient">Then I build the systems.</span>
+    </div>
+    <div class="tagline">
+      Writer energy with enterprise discipline &nbsp;·&nbsp; $40M+ pipeline influenced &nbsp;·&nbsp; 10+ brands scaled
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-num">$40M+</div>
+        <div class="stat-label">Pipeline</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Pieces Written</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Brands Scaled</div>
+      </div>
+    </div>
+    <div class="url-badge">
+      <div class="dot"></div>
+      www.mkparrish.com
+    </div>
+  </div>
+</div>
+</body>
+</html>
