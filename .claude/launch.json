@@ -5,7 +5,7 @@
       "name": "Next.js Dev Server",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 3000
+      "autoPort": true
     },
     {
       "name": "Next.js Production Build",

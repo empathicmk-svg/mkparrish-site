@@ -9,236 +9,387 @@
     width: 1584px;
     height: 396px;
     overflow: hidden;
-    background: #060816;
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    background: #06080f;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .banner {
     width: 1584px;
     height: 396px;
     position: relative;
-    background: #060816;
+    background: #06080f;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    padding: 0 80px;
   }
 
-  /* Background orbs */
-  .orb1 {
+  /* ── Background texture ── */
+  .noise {
     position: absolute;
-    left: -80px;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* ── Glow blobs ── */
+  .blob1 {
+    position: absolute;
+    left: -120px;
+    top: -140px;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192,38,211,0.28) 0%, transparent 65%);
+    filter: blur(50px);
+  }
+  .blob2 {
+    position: absolute;
+    left: 30%;
+    bottom: -160px;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 65%);
+    filter: blur(60px);
+  }
+  .blob3 {
+    position: absolute;
+    right: -80px;
     top: -80px;
-    width: 420px;
-    height: 420px;
+    width: 440px;
+    height: 440px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(200,60,255,0.35) 0%, transparent 70%);
-    filter: blur(40px);
+    background: radial-gradient(circle, rgba(34,211,238,0.14) 0%, transparent 65%);
+    filter: blur(50px);
   }
-  .orb2 {
+  .blob4 {
     position: absolute;
-    right: 100px;
-    top: -60px;
-    width: 380px;
-    height: 380px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(34,211,238,0.2) 0%, transparent 70%);
-    filter: blur(40px);
-  }
-  .orb3 {
-    position: absolute;
-    right: -60px;
+    right: 22%;
     bottom: -80px;
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%);
-    filter: blur(40px);
-  }
-  .orb4 {
-    position: absolute;
-    left: 40%;
-    top: -100px;
-    width: 350px;
-    height: 350px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(200,60,255,0.12) 0%, transparent 70%);
-    filter: blur(60px);
+    background: radial-gradient(circle, rgba(192,38,211,0.12) 0%, transparent 65%);
+    filter: blur(50px);
   }
 
-  /* Subtle grid texture */
-  .grid {
+  /* ── Bright top-left sweep ── */
+  .sweep {
     position: absolute;
     inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
+    background: radial-gradient(ellipse at -5% -10%, rgba(255,255,255,0.05) 0%, transparent 45%);
   }
 
-  /* Top radial glow */
-  .top-glow {
+  /* ── Vertical rule ── */
+  .rule {
     position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 30% 0%, rgba(255,255,255,0.06) 0%, transparent 50%);
+    left: 52%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(255,255,255,0.07) 20%,
+      rgba(255,255,255,0.07) 80%,
+      transparent 100%);
   }
 
-  /* Left content */
+  /* ── Left block ── */
   .left {
-    position: relative;
-    z-index: 10;
-    flex: 1;
+    position: absolute;
+    left: 72px;
+    top: 0;
+    bottom: 0;
+    width: 720px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
   }
 
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.28em;
+  .name {
+    font-size: 58px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    background: linear-gradient(105deg, #ffffff 0%, rgba(255,255,255,0.82) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+  }
+
+  .role-line {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 18px;
+  }
+
+  .role-pill {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
-    margin-bottom: 16px;
+    color: rgba(232,121,249,0.85);
+    background: rgba(192,38,211,0.1);
+    border: 1px solid rgba(192,38,211,0.22);
+    border-radius: 999px;
+    padding: 5px 14px;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  .role-divider {
+    width: 1px;
+    height: 14px;
+    background: rgba(255,255,255,0.12);
+    margin: 0 10px;
+  }
+
+  .role-text {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.38);
   }
 
   .headline {
-    font-size: 42px;
-    font-weight: 600;
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    color: #fff;
-    max-width: 700px;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.62);
+    max-width: 600px;
+    letter-spacing: 0.01em;
   }
 
-  .headline .gradient {
-    background: linear-gradient(90deg, #e879f9, #fff 45%, #67e8f9);
+  .headline strong {
+    color: rgba(255,255,255,0.88);
+    font-weight: 500;
+  }
+
+  /* ── Right block ── */
+  .right {
+    position: absolute;
+    right: 72px;
+    top: 0;
+    bottom: 0;
+    width: 620px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding-left: 60px;
+  }
+
+  /* Stats row */
+  .stats {
+    display: flex;
+    gap: 0;
+  }
+
+  .stat {
+    padding: 0 28px 0 0;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    margin-right: 28px;
+  }
+  .stat:last-child {
+    border-right: none;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+
+  .stat-num span {
+    background: linear-gradient(90deg, #e879f9, #67e8f9);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .tagline {
-    margin-top: 18px;
-    font-size: 14px;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 0.04em;
-    line-height: 1.6;
-    max-width: 560px;
-  }
-
-  /* Right content */
-  .right {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-    flex-shrink: 0;
-  }
-
-  .stat-row {
-    display: flex;
-    gap: 16px;
-  }
-
-  .stat {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 16px;
-    padding: 14px 20px;
-    text-align: center;
-    min-width: 110px;
-  }
-
-  .stat-num {
-    font-size: 22px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.02em;
-  }
-
   .stat-label {
     font-size: 9px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    margin-top: 4px;
+    color: rgba(255,255,255,0.35);
   }
 
-  .url-badge {
+  /* CTA button */
+  .cta-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(200,60,255,0.12);
-    border: 1px solid rgba(200,60,255,0.3);
-    border-radius: 999px;
-    padding: 8px 18px;
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(232,121,249,0.9);
+    gap: 14px;
   }
 
-  .dot {
-    width: 6px;
-    height: 6px;
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, rgba(192,38,211,0.22), rgba(139,92,246,0.18));
+    border: 1px solid rgba(192,38,211,0.35);
+    border-radius: 12px;
+    padding: 13px 24px;
+    cursor: pointer;
+  }
+
+  .cta-dot {
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #e879f9;
+    box-shadow: 0 0 8px rgba(232,121,249,0.6);
     flex-shrink: 0;
   }
 
-  /* Divider line */
-  .divider {
+  .cta-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cta-label {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(232,121,249,0.7);
+  }
+
+  .cta-url {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+
+  /* Contact line */
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.42);
+  }
+
+  .contact-icon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+
+  .contact-sep {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Bottom bar */
+  .bottom-bar {
     position: absolute;
-    left: 55%;
-    top: 40px;
-    bottom: 40px;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent);
-    z-index: 5;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(192,38,211,0.4) 20%,
+      rgba(139,92,246,0.5) 50%,
+      rgba(34,211,238,0.3) 80%,
+      transparent 100%);
   }
 </style>
 </head>
 <body>
 <div class="banner">
-  <div class="orb1"></div>
-  <div class="orb2"></div>
-  <div class="orb3"></div>
-  <div class="orb4"></div>
-  <div class="grid"></div>
-  <div class="top-glow"></div>
-  <div class="divider"></div>
+  <div class="noise"></div>
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+  <div class="blob3"></div>
+  <div class="blob4"></div>
+  <div class="sweep"></div>
+  <div class="rule"></div>
 
+  <!-- LEFT -->
   <div class="left">
-    <div class="eyebrow">Copywriting · Ghostwriting · Growth Marketing · Fractional CMO</div>
-    <div class="headline">
-      I write the words that<br/>
-      make brands feel expensive.<br/>
-      <span class="gradient">Then I build the systems.</span>
+    <div class="name">MK Parrish</div>
+    <div class="role-line">
+      <div class="role-pill">Fractional CMO</div>
+      <div class="role-text">Copywriter &nbsp;·&nbsp; Ghostwriter &nbsp;·&nbsp; Growth Strategist</div>
     </div>
-    <div class="tagline">
-      Writer energy with enterprise discipline &nbsp;·&nbsp; $40M+ pipeline influenced &nbsp;·&nbsp; 10+ brands scaled
+    <div class="headline">
+      <strong>I write the words that make brands feel expensive.</strong><br/>
+      Then I build the systems that make them grow.
     </div>
   </div>
 
+  <!-- RIGHT -->
   <div class="right">
-    <div class="stat-row">
+    <div class="stats">
       <div class="stat">
-        <div class="stat-num">$40M+</div>
-        <div class="stat-label">Pipeline</div>
+        <div class="stat-num"><span>$40M+</span></div>
+        <div class="stat-label">Pipeline Influenced</div>
       </div>
       <div class="stat">
-        <div class="stat-num">500+</div>
+        <div class="stat-num"><span>500+</span></div>
         <div class="stat-label">Pieces Written</div>
       </div>
       <div class="stat">
-        <div class="stat-num">10+</div>
+        <div class="stat-num"><span>10+</span></div>
         <div class="stat-label">Brands Scaled</div>
       </div>
     </div>
-    <div class="url-badge">
-      <div class="dot"></div>
-      www.mkparrish.com
+
+    <div class="cta-btn">
+      <div class="cta-dot"></div>
+      <div class="cta-text">
+        <div class="cta-label">Book a call or explore work</div>
+        <div class="cta-url">www.mkparrish.com</div>
+      </div>
+    </div>
+
+    <div class="contact-row">
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5">
+          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+          <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+        </svg>
+        /in/mkparrish
+      </div>
+      <div class="contact-sep"></div>
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5">
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <polyline points="3,5 12,13 21,5"/>
+        </svg>
+        mkp414@icloud.com
+      </div>
+      <div class="contact-sep"></div>
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5">
+          <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+        </svg>
+        Available for projects
+      </div>
     </div>
   </div>
+
+  <div class="bottom-bar"></div>
 </div>
 </body>
 </html>
