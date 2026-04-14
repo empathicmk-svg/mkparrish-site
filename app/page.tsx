@@ -122,9 +122,21 @@ const principles = [
 ];
 
 const featuredWriting = [
-  { title: "Pipeline, Prestige, and the Psychology of Value", type: "Essay" },
-  { title: "Why Most Marketing Feels Expensive and Accomplishes Nothing", type: "Point of View" },
-  { title: "The Woman Behind the Work", type: "Memoir Thread" },
+  {
+    title: "Pipeline, Prestige, and the Psychology of Value",
+    type: "Essay",
+    hook: "A sharp breakdown of why authority shortens sales cycles before your first call even starts.",
+  },
+  {
+    title: "Why Most Marketing Feels Expensive and Accomplishes Nothing",
+    type: "Point of View",
+    hook: "If your funnel is busy but not converting, this is the diagnostic I wish more teams ran earlier.",
+  },
+  {
+    title: "The Woman Behind the Work",
+    type: "Memoir Thread",
+    hook: "The personal context behind the voice, standards, and strategy I bring to every engagement.",
+  },
 ];
 
 const logos = ["Vonage", "Mercer", "Take-Two", "Atlantic Ultraviolet", "Thrive", "ProVen", "UBS"];
@@ -405,7 +417,7 @@ export default function Home() {
           </p>
           <div className="mt-6 max-w-2xl">
             <p className="font-body text-base font-light leading-7 text-smoke" style={{ maxWidth: "68ch" }}>
-              Writer energy with enterprise discipline. I ghost for executives, convert for founders, and build demand gen machines for revenue teams who are done guessing. No AI fluff. No generic templates. Just sharp copy and pipeline you can show your board.
+              I write like there is something at stake — because there is. I ghost for executives, sharpen founder POV, and build demand gen systems for teams who are done confusing motion with momentum. No AI fluff. No rented voice. Just sharp language and pipeline you can prove.
             </p>
             <p className="mt-5 font-body text-[0.7rem] font-bold uppercase tracking-[0.3em] text-petal">
               I do not apply for roles. I build leverage.
@@ -525,14 +537,15 @@ export default function Home() {
       {/* ── FEATURED WRITING ───────────────────────────────────── */}
       <RevealSection bg="void" num="04">
         <Eyebrow>Featured Writing</Eyebrow>
-        <H2>Featured writing.</H2>
-        <H3Script>The mind behind the strategy.</H3Script>
+        <H2>Read what I think.</H2>
+        <H3Script>Not content for content&rsquo;s sake. Ideas with teeth.</H3Script>
         <div className="stagger mt-10 grid gap-px bg-graphite md:grid-cols-3">
           {featuredWriting.map((item) => (
             <div key={item.title} className="reveal visible group cursor-pointer bg-void p-8 transition-all duration-300 hover:-translate-y-1" style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}>
               <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-iron">{item.type}</p>
               <p className="mt-4 font-serif text-xl italic text-pearl" style={{ fontWeight: 700 }}>{item.title}</p>
-              <span className="mt-6 inline-block font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors group-hover:text-blush">Read &rarr;</span>
+              <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{item.hook}</p>
+              <span className="mt-6 inline-block font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors group-hover:text-blush">Read the piece &rarr;</span>
             </div>
           ))}
         </div>
