@@ -193,6 +193,42 @@ function useReveal() {
   return { ref, cls: hidden ? "reveal reveal-hidden" : "reveal visible" };
 }
 
+const SECTION_IDS = ["services", "writing", "work", "thinking", "about", "faq", "contact"];
+
+function useScrollProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const update = () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+  return progress;
+}
+
+function useActiveSection() {
+  const [active, setActive] = useState("");
+  useEffect(() => {
+    const update = () => {
+      const mid = window.innerHeight * 0.45;
+      for (let i = SECTION_IDS.length - 1; i >= 0; i--) {
+        const el = document.getElementById(SECTION_IDS[i]);
+        if (el && el.getBoundingClientRect().top <= mid) {
+          setActive(SECTION_IDS[i]);
+          return;
+        }
+      }
+      setActive("");
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+  return active;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Components
 // ─────────────────────────────────────────────────────────────────────────────
@@ -204,7 +240,7 @@ function RevealSection({ children, id, bg = "obsidian", num }: { children: React
       ref={ref}
       id={id}
       className={`${cls} relative`}
-      style={{ background: bg === "void" ? "#080808" : "#111111", padding: "clamp(5rem, 10vw, 9rem) 0" }}
+      style={{ background: bg === "void" ? "#080808" : "#111111", padding: "clamp(5rem, 10vw, 9rem) 0", scrollMarginTop: "4.5rem" }}
     >
       <div className="mx-auto max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
         {num && (
@@ -329,9 +365,15 @@ function FAQ() {
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
+  const [showBackTop, setShowBackTop] = useState(false);
+  const progress = useScrollProgress();
+  const activeSection = useActiveSection();
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
+    const handler = () => {
+      setScrolled(window.scrollY > 40);
+      setShowBackTop(window.scrollY > 500);
+    };
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
@@ -357,13 +399,24 @@ export default function Home() {
             : "bg-void/75 backdrop-blur-[12px]"
         }`}
       >
+        {/* Scroll progress bar */}
+        <div
+          className="absolute bottom-0 left-0 h-px bg-petal transition-none"
+          style={{ width: `${progress}%`, opacity: progress > 0 ? 0.7 : 0 }}
+        />
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 lg:px-10">
           <a href="#" className="font-display text-2xl tracking-[0.02em] text-white" style={{ lineHeight: 1 }}>
             MK PARRISH
           </a>
           <nav className="hidden items-center gap-8 md:flex">
             {navLinks.map((l) => (
-              <a key={l.label} href={l.href} className="nav-link font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] text-ash transition-colors hover:text-pearl">
+              <a
+                key={l.label}
+                href={l.href}
+                className={`nav-link font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] transition-colors hover:text-pearl ${
+                  activeSection === l.href.slice(1) ? "active text-pearl" : "text-ash"
+                }`}
+              >
                 {l.label}
               </a>
             ))}
@@ -541,12 +594,12 @@ export default function Home() {
         <H3Script>Not content for content&rsquo;s sake. Ideas with teeth.</H3Script>
         <div className="stagger mt-10 grid gap-px bg-graphite md:grid-cols-3">
           {featuredWriting.map((item) => (
-            <div key={item.title} className="reveal visible group cursor-pointer bg-void p-8 transition-all duration-300 hover:-translate-y-1" style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}>
+            <a key={item.title} href={CALENDLY_URL} target="_blank" rel="noreferrer" className="reveal visible group bg-void p-8 transition-all duration-300 hover:-translate-y-1" style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}>
               <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-iron">{item.type}</p>
               <p className="mt-4 font-serif text-xl italic text-pearl" style={{ fontWeight: 700 }}>{item.title}</p>
               <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{item.hook}</p>
-              <span className="mt-6 inline-block font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors group-hover:text-blush">Read the piece &rarr;</span>
-            </div>
+              <span className="mt-6 inline-block font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors group-hover:text-blush">Request this piece &rarr;</span>
+            </a>
           ))}
         </div>
       </RevealSection>
@@ -791,7 +844,23 @@ export default function Home() {
 
       <QuoteDivider index={9} />
 
+      {/* ── BACK TO TOP ────────────────────────────────────────── */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="fixed bottom-8 right-8 z-50 flex h-11 w-11 items-center justify-center border border-petal/30 bg-carbon/90 text-petal backdrop-blur-sm transition-all duration-500 hover:border-petal hover:shadow-[0_0_20px_rgba(242,175,198,0.2)]"
+        style={{
+          opacity: showBackTop ? 1 : 0,
+          transform: showBackTop ? "translateY(0)" : "translateY(10px)",
+          pointerEvents: showBackTop ? "auto" : "none",
+          transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
+        aria-label="Back to top"
+      >
+        <span className="font-display text-base leading-none" style={{ fontSize: "1.1rem" }}>↑</span>
+      </button>
+
       {/* ── FOOTER ─────────────────────────────────────────────── */}
+
       <footer className="border-t border-graphite bg-void" style={{ padding: "clamp(3rem, 6vw, 5rem) 0" }}>
         <div className="mx-auto max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">

@@ -414,7 +414,8 @@ a:hover {
   background: var(--color-petal);
   transition: width var(--duration-slow) var(--ease-luxury);
 }
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.active::after {
   width: 100%;
 }
 
