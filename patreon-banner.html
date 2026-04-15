@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1600px;
+    height: 400px;
+    overflow: hidden;
+    background: #080808;
+  }
+
+  .banner {
+    width: 1600px;
+    height: 400px;
+    position: relative;
+    background: #080808;
+    overflow: hidden;
+  }
+
+  /* ── Pink glow — top centre ── */
+  .glow-top {
+    position: absolute;
+    left: 50%;
+    top: -180px;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(242,175,198,0.16) 0%, transparent 65%);
+  }
+
+  /* ── Secondary glow — bottom right ── */
+  .glow-br {
+    position: absolute;
+    right: -60px;
+    bottom: -80px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(199,91,120,0.10) 0%, transparent 60%);
+  }
+
+  /* ── Subtle grid ── */
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(242,175,198,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242,175,198,0.022) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* ── Grain texture (SVG noise) ── */
+  .grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    opacity: 0.032;
+    mix-blend-mode: screen;
+  }
+
+  /* ── Vertical divider ── */
+  .vdivide {
+    position: absolute;
+    left: 54%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(242,175,198,0.12) 25%,
+      rgba(242,175,198,0.12) 75%,
+      transparent 100%);
+  }
+
+  /* ── Bottom accent line ── */
+  .bottom-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(242,175,198,0.5) 40%, rgba(242,175,198,0.5) 60%, transparent 100%);
+  }
+
+  /* ════════════════════════════════
+     LEFT — identity block
+  ════════════════════════════════ */
+  .left {
+    position: absolute;
+    left: 72px;
+    top: 0;
+    bottom: 0;
+    width: 760px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .eyebrow {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(122,122,122,0.9);
+    margin-bottom: 14px;
+  }
+
+  .name {
+    font-family: Impact, 'Arial Black', Arial, sans-serif;
+    font-size: 108px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #FAFAF8;
+    line-height: 0.88;
+    margin-bottom: 18px;
+  }
+
+  .name .pink {
+    color: #F2AFC6;
+    /* glow effect via text-shadow */
+    text-shadow: 0 0 40px rgba(242,175,198,0.45), 0 0 80px rgba(242,175,198,0.18);
+  }
+
+  .tagline {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(242,175,198,0.82);
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+  }
+
+  .desc {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13.5px;
+    font-weight: 400;
+    color: rgba(176,176,176,0.88);
+    line-height: 1.65;
+    max-width: 580px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ════════════════════════════════
+     RIGHT — tiers + CTA
+  ════════════════════════════════ */
+  .right {
+    position: absolute;
+    right: 72px;
+    top: 0;
+    bottom: 0;
+    width: 570px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 64px;
+    gap: 26px;
+  }
+
+  .section-label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(74,74,74,1);
+  }
+
+  /* Tier row */
+  .tiers {
+    display: flex;
+    gap: 0;
+  }
+
+  .tier {
+    padding: 0 26px 0 0;
+    margin-right: 26px;
+    border-right: 1px solid rgba(44,44,44,1);
+  }
+  .tier:last-child {
+    border-right: none;
+    padding-right: 0;
+    margin-right: 0;
+  }
+
+  .tier-price {
+    font-family: Impact, 'Arial Black', Arial, sans-serif;
+    font-size: 34px;
+    letter-spacing: 0.02em;
+    color: #FAFAF8;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .tier-name {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(242,175,198,0.55);
+  }
+
+  .tier.featured .tier-price {
+    color: #F2AFC6;
+    text-shadow: 0 0 20px rgba(242,175,198,0.35);
+  }
+  .tier.featured .tier-name {
+    color: rgba(242,175,198,0.85);
+  }
+
+  /* CTA box */
+  .cta-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(242,175,198,0.06);
+    border: 1px solid rgba(242,175,198,0.22);
+    padding: 14px 20px;
+  }
+
+  .cta-dot {
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    background: #F2AFC6;
+    box-shadow: 0 0 12px rgba(242,175,198,0.7);
+  }
+
+  .cta-inner-label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(242,175,198,0.62);
+    margin-bottom: 4px;
+  }
+
+  .cta-url {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #FAFAF8;
+    letter-spacing: 0.02em;
+  }
+
+  /* Tagline / note */
+  .note {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: rgba(74,74,74,1);
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="glow-top"></div>
+  <div class="glow-br"></div>
+  <div class="grid"></div>
+  <div class="grain"></div>
+  <div class="vdivide"></div>
+  <div class="bottom-line"></div>
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="eyebrow">Copywriting &nbsp;·&nbsp; Ghostwriting &nbsp;·&nbsp; Growth Strategy</div>
+    <div class="name">MK <span class="pink">Parrish</span></div>
+    <div class="tagline">Writer first. Strategist always.</div>
+    <div class="desc">
+      Raw strategy. Honest frameworks. The thinking behind the work —
+      for people who want more than the surface.
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="section-label">Membership tiers</div>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-price">$5</div>
+        <div class="tier-name">The Brief</div>
+      </div>
+      <div class="tier featured">
+        <div class="tier-price">$15</div>
+        <div class="tier-name">The Retainer</div>
+      </div>
+      <div class="tier">
+        <div class="tier-price">$50</div>
+        <div class="tier-name">The Partner</div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <div class="cta-dot"></div>
+      <div>
+        <div class="cta-inner-label">Join the membership</div>
+        <div class="cta-url">patreon.com/mkparrish</div>
+      </div>
+    </div>
+
+    <div class="note">Cancel any time &nbsp;·&nbsp; No contracts</div>
+  </div>
+</div>
+</body>
+</html>
