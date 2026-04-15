@@ -11,6 +11,7 @@ const STRIPE_RETAINER   = "https://buy.stripe.com/fZu00b9gKbY5eitfTC0oM03";
 const STRIPE_FRACTIONAL = "https://buy.stripe.com/00w28j2Smfahfmx36Q0oM02";
 // TODO: Replace with actual Stripe writing product link
 const STRIPE_WRITING    = "https://buy.stripe.com/14AcMX2Smd29gqB8ra0oM08";
+const PATREON_URL       = "https://www.patreon.com/mkparrish";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Data
@@ -168,6 +169,36 @@ const marqueeItems = [
   "GTM Strategy", "Pipeline Acceleration", "Conversion Copy", "Executive Messaging",
 ];
 
+const patreonTiers = [
+  {
+    tag: "Entry",
+    title: "The Brief",
+    price: "$5",
+    cadence: "/ month",
+    desc: "Weekly essays, strategic breakdowns, and POVs that don't make it to the public feed.",
+    perks: ["Weekly long-form essays", "Strategic frameworks and tools", "Early access to published work", "Monthly Q&A roundup"],
+    highlight: false,
+  },
+  {
+    tag: "Most Popular",
+    title: "The Retainer",
+    price: "$15",
+    cadence: "/ month",
+    desc: "Everything in The Brief, plus the raw thinking behind the work.",
+    perks: ["All Brief content", "Monthly strategy notes", "Behind-the-scenes on client frameworks", "Messaging and voice templates"],
+    highlight: true,
+  },
+  {
+    tag: "Inner Circle",
+    title: "The Partner",
+    price: "$50",
+    cadence: "/ month",
+    desc: "Direct access. For operators who want the unfiltered version.",
+    perks: ["All Retainer content", "Monthly live Q&A", "Direct message access", "Priority feedback on your copy"],
+    highlight: false,
+  },
+];
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Hooks
 // ─────────────────────────────────────────────────────────────────────────────
@@ -193,7 +224,7 @@ function useReveal() {
   return { ref, cls: hidden ? "reveal reveal-hidden" : "reveal visible" };
 }
 
-const SECTION_IDS = ["services", "writing", "work", "thinking", "about", "faq", "contact"];
+const SECTION_IDS = ["services", "writing", "membership", "work", "thinking", "about", "faq", "contact"];
 
 function useScrollProgress() {
   const [progress, setProgress] = useState(0);
@@ -381,6 +412,7 @@ export default function Home() {
   const navLinks = [
     { label: "Services", href: "#services" },
     { label: "Writing", href: "#writing" },
+    { label: "Membership", href: "#membership" },
     { label: "Work", href: "#work" },
     { label: "Thinking", href: "#thinking" },
     { label: "About", href: "#about" },
@@ -476,9 +508,10 @@ export default function Home() {
               I do not apply for roles. I build leverage.
             </p>
           </div>
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href={CALENDLY_URL}>Book a Strategy Call</BtnPrimary>
             <BtnGhost href="#services">Explore Services</BtnGhost>
+            <ArrowLink href={PATREON_URL}>Join on Patreon</ArrowLink>
           </div>
 
           {/* Stats */}
@@ -604,11 +637,80 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <Marquee />
       <QuoteDivider index={3} />
 
+      {/* ── PATREON MEMBERSHIP ─────────────────────────────────── */}
+      <RevealSection id="membership" bg="void" num="05">
+        <Eyebrow>Patreon Membership</Eyebrow>
+        <H2>
+          Follow the{" "}
+          <span className="text-petal">work.</span>
+        </H2>
+        <H3Script>The thinking that doesn&rsquo;t fit anywhere else.</H3Script>
+        <p className="mt-4 max-w-2xl font-body text-base font-light leading-7 text-smoke">
+          Raw strategy notes, long-form essays, frameworks, and the unfiltered thinking behind every engagement. No algorithm. No performance. Just the work — for people who want more than the surface.
+        </p>
+
+        <div className="mt-12 grid gap-px bg-graphite lg:grid-cols-3">
+          {patreonTiers.map((tier) => (
+            <div
+              key={tier.title}
+              className={`relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 ${
+                tier.highlight
+                  ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]"
+                  : "bg-void"
+              }`}
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              {tier.highlight && (
+                <div className="absolute inset-x-0 top-0 h-px bg-petal" />
+              )}
+              <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-iron">{tier.tag}</p>
+              <h3 className="mt-3 font-display text-3xl uppercase tracking-[0.02em] text-pearl">{tier.title}</h3>
+              <div className="mt-3 flex items-baseline gap-1">
+                <span className="font-display text-4xl text-white">{tier.price}</span>
+                <span className="font-body text-sm text-ash">{tier.cadence}</span>
+              </div>
+              <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{tier.desc}</p>
+              <ul className="mt-6 flex-1 space-y-3">
+                {tier.perks.map((perk) => (
+                  <li key={perk} className="flex gap-3 font-body text-sm font-light leading-6 text-smoke">
+                    <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
+                    {perk}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8">
+                <a
+                  href={PATREON_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
+                    tier.highlight ? "btn-primary text-void" : "btn-ghost"
+                  }`}
+                >
+                  Join on Patreon
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 border-t border-graphite pt-8 text-center">
+          <p className="font-body text-sm font-light text-smoke">
+            Cancel any time. No contracts. The work speaks for itself.
+          </p>
+          <a href={PATREON_URL} target="_blank" rel="noreferrer" className="mt-4 inline-block font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors hover:text-blush">
+            View full membership details on Patreon &rarr;
+          </a>
+        </div>
+      </RevealSection>
+
+      <Marquee />
+      <QuoteDivider index={4} />
+
       {/* ── THINKING / PRINCIPLES ──────────────────────────────── */}
-      <RevealSection id="thinking" bg="obsidian" num="05">
+      <RevealSection id="thinking" bg="obsidian" num="06">
         <Eyebrow>How I Think</Eyebrow>
         <H2>The strategic point of view.</H2>
         <H3Script>Great brands are built twice. First in language, then in systems.</H3Script>
@@ -622,10 +724,10 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={4} />
+      <QuoteDivider index={5} />
 
       {/* ── CASE STUDIES ───────────────────────────────────────── */}
-      <RevealSection id="work" bg="void" num="06">
+      <RevealSection id="work" bg="void" num="07">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <Eyebrow>Selected Work</Eyebrow>
@@ -660,10 +762,10 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={5} />
+      <QuoteDivider index={6} />
 
       {/* ── PRICING ────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="07">
+      <RevealSection bg="obsidian" num="08">
         <Eyebrow>Consulting Menu</Eyebrow>
         <H2>
           Three ways to{" "}
@@ -737,10 +839,10 @@ export default function Home() {
       </RevealSection>
 
       <Marquee />
-      <QuoteDivider index={6} />
+      <QuoteDivider index={7} />
 
       {/* ── ABOUT ──────────────────────────────────────────────── */}
-      <RevealSection id="about" bg="void" num="08">
+      <RevealSection id="about" bg="void" num="09">
         <div className="grid gap-px bg-graphite lg:grid-cols-[0.9fr_1.1fr]">
           <div className="bg-void p-8 lg:p-10">
             <Eyebrow>About</Eyebrow>
@@ -768,10 +870,10 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={7} />
+      <QuoteDivider index={8} />
 
       {/* ── FAQ ─────────────────────────────────────────────────── */}
-      <RevealSection id="faq" bg="obsidian" num="09">
+      <RevealSection id="faq" bg="obsidian" num="10">
         <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
           <div>
             <Eyebrow>FAQ</Eyebrow>
@@ -784,10 +886,10 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={8} />
+      <QuoteDivider index={9} />
 
       {/* ── CONTACT ────────────────────────────────────────────── */}
-      <RevealSection id="contact" bg="void" num="10">
+      <RevealSection id="contact" bg="void" num="11">
         <div className="grid gap-px bg-graphite lg:grid-cols-[1fr_0.85fr]">
           <div className="relative bg-void p-8 lg:p-10">
             {/* Subtle glow */}
@@ -842,7 +944,7 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={9} />
+      <QuoteDivider index={0} />
 
       {/* ── BACK TO TOP ────────────────────────────────────────── */}
       <button
@@ -876,10 +978,13 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="mt-10 border-t border-graphite pt-8">
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
             <p className="font-body text-[0.7rem] font-light tracking-[0.1em] text-iron">
               Pipeline is the product. Everything else is noise.
             </p>
+            <a href={PATREON_URL} target="_blank" rel="noreferrer" className="font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] text-iron transition-colors hover:text-petal">
+              Patreon &rarr;
+            </a>
           </div>
         </div>
       </footer>
