@@ -4,23 +4,31 @@ import Nav from "@/app/components/Nav";
 import Footer from "@/app/components/Footer";
 
 export const metadata: Metadata = {
-  title: "MK Parrish — Rewrite Your Story",
+  title: {
+    default: "MK Parrish — Writer & Marketing Growth Strategist",
+    template: "%s — MK Parrish",
+  },
   description:
-    "Words, strategy, and reinvention for people ready to stop being misread. Copywriting, ghostwriting, and positioning services for founders, executives, and professionals in transition.",
+    "MK Parrish: writer & marketing growth strategist. Words, strategy, and reinvention for people ready to stop being misread.",
+  applicationName: "MK Parrish",
   metadataBase: new URL("https://www.mkparrish.com"),
   openGraph: {
-    title: "MK Parrish — Rewrite Your Story",
+    title: "MK Parrish — Writer & Marketing Growth Strategist",
     description:
-      "Words, strategy, and reinvention for people ready to stop being misread.",
+      "MK Parrish: writer & marketing growth strategist. Words, strategy, and reinvention for people ready to stop being misread.",
     url: "https://www.mkparrish.com",
     siteName: "MK Parrish",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "MK Parrish — Rewrite Your Story",
+    title: "MK Parrish — Writer & Marketing Growth Strategist",
     description:
-      "Words, strategy, and reinvention for people ready to stop being misread.",
+      "MK Parrish: writer & marketing growth strategist. Words, strategy, and reinvention for people ready to stop being misread.",
+  },
+  appleWebApp: {
+    title: "MK Parrish",
+    statusBarStyle: "black-translucent",
   },
 };
 
