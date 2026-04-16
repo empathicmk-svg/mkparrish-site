@@ -12,7 +12,7 @@ import {
   FAQ,
   ServiceCard,
 } from "@/app/components/ui";
-import { CALENDLY_URL, STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/config";
+import { STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "Rewrite Your Brand — MK Parrish",
@@ -67,7 +67,7 @@ export default function BrandPage() {
             Your business is better than it sounds. The gap between what you deliver and how you talk about it is a revenue problem. Let's close it.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <BtnPrimary href={CALENDLY_URL}>Start the Conversation</BtnPrimary>
+            <BtnPrimary href="/book">Start the Conversation</BtnPrimary>
             <BtnGhost href={STRIPE_REWRITE}>Buy The Rewrite</BtnGhost>
           </div>
         </div>
@@ -150,7 +150,7 @@ export default function BrandPage() {
               "On-brand copy bank for your team",
             ]}
             cta="Let's Talk"
-            href={CALENDLY_URL}
+            href="/book"
           />
         </div>
       </RevealSection>
@@ -193,7 +193,7 @@ export default function BrandPage() {
               Not here? Book a call. No pitch, just clarity.
             </p>
             <div className="mt-6">
-              <ArrowLink href={CALENDLY_URL}>Schedule a call</ArrowLink>
+              <ArrowLink href="/book">Schedule a call</ArrowLink>
             </div>
           </div>
           <FAQ items={faqItems} />
@@ -211,7 +211,7 @@ export default function BrandPage() {
             Start with a call if you are not sure what needs fixing. Start with The Rewrite if you already know.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href={CALENDLY_URL}>Let's Talk</BtnPrimary>
+            <BtnPrimary href="/book">Let's Talk</BtnPrimary>
             <BtnGhost href={STRIPE_REWRITE}>Start The Rewrite</BtnGhost>
           </div>
         </div>
