@@ -7,7 +7,8 @@ import {
   BtnPrimary,
   ArrowLink,
 } from "@/app/components/ui";
-import { CALENDLY_URL, PATREON_URL, CONTACT, STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/config";
+import CalendlyEmbed from "@/app/components/CalendlyEmbed";
+import { PATREON_URL, CONTACT, STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "Contact — MK Parrish",
@@ -41,28 +42,30 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── CONTACT OPTIONS ──────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="01">
-        <div className="grid gap-px bg-graphite md:grid-cols-3">
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="group bg-obsidian p-10 transition-colors hover:bg-carbon"
-          >
-            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-iron">Best option</p>
-            <h3 className="mt-4 font-display text-3xl uppercase tracking-[0.02em] text-pearl transition-colors group-hover:text-white">
-              Book a Call
-            </h3>
-            <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">
-              30 minutes. No pitch. We figure out what needs fixing, whether I am the right person for it, and what makes sense as a starting point.
+      {/* ── INLINE BOOKING ───────────────────────────────────────── */}
+      <section id="book" className="bg-void" style={{ padding: "clamp(4rem, 8vw, 7rem) 0" }}>
+        <div className="mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
+          <div className="mb-10">
+            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
+              Best option &middot; 30 minutes &middot; No pitch
             </p>
-            <span className="mt-6 inline-flex items-center gap-2 font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors group-hover:text-blush">
-              Schedule on Calendly
-              <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-            </span>
-          </a>
+            <h2 className="mt-4 font-display text-5xl uppercase tracking-[0.02em] text-pearl md:text-6xl">
+              Book a Call
+            </h2>
+            <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
+              We figure out what needs fixing, whether I am the right person for it, and what makes sense as a starting point. Pick a time below.
+            </p>
+          </div>
+          <div className="border border-graphite bg-void">
+            <CalendlyEmbed />
+          </div>
+        </div>
+      </section>
 
+      {/* ── OTHER CONTACT OPTIONS ────────────────────────────────── */}
+      <RevealSection bg="obsidian" num="01">
+        <Eyebrow>Other ways to reach me</Eyebrow>
+        <div className="mt-8 grid gap-px bg-graphite md:grid-cols-2">
           <a
             href={`mailto:${CONTACT.email}`}
             className="group bg-obsidian p-10 transition-colors hover:bg-carbon"
@@ -132,14 +135,14 @@ export default function ContactPage() {
               title: "The New Chapter",
               price: "Custom",
               desc: "Brand, website, and messaging built for a new era. For pivots and reinventions.",
-              href: CALENDLY_URL,
+              href: "#book",
             },
             {
               label: "Ongoing",
               title: "The Byline",
               price: "From $1,500/mo",
               desc: "Monthly ghostwriting retainer. Your name, your voice, sharper than you have time to make it.",
-              href: CALENDLY_URL,
+              href: "#book",
             },
           ].map((item) => (
             <a
