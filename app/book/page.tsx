@@ -1,27 +1,28 @@
 import type { Metadata } from "next";
 import CalendlyEmbed from "@/app/components/CalendlyEmbed";
+import { CONTACT } from "@/app/lib/config";
 
 export const metadata: Metadata = {
-  title: "Book a Call — MK Parrish",
+  title: "The First Conversation — MK Parrish",
   description:
-    "30 minutes. No pitch. We figure out what needs fixing, whether this is the right fit, and what makes sense next.",
+    "Thirty minutes. Tell me what is not working. I will tell you what I see, whether I can help, and what makes sense next.",
 };
 
 const what = [
   {
     num: "01",
-    title: "Where you are stuck",
-    desc: "We name the exact problem. Not the symptoms, the actual issue. Whether it is the positioning, the copy, the story, or something upstream of all of it.",
+    title: "What is not landing",
+    desc: "We name the exact problem. Not the symptoms — the actual issue. Whether it is the positioning, the copy, the story, or something upstream of all of it.",
   },
   {
     num: "02",
-    title: "Whether there is a fit",
-    desc: "I do not take every project. I work with people I can genuinely help. If I am not the right person, I will tell you who is.",
+    title: "Whether I can help",
+    desc: "I only take work I can genuinely move. If someone else is a better fit for what you need, I will tell you that directly.",
   },
   {
     num: "03",
-    title: "What comes next",
-    desc: "If it makes sense to work together, we talk scope. If it does not, you leave with clarity anyway. Either outcome is useful.",
+    title: "What happens next",
+    desc: "If it makes sense to work together, we talk scope and timeline. If it does not, you leave with a clear read on the situation. Either outcome is useful.",
   },
 ];
 
@@ -35,19 +36,19 @@ export default function BookPage() {
         </div>
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            30 minutes &middot; No pitch &middot; No intake forms
+            One conversation &middot; No pitch &middot; No intake form
           </p>
-          <h1 className="mt-6 font-display uppercase text-white" style={{ fontSize: "clamp(4.5rem, 14vw, 13rem)", lineHeight: 0.88, letterSpacing: "0.02em" }}>
-            Book a{" "}
+          <h1 className="mt-6 font-display uppercase text-white" style={{ fontSize: "clamp(4rem, 13vw, 12rem)", lineHeight: 0.88, letterSpacing: "0.02em" }}>
+            The First{" "}
             <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.35)" }}>
-              Call
+              Conversation
             </span>
           </h1>
           <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-            You talk to me directly. I tell you exactly what I think.
+            Tell me what is not working. I will tell you what I see.
           </p>
           <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "58ch" }}>
-            Tell me what you are working on. I will tell you whether I can help, what the work looks like, and what makes sense as a starting point. No agencies. No layers. No pitch.
+            Thirty minutes. You talk, I listen, I ask questions. If there is a fit, I will tell you what the work looks like. If there is not, I will tell you that too. Either way, you leave knowing something you did not before.
           </p>
         </div>
       </section>
@@ -89,14 +90,14 @@ export default function BookPage() {
         </div>
       </section>
 
-      {/* ── REASSURANCE ──────────────────────────────────────────── */}
+      {/* ── DETAILS ──────────────────────────────────────────────── */}
       <section className="bg-obsidian" style={{ padding: "clamp(3rem, 6vw, 5rem) 0" }}>
         <div className="mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <div className="grid gap-8 sm:grid-cols-3">
             {[
-              { label: "Duration", value: "30 minutes" },
-              { label: "Format",   value: "Video or phone, your call" },
-              { label: "Cost",     value: "Free. No obligation." },
+              { label: "Duration",  value: "30 minutes" },
+              { label: "Format",    value: "Video or phone, your call" },
+              { label: "Cost",      value: "No charge. No obligation." },
             ].map((item) => (
               <div key={item.label} className="border-t border-graphite pt-6">
                 <p className="font-body text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-iron">
@@ -108,12 +109,12 @@ export default function BookPage() {
               </div>
             ))}
           </div>
-          <p className="mt-10 font-body text-sm font-light leading-7 text-smoke" style={{ maxWidth: "58ch" }}>
-            Prefer email first? Reach me at{" "}
-            <a href="mailto:mkp414@icloud.com" className="text-petal transition-colors hover:text-blush">
-              mkp414@icloud.com
+          <p className="mt-10 font-body text-sm font-light leading-7 text-smoke" style={{ maxWidth: "54ch" }}>
+            Prefer to write first? Reach me at{" "}
+            <a href={`mailto:${CONTACT.email}`} className="text-petal transition-colors hover:text-blush">
+              {CONTACT.email}
             </a>
-            . I read everything and respond to the ones that are a good fit.
+            . Tell me what you are working on. I read everything.
           </p>
         </div>
       </section>
