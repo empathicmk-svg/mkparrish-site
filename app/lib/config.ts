@@ -1,4 +1,4 @@
-export const CALENDLY_URL      = "https://www.calendly.com/mkp414";
+export const CALENDLY_URL      = "https://www.calendly.com/mkparrish";
 export const STRIPE_EDIT       = "https://buy.stripe.com/14AcMX2Smd29gqB8ra0oM08"; // The Edit (from $100)
 export const STRIPE_REWRITE    = "https://buy.stripe.com/3cI8wHgJcd29b6h36Q0oM00"; // The Rewrite (from $1,500)
 export const STRIPE_NEW_CHAPTER = "https://buy.stripe.com/00w28j2Smfahfmx36Q0oM02"; // The New Chapter (custom)
