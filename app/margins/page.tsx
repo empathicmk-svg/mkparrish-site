@@ -72,7 +72,7 @@ export default function MarginsPage() {
         </div>
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            Editorial &middot; Private &middot; Patreon
+            Editorial &middot; Private &middot; Membership
           </p>
           <div className="mt-6">
             <H1>
@@ -90,6 +90,7 @@ export default function MarginsPage() {
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
+            <BtnGhost href={PATREON_URL}>Start at $5/mo</BtnGhost>
           </div>
         </div>
       </section>
@@ -237,7 +238,7 @@ export default function MarginsPage() {
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
-            <BtnGhost href={`${PATREON_URL}/posts`}>Read a Sample</BtnGhost>
+            <BtnGhost href={PATREON_URL}>See Membership Options</BtnGhost>
           </div>
         </div>
       </section>

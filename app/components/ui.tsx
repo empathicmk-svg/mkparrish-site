@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { CALENDLY_URL } from "@/app/lib/config";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Hooks
@@ -298,14 +299,16 @@ export function ServiceCard({
         >
           {cta}
         </a>
-        <a
-          href={external ? "https://www.calendly.com/mkp414" : undefined}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-2 flex w-full items-center justify-center py-2.5 font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] text-ash transition hover:text-petal"
-        >
-          Or book a call first &rarr;
-        </a>
+        {!href.includes("calendly") && (
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-2 flex w-full items-center justify-center py-2.5 font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] text-ash transition hover:text-petal"
+          >
+            Or book a call first &rarr;
+          </a>
+        )}
       </div>
     </div>
   );

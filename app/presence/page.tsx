@@ -64,7 +64,7 @@ export default function PresencePage() {
             </H1>
           </div>
           <p className="mt-6 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-            The copy that exists when someone decides whether to keep scrolling. Your website. Your LinkedIn. Your bio. Your byline. All of it is working for you or against you. Let's make it work.
+            Your website, LinkedIn, bio, and byline. Every surface that exists before you speak. Right now each one is either earning trust or losing it. I write the copy that makes people stop.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href={STRIPE_BYLINE}>Start The Byline</BtnPrimary>

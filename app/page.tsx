@@ -32,25 +32,29 @@ const rewrites = [
   {
     label: "01",
     title: "Rewrite Your Career",
-    desc: "Your resume, LinkedIn, and professional story updated to reflect who you are now, not who you were trying to survive as.",
+    desc: "Your resume, LinkedIn, and professional story rebuilt for who you are now, not who you were trying to become.",
+    cue: "For professionals, executives, and industry switchers",
     href: "/career",
   },
   {
     label: "02",
     title: "Rewrite Your Brand",
-    desc: "The messaging, voice, and visual language for a business that finally sounds as good as it performs.",
+    desc: "The messaging, voice, and positioning for a business that finally sounds as strong as it performs.",
+    cue: "For founders and company builders",
     href: "/brand",
   },
   {
     label: "03",
     title: "Rewrite Your Presence",
-    desc: "Website copy, bio, and public-facing content that stops people from scrolling past you.",
+    desc: "Website copy, public bios, and ongoing thought leadership that stops people from scrolling past you.",
+    cue: "For public-facing professionals and ghostwriting clients",
     href: "/presence",
   },
   {
     label: "04",
     title: "Rewrite Your Next Chapter",
-    desc: "Full repositioning for people in transition. Career pivots, public reinventions, founder origin stories.",
+    desc: "Full repositioning for pivots, reinventions, and the kind of change that requires a new story, not just a new title.",
+    cue: "For people in genuine transition",
     href: "/next-chapter",
   },
 ];
@@ -149,7 +153,7 @@ export default function Home() {
 
           <div className="mt-6 max-w-2xl">
             <p className="font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "64ch" }}>
-              You have outgrown the version of you the world is still reading. I help founders, professionals, creatives, and people in transition sharpen their message, upgrade their presence, and step into the next chapter with language that finally matches who they are now.
+              You have outgrown the version of you the world is still reading. I work with founders, executives, and people mid-transition to build language that finally catches up.
             </p>
           </div>
 
@@ -199,7 +203,6 @@ export default function Home() {
           Choose what you are{" "}
           <span className="text-petal">rewriting.</span>
         </H2>
-        <H3Script>Every story has a better draft in it.</H3Script>
 
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-2">
           {rewrites.map((r) => (
@@ -210,15 +213,17 @@ export default function Home() {
               style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
             >
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-50" />
-              <p className="font-mono text-xs tracking-[0.2em] text-iron">{r.label}</p>
-              <h3 className="mt-4 font-display text-3xl uppercase tracking-[0.02em] text-pearl md:text-4xl">
+              <div className="flex items-center justify-between">
+                <p className="font-mono text-xs tracking-[0.2em] text-iron">{r.label}</p>
+                <span className="flex h-8 w-8 items-center justify-center border border-petal/20 text-sm text-petal/50 transition-all duration-300 group-hover:border-petal group-hover:bg-petal group-hover:text-void">
+                  &rarr;
+                </span>
+              </div>
+              <h3 className="mt-5 font-display text-3xl uppercase tracking-[0.02em] text-pearl md:text-4xl">
                 {r.title}
               </h3>
               <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{r.desc}</p>
-              <span className="mt-6 inline-flex items-center gap-2 font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors group-hover:text-blush">
-                See what this looks like
-                <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-              </span>
+              <p className="mt-5 font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-iron">{r.cue}</p>
             </Link>
           ))}
         </div>
@@ -233,9 +238,8 @@ export default function Home() {
           Four ways to{" "}
           <span className="text-petal">work together.</span>
         </H2>
-        <H3Script>Scoped to where you are and where you are going.</H3Script>
 
-        <div className="mt-12 grid gap-px bg-graphite lg:grid-cols-4">
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
           {services.map((s) => (
             <ServiceCard key={s.title} {...s} />
           ))}
@@ -342,7 +346,7 @@ export default function Home() {
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BtnPrimary href={CALENDLY_URL}>Book a Call</BtnPrimary>
-            <BtnGhost href="#rewrites">Choose Your Rewrite</BtnGhost>
+            <BtnGhost href="/contact">Get in Touch</BtnGhost>
           </div>
         </div>
       </section>

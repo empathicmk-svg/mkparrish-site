@@ -12,7 +12,7 @@ import {
   FAQ,
   ServiceCard,
 } from "@/app/components/ui";
-import { CALENDLY_URL, STRIPE_REWRITE, STRIPE_NEW_CHAPTER } from "@/app/lib/config";
+import { CALENDLY_URL, STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "Rewrite Your Brand — MK Parrish",
@@ -121,7 +121,7 @@ export default function BrandPage() {
               "3 to 5 business day turnaround",
             ]}
             cta="Buy The Edit"
-            href={STRIPE_REWRITE}
+            href={STRIPE_EDIT}
           />
           <ServiceCard
             tag="Core Messaging"
@@ -211,8 +211,8 @@ export default function BrandPage() {
             Start with a call if you are not sure what needs fixing. Start with The Rewrite if you already know.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href={STRIPE_NEW_CHAPTER}>Discuss The New Chapter</BtnPrimary>
-            <BtnGhost href={CALENDLY_URL}>Book a Call</BtnGhost>
+            <BtnPrimary href={CALENDLY_URL}>Let's Talk</BtnPrimary>
+            <BtnGhost href={STRIPE_REWRITE}>Start The Rewrite</BtnGhost>
           </div>
         </div>
       </section>
