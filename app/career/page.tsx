@@ -12,7 +12,7 @@ import {
   FAQ,
   ServiceCard,
 } from "@/app/components/ui";
-import { CALENDLY_URL, STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/config";
+import { STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "Rewrite Your Career — MK Parrish",
@@ -68,7 +68,7 @@ export default function CareerPage() {
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href={STRIPE_REWRITE}>Start The Rewrite</BtnPrimary>
-            <BtnGhost href={CALENDLY_URL}>Book a Call First</BtnGhost>
+            <BtnGhost href="/book">Book a Call First</BtnGhost>
           </div>
         </div>
       </section>
@@ -146,7 +146,7 @@ export default function CareerPage() {
               "Outreach and pitch copy",
             ]}
             cta="Let's Talk"
-            href={CALENDLY_URL}
+            href="/book"
           />
         </div>
       </RevealSection>
@@ -189,7 +189,7 @@ export default function CareerPage() {
               Not here? Book a call. No pitch, just clarity.
             </p>
             <div className="mt-6">
-              <ArrowLink href={CALENDLY_URL}>Schedule a call</ArrowLink>
+              <ArrowLink href="/book">Schedule a call</ArrowLink>
             </div>
           </div>
           <FAQ items={faqItems} />
@@ -208,7 +208,7 @@ export default function CareerPage() {
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BtnPrimary href={STRIPE_EDIT}>Buy The Edit</BtnPrimary>
-            <BtnGhost href={CALENDLY_URL}>Book a Call</BtnGhost>
+            <BtnGhost href="/book">Book a Call</BtnGhost>
           </div>
         </div>
       </section>

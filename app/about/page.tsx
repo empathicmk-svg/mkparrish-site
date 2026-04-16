@@ -11,7 +11,7 @@ import {
   BtnGhost,
   ArrowLink,
 } from "@/app/components/ui";
-import { CALENDLY_URL, PATREON_URL, CONTACT } from "@/app/lib/config";
+import { PATREON_URL, CONTACT } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "About — MK Parrish",
@@ -153,7 +153,7 @@ export default function AboutPage() {
               The best way to start is a conversation. Book a call, send an email, or find me on LinkedIn. I read everything.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={CALENDLY_URL}>Book a Call</BtnPrimary>
+              <BtnPrimary href="/book">Book a Call</BtnPrimary>
               <BtnGhost href={`mailto:${CONTACT.email}`}>Send an Email</BtnGhost>
             </div>
           </div>

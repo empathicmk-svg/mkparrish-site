@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PATREON_URL, CALENDLY_URL, CONTACT } from "@/app/lib/config";
+import { PATREON_URL, CONTACT } from "@/app/lib/config";
 
 const footerLinks = [
   { label: "Career",       href: "/career" },
@@ -44,14 +44,12 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              href="/book"
               className="btn-primary px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void"
             >
               Book a Call
-            </a>
+            </Link>
             <a
               href={PATREON_URL}
               target="_blank"

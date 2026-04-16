@@ -12,7 +12,7 @@ import {
   FAQ,
   ServiceCard,
 } from "@/app/components/ui";
-import { CALENDLY_URL, STRIPE_EDIT, STRIPE_BYLINE } from "@/app/lib/config";
+import { STRIPE_EDIT, STRIPE_BYLINE } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "Rewrite Your Presence — MK Parrish",
@@ -68,7 +68,7 @@ export default function PresencePage() {
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href={STRIPE_BYLINE}>Start The Byline</BtnPrimary>
-            <BtnGhost href={CALENDLY_URL}>Book a Call First</BtnGhost>
+            <BtnGhost href="/book">Book a Call First</BtnGhost>
           </div>
         </div>
       </section>
@@ -150,7 +150,7 @@ export default function PresencePage() {
               "Voice and messaging alignment",
             ]}
             cta="Let's Talk"
-            href={CALENDLY_URL}
+            href="/book"
           />
         </div>
       </RevealSection>
@@ -193,7 +193,7 @@ export default function PresencePage() {
               Not here? Book a call. No pitch, just clarity.
             </p>
             <div className="mt-6">
-              <ArrowLink href={CALENDLY_URL}>Schedule a call</ArrowLink>
+              <ArrowLink href="/book">Schedule a call</ArrowLink>
             </div>
           </div>
           <FAQ items={faqItems} />
@@ -211,7 +211,7 @@ export default function PresencePage() {
             One conversation is enough to figure out where the copy is failing and what to do about it.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href={CALENDLY_URL}>Book a Call</BtnPrimary>
+            <BtnPrimary href="/book">Book a Call</BtnPrimary>
             <BtnGhost href={STRIPE_EDIT}>Start with The Edit</BtnGhost>
           </div>
         </div>

@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { CALENDLY_URL } from "@/app/lib/config";
 
 const navLinks = [
   { label: "Career",       href: "/career" },
@@ -75,14 +74,12 @@ export default function Nav() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              href="/book"
               className="btn-primary hidden px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void sm:inline-flex"
             >
               Book a Call
-            </a>
+            </Link>
             <button
               onClick={() => setMobileNav(!mobileNav)}
               className="flex flex-col gap-1.5 md:hidden"
@@ -111,14 +108,12 @@ export default function Nav() {
                   {l.label}
                 </Link>
               ))}
-              <a
-                href={CALENDLY_URL}
-                target="_blank"
-                rel="noreferrer"
+              <Link
+                href="/book"
                 className="btn-primary mt-2 inline-flex justify-center px-5 py-3 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void"
               >
                 Book a Call
-              </a>
+              </Link>
             </div>
           </nav>
         )}

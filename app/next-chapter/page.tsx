@@ -12,7 +12,7 @@ import {
   FAQ,
   ServiceCard,
 } from "@/app/components/ui";
-import { CALENDLY_URL, STRIPE_REWRITE, STRIPE_NEW_CHAPTER } from "@/app/lib/config";
+import { STRIPE_REWRITE, STRIPE_NEW_CHAPTER } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "Rewrite Your Next Chapter — MK Parrish",
@@ -67,7 +67,7 @@ export default function NextChapterPage() {
             You are not who you were. The copy still is. We fix that by building a story that moves with you, not behind you.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <BtnPrimary href={CALENDLY_URL}>Start the Conversation</BtnPrimary>
+            <BtnPrimary href="/book">Start the Conversation</BtnPrimary>
             <BtnGhost href={STRIPE_REWRITE}>Buy The Rewrite</BtnGhost>
           </div>
         </div>
@@ -136,7 +136,7 @@ export default function NextChapterPage() {
               "Press, pitch deck, and outreach copy",
             ]}
             cta="Let's Talk"
-            href={CALENDLY_URL}
+            href="/book"
           />
         </div>
       </RevealSection>
@@ -179,7 +179,7 @@ export default function NextChapterPage() {
               Not here? Book a call. No pitch, just clarity.
             </p>
             <div className="mt-6">
-              <ArrowLink href={CALENDLY_URL}>Schedule a call</ArrowLink>
+              <ArrowLink href="/book">Schedule a call</ArrowLink>
             </div>
           </div>
           <FAQ items={faqItems} />
@@ -197,7 +197,7 @@ export default function NextChapterPage() {
             Let's find the right one.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href={CALENDLY_URL}>Book a Call</BtnPrimary>
+            <BtnPrimary href="/book">Book a Call</BtnPrimary>
             <BtnGhost href={STRIPE_REWRITE}>Start The Rewrite</BtnGhost>
           </div>
         </div>

@@ -14,7 +14,6 @@ import {
   ServiceCard,
 } from "@/app/components/ui";
 import {
-  CALENDLY_URL,
   STRIPE_EDIT,
   STRIPE_REWRITE,
   STRIPE_NEW_CHAPTER,
@@ -102,7 +101,7 @@ const services = [
       "Press and pitch deck narrative",
     ],
     cta: "Let's Talk",
-    href: CALENDLY_URL,
+    href: "/book",
     highlight: false,
   },
   {
@@ -188,7 +187,7 @@ export default function Home() {
               Not by inventing a new identity. By finally presenting the real one with precision, nerve, and taste.
             </p>
             <div className="mt-8">
-              <ArrowLink href={CALENDLY_URL}>Book a strategy call</ArrowLink>
+              <ArrowLink href="/book">Book a strategy call</ArrowLink>
             </div>
           </div>
         </div>
@@ -271,7 +270,7 @@ export default function Home() {
               No AI fluff. No generic templates. No rented voice.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={CALENDLY_URL}>Book a Call</BtnPrimary>
+              <BtnPrimary href="/book">Book a Call</BtnPrimary>
               <ArrowLink href="/about">About MK</ArrowLink>
             </div>
           </div>
@@ -345,7 +344,7 @@ export default function Home() {
             Because being misunderstood is expensive.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href={CALENDLY_URL}>Book a Call</BtnPrimary>
+            <BtnPrimary href="/book">Book a Call</BtnPrimary>
             <BtnGhost href="/contact">Get in Touch</BtnGhost>
           </div>
         </div>
