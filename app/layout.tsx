@@ -1,24 +1,26 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Nav from "@/app/components/Nav";
+import Footer from "@/app/components/Footer";
 
 export const metadata: Metadata = {
-  title: "MK Parrish — Growth Marketing, ABM & Fractional CMO",
+  title: "MK Parrish — Rewrite Your Story",
   description:
-    "Revenue-first marketing built for brands that mean business. Demand gen, ABM, partner marketing, fractional growth leadership, and conversion copywriting.",
+    "Words, strategy, and reinvention for people ready to stop being misread. Copywriting, ghostwriting, and positioning services for founders, executives, and professionals in transition.",
   metadataBase: new URL("https://www.mkparrish.com"),
   openGraph: {
-    title: "MK Parrish — Growth Marketing, ABM & Fractional CMO",
+    title: "MK Parrish — Rewrite Your Story",
     description:
-      "Revenue-first marketing built for brands that mean business.",
+      "Words, strategy, and reinvention for people ready to stop being misread.",
     url: "https://www.mkparrish.com",
     siteName: "MK Parrish",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "MK Parrish — Growth Marketing, ABM & Fractional CMO",
+    title: "MK Parrish — Rewrite Your Story",
     description:
-      "Revenue-first marketing built for brands that mean business.",
+      "Words, strategy, and reinvention for people ready to stop being misread.",
   },
 };
 
@@ -37,7 +39,11 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col overflow-x-hidden">{children}</body>
+      <body className="flex min-h-full flex-col overflow-x-hidden">
+        <Nav />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
