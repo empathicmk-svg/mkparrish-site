@@ -23,23 +23,23 @@ export const metadata: Metadata = {
 const faqItems = [
   {
     q: "Who is Next Chapter work for?",
-    a: "People in genuine transition. Career pivots, industry switches, founders stepping out of the operator role, professionals moving into public work, people coming back after time away. If the old story no longer fits, this is where we start.",
+    a: "People in genuine transition. Career pivots, industry switches, founders stepping out of the operator role, professionals moving into public work, executives coming back after time away. If the old story no longer fits who you are now, this is where we start.",
   },
   {
     q: "How is this different from the career or brand pages?",
-    a: "Career is for professional repositioning within a field. Brand is for businesses. Next Chapter is for people whose whole identity is shifting, not just their title. The work is more personal, more narrative-driven, and more focused on the through-line between who you were and who you are becoming.",
+    a: "Career repositioning is for professionals moving within their field. Brand is for businesses. Next Chapter is for people whose entire identity is shifting, not just their title or their homepage. The work is more personal, more narrative-driven, and focused on the thread that makes the whole arc make sense.",
   },
   {
     q: "What does a Next Chapter engagement look like?",
-    a: "It starts with an in-depth strategy session where I understand what is changing and why. From there we develop a positioning narrative, rewrite the key surfaces that need to reflect the new chapter, and build copy that earns the right kind of attention for where you are going.",
+    a: "It starts with a strategy session where I understand what is actually changing and why, not just the surface version. From there we develop a positioning narrative, rewrite the key surfaces that need to reflect the new chapter, and build copy that earns the right kind of attention for where you are going.",
   },
   {
     q: "Do you work with people who are not sure what the next chapter is yet?",
-    a: "Yes. Sometimes the writing helps clarify the thinking. I work with people at the edge of transition, not just people who have already made it. If you are in the middle of figuring it out, that is a fine place to start.",
+    a: "Yes. Sometimes the writing process helps clarify the thinking. I work with people at the edge of transition, not just people who have already landed on the other side. If you are mid-crossing and the story is still forming, that is a completely legitimate place to start.",
   },
   {
     q: "How long does a full engagement take?",
-    a: "Typically three to four weeks from our first session to final deliverables. Larger scopes can extend to six weeks. We set the timeline together based on what you need and when.",
+    a: "Typically three to four weeks from our first session to final deliverables. Larger scopes can run six weeks. Timeline is set together at the start and depends on what needs to be built and how quickly you need it.",
   },
 ];
 
@@ -64,7 +64,7 @@ export default function NextChapterPage() {
             </H1>
           </div>
           <p className="mt-6 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-            You are not who you were. The copy still is. We fix that by building a story that moves with you, not behind you.
+            You are not who you were when you wrote that bio. The copy still is. That mismatch costs you credibility with every person who looks you up mid-transition. We fix it by building a story that reflects where you are going, not where you have been.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href="/book">Start the Conversation</BtnPrimary>
@@ -86,13 +86,13 @@ export default function NextChapterPage() {
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke">
             <p>
-              Transitions are expensive when no one can tell what you are doing. When your bio says one thing and your pitch says another. When people who should find you can not quite locate you because the copy belongs to a chapter you have already left.
+              Transitions are expensive when no one can tell what you are doing. When your bio says one thing and your LinkedIn says something older. When people who should find you cannot quite locate you because the copy belongs to a chapter you have already left.
             </p>
             <p>
-              The work is not reinvention for the sake of it. It is precision. Finding the language that connects where you have been to where you are going, and writing it in a way that makes that arc feel inevitable, not improvised.
+              This is not reinvention for the sake of having a better brand. It is precision. Finding the language that connects what you have built to where you are going, and writing it in a way that makes the arc feel intentional, not improvised.
             </p>
             <p>
-              I have done this myself more than once. I know what it feels like to be mid-transition and still pointing to the old version of your story. I know how to fix it.
+              I have reinvented myself more than once. Fortune 50 to startups. Operator to strategist. I know what it feels like to be mid-crossing with a story that belongs to the last shore. And I know how to write through it.
             </p>
           </div>
         </div>
@@ -113,7 +113,7 @@ export default function NextChapterPage() {
             tag="Deep repositioning"
             title="The Rewrite"
             price="From $1,500"
-            desc="Your new chapter, written. Core positioning narrative, primary bio, and LinkedIn updated to reflect the person you are now, not who you used to be."
+            desc="Your new chapter, written. Core positioning narrative, primary bio, and LinkedIn rebuilt to reflect who you are now and where you are going. Not a polish of the old story. A replacement of it."
             perks={[
               "Positioning narrative for the new chapter",
               "LinkedIn overhaul",
@@ -128,7 +128,7 @@ export default function NextChapterPage() {
             tag="Full build"
             title="The New Chapter"
             price="Custom"
-            desc="For full pivots and public reinventions. Brand, website, founder story, and all the copy that needs to reflect who you are entering this next era as."
+            desc="For full pivots and public reinventions where updating a bio is not going to be enough. Brand strategy, website copy, founder narrative, and every surface that needs to reflect who you are stepping into, built together."
             perks={[
               "Full brand and messaging strategy",
               "Website copy from scratch",
@@ -152,12 +152,12 @@ export default function NextChapterPage() {
         </H2>
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { title: "Career Pivots", desc: "From one industry or function to another. The thread between where you were and where you are going, written so it reads like inevitability." },
-            { title: "From Operator to Founder", desc: "Leaving a corporate role to build your own. Reframing your experience as the foundation, not just the backstory." },
-            { title: "Return After a Pause", desc: "Coming back after caregiving, illness, grief, or a deliberate break. Writing the gap as part of the story instead of something to explain away." },
-            { title: "Into Public Work", desc: "Speaking, writing, advising, or consulting for the first time. Building a public identity that reflects your actual depth." },
-            { title: "Post-Exit or Post-Acquisition", desc: "After a company exit, sale, or chapter close. Figuring out what comes next and what story to tell while you do." },
-            { title: "The Second Act", desc: "Midlife repositioning. For people who have more clarity now than they did at 30 and want the world to finally see it." },
+            { title: "Career Pivots", desc: "From one industry or function to another. The connective tissue between where you have been and where you are going, written so the shift reads as deliberate, not desperate." },
+            { title: "From Operator to Founder", desc: "Leaving a corporate role to build something of your own. Reframing 10 or 20 years of someone else's work as the foundation for yours." },
+            { title: "Return After a Pause", desc: "Coming back after caregiving, illness, grief, or a deliberate step away. Writing the gap as part of the story instead of something to minimize or explain around." },
+            { title: "Into Public Work", desc: "Speaking, writing, advising, or consulting publicly for the first time. Building a presence that reflects the depth you already have, before someone else defines it for you." },
+            { title: "Post-Exit or Post-Acquisition", desc: "After a company exit, a sale, or a chapter close. Figuring out what the next thing is and how to talk about who you are in the space between." },
+            { title: "The Second Act", desc: "Midlife repositioning. For people who have more clarity, range, and specific conviction now than they did at 30, and want the world to finally read it that way." },
           ].map((item) => (
             <div key={item.title} className="bg-obsidian p-8">
               <h3 className="font-display text-xl uppercase tracking-[0.02em] text-petal">{item.title}</h3>

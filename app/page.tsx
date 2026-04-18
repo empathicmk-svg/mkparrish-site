@@ -31,28 +31,28 @@ const rewrites = [
   {
     label: "01",
     title: "Rewrite Your Career",
-    desc: "Your LinkedIn, bio, and professional narrative rebuilt for who you have actually become. Not a polish. A repositioning.",
+    desc: "Your LinkedIn, bio, and professional narrative rebuilt for the career you actually have now. Not a polish. A full repositioning. Because the people deciding whether to hire you are reading copy you wrote three years ago.",
     cue: "For executives, professionals, and industry switchers",
     href: "/career",
   },
   {
     label: "02",
     title: "Rewrite Your Brand",
-    desc: "Messaging, voice, and homepage copy for a business that performs better than it sounds. The gap between those two things is costing you.",
+    desc: "Positioning, voice, and homepage copy for a business that delivers more than it sounds like. That gap is not aesthetic. It is a revenue leak, and it shows up every time someone lands on your site and leaves without reaching out.",
     cue: "For founders and company builders",
     href: "/brand",
   },
   {
     label: "03",
     title: "Rewrite Your Presence",
-    desc: "Website copy, public bios, and ongoing thought leadership written in your voice. Every surface that exists before you speak.",
+    desc: "Website copy, public bios, and ongoing thought leadership written in your actual voice. Every surface that forms an opinion about you before you get to speak. Most of them are underperforming right now.",
     cue: "For public-facing professionals and ghostwriting clients",
     href: "/presence",
   },
   {
     label: "04",
     title: "Rewrite Your Next Chapter",
-    desc: "Full repositioning for pivots, reinventions, and transitions that require a new story, not a revised one. For people mid-crossing.",
+    desc: "Full repositioning for pivots, reinventions, and the messy middle where your old story no longer fits and the new one is not finished yet. I have been here. I know how to write through it.",
     cue: "For people in genuine transition",
     href: "/next-chapter",
   },
@@ -63,7 +63,7 @@ const services = [
     tag: "Quick Fix",
     title: "The Edit",
     price: "From $100",
-    desc: "One piece of copy rewritten. LinkedIn bio, executive blurb, website tagline, or positioning statement. Delivered sharp. Delivered fast.",
+    desc: "One piece of copy rewritten. LinkedIn bio, executive blurb, website tagline, or positioning statement. You know exactly what is broken. I fix it.",
     perks: [
       "LinkedIn headline and about section",
       "Executive bio or speaker profile",
@@ -78,7 +78,7 @@ const services = [
     tag: "Most Requested",
     title: "The Rewrite",
     price: "From $1,500",
-    desc: "A full story overhaul with a strategy session. For people whose work has outgrown the language they are still using to describe it.",
+    desc: "A full story overhaul anchored in a strategy session. For people whose work has outpaced the language they are still using to describe it. This is where the gap closes.",
     perks: [
       "Full LinkedIn overhaul",
       "Career or brand narrative",
@@ -93,7 +93,7 @@ const services = [
     tag: "Full Reset",
     title: "The New Chapter",
     price: "Custom",
-    desc: "Brand, website, founder story, and next-era messaging built together. For pivots, relaunches, and reinventions where the whole story needs to move.",
+    desc: "Brand, website, founder story, and positioning built together from strategy to final draft. For pivots, relaunches, and reinventions where patching one section is not going to cut it.",
     perks: [
       "Brand voice and messaging guide",
       "Full website copy",
@@ -108,7 +108,7 @@ const services = [
     tag: "Ongoing",
     title: "The Byline",
     price: "From $1,500/mo",
-    desc: "Monthly ghostwriting under your name. LinkedIn posts, essays, newsletters. Written in your voice. Sharp enough to build something.",
+    desc: "Monthly ghostwriting under your name. LinkedIn posts, essays, newsletters. Written in your voice by someone who actually writes. Consistent enough to build a reputation. Sharp enough that people notice.",
     perks: [
       "Monthly LinkedIn ghostwriting",
       "Long-form essays and articles",
@@ -176,15 +176,15 @@ export default function Home() {
             </H2>
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "64ch" }}>
-            <p>They cost you deals, roles, introductions, and momentum. Quietly. Before you even know a decision was made.</p>
+            <p>They cost you deals, roles, introductions, and the meeting that turns into the contract. Quietly. Before you even know a decision was made.</p>
             <p>
-              A vague LinkedIn makes a sharp professional look unfocused. A weak about page makes a performing business look small. A stale bio makes someone who has done serious work look like they stopped growing.
+              A vague LinkedIn makes a sharp professional look unfocused. A weak about page makes a performing business look small. A stale bio makes someone who has done serious work look like they stopped five years ago.
             </p>
             <p>
-              I rewrite the copy people encounter when they look you up, consider you, judge you, or decide whether to reach out. The fragments forming opinions on your behalf, right now.
+              I rewrite the copy people encounter when they look you up, consider you, or decide whether to reach out. These are not just words. They are the impression you make before you get to speak.
             </p>
             <p>
-              Not by manufacturing a persona. By finally presenting the real thing with precision and nerve.
+              Not by building a persona. By finally presenting the real thing with enough precision that the right people recognize it.
             </p>
             <div className="mt-8">
               <ArrowLink href="/book">Book a strategy call</ArrowLink>
@@ -259,12 +259,12 @@ export default function Home() {
             </H2>
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "64ch" }}>
-            <p>People are judged by fragments now.</p>
+            <p>People are decided by fragments now.</p>
             <p>
-              A headline. A homepage. A LinkedIn summary. A speaker bio. A few lines written years ago by a version of you who was still figuring out the pitch.
+              A headline. A homepage. A LinkedIn summary. A speaker bio. A few lines written three job titles ago by a version of you who was still figuring out what to say.
             </p>
             <p>
-              I work at the place where writing meets strategy, visibility, and reinvention. The copy I write is not decoration. It is a positioning instrument. It changes the room before you enter it.
+              I work where writing meets strategy, positioning, and reinvention. The copy I write is not decoration. It is the argument you make before anyone gets in a room with you. It either earns the meeting or it does not.
             </p>
             <p className="font-body text-sm font-semibold uppercase tracking-[0.2em] text-petal">
               No AI copy. No generic frameworks. No rented voice.
@@ -290,9 +290,9 @@ export default function Home() {
             </H2>
             <H3Script>Where the real thinking lives.</H3Script>
             <div className="mt-8 space-y-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "56ch" }}>
-              <p>Long-form essays. Raw strategy notes. The frameworks that come out of real client work.</p>
+              <p>Long-form essays. Raw strategy notes. The frameworks that come out of actual client work, documented before they get cleaned up for public consumption.</p>
               <p>
-                Not content. Not performance. The thinking that happens before any of it gets published. If the public work is the final sentence, The Margins is the draft with all the edits still showing.
+                Not content. Not thought leadership theatre. The real thinking, before it gets positioned. If the public work is the final sentence, The Margins is the version with all the edits still showing and the margin notes intact.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -303,9 +303,9 @@ export default function Home() {
 
           <div className="flex flex-col gap-px">
             {[
-              { tier: "Soft Cover", price: "$5/mo", desc: "Weekly essays and strategy notes that never make the public feed. The thinking before it gets cleaned up." },
-              { tier: "Marked Up", price: "$12/mo", desc: "Everything in Soft Cover, plus the raw frameworks from client work and behind-the-scenes process notes." },
-              { tier: "First Edition", price: "$28/mo", desc: "Full access plus a monthly live Q&A, direct message access, and priority feedback on your copy." },
+              { tier: "Soft Cover", price: "$5/mo", desc: "Weekly essays and strategy notes that never go to the public feed. The thinking before it gets edited into something safe." },
+              { tier: "Marked Up", price: "$12/mo", desc: "Everything in Soft Cover plus the raw frameworks pulled from client work, with the context that makes them actually useful." },
+              { tier: "First Edition", price: "$28/mo", desc: "Full access plus a monthly live Q&A, direct message access, and priority feedback on your own copy. The closest thing to working with me directly." },
             ].map((t, i) => (
               <div key={t.tier} className={`relative p-8 ${i === 1 ? "bg-carbon" : "bg-obsidian"}`}>
                 {i === 1 && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}

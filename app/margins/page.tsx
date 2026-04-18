@@ -23,7 +23,7 @@ const tiers = [
     title: "The Brief",
     price: "$5",
     cadence: "/mo",
-    desc: "Weekly essays and strategic breakdowns that never make the public feed. The thinking before it gets polished.",
+    desc: "Weekly essays and strategic notes that never reach the public feed. Real thinking, before it gets positioned for an audience.",
     perks: [
       "Weekly long-form essays",
       "Strategic frameworks and tools",
@@ -37,7 +37,7 @@ const tiers = [
     title: "The Retainer",
     price: "$15",
     cadence: "/mo",
-    desc: "Everything in The Brief, plus the raw thinking behind the client work. Frameworks, notes, and behind-the-scenes strategy.",
+    desc: "Everything in The Brief, plus the raw client frameworks documented with enough context to actually use them. The behind-the-scenes work that does not make the case study.",
     perks: [
       "All Brief content",
       "Monthly strategy notes",
@@ -51,7 +51,7 @@ const tiers = [
     title: "The Partner",
     price: "$50",
     cadence: "/mo",
-    desc: "Direct access. For operators who want the unfiltered version and a way in.",
+    desc: "Full access plus a direct line. Monthly live Q&A, direct message access, and priority feedback on your own copy. The closest thing to working with me directly, at a fraction of the project rate.",
     perks: [
       "All Retainer content",
       "Monthly live Q&A",
@@ -86,7 +86,7 @@ export default function MarginsPage() {
             The private side of the brand.
           </p>
           <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-            The essays. The notes. The behind-the-scenes becoming. The thoughts that do not belong in a bio or a pitch deck. If the public work is the polished sentence, The Margins is where you get the crossed-out versions too.
+            The essays. The unfinished frameworks. The strategy notes that come out of real client work before they get cleaned up for public consumption. The Margins is not content. It is the thinking before the thinking gets positioned. If the public work is the final edit, this is where the earlier drafts still have all the notes in the margin.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
@@ -108,16 +108,16 @@ export default function MarginsPage() {
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke">
             <p>
-              The public work is already edited. Positioned. Chosen carefully. The Margins is what happens before that.
+              The public work is already edited. Positioned. Chosen carefully for what it includes and what it leaves out. The Margins is what happens before any of that.
             </p>
             <p>
-              Raw strategy notes. Half-finished frameworks that turned into full engagements. The personal context behind the professional voice. The things I notice about writing, positioning, and reinvention that do not fit anywhere else.
+              Raw strategy notes from real engagements. Half-built frameworks that ended up running full client projects. The personal context behind why I write what I write. The things I notice about positioning, reinvention, and the business of being misread that do not fit neatly into a LinkedIn post.
             </p>
             <p>
-              It is literary in the way that good journalism is literary. Specific. Honest. Not performing expertise. Actually sharing it.
+              Specific. Honest. Not performing expertise for an audience. Actually sharing the work with people who want to see inside it.
             </p>
             <p>
-              No algorithm shapes what I write here. No engagement metric decides whether it gets published. I write what I think, and the people who want that kind of access can find it here.
+              No algorithm decides what gets published here. No engagement rate tells me what to write. I write what I think is worth writing, and the people who want that kind of access know where to find it.
             </p>
           </div>
         </div>
@@ -203,12 +203,12 @@ export default function MarginsPage() {
         </H2>
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { title: "Essays", desc: "Long-form thinking on writing, strategy, reinvention, and the friction between who people are and how they are read." },
-            { title: "Strategy Notes", desc: "The raw frameworks and tools that come out of client work. Documented for people who want to apply them." },
-            { title: "Behind-the-Scenes", desc: "How projects actually unfold. The thinking before the delivery. The decisions that do not make the final draft." },
-            { title: "Voice and Copy Templates", desc: "Prompts, frameworks, and copy examples for building your own presence. Practical and reusable." },
-            { title: "Q&A Roundups", desc: "Monthly answers to questions from members. Specific, direct, and useful." },
-            { title: "Early Access", desc: "Public essays and published work sent here first, before anywhere else." },
+            { title: "Essays", desc: "Long-form thinking on writing, strategy, reinvention, and the specific friction between who people actually are and how the world is currently reading them." },
+            { title: "Strategy Notes", desc: "Raw frameworks and tools pulled from real client work, documented with enough context that they are actually transferable. Not theory. Applied thinking." },
+            { title: "Behind-the-Scenes", desc: "How projects actually unfold from the inside. The decisions made before the first draft. The things that get cut. The reasoning that does not appear in the deliverable." },
+            { title: "Voice and Copy Templates", desc: "Prompts, frameworks, and copy examples for building your own presence. Built from what works in real engagements, not from best practices lists." },
+            { title: "Q&A Roundups", desc: "Monthly answers to questions from members. The questions I get asked most, answered with the same specificity I would give a client." },
+            { title: "Early Access", desc: "Public essays and published work sent here first, before they go anywhere else. Members read the final draft before it becomes public." },
           ].map((item) => (
             <div key={item.title} className="bg-obsidian p-8">
               <h3 className="font-display text-xl uppercase tracking-[0.02em] text-petal">{item.title}</h3>
@@ -234,7 +234,7 @@ export default function MarginsPage() {
             </H2>
           </div>
           <p className="mx-auto mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            For five dollars a month, you get more than most consultants charge for an hour.
+            For five dollars a month, you get the frameworks, thinking, and strategy that come out of real client work. No pitch. No performance. Just the actual work.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>

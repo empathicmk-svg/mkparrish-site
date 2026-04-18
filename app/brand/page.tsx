@@ -23,23 +23,23 @@ export const metadata: Metadata = {
 const faqItems = [
   {
     q: "What kind of brands do you work with?",
-    a: "Founder-led businesses, boutique agencies, professional service firms, and startups that have grown past their original positioning. Companies that perform better than they sound, and need the brand to catch up.",
+    a: "Founder-led businesses, boutique agencies, professional services firms, and startups that have outgrown their original positioning. If the business is delivering real results and the brand copy is not reflecting that, that is where I come in.",
   },
   {
     q: "Is this copywriting or strategy?",
-    a: "Both. The copy is useless without the strategy behind it. I start with positioning, then move into voice, then into execution. The deliverable is not just words. It is a brand that knows what it is saying and why.",
+    a: "Both. Copy without strategy is just decoration. I start with positioning, move into voice, then into execution. The deliverable is not just words on a page. It is a brand that knows what it is saying, who it is saying it to, and why they should care.",
   },
   {
     q: "What is the difference between The Rewrite and The New Chapter for a brand?",
-    a: "The Rewrite is for brands that need their core messaging sharpened. One or two surfaces: the about page, the homepage, the pitch. The New Chapter is for brands building from scratch or repositioning for a new era.",
+    a: "The Rewrite sharpens core messaging on one or two surfaces: the homepage, the about page, the pitch. The New Chapter is for brands building from scratch, repositioning for a new market, or making a significant strategic shift that needs the whole language to move.",
   },
   {
     q: "Do you write the full website?",
-    a: "Yes, within The New Chapter scope. If you need homepage copy, about, services, and a contact page, we build all of that together. The Rewrite covers one or two pages depending on scope.",
+    a: "Yes, within The New Chapter scope. Homepage, about, services, contact, any additional pages the site needs. The Rewrite covers one or two pages depending on what was agreed at the start.",
   },
   {
     q: "Can you help with tone of voice for a team?",
-    a: "Yes. A brand voice guide is part of The New Chapter deliverables. It documents the voice, tone, dos and don'ts, and on-brand copy examples your team can use going forward.",
+    a: "Yes. A brand voice guide is a standard deliverable in The New Chapter. It documents the voice, tone, and style with real on-brand examples your team can reference when you need to write something and I am not in the room.",
   },
 ];
 
@@ -64,7 +64,7 @@ export default function BrandPage() {
             </H1>
           </div>
           <p className="mt-6 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-            Your business is better than it sounds. The gap between what you deliver and how you talk about it is a revenue problem. Let's close it.
+            Your business is better than it sounds. That gap is not a design problem or a marketing budget problem. It is a language problem. The words are not doing the work the business is doing. That costs you every time someone lands on your homepage and leaves.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href="/book">Start the Conversation</BtnPrimary>
@@ -86,13 +86,13 @@ export default function BrandPage() {
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke">
             <p>
-              Most brand copy is written by people who do not know the business well enough, or by founders who know it too well to explain it simply. The result is copy that is technically accurate and strategically useless.
+              Most brand copy is written by people who do not know the business well enough, or by founders who know it too well to see where the explanation falls apart. The result is copy that is technically accurate and completely inert.
             </p>
             <p>
-              It does not convert. It does not position. It does not make anyone feel like they are in the right place. It just exists, sitting on a homepage, doing nothing.
+              It does not convert. It does not position. It does not make the person reading it feel like they have found the right place. It just sits on a homepage, describing things without arguing for them.
             </p>
             <p>
-              Strong brand copy is specific. It names the problem your client did not have a word for. It says something true in a way that feels a little dangerous. It earns trust without performing it.
+              Strong brand copy is specific. It names the problem your client could not articulate before they found you. It stakes a position. It makes the right person feel seen and makes the wrong person self-select out. That is not an accident. That is craft.
             </p>
           </div>
         </div>
@@ -113,7 +113,7 @@ export default function BrandPage() {
             tag="Targeted Fix"
             title="The Edit"
             price="From $100"
-            desc="One surface rewritten. Homepage tagline, about page, services description. Sharp, done, positioned."
+            desc="One surface rewritten with strategic intent. Homepage tagline, about page, services description. You already know what is not working. This fixes that specific thing."
             perks={[
               "Tagline or homepage headline",
               "About page or brand story",
@@ -127,7 +127,7 @@ export default function BrandPage() {
             tag="Core Messaging"
             title="The Rewrite"
             price="From $1,500"
-            desc="Homepage plus positioning strategy. Brand voice direction and 1 to 2 key pages rewritten with a clear strategic brief."
+            desc="Core messaging overhauled with a positioning strategy built underneath it. Homepage rewritten, voice direction documented, and a 30-minute strategy session to make sure we are writing toward the right goal."
             perks={[
               "Positioning statement and voice direction",
               "Homepage copy",
@@ -142,7 +142,7 @@ export default function BrandPage() {
             tag="Full Build"
             title="The New Chapter"
             price="Custom"
-            desc="Brand voice guide, full website copy, messaging framework. For launches, repositions, and brands ready to mean something."
+            desc="Full brand build from positioning to final page copy. Voice guide, complete website, messaging framework, and a copy bank your team can use after we are done. For launches, repositions, and brands that have grown past what their original copy was built for."
             perks={[
               "Brand voice and messaging guide",
               "Full website copy",
@@ -166,12 +166,12 @@ export default function BrandPage() {
         </H2>
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { title: "Positioning Statement", desc: "One sentence that earns attention and defines your category. Not a mission statement. A weapon." },
-            { title: "Brand Voice Guide", desc: "Documented voice, tone, and style with examples. So every piece of writing sounds like one person wrote it." },
-            { title: "Homepage Copy", desc: "The first impression that converts. Hero, about, services, and CTA written with strategic intent." },
-            { title: "About Page", desc: "The story that builds trust. Not a timeline. A reason to believe you are the right choice." },
-            { title: "Tagline and Messaging", desc: "The phrases that stick. Short, specific, and impossible to mistake for anyone else." },
-            { title: "Services Copy", desc: "What you offer, framed by the problem it solves and the person it is for." },
+            { title: "Positioning Statement", desc: "One sentence that tells people what you do, who you do it for, and why you are the specific answer to their specific problem. Not a mission statement. Something sharper." },
+            { title: "Brand Voice Guide", desc: "Documented voice, tone, and style with real examples pulled from your brand. So the next thing you publish sounds like the same company that wrote the last one." },
+            { title: "Homepage Copy", desc: "The first and often only impression. Hero, about, services, and CTA written to move someone from curious to convinced without a phone call." },
+            { title: "About Page", desc: "The story that earns trust. Not a founding timeline. A clear argument for why you are the right choice for the specific person reading it." },
+            { title: "Tagline and Messaging", desc: "The phrases that follow the brand everywhere. Short, specific, and impossible to confuse with a competitor. Built to travel." },
+            { title: "Services Copy", desc: "What you offer, reframed around the outcome it creates and the person it is built for. Not a feature list. A reason to reach out." },
           ].map((item) => (
             <div key={item.title} className="bg-obsidian p-8">
               <h3 className="font-display text-xl uppercase tracking-[0.02em] text-petal">{item.title}</h3>

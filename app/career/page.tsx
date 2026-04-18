@@ -23,23 +23,23 @@ export const metadata: Metadata = {
 const faqItems = [
   {
     q: "Who is this for?",
-    a: "Professionals changing industries, executives stepping into new roles, and people whose work has outpaced the story they are still telling about themselves. If your LinkedIn was written three years ago for a job you no longer want, we start there.",
+    a: "Executives stepping into new roles, professionals switching industries, and people whose work has outpaced the story they are still telling about themselves. If you would be embarrassed to send someone to your LinkedIn right now, that is the starting point.",
   },
   {
     q: "What does The Edit cover?",
-    a: "A single piece of career copy: LinkedIn headline and summary, executive bio, speaker profile, or short positioning statement. Delivered within 5 business days.",
+    a: "One piece of career copy: LinkedIn headline and about section, executive bio, speaker profile, or a short positioning statement. Delivered within 3 to 5 business days. It is scoped, specific, and does not require a strategy session to get started.",
   },
   {
     q: "What does The Rewrite cover?",
-    a: "A full career narrative overhaul: LinkedIn headline, about section, and experience copy, plus a positioning statement and 30-minute strategy session. This is for people who need the whole story to change, not just one section.",
+    a: "A full career narrative overhaul. LinkedIn headline, about section, and experience framing, plus a positioning statement and 30-minute strategy session. For people who need the whole story to change, not just one section of it.",
   },
   {
     q: "Do you work with people changing industries?",
-    a: "Yes. Career pivots are some of my most interesting engagements. The challenge is not inventing a new story. It is finding the connective tissue between what you have done and where you are going, and writing it in a way that makes that thread feel inevitable.",
+    a: "Yes. Industry pivots are some of the most interesting work I do. The challenge is never inventing a new story. It is finding the real thread between what you have done and where you are going, and writing it in a way that makes the transition feel intentional instead of improvised.",
   },
   {
     q: "How long does it take?",
-    a: "The Edit: 3 to 5 business days. The Rewrite: 7 to 10 business days from our strategy session. The New Chapter: 3 to 4 weeks depending on scope.",
+    a: "The Edit: 3 to 5 business days. The Rewrite: 7 to 10 business days from our strategy session. The New Chapter: 3 to 4 weeks depending on scope. Timeline is confirmed at the start of every engagement.",
   },
 ];
 
@@ -64,7 +64,7 @@ export default function CareerPage() {
             </H1>
           </div>
           <p className="mt-6 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-            Your LinkedIn was probably written during a different job search for a different version of your career. The work has moved. The words have not. That gap is visible to everyone evaluating you.
+            Your LinkedIn was written during a different job search for a different version of your career. The work has moved. The words have not. That gap is visible to every recruiter, hiring manager, and potential partner who looks you up and moves on.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href={STRIPE_REWRITE}>Start The Rewrite</BtnPrimary>
@@ -85,11 +85,11 @@ export default function CareerPage() {
             <H3Script>How people are reading it is.</H3Script>
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke">
-            <p>A strong professional with a weak LinkedIn is still being passed over. The work is there. The copy is not showing it. Those are not the same problem, and only one of them can be fixed in a week.</p>
+            <p>A strong professional with weak copy is still losing the consideration set. The work is there. The words are not earning it. Those are not the same problem, and only one of them takes a week to fix.</p>
             <p>
-              The people hiring, promoting, and deciding whether to introduce you are forming opinions from 220 characters and the first three lines before "see more." That content is doing the work of a full conversation. Most of the time it is not written well enough to win that conversation.
+              The people hiring, promoting, and deciding whether to introduce you are forming opinions from 220 characters and whatever shows up before "see more." That content is standing in for a full conversation. It needs to be written like one.
             </p>
-            <p>Career copy is not a summary. It is positioning. I write it the way I would write any high-stakes campaign, because that is exactly what it is.</p>
+            <p>Career copy is not a summary. It is positioning. I approach it the way I would approach any high-stakes campaign, because that is exactly what it is. Your career has generated $40M+ in value for someone. The words should reflect that.</p>
           </div>
         </div>
       </RevealSection>
@@ -109,7 +109,7 @@ export default function CareerPage() {
             tag="Quick Fix"
             title="The Edit"
             price="From $100"
-            desc="One piece of career copy rewritten sharply. LinkedIn headline and about, executive bio, or positioning blurb. Fast, precise, done."
+            desc="One piece of career copy rewritten with precision. LinkedIn headline and about, executive bio, or positioning blurb. You know what is broken. This fixes it, fast."
             perks={[
               "LinkedIn headline and about section",
               "Executive or speaker bio",
@@ -123,7 +123,7 @@ export default function CareerPage() {
             tag="Most Requested"
             title="The Rewrite"
             price="From $1,500"
-            desc="Full career story overhaul. LinkedIn from top to bottom, positioning narrative, and a 30-minute strategy session to anchor the work."
+            desc="Full career story overhaul. LinkedIn rebuilt from scratch, positioning narrative written to reflect where you actually are now, and a 30-minute strategy session to anchor all of it."
             perks={[
               "Full LinkedIn overhaul",
               "Career narrative and through-line",
@@ -138,7 +138,7 @@ export default function CareerPage() {
             tag="Full Reset"
             title="The New Chapter"
             price="Custom"
-            desc="For career pivots, industry transitions, and full professional reinventions. We build the story that connects where you have been to where you are going."
+            desc="For industry pivots, full professional reinventions, and transitions where a sharpened LinkedIn is not enough. We build the narrative thread from where you have been to where you are going, and write it so the arc feels earned."
             perks={[
               "Career pivot narrative",
               "Full professional repositioning",
@@ -162,12 +162,12 @@ export default function CareerPage() {
         </H2>
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { title: "LinkedIn Headline", desc: "The 220 characters that follow your name everywhere. Rewritten to position, not just describe." },
-            { title: "About Section", desc: "The narrative core of your professional presence. Rewritten to sound like someone worth hiring." },
-            { title: "Executive Bio", desc: "Third-person voice done right. For speaking engagements, press, boards, and credibility." },
-            { title: "Career Narrative", desc: "The invisible connective tissue between your roles, reframed as an intentional arc." },
-            { title: "Positioning Statement", desc: "One or two sentences that capture what you do, who it is for, and why you are the one to do it." },
-            { title: "Outreach Copy", desc: "Cold emails and DMs that do not feel cold. Warm, precise, and written to open conversations." },
+            { title: "LinkedIn Headline", desc: "The 220 characters that trail your name everywhere online. Most are job titles with a pipe symbol. Yours becomes a positioning statement." },
+            { title: "About Section", desc: "The first real thing people read when they decide to take you seriously. Rewritten to reflect the career you have, not the one you were pitching five years ago." },
+            { title: "Executive Bio", desc: "Third-person that does not read like it was written by a committee. Built for speaking engagements, press features, board profiles, and anywhere credibility needs to land fast." },
+            { title: "Career Narrative", desc: "The connective tissue between your roles, surfaced and reframed as a deliberate arc. Not a list of jobs. A story with a point." },
+            { title: "Positioning Statement", desc: "One or two sentences that name what you do, who it is for, and why you are the specific person to do it. The thing you say when someone asks what you do and actually means it." },
+            { title: "Outreach Copy", desc: "Cold emails and LinkedIn messages that do not read as cold. Specific, human, and written to start real conversations with people worth having them with." },
           ].map((item) => (
             <div key={item.title} className="bg-obsidian p-8">
               <h3 className="font-display text-xl uppercase tracking-[0.02em] text-petal">{item.title}</h3>
@@ -204,7 +204,7 @@ export default function CareerPage() {
             <span className="text-petal">rewrite?</span>
           </H2>
           <p className="mx-auto mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            Start with The Edit if you want something sharp and fast. Start with a call if you are not sure where the story broke.
+            Start with The Edit if you know exactly what is broken and want it fixed fast. Start with a call if you need to figure out where the story went sideways.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BtnPrimary href={STRIPE_EDIT}>Buy The Edit</BtnPrimary>
