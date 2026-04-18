@@ -64,7 +64,7 @@ export default function CareerPage() {
             </H1>
           </div>
           <p className="mt-6 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-            Your resume and LinkedIn exist. But they are telling the old story. The one written by whoever you were trying to become, not whoever you have actually become. We fix that.
+            Your LinkedIn was probably written during a different job search for a different version of your career. The work has moved. The words have not. That gap is visible to everyone evaluating you.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href={STRIPE_REWRITE}>Start The Rewrite</BtnPrimary>
@@ -85,11 +85,11 @@ export default function CareerPage() {
             <H3Script>How people are reading it is.</H3Script>
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke">
-            <p>A sharp professional with a weak LinkedIn bio is a sharp professional being passed over. Not because the work is not there. Because the copy failed to show it.</p>
+            <p>A strong professional with a weak LinkedIn is still being passed over. The work is there. The copy is not showing it. Those are not the same problem, and only one of them can be fixed in a week.</p>
             <p>
-              The people hiring, promoting, and partnering with you are making judgments from fragments. A headline. A summary. The first three lines before "see more." Those fragments are doing the work of a full conversation, and most of them are not written well enough to win.
+              The people hiring, promoting, and deciding whether to introduce you are forming opinions from 220 characters and the first three lines before "see more." That content is doing the work of a full conversation. Most of the time it is not written well enough to win that conversation.
             </p>
-            <p>I rewrite career copy with the specificity and strategy of a campaign. Because that is what it is.</p>
+            <p>Career copy is not a summary. It is positioning. I write it the way I would write any high-stakes campaign, because that is exactly what it is.</p>
           </div>
         </div>
       </RevealSection>
