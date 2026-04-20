@@ -15,7 +15,7 @@ import { PATREON_URL } from "@/app/lib/config";
 export const metadata: Metadata = {
   title: "Writing — MK Parrish",
   description:
-    "Promise Me — original poetry by MK Parrish. Raw writing on love, hunger, performance, and the moment you stop asking other people to hand you a future they never had the character to build.",
+    "Original poetry by MK Parrish — Promise Me, Mirage, and more. Raw writing on love, identity, survival, and the moment you stop asking other people to hand you a future they never had the character to build.",
 };
 
 // Each inner array is one stanza.
@@ -100,30 +100,73 @@ const PROMISE_ME: string[][] = [
   ],
 ];
 
-const otherPoems = [
-  {
-    title: "What Stayed",
-    note: "On grief and the things that survive it.",
-    lines: [
-      "I stopped writing about what happened",
-      "and started writing about what stayed.",
-      "There is a difference —",
-      "one is a wound",
-      "and one is a scar that learned to speak.",
-    ],
-  },
-  {
-    title: "Arrival",
-    note: "On reinvention and the self that was always there.",
-    lines: [
-      "She is not who she used to be,",
-      "and that is not a loss.",
-      "It is the most precise kind of arrival —",
-      "the one where you finally recognize",
-      "the face in the mirror",
-      "and say: oh, there you are.",
-    ],
-  },
+// Each inner array is one stanza.
+const MIRAGE: string[][] = [
+  [
+    "\u2018Wake up,\u2019 the world said \u2014",
+    "and the curtain of bliss she had mistaken for a veil",
+    "fell clean from her face.",
+  ],
+  [
+    "Above her, a spider stood sentinel,",
+    "pinning its deadly web in place \u2014",
+    "and caught in the silk, a girl",
+    "who thought she knew.",
+    "She choked on the words she once carried",
+    "like gospel, like grace.",
+  ],
+  [
+    "The girl who had begun to dream",
+    "now stood still and watched each scene",
+    "unspool without her \u2014",
+    "a puppet waiting on the string,",
+    "lungs full and breathless all the same,",
+    "unable to move,",
+    "unable to claim",
+    "the control,",
+    "the power,",
+    "the feeling of freedom \u2014",
+    "that old country she remembered",
+    "like a half-heard name.",
+  ],
+  [
+    "Self-worth.",
+    "Accomplishment.",
+    "An identity that held.",
+  ],
+  [
+    "Instead: a hollow.",
+    "A gaping hole where the story fell.",
+    "A never-ending forest with no clearing,",
+    "a novel no one opened, no one telling.",
+  ],
+  [
+    "She stood there in the limbo of it,",
+    "still as driftwood, dense as stone \u2014",
+    "once a girl with fire in the margins,",
+    "now a life that felt like someone else\u2019s loan.",
+  ],
+  [
+    "How does a woman who wanted everything",
+    "end up owing herself nothing?",
+    "How does the one who dreamed the loudest",
+    "become the one afraid of her own voice?",
+  ],
+  [
+    "She wanted to rewrite the ending \u2014",
+    "to scratch out every line of silence,",
+    "laugh at the version of herself",
+    "who waited to be chosen,",
+    "and shout her own name",
+    "into the open air",
+    "with the kind of confidence",
+    "that needs no permission,",
+    "no applause,",
+    "no net below.",
+  ],
+  [
+    "She just wanted to begin.",
+  ],
 ];
 
 export default function WritingPage() {
@@ -222,41 +265,71 @@ export default function WritingPage() {
 
       <QuoteDivider index={2} />
 
-      {/* ── OTHER POEMS ──────────────────────────────────────────── */}
-      {otherPoems.map((poem, idx) => (
-        <RevealSection key={poem.title} bg={idx % 2 === 0 ? "void" : "obsidian"} num={`0${idx + 2}`}>
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-            <div>
-              <Eyebrow>Poem</Eyebrow>
-              <H2>{poem.title}</H2>
-              <p className="mt-5 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "34ch" }}>
-                {poem.note}
-              </p>
-            </div>
-            <div className="relative border-l-2 border-petal/40 pl-8 md:pl-12">
-              <span className="absolute -left-4 -top-8 select-none font-serif text-[7rem] leading-none text-petal/[0.09]">&ldquo;</span>
-              {poem.lines.map((line, i) => (
-                <p
-                  key={i}
-                  className="font-serif italic text-pearl"
-                  style={{
-                    fontSize: "clamp(1.05rem, 2.2vw, 1.3rem)",
-                    lineHeight: 1.95,
-                    fontWeight: 500,
-                    maxWidth: "none",
-                    color: "var(--color-pearl)",
-                  }}
-                >
-                  {line}
-                </p>
-              ))}
-              <p className="mt-8 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">
-                — {poem.title}
-              </p>
+      {/* ── MIRAGE — SECOND FEATURED POEM ───────────────────────── */}
+      <RevealSection bg="void" num="02">
+        <div className="grid gap-16 lg:grid-cols-[280px_1fr]">
+
+          {/* Sticky title col */}
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <Eyebrow>Poem</Eyebrow>
+            <H2>Mirage</H2>
+            <p className="mt-5 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "28ch" }}>
+              On waking up, losing yourself, and the long road back to wanting to begin.
+            </p>
+            <div className="mt-8">
+              <ArrowLink href={PATREON_URL}>More in The Margins</ArrowLink>
             </div>
           </div>
-        </RevealSection>
-      ))}
+
+          {/* Poem body */}
+          <div className="relative border-l-2 border-petal/30 pl-8 md:pl-14">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -left-5 -top-10 select-none font-serif leading-none text-petal/[0.08]"
+              style={{ fontSize: "clamp(6rem,14vw,11rem)" }}
+            >
+              &ldquo;
+            </span>
+
+            <div className="space-y-8">
+              {MIRAGE.map((stanza, si) => (
+                <div key={si} className="space-y-1">
+                  {stanza.map((line, li) => (
+                    <p
+                      key={li}
+                      className="font-serif italic text-pearl"
+                      style={{
+                        fontSize: "clamp(1rem, 2vw, 1.2rem)",
+                        lineHeight: 1.9,
+                        fontWeight: 500,
+                        maxWidth: "none",
+                        color: "var(--color-pearl)",
+                      }}
+                    >
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-12 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">
+              — Mirage, MK Parrish
+            </p>
+
+            <div className="mt-10 border-t border-graphite pt-8">
+              <p className="mb-6 font-body text-sm font-light leading-7 text-smoke" style={{ maxWidth: "52ch" }}>
+                More work like this lives inside The Margins — writing that goes deeper than
+                a public feed allows.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
+                <ArrowLink href="/margins">See membership tiers</ArrowLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </RevealSection>
 
       <QuoteDivider index={8} />
 
