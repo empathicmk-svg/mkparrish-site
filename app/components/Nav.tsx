@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { PATREON_URL } from "@/app/lib/config";
 
 const navLinks = [
   { label: "Career",       href: "/career" },
   { label: "Brand",        href: "/brand" },
   { label: "Presence",     href: "/presence" },
   { label: "Next Chapter", href: "/next-chapter" },
+  { label: "Writing",      href: "/writing" },
   { label: "The Margins",  href: "/margins" },
   { label: "About",        href: "/about" },
   { label: "Contact",      href: "/contact" },
@@ -16,16 +18,18 @@ const navLinks = [
 
 export default function Nav() {
   const pathname = usePathname();
-  const [scrolled,   setScrolled]   = useState(false);
-  const [mobileNav,  setMobileNav]  = useState(false);
+  const [scrolled,    setScrolled]    = useState(false);
+  const [mobileNav,   setMobileNav]   = useState(false);
   const [showBackTop, setShowBackTop] = useState(false);
-  const [progress,   setProgress]   = useState(0);
+  const [showMargins, setShowMargins] = useState(false);
+  const [progress,    setProgress]    = useState(0);
 
   useEffect(() => {
     const handler = () => {
       const y = window.scrollY;
       setScrolled(y > 40);
       setShowBackTop(y > 500);
+      setShowMargins(y > 300);
       const total = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(total > 0 ? (y / total) * 100 : 0);
     };
@@ -118,6 +122,25 @@ export default function Nav() {
           </nav>
         )}
       </header>
+
+      {/* Floating Margins pill */}
+      <a
+        href={PATREON_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 btn-primary whitespace-nowrap px-6 py-3 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void shadow-[0_0_40px_rgba(242,175,198,0.25)]"
+        style={{
+          opacity: showMargins ? 1 : 0,
+          transform: showMargins
+            ? "translateX(-50%) translateY(0)"
+            : "translateX(-50%) translateY(16px)",
+          pointerEvents: showMargins ? "auto" : "none",
+          transition: "opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)",
+        }}
+        aria-label="Join The Margins on Patreon"
+      >
+        Enter The Margins →
+      </a>
 
       {/* Back to top */}
       <button

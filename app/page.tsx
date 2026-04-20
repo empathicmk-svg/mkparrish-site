@@ -249,7 +249,7 @@ export default function Home() {
       <QuoteDivider index={3} />
 
       {/* ── CORRECTION ───────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="04">
+      <RevealSection bg="obsidian" num="05">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <Eyebrow>The work</Eyebrow>
@@ -279,8 +279,44 @@ export default function Home() {
 
       <QuoteDivider index={4} />
 
+      {/* ── THE WRITING ──────────────────────────────────────────── */}
+      <RevealSection bg="void" num="04">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <Eyebrow>The personal work</Eyebrow>
+            <H2>
+              Writing that{" "}
+              <span className="text-petal">started it all.</span>
+            </H2>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <BtnPrimary href="/writing">Read the Work</BtnPrimary>
+              <ArrowLink href={PATREON_URL}>More in The Margins</ArrowLink>
+            </div>
+          </div>
+          <div className="relative border-l-2 border-petal/40 pl-8">
+            <span className="absolute -left-4 -top-6 select-none font-serif text-[6rem] leading-none text-petal/[0.09]">&ldquo;</span>
+            <p
+              className="font-serif italic text-pearl"
+              style={{ fontSize: "clamp(1.05rem,2.2vw,1.3rem)", lineHeight: 1.95, fontWeight: 500, maxWidth: "none", color: "var(--color-pearl)" }}
+            >
+              She is not who she used to be,<br />
+              and that is not a loss.<br />
+              It is the most precise kind of arrival —<br />
+              the one where you finally recognize<br />
+              the face in the mirror<br />
+              and say: oh, there you are.
+            </p>
+            <p className="mt-6 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">
+              — Arrival
+            </p>
+          </div>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={7} />
+
       {/* ── THE MARGINS ──────────────────────────────────────────── */}
-      <RevealSection bg="void" num="05">
+      <RevealSection bg="void" num="06">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <Eyebrow>The private side</Eyebrow>
