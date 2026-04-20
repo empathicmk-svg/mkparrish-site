@@ -299,15 +299,14 @@ export default function Home() {
               className="font-serif italic text-pearl"
               style={{ fontSize: "clamp(1.05rem,2.2vw,1.3rem)", lineHeight: 1.95, fontWeight: 500, maxWidth: "none", color: "var(--color-pearl)" }}
             >
-              She is not who she used to be,<br />
-              and that is not a loss.<br />
-              It is the most precise kind of arrival —<br />
-              the one where you finally recognize<br />
-              the face in the mirror<br />
-              and say: oh, there you are.
+              Promise me I do not have to keep earning basic love.<br />
+              Promise me I do not have to perform my way into being chosen.<br />
+              <br />
+              Promise me I can finally give myself<br />
+              what I kept begging other people to give me.
             </p>
             <p className="mt-6 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">
-              — Arrival
+              — Promise Me
             </p>
           </div>
         </div>
