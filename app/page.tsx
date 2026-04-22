@@ -22,9 +22,9 @@ import {
 } from "@/app/lib/config";
 
 export const metadata: Metadata = {
-  title: "MK Parrish — Rewrite Your Story",
+  title: "MK Parrish - Rewrite Your Story",
   description:
-    "Words, strategy, and reinvention for people ready to stop being misread. Work with MK Parrish on copywriting, positioning, and personal brand strategy.",
+    "MK Parrish is a writer and digital strategist. MKParrish.com is the writing world, shop, and services. rewrite your story. get read correctly.",
 };
 
 const rewrites = [
@@ -147,18 +147,18 @@ export default function Home() {
           </div>
 
           <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-            Words, strategy, and reinvention for people ready to stop being misread.
+            writer. digital strategist. professional translator of your value.
           </p>
 
           <div className="mt-6 max-w-2xl">
             <p className="font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "64ch" }}>
-              You have outgrown the version of you the world is still reading. I work with founders, executives, and people mid-transition to build language that finally catches up.
+              I write like an editor and think like a growth lead. I build language that makes people stop scrolling and start respecting.
             </p>
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <BtnPrimary href="#rewrites">Choose Your Rewrite</BtnPrimary>
-            <BtnGhost href="/margins">Enter The Margins</BtnGhost>
+            <BtnPrimary href="/margins">read the margins</BtnPrimary>
+            <BtnGhost href="/shop">shop the drops</BtnGhost>
           </div>
         </div>
       </section>
@@ -195,7 +195,7 @@ export default function Home() {
 
       <QuoteDivider index={1} />
 
-      {/* ── CHOOSE YOUR REWRITE ──────────────────────────────────── */}
+      {/* ── read the margins ──────────────────────────────────── */}
       <RevealSection id="rewrites" bg="obsidian" num="02">
         <Eyebrow>Where to begin</Eyebrow>
         <H2>
@@ -306,7 +306,7 @@ export default function Home() {
               what I kept begging other people to give me.
             </p>
             <p className="mt-6 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">
-              — Promise Me
+              - Promise Me
             </p>
           </div>
         </div>
@@ -331,8 +331,8 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={PATREON_URL}>Enter The Margins</BtnPrimary>
-              <ArrowLink href="/margins">Learn more</ArrowLink>
+              <BtnPrimary href={PATREON_URL}>read the margins</BtnPrimary>
+              <ArrowLink href="/margins">join the margins</ArrowLink>
             </div>
           </div>
 
