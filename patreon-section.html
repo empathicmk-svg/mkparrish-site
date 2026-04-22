@@ -1,87 +1,555 @@
-<section id="patreon" style="position: relative; overflow: hidden; padding: 96px 24px; background: radial-gradient(circle at top right, rgba(236, 72, 153, 0.18), transparent 28%), radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.14), transparent 32%), #050505; color: #f5f5f5;">
-  <div style="max-width: 1180px; margin: 0 auto; position: relative; z-index: 2;">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; align-items: start;">
-      <div>
-        <p style="margin: 0 0 14px; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.62);">Private Writing Room</p>
-        <h2 style="margin: 0 0 18px; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 0.96; font-weight: 700; letter-spacing: -0.04em; max-width: 9ch;">
-          Rewrite Your Story
-        </h2>
-        <p style="margin: 0 0 16px; font-size: 1.1rem; line-height: 1.8; color: rgba(255,255,255,0.85); max-width: 62ch;">
-          Raw writing, reinvention, beauty, heartbreak, healing, and the real story behind becoming her.
-        </p>
-        <p style="margin: 0 0 28px; font-size: 1rem; line-height: 1.9; color: rgba(255,255,255,0.74); max-width: 64ch;">
-          This is where I share the deeper work. Exclusive poetry, memoir, voice notes, behind-the-scenes book excerpts, and the truth of rebuilding a life from the inside out. Not polished perfection. The real rewrite.
-        </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Margins — MK Parrish on Patreon</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 24px;">
-          <a href="YOUR_PATREON_LINK" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; padding: 14px 22px; border-radius: 999px; text-decoration: none; font-weight: 700; background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(255,240,248,0.9)); color: #111; box-shadow: 0 10px 30px rgba(236, 72, 153, 0.18);">
-            Join the Patreon
-          </a>
-          <a href="#contact" style="display: inline-flex; align-items: center; justify-content: center; padding: 14px 22px; border-radius: 999px; text-decoration: none; font-weight: 700; border: 1px solid rgba(255,255,255,0.16); color: #fff; backdrop-filter: blur(6px);">
-            Work With Me
-          </a>
-        </div>
+  :root {
+    --void:     #080808;
+    --obsidian: #111111;
+    --carbon:   #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron:     #4A4A4A;
+    --ash:      #7A7A7A;
+    --smoke:    #B0B0B0;
+    --pearl:    #F0F0EE;
+    --white:    #FAFAF8;
+    --petal:    #F2AFC6;
+    --rose:     #E0869F;
+    --carmine:  #C75B78;
+  }
 
-        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;">
-          <span style="padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); font-size: 0.92rem; color: rgba(255,255,255,0.78);">poetry</span>
-          <span style="padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); font-size: 0.92rem; color: rgba(255,255,255,0.78);">memoir</span>
-          <span style="padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); font-size: 0.92rem; color: rgba(255,255,255,0.78);">voice notes</span>
-          <span style="padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); font-size: 0.92rem; color: rgba(255,255,255,0.78);">reinvention</span>
+  html {
+    background: var(--void);
+    color: var(--smoke);
+    font-family: system-ui, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  /* ── Grain overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    opacity: 0.028;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── Typography ── */
+  .eyebrow {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: Impact, 'Arial Black', Arial, sans-serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 0.88;
+    color: var(--white);
+  }
+
+  h1 .accent {
+    color: var(--petal);
+    text-shadow: 0 0 40px rgba(242,175,198,0.35);
+  }
+
+  h2 {
+    font-family: Impact, 'Arial Black', Arial, sans-serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 0.92;
+    color: var(--pearl);
+  }
+
+  h2 .accent {
+    color: var(--petal);
+  }
+
+  h3 {
+    font-family: Impact, 'Arial Black', Arial, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--pearl);
+  }
+
+  .serif-sub {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: rgba(242,175,198,0.8);
+    line-height: 1.55;
+    font-weight: 500;
+    margin-top: 16px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--smoke);
+    font-weight: 300;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(242,175,198,0.25) 40%, rgba(242,175,198,0.25) 60%, transparent);
+    margin: 56px 0;
+  }
+
+  .pink-rule {
+    width: 56px;
+    height: 2px;
+    background: var(--petal);
+    margin-bottom: 24px;
+  }
+
+  /* ── Hero block ── */
+  .hero {
+    position: relative;
+    padding: 0 0 56px;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -32px;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(242,175,198,0.1) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* ── Tiers grid ── */
+  .tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--graphite);
+    margin-top: 40px;
+  }
+
+  .tier-card {
+    position: relative;
+    background: var(--void);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tier-card.featured {
+    background: var(--carbon);
+    box-shadow: 0 0 60px rgba(242,175,198,0.06);
+  }
+
+  .tier-card.featured::before {
+    content: '';
+    position: absolute;
+    inset-x: 0;
+    top: 0;
+    height: 1px;
+    background: var(--petal);
+  }
+
+  .tier-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--iron);
+    margin-bottom: 10px;
+  }
+
+  .tier-name {
+    font-family: Impact, 'Arial Black', Arial, sans-serif;
+    font-size: 1.75rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--pearl);
+    line-height: 1;
+  }
+
+  .tier-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    margin-top: 12px;
+  }
+
+  .tier-price {
+    font-family: Impact, 'Arial Black', Arial, sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .tier-card.featured .tier-price {
+    color: var(--petal);
+    text-shadow: 0 0 20px rgba(242,175,198,0.3);
+  }
+
+  .tier-cadence {
+    font-size: 0.85rem;
+    color: var(--ash);
+  }
+
+  .tier-desc {
+    margin-top: 16px;
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--smoke);
+    flex: 1;
+  }
+
+  .tier-perks {
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tier-perks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: var(--smoke);
+    font-weight: 300;
+  }
+
+  .tier-perks li::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 4px;
+    flex-shrink: 0;
+    background: var(--petal);
+    margin-top: 7px;
+  }
+
+  .tier-cta {
+    display: block;
+    margin-top: 28px;
+    padding: 14px 24px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid var(--graphite);
+    color: var(--pearl);
+  }
+
+  .tier-card.featured .tier-cta {
+    background: var(--petal);
+    border-color: var(--petal);
+    color: var(--void);
+  }
+
+  .tier-cta:hover {
+    border-color: var(--petal);
+    color: var(--petal);
+  }
+
+  .tier-card.featured .tier-cta:hover {
+    background: var(--rose);
+    border-color: var(--rose);
+    color: var(--void);
+  }
+
+  /* ── What's inside grid ── */
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--graphite);
+    margin-top: 40px;
+  }
+
+  .content-card {
+    background: var(--obsidian);
+    padding: 28px;
+  }
+
+  .content-card-title {
+    font-family: Impact, 'Arial Black', Arial, sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin-bottom: 12px;
+  }
+
+  .content-card p {
+    font-size: 0.85rem;
+    line-height: 1.75;
+  }
+
+  /* ── About block ── */
+  .about-block {
+    border-left: 2px solid rgba(242,175,198,0.4);
+    padding-left: 28px;
+    position: relative;
+  }
+
+  .about-block::before {
+    content: '\201C';
+    position: absolute;
+    left: -12px;
+    top: -20px;
+    font-family: Georgia, serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: rgba(242,175,198,0.08);
+    pointer-events: none;
+  }
+
+  .about-block p {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--pearl);
+    font-weight: 400;
+  }
+
+  /* ── CTA footer ── */
+  .cta-footer {
+    margin-top: 64px;
+    padding: 48px 40px;
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    text-align: center;
+    position: relative;
+  }
+
+  .cta-footer::before {
+    content: '';
+    position: absolute;
+    inset-x: 0;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(242,175,198,0.5) 40%, rgba(242,175,198,0.5) 60%, transparent);
+  }
+
+  .cta-footer p {
+    max-width: 52ch;
+    margin: 16px auto 0;
+    font-size: 0.95rem;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 14px 36px;
+    background: var(--petal);
+    color: var(--void);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 2px solid var(--petal);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--petal);
+    box-shadow: 0 0 40px rgba(242,175,198,0.25);
+  }
+
+  .fine-print {
+    margin-top: 16px;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+</style>
+</head>
+<body>
+
+  <!-- ── HERO ────────────────────────────────────────────────── -->
+  <section class="hero">
+    <p class="eyebrow">Editorial &middot; Private &middot; Membership</p>
+    <h1>The <span class="accent">Margins</span></h1>
+    <p class="serif-sub">The private side of the brand.</p>
+    <p style="max-width: 62ch; margin-top: 20px; font-size: 1rem; line-height: 1.85;">
+      The essays. The unfinished frameworks. The strategy notes that come out of real client work before they get cleaned up for public consumption. The Margins is not content. It is the thinking before the thinking gets positioned.
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── WHAT IT IS ──────────────────────────────────────────── -->
+  <section>
+    <p class="eyebrow">What lives here</p>
+    <h2>The thinking <span class="accent">before the edit.</span></h2>
+
+    <div style="display: grid; gap: 20px; margin-top: 28px; max-width: 72ch;">
+      <p>The public work is already edited. Positioned. Chosen carefully for what it includes and what it leaves out. The Margins is what happens before any of that.</p>
+      <p>Raw strategy notes from real engagements. Half-built frameworks that ended up running full client projects. The personal context behind why I write what I write. The things I notice about positioning, reinvention, and the business of being misread that do not fit neatly into a LinkedIn post.</p>
+      <p>Specific. Honest. Not performing expertise for an audience. Actually sharing the work with people who want to see inside it.</p>
+      <p>No algorithm decides what gets published here. No engagement rate tells me what to write. I write what I think is worth writing, and the people who want that kind of access know where to find it.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── TIERS ───────────────────────────────────────────────── -->
+  <section>
+    <p class="eyebrow">Membership tiers</p>
+    <h2>Choose your <span class="accent">level of access.</span></h2>
+    <p style="margin-top: 12px; max-width: 56ch;">No contracts. Cancel any time. The work speaks for itself.</p>
+
+    <div class="tiers-grid">
+
+      <div class="tier-card">
+        <p class="tier-tag">Entry</p>
+        <h3 class="tier-name">The Brief</h3>
+        <div class="tier-price-row">
+          <span class="tier-price">$5</span>
+          <span class="tier-cadence">/mo</span>
         </div>
+        <p class="tier-desc">Weekly essays and strategic notes that never reach the public feed. Real thinking, before it gets positioned for an audience.</p>
+        <ul class="tier-perks">
+          <li>Weekly long-form essays</li>
+          <li>Strategic frameworks and tools</li>
+          <li>Early access to published work</li>
+          <li>Monthly Q&amp;A roundup</li>
+        </ul>
+        <a href="https://www.patreon.com/MKParrish" target="_blank" rel="noopener noreferrer" class="tier-cta">Join as The Brief</a>
       </div>
 
-      <div style="display: grid; gap: 16px;">
-        <div style="padding: 26px; border-radius: 28px; background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 80px rgba(0,0,0,0.32);">
-          <p style="margin: 0 0 8px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.58);">Tier One</p>
-          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 12px;">
-            <h3 style="margin: 0; font-size: 1.6rem;">The Diary</h3>
-            <p style="margin: 0; font-size: 1.1rem; color: #ffd9ec; font-weight: 700;">$3/mo</p>
-          </div>
-          <p style="margin: 0 0 14px; color: rgba(255,255,255,0.74); line-height: 1.75;">For the ones who want the words first.</p>
-          <ul style="margin: 0; padding-left: 18px; color: rgba(255,255,255,0.84); line-height: 1.9;">
-            <li>exclusive poems and short writing drops</li>
-            <li>patron-only updates</li>
-            <li>behind-the-scenes notes from my book and creative process</li>
-          </ul>
+      <div class="tier-card featured">
+        <p class="tier-tag">Most Popular</p>
+        <h3 class="tier-name">The Retainer</h3>
+        <div class="tier-price-row">
+          <span class="tier-price">$15</span>
+          <span class="tier-cadence">/mo</span>
         </div>
+        <p class="tier-desc">Everything in The Brief, plus the raw client frameworks documented with enough context to actually use them. The behind-the-scenes work that does not make the case study.</p>
+        <ul class="tier-perks">
+          <li>All Brief content</li>
+          <li>Monthly strategy notes</li>
+          <li>Behind-the-scenes on client frameworks</li>
+          <li>Messaging and voice templates</li>
+        </ul>
+        <a href="https://www.patreon.com/MKParrish" target="_blank" rel="noopener noreferrer" class="tier-cta">Join as The Retainer</a>
+      </div>
 
-        <div style="padding: 26px; border-radius: 28px; background: linear-gradient(180deg, rgba(236,72,153,0.13), rgba(255,255,255,0.04)); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 80px rgba(0,0,0,0.32);">
-          <p style="margin: 0 0 8px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.58);">Tier Two</p>
-          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 12px;">
-            <h3 style="margin: 0; font-size: 1.6rem;">The Rewrite</h3>
-            <p style="margin: 0; font-size: 1.1rem; color: #ffd9ec; font-weight: 700;">$7/mo</p>
-          </div>
-          <p style="margin: 0 0 14px; color: rgba(255,255,255,0.74); line-height: 1.75;">For the ones who want the deeper story.</p>
-          <ul style="margin: 0; padding-left: 18px; color: rgba(255,255,255,0.84); line-height: 1.9;">
-            <li>everything in The Diary</li>
-            <li>exclusive personal essays and memoir pieces</li>
-            <li>monthly audio note or personal update</li>
-            <li>voting on future content</li>
-          </ul>
+      <div class="tier-card">
+        <p class="tier-tag">Inner Circle</p>
+        <h3 class="tier-name">The Partner</h3>
+        <div class="tier-price-row">
+          <span class="tier-price">$50</span>
+          <span class="tier-cadence">/mo</span>
         </div>
+        <p class="tier-desc">Full access plus a direct line. Monthly live Q&amp;A, direct message access, and priority feedback on your own copy. The closest thing to working with me directly.</p>
+        <ul class="tier-perks">
+          <li>All Retainer content</li>
+          <li>Monthly live Q&amp;A</li>
+          <li>Direct message access</li>
+          <li>Priority feedback on your copy</li>
+        </ul>
+        <a href="https://www.patreon.com/MKParrish" target="_blank" rel="noopener noreferrer" class="tier-cta">Join as The Partner</a>
+      </div>
 
-        <div style="padding: 26px; border-radius: 28px; background: linear-gradient(180deg, rgba(168,85,247,0.12), rgba(255,255,255,0.04)); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 80px rgba(0,0,0,0.32);">
-          <p style="margin: 0 0 8px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.58);">Tier Three</p>
-          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 12px;">
-            <h3 style="margin: 0; font-size: 1.6rem;">The Muse</h3>
-            <p style="margin: 0; font-size: 1.1rem; color: #ffd9ec; font-weight: 700;">$12/mo</p>
-          </div>
-          <p style="margin: 0 0 14px; color: rgba(255,255,255,0.74); line-height: 1.75;">For the ones who want the full inner room.</p>
-          <ul style="margin: 0; padding-left: 18px; color: rgba(255,255,255,0.84); line-height: 1.9;">
-            <li>everything in The Rewrite</li>
-            <li>early access to book excerpts</li>
-            <li>deeper posts on healing, beauty, career, self-worth, and reinvention</li>
-            <li>occasional live or recorded Q and A</li>
-          </ul>
-        </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── WHAT TO EXPECT ─────────────────────────────────────── -->
+  <section>
+    <p class="eyebrow">What you get</p>
+    <h2>Inside <span class="accent">The Margins.</span></h2>
+
+    <div class="content-grid">
+      <div class="content-card">
+        <p class="content-card-title">Essays</p>
+        <p>Long-form thinking on writing, strategy, reinvention, and the specific friction between who people actually are and how the world is currently reading them.</p>
+      </div>
+      <div class="content-card">
+        <p class="content-card-title">Strategy Notes</p>
+        <p>Raw frameworks and tools pulled from real client work, documented with enough context that they are actually transferable. Not theory. Applied thinking.</p>
+      </div>
+      <div class="content-card">
+        <p class="content-card-title">Behind-the-Scenes</p>
+        <p>How projects actually unfold from the inside. The decisions made before the first draft. The things that get cut. The reasoning that does not appear in the deliverable.</p>
+      </div>
+      <div class="content-card">
+        <p class="content-card-title">Voice &amp; Copy Templates</p>
+        <p>Prompts, frameworks, and copy examples for building your own presence. Built from what works in real engagements, not from best practices lists.</p>
+      </div>
+      <div class="content-card">
+        <p class="content-card-title">Q&amp;A Roundups</p>
+        <p>Monthly answers to questions from members. The questions I get asked most, answered with the same specificity I would give a client.</p>
+      </div>
+      <div class="content-card">
+        <p class="content-card-title">Early Access</p>
+        <p>Public essays and published work sent here first, before they go anywhere else. Members read the final draft before it becomes public.</p>
       </div>
     </div>
+  </section>
 
-    <div style="margin-top: 28px; padding: 24px 26px; border-radius: 24px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
-      <p style="margin: 0 0 10px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.58);">Welcome Note</p>
-      <p style="margin: 0; max-width: 90ch; color: rgba(255,255,255,0.82); line-height: 1.95;">
-        Welcome to the place where I stop pretending I’m fine and start making something beautiful out of the truth. This space is for the women, romantics, survivors, and overthinkers who know what it feels like to lose the version of life they thought they were getting and choose to rebuild anyway.
+  <div class="divider"></div>
+
+  <!-- ── ABOUT ──────────────────────────────────────────────── -->
+  <section>
+    <p class="eyebrow">Welcome note</p>
+    <div class="about-block" style="margin-top: 20px;">
+      <p>
+        You have outgrown the version of you the world is still reading. This is where I stop performing the clean version and start sharing the actual process.
+        <br /><br />
+        The Margins is for the people who want to see inside the work — not just the polished output, but the thinking that produces it. The messy middle. The half-finished frameworks. The observations that do not have a clean ending yet.
+        <br /><br />
+        If you have found your way here, you already know what you are looking for. Welcome in.
       </p>
     </div>
+    <p style="margin-top: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ash);">— MK Parrish</p>
+  </section>
+
+  <!-- ── CTA FOOTER ─────────────────────────────────────────── -->
+  <div class="cta-footer">
+    <p class="eyebrow" style="color: var(--ash);">Start here</p>
+    <h2 style="font-size: clamp(1.75rem, 4vw, 2.75rem);">The real thinking <span class="accent" style="color: var(--petal);">is in here.</span></h2>
+    <p>For five dollars a month, you get the frameworks, thinking, and strategy that come out of real client work. No pitch. No performance. Just the actual work.</p>
+    <a href="https://www.patreon.com/MKParrish" target="_blank" rel="noopener noreferrer" class="btn-primary">Join The Margins</a>
+    <p class="fine-print">Cancel any time &nbsp;·&nbsp; No contracts</p>
   </div>
-</section>
+
+</body>
+</html>
