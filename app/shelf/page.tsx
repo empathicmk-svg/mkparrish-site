@@ -48,6 +48,65 @@ const browseItems = [
   },
 ];
 
+const monetizationPrompts = [
+  {
+    label: "Option 1",
+    title: "Comprehensive Strategy",
+    badge: "Recommended",
+    intro: "This prompt provides context and asks for a detailed plan.",
+    prompt:
+      "I am Mary Kate Parrish, a professional in Journalism and Marketing based in Smithtown, NY, with a personal website (www.mkparrish.com) hosted on GitHub Pages. Since GitHub Pages only supports static sites, what are the best strategies to monetize my site? Please include:",
+    asks: [
+      "Affiliate marketing, including relevant programs.",
+      "Digital products, such as eBooks and templates.",
+      "Freelance and consulting leads, including calls-to-action and landing pages.",
+      "Newsletter or community building, such as Substack integration.",
+      "A 6-month phased plan with specific milestones.",
+    ],
+  },
+  {
+    label: "Option 2",
+    title: "Technical Focus",
+    badge: "Implementation",
+    intro: "Use this when you want lightweight static-site solutions.",
+    prompt:
+      "My portfolio site (www.mkparrish.com) is on GitHub Pages. I need simple, static-site compatible monetization methods. Suggest:",
+    asks: [
+      "3 to 5 actionable strategies, such as affiliate links or Buy Me a Coffee.",
+      "Basic HTML and JavaScript examples for implementation.",
+      "Tools and services that integrate with static sites.",
+    ],
+  },
+  {
+    label: "Option 3",
+    title: "Growth-Oriented",
+    badge: "Long-Term",
+    intro: "Use this for scalable recurring revenue ideas.",
+    prompt:
+      "I am building my personal brand through my site (www.mkparrish.com). How can I turn my writing and expertise into a recurring revenue stream? Focus on:",
+    asks: [
+      "Audience building, including newsletter and Substack strategy.",
+      "Digital products, such as courses and guides.",
+      "Partnerships, sponsored content, and collaborations.",
+    ],
+  },
+];
+
+const proTips = [
+  {
+    title: "Leverage Your Expertise",
+    desc: "As a journalism and marketing pro, consulting and copywriting services are likely the highest-ticket opportunities.",
+  },
+  {
+    title: "Use Static-Site Tools",
+    desc: "Static sites work best with third-party platforms for products, tips, subscriptions, and checkout.",
+  },
+  {
+    title: "Focus the SEO",
+    desc: "Optimize around local search, niche topics, and the writing problems your best clients are already trying to solve.",
+  },
+];
+
 export default function ShelfPage() {
   return (
     <>
@@ -136,7 +195,60 @@ export default function ShelfPage() {
 
       <QuoteDivider index={7} />
 
-      <RevealSection bg="obsidian" num="03">
+      <RevealSection bg="carbon" num="03">
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+          <div>
+            <Eyebrow>Prompt pack</Eyebrow>
+            <H2>
+              Monetizing your{" "}
+              <span className="text-petal">site.</span>
+            </H2>
+            <H3Script>Three prompts for turning the site into revenue.</H3Script>
+            <p className="mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "54ch" }}>
+              Built for static-site constraints, third-party tools, digital products, consulting leads, and recurring audience work.
+            </p>
+          </div>
+
+          <div className="space-y-px bg-graphite">
+            {monetizationPrompts.map((item) => (
+              <article key={item.title} className="bg-carbon p-7">
+                <div className="flex flex-wrap items-center gap-3">
+                  <p className="font-mono text-xs tracking-[0.2em] text-iron">{item.label}</p>
+                  <span className="border border-petal/30 bg-petal/[0.06] px-3 py-1 font-body text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-petal">
+                    {item.badge}
+                  </span>
+                </div>
+                <h3 className="mt-4 font-display text-2xl uppercase tracking-[0.02em] text-pearl">{item.title}</h3>
+                <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">{item.intro}</p>
+                <div className="mt-5 border-l border-petal/40 pl-5">
+                  <p className="font-body text-sm font-light leading-7 text-pearl">{item.prompt}</p>
+                  <ol className="mt-4 space-y-2">
+                    {item.asks.map((ask, index) => (
+                      <li key={ask} className="flex gap-3 font-body text-sm font-light leading-6 text-smoke">
+                        <span className="font-mono text-xs tracking-[0.15em] text-petal">{index + 1}</span>
+                        <span>{ask}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
+          {proTips.map((tip) => (
+            <div key={tip.title} className="bg-carbon p-7">
+              <h3 className="font-display text-xl uppercase tracking-[0.02em] text-petal">{tip.title}</h3>
+              <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{tip.desc}</p>
+            </div>
+          ))}
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={8} />
+
+      <RevealSection bg="obsidian" num="04">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <Eyebrow>How it works</Eyebrow>
