@@ -9,23 +9,26 @@ const CALENDLY_URL      = "https://www.calendly.com/mkp414";
 const STRIPE_AUDIT      = "https://buy.stripe.com/3cI8wHgJcd29b6h36Q0oM00";
 const STRIPE_RETAINER   = "https://buy.stripe.com/fZu00b9gKbY5eitfTC0oM03";
 const STRIPE_FRACTIONAL = "https://buy.stripe.com/00w28j2Smfahfmx36Q0oM02";
-// TODO: Replace with actual Stripe writing product link
 const STRIPE_WRITING    = "https://buy.stripe.com/14AcMX2Smd29gqB8ra0oM08";
+// TODO: Replace with your actual Beehiiv subscribe URL
+const BEEHIIV_URL       = "https://mkparrish.beehiiv.com/subscribe";
+// TODO: Replace with your actual Patreon URL
+const PATREON_URL       = "https://www.patreon.com/mkparrish";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Data
 // ─────────────────────────────────────────────────────────────────────────────
 
 const quotes = [
-  { text: "You have power over your mind, not outside events. Realize this, and you will find strength.", author: "Marcus Aurelius" },
+  { text: "You own everything that happened to you. Tell your stories.", author: "Anne Lamott" },
   { text: "One is not born, but rather becomes, a woman.", author: "Simone de Beauvoir" },
-  { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
-  { text: "The secret of change is to focus all of your energy not on fighting the old, but on building the new.", author: "Socrates" },
+  { text: "We write to taste life twice, in the moment and in retrospect.", author: "Anaïs Nin" },
   { text: "The only way to deal with an unfree world is to become so absolutely free that your very existence is an act of rebellion.", author: "Albert Camus" },
-  { text: "He who has a why to live can bear almost any how.", author: "Friedrich Nietzsche" },
-  { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
-  { text: "The soul becomes dyed with the colour of its thoughts.", author: "Marcus Aurelius" },
   { text: "To live is the rarest thing in the world. Most people exist, that is all.", author: "Oscar Wilde" },
+  { text: "You have power over your mind, not outside events. Realize this, and you will find strength.", author: "Marcus Aurelius" },
+  { text: "The soul becomes dyed with the colour of its thoughts.", author: "Marcus Aurelius" },
+  { text: "Begin anywhere.", author: "John Cage" },
+  { text: "I am not afraid of storms, for I am learning how to sail my ship.", author: "Louisa May Alcott" },
   { text: "Know thyself.", author: "Socrates" },
 ];
 
@@ -110,15 +113,15 @@ const pricingTiers = [
 
 const writingTiers = [
   { tier: "One-time", title: "Single Piece", price: "From $100", desc: "One article, essay, LinkedIn post, or executive bio. Sharp, on-brand, and ready to publish." },
-  { tier: "Monthly", title: "Content Retainer", price: "From $1,500/mo", desc: "4–8 pieces per month. LinkedIn ghostwriting, thought leadership, newsletters, or blog content." },
+  { tier: "Monthly", title: "Content Retainer", price: "From $1,500/mo", desc: "4\u20138 pieces per month. LinkedIn ghostwriting, thought leadership, newsletters, or blog content." },
   { tier: "Project", title: "Executive Ghostwriting", price: "Custom", desc: "Speeches, books, white papers, keynote scripts, or board-level communications." },
   { tier: "Deep work", title: "Brand Voice & Messaging", price: "From $2,000", desc: "Full brand voice guide, messaging framework, and on-brand copy your team can use forever." },
 ];
 
 const principles = [
-  { title: "Pipeline is the product", text: "Marketing should not just look active. It should create momentum, reduce friction, and move revenue forward. Everything else is noise." },
-  { title: "Brand creates perceived value", text: "The strongest companies do not simply sell better. They communicate authority so clearly that the market treats them as more valuable before the first call." },
-  { title: "Clarity converts", text: "Most funnels don\u2019t fail because of traffic. They fail because the message is weak, the offer is muddy, or the next step is unclear. Fix the story. Fix the funnel." },
+  { title: "Language is infrastructure", text: "Your words are the first thing people judge you by. Before the product. Before the demo. Before the price. Most companies underfund language and wonder why the pipeline is weak. It's a writing problem. I learned this by being the writer inside the revenue team, watching good strategies die because nobody could explain them." },
+  { title: "Pipeline is a story problem", text: "Most funnels don't fail because of bad strategy. They fail because the message is muddy, the offer is unclear, and the next step costs too much friction. Fix the story. The pipeline follows. I've watched this happen enough times that it stopped surprising me." },
+  { title: "Reinvention is a skill", text: "I've rebuilt my career, my voice, and my life more than once. Not as a pivot. As a sharpening. The best brands do the same thing — they keep getting more precise about who they are and who they're for. That clarity converts. It also, for what it's worth, makes the work worth doing." },
 ];
 
 const featuredWriting = [
@@ -130,9 +133,9 @@ const featuredWriting = [
 const logos = ["Vonage", "Mercer", "Take-Two", "Atlantic Ultraviolet", "Thrive", "ProVen", "UBS"];
 
 const aboutParagraphs = [
-  "I started as a writer. That never changed. What changed is what I built around it — a decade of growth marketing, partner strategy, and demand generation work inside Fortune 50 companies, scrappy startups, and everything in between. I have influenced over $40M in pipeline, scaled brands across industries, and learned that the difference between a company that converts and one that just looks active almost always comes down to the words.",
-  "I grew up in New York. I have reinvented myself more than once — not as a pivot, but as a sharpening. I know what it is to lose certainty and come out the other side more precise, more deliberate, and harder to ignore. That experience lives in every piece of work I produce. I do not write generic. I do not build noise. I build things that move.",
-  "My clients are founders who need a voice, revenue teams who need a system, and executives who need someone who can hold the strategy and write the keynote. I work ghost or credited, retained or project-based, fractional or full-send. If your brand is smaller than your ambition — or your copy is not doing its job — that is where I come in.",
+  "I started as a writer. Not as a hobby or a side project — as a calling. I just spent a decade disguising it as a career. Demand gen at Vonage. Partner marketing at Take-Two. Pipeline strategy at Mercer. Underneath all of it: the same person who needed the words to work. Who went home and wrote poetry and spoken word pieces and draft memoir pages nobody asked for.",
+  "I grew up in New York. I've reinvented myself more than once, not because I was lost, but because I kept getting more precise. I know what it is to lose certainty — a relationship, a version of yourself you'd outgrown — and come out the other side harder to ignore. That experience lives in every piece of work I produce. I don't write generic. I don't build noise.",
+  "Now I do both things out loud. The consulting is real — $40M+ in pipeline, clients who actually close deals. The writing is real — The Dispatch, The Margins, the memoir I'm drafting between client calls, the TikToks I make at midnight because something needed to be said. You get the strategist and the human. That's not a liability. It's the only thing that makes this worth doing.",
 ];
 
 const alaCarte = [
@@ -143,17 +146,17 @@ const alaCarte = [
 ];
 
 const faqItems = [
-  { q: "What kind of clients do you work with?", a: "Founders who need a voice, revenue teams who need a system, and executives who need someone who can hold the strategy and write the keynote. B2B, enterprise, and growth-stage companies across tech, SaaS, and professional services." },
-  { q: "How is this different from an agency?", a: "Agencies sell deliverables. I build leverage. Every engagement is scoped to your stage, your team, and the revenue outcomes that matter most. No layers. No account managers. Direct access to the strategist doing the work." },
-  { q: "Do you write with AI?", a: "No AI fluff. No generic templates. I write in your voice, with your authority, for your audience. Ghost or credited. Every word earns its place." },
-  { q: "What does the fractional engagement look like?", a: "I step inside your business — GTM architecture, partner programs, team mentoring, board-level reporting. Think embedded CMO without the full-time overhead. Minimum 3-month engagement." },
-  { q: "Can I start with a smaller engagement first?", a: "The $1,500 marketing audit is designed for exactly this. You get a full diagnostic — ICP review, competitive gaps, channel audit, and a 30-day roadmap — before committing to anything larger." },
+  { q: "What kind of clients do you work with?", a: "Founders who need a voice, revenue teams who need a system, and executives who need someone who can hold the strategy and write the keynote. B2B, enterprise, and growth-stage companies across tech, SaaS, and professional services. Occasionally someone who just needs a really good letter written. I've done all of it." },
+  { q: "How is this different from an agency?", a: "Agencies sell deliverables. I build leverage. Every engagement is scoped to your stage, your team, and the revenue outcomes that matter most. No layers. No account managers. Direct access to the strategist doing the work — who also happens to be the writer doing the work." },
+  { q: "Do you write with AI?", a: "Not for client work. Every word I deliver is written by me, which means it sounds like you — not like a press release someone generated and a junior edited. Your voice, your authority, your audience. Ghost or credited. Every word earns its place." },
+  { q: "What does the fractional engagement look like?", a: "Embedded. I step inside the business — GTM architecture, partner programs, team mentoring, board-level reporting. Think fractional CMO without the full-time overhead or the ego. Minimum 3-month engagement." },
+  { q: "What is The Dispatch?", a: "Twice a month. An honest letter about reinvention, language, and what it takes to build something when you're also becoming someone. Not a newsletter full of marketing tips. More like an essay with a business card attached. It's free. You should be on it." },
 ];
 
 const marqueeItems = [
   "Copywriting", "Ghostwriting", "Demand Generation", "ABM Strategy",
-  "Fractional CMO", "Sales Enablement", "Brand Voice", "Partner Marketing",
-  "GTM Strategy", "Pipeline Acceleration", "Conversion Copy", "Executive Messaging",
+  "The Dispatch", "Sales Enablement", "Brand Voice", "The Margins",
+  "GTM Strategy", "Pipeline Acceleration", "Memoir in Progress", "Executive Messaging",
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -326,12 +329,10 @@ export default function Home() {
 
   const navLinks = [
     { label: "Services", href: "#services" },
-    { label: "Writing", href: "#writing" },
     { label: "Work", href: "#work" },
-    { label: "Thinking", href: "#thinking" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "The Dispatch", href: "#dispatch" },
     { label: "About", href: "#about" },
-    { label: "FAQ", href: "#faq" },
-    { label: "Contact", href: "#contact" },
   ];
 
   return (
@@ -392,7 +393,7 @@ export default function Home() {
 
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            Copywriting &middot; Ghostwriting &middot; Strategy &middot; Demand Gen
+            Marketing Strategist &middot; Ghostwriter &middot; Writer
           </p>
           <h1 className="mt-6 font-display uppercase tracking-[0.02em] text-white" style={{ fontSize: "clamp(5rem, 16vw, 18rem)", lineHeight: "0.88" }}>
             Words that{" "}
@@ -405,15 +406,12 @@ export default function Home() {
           </p>
           <div className="mt-6 max-w-2xl">
             <p className="font-body text-base font-light leading-7 text-smoke" style={{ maxWidth: "68ch" }}>
-              Writer energy with enterprise discipline. I ghost for executives, convert for founders, and build demand gen machines for revenue teams who are done guessing. No AI fluff. No generic templates. Just sharp copy and pipeline you can show your board.
-            </p>
-            <p className="mt-5 font-body text-[0.7rem] font-bold uppercase tracking-[0.3em] text-petal">
-              I do not apply for roles. I build leverage.
+              I spent a decade building pipeline for companies that couldn&apos;t tell their own story. Then I figured out mine. Now I do both — sharp copy, real strategy, and the kind of honesty that makes the right people stop scrolling. No AI fluff. No generic templates. Just words that work and pipeline you can show your board.
             </p>
           </div>
           <div className="mt-10 flex flex-wrap gap-4">
             <BtnPrimary href={CALENDLY_URL}>Book a Strategy Call</BtnPrimary>
-            <BtnGhost href="#services">Explore Services</BtnGhost>
+            <BtnGhost href="#dispatch">Read The Dispatch</BtnGhost>
           </div>
 
           {/* Stats */}
@@ -432,7 +430,7 @@ export default function Home() {
       <Marquee />
 
       {/* ── LOGOS ──────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="01">
+      <RevealSection bg="obsidian">
         <Eyebrow>Trusted Across Teams</Eyebrow>
         <div className="mt-6 grid grid-cols-2 gap-px bg-graphite sm:grid-cols-4 lg:grid-cols-7">
           {logos.map((logo) => (
@@ -443,10 +441,9 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={0} />
 
       {/* ── SERVICES ───────────────────────────────────────────── */}
-      <RevealSection id="services" bg="void" num="02">
+      <RevealSection id="services" bg="void">
         <Eyebrow>What I Do</Eyebrow>
         <H2>
           Six capabilities.{" "}
@@ -467,20 +464,16 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={1} />
 
       {/* ── WRITING ────────────────────────────────────────────── */}
-      <RevealSection id="writing" bg="obsidian" num="03">
-        <p className="mb-4 font-body text-[0.7rem] font-bold uppercase tracking-[0.3em] text-petal">
-          Writer first. Strategist always.
-        </p>
+      <RevealSection id="writing" bg="obsidian">
         <Eyebrow>Copywriting & Ghostwriting</Eyebrow>
         <H2>
           Words that carry weight{" "}
           <span className="text-petal">and convert.</span>
         </H2>
         <p className="mt-6 max-w-2xl font-body text-base font-light leading-7 text-smoke">
-          From LinkedIn thought leadership to executive keynotes to long-form essays — I write in your voice, with your authority, for your audience. Ghost or credited. No AI fluff. No generic templates.
+          From LinkedIn thought leadership to executive keynotes to long-form essays — I write in your voice, with your authority, for your audience. Ghost or credited. No AI fluff. No generic templates. I started as a writer. Everything I do in strategy comes back to that.
         </p>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
@@ -520,10 +513,9 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={2} />
 
       {/* ── FEATURED WRITING ───────────────────────────────────── */}
-      <RevealSection bg="void" num="04">
+      <RevealSection bg="void">
         <Eyebrow>Featured Writing</Eyebrow>
         <H2>Featured writing.</H2>
         <H3Script>The mind behind the strategy.</H3Script>
@@ -538,17 +530,65 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <Marquee />
-      <QuoteDivider index={3} />
+
+      {/* ── THE DISPATCH ───────────────────────────────────────── */}
+      <RevealSection id="dispatch" bg="obsidian">
+        <div className="grid gap-px bg-graphite lg:grid-cols-[1fr_1fr]">
+          <div className="bg-obsidian p-8 lg:p-12">
+            <Eyebrow>The Dispatch</Eyebrow>
+            <H2>
+              An honest letter.{" "}
+              <span className="text-petal">Twice a month.</span>
+            </H2>
+            <H3Script>Not tips. Not tactics. Actually worth opening.</H3Script>
+            <p className="mt-6 font-body text-base font-light leading-7 text-smoke" style={{ maxWidth: "60ch" }}>
+              About reinvention, language, and the work of becoming. For people who want to actually think about what they&apos;re building — not just how to post about it. It&apos;s free. Your inbox can handle it.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <BtnPrimary href={BEEHIIV_URL}>Get on the List</BtnPrimary>
+              <a href={PATREON_URL} target="_blank" rel="noreferrer" className="btn-ghost inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em]">
+                Join The Margins
+              </a>
+            </div>
+          </div>
+          <div className="flex flex-col justify-between bg-carbon p-8 lg:p-12">
+            <div>
+              <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-iron">What you&apos;ll find inside</p>
+              <ul className="mt-8 space-y-5">
+                {[
+                  "Essays about reinvention that don\u2019t sound like a LinkedIn post",
+                  "Behind-the-scenes on building a brand and a business at the same time",
+                  "Honest takes on marketing, writing, and what actually works",
+                  "Early access to new work, offers, and things before they go public",
+                ].map((item) => (
+                  <li key={item} className="flex gap-3 font-body text-sm font-light leading-6 text-smoke">
+                    <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="mt-10 border-l-2 border-petal bg-void p-6">
+              <p className="font-serif text-lg italic leading-8 text-pearl" style={{ fontWeight: 600 }}>
+                &ldquo;The margins are where the real thinking lives. Everything else is the performance of thinking.&rdquo;
+              </p>
+              <p className="mt-4 font-body text-[0.7rem] font-bold uppercase tracking-[0.3em] text-ash">
+                &mdash; M.K.
+              </p>
+            </div>
+          </div>
+        </div>
+      </RevealSection>
+
 
       {/* ── THINKING / PRINCIPLES ──────────────────────────────── */}
-      <RevealSection id="thinking" bg="obsidian" num="05">
+      <RevealSection id="thinking" bg="void">
         <Eyebrow>How I Think</Eyebrow>
         <H2>The strategic point of view.</H2>
         <H3Script>Great brands are built twice. First in language, then in systems.</H3Script>
         <div className="stagger mt-12 grid gap-px bg-graphite md:grid-cols-3">
           {principles.map((item) => (
-            <div key={item.title} className="reveal visible bg-obsidian p-8">
+            <div key={item.title} className="reveal visible bg-void p-8">
               <p className="font-display text-lg uppercase tracking-[0.02em] text-petal">{item.title}</p>
               <p className="mt-5 font-body text-sm font-light leading-7 text-smoke">{item.text}</p>
             </div>
@@ -556,10 +596,9 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={4} />
 
       {/* ── CASE STUDIES ───────────────────────────────────────── */}
-      <RevealSection id="work" bg="void" num="06">
+      <RevealSection id="work" bg="obsidian">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <Eyebrow>Selected Work</Eyebrow>
@@ -569,7 +608,7 @@ export default function Home() {
         </div>
         <div className="grid gap-px bg-graphite lg:grid-cols-3">
           {caseStudies.map((item) => (
-            <div key={item.title} className="group relative bg-void p-8 transition-all duration-300 hover:-translate-y-1" style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}>
+            <div key={item.title} className="group relative bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1" style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}>
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-60" />
               <div className="mb-5 inline-flex items-baseline gap-2 border border-petal/20 bg-petal/[0.06] px-4 py-2">
                 <span className="font-display text-3xl text-petal">{item.metric}</span>
@@ -594,10 +633,9 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={5} />
 
       {/* ── PRICING ────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="07">
+      <RevealSection id="pricing" bg="void">
         <Eyebrow>Consulting Menu</Eyebrow>
         <H2>
           Three ways to{" "}
@@ -615,7 +653,7 @@ export default function Home() {
               className={`relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 ${
                 tier.highlight
                   ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]"
-                  : "bg-obsidian"
+                  : "bg-void"
               }`}
               style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
             >
@@ -662,7 +700,7 @@ export default function Home() {
           <p className="mb-6 font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-iron">Also available &agrave; la carte</p>
           <div className="grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-4">
             {alaCarte.map((s) => (
-              <div key={s} className="bg-obsidian px-5 py-4 font-body text-sm font-light text-smoke transition-colors hover:text-petal">
+              <div key={s} className="bg-void px-5 py-4 font-body text-sm font-light text-smoke transition-colors hover:text-petal">
                 {s}
               </div>
             ))}
@@ -670,13 +708,11 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <Marquee />
-      <QuoteDivider index={6} />
 
       {/* ── ABOUT ──────────────────────────────────────────────── */}
-      <RevealSection id="about" bg="void" num="08">
+      <RevealSection id="about" bg="obsidian">
         <div className="grid gap-px bg-graphite lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="bg-void p-8 lg:p-10">
+          <div className="bg-obsidian p-8 lg:p-10">
             <Eyebrow>About</Eyebrow>
             <h2 className="font-display uppercase tracking-[0.02em] text-white" style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)", lineHeight: "0.92" }}>
               I started as a writer.
@@ -685,14 +721,14 @@ export default function Home() {
               Everything else is what I built around it.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              {["Demand Generation", "ABM", "Partner Marketing", "GTM Strategy", "Copywriting", "Fractional CMO"].map((tag) => (
+              {["Writer", "Demand Generation", "ABM", "Ghostwriting", "GTM Strategy", "The Dispatch"].map((tag) => (
                 <span key={tag} className="border border-petal/25 bg-petal/[0.06] px-4 py-2 font-body text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-petal">
                   {tag}
                 </span>
               ))}
             </div>
           </div>
-          <div className="bg-void p-8 lg:p-10">
+          <div className="bg-obsidian p-8 lg:p-10">
             <div className="space-y-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "68ch" }}>
               {aboutParagraphs.map((para, i) => (
                 <p key={i}>{para}</p>
@@ -702,39 +738,37 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={7} />
 
       {/* ── FAQ ─────────────────────────────────────────────────── */}
-      <RevealSection id="faq" bg="obsidian" num="09">
+      <RevealSection id="faq" bg="void">
         <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
           <div>
             <Eyebrow>FAQ</Eyebrow>
             <H2>Before the first call.</H2>
             <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">
-              If your question is not here, book a call. No pitch. Just clarity.
+              If your question isn&apos;t here, book a call. No pitch. Just clarity.
             </p>
           </div>
           <FAQ />
         </div>
       </RevealSection>
 
-      <QuoteDivider index={8} />
 
       {/* ── CONTACT ────────────────────────────────────────────── */}
-      <RevealSection id="contact" bg="void" num="10">
+      <RevealSection id="contact" bg="obsidian">
         <div className="grid gap-px bg-graphite lg:grid-cols-[1fr_0.85fr]">
-          <div className="relative bg-void p-8 lg:p-10">
+          <div className="relative bg-obsidian p-8 lg:p-10">
             {/* Subtle glow */}
             <div className="pointer-events-none absolute right-0 top-0 h-64 w-64 bg-[radial-gradient(circle,rgba(242,175,198,0.08),transparent_70%)]" />
             <Eyebrow>Let&rsquo;s build something serious</Eyebrow>
             <h2 className="font-display uppercase tracking-[0.02em] text-white" style={{ fontSize: "clamp(2rem, 5vw, 5rem)", lineHeight: "0.92" }}>
-              Revenue-focused partner.
+              If your brand is smaller than your ambition.
             </h2>
             <p className="mt-3 font-serif text-xl italic text-petal md:text-2xl" style={{ fontWeight: 600 }}>
-              Taste, clarity, and range.
+              That&apos;s exactly where I come in.
             </p>
             <p className="mt-6 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "68ch" }}>
-              Full-time leadership, freelance projects, consulting retainers, strategic partnership builds, writing engagements, or high-level brand work. Keep it human, sharp, and outcome-driven.
+              Full-time leadership, freelance projects, consulting retainers, strategic partnership builds, writing engagements, or a conversation about something you&apos;re still figuring out. It all starts the same way. Keep it human, sharp, and outcome-driven.
             </p>
             <div className="mt-8 grid gap-px bg-graphite sm:grid-cols-3">
               {[
@@ -742,7 +776,7 @@ export default function Home() {
                 { label: "LinkedIn", value: "/in/mkparrish", href: "https://www.linkedin.com/in/mkparrish" },
                 { label: "Phone", value: "347.853.4238", href: "tel:3478534238" },
               ].map((c) => (
-                <a key={c.label} href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="bg-void p-5 transition-colors hover:bg-carbon">
+                <a key={c.label} href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="bg-obsidian p-5 transition-colors hover:bg-carbon">
                   <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-iron">{c.label}</p>
                   <p className="mt-2 font-body text-sm text-pearl">{c.value}</p>
                 </a>
@@ -753,20 +787,23 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col justify-between bg-void p-8 lg:p-10">
+          <div className="flex flex-col justify-between bg-obsidian p-8 lg:p-10">
             <div>
               <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-iron">Final impression</p>
               <p className="mt-6 font-serif text-2xl italic leading-10 text-pearl md:text-3xl md:leading-[1.4]" style={{ fontWeight: 700 }}>
-                The right brand does not just tell people you are good. It changes the room before you enter it.
+                The right words don&apos;t just tell people you&apos;re good. They change the room before you enter it.
+              </p>
+              <p className="mt-6 font-body text-[0.7rem] font-bold uppercase tracking-[0.3em] text-ash">
+                &mdash; M.K.
               </p>
             </div>
             <div className="mt-10 space-y-px bg-graphite">
               {[
-                { label: "Marketing Audit — $1.5K", url: STRIPE_AUDIT },
-                { label: "Pipeline Acceleration — $2K/mo", url: STRIPE_RETAINER },
-                { label: "Embedded Growth Partner — $5K/mo", url: STRIPE_FRACTIONAL },
+                { label: "Marketing Audit \u2014 $1.5K", url: STRIPE_AUDIT },
+                { label: "Pipeline Acceleration \u2014 $2K/mo", url: STRIPE_RETAINER },
+                { label: "Embedded Growth Partner \u2014 $5K/mo", url: STRIPE_FRACTIONAL },
               ].map((item) => (
-                <a key={item.label} href={item.url} target="_blank" rel="noreferrer" className="flex w-full items-center justify-between bg-void px-5 py-4 font-body text-sm text-smoke transition-colors hover:text-petal">
+                <a key={item.label} href={item.url} target="_blank" rel="noreferrer" className="flex w-full items-center justify-between bg-obsidian px-5 py-4 font-body text-sm text-smoke transition-colors hover:text-petal">
                   <span>{item.label}</span>
                   <span className="text-iron">&rarr;</span>
                 </a>
@@ -776,7 +813,7 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={9} />
+      <QuoteDivider index={0} />
 
       {/* ── FOOTER ─────────────────────────────────────────────── */}
       <footer className="border-t border-graphite bg-void" style={{ padding: "clamp(3rem, 6vw, 5rem) 0" }}>
@@ -784,7 +821,7 @@ export default function Home() {
           <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="font-display text-xl uppercase tracking-[0.02em] text-pearl">MK Parrish</p>
-              <p className="mt-1 font-body text-sm font-light text-ash">Growth marketer + strategist + writer.</p>
+              <p className="mt-1 font-body text-sm font-light text-ash">Writer. Strategist. One-woman reinvention.</p>
             </div>
             <div className="flex flex-wrap gap-6">
               {navLinks.map((l) => (
@@ -796,7 +833,7 @@ export default function Home() {
           </div>
           <div className="mt-10 border-t border-graphite pt-8">
             <p className="font-body text-[0.7rem] font-light tracking-[0.1em] text-iron">
-              Pipeline is the product. Everything else is noise.
+              Built different. Billed accordingly. &mdash; M.K.
             </p>
           </div>
         </div>
