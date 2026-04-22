@@ -12,7 +12,7 @@ import {
   FAQ,
   ServiceCard,
 } from "@/app/components/ui";
-import { STRIPE_REWRITE, STRIPE_NEW_CHAPTER } from "@/app/lib/config";
+import { STRIPE_REWRITE } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "Rewrite Your Next Chapter — MK Parrish",
@@ -194,7 +194,7 @@ export default function NextChapterPage() {
             <span className="text-petal">starts with a sentence.</span>
           </H2>
           <p className="mx-auto mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            Let's find the right one.
+            Let&apos;s find the right one.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BtnPrimary href="/book">Book a Call</BtnPrimary>

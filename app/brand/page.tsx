@@ -211,7 +211,7 @@ export default function BrandPage() {
             Start with a call if you are not sure what needs fixing. Start with The Rewrite if you already know.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href="/book">Let's Talk</BtnPrimary>
+            <BtnPrimary href="/book">Let&apos;s Talk</BtnPrimary>
             <BtnGhost href={STRIPE_REWRITE}>Start The Rewrite</BtnGhost>
           </div>
         </div>

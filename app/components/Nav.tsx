@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Presence",     href: "/presence" },
   { label: "Next Chapter", href: "/next-chapter" },
   { label: "Writing",      href: "/writing" },
+  { label: "The Shelf",    href: "/shelf" },
   { label: "The Margins",  href: "/margins" },
   { label: "About",        href: "/about" },
   { label: "Contact",      href: "/contact" },
@@ -37,9 +38,6 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => { setMobileNav(false); }, [pathname]);
-
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
@@ -63,12 +61,12 @@ export default function Nav() {
             MK PARRISH
           </Link>
 
-          <nav className="hidden items-center gap-7 md:flex">
+          <nav className="hidden items-center gap-5 xl:flex 2xl:gap-7">
             {navLinks.map((l) => (
               <Link
                 key={l.label}
                 href={l.href}
-                className={`nav-link font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] transition-colors hover:text-pearl ${
+                className={`nav-link whitespace-nowrap font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] transition-colors hover:text-pearl ${
                   isActive(l.href) ? "active text-pearl" : "text-ash"
                 }`}
               >
@@ -86,7 +84,7 @@ export default function Nav() {
             </Link>
             <button
               onClick={() => setMobileNav(!mobileNav)}
-              className="flex flex-col gap-1.5 md:hidden"
+              className="flex flex-col gap-1.5 xl:hidden"
               aria-label="Menu"
             >
               <span className={`block h-px w-6 bg-pearl transition-all duration-300 ${mobileNav ? "translate-y-[7px] rotate-45" : ""}`} />
@@ -97,7 +95,7 @@ export default function Nav() {
         </div>
 
         {mobileNav && (
-          <nav className="border-t border-graphite bg-void/95 px-6 py-6 backdrop-blur-xl md:hidden">
+          <nav className="border-t border-graphite bg-void/95 px-6 py-6 backdrop-blur-xl xl:hidden">
             <div className="flex flex-col gap-5">
               <Link href="/" onClick={() => setMobileNav(false)} className="font-body text-sm uppercase tracking-[0.15em] text-ash transition hover:text-pearl">
                 Home
@@ -114,6 +112,7 @@ export default function Nav() {
               ))}
               <Link
                 href="/book"
+                onClick={() => setMobileNav(false)}
                 className="btn-primary mt-2 inline-flex justify-center px-5 py-3 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void"
               >
                 Book a Call

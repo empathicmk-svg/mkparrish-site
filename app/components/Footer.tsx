@@ -6,6 +6,7 @@ const footerLinks = [
   { label: "Brand",        href: "/brand" },
   { label: "Presence",     href: "/presence" },
   { label: "Next Chapter", href: "/next-chapter" },
+  { label: "The Shelf",    href: "/shelf" },
   { label: "The Margins",  href: "/margins" },
   { label: "About",        href: "/about" },
   { label: "Contact",      href: "/contact" },

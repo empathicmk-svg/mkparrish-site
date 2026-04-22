@@ -16,7 +16,6 @@ import {
 import {
   STRIPE_EDIT,
   STRIPE_REWRITE,
-  STRIPE_NEW_CHAPTER,
   STRIPE_BYLINE,
   PATREON_URL,
 } from "@/app/lib/config";

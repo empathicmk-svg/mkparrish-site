@@ -87,7 +87,7 @@ export default function CareerPage() {
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke">
             <p>A strong professional with weak copy is still losing the consideration set. The work is there. The words are not earning it. Those are not the same problem, and only one of them takes a week to fix.</p>
             <p>
-              The people hiring, promoting, and deciding whether to introduce you are forming opinions from 220 characters and whatever shows up before "see more." That content is standing in for a full conversation. It needs to be written like one.
+              The people hiring, promoting, and deciding whether to introduce you are forming opinions from 220 characters and whatever shows up before &quot;see more.&quot; That content is standing in for a full conversation. It needs to be written like one.
             </p>
             <p>Career copy is not a summary. It is positioning. I approach it the way I would approach any high-stakes campaign, because that is exactly what it is. Your career has generated $40M+ in value for someone. The words should reflect that.</p>
           </div>
