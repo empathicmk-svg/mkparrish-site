@@ -13,107 +13,101 @@ import {
   Marquee,
   ServiceCard,
 } from "@/app/components/ui";
-import {
-  STRIPE_EDIT,
-  STRIPE_REWRITE,
-  STRIPE_NEW_CHAPTER,
-  STRIPE_BYLINE,
-  PATREON_URL,
-} from "@/app/lib/config";
+import { STRIPE_EDIT, STRIPE_REWRITE, STRIPE_BYLINE, PATREON_URL } from "@/app/lib/config";
 
 export const metadata: Metadata = {
-  title: "MK Parrish — Rewrite Your Story",
+  title: "MK Parrish | Rebrand your life. Rewrite your story.",
   description:
-    "Words, strategy, and reinvention for people ready to stop being misread. Work with MK Parrish on copywriting, positioning, and personal brand strategy.",
+    "MK Parrish writes the words people use when they stop performing and start getting paid. Strategy, copy, and reinvention for women done shrinking.",
 };
 
 const rewrites = [
   {
     label: "01",
     title: "Rewrite Your Career",
-    desc: "Your LinkedIn, bio, and professional narrative rebuilt for the career you actually have now. Not a polish. A full repositioning. Because the people deciding whether to hire you are reading copy you wrote three years ago.",
-    cue: "For executives, professionals, and industry switchers",
+    desc: "Your LinkedIn, bio, and pitch rebuilt for the room you actually belong in now. Great work gets ignored when your story still sounds entry level.",
+    cue: "for leaders, high-achievers, and switchers",
     href: "/career",
   },
   {
     label: "02",
     title: "Rewrite Your Brand",
-    desc: "Positioning, voice, and homepage copy for a business that delivers more than it sounds like. That gap is not aesthetic. It is a revenue leak, and it shows up every time someone lands on your site and leaves without reaching out.",
-    cue: "For founders and company builders",
+    desc: "Positioning, messaging, and homepage copy that sounds expensive because it is specific. If people visit your site and still ask what you do, the copy is leaking money.",
+    cue: "for founders and personal brands",
     href: "/brand",
   },
   {
     label: "03",
     title: "Rewrite Your Presence",
-    desc: "Website copy, public bios, and ongoing thought leadership written in your actual voice. Every surface that forms an opinion about you before you get to speak. Most of them are underperforming right now.",
-    cue: "For public-facing professionals and ghostwriting clients",
+    desc: "Public-facing copy that can hold your real voice without sanding it down. Website, press bio, speaker profile, thought leadership. All aligned, finally.",
+    cue: "for creators and public operators",
     href: "/presence",
   },
   {
     label: "04",
     title: "Rewrite Your Next Chapter",
-    desc: "Full repositioning for pivots, reinventions, and the messy middle where your old story no longer fits and the new one is not finished yet. I have been here. I know how to write through it.",
-    cue: "For people in genuine transition",
+    desc: "For the in-between season. The old life is gone. The new identity is forming. We write language that can carry you through the mess and into momentum.",
+    cue: "for women in reinvention",
     href: "/next-chapter",
   },
 ];
 
 const services = [
   {
-    tag: "Quick Fix",
+    tag: "30-day cash play",
     title: "The Edit",
-    price: "From $100",
-    desc: "One piece of copy rewritten. LinkedIn bio, executive blurb, website tagline, or positioning statement. You know exactly what is broken. I fix it.",
+    price: "$195",
+    desc: "One sharp fix. Fast. You send one asset. I return the upgraded version in your voice so you can close faster this month.",
     perks: [
-      "LinkedIn headline and about section",
-      "Executive bio or speaker profile",
-      "Website tagline or about copy",
-      "Short-form positioning statement",
+      "48-hour turnaround option",
+      "LinkedIn headline and about rewrite",
+      "Bio, homepage hero, or offer copy",
+      "One conversion-focused revision",
     ],
     cta: "Buy The Edit",
     href: STRIPE_EDIT,
     highlight: false,
   },
   {
-    tag: "Most Requested",
+    tag: "most booked",
     title: "The Rewrite",
-    price: "From $1,500",
-    desc: "A full story overhaul anchored in a strategy session. For people whose work has outpaced the language they are still using to describe it. This is where the gap closes.",
+    price: "$1,500",
+    desc: "The full repositioning sprint. We fix your story, offers, and proof so your internet presence finally matches your real level.",
     perks: [
-      "Full LinkedIn overhaul",
-      "Career or brand narrative",
-      "Bio, about page, and pitch copy",
-      "30-minute strategy session included",
+      "75-minute strategy session",
+      "Core brand positioning statement",
+      "LinkedIn plus website core pages",
+      "Offer messaging and CTA map",
     ],
     cta: "Start The Rewrite",
     href: STRIPE_REWRITE,
     highlight: true,
   },
   {
-    tag: "Full Reset",
-    title: "The New Chapter",
-    price: "Custom",
-    desc: "Brand, website, founder story, and positioning built together from strategy to final draft. For pivots, relaunches, and reinventions where patching one section is not going to cut it.",
+    tag: "60-90 day engine",
+    title: "The Dispatch",
+    price: "$0 to join",
+    desc: "Weekly newsletter for women rebuilding in public and getting paid for their perspective. This is where audience turns into pipeline.",
     perks: [
-      "Brand voice and messaging guide",
-      "Full website copy",
-      "Founder or executive origin story",
-      "Press and pitch deck narrative",
+      "Weekly essay with one tactical play",
+      "Subscriber-only office hours invites",
+      "Early access to paid drops",
+      "Beehiiv migration updates",
     ],
-    cta: "Let's Talk",
-    href: "/book",
+    cta: "Join The Dispatch",
+    href: "/margins",
     highlight: false,
   },
   {
-    tag: "Ongoing",
+    tag: "long-term leverage",
     title: "The Byline",
-    price: "From $1,500/mo",
-    desc: "Monthly ghostwriting under your name. LinkedIn posts, essays, newsletters. Written in your voice by someone who actually writes. Consistent enough to build a reputation. Sharp enough that people notice.",
+    price: "$1,500/mo",
+    desc: "Ongoing ghostwriting that builds authority while you run the business. Less content panic. More compounding trust.",
     perks: [
-      "Monthly LinkedIn ghostwriting",
-      "Long-form essays and articles",
-      "Newsletter and email copy",
-      "Strategic editorial calendar",
+      "Monthly LinkedIn content system",
+      "Narrative-driven newsletter drafts",
+      "Founder POV library",
+      "Quarterly message refresh",
     ],
     cta: "Start The Byline",
     href: STRIPE_BYLINE,
@@ -124,70 +118,57 @@ const services = [
 export default function Home() {
   return (
     <>
-      {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative flex min-h-svh flex-col justify-end bg-void pb-16 pt-28 md:pb-24">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-0 h-[65vh] w-[90vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.15),transparent_65%)]" />
         </div>
 
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            Copywriting &middot; Ghostwriting &middot; Strategy &middot; Reinvention
-          </p>
+          <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">writer. strategist. brand architect.</p>
 
           <div className="mt-6">
             <H1>
-              Rewrite{" "}
-              <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.35)" }}>
-                Your
-              </span>
+              rebrand your life.
               <br />
-              Story
+              rewrite your story.
             </H1>
           </div>
 
           <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-            Words, strategy, and reinvention for people ready to stop being misread.
+            i rebuilt my life while people were still calling it a phase.
           </p>
 
           <div className="mt-6 max-w-2xl">
             <p className="font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "64ch" }}>
-              You have outgrown the version of you the world is still reading. I work with founders, executives, and people mid-transition to build language that finally catches up.
+              I help smart women stop sounding like a draft. We turn your lived experience, receipts, and point of view into copy that earns trust and drives revenue.
             </p>
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <BtnPrimary href="#rewrites">Choose Your Rewrite</BtnPrimary>
-            <BtnGhost href="/margins">Enter The Margins</BtnGhost>
+            <BtnPrimary href="#rewrites">choose your rewrite</BtnPrimary>
+            <BtnGhost href="/margins">join the dispatch</BtnGhost>
           </div>
         </div>
       </section>
 
       <Marquee />
 
-      {/* ── THE WRONG WORDS ──────────────────────────────────────── */}
       <RevealSection bg="void" num="01">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
           <div>
-            <Eyebrow>The problem</Eyebrow>
+            <Eyebrow>the problem</Eyebrow>
             <H2>
-              The wrong words{" "}
-              <span className="text-petal">cost you.</span>
+              you are not unknown.
+              <span className="text-petal"> you are mispositioned.</span>
             </H2>
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "64ch" }}>
-            <p>They cost you deals, roles, introductions, and the meeting that turns into the contract. Quietly. Before you even know a decision was made.</p>
-            <p>
-              A vague LinkedIn makes a sharp professional look unfocused. A weak about page makes a performing business look small. A stale bio makes someone who has done serious work look like they stopped five years ago.
-            </p>
-            <p>
-              I rewrite the copy people encounter when they look you up, consider you, or decide whether to reach out. These are not just words. They are the impression you make before you get to speak.
-            </p>
-            <p>
-              Not by building a persona. By finally presenting the real thing with enough precision that the right people recognize it.
-            </p>
+            <p>Bad copy makes excellent people look optional.</p>
+            <p>It is why people say you are impressive, then disappear. Your profile reads polished, your offers read vague, your prices read negotiable.</p>
+            <p>I fix that. Not with fake confidence language. With precision. Proof. Narrative that lands in the first ten seconds.</p>
+            <p className="font-body text-sm font-semibold uppercase tracking-[0.2em] text-petal">no trend voice. no fake founder persona. no fluff.</p>
             <div className="mt-8">
-              <ArrowLink href="/book">Book a strategy call</ArrowLink>
+              <ArrowLink href="/book">book a strategy call</ArrowLink>
             </div>
           </div>
         </div>
@@ -195,12 +176,11 @@ export default function Home() {
 
       <QuoteDivider index={1} />
 
-      {/* ── CHOOSE YOUR REWRITE ──────────────────────────────────── */}
       <RevealSection id="rewrites" bg="obsidian" num="02">
-        <Eyebrow>Where to begin</Eyebrow>
+        <Eyebrow>where to begin</Eyebrow>
         <H2>
-          Choose what you are{" "}
-          <span className="text-petal">rewriting.</span>
+          choose what you are
+          <span className="text-petal"> rewriting first.</span>
         </H2>
 
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-2">
@@ -218,9 +198,7 @@ export default function Home() {
                   &rarr;
                 </span>
               </div>
-              <h3 className="mt-5 font-display text-3xl uppercase tracking-[0.02em] text-pearl md:text-4xl">
-                {r.title}
-              </h3>
+              <h3 className="mt-5 font-display text-3xl uppercase tracking-[0.02em] text-pearl md:text-4xl">{r.title}</h3>
               <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{r.desc}</p>
               <p className="mt-5 font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-iron">{r.cue}</p>
             </Link>
@@ -230,12 +208,11 @@ export default function Home() {
 
       <QuoteDivider index={2} />
 
-      {/* ── SERVICES ─────────────────────────────────────────────── */}
       <RevealSection bg="void" num="03">
-        <Eyebrow>Work with me directly</Eyebrow>
+        <Eyebrow>offers built to sell now</Eyebrow>
         <H2>
-          Four ways to{" "}
-          <span className="text-petal">work together.</span>
+          monetization stack.
+          <span className="text-petal"> ranked by speed.</span>
         </H2>
 
         <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
@@ -248,30 +225,22 @@ export default function Home() {
       <Marquee />
       <QuoteDivider index={3} />
 
-      {/* ── CORRECTION ───────────────────────────────────────────── */}
       <RevealSection bg="obsidian" num="05">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <Eyebrow>The work</Eyebrow>
+            <Eyebrow>only mk</Eyebrow>
             <H2>
-              Not just copy.{" "}
-              <span className="text-petal">Correction.</span>
+              this is not self-help.
+              <span className="text-petal"> this is strategy in lipstick.</span>
             </H2>
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "64ch" }}>
-            <p>People are decided by fragments now.</p>
-            <p>
-              A headline. A homepage. A LinkedIn summary. A speaker bio. A few lines written three job titles ago by a version of you who was still figuring out what to say.
-            </p>
-            <p>
-              I work where writing meets strategy, positioning, and reinvention. The copy I write is not decoration. It is the argument you make before anyone gets in a room with you. It either earns the meeting or it does not.
-            </p>
-            <p className="font-body text-sm font-semibold uppercase tracking-[0.2em] text-petal">
-              No AI copy. No generic frameworks. No rented voice.
-            </p>
+            <p>I write the sentence that gets you hired. Funded. Booked. Quoted. Remembered.</p>
+            <p>My clients are brilliant and busy. They do not need another mood board. They need language that handles money conversations without getting weird.</p>
+            <p>I bring corporate pattern recognition, writing chops, and a low tolerance for performance. We build your message like a business asset, not a caption calendar.</p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href="/book">Book a Call</BtnPrimary>
-              <ArrowLink href="/about">About MK</ArrowLink>
+              <BtnPrimary href="/book">book a call</BtnPrimary>
+              <ArrowLink href="/about">about mk</ArrowLink>
             </div>
           </div>
         </div>
@@ -279,18 +248,18 @@ export default function Home() {
 
       <QuoteDivider index={4} />
 
-      {/* ── THE WRITING ──────────────────────────────────────────── */}
       <RevealSection bg="void" num="04">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
-            <Eyebrow>The personal work</Eyebrow>
+            <Eyebrow>the writing</Eyebrow>
             <H2>
-              Writing that{" "}
-              <span className="text-petal">started it all.</span>
+              words with pulse.
+              <span className="text-petal"> not content sludge.</span>
             </H2>
+            <H3Script>poetry, prose, strategy notes, and the in-between.</H3Script>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href="/writing">Read the Work</BtnPrimary>
-              <ArrowLink href={PATREON_URL}>More in The Margins</ArrowLink>
+              <BtnPrimary href="/writing">read the work</BtnPrimary>
+              <ArrowLink href={PATREON_URL}>read the margins</ArrowLink>
             </div>
           </div>
           <div className="relative border-l-2 border-petal/40 pl-8">
@@ -299,48 +268,41 @@ export default function Home() {
               className="font-serif italic text-pearl"
               style={{ fontSize: "clamp(1.05rem,2.2vw,1.3rem)", lineHeight: 1.95, fontWeight: 500, maxWidth: "none", color: "var(--color-pearl)" }}
             >
-              Promise me I do not have to keep earning basic love.<br />
-              Promise me I do not have to perform my way into being chosen.<br />
-              <br />
-              Promise me I can finally give myself<br />
-              what I kept begging other people to give me.
+              i stopped auditioning for basic love.<br />
+              i stopped overexplaining my ambition.<br />
+              i stopped apologizing for needing a bigger life.
             </p>
-            <p className="mt-6 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">
-              — Promise Me
-            </p>
+            <p className="mt-6 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">from the dispatch</p>
           </div>
         </div>
       </RevealSection>
 
       <QuoteDivider index={7} />
 
-      {/* ── THE MARGINS ──────────────────────────────────────────── */}
       <RevealSection bg="void" num="06">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <Eyebrow>The private side</Eyebrow>
+            <Eyebrow>newsletter</Eyebrow>
             <H2>
-              The{" "}
-              <span className="text-petal">Margins.</span>
+              the dispatch.
+              <span className="text-petal"> inbox, not landfill.</span>
             </H2>
-            <H3Script>Where the real thinking lives.</H3Script>
+            <H3Script>one honest essay. one tactical play. every week.</H3Script>
             <div className="mt-8 space-y-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "56ch" }}>
-              <p>Long-form essays. Raw strategy notes. The frameworks that come out of actual client work, documented before they get cleaned up for public consumption.</p>
-              <p>
-                Not content. Not thought leadership theatre. The real thinking, before it gets positioned. If the public work is the final sentence, The Margins is the version with all the edits still showing and the margin notes intact.
-              </p>
+              <p>For women building the next version of themselves without pretending it is easy.</p>
+              <p>Every send includes one sharp story and one move you can use that day. Career negotiation lines. offer upgrades. audience plays. emotional cleanup after big decisions.</p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={PATREON_URL}>Enter The Margins</BtnPrimary>
-              <ArrowLink href="/margins">Learn more</ArrowLink>
+              <BtnPrimary href="/margins">join the dispatch</BtnPrimary>
+              <ArrowLink href="/margins">see what you get</ArrowLink>
             </div>
           </div>
 
           <div className="flex flex-col gap-px">
             {[
-              { tier: "Soft Cover", price: "$5/mo", desc: "Weekly essays and strategy notes that never go to the public feed. The thinking before it gets edited into something safe." },
-              { tier: "Marked Up", price: "$12/mo", desc: "Everything in Soft Cover plus the raw frameworks pulled from client work, with the context that makes them actually useful." },
-              { tier: "First Edition", price: "$28/mo", desc: "Full access plus a monthly live Q&A, direct message access, and priority feedback on your own copy. The closest thing to working with me directly." },
+              { tier: "free", price: "$0", desc: "weekly dispatch essay, one tactical play, and first look at new offers." },
+              { tier: "soft cover", price: "$9/mo", desc: "everything free plus private essays, office hour replays, and monthly writing prompts." },
+              { tier: "first edition", price: "$29/mo", desc: "all access plus live monthly hot-seat feedback and priority review on your copy." },
             ].map((t, i) => (
               <div key={t.tier} className={`relative p-8 ${i === 1 ? "bg-carbon" : "bg-obsidian"}`}>
                 {i === 1 && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
@@ -357,30 +319,26 @@ export default function Home() {
 
       <QuoteDivider index={5} />
 
-      {/* ── FINAL CTA ────────────────────────────────────────────── */}
       <section className="relative bg-void" style={{ padding: "clamp(5rem, 12vw, 11rem) 0" }}>
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-1/2 h-[80vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse,rgba(242,175,198,0.09),transparent_65%)]" />
         </div>
         <div className="relative mx-auto max-w-[1400px] text-center" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            Start here
-          </p>
+          <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">start here</p>
           <div className="mt-6">
             <H1>
-              Rewrite{" "}
+              stop sounding like
               <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.3)" }}>
-                Your
-              </span>{" "}
-              Story
+                everyone else.
+              </span>
             </H1>
           </div>
           <p className="mx-auto mt-8 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            Because being misunderstood is expensive.
+            Pick one offer. Ship better words this week. Keep the revenue. Keep the voice.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href="/book">Book a Call</BtnPrimary>
-            <BtnGhost href="/contact">Get in Touch</BtnGhost>
+            <BtnPrimary href="/book">book a call</BtnPrimary>
+            <BtnGhost href="/contact">get in touch</BtnGhost>
           </div>
         </div>
       </section>
