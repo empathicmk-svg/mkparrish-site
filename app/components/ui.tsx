@@ -79,6 +79,16 @@ export function QuoteDivider({ index }: { index: number }) {
     { text: "The soul becomes dyed with the colour of its thoughts.", author: "Marcus Aurelius" },
     { text: "To live is the rarest thing in the world. Most people exist, that is all.", author: "Oscar Wilde" },
     { text: "Know thyself.", author: "Socrates" },
+    { text: "Stay far from timid, only make moves when your heart's in it, and live the phrase ‘sky’s the limit.'", author: "The Notorious B.I.G." },
+    { text: "If you don’t love yourself, you’ll always be chasing people who don’t love you either.", author: "The Notorious B.I.G." },
+    { text: "I’m tough, ambitious, and I know exactly what I want. If that makes me a bitch, okay.", author: "Madonna" },
+    { text: "Imperfection is beauty, madness is genius, and it’s better to be absolutely ridiculous than absolutely boring.", author: "Marilyn Monroe" },
+    { text: "I don’t want to make money, I just want to be wonderful.", author: "Marilyn Monroe" },
+    { text: "A wise girl kisses but doesn’t love, listens but doesn’t believe, and leaves before she is left.", author: "Marilyn Monroe" },
+    { text: "Promise me I can finally give myself what I kept begging other people to give me.", author: "MK Parrish" },
+    { text: "She just wanted to begin.", author: "MK Parrish" },
+    { text: "I did not confuse being chosen with being loved.", author: "MK Parrish" },
+    { text: "She is not who she used to be, and that is not a loss.", author: "MK Parrish" },
   ];
   const q = quotes[index % quotes.length];
   const { ref, cls } = useReveal();
