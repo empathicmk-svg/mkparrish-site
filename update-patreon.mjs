@@ -5,58 +5,66 @@ import path from "node:path";
 const CONFIG = {
   creatorBrand: {
     displayName: "MK Parrish",
-    headline: "Rewrite Your Story",
-    subheadline: "Words, strategy, and reinvention for people ready to stop being misread.",
+    headline: "The Margins",
+    subheadline: "The private side of the brand. Essays, strategy notes, and the real thinking behind the work.",
     about: `
 You have outgrown the version of you the world is still reading.
 
-I help founders, professionals, creatives, and people in transition sharpen their message, upgrade their presence, and step into the next chapter with language that finally matches who they are now.
+The Margins is the private side of the brand. Long-form essays. Raw strategy notes. The frameworks that come out of actual client work, documented before they get cleaned up for public consumption.
 
-Rewrite Your Story is where writing, strategy, visibility, and reinvention meet.
+Not content. Not thought leadership theatre. The real thinking, before it gets positioned. If the public work is the final sentence, The Margins is the version with all the edits still showing and the margin notes intact.
+
+No algorithm decides what gets published here. No engagement rate tells me what to write. I write what I think is worth writing, and the people who want that kind of access know where to find it.
     `.trim(),
   },
 
   tiers: [
     {
       existingName: "Soft Cover",
-      newName: "Soft Cover",
+      newName: "The Brief",
       price: "5",
       description: `
-For readers who want the inner world.
+For readers who want the real thinking first.
+
+Weekly essays and strategic notes that never reach the public feed. Real thinking, before it gets positioned for an audience.
 
 Includes:
-• exclusive essays
-• private posts
-• notes app fragments
-• early access to new writing
+• Weekly long-form essays
+• Strategic frameworks and tools
+• Early access to published work
+• Monthly Q&A roundup
       `.trim(),
     },
     {
       existingName: "Marked Up",
-      newName: "Marked Up",
-      price: "12",
+      newName: "The Retainer",
+      price: "15",
       description: `
-For readers who want more process, more voice, and more behind-the-scenes becoming.
+For readers who want the behind-the-scenes work.
 
-Includes everything in Soft Cover, plus:
-• voice notes
-• deeper personal reflections
-• monthly prompts
-• behind-the-scenes thoughts on writing, reinvention, image, and identity
+Everything in The Brief, plus the raw client frameworks documented with enough context to actually use them. The behind-the-scenes work that does not make the case study.
+
+Includes everything in The Brief, plus:
+• Monthly strategy notes
+• Behind-the-scenes on client frameworks
+• Messaging and voice templates
+• Priority Q&A access
       `.trim(),
     },
     {
       existingName: "First Edition",
-      newName: "First Edition",
-      price: "28",
+      newName: "The Partner",
+      price: "50",
       description: `
-For the real ones.
+Full access plus a direct line.
 
-Includes everything above, plus:
-• monthly live session or Q and A
-• early reads from longer-form projects
-• first look at new ideas, offerings, and future chapters
-• occasional deeper access
+Monthly live Q&A, direct message access, and priority feedback on your own copy. The closest thing to working with me directly, at a fraction of the project rate.
+
+Includes everything in The Retainer, plus:
+• Monthly live Q&A
+• Direct message access
+• Priority feedback on your copy
+• First look at new work and ideas
       `.trim(),
     },
   ],
