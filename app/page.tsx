@@ -17,13 +17,15 @@ import {
   STRIPE_EDIT,
   STRIPE_REWRITE,
   STRIPE_BYLINE,
+  STRIPE_BUILD,
   PATREON_URL,
+  SHOP_URL,
 } from "@/app/lib/config";
 
 export const metadata: Metadata = {
-  title: "MK Parrish — Rewrite Your Story",
+  title: "MK Parrish — Writer, Ghostwriter & Brand Strategist",
   description:
-    "Words, strategy, and reinvention for people ready to stop being misread. Work with MK Parrish on copywriting, positioning, and personal brand strategy.",
+    "Writer, ghostwriter, brand strategist, and web presence builder. MK Parrish helps founders, executives, and people mid-reinvention build language that finally catches up with who they are.",
 };
 
 const rewrites = [
@@ -118,6 +120,21 @@ const services = [
     href: STRIPE_BYLINE,
     highlight: false,
   },
+  {
+    tag: "Full Site",
+    title: "The Build",
+    price: "From $3,500",
+    desc: "Your website, built from the ground up. Strategy, copy, and design — together. For founders and personal brands who need a site that converts, not just looks good.",
+    perks: [
+      "Brand strategy + positioning",
+      "Full website copy and design",
+      "Mobile-optimized and fast",
+      "Launch-ready in 3–4 weeks",
+    ],
+    cta: "Let's Build It",
+    href: STRIPE_BUILD,
+    highlight: false,
+  },
 ];
 
 export default function Home() {
@@ -131,7 +148,7 @@ export default function Home() {
 
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            Copywriting &middot; Ghostwriting &middot; Strategy &middot; Reinvention
+            Copywriting &middot; Ghostwriting &middot; Strategy &middot; Web Design &middot; Reinvention
           </p>
 
           <div className="mt-6">
@@ -233,11 +250,11 @@ export default function Home() {
       <RevealSection bg="void" num="03">
         <Eyebrow>Work with me directly</Eyebrow>
         <H2>
-          Four ways to{" "}
+          Five ways to{" "}
           <span className="text-petal">work together.</span>
         </H2>
 
-        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {services.map((s) => (
             <ServiceCard key={s.title} {...s} />
           ))}
@@ -313,8 +330,59 @@ export default function Home() {
 
       <QuoteDivider index={7} />
 
+      {/* ── SHOP / DIGITAL PRODUCTS ──────────────────────────────── */}
+      <RevealSection bg="obsidian" num="05">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
+          <div>
+            <Eyebrow>The Shop</Eyebrow>
+            <H2>
+              The work,{" "}
+              <span className="text-petal">on demand.</span>
+            </H2>
+            <H3Script>Guides, prints, and downloads built from real client work.</H3Script>
+            <p className="mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
+              Not repurposed content. The actual frameworks, writing exercises, and positioning tools — packaged so you can use them yourself. Plus poem prints for the words you keep coming back to.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <BtnPrimary href="/shop">Visit the Shop</BtnPrimary>
+              <ArrowLink href={SHOP_URL}>Ko-fi Store</ArrowLink>
+            </div>
+          </div>
+          <div className="grid gap-px bg-graphite sm:grid-cols-3">
+            {[
+              { label: "Workbook", title: "The Reinvention Workbook", price: "$18", tag: "Digital" },
+              { label: "Guide", title: "Write Yourself Into the Room", price: "$28", tag: "Best Seller" },
+              { label: "Playbook", title: "The Brand Voice Playbook", price: "$35", tag: "Digital" },
+            ].map((item, i) => (
+              <a
+                key={item.title}
+                href="/shop"
+                className="group relative flex flex-col justify-between bg-obsidian p-6 transition-all duration-300 hover:-translate-y-px hover:bg-carbon"
+                style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+              >
+                {i === 1 && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-40" />
+                <div>
+                  <p className="font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-iron">{item.tag}</p>
+                  <span className="mt-3 block select-none font-serif text-[4rem] leading-none text-petal/[0.12]">&ldquo;</span>
+                  <p className="mt-1 font-display text-xl uppercase tracking-[0.02em] text-pearl">{item.label}</p>
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  <p className="font-display text-2xl text-petal">{item.price}</p>
+                  <span className="flex h-7 w-7 items-center justify-center border border-petal/20 text-sm text-petal/50 transition-all duration-300 group-hover:border-petal group-hover:bg-petal group-hover:text-void">
+                    &rarr;
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={14} />
+
       {/* ── THE MARGINS ──────────────────────────────────────────── */}
-      <RevealSection bg="void" num="06">
+      <RevealSection bg="void" num="07">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <Eyebrow>The private side</Eyebrow>

@@ -197,9 +197,9 @@ export function ArrowLink({ href, children }: { href: string; children: ReactNod
 // ─────────────────────────────────────────────────────────────────────────────
 
 const DEFAULT_MARQUEE_ITEMS = [
-  "The Edit", "The Rewrite", "The New Chapter", "The Byline",
+  "The Edit", "The Rewrite", "The New Chapter", "The Byline", "The Build",
   "Career", "Brand", "Presence", "Next Chapter",
-  "The Shelf", "The Margins", "Ghostwriting", "Positioning", "Reinvention",
+  "Shop", "The Margins", "Ghostwriting", "Positioning", "Reinvention", "Web Design",
 ];
 
 export function Marquee({ items = DEFAULT_MARQUEE_ITEMS }: { items?: string[] }) {
