@@ -3,6 +3,7 @@ import "./globals.css";
 import Nav from "@/app/components/Nav";
 import Footer from "@/app/components/Footer";
 import CursorGlow from "@/app/components/CursorGlow";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: {
@@ -53,6 +54,7 @@ export default function RootLayout({
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
