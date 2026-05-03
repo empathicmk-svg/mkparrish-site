@@ -350,7 +350,7 @@ export default function Home() {
           </div>
           <div className="grid gap-px bg-graphite sm:grid-cols-3">
             {[
-              { label: "Workbook", title: "The Reinvention Workbook", price: "$18", tag: "Digital" },
+              { label: "New Release", title: "The Invisible Bruise", price: "$22", tag: "New" },
               { label: "Guide", title: "Write Yourself Into the Room", price: "$28", tag: "Best Seller" },
               { label: "Playbook", title: "The Brand Voice Playbook", price: "$35", tag: "Digital" },
             ].map((item, i) => (

@@ -15,10 +15,25 @@ import { PATREON_URL, SHOP_URL, STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/co
 export const metadata: Metadata = {
   title: "Shop — MK Parrish",
   description:
-    "Ebooks, poem prints, digital guides, and membership access from MK Parrish. Writing tools, brand voice workbooks, and direct access to the work.",
+    "Ebooks, poem prints, and digital guides from MK Parrish. The Invisible Bruise, The Reinvention Workbook, Write Yourself Into the Room, and more. Raw writing tools built from real experience.",
 };
 
 const ebooks = [
+  {
+    tag: "New Release",
+    title: "The Invisible Bruise",
+    price: "$22",
+    desc: "Surviving emotional abuse, suffering in silence, and rewriting your life. For the woman who knows something is wrong but cannot yet prove it. Raw, honest, and written from inside it.",
+    features: [
+      "8 chapters on emotional abuse + recovery",
+      "20 Instagram quotes included",
+      "The Rewrite framework for rebuilding",
+      "Instant PDF download",
+    ],
+    cta: "Get the Book",
+    href: SHOP_URL,
+    highlight: true,
+  },
   {
     tag: "Digital Download",
     title: "The Reinvention Workbook",
