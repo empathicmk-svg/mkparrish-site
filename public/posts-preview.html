@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MK Parrish — Instagram Posts Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #080808;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    padding: 60px 40px;
+  }
+  .page-header { margin-bottom: 60px; }
+  .page-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.3em;
+    text-transform: uppercase; color: #6B6B6B; margin-bottom: 16px;
+  }
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.88; letter-spacing: 0.02em; color: #fff;
+  }
+  .page-title span { color: #F2AFC6; }
+  .page-note {
+    margin-top: 20px; font-size: 13px; font-weight: 300;
+    line-height: 1.7; color: #9A9A9A; max-width: 52ch;
+  }
+  .divider {
+    margin: 24px 0; height: 1px;
+    background: linear-gradient(to right, #2C2C2C, transparent);
+  }
+  .count {
+    font-family: 'DM Sans', monospace; font-size: 10px;
+    letter-spacing: 0.2em; color: #444; text-transform: uppercase;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 540px);
+    gap: 48px;
+    margin-top: 60px;
+  }
+
+  .post-wrap { position: relative; }
+  .post-label {
+    font-size: 10px; letter-spacing: 0.2em; color: #444;
+    text-transform: uppercase; margin-bottom: 10px;
+    font-family: 'DM Sans', monospace;
+  }
+  .post-hint {
+    margin-top: 8px; font-size: 10px; letter-spacing: 0.1em;
+    color: #2C2C2C; font-style: italic;
+  }
+
+  /* ── THE CARD ── */
+  .card {
+    width: 540px; height: 540px;
+    position: relative; overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Shared brand mark */
+  .brand-mark {
+    position: absolute; bottom: 28px; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 36px;
+  }
+  .brand-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 0.08em; color: #F2AFC6; opacity: 0.9;
+  }
+  .brand-handle {
+    font-size: 10px; letter-spacing: 0.25em; color: #6B6B6B;
+    text-transform: uppercase;
+  }
+
+  /* Petal rule */
+  .petal-rule {
+    position: absolute; bottom: 64px; left: 36px; right: 36px;
+    height: 1px;
+    background: linear-gradient(to right, rgba(242,175,198,0.35), transparent);
+  }
+  .petal-rule-left {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(to bottom, transparent, #F2AFC6 40%, #F2AFC6 60%, transparent);
+    opacity: 0.55;
+  }
+
+  .tag {
+    position: absolute; top: 28px; left: 36px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.28em;
+    text-transform: uppercase; color: #444;
+  }
+
+  /* ── LAYOUT: BOLD ── */
+  .card-bold {
+    background: #080808;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 36px;
+  }
+  .card-bold .glow {
+    position: absolute; top: -30%; left: 50%; transform: translateX(-50%);
+    width: 130%; height: 80%;
+    background: radial-gradient(ellipse at top, rgba(242,175,198,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .bold-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 90px; line-height: 0.88;
+    letter-spacing: 0.01em; color: #fff; position: relative;
+  }
+  .bold-headline .accent { color: #F2AFC6; }
+  .bold-body {
+    margin-top: 22px;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 14px; line-height: 1.85; color: #9A9A9A;
+    white-space: pre-line; max-width: 360px; position: relative;
+  }
+
+  /* ── LAYOUT: QUOTE ── */
+  .card-quote {
+    background: #111111;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 36px;
+  }
+  .deco-quote {
+    position: absolute; top: 10px; left: 22px;
+    font-family: 'Playfair Display', serif;
+    font-size: 160px; line-height: 1; color: #F2AFC6;
+    opacity: 0.07; pointer-events: none; user-select: none;
+  }
+  .quote-text {
+    padding-left: 22px; position: relative;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 600; font-size: 21px; line-height: 1.75;
+    color: #E8E0D5; white-space: pre-line;
+  }
+
+  /* ── LAYOUT: LIST ── */
+  .card-list {
+    background: #1A1A1A;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 36px;
+  }
+  .card-list .glow-r {
+    position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+    background: radial-gradient(ellipse at right, rgba(242,175,198,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .list-intro {
+    margin-top: 20px; margin-bottom: 18px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+    text-transform: uppercase; color: #6B6B6B; position: relative;
+  }
+  .list-items { display: flex; flex-direction: column; gap: 9px; position: relative; }
+  .list-item { display: flex; align-items: flex-start; gap: 12px; }
+  .dot {
+    margin-top: 10px; width: 4px; height: 4px; border-radius: 50%;
+    background: #F2AFC6; flex-shrink: 0;
+  }
+  .list-item-text {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 17px; line-height: 1.55; color: #E8E0D5;
+  }
+  .list-outro {
+    margin-top: 18px; position: relative;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 14px; line-height: 1.7; color: #9A9A9A; white-space: pre-line;
+  }
+
+  /* ── LAYOUT: SPLIT ── */
+  .card-split {
+    background: #080808;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 40px; text-align: center;
+  }
+  .card-split .glow-c {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(242,175,198,0.055) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .split-top {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 600; font-size: 23px; line-height: 1.6;
+    color: #9A9A9A; white-space: pre-line; position: relative;
+  }
+  .split-divider {
+    width: 56px; height: 1px; background: #F2AFC6;
+    opacity: 0.5; margin: 18px auto;
+  }
+  .split-bottom {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 700; font-size: 26px; line-height: 1.5;
+    color: #F2AFC6; white-space: pre-line; position: relative;
+  }
+
+  /* ── LAYOUT: MINIMAL ── */
+  .card-minimal {
+    background: #080808;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 60px; text-align: center;
+  }
+  .corner { position: absolute; width: 22px; height: 22px; }
+  .corner-tr { top: 22px; right: 22px; border-top: 1px solid rgba(242,175,198,0.3); border-right: 1px solid rgba(242,175,198,0.3); }
+  .corner-bl { bottom: 22px; left: 22px; border-bottom: 1px solid rgba(242,175,198,0.3); border-left: 1px solid rgba(242,175,198,0.3); }
+  .minimal-text {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 600; font-size: 25px; line-height: 1.8;
+    color: #E8E0D5; white-space: pre-line;
+  }
+
+  /* ── PRINT EXPORT HINT ── */
+  .export-note {
+    margin-top: 80px; padding-top: 24px;
+    border-top: 1px solid #1A1A1A;
+    font-size: 12px; font-weight: 300; line-height: 1.8;
+    color: #444; max-width: 60ch;
+  }
+  .export-note strong { color: #6B6B6B; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <p class="page-eyebrow">Brand Assets</p>
+  <h1 class="page-title">Instagram<br><span>Posts</span></h1>
+  <p class="page-note">12 branded quote cards in 5 layouts. To export at 1080×1080: open DevTools → set device width to 1080px → screenshot each card.</p>
+  <div class="divider"></div>
+  <p class="count">12 Posts &middot; 5 Layouts &middot; Brand Colors &middot; MK Parrish</p>
+</div>
+
+<div class="grid">
+
+  <!-- POST 01: BOLD -->
+  <div class="post-wrap">
+    <p class="post-label">Post 01 — Bold</p>
+    <div class="card card-bold">
+      <div class="glow"></div>
+      <span class="tag">Emotional Abuse</span>
+      <div class="bold-headline" style="margin-top:24px">
+        He never<br><span class="accent">hit you.</span>
+      </div>
+      <p class="bold-body">But he made you small enough
+that you stopped taking up space.
+
+That counts.
+That is abuse.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+    <p class="post-hint">Screenshot at 2× = 1080×1080</p>
+  </div>
+
+  <!-- POST 02: QUOTE -->
+  <div class="post-wrap">
+    <p class="post-label">Post 02 — Quote</p>
+    <div class="card card-quote">
+      <span class="deco-quote">&ldquo;</span>
+      <div class="petal-rule-left"></div>
+      <span class="tag">The Rewrite</span>
+      <p class="quote-text" style="margin-top:24px">The most dangerous kind of abuse
+is the kind that makes you
+the expert on your own wrongness.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 03: LIST -->
+  <div class="post-wrap">
+    <p class="post-label">Post 03 — List</p>
+    <div class="card card-list">
+      <div class="glow-r"></div>
+      <span class="tag">Gaslighting Awareness</span>
+      <p class="list-intro">Emotional abuse sounds like:</p>
+      <div class="list-items">
+        <div class="list-item"><span class="dot"></span><span class="list-item-text">&ldquo;You&rsquo;re too sensitive.&rdquo;</span></div>
+        <div class="list-item"><span class="dot"></span><span class="list-item-text">&ldquo;That&rsquo;s not what I said.&rdquo;</span></div>
+        <div class="list-item"><span class="dot"></span><span class="list-item-text">&ldquo;You&rsquo;re crazy.&rdquo;</span></div>
+        <div class="list-item"><span class="dot"></span><span class="list-item-text">&ldquo;Nobody else would put up with you.&rdquo;</span></div>
+        <div class="list-item"><span class="dot"></span><span class="list-item-text">&ldquo;I never did that.&rdquo;</span></div>
+      </div>
+      <p class="list-outro">It doesn&rsquo;t leave marks you can show anyone.
+That&rsquo;s the point.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 04: SPLIT -->
+  <div class="post-wrap">
+    <p class="post-label">Post 04 — Split</p>
+    <div class="card card-split">
+      <div class="glow-c"></div>
+      <span class="tag">MK Parrish</span>
+      <p class="split-top">Control with soft lighting</p>
+      <div class="split-divider"></div>
+      <p class="split-bottom">is still control.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 05: QUOTE -->
+  <div class="post-wrap">
+    <p class="post-label">Post 05 — Quote</p>
+    <div class="card card-quote">
+      <span class="deco-quote">&ldquo;</span>
+      <div class="petal-rule-left"></div>
+      <span class="tag">The Rewrite</span>
+      <p class="quote-text" style="margin-top:24px">She was not dramatic.
+
+She was documenting.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 06: BOLD -->
+  <div class="post-wrap">
+    <p class="post-label">Post 06 — Bold</p>
+    <div class="card card-bold">
+      <div class="glow"></div>
+      <span class="tag">Surviving in Silence</span>
+      <div class="bold-headline" style="margin-top:24px">
+        Suffering<br><span class="accent">in silence</span>
+      </div>
+      <p class="bold-body">is not dignity.
+
+It is what they trained you to do
+so they could keep doing
+what they were doing.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 07: LIST -->
+  <div class="post-wrap">
+    <p class="post-label">Post 07 — List</p>
+    <div class="card card-list">
+      <div class="glow-r"></div>
+      <span class="tag">Invisible Wounds</span>
+      <p class="list-intro">The bruises you can&rsquo;t see:</p>
+      <div class="list-items">
+        <div class="list-item"><span class="dot"></span><span class="list-item-text">Your confidence.</span></div>
+        <div class="list-item"><span class="dot"></span><span class="list-item-text">Your memory.</span></div>
+        <div class="list-item"><span class="dot"></span><span class="list-item-text">Your trust in your own mind.</span></div>
+        <div class="list-item"><span class="dot"></span><span class="list-item-text">Your ability to make a decision without asking permission.</span></div>
+        <div class="list-item"><span class="dot"></span><span class="list-item-text">Your belief that you were allowed to want more.</span></div>
+      </div>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 08: QUOTE -->
+  <div class="post-wrap">
+    <p class="post-label">Post 08 — Quote</p>
+    <div class="card card-quote">
+      <span class="deco-quote">&ldquo;</span>
+      <div class="petal-rule-left"></div>
+      <span class="tag">The Rewrite</span>
+      <p class="quote-text" style="margin-top:24px">She didn&rsquo;t stay because she was weak.
+
+She stayed because he spent three years
+convincing her that the problem
+was her perception.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 09: SPLIT -->
+  <div class="post-wrap">
+    <p class="post-label">Post 09 — Split</p>
+    <div class="card card-split">
+      <div class="glow-c"></div>
+      <span class="tag">MK Parrish</span>
+      <p class="split-top">You kept asking
+what you did wrong.</p>
+      <div class="split-divider"></div>
+      <p class="split-bottom">You never asked
+what he kept doing to you.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 10: BOLD -->
+  <div class="post-wrap">
+    <p class="post-label">Post 10 — Bold</p>
+    <div class="card card-bold">
+      <div class="glow"></div>
+      <span class="tag">The Rewrite</span>
+      <div class="bold-headline" style="margin-top:24px">
+        The<br><span class="accent">rewrite</span>
+      </div>
+      <p class="bold-body">doesn&rsquo;t start with leaving.
+
+It starts with the moment
+you stop lying to yourself
+about what is happening to you.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 11: QUOTE -->
+  <div class="post-wrap">
+    <p class="post-label">Post 11 — Quote</p>
+    <div class="card card-quote">
+      <span class="deco-quote">&ldquo;</span>
+      <div class="petal-rule-left"></div>
+      <span class="tag">MK Parrish</span>
+      <p class="quote-text" style="margin-top:24px">She kept the peace.
+She kept his secrets.
+She kept everyone comfortable.
+
+The only thing she didn&rsquo;t keep
+was herself.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 12: MINIMAL -->
+  <div class="post-wrap">
+    <p class="post-label">Post 12 — Minimal</p>
+    <div class="card card-minimal">
+      <span class="tag">Suffering in Silence</span>
+      <div class="corner corner-tr"></div>
+      <div class="corner corner-bl"></div>
+      <p class="minimal-text">Nobody believed me.
+
+Not even me.
+
+That was the point.</p>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="export-note">
+  <strong>To export at 1080×1080px:</strong> Open browser DevTools (F12) → click the device toolbar icon → set width to <strong>1080</strong> → screenshot each card individually. Recommended: Nimbus Screenshot or GoFullPage Chrome extension for best results.
+</p>
+
+</body>
+</html>
