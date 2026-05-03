@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Girl Who Just Wanted To Be Loved — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+<style>
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── PAGE ── */
+html { font-size: 18px; }
+body {
+  background: #F9F6F1;
+  color: #1A1008;
+  font-family: 'Playfair Display', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── EBOOK CONTAINER ── */
+.book {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ── CHAPTER / SECTION ── */
+.page {
+  min-height: 100vh;
+  padding: 80px 60px;
+  position: relative;
+  border-bottom: 1px solid rgba(26,16,8,0.07);
+  page-break-after: always;
+}
+
+@media (max-width: 600px) {
+  .page { padding: 60px 28px; }
+}
+
+/* ── COVER PAGE ── */
+.cover {
+  background: #0D0D0D;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.cover-glow {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 80%;
+  background: radial-gradient(ellipse at top, rgba(180,140,255,0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cover-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #B48CFF;
+  opacity: 0.8;
+  margin-bottom: 32px;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 10vw, 80px);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+.cover-title-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 10vw, 80px);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  color: #B48CFF;
+  margin-bottom: 8px;
+}
+.cover-title-sub2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 10vw, 80px);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 48px;
+}
+.cover-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(232,224,213,0.65);
+  max-width: 40ch;
+  margin-bottom: 60px;
+}
+.cover-rule {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, #B48CFF, transparent);
+  margin-bottom: 40px;
+}
+.cover-author {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232,224,213,0.45);
+}
+.cover-bottom {
+  position: absolute;
+  bottom: 48px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cover-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: #B48CFF;
+  opacity: 0.55;
+}
+.cover-handle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(107,107,107,0.55);
+}
+
+/* ── TOC PAGE ── */
+.toc-page { background: #F9F6F1; }
+.toc-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #8B5CF6;
+  margin-bottom: 40px;
+}
+.toc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  letter-spacing: 0.02em;
+  color: #1A1008;
+  margin-bottom: 56px;
+  line-height: 1;
+}
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(26,16,8,0.08);
+  gap: 16px;
+}
+.toc-item:last-child { border-bottom: none; }
+.toc-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #B48CFF;
+  flex-shrink: 0;
+  width: 32px;
+}
+.toc-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: #1A1008;
+  flex: 1;
+}
+.toc-dots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(26,16,8,0.15);
+  margin: 0 12px;
+  position: relative;
+  top: -3px;
+}
+
+/* ── CHAPTER PAGES ── */
+.chapter-page { background: #F9F6F1; }
+.chapter-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #B48CFF;
+  margin-bottom: 20px;
+  display: block;
+}
+.chapter-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 7vw, 60px);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  color: #1A1008;
+  margin-bottom: 8px;
+}
+.chapter-title .accent { color: #8B5CF6; }
+.chapter-rule {
+  width: 56px;
+  height: 2px;
+  background: #B48CFF;
+  opacity: 0.55;
+  margin: 32px 0 40px;
+}
+
+/* ── BODY COPY ── */
+.body-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  line-height: 1.9;
+  color: #2A1E0F;
+  font-weight: 400;
+}
+.body-text p { margin-bottom: 24px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text em { font-style: italic; color: #1A1008; }
+.body-text strong {
+  font-weight: 700;
+  font-style: italic;
+  color: #8B5CF6;
+}
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  margin: 48px -20px;
+  padding: 36px 40px;
+  background: #1A1008;
+  position: relative;
+}
+.pull-quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -10px;
+  left: 28px;
+  font-family: 'Playfair Display', serif;
+  font-size: 100px;
+  line-height: 1;
+  color: #B48CFF;
+  opacity: 0.12;
+}
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.7;
+  color: #E8E0D5;
+  font-weight: 600;
+  position: relative;
+}
+
+/* ── POEM BLOCK ── */
+.poem-block {
+  margin: 48px 0;
+  padding-left: 28px;
+  border-left: 2px solid rgba(180,140,255,0.35);
+}
+.poem-block p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.95;
+  color: #2A1E0F;
+  margin-bottom: 0;
+}
+.poem-block .poem-attr {
+  margin-top: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #9A8070;
+  font-style: normal;
+}
+
+/* ── ORNAMENT ── */
+.ornament {
+  text-align: center;
+  margin: 40px 0;
+  color: rgba(180,140,255,0.45);
+  font-size: 18px;
+  letter-spacing: 12px;
+}
+
+/* ── LIST BLOCK ── */
+.styled-list {
+  list-style: none;
+  margin: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.styled-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #2A1E0F;
+  font-style: italic;
+}
+.styled-list li::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #B48CFF;
+  flex-shrink: 0;
+  margin-top: 9px;
+}
+
+/* ── CLOSING PAGE ── */
+.closing-page {
+  background: #0D0D0D;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.closing-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(180,140,255,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.closing-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 2.0;
+  color: #E8E0D5;
+  max-width: 46ch;
+  position: relative;
+}
+.closing-attr {
+  margin-top: 48px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #6B6B6B;
+  position: relative;
+}
+.closing-attr span { color: #B48CFF; }
+
+/* ── PRINT ── */
+@media print {
+  .page { page-break-after: always; }
+  body { background: white; }
+}
+
+/* ── SCROLL HINT ── */
+.scroll-hint {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(13,13,13,0.85);
+  color: #B48CFF;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                   -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page cover">
+  <div class="cover-glow"></div>
+  <p class="cover-eyebrow">MK Parrish</p>
+  <h1 class="cover-title">The Girl Who</h1>
+  <h1 class="cover-title-sub">Just Wanted</h1>
+  <h1 class="cover-title-sub2">To Be Loved</h1>
+  <p class="cover-subtitle">On loneliness, the fairytales that lied, and learning that the girl crying at the front door was never the problem.</p>
+  <div class="cover-rule"></div>
+  <p class="cover-author">MK Parrish</p>
+  <div class="cover-bottom">
+    <span class="cover-logo">MK PARRISH</span>
+    <span class="cover-handle">@mkparrish &nbsp;·&nbsp; mkparrish.com</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TABLE OF CONTENTS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page toc-page">
+  <p class="toc-eyebrow">Contents</p>
+  <h2 class="toc-title">Inside</h2>
+  <div>
+    <div class="toc-item">
+      <span class="toc-num">00</span>
+      <span class="toc-name">Introduction: The Paradox</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">01</span>
+      <span class="toc-name">The Hunger</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">02</span>
+      <span class="toc-name">The Wrong Kind of Obsessed</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">03</span>
+      <span class="toc-name">The Fairytale That Lied</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">04</span>
+      <span class="toc-name">This Time Would Be Different</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">05</span>
+      <span class="toc-name">The Door Without Keys</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">06</span>
+      <span class="toc-name">When the Paranoia Was Real</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">07</span>
+      <span class="toc-name">What Remains After the Burning</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">—</span>
+      <span class="toc-name">Closing: You Were Never the Joke</span>
+      <span class="toc-dots"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- INTRODUCTION                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Introduction</span>
+  <h2 class="chapter-title">The<br><span class="accent">Paradox</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Here is the paradox of a life like mine:</p>
+    <p>I have been obsessed over. I have been watched, followed, talked about, picked apart, analyzed, whispered about in rooms I was never invited into. People have organized themselves around my existence in ways I still struggle to fully believe.</p>
+    <p>And I have been the loneliest person in every room I have ever walked into.</p>
+    <div class="pull-quote">
+      <p>To be hated loudly and loved not at all — that is a specific kind of loneliness they don't have a name for yet.</p>
+    </div>
+    <p>This is not a book about surviving abuse, though I have survived it. It is not a book about mental illness, though I have lived inside it. It is not a book about being wronged, though I have been wronged in ways that still cost me sleep.</p>
+    <p>This is a book about the girl underneath all of that. The one who just wanted what every human being on earth wants: to be loved. Chosen. Obsessed over in the right way. Held. Saved. Seen.</p>
+    <p>That girl is not pitiful. She is not delusional. She is not too much.</p>
+    <p>She is the realest thing about me. And this is her story.</p>
+  </div>
+  <div class="ornament">· · ·</div>
+  <div class="poem-block">
+    <p>She didn't want to be famous.</p>
+    <p>She wanted to be known.</p>
+    <p>&nbsp;</p>
+    <p>There is a difference.</p>
+    <p>The world kept confusing them.</p>
+    <p class="poem-attr">— MK Parrish</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 1                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter One</span>
+  <h2 class="chapter-title">The<br><span class="accent">Hunger</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>I want someone to obsess over me.</p>
+    <p>I want someone to love me the way the songs say it happens — completely, protectively, with a certainty that does not flinch. I want to be treasured. Held. I want someone to look at me across a room and feel something so specific and irreplaceable that they never recover from it.</p>
+    <p>I have wanted this my entire life. I am not ashamed of that. I am not going to apologize for it or soften it or dress it up in language that makes it sound more dignified. It is a hunger. I have always been hungry for this particular thing.</p>
+    <div class="pull-quote">
+      <p>The hardest lesson I have had to learn is this: wanting to be loved is not the same as being loved. And the wanting — the pure, unprotected wanting — makes you a target for people who know how to counterfeit it.</p>
+    </div>
+    <p>I no longer believe in love the way I used to. I want to be honest about that. I believe in moments of it — flashes of real warmth, the kind that are brief and chemical and bright and then gone. Endorphins. Attachment. The biology of bonding. I believe those things exist.</p>
+    <p>But the version I spent my life chasing — the forever version, the <em>you are safe now</em> version — I have stopped expecting that. Not because I am broken. Because I am paying attention.</p>
+    <p>This chapter of my life, the one I am still inside, is not a fairytale. But I have spent so long trying to live in one that I can tell you exactly where the seams were. Where the magic started peeling back to show the machinery underneath.</p>
+    <p>I can tell you because I walked into it with my eyes wide open, which somehow made it worse. I knew the structure of the story. I wanted it anyway. I believed that wanting it badly enough would make me the exception.</p>
+    <p>I was not the exception.</p>
+    <p>Neither were you. And that is not your fault either.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 2                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Two</span>
+  <h2 class="chapter-title">The Wrong Kind<br><span class="accent">of Obsessed</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Here is what I find fascinating, in the black-humor way that survival makes you find things fascinating: I did get obsessed over.</p>
+    <p>Just not the way I wanted.</p>
+    <p>I was not loved. I was not treasured. I was not held or saved or chosen. But I was watched. I was discussed. I was picked apart and judged and humiliated in rooms I never entered. People organized themselves around their feelings about me — and their feelings were not tender.</p>
+    <p>The whole world was whispering, and none of it was kind.</p>
+    <div class="pull-quote">
+      <p>I got the obsession without the love. I got the attention without the tenderness. That is a specific kind of cruelty that most people have no vocabulary for.</p>
+    </div>
+    <p>There is something I want to say directly to anyone who has felt this — who has felt simultaneously invisible and overexposed, unseen and surveilled, alone in a room full of people who are talking about you:</p>
+    <p>Your perception was not wrong. Your instincts were not paranoia. The disconnect you feel between being profoundly lonely and somehow being at the center of everyone's attention is real. Both things exist at once. That is not confusion. That is your actual situation, described accurately.</p>
+    <p>I spent years being told I was imagining it. That I was too sensitive. That I was making myself the main character in a story that wasn't about me. I internalized that. I let them make me doubt the evidence of my own experience.</p>
+    <p>I was not imagining it.</p>
+    <p>The people who told me I was imagining it were the same people generating the thing I was imagining.</p>
+  </div>
+  <div class="ornament">· · ·</div>
+  <div class="poem-block">
+    <p>She wanted to be famous in one room.</p>
+    <p>His room. His eyes. His certainty.</p>
+    <p>&nbsp;</p>
+    <p>Instead she became famous everywhere else.</p>
+    <p>For all the wrong things.</p>
+    <p>By people who never knew her name right.</p>
+    <p class="poem-attr">— MK Parrish</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 3                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Three</span>
+  <h2 class="chapter-title">The Fairytale<br><span class="accent">That Lied</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>If my life were a fairytale — and for a long time I tried to make it one — it would be a strange, stripped-down version of Rapunzel.</p>
+    <p>Except no one climbed the tower. No one came. The tower was not even a castle; it was just a life I didn't own, in a place I didn't belong, and no prince arrived because there was no prince. There was just me at the window, having believed the architecture of the story too completely.</p>
+    <p>Or maybe I am the woman who lived in a shoe — except the shoe isn't mine either. I am borrowing someone else's structure. I cannot put down roots because the ground underneath is not mine to stand on.</p>
+    <div class="pull-quote">
+      <p>The fairytales prepare you for the villain. They do not prepare you for the fact that the villain will look like an ally. That the trap will look like a rescue.</p>
+    </div>
+    <p>The big bad wolf cannot blow my house down. Not because I am strong. Because I have no house. There is nothing to blow down. I have been living in the stories themselves — the paper versions, the borrowed ones — and paper does not need wind to fall apart. It falls apart on its own.</p>
+    <p>What no one tells you about the fairytales: they were written for the women who got rescued. They were not written for the women who never were. Those women don't get a story. They get an unnamed footnote. A cautionary background detail. The maiden who waited too long, the girl who wanted too much, the one who confused a con for a kingdom.</p>
+    <p>I am writing myself into the record because nobody else will.</p>
+    <p>I existed. I wanted. I was not rescued. I survived anyway. That is a story. It is mine.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 4                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Four</span>
+  <h2 class="chapter-title">This Time Would<br><span class="accent">Be Different</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>The cycle went like this:</p>
+    <p>Hope. Then belief. Then the slow disintegration of belief into something quieter and harder. Then a long period of carrying the disintegration. Then, eventually, the next horizon — and hope again, despite everything, rising up like something that does not know how to stay dead.</p>
+    <p>From one person to the next. One situation to the next. Carrying the residue of the last one and the belief that <em>this time would be different.</em> This time I would be loved. This time it would be permanent. This time I would be enough, or they would be enough, or both of us together would finally add up to something that lasted.</p>
+    <div class="pull-quote">
+      <p>Hope is not stupidity. But it can be weaponized against you by people who understand how much you need it.</p>
+    </div>
+    <p>I walked into trap after trap with my eyes open — and still believing. That is the most human thing I know about myself. Not the falling. The continuing to believe in the possibility of not falling, even while falling, even after having fallen before.</p>
+    <p>I don't think that's a character flaw. I think it is the central feature of being a person who has not given up completely. Which is worth something. Even when it costs you.</p>
+    <p>What I understand now, that I didn't then: <em>this time</em> cannot be built on the wreckage of the last one without addressing the wreckage first. The hope is not wrong. The skipping the grief is where it falls apart every time.</p>
+    <p>You cannot walk from one burning building into the next one and wonder why you keep getting burned.</p>
+    <p>At some point you have to stand in the cold and let it be cold.</p>
+  </div>
+  <div class="ornament">· · ·</div>
+  <div class="poem-block">
+    <p>She kept thinking this one would be different.</p>
+    <p>&nbsp;</p>
+    <p>Not because she was naive.</p>
+    <p>Because she was unwilling</p>
+    <p>to let the last one be the last thing.</p>
+    <p class="poem-attr">— MK Parrish</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 5                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Five</span>
+  <h2 class="chapter-title">The Door<br><span class="accent">Without Keys</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>There is a specific memory I return to.</p>
+    <p>I am crying at the front door of a house I do not have keys to. It is not a metaphor — or it is a metaphor only because it is also completely literal. Standing outside a door I cannot open. Unable to enter a space I was supposed to belong to. Locked out of a life that was supposed to be mine and wasn't. Never had been.</p>
+    <p>I walked right into it. I knew something was wrong, and I walked in anyway, because the alternative was standing outside in the cold forever, and the cold had already gone on for so long.</p>
+    <div class="pull-quote">
+      <p>A locked door is not always a warning. Sometimes it is the entire summary of what the relationship was: you were never going to be let in. You were never going to have a key. You just didn't know it yet.</p>
+    </div>
+    <p>What that moment taught me — that image of myself, crying at a door I didn't own, for a person who didn't deserve the tears — is that belonging cannot be performed. Cannot be earned. Cannot be forced through persistence or presence or sheer refusal to accept the evidence.</p>
+    <p>If the door has no key for you, it has no key for you.</p>
+    <p>The grief of that is not weakness. Sitting down outside a door that was never yours and letting yourself feel how much you wanted to be on the other side — that is not failure. That is the beginning of finally going somewhere that actually has a place for you.</p>
+    <p>You will find it. Not because the story demands it. Because you are still here, still looking, still choosing to believe a door exists somewhere with your name on it.</p>
+    <p>That belief is not stupidity. It is the only rational response to still being alive.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 6                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Six</span>
+  <h2 class="chapter-title">When The Paranoia<br><span class="accent">Was Real</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>I was diagnosed. I want to say that plainly, without shame, because shame is what they wanted and I am done giving people what they want.</p>
+    <p>I was told what I was experiencing was schizoaffective disorder. I was told the things I feared were products of a broken mind. I was told the voices, the certainty that I was being watched and talked about and conspired against, were symptoms — not data.</p>
+    <p>And I believed them. Because I had already been taught to stop believing myself. Because the diagnosis arrived at the precise moment when I was most disoriented, most exhausted, most desperate for any explanation that would make the world make sense again. And <em>your brain is lying to you</em> was an explanation.</p>
+    <div class="pull-quote">
+      <p>The cruelest thing you can do to a person is make them doubt their own perception. And the cruelest version of that is when the institutions designed to help you do the doubting for you.</p>
+    </div>
+    <p>Then something happened. The world made too many confirmations to keep calling them symptoms. Threads connected. Things I had been told were delusions turned out to be documentable. The people I was told didn't hate me turned out to hate me, specifically, deliberately, with coordinated effort.</p>
+    <p>I was not paranoid. I was observant. In an environment that had every incentive to call my observations a disease.</p>
+    <p>I want to be careful here — because mental illness is real. Because some of what I experienced was a crisis, and crisis deserves treatment and care and compassion. Both things are true: I was unwell, and I was also right. Those two facts coexist without canceling each other out.</p>
+    <p>What I know now: a diagnosis is not the end of your credibility. It is not a verdict on your perception. You are allowed to be in recovery and still be a reliable narrator of your own life. You are allowed to be both — healing, and right.</p>
+    <p>They told me the whole world wasn't against me.</p>
+    <p>Some of it was. A measurable, traceable, provable portion of it.</p>
+    <p>The only crazy thing was how long I apologized for noticing.</p>
+  </div>
+  <div class="ornament">· · ·</div>
+  <div class="poem-block">
+    <p>She was told her mind was lying.</p>
+    <p>&nbsp;</p>
+    <p>Her mind was the only one</p>
+    <p>in the room</p>
+    <p>telling the truth.</p>
+    <p class="poem-attr">— MK Parrish</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 7                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Seven</span>
+  <h2 class="chapter-title">What Remains After<br><span class="accent">The Burning</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>They burned it to the ground.</p>
+    <p>Let me be clear about that. My life — the version of it I was living, the version I was trying to build — was dismantled. Not by accident. Not by circumstance. By specific choices made by specific people who found my existence inconvenient enough to organize against.</p>
+    <p>They succeeded. For a while.</p>
+    <div class="pull-quote">
+      <p>Here is what they miscalculated: burning something to the ground does not erase the person who was living there. It just removes everything that wasn't load-bearing.</p>
+    </div>
+    <p>I used to think I needed everything I had to be okay. The structures. The relationship. The sense of normalcy. The borrowed life in the borrowed house with the borrowed sense of belonging. I thought without all of that, I would not survive.</p>
+    <p>I survived.</p>
+    <p>Not comfortably. Not gracefully. Not in any way that looks like a triumphant second act from the outside. But I am here, which is more than they planned for.</p>
+    <p>Life is a cruel place. I am not going to lie to you about that, wrap it up in something palatable, tell you it all happens for a reason. I don't know that it does. The cruelty seems fairly random and fairly relentless and the people who dispense it mostly face no consequences.</p>
+    <p>But here is the other thing — the thing I keep coming back to in the rubble:</p>
+    <p>I still care. Despite everything that has happened to me, I still want things. I still wake up wanting to be loved and wanting to contribute something and wanting the world to be different than it is. That wanting did not get burned. It is the thing that could not be burned.</p>
+    <p>That wanting <em>is</em> the load-bearing wall.</p>
+    <p>Everything else can be rebuilt. And I am not done building.</p>
+  </div>
+  <div class="ornament">· · ·</div>
+  <div class="poem-block">
+    <p>She stood in the ashes</p>
+    <p>and understood something new:</p>
+    <p>&nbsp;</p>
+    <p>She had built everything from nothing before.</p>
+    <p>At least this time</p>
+    <p>she knew what she was building toward.</p>
+    <p class="poem-attr">— MK Parrish</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CLOSING                                                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page closing-page">
+  <div class="closing-glow"></div>
+  <p style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#B48CFF;opacity:0.7;margin-bottom:40px;position:relative;">Closing</p>
+  <p class="closing-text">
+    You were never the joke.<br><br>
+    You were the person watching the joke happen and being told you didn't understand the humor.<br><br>
+    The girl who just wanted to be loved was not asking for too much. She was asking for the minimum. The baseline. The thing every human being deserves and most of them get without even having to name it.<br><br>
+    You had to fight for it. You are still fighting. That is not a deficiency in you. That is an indictment of everyone who should have made the fight unnecessary.<br><br>
+    You are not alone in this. Not because I can promise you rescue — I can't. But because there are other women standing outside locked doors, crying at thresholds they were never given keys to, trying to remember if they are allowed to want the things they want.<br><br>
+    They are allowed.<br><br>
+    You are allowed.<br><br>
+    The hunger is not the problem.<br><br>
+    The hunger means you are still here.
+  </p>
+  <p class="closing-attr"><span>— MK Parrish</span> &nbsp;·&nbsp; The Girl Who Just Wanted To Be Loved</p>
+  <div style="position:absolute;bottom:48px;left:60px;right:60px;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.08em;color:#B48CFF;opacity:0.5;">MK PARRISH</span>
+    <span style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">mkparrish.com</span>
+  </div>
+</div>
+
+</div><!-- /book -->
+
+<div class="scroll-hint">Scroll to read · Print to PDF for Kindle/Apple Books</div>
+
+</body>
+</html>
