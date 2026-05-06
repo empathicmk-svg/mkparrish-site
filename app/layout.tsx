@@ -47,6 +47,8 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
+        {/* Gumroad overlay checkout — enables buy-without-leaving-site */}
+        <script src="https://gumroad.com/js/gumroad.js" async />
       </head>
       <body className="flex min-h-full flex-col overflow-x-hidden">
         <CursorGlow />
