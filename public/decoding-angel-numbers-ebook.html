@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Decoding Angel Numbers — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+<style>
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── PAGE ── */
+html { font-size: 18px; }
+body {
+  background: #F9F6F1;
+  color: #1A1008;
+  font-family: 'Playfair Display', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── EBOOK CONTAINER ── */
+.book {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ── CHAPTER / SECTION ── */
+.page {
+  min-height: 100vh;
+  padding: 80px 60px;
+  position: relative;
+  border-bottom: 1px solid rgba(26,16,8,0.07);
+  page-break-after: always;
+}
+
+@media (max-width: 600px) {
+  .page { padding: 60px 28px; }
+}
+
+/* ── COVER PAGE ── */
+.cover {
+  background: #0D0D0D;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.cover-glow {
+  position: absolute;
+  top: -10%;
+  left: 40%;
+  transform: translateX(-50%);
+  width: 160%;
+  height: 90%;
+  background: radial-gradient(ellipse at top right, rgba(180,155,255,0.13) 0%, rgba(242,175,198,0.07) 40%, transparent 65%);
+  pointer-events: none;
+}
+.cover-glow-2 {
+  position: absolute;
+  bottom: -20%;
+  left: -20%;
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(ellipse at bottom left, rgba(242,175,198,0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+/* Floating number glyphs on cover */
+.cover-numerals {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.cover-num-glyph {
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  color: rgba(242,175,198,0.04);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+.cover-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #B49BFF;
+  opacity: 0.85;
+  margin-bottom: 32px;
+  position: relative;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 11vw, 88px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+  position: relative;
+}
+.cover-title-accent {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 11vw, 88px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: #F2AFC6;
+  margin-bottom: 48px;
+  position: relative;
+}
+.cover-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(232,224,213,0.65);
+  max-width: 36ch;
+  margin-bottom: 60px;
+  position: relative;
+}
+.cover-numbers-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+  position: relative;
+}
+.cover-number-pill {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: rgba(180,155,255,0.5);
+  border: 1px solid rgba(180,155,255,0.15);
+  padding: 4px 10px;
+}
+.cover-rule {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, #F2AFC6, transparent);
+  margin-bottom: 40px;
+  position: relative;
+}
+.cover-author {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232,224,213,0.45);
+  position: relative;
+}
+.cover-bottom {
+  position: absolute;
+  bottom: 48px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cover-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: #F2AFC6;
+  opacity: 0.6;
+}
+.cover-handle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(107,107,107,0.5);
+}
+
+/* ── TOC PAGE ── */
+.toc-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #B49BFF;
+  margin-bottom: 20px;
+}
+.toc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: #1A1008;
+  margin-bottom: 40px;
+}
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(26,16,8,0.06);
+}
+.toc-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  color: #B49BFF;
+  min-width: 44px;
+  flex-shrink: 0;
+}
+.toc-name {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #1A1008;
+  flex: 1;
+}
+.toc-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9A8A7A;
+  flex-shrink: 0;
+}
+
+/* ── CHAPTER PAGE ── */
+.chapter-num {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #B49BFF;
+  margin-bottom: 24px;
+}
+.chapter-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px, 9vw, 72px);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  color: #1A1008;
+  margin-bottom: 24px;
+}
+.chapter-title .accent { color: #F2AFC6; }
+.chapter-title .accent-purple { color: #B49BFF; }
+.chapter-rule {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, #B49BFF, transparent);
+  margin-bottom: 36px;
+}
+
+/* ── NUMBER DISPLAY ── */
+.number-display {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 96px;
+  line-height: 0.85;
+  letter-spacing: 0.05em;
+  color: rgba(180,155,255,0.12);
+  position: absolute;
+  top: 60px;
+  right: 40px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── BODY TEXT ── */
+.body-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.body-text p {
+  font-size: 17px;
+  line-height: 1.85;
+  color: #2A1E12;
+}
+.body-text p em {
+  font-style: italic;
+  color: #3A2A1A;
+}
+.body-text p strong {
+  font-weight: 700;
+  color: #1A1008;
+}
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  background: #F0EBE3;
+  border-left: 3px solid #B49BFF;
+  padding: 24px 28px;
+  margin: 8px 0;
+}
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px !important;
+  line-height: 1.7 !important;
+  color: #1A1008 !important;
+}
+
+/* ── WHAT IT'S ASKING / WHAT IT'S NOT ── */
+.signal-block {
+  margin: 28px 0;
+  background: #F4F0EA;
+  padding: 28px 32px;
+  border-top: 1px solid rgba(180,155,255,0.25);
+  border-bottom: 1px solid rgba(180,155,255,0.25);
+}
+.signal-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #B49BFF;
+  margin-bottom: 16px;
+}
+.signal-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.signal-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.signal-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #B49BFF;
+  flex-shrink: 0;
+  margin-top: 9px;
+}
+.signal-dot-no {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(180,155,255,0.3);
+  flex-shrink: 0;
+  margin-top: 9px;
+}
+.signal-item p {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  color: #2A1E12 !important;
+}
+
+/* ── BOTTOM MESSAGE (closing statement per chapter) ── */
+.chapter-close {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(26,16,8,0.07);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #6A5540;
+}
+
+/* ── ORNAMENT ── */
+.ornament {
+  text-align: center;
+  color: rgba(180,155,255,0.4);
+  font-size: 18px;
+  letter-spacing: 0.5em;
+  margin: 36px 0;
+}
+
+/* ── POEM BLOCK ── */
+.poem-block {
+  background: #0D0D0D;
+  padding: 40px 44px;
+  margin-top: 8px;
+}
+.poem-block p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 2;
+  color: #E8E0D5;
+}
+.poem-attr {
+  margin-top: 20px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-style: normal !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: #F2AFC6 !important;
+  line-height: 1.4 !important;
+}
+
+/* ── NUMBER INTRO BLOCK ── */
+.number-intro {
+  background: #0D0D0D;
+  padding: 32px 36px;
+  margin-bottom: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.number-intro-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(180,155,255,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.number-intro-seq {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  letter-spacing: 0.1em;
+  color: #F2AFC6;
+  line-height: 1;
+  position: relative;
+}
+.number-intro-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #B49BFF;
+  margin-top: 8px;
+  position: relative;
+}
+
+/* ── PART DIVIDER ── */
+.part-divider {
+  background: #0D0D0D;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.part-divider-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(180,155,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.part-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #B49BFF;
+  margin-bottom: 20px;
+  position: relative;
+}
+.part-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 12vw, 96px);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  margin-bottom: 28px;
+  position: relative;
+}
+.part-title .accent { color: #F2AFC6; }
+.part-rule {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, #B49BFF, transparent);
+  margin-bottom: 32px;
+  position: relative;
+}
+.part-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(232,224,213,0.55);
+  max-width: 40ch;
+  position: relative;
+}
+
+/* ── CLOSING PAGE ── */
+.closing {
+  background: #0D0D0D;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.closing-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(180,155,255,0.07) 0%, rgba(242,175,198,0.04) 40%, transparent 65%);
+  pointer-events: none;
+}
+.closing-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #B49BFF;
+  margin-bottom: 28px;
+  position: relative;
+}
+.closing-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 9vw, 72px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  margin-bottom: 40px;
+  position: relative;
+}
+.closing-title .accent { color: #F2AFC6; }
+.closing-rule {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, #F2AFC6, transparent);
+  margin-bottom: 40px;
+  position: relative;
+}
+.closing-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 2;
+  color: #E8E0D5;
+  max-width: 46ch;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.closing-attr {
+  margin-top: 48px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #6B6B6B;
+  position: relative;
+}
+.closing-attr span { color: #F2AFC6; }
+.closing-bottom {
+  position: absolute;
+  bottom: 48px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.closing-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: #F2AFC6;
+  opacity: 0.55;
+}
+.closing-handle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(107,107,107,0.45);
+}
+
+@media print {
+  .page { page-break-after: always; }
+}
+</style>
+</head>
+<body>
+
+<div class="book">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                   -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page cover">
+  <div class="cover-glow"></div>
+  <div class="cover-glow-2"></div>
+  <div class="cover-numerals">
+    <span class="cover-num-glyph" style="font-size:220px;top:-10px;right:-30px;">111</span>
+    <span class="cover-num-glyph" style="font-size:160px;bottom:120px;right:20px;">999</span>
+    <span class="cover-num-glyph" style="font-size:130px;bottom:40px;left:-20px;">444</span>
+    <span class="cover-num-glyph" style="font-size:100px;top:200px;left:30px;">222</span>
+  </div>
+  <p class="cover-eyebrow">MK Parrish</p>
+  <h1 class="cover-title">Decoding</h1>
+  <h1 class="cover-title-accent">Angel Numbers</h1>
+  <p class="cover-subtitle">What the numbers are trying to tell you — and how to actually use them.</p>
+  <div class="cover-numbers-row">
+    <span class="cover-number-pill">111</span>
+    <span class="cover-number-pill">222</span>
+    <span class="cover-number-pill">333</span>
+    <span class="cover-number-pill">444</span>
+    <span class="cover-number-pill">555</span>
+    <span class="cover-number-pill">666</span>
+    <span class="cover-number-pill">777</span>
+    <span class="cover-number-pill">888</span>
+    <span class="cover-number-pill">999</span>
+    <span class="cover-number-pill">000</span>
+  </div>
+  <div class="cover-rule"></div>
+  <p class="cover-author">MK Parrish</p>
+  <div class="cover-bottom">
+    <span class="cover-logo">MK PARRISH</span>
+    <span class="cover-handle">@mkparrish &nbsp;·&nbsp; mkparrish.com</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TABLE OF CONTENTS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <p class="toc-eyebrow">Contents</p>
+  <h2 class="toc-title">Inside</h2>
+  <div>
+    <div class="toc-item">
+      <span class="toc-num">—</span>
+      <span class="toc-name">Introduction: The Numbers Found You</span>
+      <span class="toc-sub"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">111</span>
+      <span class="toc-name">Something is beginning. Don't interrupt it.</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">222</span>
+      <span class="toc-name">Trust what's growing. It takes longer than you want.</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">333</span>
+      <span class="toc-name">You are aligned. Let it show.</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">444</span>
+      <span class="toc-name">The foundation is real. Stop trying to feel certain first.</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">555</span>
+      <span class="toc-name">Change is not a warning. It's an invitation.</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">666</span>
+      <span class="toc-name">It's not a warning. It's a recalibration.</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">777</span>
+      <span class="toc-name">You are exactly where you're supposed to be. Even here.</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">888</span>
+      <span class="toc-name">Abundance is already in motion. Your job is to receive it.</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">999</span>
+      <span class="toc-name">The ending is the point. Let it end completely.</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">000</span>
+      <span class="toc-name">You are at the threshold. Everything is still possible.</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">—</span>
+      <span class="toc-name">Closing: The Numbers Don't Chase You</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- INTRODUCTION                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <span class="chapter-num">Introduction</span>
+  <h2 class="chapter-title">The Numbers<br><span class="accent">Found You</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>You didn't go looking for angel numbers.</p>
+    <p>You were in the middle of something — a decision, a doubt, a moment where you were right at the edge of going back or going forward — and you looked up, and there they were. 1111 on the clock. On the receipt. On the license plate ahead of you at the exact moment you were wondering if you were making a mistake.</p>
+    <p>You probably told yourself it was coincidence. You probably looked it up anyway.</p>
+    <p>This guide is for the part of you that looked it up.</p>
+  </div>
+  <div class="ornament">· · ·</div>
+  <div class="body-text">
+    <p>Here is what I believe about angel numbers, and I want to be honest with you about it: I am not going to tell you these are messages from the divine in a way that bypasses your own intelligence. I'm also not going to dismiss them as magical thinking in a way that dismisses what you experienced.</p>
+    <p>What I believe is this: the numbers are a language. Not from outside you — from the most attuned part of you. The part that has been paying attention even when you weren't. The part that notices patterns. The part that has been trying to get your attention for years and has finally found a delivery system you won't ignore.</p>
+    <div class="pull-quote">
+      <p>You see 444 when you're about to abandon something that's working. You see 222 when you're in the middle of something that's taking longer than your anxiety can stand. You see 111 right before you begin. That's not random. That's your nervous system being bilingual.</p>
+    </div>
+    <p>This guide walks you through the ten primary sequences — what each one is trying to tell you, and what it means for where you are right now. Because the numbers don't mean the same thing to everyone. They mean something specific to you. Your job is to decode your version.</p>
+    <p><strong>Let's begin.</strong></p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 111                                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="number-display">111</div>
+  <span class="chapter-num">Angel Number</span>
+  <h2 class="chapter-title">111<br><span class="accent-purple">Something is beginning.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="number-intro">
+    <div class="number-intro-glow"></div>
+    <div class="number-intro-seq">111</div>
+    <p class="number-intro-label">New beginnings · Initiation · Trust the threshold</p>
+  </div>
+  <div class="body-text">
+    <p>You see 111 and something in you knows.</p>
+    <p>Not the panicky kind of knowing — the quiet kind. The kind that says: <em>this is the moment.</em> The kind that arrives right as you're about to talk yourself out of it.</p>
+    <p>111 is the number of initiation. It's not about everything already being in place. It's about the threshold. You are standing at the beginning of something, and the numbers are marking the moment like a timestamp.</p>
+    <p>Here is what matters most about 111: it appears when you are about to act from your truest self. Which means it also appears precisely when your fear is the loudest.</p>
+    <div class="pull-quote">
+      <p>That's by design. The beginning is where fear lives. The beginning is where you will receive the most pushback — from outside and, more treacherously, from inside.</p>
+    </div>
+    <p>When you see 111, the message is not "good luck." It's <em>stop second-guessing. You already know.</em></p>
+  </div>
+  <div class="signal-block">
+    <p class="signal-label">What 111 is asking of you</p>
+    <div class="signal-items">
+      <div class="signal-item"><span class="signal-dot"></span><p>Stop waiting for more signs. This is the sign.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Notice what thought you were just having when you saw it. That thought is the thread. Follow it.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Take one step today. Not the whole staircase. One step.</p></div>
+    </div>
+  </div>
+  <p class="chapter-close">It's not saying you're ready. It's saying: this is the beginning. The beginning belongs to you.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 222                                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="number-display">222</div>
+  <span class="chapter-num">Angel Number</span>
+  <h2 class="chapter-title">222<br><span class="accent-purple">Trust the invisible work.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="number-intro">
+    <div class="number-intro-glow"></div>
+    <div class="number-intro-seq">222</div>
+    <p class="number-intro-label">Patience · Roots before bloom · Stay in it</p>
+  </div>
+  <div class="body-text">
+    <p>You see 222 when you are in the middle.</p>
+    <p>Not the exciting beginning. Not the visible ending. The middle, where nothing looks like anything yet. Where you have committed, and the results are not cooperating. Where you are practicing faith in something you cannot yet see.</p>
+    <p>222 is the number of patience — but not the passive kind. It's the patience of someone who has planted something and understands, on a cellular level, that the root system develops before the bloom.</p>
+    <div class="pull-quote">
+      <p>The hardest part of 222 is that it appears specifically when you are most tempted to pull it up by the roots to check if it's still alive. It's alive.</p>
+    </div>
+    <p>The urgency you're feeling — that's not signal. That's anxiety wearing the costume of intuition. 222 is there to help you tell the difference.</p>
+    <p>When you see 222, the message is: <em>the process is working. Your timetable is not the right one.</em></p>
+  </div>
+  <div class="signal-block">
+    <p class="signal-label">What 222 is asking of you</p>
+    <div class="signal-items">
+      <div class="signal-item"><span class="signal-dot"></span><p>Stay in it one more week, one more attempt, one more round.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Stop measuring by where you thought you'd be. Measure by where you started.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Trust the invisible work. What's underground counts.</p></div>
+    </div>
+  </div>
+  <p class="chapter-close">The timeline you wanted was always too short for what you're building.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 333                                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="number-display">333</div>
+  <span class="chapter-num">Angel Number</span>
+  <h2 class="chapter-title">333<br><span class="accent-purple">You are aligned. Let it show.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="number-intro">
+    <div class="number-intro-glow"></div>
+    <div class="number-intro-seq">333</div>
+    <p class="number-intro-label">Alignment · Wholeness · Stop shrinking</p>
+  </div>
+  <div class="body-text">
+    <p>333 is the number of wholeness. Of mind, body, and something harder to name — the part of you that knows things before you have words for them.</p>
+    <p>You see 333 when all three are moving in the same direction. When what you're doing matches what you feel, and what you feel matches what you know.</p>
+    <p>This is rarer than it sounds. Most of us spend most of our time in partial alignment — doing what we've agreed to, feeling something different, knowing something else entirely. 333 is the marker for the moments when the gap closes.</p>
+    <div class="pull-quote">
+      <p>333 appears not just to confirm the alignment, but to ask you to be visible in it. You have gotten very good at hiding the most aligned version of yourself.</p>
+    </div>
+    <p>You have learned — through years of being told you were too much, too intense, too certain — to dial it back. To perform doubt you don't have. To make yourself smaller so your clarity doesn't make anyone uncomfortable.</p>
+    <p>333 says: <em>let it show.</em></p>
+  </div>
+  <div class="signal-block">
+    <p class="signal-label">What 333 is asking of you</p>
+    <div class="signal-items">
+      <div class="signal-item"><span class="signal-dot"></span><p>Say the thing you've been softening.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Stop performing uncertainty to make someone else comfortable.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Let the aligned version of you speak first, not last.</p></div>
+    </div>
+  </div>
+  <p class="chapter-close">You are whole right now. Don't waste it hiding.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 444                                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="number-display">444</div>
+  <span class="chapter-num">Angel Number</span>
+  <h2 class="chapter-title">444<br><span class="accent-purple">The ground is real. Stand on it.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="number-intro">
+    <div class="number-intro-glow"></div>
+    <div class="number-intro-seq">444</div>
+    <p class="number-intro-label">Foundation · Stability · Stop testing what is solid</p>
+  </div>
+  <div class="body-text">
+    <p>444 is the number most people misread.</p>
+    <p>They see it and expect to feel safe. They wait for the feeling of certainty, of solidity, of everything in place. And when the feeling doesn't arrive, they assume the sign was wrong.</p>
+    <p>The feeling of certainty is not the foundation. The foundation is the foundation. And 444 tells you the foundation is there — whether or not you feel it yet.</p>
+    <div class="pull-quote">
+      <p>444 is specifically for women who built their lives on something that kept shifting beneath them. Who learned that nothing was actually solid. Who now second-guess foundations that are, in fact, solid — because their nervous system hasn't learned the difference between <em>I feel unsafe</em> and <em>this is actually unsafe.</em></p>
+    </div>
+    <p>When you see 444, the message is: <em>this is real. What you have built is real. You do not have to feel certain for it to be true.</em></p>
+  </div>
+  <div class="signal-block">
+    <p class="signal-label">What 444 is asking of you</p>
+    <div class="signal-items">
+      <div class="signal-item"><span class="signal-dot"></span><p>Name what you have built. Write it down. Say it out loud.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Notice the difference between "I feel like this isn't stable" and the evidence that it isn't.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Let the structure hold you. Stop holding the structure.</p></div>
+    </div>
+  </div>
+  <p class="chapter-close">The ground under your feet is real. You can stand on it.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 555                                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="number-display">555</div>
+  <span class="chapter-num">Angel Number</span>
+  <h2 class="chapter-title">555<br><span class="accent-purple">Change is not a warning.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="number-intro">
+    <div class="number-intro-glow"></div>
+    <div class="number-intro-seq">555</div>
+    <p class="number-intro-label">Transformation · Release · Let the shift do its job</p>
+  </div>
+  <div class="body-text">
+    <p>555 is the number everyone fears and everyone needs.</p>
+    <p>It arrives when something is about to shift — a relationship, a role, a version of yourself, a life chapter. And the first reaction, almost always, is dread.</p>
+    <p>Because the part of you that survived on consistency — the part that got very good at maintaining the familiar because the unfamiliar was dangerous — will always experience change as threat first.</p>
+    <div class="pull-quote">
+      <p>The things that change in your life are not random. They are almost always the things that have been straining. The change is not the problem. The change is the solution that got tired of waiting.</p>
+    </div>
+    <p>555 is not asking you to feel okay about the shift. It is asking you to trust that the shift is doing its job.</p>
+  </div>
+  <div class="signal-block">
+    <p class="signal-label">What 555 is asking of you</p>
+    <div class="signal-items">
+      <div class="signal-item"><span class="signal-dot"></span><p>Let something go without making sure you have the replacement first.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Resist the urge to immediately rebuild what is clearly supposed to dissolve.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Give the transition its full length. Don't skip to the part where you're already fine.</p></div>
+    </div>
+  </div>
+  <p class="chapter-close">The thing that's ending is making room. Let it make room.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 666                                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="number-display">666</div>
+  <span class="chapter-num">Angel Number</span>
+  <h2 class="chapter-title">666<br><span class="accent-purple">It's a recalibration. Not a curse.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="number-intro">
+    <div class="number-intro-glow"></div>
+    <div class="number-intro-seq">666</div>
+    <p class="number-intro-label">Balance · Recalibration · Adjust, not panic</p>
+  </div>
+  <div class="body-text">
+    <p>Let's address the obvious: 666 has been so maligned by cultural mythology that most people flinch when they see it. They're bracing for an omen.</p>
+    <p>Stop bracing.</p>
+    <p>666 is the number of balance. Specifically, the kind of balance you find when you have been overcorrecting — too much focus on one area, at the expense of others. It is not a warning that something is wrong. It is a signal that something is off-center.</p>
+    <div class="pull-quote">
+      <p>There is a difference. A warning means danger. A recalibration means: hey, you've been leaning. Time to straighten.</p>
+    </div>
+    <p>You've been overdoing something and underfeeding something else. You know exactly which — even if you've been pretending not to.</p>
+    <p>When you see 666, the message is not <em>beware.</em> It is <em>adjust.</em></p>
+  </div>
+  <div class="signal-block">
+    <p class="signal-label">What 666 is asking of you</p>
+    <div class="signal-items">
+      <div class="signal-item"><span class="signal-dot"></span><p>Name the area you've been neglecting. You already know.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Ask what you're getting from the imbalance — comfort, avoidance, control.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Make one small adjustment today. Not a complete overhaul. One calibration.</p></div>
+    </div>
+  </div>
+  <p class="chapter-close">The scales are tipping. You know what to move.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 777                                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="number-display">777</div>
+  <span class="chapter-num">Angel Number</span>
+  <h2 class="chapter-title">777<br><span class="accent-purple">You belong here. Even here.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="number-intro">
+    <div class="number-intro-glow"></div>
+    <div class="number-intro-seq">777</div>
+    <p class="number-intro-label">Divine timing · Right path · Stop comparing</p>
+  </div>
+  <div class="body-text">
+    <p>777 is the number of divine timing — which is a phrase people use so often it has lost its edge. Let me give it back.</p>
+    <p>Divine timing does not mean everything works out in the end. It does not mean suffering has a purpose your pain is supposed to accept on a deadline. It does not mean you should perform gratitude for things that are hard.</p>
+    <p>It means: where you are right now is not a mistake.</p>
+    <div class="pull-quote">
+      <p>777 is rare because genuine alignment with your own path — not your imagined path, not the path you chose for the approval it would generate, but the actual one — is rare.</p>
+    </div>
+    <p>When you see 777, it's almost always in a moment when the external doesn't look impressive. When you're tired. When you're wondering if you chose wrong.</p>
+    <p>The answer is no. You didn't choose wrong. You chose true. That's harder, and that's why it takes longer, and that's why 777 shows up to mark it.</p>
+  </div>
+  <div class="signal-block">
+    <p class="signal-label">What 777 is asking of you</p>
+    <div class="signal-items">
+      <div class="signal-item"><span class="signal-dot"></span><p>Stop comparing where you are to where you thought you'd be.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Locate one thing, right now, that feels like it fits. Let that be evidence.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Keep going. You're on the right path. The right path isn't always the easy one.</p></div>
+    </div>
+  </div>
+  <p class="chapter-close">You belong here. This is yours. Keep going.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 888                                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="number-display">888</div>
+  <span class="chapter-num">Angel Number</span>
+  <h2 class="chapter-title">888<br><span class="accent-purple">Close the loop. Receive.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="number-intro">
+    <div class="number-intro-glow"></div>
+    <div class="number-intro-seq">888</div>
+    <p class="number-intro-label">Abundance · Full cycles · Learn to receive</p>
+  </div>
+  <div class="body-text">
+    <p>888 is the number most associated with financial abundance, and that framing is both right and incomplete.</p>
+    <p>Yes, 888 is a signal about prosperity — the cycles of giving and receiving, of energy in and out, of resources expanding. When you see 888 around money, around opportunity, around a decision involving resources: it's a green light.</p>
+    <p>But the deeper reading of 888 is about receiving in general.</p>
+    <div class="pull-quote">
+      <p>The thing most people who see 888 have in common is not that they don't know how to create abundance. It's that they don't know how to receive it. They are excellent at pouring out. And deeply, structurally terrible at letting anything fill them back up.</p>
+    </div>
+    <p>888 is about the full cycle. Not just the output. The complete loop: give, receive, give, receive. The part most people skip is the second one.</p>
+    <p>When you see 888, the question is not <em>"what do I need to do more of?"</em> The question is: <em>where am I refusing to receive?</em></p>
+  </div>
+  <div class="signal-block">
+    <p class="signal-label">What 888 is asking of you</p>
+    <div class="signal-items">
+      <div class="signal-item"><span class="signal-dot"></span><p>Let someone do something for you without immediately reciprocating.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Accept the opportunity without first making sure you deserve it.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Receive the compliment, the money, the help, the love — without immediately spending it back.</p></div>
+    </div>
+  </div>
+  <p class="chapter-close">The cycle is incomplete. Close the loop.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 999                                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="number-display">999</div>
+  <span class="chapter-num">Angel Number</span>
+  <h2 class="chapter-title">999<br><span class="accent-purple">Let it end. Completely.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="number-intro">
+    <div class="number-intro-glow"></div>
+    <div class="number-intro-seq">999</div>
+    <p class="number-intro-label">Completion · Release · Honor the ending</p>
+  </div>
+  <div class="body-text">
+    <p>999 is the number nobody wants and everyone eventually needs.</p>
+    <p>It's the number of completion — of the thing that has run its full course, done its full work, served its full purpose. And it is now time for it to end.</p>
+    <p>Not pause. Not restructure. End.</p>
+    <div class="pull-quote">
+      <p>We have been taught to pathologize endings. To treat them as failure. To believe that if something good is ending, we must have done something wrong. But not everything is supposed to last forever. Some things are supposed to be exactly as long as they were.</p>
+    </div>
+    <p>A relationship that ran its course is not a failed relationship. It is a completed one. A career phase that is over is not a waste. It is a chapter.</p>
+    <p>999 arrives when something is done. When the learning is complete, the season is over, the version of you that needed this is now ready for what comes next. Your job is not to mourn in a way that keeps the thing alive.</p>
+    <p>Your job is to let it end completely.</p>
+  </div>
+  <div class="signal-block">
+    <p class="signal-label">What 999 is asking of you</p>
+    <div class="signal-items">
+      <div class="signal-item"><span class="signal-dot"></span><p>Name what is over, even if you haven't said it out loud yet.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Resist the urge to reopen what is finished.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Allow the grief without making the grief a reason to go back.</p></div>
+    </div>
+  </div>
+  <p class="chapter-close">Something has completed. Honor it by letting it be complete.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 000                                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="number-display">000</div>
+  <span class="chapter-num">Angel Number</span>
+  <h2 class="chapter-title">000<br><span class="accent-purple">Everything is still possible.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="number-intro">
+    <div class="number-intro-glow"></div>
+    <div class="number-intro-seq">000</div>
+    <p class="number-intro-label">Infinite potential · The in-between · Becoming</p>
+  </div>
+  <div class="body-text">
+    <p>000 is the rarest, the most electric, and the least understood.</p>
+    <p>000 is the number of infinite potential — the moment before form. The blank page before the first word. The breath before the first note. You are standing in pure possibility, and that is exhilarating, and it is also terrifying, and both of those things are correct.</p>
+    <p>Most people experience 000 as disorientation. You have recently — or are in the process of — letting go of a story about who you are. The old identity is dissolving, or has dissolved, and the new one hasn't fully arrived.</p>
+    <div class="pull-quote">
+      <p>You are in the in-between. The chrysalis. The neither-caterpillar-nor-butterfly stage that is uncomfortable and necessary. 000 is the number of the in-between — and it is not empty. It is generative.</p>
+    </div>
+    <p>Most people rush out of it — back toward the familiar, or forward into the first available new thing — because being unformed is one of the most uncomfortable states a human being can be in.</p>
+    <p>000 says: stay here a little longer. The next thing you build from this space will be the truest one — built from choice, not from fear or habit.</p>
+  </div>
+  <div class="signal-block">
+    <p class="signal-label">What 000 is asking of you</p>
+    <div class="signal-items">
+      <div class="signal-item"><span class="signal-dot"></span><p>Don't rush to the next identity. Let the space be generative.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Notice what you want that you haven't been allowing yourself to want.</p></div>
+      <div class="signal-item"><span class="signal-dot"></span><p>Begin slowly, deliberately, from a place of choice — not urgency.</p></div>
+    </div>
+  </div>
+  <p class="chapter-close">You are not in between. You are becoming. And that is exactly what is supposed to happen.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CLOSING                                                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page closing">
+  <div class="closing-glow"></div>
+  <p class="closing-eyebrow">Closing</p>
+  <h2 class="closing-title">The Numbers<br>Don't <span class="accent">Chase You</span></h2>
+  <div class="closing-rule"></div>
+  <div class="closing-text">
+    <p>You have been paying more attention than you knew.</p>
+    <p>That is what angel numbers ultimately reveal — not that the universe is sending you messages from the outside, but that the most attuned part of you has been speaking, in the only language that finally got through.</p>
+    <p>The numbers don't appear because you're being watched. They appear because you're watching. Because some part of you — the part that survived, the part that adapted, the part that still remembers who you were before the world told you to be smaller — has been trying to give you information.</p>
+    <p>Your job, now that you have this guide, is not to chase the numbers. Your job is to stay open enough to receive them.</p>
+    <p>You see 111 when you need to begin. You see 999 when you need to end. You see 444 when the ground is real and you don't believe it yet. And you see all of them, over and over, because you are a person who is paying attention.</p>
+    <p>That quality — the capacity to notice, to look for meaning, to trust that things connect — is not magical thinking. It is intelligence. It is the intelligence of someone who has learned to listen to the parts of life that are too quiet to hear unless you're paying attention.</p>
+    <p>You are paying attention.</p>
+    <p><strong>Keep going.</strong></p>
+  </div>
+  <div class="closing-attr">— <span>MK Parrish</span></div>
+  <div class="closing-bottom">
+    <span class="closing-logo">MK PARRISH</span>
+    <span class="closing-handle">mkparrish.com &nbsp;·&nbsp; @mkparrish</span>
+  </div>
+</div>
+
+</div><!-- /book -->
+</body>
+</html>

@@ -4,6 +4,8 @@ export const STRIPE_REWRITE     = "https://buy.stripe.com/3cI8wHgJcd29b6h36Q0oM0
 export const STRIPE_NEW_CHAPTER = "https://buy.stripe.com/00w28j2Smfahfmx36Q0oM02";
 export const STRIPE_BYLINE      = "https://buy.stripe.com/fZu00b9gKbY5eitfTC0oM03";
 export const STRIPE_BUILD       = "/book";
+export const STRIPE_SESSION     = "/book"; // 1-hr power session — link to Calendly/book when ready
+export const STRIPE_AUDIT       = "/book"; // async positioning audit — link to checkout when ready
 
 // ── Membership (Patreon) ─────────────────────────────────────────────────────
 export const PATREON_URL        = "https://www.patreon.com/MKParrish?utm_campaign=creatorshare_fan";
@@ -15,13 +17,13 @@ export const CALENDLY_URL       = "https://www.calendly.com/mkparrish";
 export const SITE_URL           = "https://www.mkparrish.com";
 
 // ── Gumroad — ebooks & digital products ──────────────────────────────────────
-// After creating each product on gumroad.com, replace these with your real product URLs.
-// Format: https://mkparrish.gumroad.com/l/PRODUCT-SLUG
-export const GUMROAD_BASE       = "https://mkparrish.gumroad.com";
+export const GUMROAD_BASE             = "https://mkparrish.gumroad.com";
 export const GR_INVISIBLE_BRUISE      = "https://mkparrish.gumroad.com/l/invisible-bruise";
 export const GR_REINVENTION_WORKBOOK  = "https://mkparrish.gumroad.com/l/reinvention-workbook";
 export const GR_WRITE_YOURSELF        = "https://mkparrish.gumroad.com/l/write-yourself-into-the-room";
 export const GR_BRAND_VOICE           = "https://mkparrish.gumroad.com/l/brand-voice-playbook";
+export const GR_ANGEL_NUMBERS         = "https://mkparrish.gumroad.com/l/decoding-angel-numbers";
+export const GR_THE_VAULT             = "https://mkparrish.gumroad.com/l/the-vault"; // bundle
 
 // ── Ko-fi — prints & merch ───────────────────────────────────────────────────
 export const SHOP_URL           = "https://ko-fi.com/mkparrish/shop";
@@ -36,7 +38,7 @@ export const CONTACT = {
   phone:    "347.853.4238",
 };
 
-// ── All products (used by shop page) ─────────────────────────────────────────
+// ── All ebooks / digital products (used by shop page) ────────────────────────
 export const EBOOKS = [
   {
     slug:      "invisible-bruise",
@@ -102,6 +104,38 @@ export const EBOOKS = [
     ],
     desc: "The exact process used with clients — documented so you can run it yourself.",
   },
+  {
+    slug:      "decoding-angel-numbers",
+    title:     "Decoding Angel Numbers",
+    subtitle:  "What the numbers are trying to tell you — and how to actually use them.",
+    price:     "$15",
+    tag:       "New",
+    highlight: false,
+    href:      GR_ANGEL_NUMBERS,
+    features:  [
+      "All 10 primary sequences decoded",
+      "Written for intelligent, attuned women",
+      "Practical guidance for each number",
+      "Instant PDF download via Gumroad",
+    ],
+    desc: "Not a list of cosmic platitudes. A framework for decoding the patterns your intuition has been sending you.",
+  },
+  {
+    slug:      "the-vault",
+    title:     "The Vault",
+    subtitle:  "Every digital product in one bundle — the complete self-study library.",
+    price:     "$97",
+    tag:       "Best Value",
+    highlight: false,
+    href:      GR_THE_VAULT,
+    features:  [
+      "All 5 ebooks & guides included",
+      "The Brand Voice Playbook + Write Yourself Into the Room",
+      "The Invisible Bruise + Reinvention Workbook",
+      "Decoding Angel Numbers — plus any future releases",
+    ],
+    desc: "The full library. Every framework, every guide, every word. One price.",
+  },
 ] as const;
 
 export const PRINTS = [
@@ -112,14 +146,15 @@ export const PRINTS = [
 
 export const SERVICES = [
   { title: "The Edit",        price: "From $100",       tag: "Quick Fix",      href: STRIPE_EDIT },
+  { title: "The Session",     price: "$250",             tag: "Power Hour",     href: STRIPE_SESSION },
   { title: "The Rewrite",     price: "From $1,500",     tag: "Most Requested", href: STRIPE_REWRITE },
-  { title: "The New Chapter", price: "Custom",          tag: "Full Reset",     href: "/book" },
+  { title: "The New Chapter", price: "Custom",           tag: "Full Reset",     href: "/book" },
   { title: "The Byline",      price: "From $1,500/mo",  tag: "Ongoing",        href: STRIPE_BYLINE },
   { title: "The Build",       price: "From $3,500",     tag: "Full Site",      href: STRIPE_BUILD },
 ] as const;
 
 export const MARGINS_TIERS = [
-  { name: "Soft Cover",   price: "$5/mo",  desc: "Weekly essays and strategy notes that never go to the public feed.",                              highlight: false },
-  { name: "Marked Up",    price: "$12/mo", desc: "Everything in Soft Cover plus raw frameworks from client work.",                                  highlight: true  },
-  { name: "First Edition",price: "$28/mo", desc: "Full access, monthly live Q&A, direct message access, and priority feedback on your own copy.",   highlight: false },
+  { name: "Soft Cover",    price: "$5/mo",  desc: "Weekly essays and strategy notes that never go to the public feed.",                              highlight: false },
+  { name: "Marked Up",     price: "$12/mo", desc: "Everything in Soft Cover plus raw frameworks from client work.",                                  highlight: true  },
+  { name: "First Edition", price: "$28/mo", desc: "Full access, monthly live Q&A, direct message access, and priority feedback on your own copy.",   highlight: false },
 ] as const;

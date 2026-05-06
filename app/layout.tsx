@@ -3,29 +3,30 @@ import "./globals.css";
 import Nav from "@/app/components/Nav";
 import Footer from "@/app/components/Footer";
 import CursorGlow from "@/app/components/CursorGlow";
+import LeadCapture from "@/app/components/LeadCapture";
 
 export const metadata: Metadata = {
   title: {
-    default: "MK Parrish — Writer & Marketing Growth Strategist",
+    default: "MK Parrish — Rewrite Your Story",
     template: "%s — MK Parrish",
   },
   description:
-    "MK Parrish: writer & marketing growth strategist. Words, strategy, and reinvention for people ready to stop being misread.",
+    "MK Parrish: copywriter, ghostwriter & brand strategist. Words, strategy, and reinvention for founders, executives, and people ready to stop being misread.",
   applicationName: "MK Parrish",
   metadataBase: new URL("https://www.mkparrish.com"),
   openGraph: {
-    title: "MK Parrish — Writer & Marketing Growth Strategist",
+    title: "MK Parrish — Rewrite Your Story",
     description:
-      "MK Parrish: writer & marketing growth strategist. Words, strategy, and reinvention for people ready to stop being misread.",
+      "MK Parrish: copywriter, ghostwriter & brand strategist. Words, strategy, and reinvention for founders, executives, and people ready to stop being misread.",
     url: "https://www.mkparrish.com",
     siteName: "MK Parrish",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "MK Parrish — Writer & Marketing Growth Strategist",
+    title: "MK Parrish — Rewrite Your Story",
     description:
-      "MK Parrish: writer & marketing growth strategist. Words, strategy, and reinvention for people ready to stop being misread.",
+      "MK Parrish: copywriter, ghostwriter & brand strategist. Words, strategy, and reinvention for founders, executives, and people ready to stop being misread.",
   },
   appleWebApp: {
     title: "MK Parrish",
@@ -55,6 +56,7 @@ export default function RootLayout({
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
+        <LeadCapture />
       </body>
     </html>
   );

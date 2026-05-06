@@ -12,7 +12,7 @@ import {
 export const metadata: Metadata = {
   title: "Shop — MK Parrish",
   description:
-    "Ebooks, poem prints, and digital guides from MK Parrish. The Invisible Bruise, The Reinvention Workbook, Write Yourself Into the Room, The Brand Voice Playbook — instant download via Gumroad.",
+    "Ebooks, guides, and digital products from MK Parrish. The Invisible Bruise, Decoding Angel Numbers, Write Yourself Into the Room, The Vault bundle, and more — instant download via Gumroad.",
 };
 
 export default function ShopPage() {

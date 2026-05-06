@@ -13,6 +13,7 @@ const navLinks = [
   { label: "Writing",      href: "/writing" },
   { label: "Shop",         href: "/shop" },
   { label: "The Margins",  href: "/margins" },
+  { label: "Posts",        href: "/posts" },
   { label: "About",        href: "/about" },
   { label: "Contact",      href: "/contact" },
 ];
@@ -75,8 +76,16 @@ export default function Nav() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
-            <div className="hidden xl:block">
+          <div className="flex items-center gap-3">
+            <div className="hidden lg:block">
+              <Link
+                href="/shop"
+                className="btn-ghost px-4 py-2 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em]"
+              >
+                Shop
+              </Link>
+            </div>
+            <div className="hidden lg:block">
               <Link
                 href="/book"
                 className="btn-primary px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void"
