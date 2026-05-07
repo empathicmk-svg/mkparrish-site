@@ -136,7 +136,30 @@ If `.env.local` doesn't exist, create it. This file is already in `.gitignore` �
 
 ---
 
-## Step 9 — Run a Dry Run First
+## Step 9 — Customize Your Page + Tiers (Playwright Browser Agent)
+
+This script opens a real browser, signs you in, and automatically fills in your page copy and tier descriptions. No API token needed — it uses your browser session.
+
+```bash
+cd /path/to/mkparrish-site
+npx playwright install chromium   # first time only
+node scripts/patreon/customize-page.mjs
+```
+
+**What it does:**
+- Opens patreon.com in a visible Chrome window
+- Prompts you to sign in manually if you aren't already (press Enter when done)
+- Fills in your page headline, tagline, and About copy
+- Updates all three tier names, prices, and descriptions
+- Saves screenshots to `./patreon-agent-output/` after each step
+
+**Session persistence:** Your login is saved in `./patreon-user-data/` — subsequent runs won't need you to sign in again.
+
+**If a step fails:** Patreon sometimes changes button labels. Check the screenshot in `patreon-agent-output/` to see where it stopped, adjust the label strings in the `clickFirstVisible` calls, and rerun.
+
+---
+
+## Step 10 — Run a Dry Run for Posts
 
 ```bash
 cd /path/to/mkparrish-site
@@ -148,7 +171,7 @@ Verify the output looks correct — all 26 posts (1 welcome + 25 essays) should 
 
 ---
 
-## Step 10 — Post Everything
+## Step 11 — Post Everything
 
 When the dry run looks right:
 
@@ -168,7 +191,7 @@ Total runtime: approximately 2 minutes.
 
 ---
 
-## Step 11 — After the Script Runs
+## Step 12 — After the Script Runs
 
 Back in Patreon:
 
@@ -199,7 +222,10 @@ Delete the incorrectly-set posts from Patreon, fix the tier names to match exact
 
 | File | Purpose |
 |---|---|
-| `scripts/patreon/post-all.mjs` | Automation script — posts all 26 posts via API |
+| `scripts/patreon/customize-page.mjs` | Playwright browser agent — fills in page copy and tier descriptions |
+| `scripts/patreon/post-all.mjs` | API script — posts all 26 posts via Patreon API v2 |
 | `public/patreon-content-kit.html` | All page copy, tier descriptions, and post content |
 | `public/patreon-banner.html` | Cover image (1600×400) — screenshot and upload |
 | `.env.local` | Your Patreon access token — never committed to git |
+| `patreon-agent-output/` | Screenshots saved by customize-page.mjs — gitignored |
+| `patreon-user-data/` | Persistent browser session — gitignored |
