@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1600" />
+  <title>MK Parrish — Patreon Cover Banner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 1600px;
+      height: 400px;
+      overflow: hidden;
+      background: #080808;
+    }
+
+    .banner {
+      width: 1600px;
+      height: 400px;
+      background: #080808;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background texture lines */
+    .banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 119px,
+          rgba(242, 175, 198, 0.04) 119px,
+          rgba(242, 175, 198, 0.04) 120px
+        );
+      pointer-events: none;
+    }
+
+    /* Subtle radial glow left */
+    .glow-left {
+      position: absolute;
+      left: -120px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(242,175,198,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Subtle radial glow right */
+    .glow-right {
+      position: absolute;
+      right: -80px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(242,175,198,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Left: branding block */
+    .left {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #F2AFC6;
+    }
+
+    .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 112px;
+      line-height: 0.9;
+      color: #F5F0E8;
+      letter-spacing: 0.02em;
+    }
+
+    .name span {
+      color: #F2AFC6;
+    }
+
+    .tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 17px;
+      color: rgba(245, 240, 232, 0.55);
+      letter-spacing: 0.01em;
+      max-width: 420px;
+    }
+
+    /* Divider */
+    .divider {
+      position: relative;
+      z-index: 2;
+      width: 1px;
+      height: 220px;
+      background: linear-gradient(to bottom, transparent, rgba(242,175,198,0.3) 30%, rgba(242,175,198,0.3) 70%, transparent);
+    }
+
+    /* Right: tiers block */
+    .right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      align-items: flex-end;
+    }
+
+    .tiers-label {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.35);
+    }
+
+    .tiers {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-end;
+    }
+
+    .tier {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .tier-price {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      color: rgba(245, 240, 232, 0.35);
+    }
+
+    .tier-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.1em;
+      color: #F5F0E8;
+    }
+
+    .tier.featured .tier-name {
+      color: #F2AFC6;
+    }
+
+    .tier-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(242,175,198,0.4);
+      flex-shrink: 0;
+    }
+
+    .tier.featured .tier-dot {
+      background: #F2AFC6;
+    }
+
+    .join-cta {
+      margin-top: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #F2AFC6;
+      border: 1px solid rgba(242,175,198,0.35);
+      padding: 10px 28px;
+      letter-spacing: 0.18em;
+    }
+
+    /* Center: pull quote */
+    .center {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 0 60px;
+    }
+
+    .quote-mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      line-height: 1;
+      color: rgba(242,175,198,0.15);
+      align-self: flex-start;
+      margin-bottom: -20px;
+    }
+
+    .quote-text {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 19px;
+      line-height: 1.6;
+      color: rgba(245, 240, 232, 0.7);
+      text-align: center;
+      max-width: 380px;
+    }
+
+    .quote-text strong {
+      font-weight: 400;
+      font-style: normal;
+      color: #F5F0E8;
+    }
+
+    .quote-attr {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(242,175,198,0.5);
+    }
+  </style>
+</head>
+<body>
+  <!--
+    PATREON COVER IMAGE — 1600 × 400 px
+    Screenshot this page at exactly 1600×400 and upload to:
+    Patreon → Edit Page → Cover Image
+    Recommended: use browser zoom at 100%, screenshot with a tool that captures the exact viewport.
+  -->
+  <div class="banner">
+    <div class="glow-left"></div>
+    <div class="glow-right"></div>
+
+    <!-- LEFT: Name + tagline -->
+    <div class="left">
+      <div class="eyebrow">The Margins — Member Community</div>
+      <div class="name">MK<br /><span>Parrish</span></div>
+      <div class="tagline">Copywriter. Ghostwriter. Brand strategist.<br />The inside work, unfiltered.</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CENTER: Pull quote -->
+    <div class="center">
+      <div class="quote-mark">"</div>
+      <div class="quote-text">
+        The work behind the work.<br />
+        <strong>Essays, frameworks, and drafts</strong><br />
+        that never reach the public feed.
+      </div>
+      <div class="quote-attr">patreon.com/MKParrish</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- RIGHT: Tiers -->
+    <div class="right">
+      <div class="tiers-label">Membership Tiers</div>
+      <div class="tiers">
+        <div class="tier">
+          <div class="tier-price">$5/mo</div>
+          <div class="tier-dot"></div>
+          <div class="tier-name">Soft Cover</div>
+        </div>
+        <div class="tier featured">
+          <div class="tier-price">$12/mo</div>
+          <div class="tier-dot"></div>
+          <div class="tier-name">Marked Up</div>
+        </div>
+        <div class="tier">
+          <div class="tier-price">$28/mo</div>
+          <div class="tier-dot"></div>
+          <div class="tier-name">First Edition</div>
+        </div>
+      </div>
+      <div class="join-cta">Join The Margins</div>
+    </div>
+  </div>
+</body>
+</html>
