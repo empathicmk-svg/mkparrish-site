@@ -70,8 +70,8 @@ Includes everything in The Retainer, plus:
   ],
 
   run: {
-    headless: false,
-    slowMo: 200,
+    headless: true,
+    slowMo: 150,
     screenshotsDir: path.resolve("./patreon-agent-output"),
     userDataDir: path.resolve("./patreon-user-data"),
     baseUrl: "https://www.patreon.com",
@@ -185,28 +185,96 @@ async function maybeDismissPopups(page) {
   ], { timeout: 800 });
 }
 
+const SIGNED_IN_SIGNALS = (page) => [
+  page.getByRole("link", { name: /my page/i }),
+  page.getByRole("button", { name: /page controls/i }),
+  page.locator('[data-tag="nav-creator-overview"]'),
+  page.locator('a[href*="/creator-home"]'),
+  page.getByText(/your page/i),
+];
+
+async function isSignedIn(page) {
+  for (const locator of SIGNED_IN_SIGNALS(page)) {
+    if (await visible(locator, 1500)) return true;
+  }
+  return false;
+}
+
 async function waitForSignedIn(page) {
   await page.goto(CONFIG.run.baseUrl, { waitUntil: "domcontentloaded" });
   await maybeDismissPopups(page);
 
-  const signedInSignals = [
-    page.getByText(/creator/i),
-    page.getByRole("link", { name: /my page/i }),
-    page.getByRole("button", { name: /page controls/i }),
-  ];
-
-  for (const locator of signedInSignals) {
-    if (await visible(locator, 2000)) {
-      console.log("Looks signed in already.");
-      return;
-    }
+  if (await isSignedIn(page)) {
+    console.log("Already signed in.");
+    return;
   }
 
-  console.log("\nYou may need to sign in manually in the opened browser window.");
-  console.log("After you are signed in, leave the browser open and press Enter here.\n");
+  const email    = process.env.PATREON_EMAIL;
+  const password = process.env.PATREON_PASSWORD;
 
-  process.stdin.resume();
-  await new Promise((resolve) => process.stdin.once("data", resolve));
+  if (!email || !password) {
+    console.log("No credentials in env. Press Enter after signing in manually.");
+    process.stdin.resume();
+    await new Promise((resolve) => process.stdin.once("data", resolve));
+    return;
+  }
+
+  console.log("Navigating to login page...");
+  await page.goto(`${CONFIG.run.baseUrl}/login`, { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(2000);
+  await maybeDismissPopups(page);
+  await screenshot(page, "login-page");
+
+  // Email
+  const emailFilled = await fillFirstVisible(page, [
+    "email", "Email", "Email address", "Username or email",
+  ], email, { timeout: 5000 });
+  if (!emailFilled) {
+    // Some flows show email on a splash screen first
+    const continueBtn = await clickFirstVisible(page, ["Log in", "Continue with email", "Continue"], { timeout: 2000 });
+    if (continueBtn) await page.waitForTimeout(1000);
+    await fillFirstVisible(page, ["email", "Email", "Email address"], email, { timeout: 4000 });
+  }
+  await page.waitForTimeout(400);
+
+  // Some flows split email / password onto separate pages
+  await clickFirstVisible(page, ["Continue", "Next"], { timeout: 1500 }).catch(() => {});
+  await page.waitForTimeout(800);
+
+  // Password
+  await fillFirstVisible(page, ["password", "Password"], password, { timeout: 5000 });
+  await page.waitForTimeout(400);
+
+  // Submit
+  await clickFirstVisible(page, ["Log in", "Sign in", "Login", "Continue"], { timeout: 3000 });
+  await page.waitForLoadState("domcontentloaded");
+  await page.waitForTimeout(3000);
+  await screenshot(page, "post-login");
+
+  if (await isSignedIn(page)) {
+    console.log("Login successful.");
+    return;
+  }
+
+  // Check for 2FA prompt
+  const needs2fa =
+    (await visible(page.getByText(/verification code/i), 2000)) ||
+    (await visible(page.getByText(/two.factor/i), 2000)) ||
+    (await visible(page.getByText(/check your email/i), 2000));
+
+  if (needs2fa) {
+    console.log("\n2FA required. Check your email/authenticator for a code and type it + Enter:");
+    process.stdin.resume();
+    const code = await new Promise((resolve) => process.stdin.once("data", (d) => resolve(d.toString().trim())));
+    await fillFirstVisible(page, ["code", "Code", "verification", "token"], code, { timeout: 3000 });
+    await clickFirstVisible(page, ["Verify", "Submit", "Continue", "Log in"], { timeout: 3000 });
+    await page.waitForLoadState("domcontentloaded");
+    await page.waitForTimeout(2000);
+    if (await isSignedIn(page)) { console.log("Login successful after 2FA."); return; }
+  }
+
+  await screenshot(page, "login-failed");
+  throw new Error("Login failed. Check patreon-agent-output/login-failed.png for details.");
 }
 
 async function switchToCreatorProfile(page) {
@@ -488,6 +556,8 @@ async function main() {
     headless: CONFIG.run.headless,
     slowMo: CONFIG.run.slowMo,
     viewport: { width: 1440, height: 1000 },
+    ignoreHTTPSErrors: true,
+    args: ["--ignore-certificate-errors", "--ignore-ssl-errors", "--disable-web-security"],
   });
 
   const page = context.pages()[0] ?? await context.newPage();
