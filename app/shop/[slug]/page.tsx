@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { EBOOKS, SERVICE_EBOOKS, PATREON_URL } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, PATREON_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
 import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, BtnGhost, ArrowLink,
@@ -223,15 +223,23 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                 {product.desc}
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-4">
-                <a
-                  href={product.href}
-                  data-gumroad-overlay-checkout="true"
-                  className="btn-primary inline-flex items-center justify-center px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
-                >
-                  Buy Now — {product.price}
-                </a>
+                {COMING_SOON_SLUGS.has(product.slug) ? (
+                  <div className="inline-flex items-center justify-center border border-graphite px-8 py-4 font-body text-[0.8rem] font-light uppercase tracking-[0.2em] text-iron">
+                    Coming Soon
+                  </div>
+                ) : (
+                  <a
+                    href={product.href}
+                    data-gumroad-overlay-checkout="true"
+                    className="btn-primary inline-flex items-center justify-center px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+                  >
+                    Buy Now — {product.price}
+                  </a>
+                )}
                 <span className="font-body text-xs font-light text-iron">
-                  Instant PDF download via Gumroad &middot; Secure checkout
+                  {COMING_SOON_SLUGS.has(product.slug)
+                    ? "Gumroad listing coming soon"
+                    : "Instant PDF download via Gumroad · Secure checkout"}
                 </span>
               </div>
             </div>
@@ -256,15 +264,23 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                 ))}
               </ul>
               <div className="space-y-3">
-                <a
-                  href={product.href}
-                  data-gumroad-overlay-checkout="true"
-                  className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
-                >
-                  Buy Now — {product.price}
-                </a>
+                {COMING_SOON_SLUGS.has(product.slug) ? (
+                  <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.8rem] font-light uppercase tracking-[0.2em] text-iron">
+                    Coming Soon
+                  </div>
+                ) : (
+                  <a
+                    href={product.href}
+                    data-gumroad-overlay-checkout="true"
+                    className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+                  >
+                    Buy Now — {product.price}
+                  </a>
+                )}
                 <p className="text-center font-body text-[0.65rem] font-light text-iron">
-                  Delivered by Gumroad &middot; PDF format &middot; No subscription
+                  {COMING_SOON_SLUGS.has(product.slug)
+                    ? "Gumroad listing coming soon"
+                    : "Delivered by Gumroad · PDF format · No subscription"}
                 </p>
               </div>
             </div>
@@ -279,13 +295,19 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             <Eyebrow>About</Eyebrow>
             <H2>{product.title.split(" ").slice(0, 2).join(" ")}<br />{product.title.split(" ").slice(2).join(" ")}</H2>
             <div className="mt-8">
-              <a
-                href={product.href}
-                data-gumroad-overlay-checkout="true"
-                className="btn-primary inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
-              >
-                Get It — {product.price}
-              </a>
+              {COMING_SOON_SLUGS.has(product.slug) ? (
+                <div className="inline-flex items-center justify-center border border-graphite px-7 py-4 font-body text-[0.8rem] font-light uppercase tracking-[0.2em] text-iron">
+                  Coming Soon
+                </div>
+              ) : (
+                <a
+                  href={product.href}
+                  data-gumroad-overlay-checkout="true"
+                  className="btn-primary inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+                >
+                  Get It — {product.price}
+                </a>
+              )}
             </div>
           </div>
           <div className="space-y-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "64ch" }}>
@@ -339,17 +361,25 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               {product.subtitle}
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <a
-                href={product.href}
-                data-gumroad-overlay-checkout="true"
-                className="btn-primary inline-flex items-center justify-center px-10 py-5 font-body text-[0.85rem] font-bold uppercase tracking-[0.2em] text-void"
-              >
-                Buy Now — {product.price}
-              </a>
+              {COMING_SOON_SLUGS.has(product.slug) ? (
+                <div className="inline-flex items-center justify-center border border-graphite px-10 py-5 font-body text-[0.85rem] font-light uppercase tracking-[0.2em] text-iron">
+                  Coming Soon
+                </div>
+              ) : (
+                <a
+                  href={product.href}
+                  data-gumroad-overlay-checkout="true"
+                  className="btn-primary inline-flex items-center justify-center px-10 py-5 font-body text-[0.85rem] font-bold uppercase tracking-[0.2em] text-void"
+                >
+                  Buy Now — {product.price}
+                </a>
+              )}
               <ArrowLink href="/shop">See all products</ArrowLink>
             </div>
             <p className="mt-6 font-body text-xs font-light text-iron">
-              Secure checkout via Gumroad &middot; Instant PDF delivery &middot; No subscription required
+              {COMING_SOON_SLUGS.has(product.slug)
+                ? "Gumroad listing coming soon · PDF format · No subscription required"
+                : "Secure checkout via Gumroad · Instant PDF delivery · No subscription required"}
             </p>
           </div>
         </div>

@@ -4,7 +4,7 @@ import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, BtnGhost, ArrowLink,
 } from "@/app/components/ui";
-import { SCRIPTURE_EBOOKS, PATREON_URL } from "@/app/lib/config";
+import { SCRIPTURE_EBOOKS, PATREON_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "Scripture & Strategy — MK Parrish",
@@ -232,14 +232,20 @@ export default function ScripturePage() {
           <div className="mt-8 flex flex-col items-start gap-4 lg:mt-0 lg:w-64 lg:shrink-0">
             <p className="font-display text-6xl text-white">{featured.price}</p>
             <p className="font-body text-xs font-light text-iron">One-time purchase · Instant PDF</p>
-            <a
-              href={featured.href}
-              data-gumroad-overlay-checkout="true"
-              className="flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
-              style={{ background: GOLD }}
-            >
-              Buy Now — {featured.price}
-            </a>
+            {COMING_SOON_SLUGS.has(featured.slug) ? (
+              <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.8rem] font-light uppercase tracking-[0.2em] text-iron">
+                Coming Soon
+              </div>
+            ) : (
+              <a
+                href={featured.href}
+                data-gumroad-overlay-checkout="true"
+                className="flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+                style={{ background: GOLD }}
+              >
+                Buy Now — {featured.price}
+              </a>
+            )}
             <Link
               href={`/scripture/${featured.slug}`}
               className="flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
@@ -274,14 +280,20 @@ export default function ScripturePage() {
                 ))}
               </ul>
               <div className="mt-8 space-y-2">
-                <a
-                  href={e.href}
-                  data-gumroad-overlay-checkout="true"
-                  className="flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void transition-opacity hover:opacity-90"
-                  style={{ background: GOLD }}
-                >
-                  Buy Now — {e.price}
-                </a>
+                {COMING_SOON_SLUGS.has(e.slug) ? (
+                  <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
+                    Coming Soon
+                  </div>
+                ) : (
+                  <a
+                    href={e.href}
+                    data-gumroad-overlay-checkout="true"
+                    className="flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void transition-opacity hover:opacity-90"
+                    style={{ background: GOLD }}
+                  >
+                    Buy Now — {e.price}
+                  </a>
+                )}
                 <Link
                   href={`/scripture/${e.slug}`}
                   className="flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
@@ -320,14 +332,20 @@ export default function ScripturePage() {
             <div className="mt-8 flex flex-col items-start gap-3 md:mt-0 md:w-56 md:shrink-0">
               <p className="font-display text-5xl text-white">{bundle.price}</p>
               <p className="font-body text-xs font-light text-iron">All 5 guides · One price · Instant access</p>
-              <a
-                href={bundle.href}
-                data-gumroad-overlay-checkout="true"
-                className="flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
-                style={{ background: GOLD }}
-              >
-                Get the Bundle — {bundle.price}
-              </a>
+              {COMING_SOON_SLUGS.has(bundle.slug) ? (
+                <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
+                  Coming Soon
+                </div>
+              ) : (
+                <a
+                  href={bundle.href}
+                  data-gumroad-overlay-checkout="true"
+                  className="flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+                  style={{ background: GOLD }}
+                >
+                  Get the Bundle — {bundle.price}
+                </a>
+              )}
             </div>
           </div>
         ))}

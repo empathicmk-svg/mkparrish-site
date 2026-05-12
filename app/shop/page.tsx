@@ -6,7 +6,7 @@ import {
 } from "@/app/components/ui";
 import {
   EBOOKS, SERVICE_EBOOKS, PRINTS, SERVICES, MARGINS_TIERS,
-  PATREON_URL, SHOP_URL, STRIPE_EDIT, STRIPE_REWRITE,
+  PATREON_URL, SHOP_URL, STRIPE_EDIT, STRIPE_REWRITE, COMING_SOON_SLUGS,
 } from "@/app/lib/config";
 
 export const metadata: Metadata = {
@@ -85,13 +85,19 @@ export default function ShopPage() {
                 ))}
               </ul>
               <div className="mt-8 space-y-2">
-                <a
-                  href={e.href}
-                  data-gumroad-overlay-checkout="true"
-                  className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
-                >
-                  Buy Now — {e.price}
-                </a>
+                {COMING_SOON_SLUGS.has(e.slug) ? (
+                  <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
+                    Coming Soon
+                  </div>
+                ) : (
+                  <a
+                    href={e.href}
+                    data-gumroad-overlay-checkout="true"
+                    className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+                  >
+                    Buy Now — {e.price}
+                  </a>
+                )}
                 <Link
                   href={`/shop/${e.slug}`}
                   className="flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
@@ -151,13 +157,19 @@ export default function ShopPage() {
                 ))}
               </ul>
               <div className="mt-8 space-y-2">
-                <a
-                  href={e.href}
-                  data-gumroad-overlay-checkout="true"
-                  className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
-                >
-                  Buy Now — {e.price}
-                </a>
+                {COMING_SOON_SLUGS.has(e.slug) ? (
+                  <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
+                    Coming Soon
+                  </div>
+                ) : (
+                  <a
+                    href={e.href}
+                    data-gumroad-overlay-checkout="true"
+                    className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+                  >
+                    Buy Now — {e.price}
+                  </a>
+                )}
                 <Link
                   href={`/shop/${e.slug}`}
                   className="flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
