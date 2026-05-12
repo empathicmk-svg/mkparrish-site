@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { EBOOKS, PATREON_URL } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, PATREON_URL } from "@/app/lib/config";
 import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, BtnGhost, ArrowLink,
 } from "@/app/components/ui";
 
+const ALL_SHOP_EBOOKS = [...EBOOKS, ...SERVICE_EBOOKS] as const;
+
 export function generateStaticParams() {
-  return EBOOKS.map((e) => ({ slug: e.slug }));
+  return ALL_SHOP_EBOOKS.map((e) => ({ slug: e.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const product = EBOOKS.find((e) => e.slug === params.slug);
+  const product = ALL_SHOP_EBOOKS.find((e) => e.slug === params.slug);
   if (!product) return {};
   return {
     title: `${product.title} — MK Parrish`,
@@ -81,19 +83,124 @@ const extraContent: Record<string, { about: string[]; forWho: string[]; pullQuot
     ],
     pullQuote: "Not by building a persona. By finally presenting the real thing with enough precision that the right people recognize it.",
   },
+  "the-edit-guide": {
+    about: [
+      "The Edit is MK Parrish's most-requested service: a fast, precise copy fix that tightens, aligns, and elevates without losing your voice. This guide translates that process into a framework you can run on any piece of writing.",
+      "Covers bios, LinkedIn copy, emails, website pages, and anything that represents you professionally. Includes the exact audit questions used on every client project and the word-level editing lens that catches the language dragging your work down.",
+      "Not a grammar guide. Not a style manual. A professional framework for the kind of editing that makes copy actually sound like you — just sharper.",
+    ],
+    forWho: [
+      "You write your own copy but it never sounds as good as you want it to",
+      "You've paid for a copy edit before and couldn't tell what changed",
+      "Your bio, LinkedIn, or about page feels generic but you don't know why",
+      "You want to edit your own work like a professional does",
+      "You're a writer or strategist who edits client work and wants a repeatable framework",
+    ],
+    pullQuote: "The wrong words cost you. Quietly. Before you even know a decision was made.",
+  },
+  "before-the-session": {
+    about: [
+      "Most people show up to a strategy session without having done the thinking it requires. They wait for the conversation to extract it. This workbook does the extraction first — so the session can go deeper, faster.",
+      "The exercises inside are the same prompts MK sends every new client before a power session. Identity audit, positioning clarity, the goal that's actually underneath the stated goal. Done in writing, before the call.",
+      "For anyone booking a strategy session — with MK or with anyone — who wants to arrive with their thinking already organized instead of trying to do it out loud in real time.",
+    ],
+    forWho: [
+      "You've booked a strategy session and want to make the most of it",
+      "You know what you want to work on but can't articulate it clearly yet",
+      "You need to do the pre-work before the conversation can go anywhere",
+      "You're paying for an hour and you want every minute to count",
+      "You want a framework for session prep you can use again and again",
+    ],
+    pullQuote: "She just wanted to begin.",
+  },
+  "the-rewrite-playbook": {
+    about: [
+      "The Rewrite service — the full LinkedIn and professional story overhaul — packaged into a self-guided process. Not a template you fill in. A framework you move through, with exercises, prompts, and real examples at every stage.",
+      "Covers the four phases of a real rewrite: the story audit (what you've been saying and why it's not working), the identity excavation (who you actually are now versus who you're still presenting as), the positioning build (what makes you specific and irreplaceable), and the language layer (how to actually write it).",
+      "Used by executives in transition, founders relaunching, and career-changers who needed to close the gap between how good their work actually is and how it sounds on paper.",
+    ],
+    forWho: [
+      "Your LinkedIn is outdated and you keep putting off the rewrite",
+      "Your professional story doesn't match who you've become",
+      "You've had a pivot, a reinvention, or a major shift and can't explain it yet",
+      "People underestimate you because your copy undersells you",
+      "You want to do the full rewrite without hiring someone to do it for you",
+    ],
+    pullQuote: "She is not who she used to be, and that is not a loss.",
+  },
+  "the-new-chapter-workbook": {
+    about: [
+      "The New Chapter is the full reset — brand, positioning, website, voice, all of it rebuilt from the ground up. This workbook documents that process so you can run it without a team.",
+      "Moves through the full brand repositioning arc: where you are, where you're going, what the gap is, and how to close it in words. Page-by-page website copy architecture. Voice and messaging frameworks. The full launch copy checklist for every surface that needs words.",
+      "For the founder, coach, or creative who knows their current brand no longer fits and is ready to do the disciplined work of rebuilding it — not just the aesthetics, but the actual story.",
+    ],
+    forWho: [
+      "Your brand was built for who you were, not who you are now",
+      "You're relaunching a website and need to know what every page should say",
+      "Your positioning is unclear and your copy reflects that",
+      "You've outgrown your old story and need a framework to build the new one",
+      "You want to reposition yourself without hiring a full brand agency",
+    ],
+    pullQuote: "I did not confuse being chosen with being loved.",
+  },
+  "the-byline-method": {
+    about: [
+      "For five years, the question clients ask most often is: how do you sound like me? This guide is the answer. The voice capture methodology — the interview questions, the tone calibration, the writing-in-voice process — documented for the first time.",
+      "Covers the full ghostwriting arc from capture to output: how to conduct a voice interview, how to read the transcript for voice cues, how to calibrate tone across different formats, and how to maintain consistency across an ongoing content relationship.",
+      "For writers who ghostwrite, content strategists who write for founders, and principals who want to understand what voice capture actually looks like before they hand someone their brand.",
+    ],
+    forWho: [
+      "You ghostwrite for clients and want a more systematic approach to voice capture",
+      "You're a founder who writes for your own brand and wants to brief contractors precisely",
+      "You've hired writers before and the output never sounded like you",
+      "You want to build a repeatable ghostwriting process you can charge more for",
+      "You're a content lead responsible for a brand voice you didn't build",
+    ],
+    pullQuote: "The wrong words cost you. Quietly. Before you even know a decision was made.",
+  },
+  "the-build-copy-guide": {
+    about: [
+      "The Build service produces a full website — design and copy together. This guide isolates the copy side: every page, every section, every word, in a framework you can apply yourself or hand to a designer with clear direction.",
+      "Covers the full website copy architecture: what the homepage actually has to do (it is not a brochure), how the about page earns trust without being a biography, how services pages convert without pressure tactics, and how the contact page closes without begging.",
+      "For founders building their first real website, for teams relaunching and needing strategic copy direction, and for anyone who wants every word on their site to do work.",
+    ],
+    forWho: [
+      "You're building a website and don't know what each page is supposed to say",
+      "Your current site has words but no strategy behind them",
+      "You've hired designers before but didn't know how to brief the copy",
+      "You want to write your own website copy with a professional framework",
+      "You're launching something new and want it to start strong",
+    ],
+    pullQuote: "She just wanted to begin.",
+  },
+  "the-services-vault": {
+    about: [
+      "Every consulting service MK offers has a methodology. The Services Vault is all of it — documented, packaged, and sequenced as a self-study library for the woman who is ready to do the full work herself.",
+      "Six guides covering the complete consulting arc: editing, strategy sessions, full story rewrites, brand repositioning, ghostwriting, and website copy. Each one is a standalone framework. Together, they cover every dimension of how professional copy and brand strategy actually gets built.",
+      "For the founder, writer, or strategist who wants the methodology — not just the output. Who wants to understand the framework well enough to run it herself or brief someone else to do it right.",
+    ],
+    forWho: [
+      "You want the complete consulting toolkit without a retainer",
+      "You're a writer or strategist who wants to level up your client process",
+      "You're building your own brand and want a systematic approach to every layer",
+      "You're early in your business and can't afford done-for-you but want done-right",
+      "You want every methodology, every framework, every guide — in one library",
+    ],
+    pullQuote: "She is not who she used to be, and that is not a loss.",
+  },
 };
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
-  const product = EBOOKS.find((e) => e.slug === params.slug);
+  const product = ALL_SHOP_EBOOKS.find((e) => e.slug === params.slug);
   if (!product) notFound();
 
   const extra = extraContent[product.slug] ?? {
     about: [product.desc],
-    forWho: product.features,
+    forWho: [...product.features],
     pullQuote: "",
   };
 
-  const otherProducts = EBOOKS.filter((e) => e.slug !== product.slug).slice(0, 3);
+  const otherProducts = ALL_SHOP_EBOOKS.filter((e) => e.slug !== product.slug).slice(0, 3);
 
   return (
     <>

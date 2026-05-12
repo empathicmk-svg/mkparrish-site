@@ -5,7 +5,7 @@ import {
   BtnPrimary, BtnGhost, ArrowLink,
 } from "@/app/components/ui";
 import {
-  EBOOKS, PRINTS, SERVICES, MARGINS_TIERS,
+  EBOOKS, SERVICE_EBOOKS, PRINTS, SERVICES, MARGINS_TIERS,
   PATREON_URL, SHOP_URL, STRIPE_EDIT, STRIPE_REWRITE,
 } from "@/app/lib/config";
 
@@ -117,8 +117,74 @@ export default function ShopPage() {
 
       <QuoteDivider index={16} />
 
-      {/* ── POEM PRINTS ── */}
+      {/* ── SERVICE COMPANION EBOOKS ── */}
       <RevealSection bg="void" num="02">
+        <Eyebrow>DIY Consulting Frameworks</Eyebrow>
+        <H2>
+          The services,{" "}
+          <span className="text-petal">self-guided.</span>
+        </H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
+          Every consulting service MK offers has a methodology. These guides document each one so you can run the process yourself — on your timeline, at your pace.
+        </p>
+
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
+          {SERVICE_EBOOKS.map((e) => (
+            <div
+              key={e.slug}
+              className={`relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 ${
+                e.highlight ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : "bg-void"
+              }`}
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              {e.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+              <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">{e.tag}</p>
+              <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl leading-tight">{e.title}</h3>
+              <p className="mt-2 font-display text-4xl text-white">{e.price}</p>
+              <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{e.desc}</p>
+              <ul className="mt-5 space-y-2">
+                {e.features.map((f) => (
+                  <li key={f} className="flex gap-3 font-body text-xs font-light leading-6 text-iron">
+                    <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 space-y-2">
+                <a
+                  href={e.href}
+                  data-gumroad-overlay-checkout="true"
+                  className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+                >
+                  Buy Now — {e.price}
+                </a>
+                <Link
+                  href={`/shop/${e.slug}`}
+                  className="flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
+                >
+                  View details →
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 flex items-start gap-4 border border-graphite p-6">
+          <span className="mt-0.5 h-1.5 w-1.5 flex-shrink-0 bg-petal" />
+          <div className="space-y-1">
+            <p className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-ash">Want the done-for-you version?</p>
+            <p className="font-body text-sm font-light leading-7 text-smoke">
+              These guides are the self-serve option. For the full consulting engagement — strategy, copy, and someone who actually writes it —{" "}
+              <Link href="/book" className="text-petal transition hover:text-blush">book a call</Link>.
+            </p>
+          </div>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={19} />
+
+      {/* ── POEM PRINTS ── */}
+      <RevealSection bg="void" num="03">
         <Eyebrow>Poem Prints</Eyebrow>
         <H2>
           The words,{" "}
@@ -165,7 +231,7 @@ export default function ShopPage() {
       <QuoteDivider index={18} />
 
       {/* ── THE MARGINS ── */}
-      <RevealSection bg="obsidian" num="03">
+      <RevealSection bg="obsidian" num="04">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
             <Eyebrow>Membership</Eyebrow>
@@ -215,7 +281,7 @@ export default function ShopPage() {
       <QuoteDivider index={6} />
 
       {/* ── CONSULTING SERVICES ── */}
-      <RevealSection bg="void" num="04">
+      <RevealSection bg="void" num="05">
         <Eyebrow>Direct work</Eyebrow>
         <H2>
           Need more than{" "}
@@ -258,6 +324,59 @@ export default function ShopPage() {
           <BtnGhost href="/#rewrites">See All Services</BtnGhost>
         </div>
       </RevealSection>
+
+      {/* ── SCRIPTURE & STRATEGY CTA ── */}
+      <RevealSection bg="obsidian">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <Eyebrow>A Separate Brand</Eyebrow>
+            <H2>
+              Scripture &{" "}
+              <span className="text-petal">Strategy.</span>
+            </H2>
+            <H3Script>Bible study, destigmatized and monetized.</H3Script>
+            <div className="mt-6 space-y-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
+              <p>
+                A dedicated ebook brand for women who want to build a meaningful, income-generating practice around Scripture —
+                without the guilt, the gatekeeping, or the church-required entry fee.
+              </p>
+              <p>
+                Five guides. From first study to full revenue. For the faith-driven creator, teacher, or coach who is ready to treat her calling like a business.
+              </p>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <BtnPrimary href="/scripture">Explore Scripture &amp; Strategy</BtnPrimary>
+              <ArrowLink href="/scripture">See all five guides →</ArrowLink>
+            </div>
+          </div>
+          <div className="flex flex-col justify-center gap-px border border-graphite p-8">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">What&apos;s inside</p>
+            {[
+              { title: "The Study", price: "$18", note: "The entry point" },
+              { title: "Gospel & Grind", price: "$28", note: "Faith + business" },
+              { title: "The Sermon Notes", price: "$25", note: "Study → content" },
+              { title: "The Calling Card", price: "$35", note: "Faith brand voice" },
+              { title: "Ministry, Monetized", price: "$42", note: "Revenue strategy" },
+            ].map((item) => (
+              <div key={item.title} className="flex items-center justify-between border-b border-graphite py-4 last:border-0">
+                <div>
+                  <p className="font-display text-lg uppercase tracking-[0.02em] text-pearl">{item.title}</p>
+                  <p className="font-body text-xs font-light text-iron">{item.note}</p>
+                </div>
+                <p className="font-display text-xl text-petal">{item.price}</p>
+              </div>
+            ))}
+            <Link
+              href="/scripture"
+              className="btn-primary mt-4 flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+            >
+              View All Scripture &amp; Strategy →
+            </Link>
+          </div>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={7} />
 
       {/* ── PLATFORM EXPLAINER ── */}
       <RevealSection bg="obsidian">
