@@ -1,0 +1,625 @@
+/* ═══════════════════════════════════════════════════════════════
+   THE MARGIN NOTES — Ebook stylesheet
+   Mirrors mkparrish.com — dark void with petal accents
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,500;1,700&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --void:     #080808;
+  --obsidian: #111111;
+  --carbon:   #1A1A1A;
+  --graphite: #2C2C2C;
+  --iron:     #4A4A4A;
+  --ash:      #7A7A7A;
+  --smoke:    #B0B0B0;
+  --pearl:    #F0F0EE;
+  --white:    #FAFAF8;
+  --petal:    #F2AFC6;
+  --rose:     #E0869F;
+  --carmine:  #C75B78;
+
+  --font-display: "Bebas Neue", Impact, sans-serif;
+  --font-serif:   "Playfair Display", Georgia, serif;
+  --font-body:    "DM Sans", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 17px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--void);
+  color: var(--pearl);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+/* ── Grain overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: screen;
+}
+
+::selection {
+  background: var(--petal);
+  color: var(--void);
+}
+
+/* ── Container ── */
+.book {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 32px 128px;
+  position: relative;
+}
+
+/* ── Cover page ── */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 80px 48px;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -120px;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(242,175,198,0.14) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.cover::after {
+  content: '';
+  position: absolute;
+  right: -60px;
+  bottom: -80px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(199,91,120,0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.cover-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cover-mark {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.cover-meta {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.cover-body {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+}
+
+.cover-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--petal);
+  margin-bottom: 28px;
+}
+
+.cover-volume {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--iron);
+  margin-bottom: 18px;
+}
+
+.cover-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 11vw, 7.5rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 0.88;
+  margin-bottom: 28px;
+}
+
+.cover-title .accent {
+  color: var(--petal);
+  text-shadow: 0 0 40px rgba(242,175,198,0.4), 0 0 90px rgba(242,175,198,0.18);
+}
+
+.cover-sub {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+  color: rgba(242,175,198,0.85);
+  line-height: 1.45;
+  font-weight: 500;
+  max-width: 48ch;
+  margin-bottom: 28px;
+}
+
+.cover-desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--smoke);
+  font-weight: 300;
+  max-width: 56ch;
+}
+
+.cover-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--graphite);
+  padding-top: 24px;
+}
+
+.cover-author {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cover-author-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--iron);
+}
+
+.cover-author-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pearl);
+}
+
+.cover-imprint {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--iron);
+  text-align: right;
+}
+
+/* ── Section / chapter / typography ── */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--petal);
+  margin-bottom: 24px;
+}
+
+.chapter-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--iron);
+  margin-bottom: 16px;
+}
+
+h1.section {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 0.92;
+  margin-bottom: 28px;
+}
+
+h1.section .accent {
+  color: var(--petal);
+}
+
+h2.chapter {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.5vw, 3.25rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 0.95;
+  margin-top: 64px;
+  margin-bottom: 24px;
+  padding-top: 56px;
+  border-top: 1px solid var(--graphite);
+  position: relative;
+  page-break-before: always;
+}
+
+h2.chapter::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 56px;
+  height: 2px;
+  background: var(--petal);
+}
+
+h2.chapter .accent {
+  color: var(--petal);
+}
+
+.chapter-sub {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: rgba(242,175,198,0.78);
+  margin-bottom: 36px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pearl);
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+
+h3 .accent { color: var(--petal); }
+
+p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--smoke);
+  font-weight: 400;
+  margin-bottom: 20px;
+  max-width: 64ch;
+}
+
+p.lead {
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--pearl);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+p strong {
+  color: var(--pearl);
+  font-weight: 600;
+}
+
+p em {
+  color: var(--petal);
+  font-style: italic;
+}
+
+/* ── Pull quote ── */
+.pullquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  line-height: 1.55;
+  color: var(--pearl);
+  border-left: 2px solid var(--petal);
+  padding: 8px 0 8px 28px;
+  margin: 40px 0;
+  font-weight: 500;
+  position: relative;
+}
+
+.pullquote::before {
+  content: '\201C';
+  position: absolute;
+  left: -8px;
+  top: -32px;
+  font-family: var(--font-serif);
+  font-size: 5rem;
+  line-height: 1;
+  color: rgba(242,175,198,0.12);
+  pointer-events: none;
+}
+
+/* ── Verse / scripture quotation ── */
+.verse {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--pearl);
+  background: var(--carbon);
+  border-left: 2px solid rgba(242,175,198,0.4);
+  padding: 24px 28px;
+  margin: 28px 0;
+  font-style: italic;
+  font-weight: 400;
+  position: relative;
+}
+
+.verse-ref {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--petal);
+  font-style: normal;
+}
+
+/* ── Hebrew/Greek term callout ── */
+.term {
+  display: inline-block;
+  padding: 2px 10px;
+  margin: 0 2px;
+  background: rgba(242,175,198,0.08);
+  border: 1px solid rgba(242,175,198,0.2);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--petal);
+}
+
+/* ── Divider ── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(242,175,198,0.3) 40%, rgba(242,175,198,0.3) 60%, transparent);
+  margin: 56px 0;
+}
+
+.rule {
+  display: block;
+  width: 56px;
+  height: 2px;
+  background: var(--petal);
+  margin: 24px 0;
+}
+
+/* ── Lists ── */
+ul, ol {
+  margin: 24px 0 24px 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+ul li, ol li {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--smoke);
+  padding-left: 24px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 6px;
+  height: 1px;
+  background: var(--petal);
+}
+
+ol {
+  counter-reset: list;
+}
+
+ol li::before {
+  counter-increment: list;
+  content: counter(list, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--petal);
+}
+
+ol li {
+  padding-left: 36px;
+}
+
+/* ── Table of contents ── */
+.toc {
+  margin-top: 48px;
+}
+
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--graphite);
+  text-decoration: none;
+}
+
+.toc-item:last-child {
+  border-bottom: none;
+}
+
+.toc-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--petal);
+  flex-shrink: 0;
+}
+
+.toc-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--pearl);
+  flex: 1;
+}
+
+.toc-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--graphite);
+  height: 1px;
+  transform: translateY(-4px);
+}
+
+/* ── Author note / colophon ── */
+.note-box {
+  background: var(--obsidian);
+  border: 1px solid var(--graphite);
+  padding: 32px;
+  margin: 48px 0;
+  position: relative;
+}
+
+.note-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--petal), transparent);
+  opacity: 0.5;
+}
+
+.note-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--petal);
+  margin-bottom: 16px;
+}
+
+/* ── Back matter ── */
+.back-cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 48px;
+  position: relative;
+  page-break-before: always;
+  border-top: 1px solid var(--graphite);
+}
+
+.back-cta {
+  text-align: center;
+  padding: 64px 32px;
+  background: var(--carbon);
+  border: 1px solid var(--graphite);
+  margin-top: 64px;
+  position: relative;
+}
+
+.back-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--petal), transparent);
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 14px 36px;
+  background: var(--petal);
+  color: var(--void);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: 2px solid var(--petal);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:hover {
+  background: transparent;
+  color: var(--petal);
+  box-shadow: 0 0 40px rgba(242,175,198,0.25);
+}
+
+/* ── Print ── */
+@media print {
+  body { background: white; color: black; }
+  body::before { display: none; }
+  .cover, .back-cover { background: var(--void); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h2.chapter { page-break-before: always; }
+  p { color: #333; max-width: 100%; }
+}
+
+@media (max-width: 640px) {
+  html { font-size: 16px; }
+  .book { padding: 48px 20px 96px; }
+  .cover { padding: 48px 24px; }
+  h2.chapter { margin-top: 48px; padding-top: 40px; }
+}
