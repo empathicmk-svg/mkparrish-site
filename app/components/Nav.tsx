@@ -13,7 +13,9 @@ const navLinks = [
   { label: "Growth",       href: "/growth" },
   { label: "LinkedIn",     href: "/linkedin" },
   { label: "Writing",      href: "/writing" },
+  { label: "Shop",         href: "/shop" },
   { label: "The Margins",  href: "/margins" },
+  { label: "Posts",        href: "/posts" },
   { label: "About",        href: "/about" },
   { label: "Contact",      href: "/contact" },
 ];
@@ -39,9 +41,6 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => { setMobileNav(false); }, [pathname]);
-
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
@@ -65,12 +64,12 @@ export default function Nav() {
             MK PARRISH
           </Link>
 
-          <nav className="hidden items-center gap-7 md:flex">
+          <nav className="ml-8 hidden min-w-0 flex-1 items-center justify-end gap-3 md:flex lg:gap-4 xl:gap-7">
             {navLinks.map((l) => (
               <Link
                 key={l.label}
                 href={l.href}
-                className={`nav-link font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] transition-colors hover:text-pearl ${
+                className={`nav-link whitespace-nowrap font-body text-[0.56rem] font-medium uppercase tracking-[0.08em] transition-colors hover:text-pearl lg:text-[0.62rem] lg:tracking-[0.12em] xl:text-[0.7rem] xl:tracking-[0.15em] ${
                   isActive(l.href) ? "active text-pearl" : "text-ash"
                 }`}
               >
@@ -79,13 +78,23 @@ export default function Nav() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
-            <Link
-              href="/book"
-              className="btn-primary hidden px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void sm:inline-flex"
-            >
-              Book a Call
-            </Link>
+          <div className="flex items-center gap-3">
+            <div className="hidden lg:block">
+              <Link
+                href="/shop"
+                className="btn-ghost px-4 py-2 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em]"
+              >
+                Shop
+              </Link>
+            </div>
+            <div className="hidden lg:block">
+              <Link
+                href="/book"
+                className="btn-primary px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void"
+              >
+                Book a Call
+              </Link>
+            </div>
             <button
               onClick={() => setMobileNav(!mobileNav)}
               className="flex flex-col gap-1.5 md:hidden"
@@ -116,6 +125,7 @@ export default function Nav() {
               ))}
               <Link
                 href="/book"
+                onClick={() => setMobileNav(false)}
                 className="btn-primary mt-2 inline-flex justify-center px-5 py-3 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void"
               >
                 Book a Call

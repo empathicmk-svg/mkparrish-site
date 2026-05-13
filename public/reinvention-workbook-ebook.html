@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Reinvention Workbook — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 18px; }
+body {
+  background: #F9F6F1;
+  color: #1A1008;
+  font-family: 'Playfair Display', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+.book { max-width: 720px; margin: 0 auto; }
+.page {
+  min-height: 100vh;
+  padding: 80px 60px;
+  position: relative;
+  border-bottom: 1px solid rgba(26,16,8,0.06);
+  page-break-after: always;
+}
+@media (max-width: 600px) { .page { padding: 50px 28px; } }
+
+/* COVER */
+.cover {
+  background: #0D0D0D;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  min-height: 100vh; padding: 80px 60px;
+  position: relative; overflow: hidden;
+}
+.cover-glow {
+  position: absolute; top: -20%; left: 50%;
+  transform: translateX(-50%); width: 150%; height: 80%;
+  background: radial-gradient(ellipse at top, rgba(242,175,198,0.15) 0%, transparent 60%);
+}
+.cover-eyebrow {
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: #F2AFC6; opacity: 0.8; margin-bottom: 32px;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 12vw, 96px);
+  line-height: 0.9; color: #FFFFFF;
+}
+.cover-title .accent { color: #F2AFC6; display: block; }
+.cover-subtitle {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 18px; line-height: 1.6;
+  color: rgba(232,224,213,0.7);
+  max-width: 38ch; margin-top: 36px; margin-bottom: 60px;
+}
+.cover-rule {
+  width: 80px; height: 1px;
+  background: linear-gradient(to right, #F2AFC6, transparent);
+  margin-bottom: 40px;
+}
+.cover-author {
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(232,224,213,0.5);
+}
+.cover-bottom {
+  position: absolute; bottom: 48px; left: 60px; right: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.cover-logo {
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px;
+  letter-spacing: 0.08em; color: #F2AFC6; opacity: 0.6;
+}
+
+/* DECORATIVE COVER ELEMENT — concentric circles */
+.cover-graphic {
+  position: absolute; top: 50%; right: -100px;
+  transform: translateY(-50%);
+  width: 400px; height: 400px;
+  pointer-events: none; opacity: 0.15;
+}
+.cover-graphic .ring {
+  position: absolute; inset: 0;
+  border: 1px solid #F2AFC6;
+  border-radius: 50%;
+}
+.cover-graphic .ring:nth-child(1) { inset: 0; }
+.cover-graphic .ring:nth-child(2) { inset: 50px; }
+.cover-graphic .ring:nth-child(3) { inset: 100px; }
+.cover-graphic .ring:nth-child(4) { inset: 150px; }
+.cover-graphic .core {
+  position: absolute; inset: 175px; background: #F2AFC6; border-radius: 50%;
+}
+
+/* TOC */
+.toc-eyebrow {
+  font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: #C9967E; margin-bottom: 32px;
+}
+.toc-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 60px;
+  letter-spacing: 0.02em; color: #1A1008; line-height: 1; margin-bottom: 48px;
+}
+.toc-section {
+  margin-top: 36px; margin-bottom: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.25em; text-transform: uppercase; color: #F2AFC6;
+}
+.toc-item {
+  display: flex; align-items: baseline; padding: 14px 0;
+  border-bottom: 1px solid rgba(26,16,8,0.08); gap: 16px;
+}
+.toc-num {
+  font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; color: #C9967E; flex-shrink: 0; width: 32px;
+}
+.toc-name {
+  font-family: 'Playfair Display', serif; font-size: 16px;
+  font-style: italic; color: #1A1008; flex: 1;
+}
+
+/* PART DIVIDER */
+.part-divider {
+  background: #1A1008;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; min-height: 80vh;
+  position: relative; overflow: hidden;
+}
+.part-divider .glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(242,175,198,0.1) 0%, transparent 65%);
+}
+.part-num {
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.4em; text-transform: uppercase;
+  color: #F2AFC6; margin-bottom: 24px; position: relative;
+}
+.part-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 14vw, 120px);
+  line-height: 0.85; color: #FFFFFF; position: relative;
+}
+.part-subtitle {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 18px; line-height: 1.7;
+  color: rgba(232,224,213,0.7); max-width: 32ch;
+  margin-top: 36px; position: relative;
+}
+.part-rule {
+  width: 56px; height: 1px; background: #F2AFC6; opacity: 0.6;
+  margin: 36px 0; position: relative;
+}
+
+/* CHAPTER */
+.chapter-num {
+  font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: #F2AFC6; margin-bottom: 16px; display: block;
+}
+.chapter-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 7vw, 56px);
+  line-height: 0.95; color: #1A1008;
+}
+.chapter-title .accent { color: #C9967E; display: block; }
+.chapter-rule {
+  width: 56px; height: 2px; background: #F2AFC6;
+  opacity: 0.6; margin: 28px 0 32px;
+}
+.body-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; line-height: 1.85; color: #2A1E0F;
+}
+.body-text p { margin-bottom: 20px; }
+.body-text em { font-style: italic; color: #1A1008; }
+.body-text strong {
+  font-weight: 700; font-style: italic; color: #C9967E;
+}
+
+/* EXERCISE BOX */
+.exercise {
+  background: #0D0D0D; color: #E8E0D5;
+  padding: 36px 32px; margin: 32px 0;
+  position: relative; overflow: hidden;
+}
+.exercise::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  right: 0; height: 2px; background: #F2AFC6;
+}
+.exercise-label {
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+  font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: #F2AFC6; margin-bottom: 12px;
+}
+.exercise-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; letter-spacing: 0.02em;
+  color: #FFFFFF; margin-bottom: 20px; line-height: 1;
+}
+.exercise-prompt {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 17px; line-height: 1.8;
+  color: #E8E0D5; margin-bottom: 24px;
+}
+.exercise-questions {
+  list-style: none; display: flex; flex-direction: column; gap: 12px;
+}
+.exercise-questions li {
+  display: flex; align-items: flex-start; gap: 14px;
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; line-height: 1.7; color: #C9C2B8;
+}
+.exercise-questions li::before {
+  content: ''; width: 4px; height: 4px;
+  border-radius: 50%; background: #F2AFC6;
+  flex-shrink: 0; margin-top: 9px;
+}
+.exercise-space {
+  margin-top: 28px; padding-top: 24px;
+  border-top: 1px dashed rgba(242,175,198,0.3);
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+  font-weight: 600; letter-spacing: 0.25em;
+  text-transform: uppercase; color: rgba(242,175,198,0.5);
+}
+.write-lines {
+  margin-top: 16px;
+}
+.write-lines div {
+  height: 1px; background: rgba(242,175,198,0.2);
+  margin-bottom: 28px;
+}
+
+/* PULL QUOTE */
+.pull-quote {
+  margin: 40px -20px; padding: 32px 36px;
+  background: #1A1008; position: relative;
+}
+.pull-quote::before {
+  content: '\201C'; position: absolute;
+  top: -10px; left: 24px;
+  font-family: 'Playfair Display', serif;
+  font-size: 90px; line-height: 1;
+  color: #F2AFC6; opacity: 0.2;
+}
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 19px;
+  line-height: 1.7; color: #E8E0D5;
+  font-weight: 600; position: relative;
+}
+
+/* ORNAMENT */
+.ornament {
+  text-align: center; margin: 32px 0;
+  color: rgba(242,175,198,0.5);
+  font-size: 16px; letter-spacing: 12px;
+}
+
+/* FRAMEWORK DIAGRAM (CSS) */
+.framework {
+  margin: 40px 0; padding: 36px 28px;
+  background: #FFFFFF; border: 1px solid rgba(26,16,8,0.08);
+  position: relative;
+}
+.framework-title {
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: #C9967E;
+  margin-bottom: 24px; text-align: center;
+}
+.framework-phases {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
+}
+.phase {
+  padding: 20px 12px; text-align: center;
+  background: #F9F6F1; position: relative;
+}
+.phase-num {
+  font-family: 'Bebas Neue', sans-serif; font-size: 32px;
+  color: #F2AFC6; line-height: 1; margin-bottom: 4px;
+}
+.phase-name {
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #1A1008;
+}
+.phase-desc {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 12px; color: #2A1E0F; margin-top: 6px;
+}
+.phase-arrow {
+  position: absolute; top: 50%; right: -10px;
+  transform: translateY(-50%); color: #F2AFC6;
+  font-size: 14px; z-index: 2;
+}
+.phase:last-child .phase-arrow { display: none; }
+
+/* CLOSING */
+.closing {
+  background: #0D0D0D; min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 60px; position: relative; overflow: hidden;
+}
+.closing-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(242,175,198,0.08) 0%, transparent 65%);
+}
+.closing-text {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 19px; line-height: 1.95; color: #E8E0D5;
+  max-width: 46ch; position: relative;
+}
+.closing-attr {
+  margin-top: 40px; font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: #6B6B6B; position: relative;
+}
+.closing-attr span { color: #F2AFC6; }
+
+@media print {
+  .page { page-break-after: always; }
+  body { background: white; }
+}
+</style>
+</head>
+<body>
+
+<div class="book">
+
+<!-- COVER -->
+<div class="page cover">
+  <div class="cover-glow"></div>
+  <div class="cover-graphic">
+    <div class="ring"></div><div class="ring"></div>
+    <div class="ring"></div><div class="ring"></div>
+    <div class="core"></div>
+  </div>
+  <p class="cover-eyebrow">MK Parrish · Workbook</p>
+  <h1 class="cover-title">The Reinvention<span class="accent">Workbook</span></h1>
+  <p class="cover-subtitle">A guided writing workbook for people in the middle of becoming someone new.</p>
+  <div class="cover-rule"></div>
+  <p class="cover-author">MK Parrish</p>
+  <div class="cover-bottom">
+    <span class="cover-logo">MK PARRISH</span>
+    <span class="cover-author">mkparrish.com</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="page">
+  <p class="toc-eyebrow">Contents</p>
+  <h2 class="toc-title">Inside</h2>
+  <div class="toc-section">Front matter</div>
+  <div class="toc-item"><span class="toc-num">—</span><span class="toc-name">How to use this workbook</span></div>
+  <div class="toc-section">Phase One — Inventory</div>
+  <div class="toc-item"><span class="toc-num">01</span><span class="toc-name">The Self I Was Sold</span></div>
+  <div class="toc-item"><span class="toc-num">02</span><span class="toc-name">The Roles I Played</span></div>
+  <div class="toc-item"><span class="toc-num">03</span><span class="toc-name">What I Was Praised For</span></div>
+  <div class="toc-item"><span class="toc-num">04</span><span class="toc-name">What I Was Punished For</span></div>
+  <div class="toc-item"><span class="toc-num">05</span><span class="toc-name">The Story I Inherited</span></div>
+  <div class="toc-section">Phase Two — Audit</div>
+  <div class="toc-item"><span class="toc-num">06</span><span class="toc-name">The Outgrown List</span></div>
+  <div class="toc-item"><span class="toc-num">07</span><span class="toc-name">The Cost Audit</span></div>
+  <div class="toc-item"><span class="toc-num">08</span><span class="toc-name">The Lies I Was Told</span></div>
+  <div class="toc-item"><span class="toc-num">09</span><span class="toc-name">The Lies I Told Myself</span></div>
+  <div class="toc-item"><span class="toc-num">10</span><span class="toc-name">What Has To Go</span></div>
+  <div class="toc-section">Phase Three — Excavation</div>
+  <div class="toc-item"><span class="toc-num">11</span><span class="toc-name">The Child Who Knew</span></div>
+  <div class="toc-item"><span class="toc-num">12</span><span class="toc-name">The Voice Underneath</span></div>
+  <div class="toc-item"><span class="toc-num">13</span><span class="toc-name">What I Want That I'm Embarrassed To Want</span></div>
+  <div class="toc-item"><span class="toc-num">14</span><span class="toc-name">The Body Knows</span></div>
+  <div class="toc-item"><span class="toc-num">15</span><span class="toc-name">The Person I Have Always Been</span></div>
+  <div class="toc-section">Phase Four — Draft</div>
+  <div class="toc-item"><span class="toc-num">16</span><span class="toc-name">The New Sentence</span></div>
+  <div class="toc-item"><span class="toc-num">17</span><span class="toc-name">The Bio I Don't Have Yet</span></div>
+  <div class="toc-item"><span class="toc-num">18</span><span class="toc-name">The Letter From Future Me</span></div>
+  <div class="toc-item"><span class="toc-num">19</span><span class="toc-name">The Promise List</span></div>
+  <div class="toc-item"><span class="toc-num">20</span><span class="toc-name">The First Draft of the Rest</span></div>
+  <div class="toc-section">Closing</div>
+  <div class="toc-item"><span class="toc-num">—</span><span class="toc-name">After the Workbook</span></div>
+</div>
+
+<!-- HOW TO USE -->
+<div class="page">
+  <span class="chapter-num">Front matter</span>
+  <h2 class="chapter-title">How to use<span class="accent">this workbook.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>This is not a quick fix.</p>
+    <p>This is a 20-exercise sequence designed to walk you through the most uncomfortable, most necessary work of becoming someone new — without skipping the part where you have to grieve who you used to be.</p>
+    <p>You can do one exercise a day. One a week. One when you can stand it. The order matters more than the speed.</p>
+    <div class="framework">
+      <p class="framework-title">The four phases</p>
+      <div class="framework-phases">
+        <div class="phase">
+          <div class="phase-num">01</div>
+          <div class="phase-name">Inventory</div>
+          <div class="phase-desc">Who you were</div>
+          <span class="phase-arrow">→</span>
+        </div>
+        <div class="phase">
+          <div class="phase-num">02</div>
+          <div class="phase-name">Audit</div>
+          <div class="phase-desc">What no longer fits</div>
+          <span class="phase-arrow">→</span>
+        </div>
+        <div class="phase">
+          <div class="phase-num">03</div>
+          <div class="phase-name">Excavation</div>
+          <div class="phase-desc">Who is underneath</div>
+          <span class="phase-arrow">→</span>
+        </div>
+        <div class="phase">
+          <div class="phase-num">04</div>
+          <div class="phase-name">Draft</div>
+          <div class="phase-desc">The new story</div>
+        </div>
+      </div>
+    </div>
+    <p>Inventory takes stock of the version of you that the world built. Audit names what no longer fits. Excavation goes underneath the role you played to find the person you actually were. Draft writes the new version — not as fantasy, but as the truest possible sentence about who you are now.</p>
+    <p><strong>One rule:</strong> write by hand if you can. Type if you must. Do not edit as you go. The first draft of the answer is almost always more honest than the second.</p>
+    <p>Begin when you're ready.</p>
+  </div>
+</div>
+
+<!-- PHASE 1 DIVIDER -->
+<div class="page part-divider">
+  <div class="glow"></div>
+  <p class="part-num">Phase One</p>
+  <h2 class="part-title">Inventory</h2>
+  <div class="part-rule"></div>
+  <p class="part-subtitle">Take stock of the version of you that was built. Not the real you. The constructed one.</p>
+</div>
+
+<!-- EX 01 -->
+<div class="page">
+  <span class="chapter-num">Exercise 01 · Inventory</span>
+  <h2 class="chapter-title">The Self<span class="accent">I Was Sold</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>The version of yourself you've been carrying around — the bio in your head — was not entirely written by you. It was assembled from feedback, expectations, family scripts, school roles, and what the people you loved told you was possible.</p>
+    <p>This first exercise is about putting that constructed self on paper so you can see it clearly. You can't rewrite a story you can't see.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 01</p>
+    <p class="exercise-name">The Self I Was Sold</p>
+    <p class="exercise-prompt">Write a one-paragraph bio of yourself in third person — as if someone else were introducing you at an event. Don't fact-check it. Don't edit. Write the version that lives in your head right now.</p>
+    <ul class="exercise-questions">
+      <li>What adjectives keep showing up?</li>
+      <li>What achievements feel obligatory to mention?</li>
+      <li>What's missing from this bio that's actually true about you?</li>
+      <li>Whose voice is this written in — yours, or someone else's idea of you?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 02 -->
+<div class="page">
+  <span class="chapter-num">Exercise 02 · Inventory</span>
+  <h2 class="chapter-title">The Roles<span class="accent">I Played</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Most of us did not pick our personalities. They were assigned. The smart one. The pretty one. The reliable one. The fixer. The one who doesn't make a fuss. The one everyone leans on.</p>
+    <p>You did the role for so long it stopped feeling like a role. But it was. And the first step to choosing now is naming what you were cast as before you had a vote.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 02</p>
+    <p class="exercise-name">Name Your Roles</p>
+    <p class="exercise-prompt">List 5 roles you've played — in your family, at work, in your relationships. For each one, write what you got for playing it (love, approval, safety, control) and what it cost you.</p>
+    <ul class="exercise-questions">
+      <li>Which role did you play the longest?</li>
+      <li>Which one are you still playing now?</li>
+      <li>Which one was a survival strategy that became identity?</li>
+      <li>Which one would you cast yourself in now if you got to choose?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 03 -->
+<div class="page">
+  <span class="chapter-num">Exercise 03 · Inventory</span>
+  <h2 class="chapter-title">What I Was<span class="accent">Praised For</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Praise is one of the most underestimated forces in identity formation. The traits you got rewarded for are the traits you doubled down on — sometimes long past the point where they were good for you.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 03</p>
+    <p class="exercise-name">The Praise Inventory</p>
+    <p class="exercise-prompt">Write down every praise you remember receiving as a child or young adult. Don't filter. Even small ones — "she's so easy," "she never complains," "she's the strong one."</p>
+    <ul class="exercise-questions">
+      <li>What was the implicit message? (E.g. "easy" = don't have needs.)</li>
+      <li>Which traits did you cultivate to keep getting that praise?</li>
+      <li>Which of those traits do you still perform for approval that no longer matters?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+  <div class="pull-quote">
+    <p>You were rewarded for being easy. That is not the same as being well.</p>
+  </div>
+</div>
+
+<!-- EX 04 -->
+<div class="page">
+  <span class="chapter-num">Exercise 04 · Inventory</span>
+  <h2 class="chapter-title">What I Was<span class="accent">Punished For</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>The flip side of praise is what got you in trouble — being too loud, too much, too sensitive, too needy, too ambitious, too sad. Whatever you got punished for is often the thing you suppressed. Sometimes for decades.</p>
+    <p>Reinvention frequently looks like reclaiming the parts of yourself you were taught to be ashamed of.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 04</p>
+    <p class="exercise-name">The Suppressed Self</p>
+    <p class="exercise-prompt">List traits you got criticized for. Now write what was actually true underneath each one.</p>
+    <ul class="exercise-questions">
+      <li>"Too much" — was that ambition? Joy? Honesty?</li>
+      <li>"Too sensitive" — was that perception? Empathy? Knowing?</li>
+      <li>"Dramatic" — was that a real reaction to a real thing?</li>
+      <li>What part of yourself have you been hiding because someone shamed it?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 05 -->
+<div class="page">
+  <span class="chapter-num">Exercise 05 · Inventory</span>
+  <h2 class="chapter-title">The Story<span class="accent">I Inherited</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Before there was a story you told about yourself, there was a story you were told. About money. Love. Worth. Work. What women do. What success looks like. What's allowed.</p>
+    <p>You inherited that story like furniture. This exercise puts the furniture in the middle of the room and asks: do I want to keep this?</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 05</p>
+    <p class="exercise-name">Inherited Beliefs</p>
+    <p class="exercise-prompt">Complete each sentence with the first thing that comes to mind. Don't think. Just write.</p>
+    <ul class="exercise-questions">
+      <li>Money is —</li>
+      <li>Love is —</li>
+      <li>Women who want too much are —</li>
+      <li>Success means —</li>
+      <li>Being chosen requires —</li>
+      <li>Asking for help means —</li>
+      <li>Being wanted requires —</li>
+    </ul>
+    <p class="exercise-prompt">Now circle every answer that does not actually feel true to you. Those are the inherited ones. They are the most important sentences you will rewrite.</p>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- PHASE 2 DIVIDER -->
+<div class="page part-divider">
+  <div class="glow"></div>
+  <p class="part-num">Phase Two</p>
+  <h2 class="part-title">Audit</h2>
+  <div class="part-rule"></div>
+  <p class="part-subtitle">Look at what you built and ask: does this still fit, or am I just used to it?</p>
+</div>
+
+<!-- EX 06 -->
+<div class="page">
+  <span class="chapter-num">Exercise 06 · Audit</span>
+  <h2 class="chapter-title">The<span class="accent">Outgrown List</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>The first sign of needing reinvention is not crisis. It's the quiet sense that something you used to fit doesn't anymore — and you've been ignoring it.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 06</p>
+    <p class="exercise-name">What I've Outgrown</p>
+    <p class="exercise-prompt">Make a list of everything you've outgrown but haven't admitted yet. Job titles. Friendships. Hobbies. Politeness rituals. The way you describe yourself.</p>
+    <ul class="exercise-questions">
+      <li>Which item have you been pretending still fits?</li>
+      <li>What is it costing you to keep wearing it?</li>
+      <li>What stops you from naming it?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 07 -->
+<div class="page">
+  <span class="chapter-num">Exercise 07 · Audit</span>
+  <h2 class="chapter-title">The<span class="accent">Cost Audit</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Every choice has a cost. The version of yourself you've been performing has been billing you for years. Sometimes in money. Sometimes in time. Sometimes in nervous-system damage.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 07</p>
+    <p class="exercise-name">What This Has Cost Me</p>
+    <p class="exercise-prompt">Pick one role, relationship, or habit you've been carrying. Audit its real cost.</p>
+    <ul class="exercise-questions">
+      <li>Hours spent maintaining it.</li>
+      <li>Money it has cost — direct or opportunity.</li>
+      <li>What it has done to your body, sleep, anxiety.</li>
+      <li>What it has cost the people who love you watching you do it.</li>
+      <li>What it has cost the version of you who could have been doing something else.</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 08 -->
+<div class="page">
+  <span class="chapter-num">Exercise 08 · Audit</span>
+  <h2 class="chapter-title">The Lies<span class="accent">I Was Told</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Some lies were told to you on purpose. Some by people who believed them. Some by institutions, partners, parents, bosses, the culture. Naming them out loud makes them visible. Visible means you can stop carrying them.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 08</p>
+    <p class="exercise-name">Lies I Was Told</p>
+    <p class="exercise-prompt">Write the biggest lies you were told — about yourself, about love, about how the world works. Be specific. Name who said them, even if it's hard.</p>
+    <ul class="exercise-questions">
+      <li>Which one shaped the most decisions?</li>
+      <li>Which one are you still organizing your life around?</li>
+      <li>What would it take to set it down?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+  <div class="pull-quote">
+    <p>You did not believe a lie because you were stupid. You believed a lie because someone you trusted said it convincingly enough.</p>
+  </div>
+</div>
+
+<!-- EX 09 -->
+<div class="page">
+  <span class="chapter-num">Exercise 09 · Audit</span>
+  <h2 class="chapter-title">The Lies<span class="accent">I Told Myself</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>The lies told to you were external. The lies you eventually started telling yourself — to keep the story coherent, to avoid pain, to justify staying — those are the harder ones to name. And the ones it costs the most to keep believing.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 09</p>
+    <p class="exercise-name">Lies I Told Myself</p>
+    <p class="exercise-prompt">Write 5 lies you told yourself this year. Not big philosophical ones — small daily ones.</p>
+    <ul class="exercise-questions">
+      <li>"It's fine."</li>
+      <li>"I'm just tired."</li>
+      <li>"It's not that bad."</li>
+      <li>"I'm being dramatic."</li>
+      <li>"They didn't mean it that way."</li>
+    </ul>
+    <p class="exercise-prompt">For each one, write the truer version. The one you would have written if no one was watching.</p>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 10 -->
+<div class="page">
+  <span class="chapter-num">Exercise 10 · Audit</span>
+  <h2 class="chapter-title">What Has<span class="accent">To Go</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>This is the audit's final exercise. Now you decide.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 10</p>
+    <p class="exercise-name">The Subtraction List</p>
+    <p class="exercise-prompt">From everything you have written across exercises 1-9, make a subtraction list. What is going? Specifically.</p>
+    <ul class="exercise-questions">
+      <li>One belief that has to go.</li>
+      <li>One role you are stepping out of.</li>
+      <li>One sentence about yourself you are no longer saying.</li>
+      <li>One person you are quietly removing the bandwidth for.</li>
+      <li>One way of describing your life that is not accurate anymore.</li>
+    </ul>
+    <p class="exercise-prompt">You don't need anyone's permission. You don't need to announce it. You just need to know what you've chosen to subtract — and then to actually do the subtracting.</p>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- PHASE 3 DIVIDER -->
+<div class="page part-divider">
+  <div class="glow"></div>
+  <p class="part-num">Phase Three</p>
+  <h2 class="part-title">Excavation</h2>
+  <div class="part-rule"></div>
+  <p class="part-subtitle">Get underneath the role. Find who has been waiting.</p>
+</div>
+
+<!-- EX 11 -->
+<div class="page">
+  <span class="chapter-num">Exercise 11 · Excavation</span>
+  <h2 class="chapter-title">The Child<span class="accent">Who Knew</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Before you learned to perform, you knew things. You had instincts that hadn't been talked out of you yet. The work of reinvention is often the work of remembering what the child version of you already understood — before someone made you doubt it.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 11</p>
+    <p class="exercise-name">Letter to the Child Who Knew</p>
+    <p class="exercise-prompt">Write a letter to your 8-year-old self. Tell her three things she was right about. Not three things you wish you'd known. Three things she already knew that the world later trained out of her.</p>
+    <ul class="exercise-questions">
+      <li>What did she love that you stopped loving for someone else's sake?</li>
+      <li>What did she refuse to do that you later forced yourself to do?</li>
+      <li>What did her body know about people that yours has stopped trusting?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 12 -->
+<div class="page">
+  <span class="chapter-num">Exercise 12 · Excavation</span>
+  <h2 class="chapter-title">The Voice<span class="accent">Underneath</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>You have a real voice. Not your professional voice, not your charming voice, not your customer-service voice. The one that comes out when you're alone and not performing. The one that sometimes scares you because of how unedited it sounds.</p>
+    <p>That voice is closer to your real self than any of the curated ones. The work is to listen to it.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 12</p>
+    <p class="exercise-name">Free Write — 10 Minutes</p>
+    <p class="exercise-prompt">Set a timer. Write for 10 minutes without stopping, without crossing out, without editing. Begin with: "What I really want to say is —" and don't lift your pen.</p>
+    <ul class="exercise-questions">
+      <li>What surprised you?</li>
+      <li>What sentence do you wish you hadn't written? (Underline it. That's the truest one.)</li>
+      <li>What does this voice sound like compared to how you usually talk about your life?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 13 -->
+<div class="page">
+  <span class="chapter-num">Exercise 13 · Excavation</span>
+  <h2 class="chapter-title">What I Want<span class="accent">That I'm Embarrassed To Want</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Reinvention has a shame layer. The desires you have not let yourself name because they sound too big, too small, too domestic, too ambitious, too soft, too obvious. You buried them to be respectable.</p>
+    <p>You don't have to be respectable to write them down here.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 13</p>
+    <p class="exercise-name">The Embarrassed Wants</p>
+    <p class="exercise-prompt">Write 10 things you actually want — including the ones that feel too cliché, too materialistic, too soft, too ambitious, or too small to say out loud.</p>
+    <ul class="exercise-questions">
+      <li>The peaceful kitchen. The car. The book deal. The quiet life. The loud one. The marriage. The freedom. The applause. The rest.</li>
+      <li>Which ones did you almost not write?</li>
+      <li>Which ones feel like betrayals of who you said you were?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 14 -->
+<div class="page">
+  <span class="chapter-num">Exercise 14 · Excavation</span>
+  <h2 class="chapter-title">The Body<span class="accent">Knows</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Your body has been keeping a record. Of every "I'm fine" that wasn't fine. Of every relationship you stayed in too long. Of every meeting where your stomach told you something but your mouth said something else.</p>
+    <p>This exercise asks the body to speak.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 14</p>
+    <p class="exercise-name">Body Mapping</p>
+    <p class="exercise-prompt">Close your eyes for 60 seconds and notice your body. Where is the tension living right now? Where does fear live? Where does grief? Where does joy? Then write.</p>
+    <ul class="exercise-questions">
+      <li>What is your body holding that your mind is denying?</li>
+      <li>When did your body first try to tell you the truth that you ignored?</li>
+      <li>What does your body need that you have not been giving it?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 15 -->
+<div class="page">
+  <span class="chapter-num">Exercise 15 · Excavation</span>
+  <h2 class="chapter-title">The Person I Have<span class="accent">Always Been</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Most reinvention is not actually invention. It is recognition. The person you are becoming has often been there the whole time — buried under who you had to be to survive.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 15</p>
+    <p class="exercise-name">The Constant</p>
+    <p class="exercise-prompt">Across every version of yourself — the child, the teenager, the young adult, the version of you mid-grief, the version of you now — what has been the constant? The thing that never changed even when everything else did?</p>
+    <ul class="exercise-questions">
+      <li>What did you love at age 6 that you also love at the age you are now?</li>
+      <li>What value or instinct has shown up across every chapter, even when you weren't honoring it?</li>
+      <li>What is the most you-thing about you?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+  <div class="pull-quote">
+    <p>The version of you you are becoming has been the through line all along. You are not inventing her. You are stopping the people who tried to delete her.</p>
+  </div>
+</div>
+
+<!-- PHASE 4 DIVIDER -->
+<div class="page part-divider">
+  <div class="glow"></div>
+  <p class="part-num">Phase Four</p>
+  <h2 class="part-title">Draft</h2>
+  <div class="part-rule"></div>
+  <p class="part-subtitle">Now you write the new version. Not as fantasy. As the truest sentence about who you are now.</p>
+</div>
+
+<!-- EX 16 -->
+<div class="page">
+  <span class="chapter-num">Exercise 16 · Draft</span>
+  <h2 class="chapter-title">The<span class="accent">New Sentence</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>The reinvention starts with one sentence. Not a vision board. Not a five-year plan. One sentence that names who you are now in language that did not exist before.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 16</p>
+    <p class="exercise-name">Write the Sentence</p>
+    <p class="exercise-prompt">Write one sentence about who you are now. Not aspirational. Now. Use language that did not appear in any of your old bios. The sentence must be true the moment you write it.</p>
+    <ul class="exercise-questions">
+      <li>Cut every word you would not say to a stranger you respected.</li>
+      <li>Cut every word that sounds like LinkedIn.</li>
+      <li>Read it out loud. Does it sound like you?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 17 -->
+<div class="page">
+  <span class="chapter-num">Exercise 17 · Draft</span>
+  <h2 class="chapter-title">The Bio<span class="accent">I Don't Have Yet</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>You wrote your old bio in Exercise 1. Now you write the one you don't have yet. Built from everything you've named in the workbook so far.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 17</p>
+    <p class="exercise-name">Rewrite the Bio</p>
+    <p class="exercise-prompt">Write a new bio in third person. 100-150 words. Built from your new sentence (Exercise 16) and the constants you found (Exercise 15).</p>
+    <ul class="exercise-questions">
+      <li>Include one specific detail that no one else's bio could have.</li>
+      <li>Cut every adjective you can't defend.</li>
+      <li>End with a sentence about who you are working with or for now.</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 18 -->
+<div class="page">
+  <span class="chapter-num">Exercise 18 · Draft</span>
+  <h2 class="chapter-title">The Letter<span class="accent">From Future Me</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>This exercise borrows from the future. Not to fantasize, but to get specific. The version of you one year out — the one who has done the work in this workbook — has things to say to you.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 18</p>
+    <p class="exercise-name">Letter From Future You</p>
+    <p class="exercise-prompt">Write a letter from your one-year-from-now self to your right-now self. What does she want you to know? What is she grateful you did? What did the cost of the change turn out to be?</p>
+    <ul class="exercise-questions">
+      <li>What does she look like? Be specific.</li>
+      <li>Who is around her? Who is no longer?</li>
+      <li>What is she most relieved to no longer be doing?</li>
+      <li>What does she wish you had started sooner?</li>
+    </ul>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 19 -->
+<div class="page">
+  <span class="chapter-num">Exercise 19 · Draft</span>
+  <h2 class="chapter-title">The<span class="accent">Promise List</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Promises to other people are easy. Promises to yourself, especially after years of breaking them quietly, are the harder thing. This exercise is short, but it is the most binding one.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 19</p>
+    <p class="exercise-name">Five Promises</p>
+    <p class="exercise-prompt">Write 5 promises to yourself. Not goals. Promises. Phrased simply.</p>
+    <ul class="exercise-questions">
+      <li>I will stop —</li>
+      <li>I will start —</li>
+      <li>I will no longer apologize for —</li>
+      <li>I will believe myself when —</li>
+      <li>I will protect my time around —</li>
+    </ul>
+    <p class="exercise-prompt">Sign and date the page when you're done. Not because anyone else will hold you to it. Because you are now in the practice of treating your own promises like contracts.</p>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- EX 20 -->
+<div class="page">
+  <span class="chapter-num">Exercise 20 · Draft</span>
+  <h2 class="chapter-title">The First Draft<span class="accent">of the Rest</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>The final exercise is the simplest one. Write the next chapter. Not the whole book. The first page of the next chapter.</p>
+  </div>
+  <div class="exercise">
+    <p class="exercise-label">Exercise 20</p>
+    <p class="exercise-name">Write the Opening</p>
+    <p class="exercise-prompt">Imagine your life is a book. Write the first paragraph of the chapter that is starting now.</p>
+    <ul class="exercise-questions">
+      <li>Set the scene. Where are you? What is different?</li>
+      <li>Who is the narrator now?</li>
+      <li>What is the tension? What is being released?</li>
+      <li>End the paragraph on the line that feels like a door opening.</li>
+    </ul>
+    <p class="exercise-prompt">Then keep going. Or don't. The point of this exercise is not to finish the book. It is to prove to yourself that you can write the opening.</p>
+    <p class="exercise-prompt">You can. You just did.</p>
+    <p class="exercise-space">Write below</p>
+    <div class="write-lines"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="page closing">
+  <div class="closing-glow"></div>
+  <p class="cover-eyebrow" style="position:relative">Closing</p>
+  <h2 class="cover-title" style="font-size:64px;margin-bottom:32px;position:relative">After the<span class="accent">Workbook</span></h2>
+  <p class="closing-text">
+    The reinvention does not end with the last page.<br><br>
+    You will come back to these pages — not because you forgot, but because the woman doing exercise 12 today is not the woman who will read it again in six months. The exercises change with you.<br><br>
+    Promise me you will not put this away clean.<br><br>
+    Promise me you will write in the margins.<br><br>
+    Promise me you will let your handwriting get worse and worse over time, because that is what it looks like when a woman is finally telling herself the truth faster than she can edit it.<br><br>
+    Promise me you will keep going — even on the days when the only thing you can write is one sentence.<br><br>
+    One sentence is enough.<br><br>
+    One sentence is how the rewrite begins.
+  </p>
+  <p class="closing-attr"><span>— MK Parrish</span></p>
+</div>
+
+</div>
+</body>
+</html>

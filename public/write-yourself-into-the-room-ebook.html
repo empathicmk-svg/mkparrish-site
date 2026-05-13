@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Write Yourself Into the Room — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 18px; }
+body {
+  background: #F9F6F1;
+  color: #1A1008;
+  font-family: 'Playfair Display', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+.book { max-width: 720px; margin: 0 auto; }
+.page {
+  min-height: 100vh; padding: 80px 60px;
+  position: relative;
+  border-bottom: 1px solid rgba(26,16,8,0.06);
+  page-break-after: always;
+}
+@media (max-width: 600px) { .page { padding: 50px 28px; } }
+
+/* COVER */
+.cover {
+  background: #0D0D0D;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  min-height: 100vh; padding: 80px 60px;
+  position: relative; overflow: hidden;
+}
+.cover-glow {
+  position: absolute; top: -20%; left: 50%;
+  transform: translateX(-50%); width: 150%; height: 80%;
+  background: radial-gradient(ellipse at top, rgba(242,175,198,0.15) 0%, transparent 60%);
+}
+.cover-eyebrow {
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: #F2AFC6; opacity: 0.8; margin-bottom: 32px;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(54px, 11vw, 88px);
+  line-height: 0.9; color: #FFFFFF;
+}
+.cover-title .accent { color: #F2AFC6; display: block; }
+.cover-subtitle {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 18px; line-height: 1.6;
+  color: rgba(232,224,213,0.7);
+  max-width: 38ch; margin-top: 36px; margin-bottom: 60px;
+}
+.cover-rule {
+  width: 80px; height: 1px;
+  background: linear-gradient(to right, #F2AFC6, transparent);
+  margin-bottom: 40px;
+}
+.cover-author {
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(232,224,213,0.5);
+}
+.cover-bottom {
+  position: absolute; bottom: 48px; left: 60px; right: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.cover-logo {
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px;
+  letter-spacing: 0.08em; color: #F2AFC6; opacity: 0.6;
+}
+
+/* COVER GRAPHIC — typewriter / underlined word */
+.cover-graphic {
+  position: absolute; right: 60px; top: 80px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 280px; line-height: 1;
+  color: #F2AFC6; opacity: 0.05;
+  pointer-events: none; user-select: none;
+}
+
+/* TOC */
+.toc-eyebrow {
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+  font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: #C9967E;
+  margin-bottom: 32px;
+}
+.toc-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 60px;
+  letter-spacing: 0.02em; color: #1A1008;
+  line-height: 1; margin-bottom: 48px;
+}
+.toc-item {
+  display: flex; align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(26,16,8,0.08);
+  gap: 16px;
+}
+.toc-num {
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+  font-weight: 700; letter-spacing: 0.2em;
+  color: #C9967E; flex-shrink: 0; width: 32px;
+}
+.toc-name {
+  font-family: 'Playfair Display', serif; font-size: 16px;
+  font-style: italic; color: #1A1008; flex: 1;
+}
+
+/* CHAPTER */
+.chapter-num {
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+  font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: #F2AFC6;
+  margin-bottom: 16px; display: block;
+}
+.chapter-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 7vw, 56px);
+  line-height: 0.95; color: #1A1008;
+}
+.chapter-title .accent { color: #C9967E; display: block; }
+.chapter-rule {
+  width: 56px; height: 2px; background: #F2AFC6;
+  opacity: 0.6; margin: 28px 0 32px;
+}
+.body-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; line-height: 1.85; color: #2A1E0F;
+}
+.body-text p { margin-bottom: 20px; }
+.body-text em { font-style: italic; color: #1A1008; }
+.body-text strong { font-weight: 700; font-style: italic; color: #C9967E; }
+
+/* PULL QUOTE */
+.pull-quote {
+  margin: 40px -20px; padding: 32px 36px;
+  background: #1A1008; position: relative;
+}
+.pull-quote::before {
+  content: '\201C'; position: absolute;
+  top: -10px; left: 24px;
+  font-family: 'Playfair Display', serif;
+  font-size: 90px; line-height: 1;
+  color: #F2AFC6; opacity: 0.2;
+}
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 19px;
+  line-height: 1.7; color: #E8E0D5;
+  font-weight: 600; position: relative;
+}
+
+/* EXAMPLE BOX (annotated) */
+.example {
+  margin: 32px 0; background: #FFFFFF;
+  border: 1px solid rgba(26,16,8,0.08);
+  position: relative;
+}
+.example-label {
+  background: #1A1008; color: #F2AFC6;
+  padding: 10px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase;
+}
+.example-content {
+  padding: 28px 28px 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; line-height: 1.8;
+  color: #1A1008;
+}
+.example-content em { color: #C9967E; font-weight: 600; }
+.example-bad { background: #FBF1F1; }
+.example-bad .example-label { background: #8B3A3A; color: #FFFFFF; }
+.example-good { background: #F1F8F4; }
+.example-good .example-label { background: #2A6A4F; color: #FFFFFF; }
+.example-annotation {
+  padding: 12px 28px 24px; font-family: 'DM Sans', sans-serif;
+  font-size: 12px; line-height: 1.6;
+  color: #6B5240; font-style: italic; border-top: 1px dashed rgba(26,16,8,0.1);
+}
+
+/* FRAMEWORK */
+.framework {
+  margin: 40px 0; padding: 36px 28px;
+  background: #FFFFFF;
+  border: 1px solid rgba(26,16,8,0.08);
+  position: relative;
+}
+.framework-title {
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: #C9967E;
+  margin-bottom: 24px; text-align: center;
+}
+.framework-stack {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.layer {
+  padding: 24px 24px; text-align: center;
+  position: relative;
+}
+.layer-1 { background: #1A1008; color: #FFFFFF; }
+.layer-2 { background: #C9967E; color: #FFFFFF; }
+.layer-3 { background: #F2AFC6; color: #1A1008; }
+.layer-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; letter-spacing: 0.05em; line-height: 1;
+}
+.layer-desc {
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; margin-top: 6px; opacity: 0.85;
+}
+
+/* CHECKLIST */
+.checklist {
+  margin: 32px 0; padding: 28px;
+  background: #1A1008; color: #E8E0D5;
+}
+.checklist-title {
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: #F2AFC6;
+  margin-bottom: 20px;
+}
+.checklist ul { list-style: none; }
+.checklist li {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(242,175,198,0.15);
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-style: italic; line-height: 1.6;
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist li::before {
+  content: ''; display: block;
+  width: 14px; height: 14px;
+  border: 1px solid #F2AFC6;
+  flex-shrink: 0; margin-top: 4px;
+}
+
+/* TEMPLATE BOX */
+.template {
+  margin: 32px 0; padding: 28px;
+  border: 2px dashed rgba(26,16,8,0.15);
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; line-height: 1.9;
+  color: #1A1008; background: #FFFFFF;
+}
+.template-label {
+  display: inline-block; margin-bottom: 16px;
+  padding: 4px 12px;
+  background: #F2AFC6; color: #1A1008;
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+  font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+.template em { color: #C9967E; font-weight: 600; font-style: italic; }
+.template .blank {
+  border-bottom: 1px solid rgba(26,16,8,0.3);
+  padding: 0 6px; color: rgba(26,16,8,0.4);
+}
+
+/* ORNAMENT */
+.ornament {
+  text-align: center; margin: 32px 0;
+  color: rgba(242,175,198,0.5);
+  font-size: 16px; letter-spacing: 12px;
+}
+
+/* CLOSING */
+.closing {
+  background: #0D0D0D; min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 60px; position: relative; overflow: hidden;
+}
+.closing-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(242,175,198,0.08) 0%, transparent 65%);
+}
+.closing-text {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 19px; line-height: 1.95; color: #E8E0D5;
+  max-width: 46ch; position: relative;
+}
+.closing-attr {
+  margin-top: 40px; font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: #6B6B6B; position: relative;
+}
+.closing-attr span { color: #F2AFC6; }
+
+@media print {
+  .page { page-break-after: always; }
+  body { background: white; }
+}
+</style>
+</head>
+<body>
+
+<div class="book">
+
+<!-- COVER -->
+<div class="page cover">
+  <div class="cover-glow"></div>
+  <div class="cover-graphic">"</div>
+  <p class="cover-eyebrow">MK Parrish · Writing Guide</p>
+  <h1 class="cover-title">Write Yourself<span class="accent">Into the Room</span></h1>
+  <p class="cover-subtitle">The personal brand writing guide for people who are tired of sounding like everyone else.</p>
+  <div class="cover-rule"></div>
+  <p class="cover-author">MK Parrish</p>
+  <div class="cover-bottom">
+    <span class="cover-logo">MK PARRISH</span>
+    <span class="cover-author">mkparrish.com</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="page">
+  <p class="toc-eyebrow">Contents</p>
+  <h2 class="toc-title">Inside</h2>
+  <div class="toc-item"><span class="toc-num">—</span><span class="toc-name">Introduction: The Words You Use Are Costing You</span></div>
+  <div class="toc-item"><span class="toc-num">01</span><span class="toc-name">The Positioning Problem</span></div>
+  <div class="toc-item"><span class="toc-num">02</span><span class="toc-name">The Three-Layer Framework</span></div>
+  <div class="toc-item"><span class="toc-num">03</span><span class="toc-name">How to Write a Bio That Actually Sounds Like You</span></div>
+  <div class="toc-item"><span class="toc-num">04</span><span class="toc-name">LinkedIn That Actually Works</span></div>
+  <div class="toc-item"><span class="toc-num">05</span><span class="toc-name">Voice & Tone Calibration</span></div>
+  <div class="toc-item"><span class="toc-num">06</span><span class="toc-name">The Audit Checklist</span></div>
+  <div class="toc-item"><span class="toc-num">—</span><span class="toc-name">Closing: The Room You're Already In</span></div>
+</div>
+
+<!-- INTRO -->
+<div class="page">
+  <span class="chapter-num">Introduction</span>
+  <h2 class="chapter-title">The Words You Use<span class="accent">Are Costing You.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Most people lose deals before they are in the room.</p>
+    <p>They lose them in the LinkedIn bio someone read on the way to a meeting. In the about page that didn't make it clear why you're different. In the email signature that hasn't been updated since the role two jobs ago. In the speaker bio that still uses the word "passionate."</p>
+    <p>They lose them in a thousand small surfaces of language that the right people skim — and then quietly decide.</p>
+    <div class="pull-quote">
+      <p>The wrong words cost you. Quietly. Before you even know a decision was made.</p>
+    </div>
+    <p>This is not a guide about writing well in some abstract literary sense. This is a guide about writing yourself accurately — closing the gap between how good your work actually is and how it sounds on paper.</p>
+    <p>The people who get into the room have not always been smarter or more accomplished. They have been clearer. They wrote themselves in.</p>
+    <p>This book teaches you how to do that. Not by inventing a persona. By finally putting the real version of you into language that the right people recognize.</p>
+    <p><strong>Six chapters. One framework. A handful of templates. The audit at the end is worth the price of the book.</strong></p>
+  </div>
+</div>
+
+<!-- CH 1 -->
+<div class="page">
+  <span class="chapter-num">Chapter One</span>
+  <h2 class="chapter-title">The Positioning<span class="accent">Problem.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>The reason your bio sounds like everyone else's is not because you are like everyone else. It's because you wrote it in the language available — the language industries hand out, the language LinkedIn rewards, the language hiring managers are accustomed to skimming.</p>
+    <p>That language flattens you on purpose. It is built to be easy to scan, not to communicate who you actually are.</p>
+    <p>Generic positioning sounds like:</p>
+  </div>
+  <div class="example example-bad">
+    <p class="example-label">Generic — sounds like everyone</p>
+    <p class="example-content">A passionate, results-driven marketing leader with 10+ years of experience helping brands grow through innovative, data-driven strategies.</p>
+    <p class="example-annotation">Could describe 50,000 people. No specificity. No voice. No reason to remember it.</p>
+  </div>
+  <div class="body-text">
+    <p>Now look at the same person, written from a position of clarity:</p>
+  </div>
+  <div class="example example-good">
+    <p class="example-label">Specific — sounds like a person</p>
+    <p class="example-content">I rewrite the language brands are using when their work has outpaced what they sound like. Most of my clients have outgrown their own copy and didn't know it until somebody else's deal moved faster than theirs.</p>
+    <p class="example-annotation">Specific problem named. Specific clients implied. A point of view about why this matters. Could not be anyone else.</p>
+  </div>
+  <div class="body-text">
+    <p>The positioning problem is not that you don't know what you do. It's that you have been writing as if your reader already does. They do not. They are skimming. You have one or two sentences before they decide whether to pay attention.</p>
+    <p>Use them.</p>
+  </div>
+</div>
+
+<!-- CH 2 -->
+<div class="page">
+  <span class="chapter-num">Chapter Two</span>
+  <h2 class="chapter-title">The Three-Layer<span class="accent">Framework.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>This is the framework I built across hundreds of client engagements. It has three layers — Foundation, Frame, and Finish — and you will use all three to write any piece of personal brand copy from now on.</p>
+  </div>
+  <div class="framework">
+    <p class="framework-title">The three-layer model</p>
+    <div class="framework-stack">
+      <div class="layer layer-1">
+        <div class="layer-name">Foundation</div>
+        <div class="layer-desc">What you actually do</div>
+      </div>
+      <div class="layer layer-2">
+        <div class="layer-name">Frame</div>
+        <div class="layer-desc">Why it matters</div>
+      </div>
+      <div class="layer layer-3">
+        <div class="layer-name">Finish</div>
+        <div class="layer-desc">Why you, specifically</div>
+      </div>
+    </div>
+  </div>
+  <div class="body-text">
+    <p><strong>Foundation</strong> is the literal description. The work you do. The role you hold. The deliverable you produce. This must be unambiguous. If the foundation is foggy, nothing above it will work.</p>
+    <p><strong>Frame</strong> is the meaning. The reason this matters. The problem you solve. The change your work creates. Most bios stop at foundation. The good ones go to frame.</p>
+    <p><strong>Finish</strong> is the differentiation. The you-shaped reason a person should choose you, specifically — not the next person with the same job title. Finish is the part that disappears when you write defensively.</p>
+    <div class="pull-quote">
+      <p>Most people write the foundation, skip the frame entirely, and never reach the finish. That is why their bio sounds like a job description.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CH 3 -->
+<div class="page">
+  <span class="chapter-num">Chapter Three</span>
+  <h2 class="chapter-title">How to Write a Bio<span class="accent">That Actually Sounds Like You.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>A bio is not a list of jobs. A bio is an argument for paying attention to you.</p>
+    <p>The structure that works:</p>
+  </div>
+  <div class="template">
+    <span class="template-label">Bio template — short form</span>
+    <p>I <em>[verb that names what you actually do]</em> <em>[for whom]</em> when <em>[the specific problem you solve]</em>. Most of my <em>[clients/work/projects]</em> are <em>[specific descriptor]</em>. Currently <em>[present-tense activity that signals momentum]</em>.</p>
+  </div>
+  <div class="body-text">
+    <p>Notice what the template does not include: the word "passionate." A list of skills. Your years of experience as a leading number. The phrase "results-driven."</p>
+    <p>Notice what it does include: an active verb (you do something), a specific person (it's for somebody), a concrete problem (you solve a thing), and present tense (you are alive and working now).</p>
+    <p>Worked example:</p>
+  </div>
+  <div class="example example-good">
+    <p class="example-label">Worked example — real bio</p>
+    <p class="example-content">I rewrite the language founders are using when their work has outgrown their copy. Most of my clients are operators in transition — pivots, relaunches, second acts — who need to close the gap between what they're doing now and what they're still saying about it. Currently writing for a small slate of executives across health, finance, and the arts.</p>
+    <p class="example-annotation">Foundation: rewrites copy. Frame: closes a gap that costs them deals. Finish: small slate, specific kinds of clients, signals selectivity.</p>
+  </div>
+  <div class="body-text">
+    <p><strong>Three rules for every bio you write:</strong></p>
+    <p>1. Read it out loud. If you would not say the sentence to a person you respect, cut it.</p>
+    <p>2. Cut every adjective you cannot defend with a specific example. Adjectives without proof are noise.</p>
+    <p>3. Include one specific detail no one else's bio could have. A real client name. A real number. A real medium. A real city. Specificity is a form of courage.</p>
+  </div>
+</div>
+
+<!-- CH 4 -->
+<div class="page">
+  <span class="chapter-num">Chapter Four</span>
+  <h2 class="chapter-title">LinkedIn<span class="accent">That Actually Works.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>LinkedIn is most people's most-read piece of writing. It is also the one most people have been ignoring for years.</p>
+    <p>Treat your LinkedIn as the bio that converts. It has three surfaces that matter:</p>
+  </div>
+  <div class="framework">
+    <p class="framework-title">The three LinkedIn surfaces</p>
+    <div class="framework-stack">
+      <div class="layer layer-1">
+        <div class="layer-name">The Headline</div>
+        <div class="layer-desc">8 words or fewer · the first impression</div>
+      </div>
+      <div class="layer layer-2">
+        <div class="layer-name">The About</div>
+        <div class="layer-desc">200 words · the argument</div>
+      </div>
+      <div class="layer layer-3">
+        <div class="layer-name">The Top Experience</div>
+        <div class="layer-desc">3-5 lines · the proof</div>
+      </div>
+    </div>
+  </div>
+  <div class="body-text">
+    <p><strong>The Headline.</strong> Your headline is not your job title. It is one sentence that names what you do for whom. If it could appear under anyone else's name, rewrite it.</p>
+  </div>
+  <div class="example example-bad">
+    <p class="example-label">Generic headline</p>
+    <p class="example-content">Senior Marketing Manager · Brand Strategy · Storytelling</p>
+    <p class="example-annotation">A list of nouns. No claim. No reader.</p>
+  </div>
+  <div class="example example-good">
+    <p class="example-label">Specific headline</p>
+    <p class="example-content">I rewrite the words founders use when their work has outgrown their copy.</p>
+    <p class="example-annotation">A claim. A reader. A reason to read more.</p>
+  </div>
+  <div class="body-text">
+    <p><strong>The About.</strong> Treat the About section like a 200-word essay, not a resume. Open with the problem you solve. Tell one short story about a real example. End with what you're working on now and how to reach you.</p>
+    <p><strong>The Top Experience.</strong> Three to five lines that describe the work in your own words — not the job description HR wrote. Lead with the verb. Cut the platitudes. Quantify when honest.</p>
+  </div>
+</div>
+
+<!-- CH 5 -->
+<div class="page">
+  <span class="chapter-num">Chapter Five</span>
+  <h2 class="chapter-title">Voice & Tone<span class="accent">Calibration.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Voice is who you are. Tone is how you adjust depending on who you are talking to.</p>
+    <p>Most people get this backwards. They think professional copy means erasing voice and writing in a generic neutral tone. Generic neutral is not professional. It is forgettable.</p>
+    <p>Voice should be consistent across every surface — the LinkedIn, the website, the email, the proposal. Tone shifts based on context. Same person. Different room.</p>
+    <p>Three voice traits to define for yourself:</p>
+  </div>
+  <div class="checklist">
+    <p class="checklist-title">Define your three voice anchors</p>
+    <ul>
+      <li>One word for warmth — Are you direct? Tender? Wry? Plainspoken?</li>
+      <li>One word for authority — Are you precise? Experienced? Decisive? Earned?</li>
+      <li>One word for distinction — What do you sound like that no one else in your category sounds like?</li>
+    </ul>
+  </div>
+  <div class="body-text">
+    <p>For example, if your voice is "direct, earned, and a little wry" — every piece of copy you write should pass through that filter. Cut sentences that are not direct. Cut claims that are not earned. Add wit where the form allows.</p>
+    <div class="pull-quote">
+      <p>Generic neutral is not professional. It is forgettable.</p>
+    </div>
+    <p>Tone, meanwhile, is calibration. The same voice writes a tighter sentence in a sales email and a longer one in a personal essay. Same fingerprint. Different pressure.</p>
+  </div>
+</div>
+
+<!-- CH 6 -->
+<div class="page">
+  <span class="chapter-num">Chapter Six</span>
+  <h2 class="chapter-title">The Audit<span class="accent">Checklist.</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>This is the part of the book worth printing.</p>
+    <p>Take this checklist to every piece of personal brand copy you currently have. Run it through. The first time, you will find a half-dozen lines that don't pass. That is the leak you have been losing deals through.</p>
+  </div>
+  <div class="checklist">
+    <p class="checklist-title">The personal brand audit</p>
+    <ul>
+      <li>Does my headline make a specific claim, not a list of nouns?</li>
+      <li>Could this bio describe anyone else with my title? If yes, rewrite.</li>
+      <li>Have I named a specific reader / client / problem?</li>
+      <li>Have I cut every adjective I cannot defend with a real example?</li>
+      <li>Is there at least one specific detail no one else could have written?</li>
+      <li>Is my voice consistent across LinkedIn, website, and email signature?</li>
+      <li>Have I read it out loud and confirmed I would say it to someone I respect?</li>
+      <li>Is anything in present tense — proof I am working now?</li>
+      <li>Have I removed the word "passionate"?</li>
+      <li>Have I removed every empty modifier — "innovative," "results-driven," "synergistic," "cutting-edge"?</li>
+      <li>Is my CTA — what someone should do after reading — actually clear?</li>
+      <li>If a stranger read this, would they understand who I am for and who I am not?</li>
+    </ul>
+  </div>
+  <div class="body-text">
+    <p>The checklist is the actual work. Most personal brand work fails because people read theory and never run the audit. Run it.</p>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="page closing">
+  <div class="closing-glow"></div>
+  <p class="cover-eyebrow" style="position:relative">Closing</p>
+  <h2 class="cover-title" style="font-size:64px;margin-bottom:32px;position:relative">The Room You're<span class="accent">Already In.</span></h2>
+  <p class="closing-text">
+    You are already in the room.<br><br>
+    Every time someone Googles you, opens your LinkedIn, reads your bio, or skims your homepage — they are in the room with you. You just haven't been writing for them.<br><br>
+    Now you will.<br><br>
+    Promise me you will rewrite your headline this week. Just the headline. One sentence.<br><br>
+    Promise me you will run the audit on your About section before you go to bed three days from now.<br><br>
+    Promise me you will stop apologizing for the word "I."<br><br>
+    Promise me you will stop hiding behind the word "we."<br><br>
+    The right people are looking for you.<br><br>
+    Help them recognize you when they get there.
+  </p>
+  <p class="closing-attr"><span>— MK Parrish</span></p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Invisible Bruise — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+<style>
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── PAGE ── */
+html { font-size: 18px; }
+body {
+  background: #F9F6F1;
+  color: #1A1008;
+  font-family: 'Playfair Display', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── EBOOK CONTAINER ── */
+.book {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ── CHAPTER / SECTION ── */
+.page {
+  min-height: 100vh;
+  padding: 80px 60px;
+  position: relative;
+  border-bottom: 1px solid rgba(26,16,8,0.07);
+  page-break-after: always;
+}
+
+@media (max-width: 600px) {
+  .page { padding: 60px 28px; }
+}
+
+/* ── COVER PAGE ── */
+.cover {
+  background: #0D0D0D;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.cover-glow {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 80%;
+  background: radial-gradient(ellipse at top, rgba(242,175,198,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cover-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #F2AFC6;
+  opacity: 0.8;
+  margin-bottom: 32px;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 12vw, 96px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+.cover-title-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 12vw, 96px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: #F2AFC6;
+  margin-bottom: 48px;
+}
+.cover-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(232,224,213,0.7);
+  max-width: 38ch;
+  margin-bottom: 60px;
+}
+.cover-rule {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, #F2AFC6, transparent);
+  margin-bottom: 40px;
+}
+.cover-author {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232,224,213,0.5);
+}
+.cover-bottom {
+  position: absolute;
+  bottom: 48px;
+  left: 60px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cover-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: #F2AFC6;
+  opacity: 0.6;
+}
+.cover-handle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(107,107,107,0.6);
+}
+
+/* ── TOC PAGE ── */
+.toc-page {
+  background: #F9F6F1;
+}
+.toc-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #C9967E;
+  margin-bottom: 40px;
+}
+.toc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  letter-spacing: 0.02em;
+  color: #1A1008;
+  margin-bottom: 56px;
+  line-height: 1;
+}
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(26,16,8,0.08);
+  gap: 16px;
+}
+.toc-item:last-child { border-bottom: none; }
+.toc-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #F2AFC6;
+  flex-shrink: 0;
+  width: 32px;
+}
+.toc-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: #1A1008;
+  flex: 1;
+}
+.toc-dots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(26,16,8,0.15);
+  margin: 0 12px;
+  position: relative;
+  top: -3px;
+}
+
+/* ── CHAPTER PAGES ── */
+.chapter-page {
+  background: #F9F6F1;
+}
+.chapter-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #F2AFC6;
+  margin-bottom: 20px;
+  display: block;
+}
+.chapter-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px, 8vw, 64px);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  color: #1A1008;
+  margin-bottom: 8px;
+}
+.chapter-title .accent { color: #C9967E; }
+.chapter-rule {
+  width: 56px;
+  height: 2px;
+  background: #F2AFC6;
+  opacity: 0.6;
+  margin: 32px 0 40px;
+}
+
+/* ── BODY COPY ── */
+.body-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  line-height: 1.9;
+  color: #2A1E0F;
+  font-weight: 400;
+}
+.body-text p { margin-bottom: 24px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text em {
+  font-style: italic;
+  color: #1A1008;
+}
+.body-text strong {
+  font-weight: 700;
+  font-style: italic;
+  color: #C9967E;
+}
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  margin: 48px -20px;
+  padding: 36px 40px;
+  background: #1A1008;
+  position: relative;
+}
+.pull-quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -10px;
+  left: 28px;
+  font-family: 'Playfair Display', serif;
+  font-size: 100px;
+  line-height: 1;
+  color: #F2AFC6;
+  opacity: 0.15;
+}
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.7;
+  color: #E8E0D5;
+  font-weight: 600;
+  position: relative;
+}
+
+/* ── POEM BLOCK ── */
+.poem-block {
+  margin: 48px 0;
+  padding-left: 28px;
+  border-left: 2px solid rgba(242,175,198,0.4);
+}
+.poem-block p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.95;
+  color: #2A1E0F;
+  margin-bottom: 0;
+}
+.poem-block .poem-attr {
+  margin-top: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #9A8070;
+  font-style: normal;
+}
+
+/* ── ORNAMENT ── */
+.ornament {
+  text-align: center;
+  margin: 40px 0;
+  color: rgba(242,175,198,0.5);
+  font-size: 18px;
+  letter-spacing: 12px;
+}
+
+/* ── LIST BLOCK ── */
+.styled-list {
+  list-style: none;
+  margin: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.styled-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #2A1E0F;
+  font-style: italic;
+}
+.styled-list li::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #F2AFC6;
+  flex-shrink: 0;
+  margin-top: 9px;
+}
+
+/* ── CLOSING PAGE ── */
+.closing-page {
+  background: #0D0D0D;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.closing-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(242,175,198,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.closing-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 2.0;
+  color: #E8E0D5;
+  max-width: 46ch;
+  position: relative;
+}
+.closing-attr {
+  margin-top: 48px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #6B6B6B;
+  position: relative;
+}
+.closing-attr span { color: #F2AFC6; }
+
+/* ── PRINT ── */
+@media print {
+  .page { page-break-after: always; }
+  body { background: white; }
+}
+
+/* ── SCROLL HINT ── */
+.scroll-hint {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(13,13,13,0.85);
+  color: #F2AFC6;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- COVER                                                   -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page cover">
+  <div class="cover-glow"></div>
+  <p class="cover-eyebrow">MK Parrish</p>
+  <h1 class="cover-title">The Invisible</h1>
+  <h1 class="cover-title-sub">Bruise</h1>
+  <p class="cover-subtitle">Surviving emotional abuse, suffering in silence, and rewriting your life.</p>
+  <div class="cover-rule"></div>
+  <p class="cover-author">MK Parrish</p>
+  <div class="cover-bottom">
+    <span class="cover-logo">MK PARRISH</span>
+    <span class="cover-handle">@mkparrish &nbsp;·&nbsp; mkparrish.com</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TABLE OF CONTENTS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page toc-page">
+  <p class="toc-eyebrow">Contents</p>
+  <h2 class="toc-title">Inside</h2>
+  <div>
+    <div class="toc-item">
+      <span class="toc-num">00</span>
+      <span class="toc-name">Introduction: I Know You</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">01</span>
+      <span class="toc-name">The Slow Erosion</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">02</span>
+      <span class="toc-name">The Silence Contract</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">03</span>
+      <span class="toc-name">What It Actually Looks Like</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">04</span>
+      <span class="toc-name">What It Did to You</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">05</span>
+      <span class="toc-name">The Day You Stopped Believing Yourself</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">06</span>
+      <span class="toc-name">Why You Stayed</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">07</span>
+      <span class="toc-name">The Moment It Cracked</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">08</span>
+      <span class="toc-name">The Rewrite</span>
+      <span class="toc-dots"></span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">—</span>
+      <span class="toc-name">Closing: Promise Me</span>
+      <span class="toc-dots"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- INTRODUCTION                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Introduction</span>
+  <h2 class="chapter-title">I Know<br><span class="accent">You</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>I know you because I was you.</p>
+    <p>You are the woman who has explained herself a thousand times to someone who was never going to believe her. You are the woman who learned to monitor the air in the room before she spoke. Who measured her words against his mood. Who got good — very good — at reading the temperature of a man and adjusting her entire self accordingly.</p>
+    <p>You are the woman who has been told she is too sensitive, too emotional, too much, not enough, crazy, dramatic, exhausting — and who spent years trying to figure out how to be less of whatever was making things hard.</p>
+    <div class="pull-quote">
+      <p>You are the woman nobody believed. Including yourself.</p>
+    </div>
+    <p>This book is not a clinical guide to domestic violence. There are plenty of those. This is something else. This is the book I needed when I was living inside something I could not yet name. When I knew something was wrong but could not prove it. When I was being destroyed quietly, in a house that looked fine from the outside, by a person I loved who had learned exactly how to make me the problem.</p>
+    <p>This is the book for the woman suffering in silence — not because she is weak, but because she was trained. Because silence was the price of peace. Because speaking would have cost her more than she could afford to pay.</p>
+    <p>You don't have to prove anything to read this. You don't have to have left yet. You don't have to have a police report or a bruise or a story that makes sense when you say it out loud.</p>
+    <p>You just have to recognize yourself somewhere on these pages.</p>
+    <p>That is enough. That has always been enough.</p>
+    <p><strong>The rewrite starts here.</strong></p>
+  </div>
+  <div class="ornament">· · ·</div>
+  <div class="poem-block">
+    <p>She was not dramatic.</p>
+    <p>She was documenting.</p>
+    <p class="poem-attr">— MK Parrish</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 1                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter One</span>
+  <h2 class="chapter-title">The Slow<br><span class="accent">Erosion</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Nobody falls into abuse.</p>
+    <p>They are walked into it. Slowly. By someone who knew exactly where they were going.</p>
+    <p>The person who hurts you in Year Three is not the person you met. If he had been — if he had shown you on Day One the version of himself that would emerge after you had moved in, after you had merged your finances, after you had stopped being someone he needed to impress — you would have run. You would have known. Your instincts would have screamed and you would have listened.</p>
+    <p>So he didn't show you that.</p>
+    <p>He showed you the version that made you fall in love. The one who listened. Who remembered. Who made you feel, for the first time in a long time, seen. Chosen. Safe.</p>
+    <p>Then, slowly, he began the replacement.</p>
+    <div class="pull-quote">
+      <p>This is not stupidity. This is how it works. It is designed to work exactly this way.</p>
+    </div>
+    <p>An edge you hadn't noticed before. A silence that felt different. A comment — just a comment, nothing serious — that made you feel slightly wrong about yourself. You adjusted. You got better at whatever you had done to cause the comment. He softened. Things went back.</p>
+    <p>You didn't notice the pattern yet. You would not notice it for months, maybe years. Because each individual event was small enough to dismiss. Because you are a reasonable person who gives people the benefit of the doubt. Because you loved him and love makes you generous with interpretation.</p>
+    <p>The erosion is slow because slow is survivable. Slow keeps you from leaving before you are fully trapped. Slow gives him time to make sure that by the time you understand what is happening, you have already lost the resources — financial, social, emotional — that would have helped you go.</p>
+    <p>By the time you see it clearly, you are standing on ground that has been shifting under your feet for years. And somehow, even then, you are still asking yourself what you did wrong.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 2                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Two</span>
+  <h2 class="chapter-title">The Silence<br><span class="accent">Contract</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>You did not choose to suffer in silence.</p>
+    <p>You were taught to.</p>
+    <p>It started small. You tried to talk about something that upset you, and it became a fight about your tone. Or your timing. Or the fact that you always do this. You learned that bringing things up cost more than swallowing them. You learned that peace, however false, was preferable to the aftermath of honesty.</p>
+    <p>So you got quiet.</p>
+    <div class="pull-quote">
+      <p>Not because you had nothing to say. Because you had done the math. Speaking cost too much. Silence was cheaper.</p>
+    </div>
+    <p>This is the silence contract: your truth for his comfort. Your reality for his peace of mind. Your voice for the illusion of stability.</p>
+    <p>Women who survive emotional abuse are often the best communicators in any room. They know how to read tone, manage energy, anticipate need. They developed those skills in survival. They paid for them with years of monitoring themselves instead of him.</p>
+    <p>The cruelest part of the silence contract is that it becomes invisible. After long enough, you stop knowing that you've gone quiet. You stop remembering what you used to say before you learned to edit it. You think this is just who you are — a private person, reserved, someone who doesn't make a big deal of things.</p>
+    <p>No.</p>
+    <p>You are someone who learned to make yourself smaller so someone else could feel larger. That is not your personality. That is a wound you adapted around. And it can be unlearned.</p>
+  </div>
+  <div class="ornament">· · ·</div>
+  <div class="poem-block">
+    <p>She kept the peace.</p>
+    <p>She kept his secrets.</p>
+    <p>She kept everyone comfortable.</p>
+    <p>&nbsp;</p>
+    <p>The only thing she didn't keep</p>
+    <p>was herself.</p>
+    <p class="poem-attr">— MK Parrish</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 3                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Three</span>
+  <h2 class="chapter-title">What It<br><span class="accent">Actually Looks Like</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Emotional abuse does not look like the movies.</p>
+    <p>There is no screaming every night. There are no obvious villains in obvious bad behavior. There are good days. Great days, even. There is laughter and tenderness and the version of him you fell in love with, showing up just often enough to keep you confused.</p>
+    <p>That confusion is not a character flaw. It is the mechanism. It is the thing that keeps you from being able to say <em>this is abuse</em> with any certainty, because how do you reconcile the man who made you feel so loved on Saturday with the man who made you feel worthless by Monday?</p>
+    <p>Here is what it actually looks like:</p>
+  </div>
+  <ul class="styled-list">
+    <li>Apologizing for your feelings. You are upset. Somehow, by the end of the conversation, you are apologizing.</li>
+    <li>Being told what you remember didn't happen the way you remember it — enough times that you stop trusting your own memory.</li>
+    <li>Monitoring his mood when he walks through the door before you decide how to greet him.</li>
+    <li>Being punished with silence. Days of it. And not knowing what you did.</li>
+    <li>Being told your reaction is the problem. Not what caused it — your reaction.</li>
+    <li>Never quite knowing what version of him you're going to get.</li>
+    <li>Making yourself smaller in social situations so he doesn't get uncomfortable later.</li>
+    <li>Your needs becoming a burden. Your pain becoming an inconvenience. Your reality becoming a negotiation.</li>
+  </ul>
+  <div class="body-text">
+    <p>It looks like a woman who used to know exactly who she was, becoming a woman who is no longer sure.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 4                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Four</span>
+  <h2 class="chapter-title">What It<br><span class="accent">Did to You</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>You are not the same person you were before him.</p>
+    <p>I want you to sit with that. Not because it means you are broken — you are not broken. But because one of the biggest lies emotional abuse tells you is that you were always this way.</p>
+    <div class="pull-quote">
+      <p>You are not damaged. You are adapted. And adaptation can be undone, when you finally understand what you adapted to.</p>
+    </div>
+    <p>The hypervigilance you carry everywhere — that is not just anxiety. That is a nervous system that spent years in an unpredictable environment and learned to be ready for anything.</p>
+    <p>The way you apologize constantly — that is not just a personality trait. That is what happens when you are punished for not apologizing quickly enough.</p>
+    <p>The way you cannot receive a compliment — that is not humility. That is what happens when your worth was used as a weapon against you. Raised and lowered based on whether you were being compliant.</p>
+    <p>The way you minimize your own needs — that is not selflessness. That is survival behavior from a time when having needs made things worse.</p>
+    <p>None of this is permanent. None of this is who you are at the root. This is weather that settled in. Weather can change.</p>
+  </div>
+  <div class="ornament">· · ·</div>
+  <div class="poem-block">
+    <p>He never hit you.</p>
+    <p>&nbsp;</p>
+    <p>But he made you small enough</p>
+    <p>that you stopped taking up space.</p>
+    <p>&nbsp;</p>
+    <p>That counts.</p>
+    <p>That is abuse.</p>
+    <p class="poem-attr">— MK Parrish</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 5                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Five</span>
+  <h2 class="chapter-title">The Day You Stopped<br><span class="accent">Believing Yourself</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>There was a specific moment — maybe you remember it, maybe you don't — when you stopped believing your own perception.</p>
+    <p>He said something. You knew what you heard. He told you that wasn't what he said. You were so certain. And then, under the pressure of his certainty, your certainty cracked.</p>
+    <p><em>Maybe I misheard. Maybe I'm reading too much into it. I always do this. He's right. I always do this.</em></p>
+    <div class="pull-quote">
+      <p>Gaslighting is not a single event. It is a practice. A sustained campaign to make you the unreliable narrator of your own life.</p>
+    </div>
+    <p>Once you are there — once you are against yourself — he doesn't have to do much else. You contain yourself for him. You silence yourself. You police yourself. You do the work of making yourself smaller so he doesn't have to.</p>
+    <p>The cruelest achievement of emotional abuse: it turns you into your own captor.</p>
+    <p>Rebuilding starts with one simple act: deciding to believe yourself again. Not performing confidence. Not forcing certainty. Just deciding that your perception of your own life is worth trusting.</p>
+    <p>You are not crazy. You are someone who was told, over and over, by someone you trusted, that you were. And you believed them — because you loved them. Because believing them was easier than believing that someone who said they loved you could do this.</p>
+    <p>It happened. It was real. And you are allowed to know it.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 6                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Six</span>
+  <h2 class="chapter-title">Why You<br><span class="accent">Stayed</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>Stop explaining it to people who will never understand.</p>
+    <p>Anyone who has never been inside it will always say the same thing: <em>Why didn't you just leave?</em> As if leaving were simple. As if leaving were safe. As if leaving didn't require resources, planning, a level of certainty about your own reality that he spent years taking from you.</p>
+    <p>Here is why you stayed:</p>
+  </div>
+  <ul class="styled-list">
+    <li>Because you loved him. Because you remembered who he was at the beginning.</li>
+    <li>Because you had no money. Or the money was his.</li>
+    <li>Because you had children. Because leaving meant a custody battle.</li>
+    <li>Because you had no one to tell. He had made sure of that — slowly, socially, subtly.</li>
+    <li>Because you didn't have language for it. Because he never hit you.</li>
+    <li>Because some days were good. Because you kept waiting for the good days to become permanent.</li>
+    <li>Because you were afraid. Of what he would do. Of who would believe him and who would believe you.</li>
+  </ul>
+  <div class="body-text">
+    <p>Because you loved him. I know I already said that. I'm saying it again — because the people who ask <em>why didn't you leave</em> never account for love. For the specific agony of loving someone who hurts you.</p>
+    <p>You stayed for real reasons. None of them are reasons to be ashamed of.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 7                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Seven</span>
+  <h2 class="chapter-title">The Moment<br><span class="accent">It Cracked</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>There was a moment.</p>
+    <p>Maybe it was dramatic — a door, a scene, a line finally crossed that couldn't be uncrossed. Maybe it was quiet — a Tuesday afternoon when you looked out a window and realized you had not recognized yourself in years. Maybe it was something small. The straw. The last one.</p>
+    <p>For me, the crack came slowly and then all at once. Like a window that has been stressed for months, and then one morning you notice the fracture runs all the way through.</p>
+    <div class="pull-quote">
+      <p>Something in me finally said: No more. Not loudly. Not confidently. Not with certainty or a plan or anywhere to go. Just — no more.</p>
+    </div>
+    <p>That is the moment the rewrite begins. Not when you leave. Not when you are safe. Not when you have figured it all out.</p>
+    <p>The rewrite begins in that instant when something in you decides to stop participating in your own erasure.</p>
+    <p>You don't have to have everything figured out. You don't have to be ready. You don't have to have language for it yet.</p>
+    <p>You just have to let the crack stay open.</p>
+  </div>
+  <div class="ornament">· · ·</div>
+  <div class="poem-block">
+    <p>The rewrite doesn't start with leaving.</p>
+    <p>&nbsp;</p>
+    <p>It starts with the moment</p>
+    <p>you stop lying to yourself</p>
+    <p>about what is happening to you.</p>
+    <p class="poem-attr">— MK Parrish</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CHAPTER 8                                               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page chapter-page">
+  <span class="chapter-num">Chapter Eight</span>
+  <h2 class="chapter-title">The<br><span class="accent">Rewrite</span></h2>
+  <div class="chapter-rule"></div>
+  <div class="body-text">
+    <p>You are not starting over.</p>
+    <p>You are starting from everything you have survived. From every version of yourself you had to abandon to get here. From the woman who loved too much and trusted the wrong person and stayed longer than was good for her — and finally, finally chose herself.</p>
+    <p>That is not a ruined foundation. That is bedrock.</p>
+    <p>The rewrite is not a makeover. It is not a rebrand. It is not a new city or a new relationship. Those things may come. But the rewrite is internal first.</p>
+    <div class="pull-quote">
+      <p>You are the author now. No one else holds the pen.</p>
+    </div>
+    <p>It starts with language. With saying, out loud or on paper or inside yourself: <em>This was abuse. I survived it. I am not who they made me.</em></p>
+    <p>It continues with memory — going back and reclaiming your own story. Seeing what happened clearly, without the filter of his version of events.</p>
+    <p>It continues with your voice. Beginning to speak again. Quietly at first. Testing the sound of your own opinion in a room where no one will punish you for having one.</p>
+    <p>It continues with your body. Which has been holding this for years. Which needs time and safety and patience to learn that it is not in danger anymore.</p>
+    <p>It continues every time you choose yourself over someone else's comfort. Every time you say what is true instead of what is safe. Every time you take up space without apologizing.</p>
+    <p>The rewrite is long. It is not linear. Some days you will feel like yourself again and some days you will feel like nothing. Both are part of it.</p>
+    <p>But you are writing it. That is the thing.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CLOSING                                                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="page closing-page">
+  <div class="closing-glow"></div>
+  <p style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#F2AFC6;opacity:0.7;margin-bottom:40px;position:relative;">Closing</p>
+  <p class="closing-text">
+    Promise me you will believe yourself.<br><br>
+    Promise me you will stop editing your reality to match someone else's comfort.<br><br>
+    Promise me you will not spend another decade building the case for why you deserved what happened to you.<br><br>
+    Promise me that when the small voice says <em>something is wrong here</em> — you will listen. Before it has to scream.<br><br>
+    Promise me you will take the version of yourself he tried to delete — the loud one, the certain one, the one who knew what she wanted and asked for it without apologizing — and you will find her again.<br><br>
+    She is not gone.<br><br>
+    She is waiting.<br><br>
+    She has been waiting the whole time.
+  </p>
+  <p class="closing-attr"><span>— MK Parrish</span> &nbsp;·&nbsp; The Invisible Bruise</p>
+  <div style="position:absolute;bottom:48px;left:60px;right:60px;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.08em;color:#F2AFC6;opacity:0.5;">MK PARRISH</span>
+    <span style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">mkparrish.com</span>
+  </div>
+</div>
+
+</div><!-- /book -->
+
+<div class="scroll-hint">Scroll to read · Print to PDF for Kindle/Apple Books</div>
+
+</body>
+</html>

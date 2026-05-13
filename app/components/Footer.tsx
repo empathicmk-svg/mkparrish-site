@@ -8,6 +8,7 @@ const footerLinks = [
   { label: "Next Chapter", href: "/next-chapter" },
   { label: "Growth",       href: "/growth" },
   { label: "LinkedIn",     href: "/linkedin" },
+  { label: "The Shelf",    href: "/shelf" },
   { label: "The Margins",  href: "/margins" },
   { label: "About",        href: "/about" },
   { label: "Contact",      href: "/contact" },

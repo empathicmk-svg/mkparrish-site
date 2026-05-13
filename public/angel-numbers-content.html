@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Angel Numbers — Content Kit — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #080808;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    padding: 60px 40px;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header { margin-bottom: 80px; }
+  .page-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.3em;
+    text-transform: uppercase; color: #6B6B6B; margin-bottom: 16px;
+  }
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.88; letter-spacing: 0.02em; color: #fff;
+  }
+  .page-title span { color: #B49BFF; }
+  .page-note {
+    margin-top: 20px; font-size: 13px; font-weight: 300;
+    line-height: 1.7; color: #9A9A9A; max-width: 52ch;
+  }
+  .divider {
+    margin: 24px 0; height: 1px;
+    background: linear-gradient(to right, #2C2C2C, transparent);
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    margin: 80px 0 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #1C1C1C;
+  }
+  .section-eyebrow {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.35em;
+    text-transform: uppercase; color: #B49BFF; margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px; line-height: 0.9; letter-spacing: 0.02em; color: #fff;
+  }
+
+  /* ── PATREON POST ── */
+  .patreon-card {
+    background: #111;
+    border: 1px solid #1E1E1E;
+    padding: 44px 48px;
+    max-width: 680px;
+    margin-bottom: 24px;
+  }
+  .patreon-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.3em;
+    text-transform: uppercase; color: #B49BFF; margin-bottom: 20px;
+  }
+  .patreon-subject {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-weight: 700;
+    font-size: 22px; line-height: 1.4;
+    color: #E8E0D5; margin-bottom: 32px;
+  }
+  .patreon-body p {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; line-height: 1.9;
+    color: #9A9A9A; margin-bottom: 18px;
+  }
+  .patreon-body p strong { color: #E8E0D5; font-weight: 700; }
+  .patreon-body p em { font-style: italic; color: #B8B0A8; }
+  .patreon-cta {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.3em;
+    text-transform: uppercase; color: #B49BFF;
+    border: 1px solid rgba(180,155,255,0.3);
+    padding: 10px 20px;
+  }
+  .patreon-sign {
+    margin-top: 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: #444;
+  }
+
+  /* ── BLOG QUOTES ── */
+  .quotes-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 680px;
+  }
+  .quote-item {
+    background: #111;
+    border-left: 3px solid #B49BFF;
+    padding: 24px 28px;
+    position: relative;
+  }
+  .quote-item p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-weight: 600;
+    font-size: 17px; line-height: 1.75;
+    color: #E8E0D5;
+  }
+  .quote-usage {
+    margin-top: 12px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #3A3A3A;
+  }
+
+  /* ── SOCIAL POST CARDS ── */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 540px);
+    gap: 48px;
+    margin-top: 32px;
+  }
+  .post-wrap { position: relative; }
+  .post-label {
+    font-size: 10px; letter-spacing: 0.2em; color: #444;
+    text-transform: uppercase; margin-bottom: 10px;
+    font-family: 'DM Sans', monospace;
+  }
+  .post-hint {
+    margin-top: 8px; font-size: 10px; letter-spacing: 0.1em;
+    color: #2C2C2C; font-style: italic;
+  }
+
+  /* ── THE CARD ── */
+  .card {
+    width: 540px; height: 540px;
+    position: relative; overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Shared brand mark */
+  .brand-mark {
+    position: absolute; bottom: 28px; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 36px;
+  }
+  .brand-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 0.08em; color: #F2AFC6; opacity: 0.9;
+  }
+  .brand-handle {
+    font-size: 10px; letter-spacing: 0.25em; color: #6B6B6B;
+    text-transform: uppercase;
+  }
+
+  /* Petal rule */
+  .petal-rule {
+    position: absolute; bottom: 64px; left: 36px; right: 36px;
+    height: 1px;
+    background: linear-gradient(to right, rgba(180,155,255,0.35), transparent);
+  }
+  .petal-rule-left {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(to bottom, transparent, #B49BFF 40%, #B49BFF 60%, transparent);
+    opacity: 0.55;
+  }
+
+  .tag {
+    position: absolute; top: 28px; left: 36px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.28em;
+    text-transform: uppercase; color: #444;
+  }
+
+  /* ── LAYOUT: BOLD ── */
+  .card-bold {
+    background: #080808;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 36px;
+  }
+  .card-bold .glow {
+    position: absolute; top: -30%; left: 50%; transform: translateX(-50%);
+    width: 130%; height: 80%;
+    background: radial-gradient(ellipse at top, rgba(180,155,255,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .bold-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 90px; line-height: 0.88;
+    letter-spacing: 0.01em; color: #fff; position: relative;
+  }
+  .bold-headline .accent { color: #F2AFC6; }
+  .bold-headline .accent-p { color: #B49BFF; }
+  .bold-body {
+    margin-top: 22px;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 14px; line-height: 1.85; color: #9A9A9A;
+    white-space: pre-line; max-width: 360px; position: relative;
+  }
+
+  /* ── LAYOUT: QUOTE ── */
+  .card-quote {
+    background: #111111;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 36px;
+  }
+  .deco-quote {
+    position: absolute; top: 10px; left: 22px;
+    font-family: 'Playfair Display', serif;
+    font-size: 160px; line-height: 1; color: #B49BFF;
+    opacity: 0.07; pointer-events: none; user-select: none;
+  }
+  .quote-text {
+    padding-left: 22px; position: relative;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 600; font-size: 21px; line-height: 1.75;
+    color: #E8E0D5; white-space: pre-line;
+  }
+
+  /* ── LAYOUT: LIST ── */
+  .card-list {
+    background: #1A1A1A;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 36px;
+  }
+  .card-list .glow-r {
+    position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+    background: radial-gradient(ellipse at right, rgba(180,155,255,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .list-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 0.04em;
+    color: #fff; position: relative; margin-bottom: 4px;
+  }
+  .list-intro {
+    margin-bottom: 16px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+    text-transform: uppercase; color: #6B6B6B; position: relative;
+  }
+  .list-items { display: flex; flex-direction: column; gap: 8px; position: relative; }
+  .list-item { display: flex; align-items: flex-start; gap: 12px; }
+  .dot {
+    margin-top: 10px; width: 4px; height: 4px; border-radius: 50%;
+    background: #B49BFF; flex-shrink: 0;
+  }
+  .list-item-text {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 15px; line-height: 1.5; color: #E8E0D5;
+  }
+  .list-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; letter-spacing: 0.08em;
+    color: #B49BFF; flex-shrink: 0; min-width: 36px;
+    margin-top: 2px;
+  }
+  .list-outro {
+    margin-top: 16px; position: relative;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 13px; line-height: 1.7; color: #9A9A9A; white-space: pre-line;
+  }
+
+  /* ── LAYOUT: SPLIT ── */
+  .card-split {
+    background: #080808;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 40px; text-align: center;
+  }
+  .card-split .glow-c {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(180,155,255,0.055) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .split-top {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 600; font-size: 23px; line-height: 1.6;
+    color: #9A9A9A; white-space: pre-line; position: relative;
+  }
+  .split-divider {
+    width: 56px; height: 1px; background: #B49BFF;
+    opacity: 0.5; margin: 18px auto;
+  }
+  .split-bottom {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 700; font-size: 26px; line-height: 1.5;
+    color: #F2AFC6; white-space: pre-line; position: relative;
+  }
+
+  /* ── LAYOUT: MINIMAL ── */
+  .card-minimal {
+    background: #080808;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 60px; text-align: center;
+  }
+  .corner { position: absolute; width: 22px; height: 22px; }
+  .corner-tr { top: 22px; right: 22px; border-top: 1px solid rgba(180,155,255,0.3); border-right: 1px solid rgba(180,155,255,0.3); }
+  .corner-bl { bottom: 22px; left: 22px; border-bottom: 1px solid rgba(180,155,255,0.3); border-left: 1px solid rgba(180,155,255,0.3); }
+  .minimal-text {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-weight: 600; font-size: 22px; line-height: 1.9;
+    color: #E8E0D5; white-space: pre-line;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <p class="page-eyebrow">Content Kit</p>
+  <h1 class="page-title">Angel<br><span>Numbers</span></h1>
+  <p class="page-note">Patreon post, blog pull quotes, and 6 branded social post cards for the Decoding Angel Numbers launch.</p>
+  <div class="divider"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- PATREON POST                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section-header">
+  <p class="section-eyebrow">01 — Patreon</p>
+  <h2 class="section-title">Patreon Post</h2>
+</div>
+
+<div class="patreon-card">
+  <p class="patreon-label">Patreon Post — Early Access</p>
+  <p class="patreon-subject">The numbers kept showing up. So I wrote about them.</p>
+  <div class="patreon-body">
+    <p>For a long time I dismissed angel numbers.</p>
+    <p>Not because I thought they were silly — I've always been more interested in meaning than in being perceived as rational — but because the way most people write about them felt like it was designed for someone who doesn't ask questions. Someone who wants the cosmic wink without the actual work of decoding it.</p>
+    <p>That person is not you. And she is definitely not me.</p>
+    <p>So I sat down and wrote the guide I actually wanted. Not <em>"111 means the angels are watching."</em> More like: <em>"You see 111 right before you talk yourself out of something that was right. That's a pattern. Here's what to do with it."</em></p>
+    <p>The result is <strong>Decoding Angel Numbers</strong> — a guide that treats you like the intelligent, attuned person you are. Not a list of spiritual platitudes. A framework for actually using what the numbers are trying to tell you, in the context of your specific life, in the specific moment you're in.</p>
+    <p>It covers all ten primary sequences — 111 through 000 — with honest, specific readings that you can use today.</p>
+    <p>You're getting it before anyone else. Early access, patron price, no launch-week fanfare.</p>
+    <p>[DOWNLOAD LINK]</p>
+    <p>More soon.</p>
+  </div>
+  <div class="patreon-sign">— MK</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- BLOG QUOTES                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section-header">
+  <p class="section-eyebrow">02 — Blog / Site</p>
+  <h2 class="section-title">Pull Quotes</h2>
+</div>
+
+<div class="quotes-grid">
+
+  <div class="quote-item">
+    <p>"The numbers didn't appear. You started noticing. There's a difference — and it matters."</p>
+    <p class="quote-usage">Use as: blog header quote, homepage pull, caption</p>
+  </div>
+
+  <div class="quote-item">
+    <p>"111 arrives right before you talk yourself out of it. That's not a coincidence. That's the message."</p>
+    <p class="quote-usage">Use as: blog intro, social caption, email subject line</p>
+  </div>
+
+  <div class="quote-item">
+    <p>"444 is specifically for the women who built their lives on something that kept shifting. The foundation is real now. You can stand on it."</p>
+    <p class="quote-usage">Use as: mid-post pull quote, Pinterest graphic, story slide</p>
+  </div>
+
+  <div class="quote-item">
+    <p>"555 is not a warning. It's the solution that got tired of waiting."</p>
+    <p class="quote-usage">Use as: standalone post, caption, email subject line</p>
+  </div>
+
+  <div class="quote-item">
+    <p>"999 says: let it end. Not pause it. Not restructure it. Let it end — and honor it by letting it be complete."</p>
+    <p class="quote-usage">Use as: blog section header, newsletter closing, story slide</p>
+  </div>
+
+  <div class="quote-item">
+    <p>"The numbers are not messages from outside you. They are the most attuned part of you — speaking in the only language that finally got through."</p>
+    <p class="quote-usage">Use as: about-the-guide copy, sales page, featured blog quote</p>
+  </div>
+
+  <div class="quote-item">
+    <p>"You are not between identities. You are becoming. And 000 is there to mark the difference."</p>
+    <p class="quote-usage">Use as: pull quote, caption, story slide</p>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SOCIAL POST CARDS                                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section-header">
+  <p class="section-eyebrow">03 — Social</p>
+  <h2 class="section-title">Post Cards</h2>
+</div>
+
+<div class="posts-grid">
+
+  <!-- POST 01: BOLD — 111 -->
+  <div class="post-wrap">
+    <p class="post-label">Post 01 — Bold</p>
+    <div class="card card-bold">
+      <div class="glow"></div>
+      <span class="tag">Angel Numbers</span>
+      <div class="bold-headline" style="margin-top:24px">
+        You see<br><span class="accent-p">111</span>
+      </div>
+      <p class="bold-body">right before you talk yourself out of it.
+
+That's not a coincidence.
+That's the message.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+    <p class="post-hint">Screenshot at 2× = 1080×1080</p>
+  </div>
+
+  <!-- POST 02: QUOTE — Numbers found you -->
+  <div class="post-wrap">
+    <p class="post-label">Post 02 — Quote</p>
+    <div class="card card-quote">
+      <span class="deco-quote">&ldquo;</span>
+      <div class="petal-rule-left"></div>
+      <span class="tag">Decoding Angel Numbers</span>
+      <p class="quote-text" style="margin-top:24px">The numbers didn&rsquo;t appear.
+
+You started noticing.
+
+There&rsquo;s a difference —
+and it matters.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 03: LIST — Short readings -->
+  <div class="post-wrap">
+    <p class="post-label">Post 03 — List</p>
+    <div class="card card-list">
+      <div class="glow-r"></div>
+      <span class="tag">Angel Numbers</span>
+      <p class="list-headline" style="margin-top:24px">The short version:</p>
+      <p class="list-intro">What each number is actually saying</p>
+      <div class="list-items">
+        <div class="list-item"><span class="list-num">111</span><span class="list-item-text">Begin. You already know.</span></div>
+        <div class="list-item"><span class="list-num">222</span><span class="list-item-text">The timeline was always too short.</span></div>
+        <div class="list-item"><span class="list-num">333</span><span class="list-item-text">Let the aligned version of you speak first.</span></div>
+        <div class="list-item"><span class="list-num">444</span><span class="list-item-text">The ground is real. Stand on it.</span></div>
+        <div class="list-item"><span class="list-num">999</span><span class="list-item-text">Let it end. Completely.</span></div>
+      </div>
+      <p class="list-outro">The full guide. All ten numbers. Link in bio.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 04: SPLIT — coincidence vs confirmation -->
+  <div class="post-wrap">
+    <p class="post-label">Post 04 — Split</p>
+    <div class="card card-split">
+      <div class="glow-c"></div>
+      <span class="tag">MK Parrish</span>
+      <p class="split-top">You didn&rsquo;t go looking
+for the numbers.</p>
+      <div class="split-divider"></div>
+      <p class="split-bottom">The numbers found you
+because you were finally
+paying attention.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 05: BOLD — 999 -->
+  <div class="post-wrap">
+    <p class="post-label">Post 05 — Bold</p>
+    <div class="card card-bold">
+      <div class="glow"></div>
+      <span class="tag">Angel Numbers</span>
+      <div class="bold-headline" style="margin-top:24px">
+        <span class="accent-p">999</span><br>means let go.
+      </div>
+      <p class="bold-body">Not pause. Not restructure.
+
+Let go.
+
+The thing that&rsquo;s ending
+has run its course.
+That&rsquo;s not failure.
+That&rsquo;s completion.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 06: MINIMAL — trust -->
+  <div class="post-wrap">
+    <p class="post-label">Post 06 — Minimal</p>
+    <div class="card card-minimal">
+      <span class="corner corner-tr"></span>
+      <span class="corner corner-bl"></span>
+      <span class="tag">MK Parrish</span>
+      <p class="minimal-text">You are not
+chasing signs.
+
+You are learning
+to trust the part
+of yourself
+that already knows.</p>
+      <div class="petal-rule"></div>
+      <div class="brand-mark">
+        <span class="brand-name">MK PARRISH</span>
+        <span class="brand-handle">@mkparrish</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /posts-grid -->
+
+</body>
+</html>
