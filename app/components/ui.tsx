@@ -139,13 +139,14 @@ export function H3Script({ children }: { children: ReactNode }) {
 // Buttons and links
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function BtnPrimary({ href, children }: { href: string; children: ReactNode }) {
+export function BtnPrimary({ href, children, target }: { href: string; children: ReactNode; target?: string }) {
   const external = href.startsWith("http");
+  const t = target ?? (external ? "_blank" : undefined);
   return (
     <a
       href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noreferrer" : undefined}
+      target={t}
+      rel={t === "_blank" ? "noreferrer" : undefined}
       className="btn-primary inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
     >
       {children}
@@ -153,13 +154,14 @@ export function BtnPrimary({ href, children }: { href: string; children: ReactNo
   );
 }
 
-export function BtnGhost({ href, children }: { href: string; children: ReactNode }) {
+export function BtnGhost({ href, children, target }: { href: string; children: ReactNode; target?: string }) {
   const external = href.startsWith("http");
+  const t = target ?? (external ? "_blank" : undefined);
   return (
     <a
       href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noreferrer" : undefined}
+      target={t}
+      rel={t === "_blank" ? "noreferrer" : undefined}
       className="btn-ghost inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em]"
     >
       {children}

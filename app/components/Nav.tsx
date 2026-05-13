@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Presence",     href: "/presence" },
   { label: "Next Chapter", href: "/next-chapter" },
   { label: "Growth",       href: "/growth" },
+  { label: "LinkedIn",     href: "/linkedin" },
   { label: "Writing",      href: "/writing" },
   { label: "The Margins",  href: "/margins" },
   { label: "About",        href: "/about" },
