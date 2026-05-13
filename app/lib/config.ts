@@ -6,6 +6,11 @@ export const STRIPE_BYLINE     = "https://buy.stripe.com/fZu00b9gKbY5eitfTC0oM03
 export const PATREON_URL       = "https://www.patreon.com/MKParrish?utm_campaign=creatorshare_fan";
 export const SITE_URL          = "https://www.mkparrish.com";
 
+// Growth / Revenue Systems — replace with Stripe links when ready
+export const STRIPE_CONTENT_ENGINE  = "/book"; // LinkedIn Content Engine (from $2,500/mo)
+export const STRIPE_INBOUND_SYSTEM  = "/book"; // The Inbound System (from $5,000/mo)
+export const STRIPE_REVENUE_SYSTEMS = "/book"; // E2E Revenue Systems (custom)
+
 export const CONTACT = {
   email:    "mkp414@icloud.com",
   linkedin: "https://www.linkedin.com/in/mkparrish",

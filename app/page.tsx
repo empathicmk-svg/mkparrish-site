@@ -18,6 +18,9 @@ import {
   STRIPE_REWRITE,
   STRIPE_NEW_CHAPTER,
   STRIPE_BYLINE,
+  STRIPE_CONTENT_ENGINE,
+  STRIPE_INBOUND_SYSTEM,
+  STRIPE_REVENUE_SYSTEMS,
   PATREON_URL,
 } from "@/app/lib/config";
 
@@ -117,6 +120,56 @@ const services = [
     ],
     cta: "Start The Byline",
     href: STRIPE_BYLINE,
+    highlight: false,
+  },
+];
+
+const growthServices = [
+  {
+    tag: "Growth Tier",
+    title: "LinkedIn Content Engine",
+    price: "From $2,500/mo",
+    desc: "A fully managed LinkedIn presence engineered to function as the top of your conversion funnel. Authority and pipeline, built together.",
+    perks: [
+      "Complete LinkedIn profile optimization",
+      "3–5 high-value posts written and scheduled weekly",
+      "1x inbound lead magnet per quarter",
+      "Custom ghostwriting, editing, and visual assets",
+    ],
+    cta: "Launch Your Engine",
+    href: STRIPE_CONTENT_ENGINE,
+    highlight: false,
+  },
+  {
+    tag: "Most Popular",
+    title: "The Inbound System",
+    price: "From $5,000/mo",
+    desc: "Content plus the infrastructure that converts it. Lead capture, automated nurture, and pipeline reporting — the full loop from audience to qualified conversation.",
+    perks: [
+      "Everything in LinkedIn Content Engine",
+      "Lead magnet strategy and design (quizzes, whitepapers, toolkits)",
+      "Custom landing page or Framer lead capture flow",
+      "Automated 3–5 email nurture sequence",
+      "Weekly lead tracking and pipeline reporting",
+    ],
+    cta: "Build My Pipeline",
+    href: STRIPE_INBOUND_SYSTEM,
+    highlight: true,
+  },
+  {
+    tag: "Enterprise",
+    title: "E2E Revenue Systems",
+    price: "Custom",
+    desc: "Full-funnel Revenue Operations and deep CRM integration. Not a service. An operating system for your entire revenue motion, built to scale.",
+    perks: [
+      "Everything in The Inbound System",
+      "Complete CRM architecture (HubSpot, Salesforce, or Pipedrive)",
+      "End-to-end automation: Marketing → Sales Hub → Onboarding",
+      "Revenue analytics, attribution modeling, and forecast dashboards",
+      "Custom API development and third-party stack orchestration",
+    ],
+    cta: "Scale Globally",
+    href: STRIPE_REVENUE_SYSTEMS,
     highlight: false,
   },
 ];
@@ -247,6 +300,33 @@ export default function Home() {
 
       <Marquee />
       <QuoteDivider index={3} />
+
+      {/* ── REVENUE SYSTEMS ──────────────────────────────────────── */}
+      <RevealSection bg="obsidian" num="04">
+        <Eyebrow>Revenue &amp; Growth Systems</Eyebrow>
+        <H2>
+          Build the machine,{" "}
+          <span className="text-petal">not just the content.</span>
+        </H2>
+        <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
+          LinkedIn content engines, high-converting lead magnets, and end-to-end RevOps. For founders and revenue teams who need inbound infrastructure, not just another ghostwriter.
+        </p>
+
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
+          {growthServices.map((s) => (
+            <ServiceCard key={s.title} {...s} />
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center gap-6">
+          <ArrowLink href="/growth">See full system details</ArrowLink>
+          <span className="font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-iron">
+            Pipeline is the product.
+          </span>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={6} />
 
       {/* ── CORRECTION ───────────────────────────────────────────── */}
       <RevealSection bg="obsidian" num="05">

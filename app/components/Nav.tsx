@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Brand",        href: "/brand" },
   { label: "Presence",     href: "/presence" },
   { label: "Next Chapter", href: "/next-chapter" },
+  { label: "Growth",       href: "/growth" },
   { label: "Writing",      href: "/writing" },
   { label: "The Margins",  href: "/margins" },
   { label: "About",        href: "/about" },
