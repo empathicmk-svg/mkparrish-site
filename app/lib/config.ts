@@ -7,6 +7,12 @@ export const STRIPE_BUILD       = "/book";
 export const STRIPE_SESSION     = "/book"; // 1-hr power session — link to Calendly/book when ready
 export const STRIPE_AUDIT       = "/book"; // async positioning audit — link to checkout when ready
 
+// ── Growth / Revenue Systems ─────────────────────────────────────────────────
+// Replace with Stripe links when ready
+export const STRIPE_CONTENT_ENGINE  = "/book"; // LinkedIn Content Engine (from $2,500/mo)
+export const STRIPE_INBOUND_SYSTEM  = "/book"; // The Inbound System (from $5,000/mo)
+export const STRIPE_REVENUE_SYSTEMS = "/book"; // E2E Revenue Systems (custom)
+
 // ── Membership (Patreon) ─────────────────────────────────────────────────────
 export const PATREON_URL        = "https://www.patreon.com/MKParrish?utm_campaign=creatorshare_fan";
 

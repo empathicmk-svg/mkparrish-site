@@ -21,6 +21,9 @@ import {
   STRIPE_BYLINE,
   STRIPE_BUILD,
   STRIPE_SESSION,
+  STRIPE_CONTENT_ENGINE,
+  STRIPE_INBOUND_SYSTEM,
+  STRIPE_REVENUE_SYSTEMS,
   PATREON_URL,
   SHOP_URL,
   GR_ANGEL_NUMBERS,
@@ -205,6 +208,56 @@ const services = [
     ],
     cta: "Let's Build It",
     href: STRIPE_BUILD,
+    highlight: false,
+  },
+];
+
+const growthServices = [
+  {
+    tag: "Growth Tier",
+    title: "LinkedIn Content Engine",
+    price: "From $2,500/mo",
+    desc: "A fully managed LinkedIn presence engineered to function as the top of your conversion funnel. Authority and pipeline, built together.",
+    perks: [
+      "Complete LinkedIn profile optimization",
+      "3–5 high-value posts written and scheduled weekly",
+      "1x inbound lead magnet per quarter",
+      "Custom ghostwriting, editing, and visual assets",
+    ],
+    cta: "Launch Your Engine",
+    href: STRIPE_CONTENT_ENGINE,
+    highlight: false,
+  },
+  {
+    tag: "Most Popular",
+    title: "The Inbound System",
+    price: "From $5,000/mo",
+    desc: "Content plus the infrastructure that converts it. Lead capture, automated nurture, and pipeline reporting — the full loop from audience to qualified conversation.",
+    perks: [
+      "Everything in LinkedIn Content Engine",
+      "Lead magnet strategy and design (quizzes, whitepapers, toolkits)",
+      "Custom landing page or Framer lead capture flow",
+      "Automated 3–5 email nurture sequence",
+      "Weekly lead tracking and pipeline reporting",
+    ],
+    cta: "Build My Pipeline",
+    href: STRIPE_INBOUND_SYSTEM,
+    highlight: true,
+  },
+  {
+    tag: "Enterprise",
+    title: "E2E Revenue Systems",
+    price: "Custom",
+    desc: "Full-funnel Revenue Operations and deep CRM integration. Not a service. An operating system for your entire revenue motion, built to scale.",
+    perks: [
+      "Everything in The Inbound System",
+      "Complete CRM architecture (HubSpot, Salesforce, or Pipedrive)",
+      "End-to-end automation: Marketing → Sales Hub → Onboarding",
+      "Revenue analytics, attribution modeling, and forecast dashboards",
+      "Custom API development and third-party stack orchestration",
+    ],
+    cta: "Scale Globally",
+    href: STRIPE_REVENUE_SYSTEMS,
     highlight: false,
   },
 ];
@@ -414,8 +467,35 @@ export default function Home() {
       <Marquee />
       <QuoteDivider index={3} />
 
-      {/* ── THE WORK — WHY MK ──────────────────────────────────────────────────── */}
+      {/* ── REVENUE SYSTEMS ──────────────────────────────────────── */}
       <RevealSection bg="obsidian" num="04">
+        <Eyebrow>Revenue &amp; Growth Systems</Eyebrow>
+        <H2>
+          Build the machine,{" "}
+          <span className="text-petal">not just the content.</span>
+        </H2>
+        <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
+          LinkedIn content engines, high-converting lead magnets, and end-to-end RevOps. For founders and revenue teams who need inbound infrastructure, not just another ghostwriter.
+        </p>
+
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
+          {growthServices.map((s) => (
+            <ServiceCard key={s.title} {...s} />
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center gap-6">
+          <ArrowLink href="/growth">See full system details</ArrowLink>
+          <span className="font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-iron">
+            Pipeline is the product.
+          </span>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={6} />
+
+      {/* ── THE WORK — WHY MK ──────────────────────────────────────────────────── */}
+      <RevealSection bg="obsidian" num="05">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <Eyebrow>Why it works</Eyebrow>
@@ -455,7 +535,7 @@ export default function Home() {
       <QuoteDivider index={17} />
 
       {/* ── THE SHOP — EMPIRE PRODUCTS ─────────────────────────────────────────── */}
-      <RevealSection bg="void" num="05">
+      <RevealSection bg="void" num="06">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr]">
           <div>
             <Eyebrow>The Shop — Digital Products</Eyebrow>
@@ -504,7 +584,7 @@ export default function Home() {
       <QuoteDivider index={14} />
 
       {/* ── THE MARGINS ────────────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="06">
+      <RevealSection bg="obsidian" num="07">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <Eyebrow>The private side</Eyebrow>
@@ -556,7 +636,7 @@ export default function Home() {
       <QuoteDivider index={4} />
 
       {/* ── WRITING ────────────────────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="07">
+      <RevealSection bg="void" num="08">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <Eyebrow>The personal work</Eyebrow>

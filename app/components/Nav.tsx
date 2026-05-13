@@ -10,6 +10,8 @@ const navLinks = [
   { label: "Brand",        href: "/brand" },
   { label: "Presence",     href: "/presence" },
   { label: "Next Chapter", href: "/next-chapter" },
+  { label: "Growth",       href: "/growth" },
+  { label: "LinkedIn",     href: "/linkedin" },
   { label: "Writing",      href: "/writing" },
   { label: "Shop",         href: "/shop" },
   { label: "The Margins",  href: "/margins" },
