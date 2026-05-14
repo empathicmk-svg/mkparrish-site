@@ -82,43 +82,80 @@ function StatCounter({ value, suffix, label }: { value: number; suffix: string; 
   );
 }
 
-// ── Data ──────────────────────────────────────────────────────────────────────
+// ── Word cycling words ────────────────────────────────────────────────────────
+const CYCLE_WORDS = ["Career", "Brand", "Story", "Future", "Narrative"];
 
-const rewrites = [
+// ── Client type cards ────────────────────────────────────────────────────────
+const clientTypes = [
   {
-    label: "01",
-    title: "Rewrite Your Career",
-    desc: "Your LinkedIn, bio, and professional narrative rebuilt for the career you actually have now. Not a polish. A full repositioning. The people deciding whether to hire you are reading copy you wrote three years ago.",
-    cue: "For executives, professionals, and industry switchers",
+    num: "01",
+    title: "Executive",
+    desc: "Your LinkedIn and bio are still describing who you were three roles ago.",
     href: "/career",
-    icon: "↗",
   },
   {
-    label: "02",
-    title: "Rewrite Your Brand",
-    desc: "Positioning, voice, and homepage copy for a business that delivers more than it sounds like. That gap is not aesthetic. It is a revenue leak — and it shows up every time someone lands on your site and leaves without reaching out.",
-    cue: "For founders and company builders",
+    num: "02",
+    title: "Founder",
+    desc: "Your site undersells a business that has genuinely outgrown its own copy.",
     href: "/brand",
-    icon: "↗",
   },
   {
-    label: "03",
-    title: "Rewrite Your Presence",
-    desc: "Website copy, public bios, and ongoing thought leadership written in your actual voice. Every surface that forms an opinion about you before you get to speak. Most of them are underperforming right now.",
-    cue: "For public-facing professionals and ghostwriting clients",
+    num: "03",
+    title: "Creator",
+    desc: "You have the audience but the brand voice doesn't match the depth of the work.",
     href: "/presence",
-    icon: "↗",
   },
   {
-    label: "04",
-    title: "Rewrite Your Next Chapter",
-    desc: "Full repositioning for pivots, reinventions, and the messy middle where your old story no longer fits and the new one is not finished yet. I have been here. I know how to write through it.",
-    cue: "For people in genuine transition",
+    num: "04",
+    title: "In Transition",
+    desc: "Your old story no longer fits and the new one isn't finished yet.",
     href: "/next-chapter",
-    icon: "↗",
   },
 ];
 
+// ── Before/After data ────────────────────────────────────────────────────────
+const baPanels = [
+  {
+    label: "LinkedIn Headline",
+    before:
+      "Marketing Manager at TechCorp | Results-driven professional with 10+ years of experience helping companies achieve growth",
+    after:
+      "I turn technical products into market leaders. Led $0→$42M ARR at Series B SaaS. Now: VP Marketing @ [Company] | Building in public.",
+  },
+  {
+    label: "Homepage Headline",
+    before:
+      '"We provide comprehensive digital marketing solutions for businesses of all sizes."',
+    after:
+      '"Your competitors are getting the calls you should be getting. Here\'s exactly why — and how to fix it in 30 days."',
+  },
+];
+
+// ── Process steps ────────────────────────────────────────────────────────────
+const processSteps = [
+  {
+    num: "01",
+    title: "Intake Call",
+    desc: "We diagnose exactly where the language is breaking down and what it needs to do instead.",
+  },
+  {
+    num: "02",
+    title: "Strategy Brief",
+    desc: "A written positioning document: your audience, your argument, your differentiators — in writing.",
+  },
+  {
+    num: "03",
+    title: "The Rewrite",
+    desc: "Copy delivered in rounds with tracked changes. You see every decision and why I made it.",
+  },
+  {
+    num: "04",
+    title: "Launch",
+    desc: "Final files, formatted for every platform. Plus a 30-day check-in to see it landing.",
+  },
+];
+
+// ── Services data ────────────────────────────────────────────────────────────
 const services = [
   {
     tag: "Quick Fix",
@@ -296,6 +333,19 @@ const digitalProducts = [
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function Home() {
+  const [wordIndex, setWordIndex] = useState(0);
+  const [baState, setBaState] = useState<Record<number, "before" | "after">>({ 0: "before", 1: "before" });
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((i) => (i + 1) % CYCLE_WORDS.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentWord = CYCLE_WORDS[wordIndex];
+
   return (
     <>
       {/* ── HERO ──────────────────────────────────────────────────────────────── */}
@@ -306,9 +356,9 @@ export default function Home() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          {/* Eyebrow services strip */}
+          {/* Service pills */}
           <div className="mb-6 flex flex-wrap items-center gap-3">
-            {["Copywriting", "Ghostwriting", "Brand Strategy", "Web Design", "Reinvention"].map((s) => (
+            {["Copywriting", "Ghostwriting", "Brand Strategy", "Web Design", "LinkedIn", "RevOps"].map((s) => (
               <span key={s} className="border border-graphite px-3 py-1 font-body text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-iron">
                 {s}
               </span>
@@ -316,12 +366,15 @@ export default function Home() {
           </div>
 
           <H1>
-            Rewrite{" "}
-            <span className="text-petal" style={{ textShadow: "0 0 60px rgba(242,175,198,0.4)" }}>
-              Your
-            </span>
+            Rewrite Your{" "}
             <br />
-            Story
+            <span
+              key={currentWord}
+              className="word-cycle-enter text-petal"
+              style={{ textShadow: "0 0 60px rgba(242,175,198,0.4)", display: "inline-block" }}
+            >
+              {currentWord}
+            </span>
           </H1>
 
           <p className="mt-5 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500, maxWidth: "none" }}>
@@ -329,21 +382,20 @@ export default function Home() {
           </p>
 
           <p className="mt-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
-            You have outgrown the version of yourself the world is still reading. I work with founders, executives, and people mid-transition to build language that finally catches up.
+            You&apos;ve outgrown the version of yourself the world is still reading. I work with founders, executives, and people mid-transition to build the language that finally catches up.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <BtnPrimary href="/book">Book a Strategy Call →</BtnPrimary>
-            <BtnGhost href="#rewrites">See the Work</BtnGhost>
+            <BtnGhost href="#who">See the Work</BtnGhost>
           </div>
 
           {/* Social proof strip */}
           <div className="mt-12 flex flex-wrap items-center gap-6 border-t border-graphite pt-8">
-            <p className="font-body text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-iron">
-              Trusted by
-            </p>
-            {["Founders", "Executives", "Authors", "Public Figures", "People in Transition"].map((t) => (
-              <span key={t} className="font-body text-[0.7rem] font-light text-ash">{t}</span>
+            {["200+ Clients", "$6-Figure Results", "5 Service Tracks", "6 Digital Products"].map((item) => (
+              <span key={item} className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-ash">
+                {item}
+              </span>
             ))}
           </div>
         </div>
@@ -351,84 +403,45 @@ export default function Home() {
 
       <Marquee />
 
-      {/* ── STATS ─────────────────────────────────────────────────────────────── */}
-      <section className="bg-void border-b border-graphite">
-        <div
-          className="mx-auto max-w-[1400px] grid grid-cols-2 gap-px bg-graphite md:grid-cols-4"
-          style={{ padding: "0" }}
-        >
-          {[
-            { value: 200, suffix: "+", label: "Clients Rewritten" },
-            { value: 6, suffix: " Figures", label: "Client Revenue Generated" },
-            { value: 4, suffix: " Services", label: "Ways to Work Together" },
-            { value: 6, suffix: " Guides", label: "Digital Products in the Shop" },
-          ].map((s) => (
-            <div key={s.label} className="bg-void px-8 py-10">
-              <StatCounter value={s.value} suffix={s.suffix} label={s.label} />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── THE COST OF WRONG WORDS ───────────────────────────────────────────── */}
-      <RevealSection bg="void" num="01">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
-          <div>
-            <Eyebrow>The problem</Eyebrow>
-            <H2>
-              The wrong words{" "}
-              <span className="text-petal">cost you.</span>
-            </H2>
-          </div>
-          <div className="space-y-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "64ch" }}>
-            <p>They cost you deals, roles, introductions, and the meeting that turns into the contract. Quietly. Before you even know a decision was made.</p>
-            <p>
-              A vague LinkedIn makes a sharp professional look unfocused. A weak about page makes a performing business look small. A stale bio makes someone who has done serious work look like they stopped five years ago.
-            </p>
-            <p>
-              I rewrite the copy people encounter when they look you up, consider you, or decide whether to reach out. Not by building a persona. By finally presenting the real thing with enough precision that the right people recognize it.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href="/book">Start With a Call</BtnPrimary>
-              <ArrowLink href="/about">About MK</ArrowLink>
-            </div>
-          </div>
-        </div>
-      </RevealSection>
-
-      <QuoteDivider index={1} />
-
-      {/* ── CHOOSE YOUR REWRITE ───────────────────────────────────────────────── */}
-      <RevealSection id="rewrites" bg="obsidian" num="02">
-        <Eyebrow>Where to begin</Eyebrow>
+      {/* ── WHO IS THIS FOR ───────────────────────────────────────────────────── */}
+      <RevealSection id="who" bg="obsidian" num="01">
+        <Eyebrow>Find Your Track</Eyebrow>
         <H2>
-          Choose what you are{" "}
-          <span className="text-petal">rewriting.</span>
+          Which rewrite do{" "}
+          <span className="text-petal">you need?</span>
         </H2>
         <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "56ch" }}>
-          Every offering starts with the same question: what do you need the words to do? Pick the one that matches the gap you're in right now.
+          Every engagement starts with the same question: what do you need the words to do? Pick the one that matches the gap you&apos;re in right now.
         </p>
 
         <div className="grid gap-px bg-graphite sm:grid-cols-2">
-          {rewrites.map((r) => (
+          {clientTypes.map((card, i) => (
             <Link
-              key={r.href}
-              href={r.href}
-              className="group relative bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon hover:shadow-[0_0_32px_rgba(242,175,198,0.06)]"
-              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+              key={card.href}
+              href={card.href}
+              onMouseEnter={() => setActiveCard(i)}
+              onMouseLeave={() => setActiveCard(null)}
+              className="group relative flex flex-col justify-between bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon"
+              style={{
+                border: activeCard === i ? "1px solid rgba(242,175,198,0.35)" : "1px solid transparent",
+                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
             >
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-60" />
-              <div className="flex items-center justify-between">
-                <p className="font-mono text-xs tracking-[0.2em] text-iron">{r.label}</p>
-                <span className="flex h-8 w-8 items-center justify-center border border-petal/20 text-sm text-petal/50 transition-all duration-300 group-hover:border-petal group-hover:bg-petal group-hover:text-void">
-                  {r.icon}
+              <div>
+                <p className="font-mono text-[2.5rem] leading-none tracking-[0.02em] text-petal/[0.18] font-bold">
+                  {card.num}
+                </p>
+                <h3 className="mt-4 font-display text-4xl uppercase tracking-[0.02em] text-pearl md:text-5xl">
+                  {card.title}
+                </h3>
+                <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{card.desc}</p>
+              </div>
+              <div className="mt-8 flex items-center gap-2">
+                <span className="font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-petal opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                  Explore →
                 </span>
               </div>
-              <h3 className="mt-5 font-display text-3xl uppercase tracking-[0.02em] text-pearl md:text-4xl">
-                {r.title}
-              </h3>
-              <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{r.desc}</p>
-              <p className="mt-5 font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-iron">{r.cue}</p>
             </Link>
           ))}
         </div>
@@ -439,17 +452,75 @@ export default function Home() {
         </div>
       </RevealSection>
 
+      <QuoteDivider index={1} />
+
+      {/* ── BEFORE / AFTER SHOWCASE ──────────────────────────────────────────── */}
+      <RevealSection bg="void" num="02">
+        <Eyebrow>The Transformation</Eyebrow>
+        <H2>
+          See the difference{" "}
+          <span className="text-petal">words make.</span>
+        </H2>
+        <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "58ch" }}>
+          This is what repositioning actually looks like. Same person. Completely different signal.
+        </p>
+
+        <div className="grid gap-px bg-graphite md:grid-cols-2">
+          {baPanels.map((panel, idx) => (
+            <div key={idx} className="ba-panel">
+              <p className="mb-4 font-body text-[0.62rem] font-bold uppercase tracking-[0.25em] text-iron">
+                {panel.label}
+              </p>
+              <div className="ba-tab-bar">
+                <button
+                  className={`ba-tab${baState[idx] === "before" ? " active" : ""}`}
+                  onClick={() => setBaState((s) => ({ ...s, [idx]: "before" }))}
+                >
+                  Before
+                </button>
+                <button
+                  className={`ba-tab${baState[idx] === "after" ? " active" : ""}`}
+                  onClick={() => setBaState((s) => ({ ...s, [idx]: "after" }))}
+                >
+                  After
+                </button>
+              </div>
+              {baState[idx] === "before" ? (
+                <p className="before-text">{panel.before}</p>
+              ) : (
+                <p className="after-text">
+                  {panel.after}
+                  <span className="mt-3 block font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-petal">
+                    — Rewritten by MK
+                  </span>
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
+          <p className="font-body text-sm font-light text-smoke">
+            This is what The Rewrite does. This is what The Edit does. This is what working with me looks like.
+          </p>
+          <BtnPrimary href="/book">Start Your Rewrite →</BtnPrimary>
+        </div>
+      </RevealSection>
+
       <QuoteDivider index={2} />
 
-      {/* ── ALL SERVICES ──────────────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="03">
+      {/* ── SERVICES ─────────────────────────────────────────────────────────── */}
+      <RevealSection bg="obsidian" num="03">
         <Eyebrow>Every way to work with me</Eyebrow>
         <H2>
           Six services.{" "}
           <span className="text-petal">One standard.</span>
         </H2>
-        <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "58ch" }}>
+        <p className="mt-4 mb-3 font-body text-sm font-light text-smoke" style={{ maxWidth: "58ch" }}>
           From a single-piece edit to a full site build — every service is anchored in the same thing: copy that actually sounds like you, says something true, and earns the response.
+        </p>
+        <p className="mb-12 font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal/70">
+          All-in pricing. No retainer traps.
         </p>
 
         <div className="grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-3">
@@ -464,11 +535,8 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <Marquee />
-      <QuoteDivider index={3} />
-
-      {/* ── REVENUE SYSTEMS ──────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="04">
+      {/* ── REVENUE SYSTEMS ──────────────────────────────────────────────────── */}
+      <RevealSection bg="void" num="04">
         <Eyebrow>Revenue &amp; Growth Systems</Eyebrow>
         <H2>
           Build the machine,{" "}
@@ -492,49 +560,45 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <QuoteDivider index={6} />
+      <Marquee />
+      <QuoteDivider index={3} />
 
-      {/* ── THE WORK — WHY MK ──────────────────────────────────────────────────── */}
+      {/* ── PROCESS ──────────────────────────────────────────────────────────── */}
       <RevealSection bg="obsidian" num="05">
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <Eyebrow>Why it works</Eyebrow>
-            <H2>
-              Not just copy.{" "}
-              <span className="text-petal">Correction.</span>
-            </H2>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href="/book">Book a Call</BtnPrimary>
-              <ArrowLink href="/about">About MK</ArrowLink>
+        <Eyebrow>How It Works</Eyebrow>
+        <H2>
+          From unclear to{" "}
+          <span className="text-petal">undeniable.</span>
+        </H2>
+        <p className="mt-4 mb-14 font-body text-sm font-light text-smoke" style={{ maxWidth: "56ch" }}>
+          Four steps. No ambiguity. You know what happens, when it happens, and exactly why every word made the cut.
+        </p>
+
+        <div className="grid gap-px bg-graphite md:grid-cols-4">
+          {processSteps.map((step) => (
+            <div key={step.num} className="bg-obsidian p-8">
+              <p
+                className="font-display leading-none text-petal/[0.15]"
+                style={{ fontSize: "clamp(3rem, 6vw, 5rem)", letterSpacing: "0.02em" }}
+              >
+                {step.num}
+              </p>
+              <h3 className="mt-4 font-display text-2xl uppercase tracking-[0.02em] text-pearl">
+                {step.title}
+              </h3>
+              <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">{step.desc}</p>
             </div>
-          </div>
-          <div className="space-y-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "64ch" }}>
-            <p>People are decided by fragments now. A headline. A homepage. A LinkedIn summary. A few lines written three job titles ago by a version of you who was still figuring out what to say.</p>
-            <p>
-              I work where writing meets strategy, positioning, and reinvention. The copy I write is not decoration. It is the argument you make before anyone gets in a room with you. It either earns the meeting or it does not.
-            </p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {[
-                "No AI copy",
-                "No generic frameworks",
-                "No rented voice",
-                "No one-size pitch decks",
-                "Real strategy first",
-                "You sound like you",
-              ].map((item) => (
-                <div key={item} className="flex items-center gap-3 border border-graphite px-4 py-3">
-                  <span className="h-1 w-1 flex-shrink-0 bg-petal" />
-                  <span className="font-body text-[0.75rem] font-semibold uppercase tracking-[0.15em] text-pearl">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <BtnPrimary href="/book">Start With a Call →</BtnPrimary>
         </div>
       </RevealSection>
 
-      <QuoteDivider index={17} />
+      <QuoteDivider index={6} />
 
-      {/* ── THE SHOP — EMPIRE PRODUCTS ─────────────────────────────────────────── */}
+      {/* ── THE SHOP ─────────────────────────────────────────────────────────── */}
       <RevealSection bg="void" num="06">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr]">
           <div>
@@ -553,7 +617,7 @@ export default function Home() {
             </div>
           </div>
           <div className="grid gap-px bg-graphite sm:grid-cols-2">
-            {digitalProducts.map((item, i) => (
+            {digitalProducts.map((item) => (
               <a
                 key={item.title}
                 href={item.href}
@@ -583,7 +647,7 @@ export default function Home() {
 
       <QuoteDivider index={14} />
 
-      {/* ── THE MARGINS ────────────────────────────────────────────────────────── */}
+      {/* ── THE MARGINS ──────────────────────────────────────────────────────── */}
       <RevealSection bg="obsidian" num="07">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
@@ -635,7 +699,7 @@ export default function Home() {
 
       <QuoteDivider index={4} />
 
-      {/* ── WRITING ────────────────────────────────────────────────────────────── */}
+      {/* ── WRITING ──────────────────────────────────────────────────────────── */}
       <RevealSection bg="void" num="08">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
@@ -670,8 +734,8 @@ export default function Home() {
 
       <QuoteDivider index={5} />
 
-      {/* ── FINAL CTA ──────────────────────────────────────────────────────────── */}
-      <section className="relative bg-void" style={{ padding: "clamp(5rem, 12vw, 11rem) 0" }}>
+      {/* ── FINAL CTA ────────────────────────────────────────────────────────── */}
+      <section className="relative bg-void pb-16 md:pb-0" style={{ padding: "clamp(5rem, 12vw, 11rem) 0" }}>
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-1/2 h-[80vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse,rgba(242,175,198,0.1),transparent_60%)]" />
         </div>
@@ -688,7 +752,7 @@ export default function Home() {
             </H1>
           </div>
           <p className="mx-auto mt-8 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            The people deciding whether to work with you are making that decision based on words you wrote years ago. Let's fix that.
+            The people deciding whether to work with you are making that decision based on words you wrote years ago. Let&apos;s fix that.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BtnPrimary href="/book">Book a Strategy Call →</BtnPrimary>
