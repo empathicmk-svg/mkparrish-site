@@ -1,603 +1,660 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Instagram Posts — MK Parrish Brand Assets",
-  description: "Branded Instagram quote posts for MK Parrish.",
+  title: "Quotes — MK Parrish",
+  description: "Words from theologians, philosophers, and writers that refuse to stay quiet.",
 };
 
-// ─── Post data ───────────────────────────────────────────────────────────────
+// ─── Quote data ───────────────────────────────────────────────────────────────
 
-const posts = [
+const quotes = [
   {
     id: 1,
+    quote: "You are not accidental. The world could not have happened without you.",
+    author: "Rainer Maria Rilke",
+    work: "Letters to a Young Poet",
+    category: "Identity",
     layout: "bold",
-    lines: ["He never", "hit you."],
-    sub: "But he made you small enough\nthat you stopped taking up space.\n\nThat counts.\nThat is abuse.",
-    tag: "Emotional Abuse",
   },
   {
     id: 2,
-    layout: "quote",
-    quote: "The most dangerous kind of abuse is the kind that makes you the expert on your own wrongness.",
-    tag: "The Rewrite",
+    quote: "If you ask me what I came to do in this world, I, an artist, will answer you: I am here to live out loud.",
+    author: "Émile Zola",
+    work: "",
+    category: "Voice",
+    layout: "pullquote",
   },
   {
     id: 3,
-    layout: "list",
-    intro: "Emotional abuse sounds like:",
-    items: [
-      '"You\'re too sensitive."',
-      '"That\'s not what I said."',
-      '"You\'re crazy."',
-      '"Nobody else would put up with you."',
-      '"I never did that."',
-    ],
-    outro: "It doesn't leave marks you can show anyone.\nThat's the point.",
-    tag: "Gaslighting Awareness",
+    quote: "You have to decide what your highest priorities are and have the courage — pleasantly, smilingly, non-apologetically — to say no to other things. And the way you do that is by having a bigger yes burning inside.",
+    author: "Stephen Covey",
+    work: "The 7 Habits of Highly Effective People",
+    category: "Boundaries",
+    layout: "standard",
   },
   {
     id: 4,
-    layout: "split",
-    top: "Control with soft lighting",
-    bottom: "is still control.",
-    tag: "MK Parrish",
+    quote: "The only way out of the labyrinth of suffering is to forgive.",
+    author: "John Green",
+    work: "Looking for Alaska",
+    category: "Healing",
+    layout: "minimal",
   },
   {
     id: 5,
-    layout: "quote",
-    quote: "She was not dramatic.\n\nShe was documenting.",
-    tag: "The Rewrite",
+    quote: "I am not afraid of storms, for I am learning how to sail my ship.",
+    author: "Louisa May Alcott",
+    work: "Little Women",
+    category: "Courage",
+    layout: "split",
+    top: "I am not afraid of storms,",
+    bottom: "for I am learning how to sail my ship.",
   },
   {
     id: 6,
-    layout: "bold",
-    lines: ["Suffering", "in silence"],
-    sub: "is not dignity.\n\nIt is what they trained you to do\nso they could keep doing\nwhat they were doing.",
-    tag: "Surviving in Silence",
+    quote: "Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that.",
+    author: "Martin Luther King Jr.",
+    work: "Strength to Love",
+    category: "Faith",
+    layout: "pullquote",
   },
   {
     id: 7,
-    layout: "list",
-    intro: "The bruises you can't see:",
-    items: [
-      "Your confidence.",
-      "Your memory.",
-      "Your trust in your own mind.",
-      "Your belief that you were allowed to want more.",
-    ],
-    outro: "",
-    tag: "Invisible Wounds",
+    quote: "One is not born, but rather becomes, a woman.",
+    author: "Simone de Beauvoir",
+    work: "The Second Sex",
+    category: "Identity",
+    layout: "bold-line",
   },
   {
     id: 8,
-    layout: "quote",
-    quote: "She didn't stay because she was weak.\n\nShe stayed because he spent three years convincing her that the problem was her perception.",
-    tag: "The Rewrite",
+    quote: "The most common form of despair is not being who you are.",
+    author: "Søren Kierkegaard",
+    work: "",
+    category: "Authenticity",
+    layout: "minimal",
   },
   {
     id: 9,
-    layout: "split",
-    top: "You kept asking\nwhat you did wrong.",
-    bottom: "You never asked\nwhat he kept doing to you.",
-    tag: "MK Parrish",
+    quote: "In the beginning was the Word, and the Word was with God, and the Word was God.",
+    author: "John 1:1",
+    work: "The Holy Bible",
+    category: "Scripture",
+    layout: "verse",
   },
   {
     id: 10,
-    layout: "bold",
-    lines: ["The", "rewrite"],
-    sub: "doesn't start with leaving.\n\nIt starts with the moment you stop lying to yourself\nabout what is happening to you.",
-    tag: "The Rewrite",
+    quote: "You were made for a world within a world within a world — and none of them require your apology.",
+    author: "Howard Thurman",
+    work: "Jesus and the Disinherited",
+    category: "Liberation",
+    layout: "pullquote",
   },
   {
     id: 11,
-    layout: "quote",
-    quote: "She kept the peace.\nShe kept his secrets.\nShe kept everyone comfortable.\n\nThe only thing she didn't keep\nwas herself.",
-    tag: "MK Parrish",
+    quote: "You are allowed to be both a masterpiece and a work in progress simultaneously.",
+    author: "Sophia Bush",
+    work: "",
+    category: "Growth",
+    layout: "minimal",
   },
   {
     id: 12,
+    quote: "We are called to be architects of the future, not its victims.",
+    author: "Buckminster Fuller",
+    work: "",
+    category: "Reinvention",
+    layout: "standard",
+  },
+  {
+    id: 13,
+    quote: "Until the lion learns to write, every story will glorify the hunter.",
+    author: "African Proverb",
+    work: "",
+    category: "Voice",
+    layout: "bold-line",
+  },
+  {
+    id: 14,
+    quote: "Silence is the language of God. All else is poor translation.",
+    author: "Rumi",
+    work: "",
+    category: "Spirituality",
     layout: "minimal",
-    quote: "Nobody believed me.\n\nNot even me.\n\nThat was the point.",
-    tag: "Suffering in Silence",
+  },
+  {
+    id: 15,
+    quote: "Not everything that is faced can be changed, but nothing can be changed until it is faced.",
+    author: "James Baldwin",
+    work: "",
+    category: "Truth",
+    layout: "split",
+    top: "Not everything that is faced can be changed,",
+    bottom: "but nothing can be changed until it is faced.",
+  },
+  {
+    id: 16,
+    quote: "To love at all is to be vulnerable. Love anything and your heart will be wrung and possibly broken. If you want to make sure of keeping it intact you must give it to no one, not even an animal.",
+    author: "C.S. Lewis",
+    work: "The Four Loves",
+    category: "Love",
+    layout: "standard",
+  },
+  {
+    id: 17,
+    quote: "She was a girl who knew how to be happy even when she was sad. And that's important.",
+    author: "Marilyn Monroe",
+    work: "",
+    category: "Resilience",
+    layout: "minimal",
+  },
+  {
+    id: 18,
+    quote: "The function of freedom is to free someone else.",
+    author: "Toni Morrison",
+    work: "",
+    category: "Liberation",
+    layout: "bold-line",
+  },
+  {
+    id: 19,
+    quote: "Beloved, do not be surprised at the fiery trial when it comes upon you to test you, as though something strange were happening to you.",
+    author: "1 Peter 4:12",
+    work: "The Holy Bible",
+    category: "Scripture",
+    layout: "verse",
+  },
+  {
+    id: 20,
+    quote: "The cave you fear to enter holds the treasure you seek.",
+    author: "Joseph Campbell",
+    work: "",
+    category: "Courage",
+    layout: "pullquote",
+  },
+  {
+    id: 21,
+    quote: "The most important kind of freedom is to be what you really are. You trade in your reality for a role.",
+    author: "Jim Morrison",
+    work: "",
+    category: "Authenticity",
+    layout: "standard",
+  },
+  {
+    id: 22,
+    quote: "I am no longer accepting the things I cannot change. I am changing the things I cannot accept.",
+    author: "Angela Davis",
+    work: "",
+    category: "Reinvention",
+    layout: "bold-line",
+  },
+  {
+    id: 23,
+    quote: "Be still, and know that I am God.",
+    author: "Psalm 46:10",
+    work: "The Holy Bible",
+    category: "Scripture",
+    layout: "verse",
+  },
+  {
+    id: 24,
+    quote: "Grace is the gift of feeling sure that our future, even our dying, is more presence, not less.",
+    author: "Simone Weil",
+    work: "",
+    category: "Faith",
+    layout: "minimal",
   },
 ];
 
-// ─── Individual post layouts ──────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function PostWrapper({ children, id }: { children: React.ReactNode; id: number }) {
-  return (
-    <div className="group relative">
-      <p className="mb-3 font-mono text-xs tracking-[0.2em] text-iron">POST {String(id).padStart(2, "0")}</p>
-      <div
-        style={{
-          width: "540px",
-          height: "540px",
-          position: "relative",
-          overflow: "hidden",
-          flexShrink: 0,
-        }}
-      >
-        {children}
-      </div>
-      <p className="mt-2 font-mono text-[0.6rem] tracking-[0.15em] text-graphite">
-        Screenshot at 2× for 1080×1080
-      </p>
-    </div>
-  );
+const categoryColors: Record<string, string> = {
+  Identity:     "#F2AFC6",
+  Voice:        "#E0869F",
+  Courage:      "#C75B78",
+  Faith:        "#F2AFC6",
+  Healing:      "#D4A0B5",
+  Reinvention:  "#E0869F",
+  Liberation:   "#C75B78",
+  Authenticity: "#F2AFC6",
+  Scripture:    "#D4A0B5",
+  Spirituality: "#F2AFC6",
+  Boundaries:   "#B09090",
+  Growth:       "#E0869F",
+  Truth:        "#C75B78",
+  Love:         "#F2AFC6",
+  Resilience:   "#D4A0B5",
+};
+
+function getCategoryColor(cat: string) {
+  return categoryColors[cat] ?? "#F2AFC6";
 }
 
-function BrandMark() {
+// ─── Card Components ──────────────────────────────────────────────────────────
+
+function Attribution({ author, work, category }: { author: string; work: string; category: string }) {
   return (
     <div
       style={{
-        position: "absolute",
-        bottom: "32px",
-        left: 0,
-        right: 0,
+        marginTop: "auto",
+        paddingTop: "20px",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-end",
         justifyContent: "space-between",
-        padding: "0 40px",
+        gap: "12px",
       }}
     >
-      <span
-        style={{
-          fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: "22px",
-          letterSpacing: "0.08em",
-          color: "#F2AFC6",
-          opacity: 0.9,
-        }}
-      >
-        MK PARRISH
-      </span>
+      <div>
+        <p
+          style={{
+            fontFamily: "'Bebas Neue', sans-serif",
+            fontSize: "14px",
+            letterSpacing: "0.08em",
+            color: "#F0F0EE",
+            lineHeight: 1,
+          }}
+        >
+          {author}
+        </p>
+        {work && (
+          <p
+            style={{
+              marginTop: "4px",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "10px",
+              letterSpacing: "0.12em",
+              color: "#4A4A4A",
+              fontStyle: "italic",
+            }}
+          >
+            {work}
+          </p>
+        )}
+      </div>
       <span
         style={{
           fontFamily: "'DM Sans', sans-serif",
-          fontSize: "11px",
-          letterSpacing: "0.25em",
-          color: "#6B6B6B",
+          fontSize: "9px",
+          fontWeight: 700,
+          letterSpacing: "0.28em",
           textTransform: "uppercase",
+          color: getCategoryColor(category),
+          whiteSpace: "nowrap",
+          opacity: 0.8,
         }}
       >
-        @mkparrish
+        {category}
       </span>
     </div>
   );
 }
 
-function TagBadge({ tag }: { tag: string }) {
+function QuoteCardStandard({ quote, author, work, category }: { quote: string; author: string; work: string; category: string }) {
   return (
     <div
       style={{
-        position: "absolute",
-        top: "32px",
-        left: "40px",
-        fontFamily: "'DM Sans', sans-serif",
-        fontSize: "10px",
-        fontWeight: 700,
-        letterSpacing: "0.25em",
-        textTransform: "uppercase",
-        color: "#444444",
-      }}
-    >
-      {tag}
-    </div>
-  );
-}
-
-function PetalLine({ pos = "bottom" }: { pos?: "bottom" | "top" | "left" }) {
-  if (pos === "left") {
-    return (
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: "3px",
-          background: "linear-gradient(to bottom, transparent, #F2AFC6, transparent)",
-          opacity: 0.6,
-        }}
-      />
-    );
-  }
-  return (
-    <div
-      style={{
-        position: "absolute",
-        bottom: "72px",
-        left: "40px",
-        right: "40px",
-        height: "1px",
-        background: "linear-gradient(to right, #F2AFC6, transparent)",
-        opacity: 0.3,
-      }}
-    />
-  );
-}
-
-// Layout: BOLD — large Bebas headline + body text
-function BoldPost({ lines, sub, tag }: { lines: string[]; sub: string; tag: string }) {
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background: "#080808",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        padding: "40px",
-      }}
-    >
-      {/* Radial glow */}
-      <div
-        style={{
-          position: "absolute",
-          top: "-20%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "120%",
-          height: "80%",
-          background: "radial-gradient(ellipse at top, rgba(242,175,198,0.08) 0%, transparent 60%)",
-          pointerEvents: "none",
-        }}
-      />
-      <TagBadge tag={tag} />
-      <div style={{ marginTop: "20px" }}>
-        {lines.map((line, i) => (
-          <div
-            key={i}
-            style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(72px, 13vw, 100px)",
-              lineHeight: 0.88,
-              letterSpacing: "0.01em",
-              color: i === lines.length - 1 ? "#F2AFC6" : "#FFFFFF",
-            }}
-          >
-            {line}
-          </div>
-        ))}
-      </div>
-      <div
-        style={{
-          marginTop: "28px",
-          fontFamily: "'Playfair Display', serif",
-          fontStyle: "italic",
-          fontSize: "15px",
-          lineHeight: 1.8,
-          color: "#9A9A9A",
-          whiteSpace: "pre-line",
-          maxWidth: "380px",
-        }}
-      >
-        {sub}
-      </div>
-      <PetalLine />
-      <BrandMark />
-    </div>
-  );
-}
-
-// Layout: QUOTE — full italic serif quote, centered
-function QuotePost({ quote, tag }: { quote: string; tag: string }) {
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
         background: "#111111",
-        position: "relative",
+        border: "1px solid #1E1E1E",
+        padding: "32px",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
-        padding: "40px",
+        minHeight: "260px",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <TagBadge tag={tag} />
-      {/* Large decorative quote mark */}
       <div
         style={{
           position: "absolute",
-          top: "20px",
-          left: "28px",
+          top: "-10px",
+          left: "20px",
           fontFamily: "'Playfair Display', serif",
-          fontSize: "160px",
+          fontSize: "120px",
           lineHeight: 1,
-          color: "#F2AFC6",
-          opacity: 0.07,
+          color: getCategoryColor(category),
+          opacity: 0.05,
           pointerEvents: "none",
           userSelect: "none",
         }}
       >
         &ldquo;
       </div>
-      <PetalLine pos="left" />
-      <div style={{ paddingLeft: "24px" }}>
-        <p
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontStyle: "italic",
-            fontWeight: 600,
-            fontSize: "22px",
-            lineHeight: 1.75,
-            color: "#E8E0D5",
-            whiteSpace: "pre-line",
-          }}
-        >
-          {quote}
-        </p>
-      </div>
-      <PetalLine />
-      <BrandMark />
+      <p
+        style={{
+          fontFamily: "'Playfair Display', serif",
+          fontStyle: "italic",
+          fontSize: "15px",
+          lineHeight: 1.85,
+          color: "#D0C8C0",
+          fontWeight: 400,
+          position: "relative",
+        }}
+      >
+        &ldquo;{quote}&rdquo;
+      </p>
+      <Attribution author={author} work={work} category={category} />
     </div>
   );
 }
 
-// Layout: LIST — intro + bullet items + outro
-function ListPost({ intro, items, outro, tag }: { intro: string; items: string[]; outro: string; tag: string }) {
+function QuoteCardPullquote({ quote, author, work, category }: { quote: string; author: string; work: string; category: string }) {
   return (
     <div
       style={{
-        width: "100%",
-        height: "100%",
-        background: "#1A1A1A",
-        position: "relative",
+        background: "#080808",
+        borderLeft: `3px solid ${getCategoryColor(category)}`,
+        padding: "32px 32px 32px 28px",
         display: "flex",
         flexDirection: "column",
+        minHeight: "260px",
+        position: "relative",
+      }}
+    >
+      <p
+        style={{
+          fontFamily: "'Playfair Display', serif",
+          fontStyle: "italic",
+          fontWeight: 600,
+          fontSize: "18px",
+          lineHeight: 1.75,
+          color: "#F0F0EE",
+        }}
+      >
+        {quote}
+      </p>
+      <Attribution author={author} work={work} category={category} />
+    </div>
+  );
+}
+
+function QuoteCardBoldLine({ quote, author, work, category }: { quote: string; author: string; work: string; category: string }) {
+  return (
+    <div
+      style={{
+        background: "#080808",
+        padding: "32px",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "260px",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `radial-gradient(ellipse at top left, ${getCategoryColor(category)}18 0%, transparent 60%)`,
+          pointerEvents: "none",
+        }}
+      />
+      <p
+        style={{
+          fontFamily: "'Bebas Neue', sans-serif",
+          fontSize: "clamp(2.2rem, 4vw, 3rem)",
+          lineHeight: 0.92,
+          letterSpacing: "0.015em",
+          color: "#FFFFFF",
+          textTransform: "uppercase",
+          position: "relative",
+        }}
+      >
+        {quote.split(" ").map((word, i, arr) =>
+          i === arr.length - 1 ? (
+            <span key={i} style={{ color: getCategoryColor(category) }}>{word} </span>
+          ) : (
+            <span key={i}>{word} </span>
+          )
+        )}
+      </p>
+      <Attribution author={author} work={work} category={category} />
+    </div>
+  );
+}
+
+function QuoteCardMinimal({ quote, author, work, category }: { quote: string; author: string; work: string; category: string }) {
+  return (
+    <div
+      style={{
+        background: "#1A1A1A",
+        padding: "32px",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "220px",
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: "24px",
+          right: "24px",
+          width: "18px",
+          height: "18px",
+          borderTop: `1px solid ${getCategoryColor(category)}40`,
+          borderRight: `1px solid ${getCategoryColor(category)}40`,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "24px",
+          left: "24px",
+          width: "18px",
+          height: "18px",
+          borderBottom: `1px solid ${getCategoryColor(category)}40`,
+          borderLeft: `1px solid ${getCategoryColor(category)}40`,
+        }}
+      />
+      <p
+        style={{
+          fontFamily: "'Playfair Display', serif",
+          fontStyle: "italic",
+          fontSize: "15px",
+          lineHeight: 1.9,
+          color: "#C0B8B0",
+          fontWeight: 500,
+        }}
+      >
+        {quote}
+      </p>
+      <Attribution author={author} work={work} category={category} />
+    </div>
+  );
+}
+
+function QuoteCardSplit({ top, bottom, author, work, category }: { top: string; bottom: string; author: string; work: string; category: string }) {
+  return (
+    <div
+      style={{
+        background: "#080808",
+        padding: "32px",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "260px",
+        textAlign: "center",
+        alignItems: "center",
         justifyContent: "center",
-        padding: "40px",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "radial-gradient(ellipse at center, rgba(242,175,198,0.05) 0%, transparent 65%)",
+          pointerEvents: "none",
+        }}
+      />
+      <p
+        style={{
+          fontFamily: "'Playfair Display', serif",
+          fontStyle: "italic",
+          fontSize: "17px",
+          lineHeight: 1.7,
+          color: "#7A7A7A",
+          marginBottom: "16px",
+        }}
+      >
+        {top}
+      </p>
+      <div
+        style={{
+          width: "40px",
+          height: "1px",
+          background: getCategoryColor(category),
+          opacity: 0.6,
+          marginBottom: "16px",
+        }}
+      />
+      <p
+        style={{
+          fontFamily: "'Playfair Display', serif",
+          fontStyle: "italic",
+          fontWeight: 700,
+          fontSize: "19px",
+          lineHeight: 1.6,
+          color: getCategoryColor(category),
+          marginBottom: "24px",
+        }}
+      >
+        {bottom}
+      </p>
+      <Attribution author={author} work={work} category={category} />
+    </div>
+  );
+}
+
+function QuoteCardVerse({ quote, author, work, category }: { quote: string; author: string; work: string; category: string }) {
+  return (
+    <div
+      style={{
+        background: "#0D0D0D",
+        border: `1px solid ${getCategoryColor(category)}22`,
+        padding: "32px",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "220px",
+        position: "relative",
       }}
     >
       <div
         style={{
           position: "absolute",
           top: 0,
+          left: 0,
           right: 0,
-          width: "50%",
-          height: "100%",
-          background: "radial-gradient(ellipse at right, rgba(242,175,198,0.04) 0%, transparent 60%)",
-          pointerEvents: "none",
-        }}
-      />
-      <TagBadge tag={tag} />
-      <p
-        style={{
-          marginTop: "24px",
-          fontFamily: "'DM Sans', sans-serif",
-          fontSize: "12px",
-          fontWeight: 700,
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          color: "#6B6B6B",
-          marginBottom: "20px",
-        }}
-      >
-        {intro}
-      </p>
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        {items.map((item, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "14px" }}>
-            <span
-              style={{
-                marginTop: "9px",
-                width: "4px",
-                height: "4px",
-                borderRadius: "50%",
-                background: "#F2AFC6",
-                flexShrink: 0,
-              }}
-            />
-            <p
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontStyle: "italic",
-                fontSize: "18px",
-                lineHeight: 1.6,
-                color: "#E8E0D5",
-              }}
-            >
-              {item}
-            </p>
-          </div>
-        ))}
-      </div>
-      {outro && (
-        <p
-          style={{
-            marginTop: "24px",
-            fontFamily: "'Playfair Display', serif",
-            fontStyle: "italic",
-            fontSize: "15px",
-            lineHeight: 1.7,
-            color: "#9A9A9A",
-            whiteSpace: "pre-line",
-          }}
-        >
-          {outro}
-        </p>
-      )}
-      <PetalLine />
-      <BrandMark />
-    </div>
-  );
-}
-
-// Layout: SPLIT — two-part contrast quote
-function SplitPost({ top, bottom, tag }: { top: string; bottom: string; tag: string }) {
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background: "#080808",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "40px",
-        textAlign: "center",
-      }}
-    >
-      {/* Glow center */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "radial-gradient(ellipse at center, rgba(242,175,198,0.06) 0%, transparent 65%)",
-          pointerEvents: "none",
-        }}
-      />
-      <TagBadge tag={tag} />
-      <p
-        style={{
-          fontFamily: "'Playfair Display', serif",
-          fontStyle: "italic",
-          fontWeight: 600,
-          fontSize: "24px",
-          lineHeight: 1.6,
-          color: "#9A9A9A",
-          whiteSpace: "pre-line",
-          marginBottom: "20px",
-        }}
-      >
-        {top}
-      </p>
-      {/* Divider */}
-      <div
-        style={{
-          width: "60px",
           height: "1px",
-          background: "#F2AFC6",
-          opacity: 0.5,
-          marginBottom: "20px",
+          background: `linear-gradient(90deg, transparent, ${getCategoryColor(category)}, transparent)`,
+          opacity: 0.4,
         }}
       />
       <p
         style={{
           fontFamily: "'Playfair Display', serif",
           fontStyle: "italic",
-          fontWeight: 700,
-          fontSize: "26px",
-          lineHeight: 1.5,
-          color: "#F2AFC6",
-          whiteSpace: "pre-line",
-        }}
-      >
-        {bottom}
-      </p>
-      <PetalLine />
-      <BrandMark />
-    </div>
-  );
-}
-
-// Layout: MINIMAL — sparse, luxury whitespace
-function MinimalPost({ quote, tag }: { quote: string; tag: string }) {
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background: "#080808",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "60px",
-        textAlign: "center",
-      }}
-    >
-      <TagBadge tag={tag} />
-      {/* Corner accents */}
-      <div style={{ position: "absolute", top: "24px", right: "24px", width: "20px", height: "20px", borderTop: "1px solid rgba(242,175,198,0.3)", borderRight: "1px solid rgba(242,175,198,0.3)" }} />
-      <div style={{ position: "absolute", bottom: "24px", left: "24px", width: "20px", height: "20px", borderBottom: "1px solid rgba(242,175,198,0.3)", borderLeft: "1px solid rgba(242,175,198,0.3)" }} />
-      <p
-        style={{
-          fontFamily: "'Playfair Display', serif",
-          fontStyle: "italic",
-          fontWeight: 600,
-          fontSize: "26px",
-          lineHeight: 1.8,
+          fontSize: "16px",
+          lineHeight: 1.85,
           color: "#E8E0D5",
-          whiteSpace: "pre-line",
+          fontWeight: 400,
         }}
       >
         {quote}
       </p>
-      <BrandMark />
+      <Attribution author={author} work={work} category={category} />
     </div>
   );
 }
 
-function renderPost(post: (typeof posts)[number]) {
-  switch (post.layout) {
-    case "bold":
-      return <BoldPost lines={(post as any).lines} sub={(post as any).sub} tag={post.tag} />;
-    case "quote":
-      return <QuotePost quote={(post as any).quote} tag={post.tag} />;
-    case "list":
-      return <ListPost intro={(post as any).intro} items={(post as any).items} outro={(post as any).outro} tag={post.tag} />;
-    case "split":
-      return <SplitPost top={(post as any).top} bottom={(post as any).bottom} tag={post.tag} />;
+function renderCard(q: (typeof quotes)[number]) {
+  switch (q.layout) {
+    case "pullquote":
+      return <QuoteCardPullquote quote={q.quote} author={q.author} work={q.work} category={q.category} />;
+    case "bold-line":
+      return <QuoteCardBoldLine quote={q.quote} author={q.author} work={q.work} category={q.category} />;
     case "minimal":
-      return <MinimalPost quote={(post as any).quote} tag={post.tag} />;
+      return <QuoteCardMinimal quote={q.quote} author={q.author} work={q.work} category={q.category} />;
+    case "split":
+      return <QuoteCardSplit top={(q as any).top} bottom={(q as any).bottom} author={q.author} work={q.work} category={q.category} />;
+    case "verse":
+      return <QuoteCardVerse quote={q.quote} author={q.author} work={q.work} category={q.category} />;
     default:
-      return null;
+      return <QuoteCardStandard quote={q.quote} author={q.author} work={q.work} category={q.category} />;
   }
 }
 
-export default function PostsPage() {
+const categories = Array.from(new Set(quotes.map((q) => q.category))).sort();
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
+export default function QuotesPage() {
   return (
     <div className="min-h-screen bg-void px-6 py-28 md:px-12">
       <div className="mx-auto max-w-[1400px]">
+
         {/* Header */}
-        <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">Brand Assets</p>
+        <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">Words Worth Keeping</p>
         <h1
           className="mt-4 font-display uppercase tracking-[0.02em] text-white"
           style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.88 }}
         >
-          Instagram
+          Quotes That
           <br />
-          <span className="text-petal">Posts</span>
+          <span className="text-petal">Refuse to Be Quiet</span>
         </h1>
-        <p className="mt-6 font-body text-sm font-light leading-7 text-smoke" style={{ maxWidth: "52ch" }}>
-          Each card is rendered at display size. To export at 1080×1080: right-click → Inspect → set device width to 1080px, then screenshot. Or use browser zoom at 200% and screenshot the 540px card.
+        <p className="mt-6 font-body text-sm font-light leading-7 text-smoke" style={{ maxWidth: "56ch" }}>
+          Theologians, philosophers, writers, and prophets — people who put language around things most of us only feel. Collected here because good words deserve to outlast the moment they were written in.
         </p>
 
-        <div className="mt-4 border-t border-graphite pt-4">
-          <p className="font-mono text-[0.65rem] tracking-[0.2em] text-iron">
-            {posts.length} POSTS &middot; 5 LAYOUTS &middot; BRAND COLORS
-          </p>
-        </div>
-
-        {/* Posts grid */}
-        <div
-          className="mt-16"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, 540px)",
-            gap: "48px",
-          }}
-        >
-          {posts.map((post) => (
-            <PostWrapper key={post.id} id={post.id}>
-              {renderPost(post)}
-            </PostWrapper>
+        {/* Category filter row */}
+        <div className="mt-8 flex flex-wrap gap-2 border-t border-graphite pt-6">
+          {categories.map((cat) => (
+            <span
+              key={cat}
+              style={{ borderColor: `${getCategoryColor(cat)}30` }}
+              className="border px-3 py-1 font-body text-[0.58rem] font-semibold uppercase tracking-[0.2em] text-ash"
+            >
+              {cat}
+            </span>
           ))}
         </div>
 
-        {/* Export note */}
-        <div className="mt-20 border-t border-graphite pt-8">
-          <p className="font-body text-xs font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
-            <span className="font-semibold text-ash">To export for Instagram:</span> Open browser DevTools → toggle device toolbar → set width to 1080px → screenshot each card individually. For best results use a browser extension like GoFullPage or Nimbus Screenshot.
+        <div className="mt-3 border-t border-graphite pt-4">
+          <p className="font-mono text-[0.65rem] tracking-[0.2em] text-iron">
+            {quotes.length} QUOTES &middot; THEOLOGIANS, PHILOSOPHERS &amp; WRITERS
           </p>
         </div>
+
+        {/* Masonry-style grid */}
+        <div
+          className="mt-14"
+          style={{
+            columns: "360px",
+            columnGap: "20px",
+          }}
+        >
+          {quotes.map((q) => (
+            <div
+              key={q.id}
+              style={{
+                breakInside: "avoid",
+                marginBottom: "20px",
+              }}
+            >
+              {renderCard(q)}
+            </div>
+          ))}
+        </div>
+
+        {/* Footer note */}
+        <div className="mt-16 border-t border-graphite pt-8">
+          <p className="font-body text-xs font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
+            <span className="font-semibold text-ash">A living collection.</span> These words are returned to often — in client work, in essays, in the thinking that happens before the writing. If something here stays with you, that's the point.
+          </p>
+        </div>
+
       </div>
     </div>
   );

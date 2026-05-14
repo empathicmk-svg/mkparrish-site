@@ -15,7 +15,7 @@ const navLinks = [
   { label: "Writing",      href: "/writing" },
   { label: "Shop",         href: "/shop" },
   { label: "The Margins",  href: "/margins" },
-  { label: "Posts",        href: "/posts" },
+  { label: "Quotes",       href: "/posts" },
   { label: "About",        href: "/about" },
   { label: "Contact",      href: "/contact" },
 ];
