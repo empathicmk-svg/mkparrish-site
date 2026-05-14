@@ -82,41 +82,6 @@ function StatCounter({ value, suffix, label }: { value: number; suffix: string; 
   );
 }
 
-// ── Testimonial card ─────────────────────────────────────────────────────────
-function TestimonialCard({
-  quote,
-  name,
-  role,
-  result,
-  tag,
-}: {
-  quote: string;
-  name: string;
-  role: string;
-  result: string;
-  tag: string;
-}) {
-  return (
-    <div className="group relative flex flex-col justify-between bg-obsidian p-8 transition-colors duration-200 hover:bg-carbon">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal/30 to-transparent" />
-      <div>
-        <span className="select-none font-serif text-[3.5rem] leading-none text-petal/[0.12]">&ldquo;</span>
-        <p className="mt-1 font-serif italic text-sm leading-7 text-smoke">{quote}</p>
-      </div>
-      <div className="mt-6 flex items-end justify-between gap-4 border-t border-graphite pt-5">
-        <div>
-          <p className="font-display text-base uppercase tracking-[0.02em] text-pearl">{name}</p>
-          <p className="mt-0.5 font-body text-[0.65rem] text-ash">{role}</p>
-        </div>
-        <div className="text-right shrink-0">
-          <p className="font-display text-lg leading-tight text-petal">{result}</p>
-          <p className="mt-0.5 font-body text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-iron">{tag}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // ── Word cycling words ────────────────────────────────────────────────────────
 const CYCLE_WORDS = ["Career", "Brand", "Story", "Future", "Narrative"];
 
@@ -187,58 +152,6 @@ const processSteps = [
     num: "04",
     title: "Launch",
     desc: "Final files, formatted for every platform. Plus a 30-day check-in to see it landing.",
-  },
-];
-
-// ── Testimonials data ────────────────────────────────────────────────────────
-const testimonials = [
-  {
-    quote:
-      "Before MK, my LinkedIn was a digital resume no one was reading. Within 30 days of the rewrite, I had three inbound partnership conversations — one turned into a $180K contract.",
-    name: "Jamie R.",
-    role: "Founder, B2B SaaS",
-    result: "$180K contract",
-    tag: "The Rewrite",
-  },
-  {
-    quote:
-      "I had been invisible on LinkedIn for two years. After six weeks working with MK, people in my industry were actually reaching out to me first. I went from 2 inbound leads a month to 14.",
-    name: "Marcus T.",
-    role: "VP of Marketing",
-    result: "7× inbound leads",
-    tag: "The Byline",
-  },
-  {
-    quote:
-      "I was pivoting from corporate law to independent consulting and couldn't figure out how to tell the story. MK turned the career change from a liability into the whole point. I booked my first three clients within 45 days.",
-    name: "Sarah L.",
-    role: "Independent Consultant",
-    result: "3 clients in 45 days",
-    tag: "The New Chapter",
-  },
-  {
-    quote:
-      "The Rewrite paid for itself in the first consultation I booked after updating my bio. I've since raised my rates 40%. My copy now sounds like the version of me I was already charging for.",
-    name: "Dr. Amara O.",
-    role: "Executive Coach",
-    result: "40% rate increase",
-    tag: "The Rewrite",
-  },
-  {
-    quote:
-      "I hired two other copywriters before MK. Both times I got something generic that sounded nothing like me. The first draft from this engagement — I read it and actually recognized myself.",
-    name: "Dean K.",
-    role: "Creative Director",
-    result: "Voice-first brand",
-    tag: "The Build",
-  },
-  {
-    quote:
-      "We launched the new site on a Tuesday. By Friday we had two qualified inbound leads from the homepage alone. That had never happened before in three years of running the agency.",
-    name: "Priya M.",
-    role: "Agency Founder",
-    result: "2 leads in 4 days",
-    tag: "The Build",
   },
 ];
 
@@ -479,7 +392,7 @@ export default function Home() {
 
           {/* Social proof strip */}
           <div className="mt-12 flex flex-wrap items-center gap-6 border-t border-graphite pt-8">
-            {["200+ Clients", "$6-Figure Results", "5 Service Tracks", "6 Digital Products"].map((item) => (
+            {["Copy", "Brand Strategy", "Web Design", "Ghostwriting", "Digital Products"].map((item) => (
               <span key={item} className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-ash">
                 {item}
               </span>
@@ -596,49 +509,8 @@ export default function Home() {
 
       <QuoteDivider index={2} />
 
-      {/* ── TESTIMONIALS ─────────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="03">
-        <Eyebrow>Client Results</Eyebrow>
-        <H2>
-          Real people.{" "}
-          <span className="text-petal">Real rewrites.</span>
-        </H2>
-        <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "58ch" }}>
-          The proof isn&apos;t in the portfolio. It&apos;s in the pipeline — the calls booked, the rates raised, the opportunities that started showing up after the words finally matched the work.
-        </p>
-
-        <div className="grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.slice(0, 3).map((t) => (
-            <TestimonialCard key={t.name} {...t} />
-          ))}
-        </div>
-        <div className="mt-px grid gap-px bg-graphite md:grid-cols-3">
-          {testimonials.slice(3).map((t) => (
-            <TestimonialCard key={t.name} {...t} />
-          ))}
-        </div>
-
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
-          <div className="flex flex-wrap gap-6">
-            {[
-              { num: "200+", label: "Clients Served" },
-              { num: "$6M+", label: "Revenue Attributed" },
-              { num: "92%", label: "Repeat or Referral" },
-            ].map((s) => (
-              <div key={s.label} className="flex flex-col gap-1">
-                <span className="font-display text-3xl text-petal">{s.num}</span>
-                <span className="font-body text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-ash">{s.label}</span>
-              </div>
-            ))}
-          </div>
-          <BtnPrimary href="/book">Get Your Results →</BtnPrimary>
-        </div>
-      </RevealSection>
-
-      <QuoteDivider index={7} />
-
       {/* ── SERVICES ─────────────────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="04">
+      <RevealSection bg="obsidian" num="03">
         <Eyebrow>Every way to work with me</Eyebrow>
         <H2>
           Six services.{" "}
@@ -664,7 +536,7 @@ export default function Home() {
       </RevealSection>
 
       {/* ── REVENUE SYSTEMS ──────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="05">
+      <RevealSection bg="void" num="04">
         <Eyebrow>Revenue &amp; Growth Systems</Eyebrow>
         <H2>
           Build the machine,{" "}
@@ -692,7 +564,7 @@ export default function Home() {
       <QuoteDivider index={3} />
 
       {/* ── PROCESS ──────────────────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="06">
+      <RevealSection bg="obsidian" num="05">
         <Eyebrow>How It Works</Eyebrow>
         <H2>
           From unclear to{" "}
@@ -727,7 +599,7 @@ export default function Home() {
       <QuoteDivider index={6} />
 
       {/* ── THE SHOP ─────────────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="07">
+      <RevealSection bg="void" num="06">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr]">
           <div>
             <Eyebrow>The Shop — Digital Products</Eyebrow>
@@ -776,7 +648,7 @@ export default function Home() {
       <QuoteDivider index={14} />
 
       {/* ── THE MARGINS ──────────────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="08">
+      <RevealSection bg="obsidian" num="07">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <Eyebrow>The private side</Eyebrow>
@@ -828,7 +700,7 @@ export default function Home() {
       <QuoteDivider index={4} />
 
       {/* ── WRITING ──────────────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="09">
+      <RevealSection bg="void" num="08">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <Eyebrow>The personal work</Eyebrow>

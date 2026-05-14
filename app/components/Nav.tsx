@@ -55,7 +55,6 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
   {
     label: "More",
     links: [
-      { label: "Results",  href: "/results" },
       { label: "Shop",    href: "/shop" },
       { label: "About",   href: "/about" },
       { label: "Contact", href: "/contact" },
@@ -305,15 +304,6 @@ export default function Nav() {
                 ))}
               </div>
             </div>
-
-            <Link
-              href="/results"
-              className={`nav-link whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
-                isActive("/results") ? "active text-pearl" : "text-ash"
-              }`}
-            >
-              Results
-            </Link>
 
             <Link
               href="/about"
