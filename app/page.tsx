@@ -719,14 +719,19 @@ export default function Home() {
               className="font-serif italic text-pearl"
               style={{ fontSize: "clamp(1.05rem,2.2vw,1.3rem)", lineHeight: 1.95, fontWeight: 500 }}
             >
-              Promise me I do not have to keep earning basic love.<br />
-              Promise me I do not have to perform my way into being chosen.<br />
+              She did not wait to be described.<br />
+              She picked up the pen<br />
+              while they were still deciding<br />
+              what kind of woman she was.<br />
               <br />
-              Promise me I can finally give myself<br />
-              what I kept begging other people to give me.
+              This is not a revision. Not a rescue.<br />
+              <br />
+              The first draft,<br />
+              finally in her own hand —<br />
+              and it does not need their permission to be true.
             </p>
             <p className="mt-6 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">
-              — Promise Me
+              — The Original
             </p>
           </div>
         </div>
