@@ -14,8 +14,8 @@ const navLinks = [
   { label: "LinkedIn",     href: "/linkedin" },
   { label: "Writing",      href: "/writing" },
   { label: "Shop",         href: "/shop" },
+  { label: "Scripture",    href: "/scripture" },
   { label: "The Margins",  href: "/margins" },
-  { label: "Posts",        href: "/posts" },
   { label: "About",        href: "/about" },
   { label: "Contact",      href: "/contact" },
 ];

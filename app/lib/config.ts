@@ -31,6 +31,41 @@ export const GR_BRAND_VOICE           = "https://mkparrish.gumroad.com/l/brand-v
 export const GR_ANGEL_NUMBERS         = "https://mkparrish.gumroad.com/l/decoding-angel-numbers";
 export const GR_THE_VAULT             = "https://mkparrish.gumroad.com/l/the-vault"; // bundle
 
+// ── Gumroad — service companion ebooks ───────────────────────────────────────
+export const GR_EDIT_GUIDE            = "https://mkparrish.gumroad.com/l/the-edit-guide";
+export const GR_BEFORE_SESSION        = "https://mkparrish.gumroad.com/l/before-the-session";
+export const GR_REWRITE_PLAYBOOK      = "https://mkparrish.gumroad.com/l/the-rewrite-playbook";
+export const GR_NEW_CHAPTER_WORKBOOK  = "https://mkparrish.gumroad.com/l/the-new-chapter-workbook";
+export const GR_BYLINE_METHOD         = "https://mkparrish.gumroad.com/l/the-byline-method";
+export const GR_BUILD_COPY_GUIDE      = "https://mkparrish.gumroad.com/l/the-build-copy-guide";
+export const GR_SERVICES_VAULT        = "https://mkparrish.gumroad.com/l/the-services-vault";
+
+// ── Gumroad — Scripture & Strategy ebooks ────────────────────────────────────
+export const GR_THE_STUDY             = "https://mkparrish.gumroad.com/l/the-study";
+export const GR_GOSPEL_AND_GRIND      = "https://mkparrish.gumroad.com/l/gospel-and-grind";
+export const GR_SERMON_NOTES          = "https://mkparrish.gumroad.com/l/the-sermon-notes";
+export const GR_CALLING_CARD          = "https://mkparrish.gumroad.com/l/the-calling-card";
+export const GR_MINISTRY_MONETIZED    = "https://mkparrish.gumroad.com/l/ministry-monetized";
+export const GR_SCRIPTURE_BUNDLE      = "https://mkparrish.gumroad.com/l/scripture-strategy-bundle";
+
+// ── Products not yet live on Gumroad ─────────────────────────────────────────
+// Remove a slug from this set once the Gumroad product URL is live.
+export const COMING_SOON_SLUGS = new Set([
+  "the-edit-guide",
+  "before-the-session",
+  "the-rewrite-playbook",
+  "the-new-chapter-workbook",
+  "the-byline-method",
+  "the-build-copy-guide",
+  "the-services-vault",
+  "the-study",
+  "gospel-and-grind",
+  "the-sermon-notes",
+  "the-calling-card",
+  "ministry-monetized",
+  "scripture-strategy-bundle",
+]);
+
 // ── Ko-fi — prints & merch ───────────────────────────────────────────────────
 export const SHOP_URL           = "https://ko-fi.com/mkparrish/shop";
 export const KOFI_PROMISE_ME    = "https://ko-fi.com/mkparrish/shop";
@@ -141,6 +176,222 @@ export const EBOOKS = [
       "Decoding Angel Numbers — plus any future releases",
     ],
     desc: "The full library. Every framework, every guide, every word. One price.",
+  },
+] as const;
+
+// ── Service companion ebooks — DIY versions of each consulting service ────────
+export const SERVICE_EBOOKS = [
+  {
+    slug:      "the-edit-guide",
+    title:     "The Edit: DIY Edition",
+    subtitle:  "The copy editing framework MK uses with clients — done yourself.",
+    price:     "$22",
+    tag:       "Self-Serve",
+    highlight: false,
+    href:      GR_EDIT_GUIDE,
+    features:  [
+      "Copy audit checklist for any piece of writing",
+      "Word-level edits for brand voice alignment",
+      "Line-edit framework used in real client work",
+      "Instant PDF download via Gumroad",
+    ],
+    desc: "The same eye MK brings to client copy — translated into a framework you can run yourself. Covers bios, emails, LinkedIn, and landing pages.",
+  },
+  {
+    slug:      "before-the-session",
+    title:     "Before the Session",
+    subtitle:  "The pre-work that turns a strategy session into something you actually use.",
+    price:     "$18",
+    tag:       "Strategy Prep",
+    highlight: false,
+    href:      GR_BEFORE_SESSION,
+    features:  [
+      "Identity and positioning self-audit",
+      "Brand clarity questions (the ones that change how you see yourself)",
+      "Goal-setting framework for a 60-minute session",
+      "Instant PDF download via Gumroad",
+    ],
+    desc: "For the woman who books a strategy session and wants to arrive ready. This workbook extracts the clarity before the conversation starts.",
+  },
+  {
+    slug:      "the-rewrite-playbook",
+    title:     "The Rewrite Playbook",
+    subtitle:  "A self-guided LinkedIn and professional story overhaul — the full thing.",
+    price:     "$45",
+    tag:       "Deep Work",
+    highlight: true,
+    href:      GR_REWRITE_PLAYBOOK,
+    features:  [
+      "Full story audit framework (career, identity, pivot narrative)",
+      "LinkedIn profile optimization — every section covered",
+      "Bio rewrite templates with real client examples",
+      "Positioning statement builder from scratch",
+    ],
+    desc: "The Rewrite service — packaged as a self-guided process. For the executive, founder, or career-changer who is ready to do the work.",
+  },
+  {
+    slug:      "the-new-chapter-workbook",
+    title:     "The New Chapter Workbook",
+    subtitle:  "The brand and website repositioning framework — run it yourself.",
+    price:     "$35",
+    tag:       "Brand Repositioning",
+    highlight: false,
+    href:      GR_NEW_CHAPTER_WORKBOOK,
+    features:  [
+      "Brand audit + positioning map",
+      "Website copy architecture (page by page)",
+      "Voice and messaging clarity framework",
+      "Full launch copy checklist",
+    ],
+    desc: "What it looks like to reposition a brand from the inside out. Exercises, frameworks, and copy prompts for a full reset.",
+  },
+  {
+    slug:      "the-byline-method",
+    title:     "The Byline Method",
+    subtitle:  "The voice capture and ghostwriting framework — documented for the first time.",
+    price:     "$38",
+    tag:       "Ghostwriting",
+    highlight: false,
+    href:      GR_BYLINE_METHOD,
+    features:  [
+      "Voice capture interview questions (used with every ghostwriting client)",
+      "Tone calibration guide across formats",
+      "Writing-in-voice framework for consistent output",
+      "Editorial calendar templates for ongoing content",
+    ],
+    desc: "For writers, content leads, and founders who write for others. The exact method used to capture and maintain someone else's voice at scale.",
+  },
+  {
+    slug:      "the-build-copy-guide",
+    title:     "The Build: Copy Guide",
+    subtitle:  "Every page, every section, every word of a full website — written yourself.",
+    price:     "$45",
+    tag:       "Website Copy",
+    highlight: false,
+    href:      GR_BUILD_COPY_GUIDE,
+    features:  [
+      "Page-by-page copy architecture (home, about, services, contact)",
+      "SEO-informed headline and subheadline frameworks",
+      "CTA writing guide that converts without pressure tactics",
+      "Complete copy review checklist before launch",
+    ],
+    desc: "The website copy framework behind The Build service. For founders building their first site or relaunching and needing every word to work.",
+  },
+  {
+    slug:      "the-services-vault",
+    title:     "The Services Vault",
+    subtitle:  "All six service companion guides — the complete DIY consulting library.",
+    price:     "$127",
+    tag:       "Best Value",
+    highlight: false,
+    href:      GR_SERVICES_VAULT,
+    features:  [
+      "All 6 service guides included (every method, every framework)",
+      "The Edit + Before the Session + The Rewrite Playbook",
+      "The New Chapter + The Byline Method + The Build Copy Guide",
+      "Future service guide releases included",
+    ],
+    desc: "Every consulting framework documented and packaged for self-study. For the woman who is ready to do the full work — on her own timeline.",
+  },
+] as const;
+
+// ── Scripture & Strategy — Bible study ebook brand ───────────────────────────
+export const SCRIPTURE_EBOOKS = [
+  {
+    slug:      "the-study",
+    title:     "The Study",
+    subtitle:  "A modern guide to building a Bible study practice that actually sticks — on your own terms.",
+    price:     "$18",
+    tag:       "Start Here",
+    highlight: true,
+    href:      GR_THE_STUDY,
+    features:  [
+      "5 Bible study methods decoded (no seminary required)",
+      "Daily and weekly study templates",
+      "No-church-required, no-guilt-required approach",
+      "Instant PDF download via Gumroad",
+    ],
+    desc: "For the woman who wants to study Scripture but has never found a method that fits her brain, her schedule, or her skepticism. This is the entry point.",
+  },
+  {
+    slug:      "gospel-and-grind",
+    title:     "Gospel & Grind",
+    subtitle:  "Build a profitable practice grounded in what you believe — without feeling like you're selling your faith.",
+    price:     "$28",
+    tag:       "Faith + Business",
+    highlight: false,
+    href:      GR_GOSPEL_AND_GRIND,
+    features:  [
+      "Faith-to-brand alignment framework",
+      "Monetization without manipulation guide",
+      "Values-based positioning for faith entrepreneurs",
+      "Instant PDF download via Gumroad",
+    ],
+    desc: "For the faith-driven entrepreneur who wants income and integrity in the same sentence. How to build something real without watering yourself down.",
+  },
+  {
+    slug:      "the-sermon-notes",
+    title:     "The Sermon Notes",
+    subtitle:  "Turn your personal Bible study into content your audience wants — and that you can charge for.",
+    price:     "$25",
+    tag:       "Content Creation",
+    highlight: false,
+    href:      GR_SERMON_NOTES,
+    features:  [
+      "Study-to-content pipeline (how one passage becomes a month of material)",
+      "12 content format templates for faith creators",
+      "Email, social, and course conversion frameworks",
+      "Instant PDF download via Gumroad",
+    ],
+    desc: "What you study privately does not have to stay private. A complete system for turning your own Scripture practice into shareable, sellable content.",
+  },
+  {
+    slug:      "the-calling-card",
+    title:     "The Calling Card",
+    subtitle:  "Build a faith-informed brand voice that connects, converts, and stays true to who you are.",
+    price:     "$35",
+    tag:       "Brand Voice",
+    highlight: false,
+    href:      GR_CALLING_CARD,
+    features:  [
+      "Faith brand voice framework (full build from scratch)",
+      "Audience language mapping for faith-based markets",
+      "Platform-specific voice calibration guide",
+      "Complete annotated brand voice example included",
+    ],
+    desc: "The Brand Voice Playbook — reimagined for faith content creators, teachers, and coaches who need their words to reflect their values and move people to act.",
+  },
+  {
+    slug:      "ministry-monetized",
+    title:     "Ministry, Monetized",
+    subtitle:  "Launch, grow, and charge for your Bible study community — without losing the calling in the process.",
+    price:     "$42",
+    tag:       "Revenue Strategy",
+    highlight: false,
+    href:      GR_MINISTRY_MONETIZED,
+    features:  [
+      "Community launch playbook (from zero to paying members)",
+      "Pricing and positioning guide for faith-based offerings",
+      "Membership tier framework for Bible study groups",
+      "Launch copy templates that lead with mission, not money",
+    ],
+    desc: "The playbook for women who have been giving their Bible study away for free and are ready to build something sustainable around it.",
+  },
+  {
+    slug:      "scripture-strategy-bundle",
+    title:     "The Scripture & Strategy Bundle",
+    subtitle:  "All five Scripture & Strategy ebooks — the complete faith-to-income library.",
+    price:     "$97",
+    tag:       "Complete Library",
+    highlight: false,
+    href:      GR_SCRIPTURE_BUNDLE,
+    features:  [
+      "All 5 Scripture & Strategy ebooks included",
+      "The Study + Gospel & Grind + The Sermon Notes",
+      "The Calling Card + Ministry, Monetized",
+      "Future Scripture & Strategy releases included",
+    ],
+    desc: "From first study to full income. Every framework in the Scripture & Strategy collection — for the woman ready to build her faith practice into something that pays.",
   },
 ] as const;
 
