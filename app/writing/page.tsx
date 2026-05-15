@@ -11,7 +11,7 @@ import {
   BtnGhost,
   ArrowLink,
 } from "@/app/components/ui";
-import { PATREON_URL } from "@/app/lib/config";
+import { PATREON_URL, STRIPE_EDIT, STRIPE_REWRITE, STRIPE_BYLINE, STRIPE_NEW_CHAPTER, GR_INVISIBLE_BRUISE, GR_REINVENTION_WORKBOOK, GR_WRITE_YOURSELF, GR_BRAND_VOICE, GR_ANGEL_NUMBERS, GR_THE_VAULT } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "Writing — MK Parrish",
@@ -346,7 +346,7 @@ export default function WritingPage() {
 
       <QuoteDivider index={2} />
 
-      {/* ── THE MARGINS CTA ── */}
+      {/* ── THE MARGINS ── */}
       <RevealSection bg="void">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
@@ -401,6 +401,289 @@ export default function WritingPage() {
             >
               Join The Margins →
             </a>
+          </div>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={11} />
+
+      {/* ── DIGITAL PRODUCTS — live Gumroad links ── */}
+      <RevealSection bg="obsidian">
+        <Eyebrow>Instant downloads</Eyebrow>
+        <H2>
+          Shop the{" "}
+          <span className="text-petal">digital library.</span>
+        </H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "56ch" }}>
+          Every guide below is available right now. Click any title — checkout opens on the page, PDF lands in your inbox instantly.
+        </p>
+
+        <div className="mt-10 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { title: "The Invisible Bruise", price: "$22", desc: "8 chapters on surviving emotional abuse and rebuilding your identity. Written from inside it.", href: GR_INVISIBLE_BRUISE },
+            { title: "Write Yourself Into the Room", price: "$28", desc: "The personal brand writing guide for people tired of sounding like everyone else.", href: GR_WRITE_YOURSELF },
+            { title: "The Brand Voice Playbook", price: "$35", desc: "Build a brand voice document from scratch — the exact process used with clients.", href: GR_BRAND_VOICE },
+            { title: "The Reinvention Workbook", price: "$18", desc: "20 guided writing exercises for people in the middle of becoming someone new.", href: GR_REINVENTION_WORKBOOK },
+            { title: "Decoding Angel Numbers", price: "$15", desc: "A framework for decoding the patterns your intuition has been sending you.", href: GR_ANGEL_NUMBERS },
+            { title: "The Vault", price: "$97", desc: "All 5 ebooks in one bundle — every framework, every guide, every word.", href: GR_THE_VAULT },
+          ].map((product) => (
+            <a
+              key={product.title}
+              href={product.href}
+              data-gumroad-overlay-checkout="true"
+              className="group relative flex flex-col bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon"
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-40" />
+              <h3 className="font-display text-2xl uppercase tracking-[0.02em] text-pearl leading-tight">{product.title}</h3>
+              <p className="mt-2 font-display text-3xl text-petal">{product.price}</p>
+              <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{product.desc}</p>
+              <span className="mt-6 font-body text-xs font-bold uppercase tracking-[0.2em] text-petal/50 transition-colors group-hover:text-petal">
+                Buy Now — {product.price} →
+              </span>
+            </a>
+          ))}
+        </div>
+
+        <div className="mt-6 flex flex-wrap gap-4">
+          <BtnPrimary href="/shop">See All Products</BtnPrimary>
+          <ArrowLink href="/scripture">Scripture &amp; Strategy Collection →</ArrowLink>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={6} />
+
+      {/* ── CONSULTING SERVICES — active Stripe + booking links ── */}
+      <RevealSection bg="void">
+        <Eyebrow>Direct work</Eyebrow>
+        <H2>
+          Hire the{" "}
+          <span className="text-petal">writer.</span>
+        </H2>
+        <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "58ch" }}>
+          The ebooks are the self-serve option. For the full thing — your words, your story, your brand — MK takes on a limited number of direct clients. Every service below has an active link. Click and go.
+        </p>
+
+        <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              title: "The Edit",
+              price: "From $100",
+              tag: "Quick Fix",
+              desc: "Fast, precise copy fix on a single piece. 48-hour turnaround. Tighter, sharper, more you — guaranteed.",
+              href: STRIPE_EDIT,
+              cta: "Buy Now",
+              external: true,
+            },
+            {
+              title: "The Rewrite",
+              price: "From $1,500",
+              tag: "Most Requested",
+              desc: "Full LinkedIn and professional story overhaul. The service that has repositioned 200+ executives and founders.",
+              href: STRIPE_REWRITE,
+              cta: "Buy Now",
+              external: true,
+            },
+            {
+              title: "The New Chapter",
+              price: "Custom",
+              tag: "Full Reset",
+              desc: "Complete brand and website repositioning. For the founder who has outgrown everything she built.",
+              href: STRIPE_NEW_CHAPTER,
+              cta: "Get Started",
+              external: true,
+            },
+            {
+              title: "The Byline",
+              price: "From $1,500/mo",
+              tag: "Ongoing",
+              desc: "Monthly ghostwriting retainer. Your voice, your name, MK writing it — consistently, every month.",
+              href: STRIPE_BYLINE,
+              cta: "Buy Now",
+              external: true,
+            },
+            {
+              title: "The Session",
+              price: "$250",
+              tag: "Power Hour",
+              desc: "60-minute strategy session. Positioning, copy, voice, or brand — one focused hour that moves things.",
+              href: "/book",
+              cta: "Book Now",
+              external: false,
+            },
+            {
+              title: "The Build",
+              price: "From $3,500",
+              tag: "Full Site",
+              desc: "Full website design and copy together. Not a template. Built from your story, your voice, your clients.",
+              href: "/book",
+              cta: "Book a Call",
+              external: false,
+            },
+          ].map((s) => (
+            <a
+              key={s.title}
+              href={s.href}
+              target={s.external ? "_blank" : undefined}
+              rel={s.external ? "noreferrer" : undefined}
+              className="group relative flex flex-col bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon"
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-40" />
+              <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">{s.tag}</p>
+              <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl leading-tight">{s.title}</h3>
+              <p className="mt-1 font-display text-2xl text-petal">{s.price}</p>
+              <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{s.desc}</p>
+              <span className="mt-6 font-body text-xs font-bold uppercase tracking-[0.2em] text-petal/50 transition-colors group-hover:text-petal">
+                {s.cta} →
+              </span>
+            </a>
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-4">
+          <BtnPrimary href="/book">Book a Strategy Call</BtnPrimary>
+          <BtnGhost href="/contact">Get in Touch</BtnGhost>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={3} />
+
+      {/* ── FULL SITE NAVIGATION ── */}
+      <RevealSection bg="obsidian">
+        <Eyebrow>Everything MK does</Eyebrow>
+        <H2>
+          Explore the{" "}
+          <span className="text-petal">full site.</span>
+        </H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "56ch" }}>
+          Every page, every service, every product — in one place. All links active.
+        </p>
+
+        <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-4">
+          {/* Services */}
+          <div className="flex flex-col bg-void p-8">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-petal">Services</p>
+            <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">Direct work. Real copy. Your story, rewritten by someone who actually writes.</p>
+            <nav className="mt-6 flex flex-col gap-3">
+              {[
+                { label: "The Edit — From $100", href: STRIPE_EDIT, external: true },
+                { label: "The Session — $250", href: "/book", external: false },
+                { label: "The Rewrite — From $1,500", href: STRIPE_REWRITE, external: true },
+                { label: "The New Chapter — Custom", href: STRIPE_NEW_CHAPTER, external: true },
+                { label: "The Byline — From $1,500/mo", href: STRIPE_BYLINE, external: true },
+                { label: "The Build — From $3,500", href: "/book", external: false },
+              ].map((l) => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  target={l.external ? "_blank" : undefined}
+                  rel={l.external ? "noreferrer" : undefined}
+                  className="font-body text-xs font-light text-ash transition hover:text-pearl"
+                >
+                  {l.label} →
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          {/* Digital Products */}
+          <div className="flex flex-col bg-void p-8">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-petal">Digital Products</p>
+            <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">Instant downloads via Gumroad. Pay once, access forever.</p>
+            <nav className="mt-6 flex flex-col gap-3">
+              {[
+                { label: "The Invisible Bruise — $22", href: GR_INVISIBLE_BRUISE },
+                { label: "Write Yourself Into the Room — $28", href: GR_WRITE_YOURSELF },
+                { label: "The Brand Voice Playbook — $35", href: GR_BRAND_VOICE },
+                { label: "The Reinvention Workbook — $18", href: GR_REINVENTION_WORKBOOK },
+                { label: "Decoding Angel Numbers — $15", href: GR_ANGEL_NUMBERS },
+                { label: "The Vault Bundle — $97", href: GR_THE_VAULT },
+              ].map((l) => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  data-gumroad-overlay-checkout="true"
+                  className="font-body text-xs font-light text-ash transition hover:text-pearl"
+                >
+                  {l.label} →
+                </a>
+              ))}
+              <Link href="/shop" className="font-body text-xs font-semibold text-petal/70 transition hover:text-petal">
+                View all products →
+              </Link>
+            </nav>
+          </div>
+
+          {/* Scripture & Strategy + Membership */}
+          <div className="flex flex-col bg-void p-8">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-petal">Scripture &amp; Strategy</p>
+            <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">Bible study, destigmatized and monetized. A separate ebook brand.</p>
+            <nav className="mt-6 flex flex-col gap-3">
+              <Link href="/scripture" className="font-body text-xs font-light text-ash transition hover:text-pearl">
+                Explore the Collection →
+              </Link>
+              <Link href="/scripture/the-study" className="font-body text-xs font-light text-ash transition hover:text-pearl">
+                The Study — $18 →
+              </Link>
+              <Link href="/scripture/gospel-and-grind" className="font-body text-xs font-light text-ash transition hover:text-pearl">
+                Gospel &amp; Grind — $28 →
+              </Link>
+              <Link href="/scripture/the-sermon-notes" className="font-body text-xs font-light text-ash transition hover:text-pearl">
+                The Sermon Notes — $25 →
+              </Link>
+              <Link href="/scripture/the-calling-card" className="font-body text-xs font-light text-ash transition hover:text-pearl">
+                The Calling Card — $35 →
+              </Link>
+              <Link href="/scripture/ministry-monetized" className="font-body text-xs font-light text-ash transition hover:text-pearl">
+                Ministry, Monetized — $42 →
+              </Link>
+            </nav>
+
+            <p className="mt-8 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-petal">The Margins</p>
+            <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">Private membership. The writing that never goes public.</p>
+            <nav className="mt-6 flex flex-col gap-3">
+              {[
+                { label: "Soft Cover — $5/mo", href: PATREON_URL },
+                { label: "Marked Up — $12/mo", href: PATREON_URL },
+                { label: "First Edition — $28/mo", href: PATREON_URL },
+              ].map((l) => (
+                <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="font-body text-xs font-light text-ash transition hover:text-pearl">
+                  {l.label} →
+                </a>
+              ))}
+              <Link href="/margins" className="font-body text-xs font-semibold text-petal/70 transition hover:text-petal">
+                About The Margins →
+              </Link>
+            </nav>
+          </div>
+
+          {/* Site Pages */}
+          <div className="flex flex-col bg-void p-8">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-petal">Pages</p>
+            <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">Every page on the site.</p>
+            <nav className="mt-6 flex flex-col gap-3">
+              {[
+                { label: "Home", href: "/" },
+                { label: "Career", href: "/career" },
+                { label: "Brand", href: "/brand" },
+                { label: "Presence", href: "/presence" },
+                { label: "Next Chapter", href: "/next-chapter" },
+                { label: "Between the Lines", href: "/between-the-lines" },
+                { label: "The Shelf", href: "/shelf" },
+                { label: "Writing", href: "/writing" },
+                { label: "Shop", href: "/shop" },
+                { label: "Scripture & Strategy", href: "/scripture" },
+                { label: "The Margins", href: "/margins" },
+                { label: "About", href: "/about" },
+                { label: "Contact", href: "/contact" },
+                { label: "Book a Call", href: "/book" },
+              ].map((l) => (
+                <Link key={l.label} href={l.href} className="font-body text-xs font-light text-ash transition hover:text-pearl">
+                  {l.label} →
+                </Link>
+              ))}
+            </nav>
           </div>
         </div>
       </RevealSection>
