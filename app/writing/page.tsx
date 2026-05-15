@@ -303,7 +303,7 @@ export default function WritingPage() {
           {[
             {
               skill: "Economy of language",
-              poem: "Developed writing lines like: "She just wanted to begin."",
+              poem: "Developed writing lines like: “She just wanted to begin.”",
               client: "Translates to bios and headlines that say everything in six words instead of sixty.",
             },
             {
