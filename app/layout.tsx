@@ -54,7 +54,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col overflow-x-hidden">
         <CursorGlow />
         <Nav />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pb-16 md:pb-0">{children}</main>
         <Footer />
         <LeadCapture />
       </body>

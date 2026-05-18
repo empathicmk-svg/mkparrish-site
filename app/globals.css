@@ -797,3 +797,174 @@ label {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── MOBILE BOTTOM NAV ──────────────────────────────────────────── */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: rgba(8, 8, 8, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--color-graphite);
+  z-index: 60;
+  height: 64px;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+@media (min-width: 768px) {
+  .mobile-bottom-nav { display: none; }
+}
+
+.mobile-bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-ash);
+  transition: color var(--duration-fast) ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  text-decoration: none;
+  gap: 0.2rem;
+}
+.mobile-bottom-nav-item:hover,
+.mobile-bottom-nav-item.active { color: var(--color-petal); }
+
+.mobile-bottom-nav-book {
+  flex: 1.5;
+  background: var(--color-petal);
+  color: var(--color-void);
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.mobile-bottom-nav-book:hover { color: var(--color-void); opacity: 0.9; }
+
+/* ── WORD CYCLING ANIMATION ─────────────────────────────────────── */
+@keyframes wordFadeUp {
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.word-cycle-enter {
+  animation: wordFadeUp 0.4s var(--ease-luxury) forwards;
+  display: inline-block;
+}
+
+/* ── MEGA MENU ──────────────────────────────────────────────────── */
+.mega-menu {
+  position: relative;
+}
+.mega-menu-panel {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  width: max-content;
+  min-width: 680px;
+  background: rgba(8, 8, 8, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-graphite);
+  border-top: none;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background-color: var(--color-graphite);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-luxury), transform 0.3s var(--ease-luxury);
+  z-index: 100;
+}
+.mega-menu-panel > * { background: var(--color-obsidian); }
+.mega-menu:hover .mega-menu-panel,
+.mega-menu-panel.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.mega-service-card {
+  background: var(--color-obsidian);
+  padding: 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  border: 1px solid transparent;
+  transition:
+    background var(--duration-base) ease,
+    border-color var(--duration-base) ease,
+    transform var(--duration-base) var(--ease-luxury);
+}
+.mega-service-card:hover {
+  background: var(--color-carbon);
+  border-color: rgba(242, 175, 198, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ── BEFORE / AFTER TOGGLE ──────────────────────────────────────── */
+.ba-panel {
+  background: var(--color-carbon);
+  border: 1px solid var(--color-graphite);
+  padding: 2rem;
+  min-height: 160px;
+}
+.ba-tab-bar {
+  display: flex;
+  border-bottom: 1px solid var(--color-graphite);
+  margin-bottom: 1.5rem;
+}
+.ba-tab {
+  padding: 0.5rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-ash);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+.ba-tab.active {
+  color: var(--color-petal);
+  border-bottom-color: var(--color-petal);
+}
+.before-text {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--color-iron);
+}
+.after-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-pearl);
+  font-weight: 500;
+}
+
+/* ── MOBILE MAIN PADDING ────────────────────────────────────────── */
+.main-mobile-pad { padding-bottom: 4rem; }
+@media (min-width: 768px) { .main-mobile-pad { padding-bottom: 0; } }
