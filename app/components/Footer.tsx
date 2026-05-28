@@ -7,6 +7,7 @@ const footerLinks = [
   { label: "Presence",     href: "/presence" },
   { label: "Next Chapter", href: "/next-chapter" },
   { label: "Growth",       href: "/growth" },
+  { label: "Studio",       href: "/studio" },
   { label: "LinkedIn",     href: "/linkedin" },
   { label: "The Shelf",    href: "/shelf" },
   { label: "The Margins",  href: "/margins" },

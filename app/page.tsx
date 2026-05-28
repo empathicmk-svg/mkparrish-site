@@ -24,6 +24,10 @@ import {
   STRIPE_CONTENT_ENGINE,
   STRIPE_INBOUND_SYSTEM,
   STRIPE_REVENUE_SYSTEMS,
+  STRIPE_SITE,
+  STRIPE_HOSTING,
+  STRIPE_SOCIAL,
+  STRIPE_YOUTUBE,
   PATREON_URL,
   SHOP_URL,
   GR_ANGEL_NUMBERS,
@@ -299,6 +303,69 @@ const growthServices = [
   },
 ];
 
+const productionServices = [
+  {
+    tag: "Website",
+    title: "The Site",
+    price: "From $4,500",
+    desc: "Website production end to end — design, build, and launch on fast, modern infrastructure. Strategy and copy can come with it or arrive ready. You get a site that loads instantly, works on every screen, and is yours to keep.",
+    perks: [
+      "Custom design and full production build",
+      "Mobile-first, fast, and SEO-ready",
+      "Launch and domain setup handled for you",
+      "Built to hand off or keep me on for upkeep",
+    ],
+    cta: "Build My Site",
+    href: STRIPE_SITE,
+    highlight: false,
+  },
+  {
+    tag: "Always-On",
+    title: "The Upkeep",
+    price: "From $250/mo",
+    desc: "Managed hosting, maintenance, and care so your site never goes stale. Updates, backups, monitoring, and small changes handled — you never touch a dashboard or worry about a thing breaking.",
+    perks: [
+      "Managed hosting and uptime monitoring",
+      "Security, backups, and software updates",
+      "Monthly content and copy edits included",
+      "Priority turnaround on requests",
+    ],
+    cta: "Keep It Running",
+    href: STRIPE_HOSTING,
+    highlight: false,
+  },
+  {
+    tag: "Most Requested",
+    title: "The Social Suite",
+    price: "From $2,000/mo",
+    desc: "A complete social package, produced and managed. Content, graphics, captions, and scheduling across the platforms that fit your audience — a consistent, on-brand presence without you producing a single post.",
+    perks: [
+      "Full content calendar across chosen platforms",
+      "Custom graphics, carousels, and short-form video",
+      "Captions and copy written in your voice",
+      "Scheduling, publishing, and performance reporting",
+    ],
+    cta: "Launch the Suite",
+    href: STRIPE_SOCIAL,
+    highlight: true,
+  },
+  {
+    tag: "Video",
+    title: "The Channel",
+    price: "From $1,500/video",
+    desc: "YouTube and long-form video production, soup to nuts. Scripting, editing, thumbnails, and publishing — built to grow a channel that actually compounds, not a pile of clips nobody finds.",
+    perks: [
+      "Scripting and story structure",
+      "Editing, captions, and thumbnail design",
+      "SEO-optimized titles and descriptions",
+      "Repurposing into short-form clips",
+    ],
+    cta: "Start the Channel",
+    href: STRIPE_YOUTUBE,
+    highlight: false,
+  },
+];
+
 const digitalProducts = [
   {
     label: "New",
@@ -560,11 +627,36 @@ export default function Home() {
         </div>
       </RevealSection>
 
+      {/* ── PRODUCTION & MEDIA ───────────────────────────────────────────────── */}
+      <RevealSection bg="obsidian" num="05">
+        <Eyebrow>The Studio — Production &amp; Media</Eyebrow>
+        <H2>
+          Built, produced,{" "}
+          <span className="text-petal">and kept running.</span>
+        </H2>
+        <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
+          Once the words and the strategy are right, something has to ship them. Websites, hosting, social, and video — produced and managed in-house, on-brand, so the presence keeps up with the positioning.
+        </p>
+
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
+          {productionServices.map((s) => (
+            <ServiceCard key={s.title} {...s} />
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
+          <p className="font-body text-sm font-light text-smoke">
+            Bundle production with copy and strategy, or bring me in for the build alone. Either way, it ships finished.
+          </p>
+          <BtnPrimary href="/book">Scope a Project →</BtnPrimary>
+        </div>
+      </RevealSection>
+
       <Marquee />
       <QuoteDivider index={3} />
 
       {/* ── PROCESS ──────────────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="05">
+      <RevealSection bg="void" num="06">
         <Eyebrow>How It Works</Eyebrow>
         <H2>
           From unclear to{" "}
@@ -599,7 +691,7 @@ export default function Home() {
       <QuoteDivider index={6} />
 
       {/* ── THE SHOP ─────────────────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="06">
+      <RevealSection bg="obsidian" num="07">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr]">
           <div>
             <Eyebrow>The Shop — Digital Products</Eyebrow>
@@ -648,7 +740,7 @@ export default function Home() {
       <QuoteDivider index={14} />
 
       {/* ── THE MARGINS ──────────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="07">
+      <RevealSection bg="void" num="08">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <Eyebrow>The private side</Eyebrow>
@@ -700,7 +792,7 @@ export default function Home() {
       <QuoteDivider index={4} />
 
       {/* ── WRITING ──────────────────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="08">
+      <RevealSection bg="obsidian" num="09">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <Eyebrow>The personal work</Eyebrow>

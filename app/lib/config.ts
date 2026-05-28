@@ -13,6 +13,13 @@ export const STRIPE_CONTENT_ENGINE  = "/book"; // LinkedIn Content Engine (from 
 export const STRIPE_INBOUND_SYSTEM  = "/book"; // The Inbound System (from $5,000/mo)
 export const STRIPE_REVENUE_SYSTEMS = "/book"; // E2E Revenue Systems (custom)
 
+// ── Production & Media (The Studio) ──────────────────────────────────────────
+// Replace with Stripe links when ready
+export const STRIPE_SITE     = "/book"; // The Site — website production (from $4,500)
+export const STRIPE_HOSTING  = "/book"; // The Upkeep — hosting & maintenance (from $250/mo)
+export const STRIPE_SOCIAL   = "/book"; // The Social Suite — complete social package (from $2,000/mo)
+export const STRIPE_YOUTUBE  = "/book"; // The Channel — YouTube/video production (from $1,500/video)
+
 // ── Membership (Patreon) ─────────────────────────────────────────────────────
 export const PATREON_URL        = "https://www.patreon.com/MKParrish?utm_campaign=creatorshare_fan";
 
