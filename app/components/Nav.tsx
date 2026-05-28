@@ -11,6 +11,7 @@ const workLinks = [
   { label: "Presence",     href: "/presence" },
   { label: "Next Chapter", href: "/next-chapter" },
   { label: "Growth",       href: "/growth" },
+  { label: "Studio",       href: "/studio" },
   { label: "LinkedIn",     href: "/linkedin" },
 ];
 
@@ -40,6 +41,7 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
       { label: "Presence",     href: "/presence" },
       { label: "Next Chapter", href: "/next-chapter" },
       { label: "Growth",       href: "/growth" },
+      { label: "Studio",       href: "/studio" },
       { label: "LinkedIn",     href: "/linkedin" },
     ],
   },
