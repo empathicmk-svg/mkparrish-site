@@ -19,56 +19,56 @@ import {
 } from "@/app/lib/config";
 
 export const metadata: Metadata = {
-  title: "Revenue Systems — MK Parrish",
+  title: "Growth Marketing — MK Parrish",
   description:
-    "LinkedIn content engines, high-converting lead magnets, and end-to-end RevOps. Pipeline is the product. Build the machine, not just the content.",
+    "Full-funnel growth marketing and demand generation for B2B SaaS. Paid, organic, SEO, content, and lifecycle — built and run by one AI-native operator who strategizes, ships, and owns the number. Not an agency.",
 };
 
 const tiers = [
   {
-    tag: "Growth Tier",
-    title: "LinkedIn Content Engine",
-    price: "From $2,500/mo",
-    desc: "Build authority, brand awareness, and consistent organic pipeline. A fully managed LinkedIn presence engineered to function as the top of your conversion funnel.",
+    tag: "Demand Gen",
+    title: "The Demand Engine",
+    price: "From $3,500/mo",
+    desc: "Top-of-funnel demand built from scratch. For SLG teams layering on PLG and early-stage companies with no traffic yet. I pick the channels that fit and ship — no agency overhead, no subcontracting.",
     perks: [
-      "Complete LinkedIn profile optimization for executive and founder accounts",
-      "3–5 high-value posts written and scheduled weekly",
-      "1x custom inbound lead magnet per quarter (PDF, checklist, or mini-course)",
-      "Ghostwriting, editing, and custom visual assets and carousels",
+      "Channel strategy across organic, SEO, and content",
+      "Founder-led and LinkedIn distribution that compounds",
+      "Landing pages and campaigns shipped, not specced",
+      "AI-native execution — one operator producing a team's output",
     ],
-    cta: "Launch Your Engine",
+    cta: "Build Demand",
     href: STRIPE_CONTENT_ENGINE,
     highlight: false,
   },
   {
     tag: "Most Popular",
-    title: "The Inbound System",
-    price: "From $5,000/mo",
-    desc: "Fully integrated content, automated lead generation, and nurturing systems. Content without infrastructure is noise. This closes the loop between audience and pipeline.",
+    title: "Full-Funnel Growth",
+    price: "From $6,500/mo",
+    desc: "Acquisition through activation, run as one motion. Paid, organic, and lifecycle wired together with a hyper-experimentation loop that tells you what is working — and what to kill this week.",
     perks: [
-      "Everything in the LinkedIn Content Engine",
-      "High-converting lead magnet strategy and design (quizzes, whitepapers, toolkits)",
-      "Custom landing page or Framer-optimized lead capture flow",
-      "Automated 3–5 email nurture sequence built to convert",
-      "Weekly lead tracking and pipeline reporting",
+      "Paid + organic + lifecycle, orchestrated together",
+      "Landing pages, campaigns, and email sequences shipped weekly",
+      "Hybrid-motion fluency — PLG layered on SLG, self-serve + assisted",
+      "Experiment velocity: test, read the numbers, double down, cut",
+      "Positioning and messaging that moves numbers, not slide decks",
     ],
-    cta: "Build My Pipeline",
+    cta: "Run the Funnel",
     href: STRIPE_INBOUND_SYSTEM,
     highlight: true,
   },
   {
-    tag: "Enterprise",
-    title: "E2E Revenue Systems",
+    tag: "Embedded",
+    title: "Fractional Growth Lead",
     price: "Custom",
-    desc: "Full-funnel Revenue Operations, deep CRM integration, and infrastructure built to scale globally. This is not a service. It is an operating system for your entire revenue motion.",
+    desc: "I sit on your team and own the number. A senior growth operator who strategizes, ships, and owns the outcome — partnering cleanly with your product and PLG side. Not an agency. Not a strategist who needs a team to execute.",
     perks: [
-      "Everything in The Inbound System",
-      "Complete CRM architecture and solution design (HubSpot, Salesforce, or Pipedrive)",
-      "End-to-end automation: Marketing → Sales Hub → Onboarding",
-      "Advanced revenue analytics, attribution modeling, and forecast accuracy dashboards",
-      "Custom API development and third-party stack orchestration",
+      "Embedded ownership of the growth function",
+      "Agent-orchestrated execution stack, built and run",
+      "Full-funnel: demand gen, capture, activation, conversion",
+      "Founder-facing — senior enough to own the room",
+      "Clean, project-by-project collaboration with your team",
     ],
-    cta: "Scale Globally",
+    cta: "Partner With Me",
     href: STRIPE_REVENUE_SYSTEMS,
     highlight: false,
   },
@@ -76,28 +76,28 @@ const tiers = [
 
 const faqItems = [
   {
-    q: "What makes this different from a standard content agency?",
-    a: "Most agencies produce content. This builds systems. The LinkedIn Content Engine is not ghostwriting with a strategy deck attached — it is a pipeline asset. Every post is engineered to drive inbound. Every lead magnet is built to convert. The Inbound System closes the loop between content and pipeline with automation most agencies do not touch. The output is not impressions. It is pipeline.",
+    q: "How is this different from hiring an agency?",
+    a: "An agency sells you a strategist, a deck, and a pod of juniors who execute it. You get the senior name on the pitch and the junior work on the deliverable. This is the opposite: one senior operator who does the thinking and the shipping. No account managers, no hand-offs, no subcontracting. The person who strategizes is the person who builds the landing page, writes the campaign, and reads the numbers.",
   },
   {
-    q: "Do I need to already be active on LinkedIn?",
-    a: "No. Every engagement starts with a full profile audit and repositioning. If your LinkedIn is three years out of date, that is the first thing fixed. The engine works whether you are starting from zero authority or scaling an existing audience into a demand generation machine.",
+    q: "What channels do you actually run?",
+    a: "Whatever fits the motion and the math — paid, organic, SEO, content, and lifecycle. I pick the weapons based on where your demand actually is, not based on what I want to sell you. For an early-stage team with no traffic, that usually starts with organic, founder-led, and SEO. For a funded SLG company layering on PLG, it is often paid plus lifecycle plus a self-serve capture flow. The point is full-funnel coverage, not a single-channel specialty.",
   },
   {
-    q: "How long before I see pipeline results?",
-    a: "Typically 60–90 days for measurable inbound from the Content Engine, 30–45 days for lead capture from the Inbound System once the capture flow is live. E2E Revenue Systems have a longer build window but produce compounding returns. Pipeline is tracked and reported weekly — you always know exactly what is moving and what is not.",
+    q: "What does 'AI-native execution' mean in practice?",
+    a: "It means a one-to-two-person motion produces what used to take a team of ten. Landing pages, campaign variants, lifecycle sequences, and experiments are built and orchestrated with an agent stack — so the bottleneck becomes judgment and taste, not production capacity. More shots on goal, faster reads, lower cost per experiment. Hyper-experimentation is only possible because the execution is cheap and fast.",
   },
   {
-    q: "What CRMs do you work with?",
-    a: "HubSpot, Salesforce, and Pipedrive natively. We can also architect on top of Monday.com, Notion, Airtable, or any API-accessible platform. Custom stack orchestration and third-party integration is part of the E2E Revenue Systems tier.",
+    q: "Do you work with PLG, SLG, or both?",
+    a: "Both, and especially the hybrid in between. Most real B2B SaaS motions are not purely one or the other — they are PLG layered on SLG, product-led sales, or self-serve plus an assisted path for larger accounts. I am fluent in those hybrid motions and build demand that feeds whichever path a given segment takes. I also partner well with a dedicated PLG consultant who owns product growth from sign-up onward — clean lanes, shared outcome.",
   },
   {
-    q: "Can I start with one tier and scale up?",
-    a: "Yes. Most clients start with the LinkedIn Content Engine, prove out the inbound motion, and layer in the full Inbound System once the content is converting. E2E Revenue Systems is typically for companies already generating consistent inbound who need full-funnel automation, CRM architecture, and attribution before they can scale further.",
+    q: "Can you partner alongside another consultant or in-house team?",
+    a: "Yes — this is often the cleanest model. I run marketing growth and demand; a product-growth partner or your in-house team runs activation, onboarding, and conversion from sign-up forward. Different lanes, same client, one number. Splits and scope are clean and project-by-project. I work the same way with founders who want to keep parts of the function in-house.",
   },
   {
-    q: "Is this only for B2B companies?",
-    a: "Primarily. The LinkedIn-led inbound model and RevOps infrastructure is built for B2B sales cycles — founders, executives, and revenue teams with deal sizes that justify the investment. If you are selling consumer products or have an average deal size under $1,000, this is probably not the right fit. Say so in the discovery call and I will tell you honestly.",
+    q: "Who is this not for?",
+    a: "Companies that want a vendor to take orders, produce slide decks, or run a single channel in isolation. If you want someone with strong opinions who will disagree with you when the numbers say so, own the outcome, and ship without being managed — that is the fit. If you want a yes-person or an agency to point at when it does not work, it is not.",
   },
 ];
 
@@ -111,59 +111,59 @@ export default function GrowthPage() {
         </div>
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            Revenue Systems &middot; LinkedIn Growth &middot; RevOps
+            Growth Marketing &middot; Demand Gen &middot; Full-Funnel
           </p>
           <div className="mt-6">
             <H1>
-              Pipeline{" "}
+              Strategize.{" "}
               <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.35)" }}>
-                Is The
+                Ship.
               </span>
               <br />
-              Product.
+              Own the number.
             </H1>
           </div>
           <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-            Build the machine, not just the content.
+            A marketing growth Swiss Army knife — one operator, the whole funnel.
           </p>
           <div className="mt-6 max-w-2xl">
-            <p className="font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-              Most companies produce content. Few build systems. The difference shows up in the pipeline — or the lack of one. I design, build, and run the inbound infrastructure that turns LinkedIn presence and lead magnets into compounding revenue.
+            <p className="font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
+              Demand generation and capture across the channels that fit — paid, organic, SEO, content, lifecycle. AI-native execution and hyper-experimentation: a one-to-two-person motion that runs what used to take ten. For B2B SaaS teams that need demand before anything downstream can work.
             </p>
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <BtnPrimary href="#systems">See the Systems</BtnPrimary>
+            <BtnPrimary href="#systems">See the Offering</BtnPrimary>
             <BtnGhost href="/book">Book a Discovery Call</BtnGhost>
           </div>
         </div>
       </section>
 
-      {/* ── THE PROBLEM ──────────────────────────────────────────── */}
+      {/* ── THE GAP ──────────────────────────────────────────────── */}
       <RevealSection bg="obsidian" num="01">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
           <div>
             <Eyebrow>The gap</Eyebrow>
             <H2>
-              Content without{" "}
-              <span className="text-petal">infrastructure</span>{" "}
-              is noise.
+              They need demand{" "}
+              <span className="text-petal">before</span>{" "}
+              they need anything else.
             </H2>
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
             <p>
-              You are posting. You are showing up. The impressions are there. And the pipeline is not moving.
+              Plenty of teams have the product, the positioning, and the activation flow figured out. What they do not have is anyone showing up at the top of the funnel.
             </p>
             <p>
-              That is not a content problem. It is a systems problem. Content without a lead capture mechanism is awareness that evaporates. A lead magnet without a nurture sequence is a list that never converts. A CRM without attribution modeling is a database you cannot make decisions from.
+              An SLG company trying to layer PLG on top still needs a reason for self-serve users to arrive. An early-stage team starting from scratch needs traffic before retention, onboarding, or conversion even matters. You cannot optimize a funnel that nobody enters.
             </p>
             <p>
-              The companies winning on LinkedIn right now are not the ones posting the most. They are the ones with a machine behind the content — a structured path from first impression to qualified conversation to closed revenue.
+              That is the work I own: acquisition, demand gen, demand capture — the marketing growth that has to exist before everything downstream has anything to do.
             </p>
             <p>
-              That machine is what I build.
+              I do not hand you a strategy and walk away. I pick the channels, build the assets, run the experiments, and own the number with you.
             </p>
             <div className="mt-8">
-              <ArrowLink href="/book">Book a strategy call</ArrowLink>
+              <ArrowLink href="/book">Book a discovery call</ArrowLink>
             </div>
           </div>
         </div>
@@ -171,29 +171,29 @@ export default function GrowthPage() {
 
       <QuoteDivider index={0} />
 
-      {/* ── THREE FAILURE MODES ──────────────────────────────────── */}
+      {/* ── HOW I OPERATE ────────────────────────────────────────── */}
       <RevealSection bg="void" num="02">
-        <Eyebrow>Where most companies break</Eyebrow>
+        <Eyebrow>How I operate</Eyebrow>
         <H2>
-          Three failure modes that{" "}
-          <span className="text-petal">kill pipeline.</span>
+          A practitioner who{" "}
+          <span className="text-petal">ships.</span>
         </H2>
         <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
           {[
             {
               num: "01",
-              title: "Presence without conversion",
-              desc: "A strong LinkedIn profile and consistent posting that never leads anywhere. No lead capture. No follow-up. No mechanism for turning an engaged follower into a conversation. Brand without revenue.",
+              title: "Operator, not agency",
+              desc: "Operator background, not an agency career. The person who strategizes is the person who builds the landing page, writes the campaign, and reads the numbers. No pods, no hand-offs, no subcontracting.",
             },
             {
               num: "02",
-              title: "Leads without nurture",
-              desc: "A lead magnet that downloads but does not convert. Someone gave you their email and then heard nothing. No sequence. No positioning. No path to a meeting. A list that decays instead of compounds.",
+              title: "AI-native, hyper-experimental",
+              desc: "A one-to-two-person motion orchestrated through an agent stack — landing pages, campaigns, and lifecycle that used to take ten people. Cheap experiments, fast reads, more shots on goal.",
             },
             {
               num: "03",
-              title: "Revenue data without attribution",
-              desc: "A CRM full of contacts with no clear story of how they got there or which activities drove them. Marketing spends money. Sales closes deals. Nobody can connect the two. Forecasting is guesswork.",
+              title: "Owns the outcome",
+              desc: "Strong opinions, comfortable disagreeing with you, allergic to fluff. Senior enough to sit across from a founder and own the room. I hold my own output to a higher bar than anyone else would set.",
             },
           ].map((item) => (
             <div key={item.num} className="bg-obsidian p-8">
@@ -209,13 +209,13 @@ export default function GrowthPage() {
 
       {/* ── TIERS ────────────────────────────────────────────────── */}
       <RevealSection id="systems" bg="obsidian" num="03">
-        <Eyebrow>Revenue systems</Eyebrow>
+        <Eyebrow>The offering</Eyebrow>
         <H2>
-          Three ways to build{" "}
-          <span className="text-petal">the machine.</span>
+          Three ways to{" "}
+          <span className="text-petal">put me on it.</span>
         </H2>
         <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
-          Start where the gap is. Scale when the system proves itself. Every tier builds on the last.
+          Start where the gap is. Scale when the motion proves itself. Every tier is full-funnel — the difference is how much of it I own and how deep I sit on your team.
         </p>
 
         <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
@@ -226,7 +226,7 @@ export default function GrowthPage() {
 
         <div className="mt-10 border-t border-graphite pt-8">
           <p className="font-body text-sm font-light text-smoke">
-            All engagements start with a discovery call. No contracts without a fit conversation first.
+            Every engagement starts with a discovery call. No contracts without a fit conversation first.
           </p>
           <a
             href="/book"
@@ -246,17 +246,17 @@ export default function GrowthPage() {
             <Eyebrow>The process</Eyebrow>
             <H2>
               How the{" "}
-              <span className="text-petal">system gets built.</span>
+              <span className="text-petal">motion gets built.</span>
             </H2>
-            <H3Script>Infrastructure first. Content second. Pipeline always.</H3Script>
+            <H3Script>Pick the weapons. Ship fast. Read the numbers. Compound.</H3Script>
           </div>
           <div className="space-y-px bg-graphite">
             {[
-              { step: "01", title: "Audit and Architecture", desc: "Current LinkedIn presence, CRM state, lead capture mechanisms (or lack of them), and content history reviewed in full. The gap between where you are and where the pipeline needs to be is mapped precisely before anything is built." },
-              { step: "02", title: "Build the Capture Layer", desc: "Lead magnets designed to convert the audience you are building. Landing pages and opt-in flows built to remove friction. Positioned with copy that does the qualifying before the sales conversation starts." },
-              { step: "03", title: "Content Engine Goes Live", desc: "LinkedIn profile repositioned. The first posts built. The cadence established. Content written in your voice, engineered to drive the right inbound — not impressions, not followers. Conversations." },
-              { step: "04", title: "Automate the Nurture", desc: "Email sequences built to take someone from download to meeting-ready. CRM automation maps the full journey. Leads do not fall through the gaps because there are no gaps." },
-              { step: "05", title: "Measure and Compound", desc: "Pipeline tracked weekly. Attribution modeled. What is working gets scaled. What is not gets cut. The system compounds over time because every iteration is informed by data, not instinct." },
+              { step: "01", title: "Map the Motion", desc: "Where demand actually is, which channels fit the math, and how the funnel hands off to activation and sales. PLG, SLG, or the hybrid in between — the motion gets defined before a dollar is spent or a page is built." },
+              { step: "02", title: "Stand Up the Channels", desc: "The weapons that fit get built and launched — paid, organic, SEO, content, lifecycle. Landing pages and campaigns shipped, not specced. The agent stack that runs them gets wired up so execution is fast and cheap." },
+              { step: "03", title: "Run Experiments", desc: "Hyper-experimentation against real numbers. Multiple variants, fast reads, ruthless cuts. What works gets more budget; what does not gets killed the same week. Velocity is the advantage." },
+              { step: "04", title: "Wire the Capture", desc: "Demand without capture is awareness that evaporates. Opt-in flows, lifecycle sequences, and self-serve paths built to convert the traffic into pipeline — and to feed whatever activation motion sits downstream." },
+              { step: "05", title: "Own the Number", desc: "Pipeline and CAC tracked against the goal, weekly. Attribution clear enough to make decisions from. The motion compounds because every iteration is informed by data — and because one operator owns the whole loop." },
             ].map((item) => (
               <div key={item.step} className="bg-obsidian p-8">
                 <div className="flex items-start gap-6">
@@ -274,8 +274,37 @@ export default function GrowthPage() {
 
       <QuoteDivider index={5} />
 
-      {/* ── FAQ ──────────────────────────────────────────────────── */}
+      {/* ── PARTNERSHIP MODEL ────────────────────────────────────── */}
       <RevealSection bg="obsidian" num="05">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+          <div>
+            <Eyebrow>The model</Eyebrow>
+            <H2>
+              Clean lanes.{" "}
+              <span className="text-petal">Shared number.</span>
+            </H2>
+          </div>
+          <div className="space-y-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
+            <p>
+              I work well as the marketing-growth half of a two-operator motion. A product-growth or PLG partner owns everything from sign-up forward — onboarding, activation, conversion. I own everything before it — demand gen, capture, the top of the funnel.
+            </p>
+            <p>
+              Different lanes, same client, one outcome. Trust on both sides. Splits stay clean and project-by-project. I bring counterparts in with me rather than referring clients out, and I plug into the same arrangement on the other side.
+            </p>
+            <p>
+              It is a partnership, not a hire. If you are a consultant who keeps hitting the same gap — prospects who need demand before they need you — that is exactly the seam I fill.
+            </p>
+            <div className="mt-8">
+              <ArrowLink href="/contact">Talk about a partnership</ArrowLink>
+            </div>
+          </div>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={6} />
+
+      {/* ── FAQ ──────────────────────────────────────────────────── */}
+      <RevealSection bg="void" num="06">
         <Eyebrow>Common questions</Eyebrow>
         <H2>
           What you{" "}
@@ -297,14 +326,14 @@ export default function GrowthPage() {
           </p>
           <div className="mt-6">
             <H2>
-              Fix the story.{" "}
+              Build the demand.{" "}
               <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.3)" }}>
-                Fix the funnel.
+                Own the number.
               </span>
             </H2>
           </div>
-          <p className="mx-auto mt-8 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            A 30-minute discovery call to map the gap and identify which system fits where you are right now.
+          <p className="mx-auto mt-8 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "54ch" }}>
+            A 30-minute discovery call to map the gap, the motion, and which way of working fits where you are right now.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BtnPrimary href="/book">Book a Discovery Call</BtnPrimary>
