@@ -124,7 +124,7 @@ export default function GrowthPage() {
             </H1>
           </div>
           <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-            A marketing growth Swiss Army knife — one operator, the whole funnel.
+            One operator. The whole growth function, built and run end to end.
           </p>
           <div className="mt-6 max-w-2xl">
             <p className="font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
