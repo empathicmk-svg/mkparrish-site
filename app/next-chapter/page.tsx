@@ -15,31 +15,31 @@ import {
 import { STRIPE_REWRITE } from "@/app/lib/config";
 
 export const metadata: Metadata = {
-  title: "Rewrite Your Next Chapter — MK Parrish",
+  title: "Company Repositioning — MK Parrish",
   description:
-    "Full repositioning for career pivots, public reinventions, and next-era transitions. Strategic writing for people who are ready to be read differently.",
+    "Strategic repositioning for companies in transition. Pivots, relaunches, new market entry, new category plays. When the old story no longer fits, this is the work.",
 };
 
 const faqItems = [
   {
-    q: "Who is Next Chapter work for?",
-    a: "People in genuine transition. Career pivots, industry switches, founders stepping out of the operator role, professionals moving into public work, executives coming back after time away. If the old story no longer fits who you are now, this is where we start.",
+    q: "Who is Next Chapter repositioning for?",
+    a: "Companies in genuine strategic transition. Product pivots, market repositioning, rebrands, post-acquisition integration, new category plays, or any moment where the old story is actively misleading potential customers and partners. If the business has changed faster than the language describing it, this is where we start.",
   },
   {
-    q: "How is this different from the career or brand pages?",
-    a: "Career repositioning is for professionals moving within their field. Brand is for businesses. Next Chapter is for people whose entire identity is shifting, not just their title or their homepage. The work is more personal, more narrative-driven, and focused on the thread that makes the whole arc make sense.",
+    q: "How is this different from the brand messaging page?",
+    a: "Brand messaging is about sharpening how you describe what you already do. Next Chapter is for companies making a significant strategic shift — entering a new market, repositioning for enterprise, moving upmarket, or building toward a category you do not yet own. The work is more structural and more narrative-driven.",
   },
   {
     q: "What does a Next Chapter engagement look like?",
-    a: "It starts with a strategy session where I understand what is actually changing and why, not just the surface version. From there we develop a positioning narrative, rewrite the key surfaces that need to reflect the new chapter, and build copy that earns the right kind of attention for where you are going.",
+    a: "It starts with a strategy session where I understand what is actually changing and why — not just the surface version. From there we develop a positioning strategy, rewrite the key surfaces that need to reflect the new direction, and build the copy that earns the right kind of attention from the right market.",
   },
   {
-    q: "Do you work with people who are not sure what the next chapter is yet?",
-    a: "Yes. Sometimes the writing process helps clarify the thinking. I work with people at the edge of transition, not just people who have already landed on the other side. If you are mid-crossing and the story is still forming, that is a completely legitimate place to start.",
+    q: "Can you help if we are still figuring out the new direction?",
+    a: "Yes. Sometimes the writing process helps clarify the thinking. I work with companies at the edge of transition, not just ones that have already landed. If the strategy is still forming and you need someone to think through it before the copy starts, that is a legitimate place to start.",
   },
   {
     q: "How long does a full engagement take?",
-    a: "Typically three to four weeks from our first session to final deliverables. Larger scopes can run six weeks. Timeline is set together at the start and depends on what needs to be built and how quickly you need it.",
+    a: "Typically three to four weeks from our first session to final deliverables. Larger scopes — full team positioning, complete website, and messaging framework — can run six weeks. Timeline is set together at the start.",
   },
 ];
 
@@ -53,7 +53,7 @@ export default function NextChapterPage() {
         </div>
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            Reinvention &middot; Transition &middot; Positioning
+            Repositioning &middot; Market Transition &middot; Category Strategy
           </p>
           <div className="mt-6">
             <H1>
@@ -64,7 +64,7 @@ export default function NextChapterPage() {
             </H1>
           </div>
           <p className="mt-6 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-            You are not who you were when you wrote that bio. The copy still is. That mismatch costs you credibility with every person who looks you up mid-transition. We fix it by building a story that reflects where you are going, not where you have been.
+            Your company is not what it was when you wrote that homepage. You have pivoted the product, entered a new market, closed a funding round, or shifted the entire strategy. The copy is still describing the old version. I write the language for where you are actually going.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href="/book">Start the Conversation</BtnPrimary>
@@ -79,20 +79,20 @@ export default function NextChapterPage() {
           <div>
             <Eyebrow>The shift</Eyebrow>
             <H2>
-              What transition{" "}
-              <span className="text-petal">actually costs you.</span>
+              What a misaligned story{" "}
+              <span className="text-petal">actually costs.</span>
             </H2>
-            <H3Script>It is not the gap. It is the silence while you cross it.</H3Script>
+            <H3Script>It is not the pivot. It is what it sounds like while you cross it.</H3Script>
           </div>
           <div className="space-y-5 font-body text-base font-light leading-8 text-smoke">
             <p>
-              Transitions are expensive when no one can tell what you are doing. When your bio says one thing and your LinkedIn says something older. When people who should find you cannot quite locate you because the copy belongs to a chapter you have already left.
+              Strategic transitions are expensive when the market cannot tell what you are doing. When your website describes the old product and your deck describes the new strategy. When buyers from the right category cannot find you because the copy still belongs to the market you have already left.
             </p>
             <p>
-              This is not reinvention for the sake of having a better brand. It is precision. Finding the language that connects what you have built to where you are going, and writing it in a way that makes the arc feel intentional, not improvised.
+              This is not repositioning for the sake of having a better brand. It is precision. Finding the language that connects what you have built to where you are going — and writing it in a way that makes the arc feel intentional, not improvised.
             </p>
             <p>
-              I have reinvented myself more than once. Fortune 50 to startups. Operator to strategist. I know what it feels like to be mid-crossing with a story that belongs to the last shore. And I know how to write through it.
+              I have done this work across product pivots, market repositioning, company relaunches, and new category plays. The challenge is never inventing a new story. It is finding the real thread between what exists and where it is going, and writing it clearly enough that the right market can follow.
             </p>
           </div>
         </div>
@@ -102,7 +102,7 @@ export default function NextChapterPage() {
 
       {/* ── SERVICES ─────────────────────────────────────────────── */}
       <RevealSection bg="void" num="02">
-        <Eyebrow>Next Chapter services</Eyebrow>
+        <Eyebrow>Repositioning services</Eyebrow>
         <H2>
           Choose your{" "}
           <span className="text-petal">entry point.</span>
@@ -110,14 +110,14 @@ export default function NextChapterPage() {
 
         <div className="mt-12 grid gap-px bg-graphite lg:grid-cols-2">
           <ServiceCard
-            tag="Deep repositioning"
+            tag="Core repositioning"
             title="The Rewrite"
             price="From $1,500"
-            desc="Your new chapter, written. Core positioning narrative, primary bio, and LinkedIn rebuilt to reflect who you are now and where you are going. Not a polish of the old story. A replacement of it."
+            desc="Your new direction, written. Core positioning narrative, homepage, and primary messaging rebuilt to reflect the company you are running now — not the one you launched with. Not a polish of the old story. A replacement of it."
             perks={[
-              "Positioning narrative for the new chapter",
-              "LinkedIn overhaul",
-              "Professional bio rewrite",
+              "New positioning narrative",
+              "Homepage copy overhaul",
+              "Brand voice direction",
               "45-minute strategy session",
             ]}
             cta="Start The Rewrite"
@@ -128,11 +128,11 @@ export default function NextChapterPage() {
             tag="Full build"
             title="The New Chapter"
             price="Custom"
-            desc="For full pivots and public reinventions where updating a bio is not going to be enough. Brand strategy, website copy, founder narrative, and every surface that needs to reflect who you are stepping into, built together."
+            desc="For pivots, relaunches, and new category plays where updating the homepage is not going to be enough. Positioning strategy, complete website copy, messaging framework, and every surface that needs to reflect where the company is going — built together."
             perks={[
-              "Full brand and messaging strategy",
-              "Website copy from scratch",
-              "Origin story and founder narrative",
+              "Full positioning and messaging strategy",
+              "Complete website copy",
+              "Category and market narrative",
               "Press, pitch deck, and outreach copy",
             ]}
             cta="Let's Talk"
@@ -143,21 +143,21 @@ export default function NextChapterPage() {
 
       <QuoteDivider index={6} />
 
-      {/* ── WHAT TRANSITIONS LOOK LIKE ───────────────────────────── */}
+      {/* ── TRANSITION TYPES ─────────────────────────────────────── */}
       <RevealSection bg="obsidian" num="03">
-        <Eyebrow>Who this is for</Eyebrow>
+        <Eyebrow>What this covers</Eyebrow>
         <H2>
           Transitions I have{" "}
           <span className="text-petal">written through.</span>
         </H2>
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { title: "Career Pivots", desc: "From one industry or function to another. The connective tissue between where you have been and where you are going, written so the shift reads as deliberate, not desperate." },
-            { title: "From Operator to Founder", desc: "Leaving a corporate role to build something of your own. Reframing 10 or 20 years of someone else's work as the foundation for yours." },
-            { title: "Return After a Pause", desc: "Coming back after caregiving, illness, grief, or a deliberate step away. Writing the gap as part of the story instead of something to minimize or explain around." },
-            { title: "Into Public Work", desc: "Speaking, writing, advising, or consulting publicly for the first time. Building a presence that reflects the depth you already have, before someone else defines it for you." },
-            { title: "Post-Exit or Post-Acquisition", desc: "After a company exit, a sale, or a chapter close. Figuring out what the next thing is and how to talk about who you are in the space between." },
-            { title: "The Second Act", desc: "Midlife repositioning. For people who have more clarity, range, and specific conviction now than they did at 30, and want the world to finally read it that way." },
+            { title: "Product Pivots", desc: "When the product fundamentally changes direction. Rewriting the story so the new positioning makes the pivot feel like the obvious move, not a reset." },
+            { title: "New Market Entry", desc: "Moving upmarket, entering enterprise, or targeting a new vertical. Building the messaging that earns credibility with a buyer who did not know you existed yet." },
+            { title: "Post-Funding Repositioning", desc: "After a Series A or B, when the company needs to grow into its new category and the old scrappy messaging no longer matches the ambition or the ask." },
+            { title: "Category Creation", desc: "Building toward a market position no one owns yet. Naming the category, writing the manifesto, and creating the language that makes you the obvious reference point." },
+            { title: "Post-Acquisition Integration", desc: "Merging brands, aligning messaging, and writing a coherent story about a combined company for buyers who know one side but not the other." },
+            { title: "The Strategic Relaunch", desc: "Companies that have been around long enough to have out-built their original positioning. Rebuilding the language from the current reality, not the original pitch." },
           ].map((item) => (
             <div key={item.title} className="bg-obsidian p-8">
               <h3 className="font-display text-xl uppercase tracking-[0.02em] text-petal">{item.title}</h3>
@@ -191,10 +191,10 @@ export default function NextChapterPage() {
         <div className="mx-auto max-w-[1400px] text-center" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <H2>
             The next chapter{" "}
-            <span className="text-petal">starts with a sentence.</span>
+            <span className="text-petal">starts with a strategy call.</span>
           </H2>
           <p className="mx-auto mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            Let&apos;s find the right one.
+            Tell me where the company is and where it is going. We will figure out the right scope from there.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BtnPrimary href="/book">Book a Call</BtnPrimary>
