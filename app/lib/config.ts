@@ -59,24 +59,8 @@ export const GR_SCRIPTURE_BUNDLE      = "https://mkparrish.gumroad.com/l/scriptu
 export const GR_SCRIPTURE_COURSE      = "https://mkparrish.gumroad.com/l/scripture-and-strategy";
 
 // ── Products not yet live on Gumroad ─────────────────────────────────────────
-// Remove a slug from this set once the Gumroad product is created and live.
-// Content URL to set in Gumroad for each product: https://mkparrish.com/downloads/[file]
-export const COMING_SOON_SLUGS = new Set([
-  "scripture-and-strategy",       // → /downloads/scripture-and-strategy.html
-  "the-edit-guide",               // → /downloads/templates/the-edit-diy.html
-  "before-the-session",           // → /downloads/templates/before-the-session.html
-  "the-rewrite-playbook",         // → /downloads/templates/the-rewrite-playbook.html
-  "the-new-chapter-workbook",     // → /downloads/templates/the-new-chapter-workbook.html
-  "the-byline-method",            // → /downloads/templates/the-byline-method.html
-  "the-build-copy-guide",         // → /downloads/templates/the-build-copy-guide.html
-  "the-services-vault",
-  "the-study",                    // → /downloads/ebooks/the-study.html
-  "gospel-and-grind",             // → /downloads/ebooks/gospel-and-grind.html
-  "the-sermon-notes",             // → /downloads/ebooks/the-sermon-notes.html
-  "the-calling-card",             // → /downloads/ebooks/the-calling-card.html
-  "ministry-monetized",           // → /downloads/ebooks/ministry-monetized.html
-  "scripture-strategy-bundle",
-]);
+// Add a slug here to show "Coming Soon" instead of the buy button.
+export const COMING_SOON_SLUGS = new Set<string>();
 
 // ── Ko-fi — prints & merch ───────────────────────────────────────────────────
 export const SHOP_URL           = "https://ko-fi.com/mkparrish/shop";
