@@ -7,6 +7,7 @@ import {
 import {
   EBOOKS, SERVICE_EBOOKS, PRINTS, SERVICES, MARGINS_TIERS,
   PATREON_URL, SHOP_URL, STRIPE_EDIT, STRIPE_REWRITE, COMING_SOON_SLUGS,
+  GR_SCRIPTURE_COURSE,
 } from "@/app/lib/config";
 
 export const metadata: Metadata = {
@@ -50,6 +51,83 @@ export default function ShopPage() {
           </div>
         </div>
       </section>
+
+      {/* ── SCRIPTURE & STRATEGY COURSE ── */}
+      <RevealSection bg="void">
+        <div className="relative overflow-hidden border border-petal/20 bg-carbon p-12 md:p-16">
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(ellipse_at_top_right,rgba(242,175,198,0.07),transparent_60%)]" />
+          <div className="absolute inset-x-0 top-0 h-px bg-petal" />
+          <div className="relative grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <Eyebrow>Flagship Course — $497</Eyebrow>
+              <H2>
+                Scripture &amp;{" "}
+                <span className="text-petal">Strategy</span>
+              </H2>
+              <H3Script>From study practice to sustainable faith-based income.</H3Script>
+              <div className="mt-6 space-y-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
+                <p>
+                  Eight modules. Twenty-eight lessons. The complete faith-based business curriculum — built in the exact order that works: Source, Calling, Voice, Offer, Pipeline, Engine, Long Obedience.
+                </p>
+                <p>
+                  For the faith-driven creator, coach, or teacher who is ready to treat her calling like a business — without losing the conviction that made it matter.
+                </p>
+              </div>
+              <div className="mt-8 flex flex-wrap gap-4">
+                {COMING_SOON_SLUGS.has("scripture-and-strategy") ? (
+                  <div className="flex items-center gap-4 border border-graphite px-8 py-4 font-body text-xs font-light uppercase tracking-[0.2em] text-iron">
+                    Coming Soon
+                  </div>
+                ) : (
+                  <a
+                    href={GR_SCRIPTURE_COURSE}
+                    data-gumroad-overlay-checkout="true"
+                    className="btn-primary flex items-center gap-3 px-8 py-4 font-body text-sm font-bold uppercase tracking-[0.2em] text-void"
+                  >
+                    Enroll Now — $497
+                  </a>
+                )}
+                <Link
+                  href="/scripture"
+                  className="flex items-center gap-2 py-4 font-body text-xs font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
+                >
+                  Preview the curriculum →
+                </Link>
+              </div>
+            </div>
+            <div className="flex flex-col gap-px">
+              {[
+                { num: "0–1", label: "Source + Calling",   note: "Study practice & clarity" },
+                { num: "2–3", label: "Voice + Offer",      note: "Brand voice & first product" },
+                { num: "4–5", label: "Offer + Pipeline",   note: "Pricing & content system" },
+                { num: "6–7", label: "Engine + Obedience", note: "Launch, grow, sustain" },
+              ].map((m) => (
+                <div key={m.num} className="flex items-center justify-between border-b border-graphite py-5 last:border-0">
+                  <div className="flex items-center gap-5">
+                    <span className="font-mono text-xs tracking-[0.15em] text-petal/50">{m.num}</span>
+                    <p className="font-display text-lg uppercase tracking-[0.02em] text-pearl">{m.label}</p>
+                  </div>
+                  <p className="font-body text-xs font-light text-iron">{m.note}</p>
+                </div>
+              ))}
+              <div className="mt-4 grid grid-cols-3 gap-px bg-graphite">
+                {[
+                  { label: "Modules", value: "8" },
+                  { label: "Lessons", value: "28" },
+                  { label: "Price", value: "$497" },
+                ].map((s) => (
+                  <div key={s.label} className="bg-carbon px-4 py-5 text-center">
+                    <p className="font-display text-2xl text-petal">{s.value}</p>
+                    <p className="mt-1 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-iron">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={29} />
 
       {/* ── EBOOKS ── */}
       <RevealSection bg="obsidian" num="01">

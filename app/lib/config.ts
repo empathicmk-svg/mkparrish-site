@@ -55,23 +55,12 @@ export const GR_CALLING_CARD          = "https://mkparrish.gumroad.com/l/the-cal
 export const GR_MINISTRY_MONETIZED    = "https://mkparrish.gumroad.com/l/ministry-monetized";
 export const GR_SCRIPTURE_BUNDLE      = "https://mkparrish.gumroad.com/l/scripture-strategy-bundle";
 
+// ── Gumroad — Scripture & Strategy flagship course ───────────────────────────
+export const GR_SCRIPTURE_COURSE      = "https://mkparrish.gumroad.com/l/scripture-and-strategy";
+
 // ── Products not yet live on Gumroad ─────────────────────────────────────────
-// Remove a slug from this set once the Gumroad product URL is live.
-export const COMING_SOON_SLUGS = new Set([
-  "the-edit-guide",
-  "before-the-session",
-  "the-rewrite-playbook",
-  "the-new-chapter-workbook",
-  "the-byline-method",
-  "the-build-copy-guide",
-  "the-services-vault",
-  "the-study",
-  "gospel-and-grind",
-  "the-sermon-notes",
-  "the-calling-card",
-  "ministry-monetized",
-  "scripture-strategy-bundle",
-]);
+// Add a slug here to show "Coming Soon" instead of the buy button.
+export const COMING_SOON_SLUGS = new Set<string>();
 
 // ── Ko-fi — prints & merch ───────────────────────────────────────────────────
 export const SHOP_URL           = "https://ko-fi.com/mkparrish/shop";
