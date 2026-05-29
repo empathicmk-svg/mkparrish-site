@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Reinvention Workbook — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>The Reinvention Workbook</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>The Reinvention Workbook</h1>
+
+<h3>A guided writing workbook for people in the middle of becoming someone new.</h3>
+
+<p><strong>By MK Parrish</strong></p>
+
+<p><strong>$18</strong></p>
+
+<hr>
+
+<h2>How to Use This Workbook</h2>
+
+<p>You're not lost. You're between drafts.</p>
+
+<p>That restless, ungrounded feeling — like you've outgrown a life that still has your name on it — isn't a breakdown. It's a manuscript in revision. Something is being rewritten, and the discomfort is just the gap between the old version and the one that hasn't fully arrived yet.</p>
+
+<p>This workbook is for that gap. It won't hand you a five-step plan or a personality quiz that flattens you into a color. Reinvention isn't a system. It's a writing practice. You become someone new the same way you write anything true — draft, cut, revise, keep the line that surprised you.</p>
+
+<p>Twenty exercises follow, in four parts. Do them in order or out of it. Use a real notebook if you can; there's something about a hand moving across paper that bypasses the editor in your head. Each prompt has instructions, a few questions, and — where it helps — an example response so you know the depth I'm asking for. The examples are mine or composites. Don't copy them. Let them set the floor, then go past it.</p>
+
+<blockquote>You don't find yourself. You write yourself. One honest sentence at a time.</blockquote>
+
+<p>Set aside the urge to do this perfectly. The mess is the point. Begin.</p>
+
+<hr>
+
+<h2>Part One: The Identity Audit</h2>
+
+<p>Before you build the new, take inventory of the old. You can't revise a draft you've never read closely.</p>
+
+<h3>Exercise 1 — The Inventory</h3>
+
+<p><strong>Instructions:</strong> List ten roles, labels, or identities you currently carry. Job titles, relationships, the descriptions you reach for at parties. Next to each, write one word: <em>keep</em>, <em>cut</em>, or <em>unsure</em>.</p>
+
+<p><em>Example:</em></p>
+<ul><li>Marketing manager — unsure</li><li>Reliable one — cut</li><li>Daughter — keep</li><li>The funny friend — keep</li><li>"Not creative" — cut</li></ul>
+
+<p>The <em>cut</em> and <em>unsure</em> lines are your real material. Circle them.</p>
+
+<h3>Exercise 2 — On Loan vs. Owned</h3>
+
+<p><strong>Instructions:</strong> Take three labels from Exercise 1. For each, write a sentence answering: <em>did I choose this, or was it handed to me?</em> Be honest about the inherited ones.</p>
+
+<p><em>Example:</em> "'Reliable one' was handed to me at about age nine, when being the easy kid kept the house calm. I've been paying interest on it ever since."</p>
+
+<h3>Exercise 3 — The Costume Test</h3>
+
+<p><strong>Instructions:</strong> Describe a version of yourself you perform that doesn't match how you feel inside. Write it in third person, like a character. What does she wear, say, withhold? Then write one sentence on what it costs you to keep her up.</p>
+
+<h3>Exercise 4 — The Energy Map</h3>
+
+<p><strong>Instructions:</strong> Make two columns. Left: everything in your week that drains you. Right: everything that returns you to yourself. Don't moralize the lists — some draining things stay, some energizing things are impractical. Just look. Where is your life out of balance with who you actually are?</p>
+
+<h3>Exercise 5 — The Eulogy You'd Hate</h3>
+
+<p><strong>Instructions:</strong> Write the two-sentence summary of your life that would be true if nothing changed from today. The version that makes your stomach drop a little. This isn't despair — it's a compass. The drop tells you which direction is wrong.</p>
+
+<p><em>Example:</em> "She kept everyone comfortable and herself postponed. She was, by every external measure, fine."</p>
+
+<hr>
+
+<h2>Part Two: Excavating the Old Story</h2>
+
+<p>You've been narrating yourself for years. Some of that narration is true. Some of it was installed by people who needed you to stay a certain shape.</p>
+
+<h3>Exercise 6 — The Story You Tell About Yourself</h3>
+
+<p><strong>Instructions:</strong> Write your origin story the way you usually tell it — the "this is who I am and how I got here" version. One paragraph. Then read it back and underline every sentence that sounds like a limitation stated as a fact. ("I've never been good with money." "I'm just not a leader.")</p>
+
+<h3>Exercise 7 — Find the Author</h3>
+
+<p><strong>Instructions:</strong> Take three underlined limitations from Exercise 6. For each, write whose voice it is. A parent? A teacher? An ex? An era of your life? You'll often find the belief isn't yours — you've just been carrying it so long it feels native.</p>
+
+<p><em>Example:</em> "'I'm not creative' is my third-grade teacher's voice, who graded coloring inside the lines. I have been believing a woman who is no longer alive about a skill she never tested."</p>
+
+<h3>Exercise 8 — The Greatest Hits of Being Misread</h3>
+
+<p><strong>Instructions:</strong> List three times someone got you completely wrong — underestimated you, mislabeled you, decided who you were before you spoke. For each, write the truer version. Notice how often the misreading became something you half-believed.</p>
+
+<h3>Exercise 9 — What You Quit Believing</h3>
+
+<p><strong>Instructions:</strong> Write about something you used to be certain of that you no longer are. A belief, an ambition, a person, a version of the future. Don't mourn it or celebrate it. Just describe the shift. Reinvention is partly the art of letting a belief die without dying with it.</p>
+
+<h3>Exercise 10 — The Permission Slip</h3>
+
+<p><strong>Instructions:</strong> Write a permission slip to yourself, signed, for the thing you keep waiting for someone else to authorize. Make it specific. "I give myself permission to ___." Then answer: who did you think had to sign this instead of you?</p>
+
+<blockquote>Most of us are waiting for a permission that was never going to come from the outside. You are the only signature that was ever required.</blockquote>
+
+<hr>
+
+<h2>Part Three: Voice &amp; Narrative</h2>
+
+<p>You can't become someone new in a voice that belongs to your old self. This part is about how you sound — to yourself, on the page, out loud.</p>
+
+<h3>Exercise 11 — Your Unedited Voice</h3>
+
+<p><strong>Instructions:</strong> Set a timer for five minutes. Write about your day with zero editing — no fixing, no making it sound smart. Read it back and highlight the three phrases that sound most like <em>you</em> and least like a LinkedIn post. That's your raw voice. We're going to keep it.</p>
+
+<h3>Exercise 12 — The Words That Aren't Yours</h3>
+
+<p><strong>Instructions:</strong> List words and phrases you use because they sound professional, safe, or expected — but that you secretly hate. ("Circle back." "I'm passionate about." "Just wanted to check in.") Cross them out. Write what you'd say instead if you trusted yourself.</p>
+
+<h3>Exercise 13 — Describe Yourself Without the Résumé</h3>
+
+<p><strong>Instructions:</strong> Introduce yourself in three sentences without mentioning your job, your accomplishments, or anyone you're related to. Who are you when the credentials are off the table? Harder than it looks. That difficulty is the assignment.</p>
+
+<h3>Exercise 14 — The Letter From the Future You</h3>
+
+<p><strong>Instructions:</strong> Write a letter to yourself from the version of you two years into the reinvention — the one who already made it through this gap. What does she want you to stop apologizing for? What does she find funny now that you find terrifying? Let her be kind and a little impatient.</p>
+
+<p><em>Example:</em> "Dear you — stop drafting the email seventeen times. She presses send. That's the whole difference between us. Also: you were right about the thing you talked yourself out of. Go back to it."</p>
+
+<h3>Exercise 15 — Your One Sentence</h3>
+
+<p><strong>Instructions:</strong> Reinvention needs a thesis. Write the single sentence that captures who you're becoming. Not a job title. A stance. Revise it ten times. The tenth one is usually the real one.</p>
+
+<p><em>Example, drafts 1 and 10:</em></p>
+<ol><li>"I want to be a writer who helps people."</li><li>"I help people rewrite the story they were handed into one they'd actually sign."</li></ol>
+
+<h3>Exercise 16 — The Anti-Mission Statement</h3>
+
+<p><strong>Instructions:</strong> Write down everything you're <em>not</em> doing anymore. The relationships, the apologies, the shrinking, the roles. Naming what you're leaving behind is as defining as naming what you're walking toward. "I'm not the one who manages everyone's feelings at the expense of my own. Anymore."</p>
+
+<hr>
+
+<h2>Part Four: Building the New Draft</h2>
+
+<p>You've audited the old and found your voice. Now you write forward.</p>
+
+<h3>Exercise 17 — The Reinvention Inventory (Revisited)</h3>
+
+<p><strong>Instructions:</strong> Return to your <em>cut</em> and <em>unsure</em> list from Exercise 1. For each one you're ready to cut, write the small first action that begins the cut. Not the dramatic gesture — the quiet first move. Reinvention is mostly unglamorous logistics done with conviction.</p>
+
+<h3>Exercise 18 — One Brave Sentence a Day</h3>
+
+<p><strong>Instructions:</strong> For the next seven days, write one true sentence each morning that the old you wouldn't have written. Track them here. By day seven, read them in order. You'll see a person changing in real time.</p>
+
+<p><em>Example sequence:</em> "I'm allowed to want more." / "I told her no and survived it." / "My work is good even when no one claps." / "I'm not behind. I'm rerouting."</p>
+
+<h3>Exercise 19 — The Identity Rehearsal</h3>
+
+<p><strong>Instructions:</strong> Pick one trait of the person you're becoming. Spend one full day acting as if it's already settled fact, then write what happened. Did the sky fall? It rarely does. We rehearse the new self into existence before we believe in it — belief is the last thing to arrive, not the first.</p>
+
+<h3>Exercise 20 — The Closing Manifesto</h3>
+
+<p><strong>Instructions:</strong> Using everything in this workbook — your one sentence, your anti-mission, your true lines, your future self's letter — write a one-page manifesto for who you are now. Present tense. No hedging. Read it out loud. Then read it again when you forget. This is the new draft. It's allowed to keep changing. So are you.</p>
+
+<blockquote>You were never broken. You were a first draft. And the best thing about a draft is that it was always meant to be revised.</blockquote>
+
+<hr>
+
+<h2>Keep Going</h2>
+
+<p>Reinvention isn't a weekend. It's a practice, and practices need company.</p>
+
+<p>If the excavation in Parts One and Two opened something tender — especially if the old story was written by someone who hurt you — read <strong>The Invisible Bruise</strong>, which sits with that wound directly.</p>
+
+<p>If you're ready to take your new voice public — into your bio, your brand, the rooms you want to be in — <strong>Write Yourself Into the Room</strong> is the next step.</p>
+
+<p>Find more at <strong>mkparrish.com</strong>, where I write about voice, identity, and the long, worthwhile work of becoming.</p>
+
+<p>You picked up the pen. That was always the hardest part.</p>
+
+<p>— MK Parrish</p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

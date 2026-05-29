@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The New Chapter Workbook — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>The New Chapter Workbook</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>The New Chapter Workbook</h1>
+
+<h3>The brand and website repositioning framework — run it yourself.</h3>
+
+<p><strong>By MK Parrish</strong></p>
+<p><strong>Price: $35</strong></p>
+
+<hr>
+
+<h2>Why this exists</h2>
+
+<p>Your business changed and your website didn't.</p>
+
+<p>You added the offer, dropped the old one, raised the rates, narrowed the niche — and the site still describes the version of you from two years ago. The copy isn't wrong, exactly. It's just <em>behind</em>. It's selling a chapter you already closed.</p>
+
+<p>This is the most common reason a site stops converting. Not bad design. Not the wrong font. A mismatch between who you are now and what the page says you are. Visitors feel the gap even when they can't name it — and they leave.</p>
+
+<p>The New Chapter is the work I do with people repositioning a brand and rebuilding the site around it. Not a redesign. A re-<em>decision</em>: what you stand for now, who it's for, and how every page should say it. This Workbook is that whole framework, structured so you can run it on your own brand.</p>
+
+<p>Work in order. Audit the gap, draw the positioning map, architect the pages, set the voice, then run the launch checklist. Each part feeds the next. Block out a weekend or spread it across two weeks — but do the audit before you write a single word of new copy.</p>
+
+<hr>
+
+<h2>Part 1 — The Brand Audit &amp; Positioning Map</h2>
+
+<p>You can't reposition until you know exactly where you are and where the gap is. Start by reading your own site like a stranger who's deciding whether to trust you.</p>
+
+<h3>The Gap Audit</h3>
+
+<p>Open your current site. Answer honestly.</p>
+
+<pre><code>  WHAT THE SITE CURRENTLY SAYS I DO: ____________
+<p>  WHAT I ACTUALLY DO NOW: ____________</p>
+<p>  THE GAP between those: ____________</p>
+
+<p>  WHO THE SITE SEEMS TO TALK TO: ____________</p>
+<p>  WHO I ACTUALLY WANT TO WORK WITH NOW: ____________</p>
+
+<p>  WHAT THE SITE LEADS WITH (first headline): ____________</p>
+<p>  IS THAT STILL THE MOST IMPORTANT THING? (y/n) ____________</p>
+
+<p>  OFFERS LISTED THAT I NO LONGER WANT: ____________</p>
+<p>  OFFERS I DO NOW THAT AREN'T ON THE SITE: ____________</p>
+<p></code></pre></p>
+
+<h3>The Positioning Map</h3>
+
+<p>Now plot where you're moving. The map has four corners — fill each.</p>
+
+<pre><code>  FROM (the old position)            TO (the new position)
+<p>  ───────────────────────           ───────────────────────</p>
+<p>  I was known for: _______           I want to be known for: _______</p>
+<p>  I served: ______________           I now serve: __________________</p>
+<p>  My pitch was: __________           My pitch is: __________________</p>
+<p>  My price said: _________           My price now says: ____________</p>
+<p></code></pre></p>
+
+<p>Then the line that holds the new position together:</p>
+
+<pre><code>  THE ONE LINE (new position):
+<p>    I help [WHO] [GET WHAT] by [DISTINCT HOW], unlike [THE DEFAULT]</p>
+<p>    who [WHAT THEY DO INSTEAD].</p>
+<p></code></pre></p>
+
+<h3>Worked example</h3>
+
+<pre><code>GAP AUDIT:
+<p>  Site says: "freelance graphic designer for small businesses."</p>
+<p>  Actually do now: brand identity systems for funded startups.</p>
+<p>  The gap: I leveled up two tiers and the site still says "freelancer."</p>
+<p>  Site talks to: anyone with a budget. Want now: Series A founders.</p>
+<p>  Leads with: "Affordable design that gets results." Still right? No.</p>
+<p>  No longer want: one-off logo gigs, social graphics.</p>
+<p>  Do now, not listed: full brand systems, naming, design strategy.</p>
+
+<p>POSITIONING MAP:</p>
+<p>  FROM: "affordable freelance designer for small biz, $500 logos"</p>
+<p>  TO:   "brand systems partner for funded startups, $15k engagements"</p>
+
+<p>THE ONE LINE:</p>
+<p>  I build the brand systems that make early startups look like the</p>
+<p>  category leader before they are one — unlike agencies that take</p>
+<p>  six months and a retainer, I deliver the whole identity in six weeks.</p>
+<p></code></pre></p>
+
+<p>The audit makes the work obvious. This person isn't tweaking copy. They're rebuilding around a price point and an audience that the old site actively repels.</p>
+
+<hr>
+
+<h2>Part 2 — The Page-by-Page Copy Architecture</h2>
+
+<p>A repositioned brand needs a site that argues for the new position on every page. Here's the job each page does and the structure to fill in. Architecture first — write the skeleton before the sentences.</p>
+
+<h3>Home</h3>
+
+<p>The home page answers one question in under five seconds: <em>am I in the right place?</em> If the new position isn't clear above the fold, nothing below it matters.</p>
+
+<pre><code>  HERO HEADLINE: [the reader's desired outcome, in the new position]
+<p>  SUBHEAD: [how you get them there — the distinct how]</p>
+<p>  PRIMARY CTA: [verb the reader would say]</p>
+
+<p>  PROOF STRIP: [logos / numbers / one-line credibility]</p>
+
+<p>  THE PROBLEM: [name the pain in their words — 2-3 lines]</p>
+<p>  THE SHIFT: [what's possible instead — your point of view]</p>
+<p>  HOW IT WORKS: [3 steps, named, scannable]</p>
+<p>  PROOF: [results, testimonial, case]</p>
+<p>  SECONDARY CTA: [repeat the ask]</p>
+<p></code></pre></p>
+
+<h3>About</h3>
+
+<p>The About page is not your autobiography. It's the page that makes them trust you with the new, more expensive thing. Lead with <em>them</em>, then earn the <em>you</em>.</p>
+
+<pre><code>  OPENING: [a line about THEIR situation, not your origin story]
+<p>  THE BRIDGE: [why you do this — the conviction behind the work]</p>
+<p>  THE PROOF YOU'RE THE ONE: [credentials, track record, named results]</p>
+<p>  THE HUMAN BEAT: [one true, specific detail — not "loves coffee"]</p>
+<p>  CTA: [the next step]</p>
+<p></code></pre></p>
+
+<h3>Services / Offers</h3>
+
+<p>Where the repositioning gets real. Cut the old offers. Frame the new ones around outcomes and price them like the new position.</p>
+
+<pre><code>  FOR EACH OFFER:
+<p>  NAME: [The Noun — a named offer beats "Package A"]</p>
+<p>  WHO IT'S FOR: [one specific line]</p>
+<p>  THE OUTCOME: [what they walk away with]</p>
+<p>  WHAT'S INCLUDED: [3-5 concrete deliverables]</p>
+<p>  INVESTMENT: [the price, stated, not hidden]</p>
+<p>  CTA: [book / inquire / start]</p>
+<p></code></pre></p>
+
+<h3>Contact</h3>
+
+<p>The easiest page to neglect and the last one before money. Make the next step obvious and low-friction. Tell them what happens after they reach out.</p>
+
+<pre><code>  HEADLINE: [a warm, direct invitation — not "Contact Us"]
+<p>  WHAT TO DO: [one clear action]</p>
+<p>  WHAT HAPPENS NEXT: [set the expectation — "I reply within a day"]</p>
+<p>  THE FALLBACK: [email / form / calendar link]</p>
+<p></code></pre></p>
+
+<h3>Worked example — Home hero, repositioned</h3>
+
+<pre><code>  BEFORE (old position):
+<p>    Headline: "Affordable, professional design for your small business"</p>
+<p>    Sub: "Logos, flyers, and social graphics done right."</p>
+<p>    CTA: "Get a Quote"</p>
+
+<p>  AFTER (new position):</p>
+<p>    Headline: "Look like the category leader before you are one."</p>
+<p>    Sub: "Full brand identity systems for funded startups — built in</p>
+<p>          six weeks, not six months."</p>
+<p>    CTA: "See the work"</p>
+<p></code></pre></p>
+
+<hr>
+
+<h2>Part 3 — The Voice &amp; Messaging Clarity Framework</h2>
+
+<p>New position, new voice — or at least a checked one. When you level up your audience, the voice that won the old clients can repel the new ones. This framework locks the voice so every page sounds like one brand.</p>
+
+<h3>The voice definition</h3>
+
+<pre><code>  WE SOUND: [3 adjectives — e.g. "direct, warm, sharp"]
+<p>  WE NEVER SOUND: [3 adjectives — e.g. "salesy, corporate, cute"]</p>
+
+<p>  WORDS WE USE: ____________</p>
+<p>  WORDS WE BAN: ____________</p>
+
+<p>  THE READER WE PICTURE: [one specific person]</p>
+<p>  HOW WE TALK TO THEM: [like a ____ talking to a ____]</p>
+<p></code></pre></p>
+
+<h3>The message hierarchy</h3>
+
+<p>Decide what every page leads with, in priority order. When in doubt, the higher message wins the space.</p>
+
+<pre><code>  1. THE CORE MESSAGE (on every page): ____________
+<p>  2. THE SUPPORTING MESSAGES (pick 3): ____________</p>
+<p>  3. THE PROOF POINTS (rotate as needed): ____________</p>
+<p></code></pre></p>
+
+<h3>The consistency check</h3>
+
+<ul><li>[ ] Read three pages in a row — does it sound like one person?</li><li>[ ] Banned words actually absent?</li><li>[ ] The core message present (in some form) on every page?</li><li>[ ] Reading level matches the new audience, not the old?</li><li>[ ] CTAs use the same verbs sitewide?</li></ul>
+
+<h3>Worked example — voice definition</h3>
+
+<pre><code>  WE SOUND: confident, plain-spoken, a little irreverent.
+<p>  WE NEVER SOUND: cheap, corporate, "agency."</p>
+<p>  WORDS WE USE: build, system, category, sharp, fast.</p>
+<p>  WORDS WE BAN: affordable, cheap, package, solutions, synergy.</p>
+<p>  READER: a 32-year-old founder who just raised and has 8 weeks.</p>
+<p>  HOW WE TALK: like a sharp peer who's done this before, to a smart</p>
+<p>  person in a hurry.</p>
+<p></code></pre></p>
+
+<p>Notice "affordable" got banned. It was the hero word of the old position. Keeping it would undercut the new price on every page.</p>
+
+<hr>
+
+<h2>Part 4 — The Launch Copy Checklist</h2>
+
+<p>The repositioning isn't done when the site is — it's done when you've <em>told people the chapter changed</em>. Here's the full launch copy you need, and the pre-launch check.</p>
+
+<h3>The launch copy you need</h3>
+
+<pre><code>  THE ANNOUNCEMENT POST (LinkedIn / social):
+<p>    Hook: [the change, stated plainly]</p>
+<p>    Why: [the conviction behind the move — 2-3 lines]</p>
+<p>    What's new: [the new offer/position]</p>
+<p>    CTA: [come see / let's talk]</p>
+
+<p>  THE EMAIL TO YOUR LIST:</p>
+<p>    Subject: [the news, compressed]</p>
+<p>    Body: [what changed, why it's better for them, one CTA]</p>
+
+<p>  THE NEW BIO / HEADLINE everywhere it lives:</p>
+<p>    [ ] LinkedIn   [ ] Instagram   [ ] email signature</p>
+<p>    [ ] directories / profiles   [ ] speaker bios</p>
+<p></code></pre></p>
+
+<h3>Pre-launch review checklist</h3>
+
+<ul><li>[ ] Every page reflects the new position — no orphaned old copy</li><li>[ ] Old offers removed everywhere, including footer and nav</li><li>[ ] Prices updated and stated, not hidden behind "inquire"</li><li>[ ] Every page passes the voice consistency check</li><li>[ ] Every headline names an outcome, not a feature</li><li>[ ] Every page has one clear primary CTA</li><li>[ ] Read the whole site out loud — no stumbles, no leftover voice</li><li>[ ] Meta titles/descriptions updated to the new position</li><li>[ ] Old links/redirects sorted so nothing 404s</li><li>[ ] One trusted reader did a full pass and the new position is obvious</li><li>[ ] Announcement post and email drafted and scheduled</li><li>[ ] Bio/headline updated on every external profile</li></ul>
+
+<hr>
+
+<h2>When you want it done for you</h2>
+
+<p>This is the whole framework — audit, map, architecture, voice, launch. Run it and your site will finally say what you actually do now.</p>
+
+<p>The hard part isn't the building. It's the <em>deciding</em>. When you're inside your own brand, every old offer feels load-bearing and every cut feels risky. You'll keep the "affordable" because it once worked, and it'll quietly undercut everything else. An outside eye makes the calls you keep flinching from.</p>
+
+<p>That's <strong>The New Chapter</strong> — the done-for-you version. We run this together: I audit the gap, draw the new position, and rebuild the site copy page by page so the whole thing finally matches the business you actually have.</p>
+
+<p>Find it at <strong>mkparrish.com</strong>.</p>
+
+<p>You already turned the page. Let's make the site catch up.</p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ministry, Monetized: The Launch & Revenue Playbook for Faith-Based Creators — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>Ministry, Monetized: The Launch & Revenue Playbook for Faith-Based Creators</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>Ministry, Monetized: The Launch &amp; Revenue Playbook for Faith-Based Creators</h1>
+
+<p><strong>Format:</strong> Digital ebook + templates (PDF + Google Docs)</p>
+<p><strong>Price:</strong> $42</p>
+<p><strong>Length:</strong> ~85 pages + 6 template documents</p>
+<p><strong>Audience:</strong> Faith-based creators who have a calling, an offer, and a voice — and need a practical, honest playbook for building revenue without compromising integrity.</p>
+
+<hr>
+
+<h2>What this is</h2>
+
+<p>You have the message. You've done the clarity work. You know what you're building.</p>
+
+<p>Now you need to make it pay.</p>
+
+<p>Not "pay" in the hustle-culture, screenshot-your-revenue-on-Instagram sense. Pay in the <em>sustainable, long-obedience, I-can-keep-doing-this-for-ten-years</em> sense. The kind of income that proves your work is worth paying for, that resources the mission instead of taxing it, and that doesn't require you to become someone else to earn it.</p>
+
+<p>This is the launch and revenue playbook. It covers four things: the pre-launch, the launch, the post-launch debrief, and the revenue architecture that makes the next launch better than the last.</p>
+
+<hr>
+
+<h2>Part One: Before You Launch Anything</h2>
+
+<h3>The clarity check</h3>
+<p>You cannot launch what you haven't named. Before this book does anything else, it walks through five quick tests your offer has to pass. Not to slow you down — to prevent the most expensive mistake faith creators make: launching something undercooked to protect the feeling of having launched.</p>
+
+<p><strong>The five pre-launch tests:</strong></p>
+<ol><li><em>Can you say the transformation in one sentence without using the word "journey"?</em></li><li><em>Have at least three people in your exact target audience said they would pay for this at your price?</em></li><li><em>Can you fulfill it this month if ten people bought tomorrow?</em></li><li><em>Do you have a way to collect payment and deliver the product that isn't "DM me and I'll Venmo you"?</em></li><li><em>Do you believe, in your gut, that this is priced fairly — not just for the market but for what it's worth?</em></li></ol>
+
+<p>If any of those is a no, the launch date moves until it's a yes.</p>
+
+<h3>The pre-launch window</h3>
+<p>Eight to twelve weeks before doors open, you build the context. Not hype — context. The content that helps your audience understand the problem your offer solves, told from genuine personal conviction. This section includes a pre-launch content calendar template (12 weeks, mapped by content type) and the three pre-launch email sequences you actually need.</p>
+
+<hr>
+
+<h2>Part Two: The Launch</h2>
+
+<h3>Launch architecture</h3>
+<p>The four-week launch arc (matching Module 6 of Scripture &amp; Strategy but with full templates):</p>
+
+<p><strong>Week 1 — The Problem Week</strong>: Content that surfaces the exact pain your offer addresses. Three content pieces, one email, mapped.</p>
+<p><strong>Week 2 — The Possibility Week</strong>: Before/after framing. What does life look like after the transformation? Three content pieces, one email.</p>
+<p><strong>Week 3 — The Open Week</strong>: Doors open Monday. Email sequence mapped across 7 days (open, middle, close). FAQ post. Social proof if you have it; conviction if you don't.</p>
+<p><strong>Week 4 — The Follow-Through Week</strong>: One "last chance" email (not manipulative — just honest about the close). One post about what early buyers are already saying. Doors close. Done.</p>
+
+<p>Every email in this playbook is a complete template — not a framework you fill in yourself, but a draft with real language you can keep or rewrite. The language sounds like a person, not a funnel.</p>
+
+<h3>Pricing the launch</h3>
+<p>Special launch pricing, early-bird windows, payment plans — when to use them, how to frame them without false urgency, and how to close without discounting your way into resentment. Includes a pricing decision tree.</p>
+
+<h3>The honest launch metrics</h3>
+<p>What to track (and what to ignore):</p>
+<ul><li>Email open rate and click rate on launch emails</li><li>Conversion rate from click to checkout</li><li>Where the buyers came from (organic content, email, referral)</li><li>Abandoned checkouts (this number is usually higher and more useful than people expect)</li></ul>
+
+<p>Not to track during the launch: follower count, impressions, engagement rate. These are vanity during a launch week. Revenue per email subscriber is the number.</p>
+
+<hr>
+
+<h2>Part Three: After the Launch</h2>
+
+<h3>The debrief</h3>
+<p>The launch debrief is the most skipped step and the most valuable. Twelve questions to answer within 48 hours of closing:</p>
+
+<ol><li>How many units sold?</li><li>At what revenue?</li><li>What was the email list size at open?</li><li>What was the overall conversion rate (buyers ÷ list)?</li><li>Which email had the highest click-to-purchase rate?</li><li>Where did the buyers come from?</li><li>What was the most common objection you encountered (from replies, DMs, or your own read of the silence)?</li><li>What would you price it differently?</li><li>What content piece drove the most traffic to the sales page?</li><li>What would you cut from the launch sequence next time?</li><li>What would you add?</li><li>What did the work teach you about who this is actually for?</li></ol>
+
+<p>This debrief becomes the brief for the next launch. A creator who debriefs every launch compounds their results. One who doesn't starts from scratch every time.</p>
+
+<h3>Evergreen after launch</h3>
+<p>Most digital products shouldn't retire after the launch window closes. This section covers converting a launched product to evergreen — a sales page that's always open, an email automation that introduces new subscribers to the offer, and a content drip that keeps it visible without a full launch every time.</p>
+
+<hr>
+
+<h2>Part Four: Revenue Architecture</h2>
+
+<h3>The recurring revenue layer</h3>
+<p>Single launches are feast-and-famine. Recurring revenue is the antidote. Three models that work for faith-based creators:</p>
+
+<ol><li><strong>The monthly membership</strong>: A lower-ticket ($19–$49/month) container — live calls, community, exclusive content. Works when you have an audience with a recurring need.</li><li><strong>The subscription newsletter</strong>: A paid Substack or Beehiiv newsletter ($9–$15/month). Works when your content is the product.</li><li><strong>The monthly retainer</strong>: A small number of premium clients on a recurring monthly engagement. Works when you offer ongoing strategy, coaching, or ghostwriting.</li></ol>
+
+<p>Each model includes a launch framework, a pricing guide, and the minimum viable audience size needed to make it work.</p>
+
+<h3>Offer sequencing</h3>
+<p>How to introduce new offers without cannibalizing existing ones, how to sequence your ladder so each product leads naturally to the next, and when to run simultaneous offers vs. a single focused launch.</p>
+
+<h3>The annual revenue plan</h3>
+<p>A simple one-page template: four launches per year, one recurring revenue stream, one premium offer. What it takes to hit Foundation-level revenue ($3K–$6K/month) and what comes after.</p>
+
+<hr>
+
+<h2>Templates Included</h2>
+
+<ol><li><strong>Pre-launch content calendar</strong> (12-week Google Sheet)</li><li><strong>Launch email sequence</strong> (7 emails, fully drafted, Google Doc)</li><li><strong>Sales page copy framework</strong> (section-by-section, with examples)</li><li><strong>Launch debrief worksheet</strong> (12-question PDF)</li><li><strong>Evergreen email sequence</strong> (5-email automation for new subscribers)</li><li><strong>Annual revenue planning template</strong> (one-page PDF)</li></ol>
+
+<hr>
+
+<h2>Who this is for</h2>
+
+<ul><li>Faith-based creators, coaches, and teachers who have an offer and need to launch it</li><li>Creators who've launched before to modest results and want to understand why</li><li>Service providers adding digital products to their revenue mix</li><li>Founders and coaches ready to build a recurring revenue layer</li></ul>
+
+<hr>
+
+<h2>What you'll leave with</h2>
+
+<ul><li>A complete four-week launch plan, templated and ready to use</li><li>A post-launch debrief practice that compounds results over time</li><li>Three recurring revenue models mapped out with minimum viable requirements</li><li>Six complete template documents you can use immediately</li></ul>
+
+<hr>
+
+<p><em>This is the companion deep-dive to Module 6 of Scripture &amp; Strategy. If you've taken the course, you know the framework — this is the full implementation.</em></p>
+
+<p>→ <strong>$42. Templates included. Immediate download.</strong></p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

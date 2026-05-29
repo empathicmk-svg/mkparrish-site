@@ -2,17 +2,17 @@ import Link from "next/link";
 import { PATREON_URL, CONTACT } from "@/app/lib/config";
 
 const footerLinks = [
-  { label: "Career",       href: "/career" },
-  { label: "Brand",        href: "/brand" },
-  { label: "Presence",     href: "/presence" },
-  { label: "Next Chapter", href: "/next-chapter" },
-  { label: "Growth",       href: "/growth" },
-  { label: "Studio",       href: "/studio" },
-  { label: "LinkedIn",     href: "/linkedin" },
-  { label: "The Shelf",    href: "/shelf" },
-  { label: "The Margins",  href: "/margins" },
-  { label: "About",        href: "/about" },
-  { label: "Contact",      href: "/contact" },
+  { label: "Leadership",    href: "/career" },
+  { label: "Brand",         href: "/brand" },
+  { label: "Presence",      href: "/presence" },
+  { label: "Repositioning", href: "/next-chapter" },
+  { label: "Growth",        href: "/growth" },
+  { label: "Studio",        href: "/studio" },
+  { label: "LinkedIn",      href: "/linkedin" },
+  { label: "The Shelf",     href: "/shelf" },
+  { label: "The Margins",   href: "/margins" },
+  { label: "About",         href: "/about" },
+  { label: "Contact",       href: "/contact" },
 ];
 
 export default function Footer() {

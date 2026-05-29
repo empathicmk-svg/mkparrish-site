@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Build Copy Guide: Every Word You Need for a New Website — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>The Build Copy Guide: Every Word You Need for a New Website</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>The Build Copy Guide: Every Word You Need for a New Website</h1>
+
+<p><strong>Format:</strong> Digital template pack (Google Docs + PDF)</p>
+<p><strong>Price:</strong> $48</p>
+<p><strong>Audience:</strong> Founders and business owners launching or relaunching a website who need to write the copy themselves — or brief a copywriter — without guessing.</p>
+
+<hr>
+
+<h2>What this is</h2>
+
+<p>Building a website is not primarily a design problem. It's a copy problem. Most websites fail at the sentence level — the headline doesn't say anything, the about page talks only about the company, the services page lists features with no outcomes. A beautiful site with weak copy is a beautiful building with no address.</p>
+
+<p>This is the copy guide for The Build: the full-site strategy and production service. But it works as a standalone tool for any company or creator who needs to write — or brief — a complete website.</p>
+
+<p>It covers every section, every page, every sentence you'll need. With frameworks, examples, fill-in-the-blank starters, and the one test that separates copy that converts from copy that sounds nice.</p>
+
+<hr>
+
+<h2>What's included</h2>
+
+<h3>Section 1: Before You Write Anything</h3>
+
+<p><strong>The positioning brief</strong></p>
+<p>One page. Five questions. Every word in the site comes from the answers to these five questions:</p>
+<ol><li>Who is this for? (One specific person, not a category.)</li><li>What's the one thing we do better or differently than anyone else?</li><li>What does the reader most need to believe in order to hire us?</li><li>What's the single most common objection — and what's the honest response to it?</li><li>What do we want them to do right now?</li></ol>
+
+<p>If you can't answer all five, the copy isn't the problem yet.</p>
+
+<p><strong>The voice snapshot</strong></p>
+<p>Three adjectives, three banned words, one "sounds like us" sentence. Your voice snapshot prevents your website from reading like it was written by a committee of people who've never met.</p>
+
+<hr>
+
+<h3>Section 2: The Homepage</h3>
+
+<p>The homepage has one job: convince the right person they're in the right place and direct them to one next step.</p>
+
+<p><strong>The hero section</strong></p>
+<ul><li>H1 framework: <em>[What you do] for [who]</em> — stated with a verb, not a noun. "We build financial models for early-stage founders" beats "Financial Strategy Solutions."</li><li>Subhead framework: The specific outcome your best clients get, in one sentence.</li><li>CTA copy: Three options for the button — when to use "Get Started," "Book a Call," "See Our Work," and why "Learn More" converts nothing.</li></ul>
+
+<p><strong>The social proof strip</strong></p>
+<p>Three types of proof in order of effectiveness: specific outcomes (revenue, saves time, solves what), named client quotes (with company + title), and recognizable logos. Frameworks for writing each.</p>
+
+<p><strong>The services preview</strong></p>
+<p>The three-card rule: no more than three service cards on the homepage. For each card: one-line title, one-line outcome, one CTA. Templates and examples.</p>
+
+<p><strong>The about preview</strong></p>
+<p>One paragraph, written about what you believe — not who you are. The about preview on the homepage is not a bio. It's a conviction statement. Template and examples.</p>
+
+<p><strong>The final CTA section</strong></p>
+<p>The offer, restated simply, with the friction-reducing phrase that addresses the last objection before the click. Templates by service type.</p>
+
+<hr>
+
+<h3>Section 3: The Services Pages</h3>
+
+<p>A services page fails in one of two ways: it lists features with no outcomes, or it's so outcome-focused it forgets to describe what the person actually gets.</p>
+
+<p><strong>The services page framework (per service):</strong></p>
+<ul><li><strong>Header</strong>: Service name + one-line outcome statement</li><li><strong>The problem section</strong>: Three to four sentences that describe the situation this service addresses. Written as <em>their</em> problem, not your pitch.</li><li><strong>The solution section</strong>: What you do and what it produces — in concrete terms. "You get X, Y, and Z. Within [timeframe], you'll have [deliverable]."</li><li><strong>The process section</strong> (optional): Three to five steps. Makes the abstract feel real.</li><li><strong>The proof section</strong>: One case study or quote, specific to this service.</li><li><strong>The CTA</strong>: Price anchor (or "starting from") + booking link.</li></ul>
+
+<p>Templates for six types of service pages: retainer, project, digital product, course, coaching, and done-for-you.</p>
+
+<hr>
+
+<h3>Section 4: The About Page</h3>
+
+<p>The most miswritten page on almost every website. Most About pages are about the company. The best About pages are about the reader — their problem, told through the lens of how you came to care about it.</p>
+
+<p><strong>The About page framework:</strong></p>
+<ol><li><strong>The empathy opener</strong>: Start with them, not you. One paragraph that names the situation they're in.</li><li><strong>The bridge</strong>: How you came to understand that situation. The true version.</li><li><strong>The conviction</strong>: What you believe that shapes how you do the work. Not a values list — a point of view.</li><li><strong>The credentials</strong>: Brief, specific, and ordered by relevance not prestige.</li><li><strong>The human detail</strong>: One non-professional detail. People buy from people.</li><li><strong>The CTA</strong>: One next step.</li></ol>
+
+<p>Templates and a full annotated example.</p>
+
+<hr>
+
+<h3>Section 5: The Contact &amp; Booking Pages</h3>
+
+<p>The last page people visit before they decide. Most contact pages abandon the visitor at the worst moment.</p>
+
+<ul><li><strong>The micro-headline</strong>: One line that justifies the friction of the form. Examples by service type.</li><li><strong>The expectation-setter</strong>: What happens after they submit. Specific timeline. No one likes not knowing.</li><li><strong>Form field guidance</strong>: Which fields to include, which to cut (every extra field reduces completions), and how to phrase questions so they don't feel like interrogation.</li><li><strong>The booking page</strong>: Pre-booking language that warms the conversation before it starts. What to say above a Calendly embed.</li></ul>
+
+<hr>
+
+<h3>Section 6: The One Test</h3>
+
+<p>Every sentence in your site, run through one test: <em>Does this sentence help the right person take the right action, or does it make us feel good?</em></p>
+
+<p>Copy that makes the company feel good: "We are a leading provider of integrated strategic solutions." Copy that helps the right person: "We write the investor pitch decks that get to the next meeting."</p>
+
+<p>The test is not elegant. It's just useful. Run every sentence through it before the site goes live.</p>
+
+<hr>
+
+<h2>Templates Included</h2>
+
+<p>All templates are provided as Google Docs you can copy to your Drive:</p>
+
+<ol><li><strong>Positioning brief</strong> (1 page)</li><li><strong>Voice snapshot</strong> (1 page)</li><li><strong>Homepage copy template</strong> (section by section, with fill-in starters)</li><li><strong>Services page template</strong> (adaptable to any service type)</li><li><strong>About page template</strong> (with annotated example)</li><li><strong>Contact/booking page template</strong></li><li><strong>Copy review checklist</strong> (runs every page through the one test + 12 other checks)</li></ol>
+
+<hr>
+
+<h2>Who this is for</h2>
+
+<ul><li>Founders writing their own site copy for a launch or rebrand</li><li>Business owners who need to brief a copywriter without starting from scratch</li><li>Agencies and consultants who want a repeatable framework for client website copy</li><li>Creators building their first real site and doing it themselves</li></ul>
+
+<hr>
+
+<h2>What you'll leave with</h2>
+
+<ul><li>A complete framework for every page of a new or relaunched website</li><li>Seven fill-in templates ready to use in Google Docs</li><li>The positioning brief that makes all the copy easier to write</li><li>One test that separates copy that converts from copy that sounds nice</li></ul>
+
+<hr>
+
+<p><em>This is the copy companion to The Build — MK's full-site strategy and production service. If you're building with the team, this is the brief. If you're building yourself, this is the guide.</em></p>
+
+<p>→ <strong>$48. All templates included. Immediate download.</strong></p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

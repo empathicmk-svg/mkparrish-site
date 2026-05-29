@@ -87,32 +87,32 @@ function StatCounter({ value, suffix, label }: { value: number; suffix: string; 
 }
 
 // ── Word cycling words ────────────────────────────────────────────────────────
-const CYCLE_WORDS = ["Career", "Brand", "Story", "Future", "Narrative"];
+const CYCLE_WORDS = ["Messaging", "Positioning", "Pipeline", "Category", "Narrative"];
 
 // ── Client type cards ────────────────────────────────────────────────────────
 const clientTypes = [
   {
     num: "01",
-    title: "Executive",
-    desc: "Your LinkedIn and bio are still describing who you were three roles ago.",
-    href: "/career",
+    title: "B2B SaaS",
+    desc: "You have product-market fit but your homepage still sounds like a seed-stage pitch. The pipeline tells a better story than your copy does.",
+    href: "/brand",
   },
   {
     num: "02",
-    title: "Founder",
-    desc: "Your site undersells a business that has genuinely outgrown its own copy.",
+    title: "Agencies & Consultants",
+    desc: "You need a senior partner who owns the brief, runs the function, and delivers without hand-holding. Not a vendor — a resource who thinks like a principal.",
     href: "/brand",
   },
   {
     num: "03",
-    title: "Creator",
-    desc: "You have the audience but the brand voice doesn't match the depth of the work.",
-    href: "/presence",
+    title: "Growth-Stage Teams",
+    desc: "You are past early traction and need the full stack: positioning, demand gen, web presence, and the execution to back it up.",
+    href: "/growth",
   },
   {
     num: "04",
-    title: "In Transition",
-    desc: "Your old story no longer fits and the new one isn't finished yet.",
+    title: "Companies in Transition",
+    desc: "Pivot, relaunch, new market, new category. The old story no longer fits the business you are running today. That is exactly the work.",
     href: "/next-chapter",
   },
 ];
@@ -120,18 +120,18 @@ const clientTypes = [
 // ── Before/After data ────────────────────────────────────────────────────────
 const baPanels = [
   {
-    label: "LinkedIn Headline",
-    before:
-      "Marketing Manager at TechCorp | Results-driven professional with 10+ years of experience helping companies achieve growth",
-    after:
-      "I turn technical products into market leaders. Led $0→$42M ARR at Series B SaaS. Now: VP Marketing @ [Company] | Building in public.",
-  },
-  {
-    label: "Homepage Headline",
+    label: "Website Homepage Headline",
     before:
       '"We provide comprehensive digital marketing solutions for businesses of all sizes."',
     after:
       '"Your competitors are getting the calls you should be getting. Here\'s exactly why — and how to fix it in 30 days."',
+  },
+  {
+    label: "Company Positioning Statement",
+    before:
+      '"A B2B SaaS platform that helps teams manage their workflows more efficiently."',
+    after:
+      '"The revenue intelligence layer your sales team didn\'t know they were missing — until the number stopped moving."',
   },
 ];
 
@@ -139,23 +139,23 @@ const baPanels = [
 const processSteps = [
   {
     num: "01",
-    title: "Intake Call",
-    desc: "We diagnose exactly where the language is breaking down and what it needs to do instead.",
+    title: "Discovery Call",
+    desc: "We diagnose where the language is breaking down, what it needs to do, and how we measure success together.",
   },
   {
     num: "02",
     title: "Strategy Brief",
-    desc: "A written positioning document: your audience, your argument, your differentiators — in writing.",
+    desc: "A written positioning document: your audience, your argument, your differentiators, your competitive angle — in writing before a word gets drafted.",
   },
   {
     num: "03",
     title: "The Rewrite",
-    desc: "Copy delivered in rounds with tracked changes. You see every decision and why I made it.",
+    desc: "Copy delivered in rounds with tracked changes. Your team sees every decision and the reasoning behind it.",
   },
   {
     num: "04",
     title: "Launch",
-    desc: "Final files, formatted for every platform. Plus a 30-day check-in to see it landing.",
+    desc: "Final deliverables, formatted for every platform. Plus a 30-day check-in to confirm it is landing.",
   },
 ];
 
@@ -165,27 +165,27 @@ const services = [
     tag: "Quick Fix",
     title: "The Edit",
     price: "From $100",
-    desc: "One piece of copy rewritten. LinkedIn bio, tagline, homepage heading, or positioning statement. You know exactly what is broken. I fix it in 48 hours.",
+    desc: "One piece of copy rewritten. Homepage headline, positioning statement, about page, or services copy. You know what is not working. I fix it in 48 hours.",
     perks: [
-      "LinkedIn headline and about section",
-      "Executive bio or speaker profile",
-      "Website tagline or about copy",
-      "Short-form positioning statement",
+      "Homepage headline or tagline",
+      "Positioning or mission statement",
+      "About page or services copy",
+      "Founder or exec bio",
     ],
     cta: "Buy The Edit",
     href: STRIPE_EDIT,
     highlight: false,
   },
   {
-    tag: "Power Hour",
+    tag: "Strategy Session",
     title: "The Session",
     price: "$250",
-    desc: "One hour. Your copy, your positioning, your strategy — with me, live. You walk away with a written brief and a clear next move. No prep required. Just show up.",
+    desc: "One hour. Your messaging, your positioning, your strategy — live with me. Walk away with a written brief and a clear next move. Bring your team.",
     perks: [
-      "60-minute 1:1 strategy session",
+      "60-minute strategy session",
       "Live copy audit or positioning work",
-      "Written follow-up brief",
-      "Record to review afterward",
+      "Written follow-up brief delivered same day",
+      "Recording included",
     ],
     cta: "Book The Session",
     href: STRIPE_SESSION,
@@ -195,11 +195,11 @@ const services = [
     tag: "Most Requested",
     title: "The Rewrite",
     price: "From $1,500",
-    desc: "A full story overhaul anchored in a strategy session. For people whose work has outpaced the language they are still using to describe it. This is where the gap closes.",
+    desc: "Core messaging overhauled. Homepage, positioning statement, and brand voice direction anchored in a strategy session. For companies whose results have outpaced their copy.",
     perks: [
-      "Full LinkedIn overhaul",
-      "Career or brand narrative",
-      "Bio, about page, and pitch copy",
+      "Homepage and positioning copy",
+      "Brand voice and messaging direction",
+      "About page and services copy",
       "30-minute strategy session included",
     ],
     cta: "Start The Rewrite",
@@ -207,15 +207,15 @@ const services = [
     highlight: true,
   },
   {
-    tag: "Full Reset",
+    tag: "Full Repositioning",
     title: "The New Chapter",
     price: "Custom",
-    desc: "Brand, website, founder story, and positioning built together from strategy to final draft. For pivots, relaunches, and reinventions where patching one section is not going to cut it.",
+    desc: "Full company repositioning from strategy to final copy. Brand voice guide, complete website, founder narrative, and messaging framework. For pivots, relaunches, and new category plays.",
     perks: [
       "Brand voice and messaging guide",
       "Full website copy",
-      "Founder or executive origin story",
-      "Press and pitch deck narrative",
+      "Founder story and pitch narrative",
+      "On-brand copy bank for your team",
     ],
     cta: "Let's Talk",
     href: "/book",
@@ -225,10 +225,10 @@ const services = [
     tag: "Ongoing",
     title: "The Byline",
     price: "From $1,500/mo",
-    desc: "Monthly ghostwriting under your name. LinkedIn posts, essays, newsletters. Written in your voice, consistent enough to build a reputation, sharp enough that people notice.",
+    desc: "Monthly ghostwriting under your founders' and executives' names. LinkedIn, essays, newsletters — written in their voice, consistent enough to build a reputation, sharp enough to open doors.",
     perks: [
-      "Monthly LinkedIn ghostwriting",
-      "Long-form essays and articles",
+      "Founder and executive LinkedIn ghostwriting",
+      "Long-form essays and thought leadership",
       "Newsletter and email copy",
       "Strategic editorial calendar",
     ],
@@ -240,11 +240,11 @@ const services = [
     tag: "Full Site",
     title: "The Build",
     price: "From $3,500",
-    desc: "Your website, built from the ground up. Strategy, copy, and design — together. For founders and personal brands who need a site that converts, not just looks good.",
+    desc: "Your company website, built from the ground up. Strategy, copy, and production — together. Launch-ready in 3–4 weeks, built to convert.",
     perks: [
       "Brand strategy + positioning",
       "Full website copy and design",
-      "Mobile-optimized and fast",
+      "Mobile-optimized, fast, and SEO-ready",
       "Launch-ready in 3–4 weeks",
     ],
     cta: "Let's Build It",
@@ -425,7 +425,7 @@ export default function Home() {
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           {/* Service pills */}
           <div className="mb-6 flex flex-wrap items-center gap-3">
-            {["Growth Marketing", "Demand Gen", "Paid + SEO", "Lifecycle", "Copywriting", "Brand Strategy", "PLG / SLG"].map((s) => (
+            {["Growth Marketing", "Demand Gen", "Brand Messaging", "Paid + SEO", "Thought Leadership", "Web Production", "PLG / SLG"].map((s) => (
               <span key={s} className="border border-graphite px-3 py-1 font-body text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-iron">
                 {s}
               </span>
@@ -445,11 +445,11 @@ export default function Home() {
           </H1>
 
           <p className="mt-5 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500, maxWidth: "none" }}>
-            Words, strategy, and reinvention for people ready to stop being misread.
+            Words, strategy, and growth infrastructure for companies ready to stop being underestimated.
           </p>
 
           <p className="mt-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
-            You&apos;ve outgrown the version of yourself the world is still reading. I work with founders, executives, and people mid-transition to build the language that finally catches up.
+            Your business outpaced the language it is using to describe itself. I work with B2B SaaS teams, growth-stage companies, and the agencies that need a senior partner — to build the positioning, copy, and demand engine that finally closes the gap.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -459,7 +459,7 @@ export default function Home() {
 
           {/* Social proof strip */}
           <div className="mt-12 flex flex-wrap items-center gap-6 border-t border-graphite pt-8">
-            {["Copy", "Brand Strategy", "Web Design", "Ghostwriting", "Digital Products"].map((item) => (
+            {["Copy & Messaging", "Brand Strategy", "Growth Marketing", "Ghostwriting", "Web Production"].map((item) => (
               <span key={item} className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-ash">
                 {item}
               </span>
@@ -472,13 +472,13 @@ export default function Home() {
 
       {/* ── WHO IS THIS FOR ───────────────────────────────────────────────────── */}
       <RevealSection id="who" bg="obsidian" num="01">
-        <Eyebrow>Find Your Track</Eyebrow>
+        <Eyebrow>Where We Work Best</Eyebrow>
         <H2>
-          Which rewrite do{" "}
+          Which partner do{" "}
           <span className="text-petal">you need?</span>
         </H2>
         <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "56ch" }}>
-          Every engagement starts with the same question: what do you need the words to do? Pick the one that matches the gap you&apos;re in right now.
+          Every engagement starts with the same question: what does your company need the words to do? Pick the track that matches where the gap is right now.
         </p>
 
         <div className="grid gap-px bg-graphite sm:grid-cols-2">
@@ -514,8 +514,8 @@ export default function Home() {
         </div>
 
         <div className="mt-8 text-center">
-          <p className="font-body text-sm text-ash mb-4">Not sure which one fits? Start here.</p>
-          <BtnPrimary href="/book">Book a Free 15-Minute Call →</BtnPrimary>
+          <p className="font-body text-sm text-ash mb-4">Not sure which track fits? Start here.</p>
+          <BtnPrimary href="/book">Book a Free Discovery Call →</BtnPrimary>
         </div>
       </RevealSection>
 
@@ -529,7 +529,7 @@ export default function Home() {
           <span className="text-petal">words make.</span>
         </H2>
         <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "58ch" }}>
-          This is what repositioning actually looks like. Same person. Completely different signal.
+          This is what repositioning actually looks like. Same company. Completely different signal.
         </p>
 
         <div className="grid gap-px bg-graphite md:grid-cols-2">
@@ -568,7 +568,7 @@ export default function Home() {
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
           <p className="font-body text-sm font-light text-smoke">
-            This is what The Rewrite does. This is what The Edit does. This is what working with me looks like.
+            This is what The Rewrite does. This is what working with me looks like — for any company.
           </p>
           <BtnPrimary href="/book">Start Your Rewrite →</BtnPrimary>
         </div>
@@ -578,13 +578,13 @@ export default function Home() {
 
       {/* ── SERVICES ─────────────────────────────────────────────────────────── */}
       <RevealSection bg="obsidian" num="03">
-        <Eyebrow>Every way to work with me</Eyebrow>
+        <Eyebrow>Every way to work together</Eyebrow>
         <H2>
           Six services.{" "}
           <span className="text-petal">One standard.</span>
         </H2>
         <p className="mt-4 mb-3 font-body text-sm font-light text-smoke" style={{ maxWidth: "58ch" }}>
-          From a single-piece edit to a full site build — every service is anchored in the same thing: copy that actually sounds like you, says something true, and earns the response.
+          From a single-piece fix to a full company repositioning — every engagement is anchored in the same thing: copy that reflects what your business actually does, says something true, and earns the response.
         </p>
         <p className="mb-12 font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal/70">
           All-in pricing. No retainer traps.
@@ -597,8 +597,8 @@ export default function Home() {
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
-          <p className="font-body text-sm font-light text-smoke">Every project starts with a strategy call. No obligation. Just clarity.</p>
-          <BtnPrimary href="/book">Book Your Call →</BtnPrimary>
+          <p className="font-body text-sm font-light text-smoke">Every engagement starts with a discovery call. No pitch, no obligation — just a clear diagnosis.</p>
+          <BtnPrimary href="/book">Book a Discovery Call →</BtnPrimary>
         </div>
       </RevealSection>
 
@@ -610,7 +610,7 @@ export default function Home() {
           <span className="text-petal">not just a writer.</span>
         </H2>
         <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
-          Full-funnel demand — paid, organic, SEO, content, lifecycle — built and run by one AI-native operator. For SLG teams layering on PLG, early-stage companies starting from zero, and founders who need someone who strategizes, ships, and owns the number.
+          Full-funnel demand — paid, organic, SEO, content, lifecycle — built and run by one AI-native operator. For SLG teams layering on PLG, growth-stage companies building their first real demand engine, and B2B SaaS teams that need someone who strategizes, ships, and owns the number.
         </p>
 
         <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
@@ -635,7 +635,7 @@ export default function Home() {
           <span className="text-petal">and kept running.</span>
         </H2>
         <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
-          Once the words and the strategy are right, something has to ship them. Websites, hosting, social, and video — produced and managed in-house, on-brand, so the presence keeps up with the positioning.
+          Once the strategy and positioning are right, something has to ship them. Websites, hosting, social, and video — produced and managed end to end, on-brand, so your company's presence keeps pace with the business.
         </p>
 
         <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
@@ -663,7 +663,7 @@ export default function Home() {
           <span className="text-petal">undeniable.</span>
         </H2>
         <p className="mt-4 mb-14 font-body text-sm font-light text-smoke" style={{ maxWidth: "56ch" }}>
-          Four steps. No ambiguity. You know what happens, when it happens, and exactly why every word made the cut.
+          Four steps. No ambiguity. Your team knows what happens, when it happens, and why every word made the cut.
         </p>
 
         <div className="grid gap-px bg-graphite md:grid-cols-4">
@@ -844,21 +844,21 @@ export default function Home() {
             <H1>
               Stop Being{" "}
               <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.3)" }}>
-                Misread.
+                Underestimated.
               </span>
             </H1>
           </div>
           <p className="mx-auto mt-8 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            The people deciding whether to work with you are making that decision based on words you wrote years ago. Let&apos;s fix that.
+            The companies deciding whether to partner with you are forming that opinion from copy that was written for an earlier version of the business. Let&apos;s fix that.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href="/book">Book a Strategy Call →</BtnPrimary>
+            <BtnPrimary href="/book">Book a Discovery Call →</BtnPrimary>
             <BtnGhost href="/contact">Get in Touch</BtnGhost>
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
-            <ArrowLink href="/career">Career Rewrite</ArrowLink>
-            <ArrowLink href="/brand">Brand Rewrite</ArrowLink>
-            <ArrowLink href="/presence">Presence Rewrite</ArrowLink>
+            <ArrowLink href="/brand">Brand Messaging</ArrowLink>
+            <ArrowLink href="/growth">Growth Marketing</ArrowLink>
+            <ArrowLink href="/studio">The Studio</ArrowLink>
             <ArrowLink href="/shop">The Shop</ArrowLink>
           </div>
         </div>

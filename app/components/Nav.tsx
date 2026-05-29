@@ -6,22 +6,22 @@ import Link from "next/link";
 import { PATREON_URL } from "@/app/lib/config";
 
 const workLinks = [
-  { label: "Career",       href: "/career" },
-  { label: "Brand",        href: "/brand" },
-  { label: "Presence",     href: "/presence" },
-  { label: "Next Chapter", href: "/next-chapter" },
-  { label: "Growth",       href: "/growth" },
-  { label: "Studio",       href: "/studio" },
-  { label: "LinkedIn",     href: "/linkedin" },
+  { label: "Leadership",     href: "/career" },
+  { label: "Brand",          href: "/brand" },
+  { label: "Presence",       href: "/presence" },
+  { label: "Repositioning",  href: "/next-chapter" },
+  { label: "Growth",         href: "/growth" },
+  { label: "Studio",         href: "/studio" },
+  { label: "LinkedIn",       href: "/linkedin" },
 ];
 
 const megaServices = [
-  { tag: "Quick Fix",     title: "The Edit",        price: "From $100",      desc: "One piece of copy rewritten in 48 hours.", href: "/career" },
-  { tag: "Power Hour",    title: "The Session",     price: "$250",           desc: "60-min live strategy session with written brief.", href: "/book" },
-  { tag: "Most Requested",title: "The Rewrite",     price: "From $1,500",    desc: "Full story overhaul anchored in strategy.", href: "/career" },
-  { tag: "Full Reset",    title: "The New Chapter", price: "Custom",         desc: "Brand, website, and positioning from scratch.", href: "/next-chapter" },
-  { tag: "Ongoing",       title: "The Byline",      price: "From $1,500/mo", desc: "Monthly ghostwriting under your name.", href: "/presence" },
-  { tag: "Full Site",     title: "The Build",       price: "From $3,500",   desc: "Strategy, copy, and design — done together.", href: "/brand" },
+  { tag: "Quick Fix",        title: "The Edit",        price: "From $100",      desc: "One piece of company copy fixed in 48 hours.", href: "/career" },
+  { tag: "Strategy Session", title: "The Session",     price: "$250",           desc: "60-min live positioning session with written brief.", href: "/book" },
+  { tag: "Most Requested",   title: "The Rewrite",     price: "From $1,500",    desc: "Core messaging overhauled. Results that match the copy.", href: "/brand" },
+  { tag: "Repositioning",    title: "The New Chapter", price: "Custom",         desc: "Brand, website, and positioning rebuilt for where you are going.", href: "/next-chapter" },
+  { tag: "Ongoing",          title: "The Byline",      price: "From $1,500/mo", desc: "Monthly founder and exec thought leadership ghostwriting.", href: "/presence" },
+  { tag: "Full Site",        title: "The Build",       price: "From $3,500",    desc: "Strategy, copy, and production — done together.", href: "/brand" },
 ];
 
 const readLinks = [
@@ -36,13 +36,13 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
   {
     label: "Work",
     links: [
-      { label: "Career",       href: "/career" },
-      { label: "Brand",        href: "/brand" },
-      { label: "Presence",     href: "/presence" },
-      { label: "Next Chapter", href: "/next-chapter" },
-      { label: "Growth",       href: "/growth" },
-      { label: "Studio",       href: "/studio" },
-      { label: "LinkedIn",     href: "/linkedin" },
+      { label: "Leadership",    href: "/career" },
+      { label: "Brand",         href: "/brand" },
+      { label: "Presence",      href: "/presence" },
+      { label: "Repositioning", href: "/next-chapter" },
+      { label: "Growth",        href: "/growth" },
+      { label: "Studio",        href: "/studio" },
+      { label: "LinkedIn",      href: "/linkedin" },
     ],
   },
   {
@@ -483,7 +483,7 @@ export default function Nav() {
           </div>
 
           <div className="overflow-y-auto flex-1 px-6 py-6 pb-32">
-            <p className="font-serif italic text-petal/80 text-lg mb-6">Pick the gap you&apos;re trying to close.</p>
+            <p className="font-serif italic text-petal/80 text-lg mb-6">Pick the gap your company is trying to close.</p>
             <div className="flex flex-col gap-3">
               {megaServices.map((s, i) => (
                 <Link

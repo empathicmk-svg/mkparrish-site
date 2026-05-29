@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gospel & Grind — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>Gospel & Grind</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>Gospel &amp; Grind</h1>
+
+<h3>Build a profitable practice grounded in what you believe — without feeling like you're selling your faith.</h3>
+
+<p><strong>By MK Parrish</strong></p>
+
+<p><strong>$28</strong></p>
+
+<hr>
+
+<h2>Start Here</h2>
+
+<p>Let's name the knot in your stomach.</p>
+
+<p>You believe something. It's shaped how you work, how you treat people, what you'll and won't do for money. And somewhere in the back of your mind, a voice insists that the moment you put a price on anything connected to your faith, you've cheapened it. Sold the temple. Turned the sacred into a funnel.</p>
+
+<p>So you undercharge. Or you split yourself in two — a "faith self" and a "business self" — and spend enormous energy keeping them from touching.</p>
+
+<p>I'm here to tell you that split is the actual problem. Not your prices. Not your beliefs. The split.</p>
+
+<p>The most magnetic, durable, profitable businesses in the faith space aren't the ones that bolt a Bible verse onto a sales page. They're the ones where what the founder believes and what the founder sells are the <em>same thing</em>, expressed in two languages. That's not selling your faith. That's letting your faith fund itself so it can do more.</p>
+
+<blockquote>Money is not the opposite of meaning. Poverty is not a spiritual achievement.</blockquote>
+
+<p>This book is the bridge. We'll align what you believe with what you sell, build pricing that doesn't make you flinch, and position you on your values without turning into the thing you can't stand. No manipulation. No guilt. No pretending you don't want to get paid.</p>
+
+<p>Let's grind.</p>
+
+<hr>
+
+<h2>Chapter One: Kill the Split</h2>
+
+<p>Before frameworks, we deal with the belief that's quietly capping your income and your nerve.</p>
+
+<p>The split says: <em>sacred things should be free; charging for them is greedy.</em> It sounds humble. It's actually a misread — and it's costing you.</p>
+
+<p>Here's the correction. Throughout Scripture, the people doing the work get fed. The laborer is worth their wages. The ox isn't muzzled while it treads the grain. Provision and calling were never enemies. The danger Scripture warns about isn't <em>having</em> money — it's <em>serving</em> money, letting it become the thing you'd betray your values to get.</p>
+
+<p>That's the line. And it's a clean one:</p>
+
+<ul><li><strong>Serving your values, funded by money</strong> — healthy. Sustainable. Multiplies.</li><li><strong>Serving money, decorated by values</strong> — that's the manipulation you're afraid of.</li></ul>
+
+<p>You can feel the difference in your body. When you serve your values, charging feels like an exchange — fair, clean, a little vulnerable. When you serve money, selling feels like a performance you have to hide behind, and you can't quite look the customer in the eye.</p>
+
+<p>For the rest of this book, we build the first kind. Every framework here has one job: keep your values in the driver's seat while money does its actual job — fueling the work.</p>
+
+<p>Write this down where you'll see it: <em>I am allowed to be paid for work that matters. Being broke helps no one I'm called to serve.</em></p>
+
+<hr>
+
+<h2>Chapter Two: The Alignment Map</h2>
+
+<p>You can't sell what you believe until you know exactly what you believe — in business terms, not just spiritual ones. The Alignment Map gets it out of your head and onto one page.</p>
+
+<p>Four columns. Fill them in for yourself before you build anything else.</p>
+
+<p><strong>Column 1 — The Conviction.</strong> What do you actually believe that's load-bearing? Not the whole creed. The two or three convictions that shape how you show up. <em>Example: "People are worth more than their productivity." "Honesty over hype, always."</em></p>
+
+<p><strong>Column 2 — The Behavior.</strong> How does each conviction show up in how you work? Make it concrete. <em>"People are worth more than their productivity" → I don't shame clients for slow progress; I build offers that respect their real capacity.</em></p>
+
+<p><strong>Column 3 — The Offer.</strong> What product, service, or experience <em>is</em> that conviction in action? This is where belief becomes a thing someone can buy. <em>→ A coaching container with no guilt-based deadlines; a course paced for working women.</em></p>
+
+<p><strong>Column 4 — The Promise.</strong> What does the buyer get that they can't get from a values-mismatched competitor? <em>→ "Grow your thing without the burnout theater. We move at the speed of your real life."</em></p>
+
+<p>When all four columns line up across a row, you have alignment — a belief that flows cleanly into a behavior, an offer, and a promise. That row is a business pillar. Most strong faith-aligned businesses stand on two or three of these. Not twelve. Two or three, deep.</p>
+
+<blockquote>If you can't trace a straight line from what you believe to what you sell, your audience can't either — and they'll feel the gap before they can name it.</blockquote>
+
+<p>Do the map. The rest of the book assumes you've done it.</p>
+
+<hr>
+
+<h2>Chapter Three: Monetization Without Manipulation</h2>
+
+<p>Manipulation and persuasion use a lot of the same tools — urgency, emotion, storytelling. The difference isn't the tool. It's the direction of benefit and the honesty of the claim.</p>
+
+<p>Run every sales decision through these four gates. If it clears all four, sell with a clear conscience.</p>
+
+<p><strong>Gate One — The Truth Gate.</strong> Is every claim literally true? Not "technically defensible." True. No invented scarcity ("only 3 spots!" when there are unlimited spots). No fake countdown timers that reset. No before-and-afters you can't back up. The fastest way to corrode a faith-based brand is one lie the audience catches.</p>
+
+<p><strong>Gate Two — The Benefit Gate.</strong> If they buy, do <em>they</em> genuinely come out ahead — not just you? Picture your least sophisticated buyer, the one most likely to be swayed. Do they get real value, or did you sell them a feeling? If it only works when the buyer doesn't think too hard, it's manipulation.</p>
+
+<p><strong>Gate Three — The Pressure Gate.</strong> Are you creating urgency, or <em>importing</em> it? Real urgency exists (a cohort actually starts Monday; a price actually rises). Fake urgency is manufactured to override judgment. Use the real kind. Never the fake kind.</p>
+
+<p><strong>Gate Four — The Walk-Away Gate.</strong> Can they say no easily, and would you respect them if they did? If your funnel punishes a "no" — guilt-trip downsells, "are you sure you want to stay stuck?" — you've crossed the line. A clean offer lets people leave whole.</p>
+
+<p>This isn't soft. Brands that clear these four gates <em>outperform</em> the manipulators over any timeline longer than a quarter, because trust compounds and tricks decay. You're not choosing between ethics and money. You're choosing the slower-starting, faster-compounding asset.</p>
+
+<hr>
+
+<h2>Chapter Four: Values-Based Positioning</h2>
+
+<p>Positioning is the answer to one question: <em>why you, instead of the dozen other people who do something similar?</em> For faith entrepreneurs, your values aren't a side note to the answer. They're the spine of it.</p>
+
+<p>Here's the framework. Three moves.</p>
+
+<h3>Move One: Name the Enemy (It's Not a Person)</h3>
+
+<p>Strong positioning has an enemy — but not a competitor. The enemy is a broken way of doing things that your values reject. Hustle culture that treats rest as laziness. Guilt-based marketing. The seminary gatekeeping that says you're not qualified to study your own Bible. The diet-industry-style shame machine wearing a faith costume.</p>
+
+<p>Pick the broken thing you're against. Say it out loud in your copy. People don't just buy what you're <em>for</em> — they rally around what you're <em>against</em>.</p>
+
+<h3>Move Two: Plant the Flag</h3>
+
+<p>State the better way you stand for, in one sentence a customer would repeat to a friend. <em>"Bible study with no shame and no seminary required." "Grow your business at the speed of your real life." "Faith-aligned marketing that never makes you lie."</em></p>
+
+<p>That sentence is your flag. It goes everywhere — bio, header, the first thing out of your mouth.</p>
+
+<h3>Move Three: Prove It in the Small Stuff</h3>
+
+<p>Positioning isn't a slogan; it's a thousand small proofs. If you're against hustle culture, you don't email at 11pm with a "DON'T MISS THIS" subject line. If you're against shame, your refund policy is gracious and your onboarding never makes anyone feel behind. The audience believes your values when your <em>operations</em> match your <em>claims</em>. Mismatch anywhere, and the flag looks like a costume.</p>
+
+<blockquote>Your positioning isn't what you say you value. It's what you do when valuing it costs you something.</blockquote>
+
+<hr>
+
+<h2>Chapter Five: Pricing With a Clear Conscience</h2>
+
+<p>Most faith entrepreneurs underprice, and they call it humility. It's usually fear wearing humility's clothes — fear of being seen as greedy, fear of the "no," fear that the work isn't worth it.</p>
+
+<p>Underpricing isn't humble. It's a slow way to quit. You burn out, resent the clients, and eventually disappear — taking the work the world needed with you. Price to <em>sustain</em>, because the work can't help anyone if you can't keep doing it.</p>
+
+<p>A clear-conscience pricing process:</p>
+
+<ol><li><strong>Price the transformation, not the time.</strong> Don't charge for the hours you spend. Charge for where the buyer ends up versus where they started. A method that ends years of stalled Bible study is worth far more than the minutes of video it takes to deliver.</li></ol>
+
+<ol><li><strong>Set the number that lets you stay.</strong> What price lets you do this work for years without resentment? That's your floor. Below it, you're subsidizing your customers with your own future. That helps no one.</li></ol>
+
+<ol><li><strong>Build a generous on-ramp, not a cheap core.</strong> Don't drop your main price to be accessible. Instead, add a free or low-cost entry — a guide, a workshop, a scholarship seat — so no one's <em>locked out</em>, while your core offer stays priced to sustain you. Generosity and full pricing coexist: you give a real door in, and you charge fairly for the house.</li></ol>
+
+<ol><li><strong>Quote it without flinching.</strong> Say the number, then stop talking. The silence after a price feels like a year and lasts three seconds. Let it sit. Discomfort isn't a sign your price is wrong; it's a sign it's <em>new</em>. Flinching teaches the buyer to flinch.</li></ol>
+
+<p>Tie it back to the Alignment Map: a fair price <em>is</em> one of your behaviors. "People are worth more than their productivity" includes you. Pricing yourself into the ground betrays your own conviction.</p>
+
+<hr>
+
+<h2>Chapter Six: The First 90 Days</h2>
+
+<p>Frameworks are useless on the shelf. Here's how to put this to work without overhauling everything at once.</p>
+
+<p><strong>Days 1–30 — Align.</strong> Complete your Alignment Map. Pick your two or three strongest pillars. Write your one-sentence flag. Audit your current offers: which rows line up, which are orphans you're keeping out of habit? Cut or fix the orphans.</p>
+
+<p><strong>Days 31–60 — Position.</strong> Rewrite your bio, your main page header, and your three most-used pieces of copy to lead with the flag and name the enemy. Run your live offers through the four gates. Fix anything that fails — yes, even the fake countdown timer. Especially that.</p>
+
+<p><strong>Days 61–90 — Price.</strong> Recalculate your core offer using transformation, not time. Set your sustaining floor. Build one generous on-ramp. Raise at least one price you've been afraid to touch, and practice quoting it out loud until your voice stops shaking.</p>
+
+<p>Ninety days. One pass through the whole system. You don't have to be perfect. You have to be <em>aligned</em> — and you'll feel the difference in your own gut before the revenue ever shows it.</p>
+
+<hr>
+
+<h2>What's Next</h2>
+
+<p>You came in afraid that charging for your work would cost you your soul. Now you have a system that proves the opposite: alignment is <em>more</em> profitable, not less, because trust is the only asset that compounds faster than it decays.</p>
+
+<p><strong>Gospel &amp; Grind</strong> is part of <strong>Scripture &amp; Strategy</strong> — my line for women building faith-aligned work without the guilt, the gatekeeping, or the seminary bill.</p>
+
+<p>Where to go from here:</p>
+
+<ul><li><strong>The Study</strong> — build a Bible study practice that actually sticks (start here if you haven't).</li><li><strong>The Sermon Notes</strong> — turn your personal study into content people want, and pay for.</li><li><strong>The Calling Card</strong> — build a faith-informed brand voice that's unmistakably yours.</li><li><strong>Ministry, Monetized</strong> — launch and grow a Bible study community you can charge for.</li></ul>
+
+<p>Get all five in the <strong>Scripture &amp; Strategy bundle</strong> and save — the whole system, start to finish.</p>
+
+<p>Want the guided version, with live teaching and a room of people building alongside you? The <strong>Scripture &amp; Strategy course</strong> is open now.</p>
+
+<p>Everything lives at <strong><a href="https://mkparrish.com">mkparrish.com</a></strong>.</p>
+
+<p>Stop splitting yourself in two. Build the one thing.</p>
+
+<p>— MK</p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

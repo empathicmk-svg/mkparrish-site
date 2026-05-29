@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Edit: DIY Edition — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>The Edit: DIY Edition</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>The Edit: DIY Edition</h1>
+
+<h3>The copy editing framework MK uses with clients — done yourself.</h3>
+
+<p><strong>By MK Parrish</strong></p>
+<p><strong>Price: $22</strong></p>
+
+<hr>
+
+<h2>Why this exists</h2>
+
+<p>Most writing isn't bad. It's just unedited.</p>
+
+<p>You wrote the bio. You drafted the email. You posted the LinkedIn thing. And somewhere between your brain and the page, the meaning got soft. The verbs went limp. You hedged. You decorated. You said "I'm passionate about leveraging synergies" when you meant "I make ugly things work."</p>
+
+<p>The Edit is the framework I run on every client's copy before it ships. It's not proofreading — anyone can catch a typo. It's the layer above that: the audit that asks <em>is this true, is this you, and is this doing any work?</em> Then the word-level surgery that makes it sharp.</p>
+
+<p>This is that framework, written out so you can run it on your own writing. No software. No subscription. A pen and the willingness to cut.</p>
+
+<p>You'll work in three passes. Audit first — never edit and audit at the same time, you'll talk yourself out of the cuts. Then voice. Then line. In that order, always.</p>
+
+<hr>
+
+<h2>Pass 1 — The Copy Audit</h2>
+
+<p>Before you touch a single word, read the whole piece out loud. Out loud is non-negotiable. Your eyes forgive what your mouth won't. If you stumble, the reader will too.</p>
+
+<p>Then run this checklist against the full piece. Don't fix anything yet. Just mark.</p>
+
+<h3>The Audit Checklist</h3>
+
+<ul><li>[ ] <strong>The first line earns the second.</strong> Would a stranger keep reading past sentence one? If it opens with "I am a results-driven professional," the answer is no.</li><li>[ ] <strong>There's one core idea.</strong> Say it in a sentence. If you can't, the piece doesn't know what it is yet.</li><li>[ ] <strong>It's written for a person, not a panel.</strong> Who is the single reader? If you're writing to "stakeholders," you're writing to no one.</li><li>[ ] <strong>Every claim is specific.</strong> "I drove growth" is a claim. "I took the newsletter from 400 to 14,000" is evidence.</li><li>[ ] <strong>The verbs do the lifting.</strong> Circle every verb. If most are <em>is, are, was, have, do, make</em> — the piece is asleep.</li><li>[ ] <strong>There's no fluff throat-clearing.</strong> Phrases like "I'd like to take this opportunity to," "in today's fast-paced world," "needless to say." Mark every one for deletion.</li><li>[ ] <strong>It sounds like you talking, not you performing.</strong> Read a line. Would you say it to a smart friend over coffee? If not, flag it.</li><li>[ ] <strong>The ask is clear.</strong> What should the reader do, feel, or believe by the end? If it's "be vaguely impressed," you have no ending.</li><li>[ ] <strong>Nothing is hedged to death.</strong> "I think maybe this could possibly help." Pick one. Mean it.</li><li>[ ] <strong>It could be 20% shorter.</strong> It always can.</li></ul>
+
+<p>When you've marked the whole thing, count your flags. Five or more in a short piece means you're rewriting, not editing — and that's fine. Better to know now.</p>
+
+<hr>
+
+<h2>Pass 2 — The Brand-Voice Edit (word level)</h2>
+
+<p>Voice lives in word choice. This is where most people quit too early. They fix grammar and call it done. But grammar isn't voice — <em>diction</em> is voice.</p>
+
+<p>Run these four swaps across the piece, one at a time.</p>
+
+<h3>The Four Swaps</h3>
+
+<pre><code>SWAP 1 — Corporate noun → human verb
+<p>Find the abstract nouns. Replace with what actually happens.</p>
+
+<p>  Before: "I provide strategic communications solutions."</p>
+<p>  After:  "I figure out what you're trying to say, then say it."</p>
+
+<p>SWAP 2 — Weak verb → strong verb</p>
+<p>Find is/are/was/have/get/make. Replace ~half with verbs that move.</p>
+
+<p>  Before: "I am responsible for content that gets engagement."</p>
+<p>  After:  "I write content people actually read."</p>
+
+<p>SWAP 3 — Adverb → better verb</p>
+<p>Find words ending in -ly. Most are propping up a weak verb. Cut the</p>
+<p>adverb, upgrade the verb.</p>
+
+<p>  Before: "We quickly grew the audience."</p>
+<p>  After:  "We tripled the audience in a quarter."</p>
+
+<p>SWAP 4 — Jargon → plain</p>
+<p>Find the words you'd never use out loud. Translate.</p>
+
+<p>  leverage → use      utilize → use       synergies → (delete)</p>
+<p>  circle back → follow up    bandwidth → time</p>
+<p>  passionate about → (just say what you do)</p>
+<p></code></pre></p>
+
+<h3>Worked example — a LinkedIn "About" opener</h3>
+
+<pre><code>BEFORE (audit flags: vague claim, weak verbs, jargon, no person):
+
+<p>  As a passionate and results-driven marketing professional, I leverage</p>
+<p>  data-driven strategies to deliver impactful solutions that drive growth</p>
+<p>  for organizations across a variety of verticals.</p>
+
+<p>AFTER (four swaps applied):</p>
+
+<p>  I turn marketing budgets that are bleeding money into ones that make it.</p>
+<p>  Last year that meant cutting a client's ad spend 40% — and growing</p>
+<p>  signups anyway. I'm the person they call when the numbers stop making</p>
+<p>  sense.</p>
+<p></code></pre></p>
+
+<p>Same person. The first version describes a category. The second describes a human who does a specific thing. Voice is just the difference between those two.</p>
+
+<hr>
+
+<h2>Pass 3 — The Line Edit</h2>
+
+<p>Now the sentence-by-sentence work. Voice is words; rhythm is lines. This pass is about flow, cuts, and punch.</p>
+
+<h3>The Line-Edit Moves</h3>
+
+<p><strong>Cut the first sentence.</strong> Seriously — read your draft and try deleting the opening line. Nine times out of ten the second line was the real start. You were warming up.</p>
+
+<p><strong>Vary the length.</strong> Read three sentences in a row. If they're all the same length, the rhythm flatlines. Break one short. Like this. Then let one run long enough to carry a full thought to its proper end. The contrast is what keeps an ear awake.</p>
+
+<p><strong>One idea per sentence.</strong> If a sentence has two "and"s and a "which," it's three sentences pretending to be one. Split it.</p>
+
+<p><strong>End on the strong word.</strong> The last word of a sentence is the loudest. Don't waste it on "etc." or "as well." Land on the thing that matters.</p>
+
+<p><strong>Kill the qualifiers.</strong> <em>Very, really, quite, somewhat, a bit, kind of, just.</em> Each one shaves power off the word it modifies. "Very good" is weaker than "good." Cut them.</p>
+
+<p><strong>Replace "that" where you can.</strong> Half of them are removable. "I think that you should" → "I think you should."</p>
+
+<h3>The Line-Edit Checklist (run on every paragraph)</h3>
+
+<ul><li>[ ] First sentence still necessary?</li><li>[ ] Sentence lengths varied?</li><li>[ ] Every sentence one clean idea?</li><li>[ ] Strong word at the end of each line?</li><li>[ ] Qualifiers cut?</li><li>[ ] Redundant "that"s removed?</li><li>[ ] Read out loud one more time — no stumbles?</li></ul>
+
+<hr>
+
+<h2>Format-specific notes</h2>
+
+<p>The three passes are the same everywhere. But each format has a trap.</p>
+
+<h3>Bios</h3>
+<p>The trap is the third person describing a résumé. Lead with the <em>one thing</em> you're known for, not your title. A bio is a hook, not a CV. End on what you're doing now or want next — never on "in her spare time she enjoys hiking."</p>
+
+<pre><code>TEMPLATE:
+<p>  [Name] [does the specific valuable thing] for [specific people].</p>
+<p>  [One line of proof — a number, a name, a result].</p>
+<p>  [What they're after now / how to reach them].</p>
+
+<p>EXAMPLE:</p>
+<p>  MK Parrish rewrites the way ambitious people are read on the page.</p>
+<p>  She's reworked bios, sites, and LinkedIn profiles for founders,</p>
+<p>  execs, and career-switchers — and the rewrites tend to land</p>
+<p>  interviews and clients. She's at mkparrish.com.</p>
+<p></code></pre></p>
+
+<h3>Emails</h3>
+<p>The trap is burying the ask under context. Put the ask in the first two lines, the context under it. Subject line should be the email, compressed. One CTA only.</p>
+
+<h3>LinkedIn</h3>
+<p>The trap is writing for the algorithm instead of a human. The headline is not your job title — it's the value you create. The "About" section opens with a hook line that stands alone, because LinkedIn truncates after ~3 lines and the reader decides there.</p>
+
+<h3>Landing pages</h3>
+<p>The trap is talking about you before you've earned attention. Headline = the reader's desired outcome. Subhead = how you get them there. Every section answers a single question the skeptic is asking next. CTA repeats; the button copy is a verb the reader would say ("Get the framework," not "Submit").</p>
+
+<hr>
+
+<h2>The one-page cheat sheet</h2>
+
+<p>Print this. Tape it near the screen.</p>
+
+<pre><code>PASS 1 — AUDIT (read aloud, mark don't fix)
+<p>  One idea? Written to one person? Claims specific?</p>
+<p>  Verbs alive? Fluff flagged? Clear ask? 20% cuttable?</p>
+
+<p>PASS 2 — VOICE (swap diction)</p>
+<p>  Corporate noun → human verb</p>
+<p>  Weak verb → strong verb</p>
+<p>  Adverb → better verb</p>
+<p>  Jargon → plain</p>
+
+<p>PASS 3 — LINE (rhythm + cuts)</p>
+<p>  Cut sentence one. Vary length. One idea per line.</p>
+<p>  End strong. Kill qualifiers. Read aloud again.</p>
+<p></code></pre></p>
+
+<p>If you do nothing else: read it out loud, cut the first sentence, and make the verbs work. That's 80% of the gap, closed.</p>
+
+<hr>
+
+<h2>When you want it done for you</h2>
+
+<p>This is the framework. Running it on your own work is harder than running it on someone else's — you're too close, and you wrote those sentences for a reason you can still feel.</p>
+
+<p>If you'd rather hand it over, <strong>The Edit</strong> is the done-for-you version. You send the copy; I run all three passes and send it back sharper, with the cuts explained so you learn the moves. Bios, emails, LinkedIn, landing pages — anything under ~1,500 words.</p>
+
+<p>Find it at <strong>mkparrish.com</strong>.</p>
+
+<p>You wrote it. Let's make it land.</p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

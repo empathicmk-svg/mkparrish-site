@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Brand Voice Playbook — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>The Brand Voice Playbook</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>The Brand Voice Playbook</h1>
+
+<h3>Build a brand voice document from scratch.</h3>
+
+<p><strong>By MK Parrish</strong></p>
+
+<p><strong>$35</strong></p>
+
+<hr>
+
+<h2>Intro: Why Most Brands Sound Like a Group Project</h2>
+
+<p>Read ten company About pages back to back and you'll feel it — the same warmed-over confidence, the same "we're on a mission to revolutionize," the same nobody-actually-talks-like-this sheen. Most brands don't have a voice. They have a committee average. Three people wrote it, four more sanded the edges off, and what's left is the verbal equivalent of beige carpet.</p>
+
+<p>A real brand voice is a decision. It's the difference between a company that sounds like a company and one that sounds like a person you'd want to know. And it doesn't come from inspiration — it comes from a document. A specific, opinionated, written-down set of rules that anyone on the team can follow to sound like one consistent human.</p>
+
+<p>This playbook builds that document from scratch. We'll define the voice foundation, map your tone across situations, build do/don't vocabulary lists, and then I'll walk you through a complete worked example for an invented company so you can see every piece assembled. By the end you'll have a template you can fill in for any brand — yours or a client's.</p>
+
+<p>This is the premium, roll-up-your-sleeves one. Have a notebook or a doc open. We're building something you'll actually use.</p>
+
+<blockquote>Brand voice isn't decoration you add at the end. It's a decision you make at the start about who you are when you open your mouth.</blockquote>
+
+<hr>
+
+<h2>Chapter One: Voice vs. Tone (Get This Right or Nothing Works)</h2>
+
+<p>People use these interchangeably. They're not the same, and confusing them is why most voice work falls apart.</p>
+
+<p><strong>Voice is constant. Tone is contextual.</strong></p>
+
+<p>Your voice is your brand's personality — fixed, recognizable, the same whether you're announcing a launch or apologizing for an outage. A person doesn't get a new personality every morning. Neither does a brand.</p>
+
+<p>Tone is how that voice flexes to fit the moment. A confident, warm brand is still confident and warm in an error message — but the tone dials down the playfulness and up the reassurance. Same voice, adjusted tone.</p>
+
+<p>The analogy: voice is the instrument; tone is what you play on it. A cello is always a cello. It can play a funeral or a flirtation. Your brand should be that recognizable and that flexible at once.</p>
+
+<p>If you only define voice, your team won't know how to handle a refund email. If you only define tone case-by-case, you'll drift into a different personality every week. The document we're building covers both.</p>
+
+<hr>
+
+<h2>Chapter Two: The Voice Foundation Framework</h2>
+
+<p>Before vocabulary, before tone, you decide who the brand <em>is</em>. Four components. Answer each in writing — vague answers here poison everything downstream.</p>
+
+<h3>1. The Voice in One Sentence</h3>
+<p>Force the whole personality into a single line. "We sound like a sharp, generous mentor who's seen it all and roots for you anyway." If you can't write the sentence, you don't know the voice yet. Keep drafting until it's true.</p>
+
+<h3>2. The Three-to-Five Traits</h3>
+<p>Pick a handful of personality traits — and crucially, define each by what it <em>means</em> and what it <em>doesn't</em> mean. "Confident" is useless alone. "Confident — we state things plainly without hedging; this does NOT mean arrogant or dismissive" is usable. The "doesn't mean" clause is where you prevent the trait from being misread into something off-brand.</p>
+
+<h3>3. The Brand's Beliefs</h3>
+<p>What does this brand think is true that others in its space won't say? Voice without conviction is just style. The beliefs give your writers something to <em>stand on</em>, not just a way to sound. List three to five.</p>
+
+<h3>4. The Human Comparison</h3>
+<p>Finish the sentence: "If our brand were a person, it would be ___ — but not ___." ("A favorite professor who makes hard things click — but not a stuffy academic." "Your most honest friend — but not the one who's mean and calls it honesty.") This gives writers an instant gut-check.</p>
+
+<blockquote>A trait without a "doesn't mean" clause is a trait waiting to be misinterpreted. Define your voice by its borders, not just its center.</blockquote>
+
+<hr>
+
+<h2>Chapter Three: Tone Spectrum Mapping</h2>
+
+<p>Voice is set. Now map how it flexes. A tone spectrum is a set of sliders your brand moves along depending on the situation.</p>
+
+<p>Define your brand's range on four spectrums. For each, mark where your <em>default</em> sits, then note how it shifts in specific contexts.</p>
+
+<table><thead><tr><th>Spectrum</th><th>One end</th><th>Other end</th></tr></thead><tbody><tr><td><strong>Formal ←→ Casual</strong></td><td>Boardroom</td><td>Group chat</td></tr>
+<tr><td><strong>Serious ←→ Playful</strong></td><td>Solemn</td><td>Winking</td></tr>
+<tr><td><strong>Reserved ←→ Bold</strong></td><td>Understated</td><td>Declarative</td></tr>
+<tr><td><strong>Warm ←→ Matter-of-fact</strong></td><td>Arm around shoulder</td><td>Just the facts</td></tr></tbody></table>
+
+<p>Now map tone to situations. This is the table that saves your team:</p>
+
+<table><thead><tr><th>Situation</th><th>Where the sliders move</th></tr></thead><tbody><tr><td>Marketing / launch copy</td><td>Bolder, more playful, full warmth</td></tr>
+<tr><td>Onboarding &amp; education</td><td>Warm, slightly more formal, patient</td></tr>
+<tr><td>Error &amp; outage messages</td><td>Serious, matter-of-fact, still warm; never playful</td></tr>
+<tr><td>Billing &amp; legal</td><td>Formal, clear, reassuring; zero cleverness</td></tr>
+<tr><td>Customer support replies</td><td>Warm, casual, bold enough to take ownership</td></tr>
+<tr><td>Bad news / apologies</td><td>Serious, plain, humble; cut all marketing language</td></tr></tbody></table>
+
+<p>The rule that holds it together: <strong>the voice never changes, only the tone.</strong> A playful brand doesn't crack jokes during an outage — but it's still recognizably itself, just turned to its serious, warm setting.</p>
+
+<hr>
+
+<h2>Chapter Four: Do/Don't Vocabulary Lists</h2>
+
+<p>This is the most-used page in any voice doc, because it's the most actionable. You're building a working dictionary: words and phrases that are on-brand, and ones that are banned.</p>
+
+<p>Build four lists.</p>
+
+<p><strong>1. Words We Use.</strong> The vocabulary that sounds like you. Verbs especially — voice lives in verbs. ("Build, sharpen, decide, cut, earn.")</p>
+
+<p><strong>2. Words We Avoid.</strong> The dead phrases and off-brand words. Be specific and a little ruthless. ("Synergy, leverage, robust, seamless, revolutionary, passionate, journey, unlock, game-changer.")</p>
+
+<p><strong>3. How We Say Common Things.</strong> Take recurring messages and write the on-brand version. This is where consistency actually happens:</p>
+
+<table><thead><tr><th>Instead of</th><th>We say</th></tr></thead><tbody><tr><td>"We apologize for any inconvenience."</td><td>"That's on us. Here's how we're fixing it."</td></tr>
+<tr><td>"Please don't hesitate to reach out."</td><td>"Questions? Just ask — we read every message."</td></tr>
+<tr><td>"We're excited to announce..."</td><td>"It's here. Here's why it matters to you."</td></tr>
+<tr><td>"Our innovative solution..."</td><td>(describe what it actually does)</td></tr></tbody></table>
+
+<p><strong>4. Grammar &amp; Mechanics Calls.</strong> The small consistency decisions: contractions yes or no (almost always yes — they're how humans talk), Oxford comma, sentence-case or title-case headers, emoji policy, exclamation-point budget. Boring, essential, and the thing teams fight about forever if it isn't written down.</p>
+
+<blockquote>A brand voice document is only as strong as its examples. "Be friendly" is a wish. A swap table is a tool.</blockquote>
+
+<hr>
+
+<h2>Chapter Five: A Complete Worked Example — Tidewater &amp; Co.</h2>
+
+<p>Theory's done. Here's the whole document, filled in for a company I made up so you can see every piece working together. <strong>Tidewater &amp; Co.</strong> is a (fictional) financial planning firm for self-employed creatives — freelancers, artists, and founders who are great at their craft and terrified of their own taxes.</p>
+
+<h3>The Voice Foundation</h3>
+
+<p><strong>Voice in one sentence:</strong> Tidewater sounds like the financially fluent friend who explains money without making you feel stupid — calm, candid, quietly funny, always on your side.</p>
+
+<p><strong>Traits:</strong></p>
+<ul><li><strong>Plainspoken</strong> — we explain money in language a human uses. This does NOT mean dumbed-down or condescending.</li><li><strong>Reassuring</strong> — we lower the reader's blood pressure. This does NOT mean falsely cheerful or dismissive of real fear.</li><li><strong>Candid</strong> — we tell the truth about money, including the uncomfortable parts. This does NOT mean blunt to the point of cold.</li><li><strong>Quietly witty</strong> — a dry line where it earns its place. This does NOT mean jokey, meme-y, or unserious about people's livelihoods.</li></ul>
+
+<p><strong>Beliefs:</strong></p>
+<ul><li>Financial anxiety usually comes from confusion, not numbers. Clarity is the actual product.</li><li>Creative people aren't "bad with money." They were handed money advice written for salaried 9-to-5s and told they failed it.</li><li>Shame is the enemy. Nobody made a good financial decision while being lectured.</li></ul>
+
+<p><strong>Human comparison:</strong> Tidewater is the friend who's a CPA and actually fun at dinner — but NOT the smug finance bro, and NOT the doom-and-gloom advisor who makes you want to never open a bank statement again.</p>
+
+<h3>The Tone Spectrum</h3>
+
+<p>Default sliders: leaning casual, mostly serious with room for dry wit, bold in our convictions, high warmth.</p>
+
+<table><thead><tr><th>Situation</th><th>Tone shift</th></tr></thead><tbody><tr><td>Website / marketing</td><td>Warmest and boldest; wit allowed; lead with relief</td></tr>
+<tr><td>Educational content</td><td>Patient, plainspoken, wit dialed down, zero condescension</td></tr>
+<tr><td>Account/tax reminders</td><td>Calm, clear, matter-of-fact, reassuring; no nagging</td></tr>
+<tr><td>When the client owes money / bad news</td><td>Serious, candid, shame-free, fully warm; no jokes</td></tr></tbody></table>
+
+<h3>Vocabulary</h3>
+
+<p><strong>Words we use:</strong> clarity, breathing room, plan, real numbers, set up, sort out, on your side, no shame, here's the deal.</p>
+
+<p><strong>Words we avoid:</strong> wealth journey, financial freedom (overused), leverage, robust, holistic solutions, "as per," synergize, hustle, grind.</p>
+
+<p><strong>How we say common things:</strong></p>
+
+<table><thead><tr><th>Instead of</th><th>Tidewater says</th></tr></thead><tbody><tr><td>"Maximize your tax efficiency."</td><td>"Keep more of what you earned. Legally, obviously."</td></tr>
+<tr><td>"We offer comprehensive financial solutions."</td><td>"We help you figure out what to do with your money — and stop dreading April."</td></tr>
+<tr><td>"You have failed to submit required documentation."</td><td>"We're still missing a couple things to file for you. Two-minute fix — here's what we need."</td></tr>
+<tr><td>"Per our records, your balance is past due."</td><td>"Heads up: this one's overdue. No judgment — let's just get it sorted. Here are your options."</td></tr></tbody></table>
+
+<p><strong>Mechanics:</strong> Contractions, always. Oxford comma, yes. Sentence-case headers. Emoji: rarely, and never in anything money-serious. Exclamation points: one per page, max — we're calm, not caffeinated.</p>
+
+<h3>Voice in Action — Before &amp; After</h3>
+
+<p>A real snippet, written the generic way and the Tidewater way.</p>
+
+<p><strong>Before (generic):</strong></p>
+<blockquote>"At Tidewater &amp; Co., we are passionate about empowering creative entrepreneurs to achieve financial freedom through our innovative, holistic suite of planning solutions."</blockquote>
+
+<p><strong>After (on-brand):</strong></p>
+<blockquote>"You're great at the thing you do. You are, by your own admission, a disaster at the money part. That's fine — that's literally our job. We'll set up a plan in plain English, handle the parts that make you panic, and make tax season a non-event. No shame, no jargon, no lectures."</blockquote>
+
+<p>Same company. One of them you'd hire.</p>
+
+<hr>
+
+<h2>Chapter Six: Building, Maintaining, and Defending the Doc</h2>
+
+<p>You have the framework and a model to copy. Three notes on making it last.</p>
+
+<p><strong>Keep it to one usable document.</strong> A 40-page brand bible nobody opens is worthless. The version people actually use is tight: the one-sentence voice, the traits with their "doesn't mean" clauses, the tone table, the swap lists, the mechanics calls. If it doesn't fit in something a new hire can absorb in fifteen minutes, cut it down.</p>
+
+<p><strong>Lead with examples, always.</strong> Every rule needs a before/after or a swap. Teams don't follow principles; they follow patterns. The example is the rule.</p>
+
+<p><strong>Defend it from the committee.</strong> The moment a voice succeeds, people will want to soften it — add a hedge, remove a stance, make it "a little more professional." That's the beige carpet creeping back in. The whole value of the document is that it lets you say "that's off-voice" and point to the page. A voice with no borders isn't a voice. It's a vibe, and vibes don't survive contact with a busy team.</p>
+
+<blockquote>The goal isn't a beautiful document. It's a brand that sounds like one specific, recognizable person no matter who's holding the keyboard. The document is just how you keep your promise to sound like yourself.</blockquote>
+
+<hr>
+
+<h2>Keep Going</h2>
+
+<p>You now have everything you need to build a voice from scratch — and a worked example to model.</p>
+
+<p>If you're a solo operator and the brand you most need to voice is <em>you</em>, start with <strong>Write Yourself Into the Room</strong> — the personal-brand companion to this playbook, with positioning frameworks and bio templates.</p>
+
+<p>And if you're a founder or creative whose own identity is still mid-rewrite — voice is hard to build on shifting ground — <strong>The Reinvention Workbook</strong> does that deeper work.</p>
+
+<p>Find more, and inquire about done-for-you voice work, at <strong>mkparrish.com</strong>.</p>
+
+<p>Most brands settle for sounding like everyone. You're not going to. You have the document now.</p>
+
+<p>— MK Parrish</p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>
