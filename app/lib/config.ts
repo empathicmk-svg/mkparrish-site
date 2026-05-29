@@ -55,21 +55,26 @@ export const GR_CALLING_CARD          = "https://mkparrish.gumroad.com/l/the-cal
 export const GR_MINISTRY_MONETIZED    = "https://mkparrish.gumroad.com/l/ministry-monetized";
 export const GR_SCRIPTURE_BUNDLE      = "https://mkparrish.gumroad.com/l/scripture-strategy-bundle";
 
+// ── Gumroad — Scripture & Strategy flagship course ───────────────────────────
+export const GR_SCRIPTURE_COURSE      = "https://mkparrish.gumroad.com/l/scripture-and-strategy";
+
 // ── Products not yet live on Gumroad ─────────────────────────────────────────
-// Remove a slug from this set once the Gumroad product URL is live.
+// Remove a slug from this set once the Gumroad product is created and live.
+// Content URL to set in Gumroad for each product: https://mkparrish.com/downloads/[file]
 export const COMING_SOON_SLUGS = new Set([
-  "the-edit-guide",
-  "before-the-session",
-  "the-rewrite-playbook",
-  "the-new-chapter-workbook",
-  "the-byline-method",
-  "the-build-copy-guide",
+  "scripture-and-strategy",       // → /downloads/scripture-and-strategy.html
+  "the-edit-guide",               // → /downloads/templates/the-edit-diy.html
+  "before-the-session",           // → /downloads/templates/before-the-session.html
+  "the-rewrite-playbook",         // → /downloads/templates/the-rewrite-playbook.html
+  "the-new-chapter-workbook",     // → /downloads/templates/the-new-chapter-workbook.html
+  "the-byline-method",            // → /downloads/templates/the-byline-method.html
+  "the-build-copy-guide",         // → /downloads/templates/the-build-copy-guide.html
   "the-services-vault",
-  "the-study",
-  "gospel-and-grind",
-  "the-sermon-notes",
-  "the-calling-card",
-  "ministry-monetized",
+  "the-study",                    // → /downloads/ebooks/the-study.html
+  "gospel-and-grind",             // → /downloads/ebooks/gospel-and-grind.html
+  "the-sermon-notes",             // → /downloads/ebooks/the-sermon-notes.html
+  "the-calling-card",             // → /downloads/ebooks/the-calling-card.html
+  "ministry-monetized",           // → /downloads/ebooks/ministry-monetized.html
   "scripture-strategy-bundle",
 ]);
 
