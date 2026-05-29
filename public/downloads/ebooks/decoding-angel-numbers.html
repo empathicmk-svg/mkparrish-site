@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decoding Angel Numbers: A Skeptic's Guide to Spiritual Curiosity — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>Decoding Angel Numbers: A Skeptic's Guide to Spiritual Curiosity</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>Decoding Angel Numbers: A Skeptic's Guide to Spiritual Curiosity</h1>
+
+<p><strong>Format:</strong> Digital ebook (PDF)</p>
+<p><strong>Price:</strong> $14</p>
+<p><strong>Length:</strong> ~55 pages</p>
+<p><strong>Audience:</strong> Spiritually curious women who keep noticing patterns — and want a grounded, non-woo framework for understanding what they might mean.</p>
+
+<hr>
+
+<h2>What this is (and isn't)</h2>
+
+<p>This book is not a glossary of magical meanings. It's not going to tell you that 1111 means your manifestation is coming and 333 means the angels are watching.</p>
+
+<p>It's a book for the woman who keeps noticing patterns — the same number on the clock, the same sequence showing up on receipts and license plates and page numbers — and doesn't know what to do with that. The woman who is curious but also skeptical. The woman who wants to think seriously about spiritual attention without surrendering her discernment.</p>
+
+<p>What it is: a framework for paying attention. For asking better questions. For sitting with pattern and meaning without collapsing into either superstition or dismissal.</p>
+
+<p>The through-line is this: <em>noticing is a spiritual discipline.</em> What you do with what you notice is the practice.</p>
+
+<hr>
+
+<h2>Contents</h2>
+
+<h3>Part One: Why We Notice</h3>
+
+<p><strong>Chapter 1 — The attention problem</strong></p>
+<p>We live in the most distracted era in human history and then wonder why spiritual practice feels thin. Noticing repetitive patterns — numbers, signs, synchronicities — is one of the oldest human experiences. This chapter is about why pattern recognition is native to us, and what it might be for.</p>
+
+<p><strong>Chapter 2 — What the numbers actually are</strong></p>
+<p>The history of numerology is older and stranger than most people know. This chapter walks through the different traditions (Pythagorean, Kabbalistic, contemporary New Age) without endorsing any of them — just mapping the territory honestly so you know where the idea comes from.</p>
+
+<p><strong>Chapter 3 — The skeptic's case</strong></p>
+<p>The honest chapter. Confirmation bias is real. Pattern-seeking is a feature that also has bugs. If you notice 111 every day, you might also be simply <em>not noticing</em> 246 and 837 and the ten other sequences you pass. This chapter takes the skeptical view seriously — and then asks what remains after the skeptical view has said everything it has to say.</p>
+
+<hr>
+
+<h3>Part Two: A Framework for Paying Attention</h3>
+
+<p><strong>Chapter 4 — The three questions</strong></p>
+<p>Instead of a lookup table, three questions to bring to any noticed pattern:</p>
+<ol><li><em>What was I thinking about the moment before I noticed this?</em></li><li><em>What do I already believe about this number, and where did that belief come from?</em></li><li><em>If this pattern is a prompt rather than a message — what is it prompting me toward?</em></li></ol>
+
+<p><strong>Chapter 5 — The journal practice</strong></p>
+<p>A structured 30-day practice for noticing and recording patterns without over-interpreting or dismissing them. The goal is not to confirm a belief — it's to build a data set and see what emerges over time.</p>
+
+<p><strong>Chapter 6 — Common sequences and what to ask</strong></p>
+<p>Not a meaning glossary — a question set for the most commonly noticed sequences: 111, 222, 333, 444, 555, 1111, and more. For each, a set of reflection prompts rather than assigned meanings. You bring the interpretation. The number brings the prompt.</p>
+
+<hr>
+
+<h3>Part Three: Making Something of It</h3>
+
+<p><strong>Chapter 7 — Synchronicity and discernment</strong></p>
+<p>Carl Jung's concept of synchronicity — meaningful coincidence — and what discernment traditions across contemplative Christianity, Jewish practice, and Sufi mysticism have said about the same phenomenon. The spiritual director's question: <em>What does this stir in you, and what does the stirring call you toward?</em></p>
+
+<p><strong>Chapter 8 — The spiritual practice of noticing</strong></p>
+<p>How to incorporate pattern-noticing into an existing prayer or study practice without turning it into superstition. The discipline isn't <em>chasing signs</em> — it's developing the attentiveness that makes you capable of hearing them when they matter.</p>
+
+<p><strong>Chapter 9 — When to let go</strong></p>
+<p>Some patterns are confirmations. Some are comfort. Some are rabbit holes. This chapter is about how to recognize which is which — and how to hold attention lightly enough that noticing stays a gift rather than becoming an obsession.</p>
+
+<hr>
+
+<h3>Appendix: The Journal Pages</h3>
+<p>Twelve weeks of guided journal prompts for the number-noticing practice. Designed to be printed or used digitally.</p>
+
+<hr>
+
+<h2>Who this is for</h2>
+
+<ul><li>The spiritually curious woman who grew up in faith but has questions the faith community didn't welcome</li><li>The woman in a season of major transition who keeps noticing the same numbers and doesn't know what to do with it</li><li>The woman who finds New Age numerology unpersuasive but doesn't want to dismiss her own noticing</li><li>The seeker who wants a practice, not a prophecy</li></ul>
+
+<hr>
+
+<h2>What you'll leave with</h2>
+
+<ul><li>A framework for sitting with pattern and meaning without superstition or dismissal</li><li>A 30-day noticing practice you can begin this week</li><li>A set of questions to bring to any noticed sequence — better than a lookup table</li><li>A theology of attention that doesn't require you to pick a side</li></ul>
+
+<hr>
+
+<p><em>"The most invisible kind of attention is the most accurate kind. What we notice without trying to notice — that's the thread worth following."</em></p>
+
+<p>→ <strong>$14. Immediate download.</strong></p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

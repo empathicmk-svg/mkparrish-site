@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sermon Notes — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>The Sermon Notes</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>The Sermon Notes</h1>
+
+<h3>Turn your personal Bible study into content your audience wants — and that you can charge for.</h3>
+
+<p><strong>By MK Parrish</strong></p>
+
+<p><strong>$25</strong></p>
+
+<hr>
+
+<h2>Start Here</h2>
+
+<p>You study. You actually do the work — you sit with the text, you wrestle, you walk away with something real. And then it evaporates into the same notebook nobody else will ever open.</p>
+
+<p>Meanwhile you stare at a blank caption box, convinced you have "nothing to post."</p>
+
+<p>You're not out of ideas. You're sitting on a goldmine and calling it a diary.</p>
+
+<p>Here's the shift this book makes: your personal study is not separate from your content. It <em>is</em> your content — raw, before processing. One honest hour with one passage holds enough material to fill a month, across every platform you touch, with stuff your audience will actually stop scrolling for. Because it's true. Because you lived it. Because it isn't recycled from someone else's recycling.</p>
+
+<blockquote>You don't have a content problem. You have a translation problem — study to shareable.</blockquote>
+
+<p>This book is the translation engine. We'll build the pipeline that turns one passage into a month of material, hand you twelve plug-and-play content formats, and show you exactly how to move people from a free post to an email to something they pay for — without ever feeling like a salesperson wearing a cross.</p>
+
+<p>Let's turn the notes into a body of work.</p>
+
+<hr>
+
+<h2>Chapter One: The Pipeline — One Passage, One Month</h2>
+
+<p>Most creators produce content the hard way: invent a topic, research it, write it, post it, repeat tomorrow from scratch. That's the road to burnout. The pipeline runs the other direction. You go <em>deep once</em>, then <em>distribute wide</em>.</p>
+
+<p>Here's the flow:</p>
+
+<p><strong>Study (deep) → Capture (raw) → Sort (into angles) → Format (into pieces) → Distribute (across platforms).</strong></p>
+
+<p>It starts in your actual study session — the kind you learned to run in <em>The Study</em>. The only addition: as you study, you capture differently.</p>
+
+<p><strong>The Capture Habit.</strong> While you study one passage, keep a second page open labeled "what would land." Every time something makes you go <em>oh</em> — a word that surprised you, a wrong assumption you'd been carrying, a connection to your real life, a question you couldn't shake — you jot it on that page. You're not writing content yet. You're harvesting sparks. A good study session yields eight to fifteen sparks from a single passage.</p>
+
+<p>That page of sparks is the raw ore. Everything else in this book refines it.</p>
+
+<p><strong>The Sort.</strong> Each spark falls into one of four angles. Tag them as you go:</p>
+
+<ul><li><strong>Teach</strong> — something you understood that others probably misunderstand.</li><li><strong>Confess</strong> — something the text exposed in you (the most shareable angle; vulnerability travels).</li><li><strong>Reframe</strong> — a common assumption the passage overturns.</li><li><strong>Apply</strong> — a concrete, do-it-this-week action.</li></ul>
+
+<p>One passage, sorted across four angles, with three to four sparks each, gives you a dozen distinct pieces of content before you've written a single full post. That's your month.</p>
+
+<hr>
+
+<h2>Chapter Two: The 12 Formats</h2>
+
+<p>Sparks become posts when you pour them into a format. Here are twelve, built for faith creators, organized by where they live. Pick the ones that fit your platforms and rotate them so your feed never feels like a template.</p>
+
+<h3>Short-Form Social (Instagram, threads, TikTok captions)</h3>
+
+<p><strong>1. The Cracked-Open Verse.</strong> One verse + the single thing you noticed that you'd never seen before. "I read this 100 times and missed [X]. Here's what changed." Pure <em>Teach</em> or <em>Reframe</em>.</p>
+
+<p><strong>2. The Honest Confession.</strong> Lead with the thing the text exposed in you. "I judged the older brother in that parable for years. Last week I realized I <em>am</em> him." Pure <em>Confess</em>. These outperform everything.</p>
+
+<p><strong>3. The Myth-Buster.</strong> "You've been told [common faith cliché]. The passage actually says the opposite." Name the cliché, then the correction. <em>Reframe</em>.</p>
+
+<p><strong>4. The Micro-Application.</strong> One verse, one absurdly specific action for this week. Specific beats inspirational every time. <em>Apply</em>.</p>
+
+<p><strong>5. The Question Post.</strong> Pose the real question the passage raised for you and genuinely ask the audience. Comments are the algorithm's favorite food, and faith audiences love to weigh in.</p>
+
+<h3>Long-Form (email, blog, LinkedIn, newsletter)</h3>
+
+<p><strong>6. The Study Walk-Through.</strong> Take readers through your actual process on one passage — what you noticed, where you got stuck, where you landed. Teaches the text <em>and</em> your method.</p>
+
+<p><strong>7. The Story Bridge.</strong> Open with a real moment from your week, bridge into the passage that spoke to it, close with what you're carrying. Personal essay meets devotional.</p>
+
+<p><strong>8. The Frame + Practice.</strong> Teach one idea from the passage, then give a concrete practice to live it out this week. This is your email workhorse — value-dense, action-oriented, and the natural lead-in to a paid offer.</p>
+
+<h3>Visual / Saveable</h3>
+
+<p><strong>9. The Carousel Teardown.</strong> Slide 1: the hook ("3 things this verse is NOT saying"). Slides 2–4: the points. Final slide: the takeaway + a soft next step. Built to be saved and shared.</p>
+
+<p><strong>10. The Quote Card.</strong> Your own reframed line — not just the verse, <em>your</em> sentence about it — on a clean background. Your voice on a card travels further than scripture alone, because it's unmistakably yours.</p>
+
+<h3>Audio / Video</h3>
+
+<p><strong>11. The Two-Minute Teach.</strong> Talk through one spark to camera. No script, just the <em>oh</em> moment. Imperfect and human outperforms polished and generic.</p>
+
+<p><strong>12. The Voice Memo Devotional.</strong> Audio-first: read the passage, then talk through it like you're voice-memoing a friend. Intimate, low-production, deeply on-brand for a faith creator.</p>
+
+<blockquote>Twelve formats, four angles, one passage. You will run out of weeks before you run out of content.</blockquote>
+
+<hr>
+
+<h2>Chapter Three: The Monthly Content Map</h2>
+
+<p>Let's assemble a real month from one Sunday's study. Say you studied the parable of the prodigal son and harvested twelve sparks across the four angles.</p>
+
+<p>Here's a four-week map that never repeats and never strains:</p>
+
+<p><strong>Week 1 — Teach.</strong> Mon: Cracked-Open Verse (short). Wed: Carousel Teardown (visual). Fri: Study Walk-Through (email).</p>
+
+<p><strong>Week 2 — Confess.</strong> Mon: Honest Confession (short). Wed: Two-Minute Teach (video). Fri: Story Bridge (email).</p>
+
+<p><strong>Week 3 — Reframe.</strong> Mon: Myth-Buster (short). Wed: Quote Card (visual). Fri: Frame + Practice (email — <em>this is your conversion email; more in Chapter Five</em>).</p>
+
+<p><strong>Week 4 — Apply.</strong> Mon: Micro-Application (short). Wed: Question Post (short). Fri: Voice Memo Devotional (audio).</p>
+
+<p>Twelve pieces. One passage. Zero days of staring at a blank box. And because it all flows from one coherent study, the month <em>feels</em> like a series instead of scattered noise — which is exactly what builds an audience that trusts you.</p>
+
+<p>Repeat with a new passage next month. After a year you've got twelve deep series and a back catalog you can repackage indefinitely.</p>
+
+<hr>
+
+<h2>Chapter Four: Writing So It Lands</h2>
+
+<p>Raw sparks are honest but rough. A few mechanics turn them into content people actually finish.</p>
+
+<p><strong>Lead with the bruise, not the bible.</strong> Don't open with the verse. Open with the human thing — the mistake, the question, the moment. <em>"I keep score in my marriage. I didn't know that until Tuesday."</em> Then bring the text. People lean in for the human and stay for the truth, never the reverse.</p>
+
+<p><strong>One idea per piece.</strong> The temptation is to dump the whole study into one post. Resist. One spark, one piece. Depth on a single point beats a shallow tour of five.</p>
+
+<p><strong>End with a turn, not a bow.</strong> Don't wrap it in a neat moral. Leave a turn — a question, a challenge, a "here's what I'm doing about it." Tidy endings get a nod. Open ones get a comment and a save.</p>
+
+<p><strong>Sound like you talk.</strong> Read it out loud. If you wouldn't say it to a friend over coffee, cut it. Faith content drowns in a fake-reverent voice nobody actually speaks. Yours shouldn't.</p>
+
+<blockquote>Polished content earns respect. Honest content earns trust. Trust is the thing you can build a business on.</blockquote>
+
+<hr>
+
+<h2>Chapter Five: From Free Content to Paid</h2>
+
+<p>Now the part most faith creators skip and then wonder why free content never turns into income. Free content builds trust. Paid offers monetize it. The bridge between them is <em>intentional</em> — it doesn't happen by accident.</p>
+
+<p>Here's the conversion framework.</p>
+
+<p><strong>The Ladder.</strong> Picture three rungs, and make sure every month moves people up:</p>
+
+<ol><li><strong>Free</strong> — your social posts. Job: earn attention and trust. Ask for nothing but a follow.</li><li><strong>Owned</strong> — your email list. Job: deepen the relationship somewhere the algorithm can't touch. The bridge from free to owned is a <em>lead magnet</em>: a free study guide, a passage breakdown, a template — something directly useful that requires an email.</li><li><strong>Paid</strong> — your products, courses, or community. Job: deliver the deep transformation your free content only hints at.</li></ol>
+
+<p><strong>The CTA rhythm.</strong> Match the ask to the rung. On social: "Want the full breakdown? It's in my newsletter — link in bio." In email: most issues give pure value; roughly one in four points to a paid offer. Never sell in every breath; never <em>only</em> give and wonder why nothing converts.</p>
+
+<p><strong>The Conversion Email (your Week 3 Frame + Practice).</strong> This is the template that does the work:</p>
+
+<pre><code>1. THE BRUISE — open with the honest, relatable struggle.
+<ol><li>THE TEACH — the passage + the reframe that addresses it.</li><li>THE PRACTICE — one concrete thing they can do today (real value, free).</li><li>THE BRIDGE — "If you want to go deeper than one email can take you..."</li><li>THE OFFER — name the paid thing, what it does, the price, one clear link.</li><li>THE CLEAN OUT — "And if not, this practice alone is worth doing. See you next week."</li></ol>
+<p></code></pre></p>
+
+<p>That last line matters. It lets people say no and stay. Clean exits keep your list warm and your conscience clear — and warm lists buy when the right offer comes.</p>
+
+<p><strong>Lead with mission, name the money.</strong> Your offers always lead with what they <em>do</em> for the reader — the change, the relief, the capability. But you <em>do</em> name the price, plainly, without apology or a wall of throat-clearing. Mission-led is not price-hidden. People trust a clear number far more than a coy one.</p>
+
+<hr>
+
+<h2>What's Next</h2>
+
+<p>You walked in with a notebook nobody read and a blank caption box. You're walking out with a pipeline that turns one passage into a month, twelve formats to pour it into, and a ladder that turns trust into income — honestly.</p>
+
+<p><strong>The Sermon Notes</strong> is part of <strong>Scripture &amp; Strategy</strong> — my line for women building faith-aligned work without the guilt, the gatekeeping, or the seminary bill.</p>
+
+<p>Where to go next:</p>
+
+<ul><li><strong>The Study</strong> — the deep study practice this whole pipeline feeds from.</li><li><strong>Gospel &amp; Grind</strong> — align what you believe with what you sell, and price it without flinching.</li><li><strong>The Calling Card</strong> — build the faith-informed brand voice that makes all this content unmistakably yours.</li><li><strong>Ministry, Monetized</strong> — turn your audience into a paying Bible study community.</li></ul>
+
+<p>Get all five in the <strong>Scripture &amp; Strategy bundle</strong> and save — the whole system, start to finish.</p>
+
+<p>Want it guided, with live teaching and a room of creators building alongside you? The <strong>Scripture &amp; Strategy course</strong> is open now.</p>
+
+<p>Everything lives at <strong><a href="https://mkparrish.com">mkparrish.com</a></strong>.</p>
+
+<p>Stop hiding your best thinking in a notebook. Go publish it.</p>
+
+<p>— MK</p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

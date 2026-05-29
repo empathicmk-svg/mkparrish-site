@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Study — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>The Study</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>The Study</h1>
+
+<h3>A modern guide to building a Bible study practice that actually sticks — on your own terms.</h3>
+
+<p><strong>By MK Parrish</strong></p>
+
+<p><strong>$18</strong></p>
+
+<hr>
+
+<h2>Start Here</h2>
+
+<p>You've tried this before.</p>
+
+<p>Maybe you bought the journal with the gold foil on the cover. Maybe you downloaded a reading plan that promised you the whole Bible in a year and quit somewhere in Leviticus. Maybe you sat in a study where everyone seemed to already know the answers and you spent the whole hour hoping nobody would call on you.</p>
+
+<p>So you decided studying Scripture wasn't your thing. Too much catching up to do. Too much you didn't understand. Too easy to feel behind.</p>
+
+<p>Here's what I want you to hear before anything else: the problem was never you. The problem was the method.</p>
+
+<p>Most Bible study advice was built for people with quiet mornings, theology degrees, or a guilt reflex strong enough to power a small city. If you don't have those things — or you do, and they still didn't work — you were handed the wrong tool and told you were the one who was broken.</p>
+
+<p>This book hands you the right tools. Five of them, actually. Real methods that real people use to actually understand what they're reading and remember it. You'll learn how each one works, when to reach for it, and how to build a rhythm that fits the life you already have — not the one you keep promising yourself you'll start on Monday.</p>
+
+<p>No church required. No shame allowed. No seminary, no streak you have to protect, no performance.</p>
+
+<p>Just you, the text, and a method that finally fits your brain.</p>
+
+<blockquote>You don't need more discipline. You need a method that doesn't fight you.</blockquote>
+
+<p>Let's build it.</p>
+
+<hr>
+
+<h2>Chapter One: Why Nothing Stuck (and Why That's About to Change)</h2>
+
+<p>Before we get to methods, let's name the three traps that kill most study practices. Because if you don't see them, they'll quietly kill this one too.</p>
+
+<p><strong>The Streak Trap.</strong> You decide you'll study every single day, no exceptions. You do great for nine days. You miss day ten. And instead of picking up on day eleven, you decide you've failed and you stop entirely. The all-or-nothing wiring turns one missed day into a quit. We're going to design around this, not depend on willpower to beat it.</p>
+
+<p><strong>The Comprehension Trap.</strong> You open to a random page, read something about a guy named Melchizedek, understand none of it, and conclude you're not smart enough for this. You're plenty smart. You just opened a 2,000-year-old library in the middle and started reading. We'll fix the where and the how.</p>
+
+<p><strong>The Performance Trap.</strong> Somewhere you absorbed the idea that study should feel reverent, produce profound insights, and result in a visibly better person. So when it just feels like reading, you assume you're doing it wrong. You're not. Most of study is showing up and paying attention. The profundity comes later, and quieter than you'd expect.</p>
+
+<p>Here's the reframe that makes all of this work: <strong>study is a skill, not a virtue.</strong> You're not earning anything. You're learning to read a specific kind of text well — the same way you'd learn to read financial statements or sheet music. Skills respond to practice and good technique. They do not respond to guilt.</p>
+
+<p>Keep that in your back pocket for the rest of the book.</p>
+
+<hr>
+
+<h2>Chapter Two: The Five Methods, Decoded</h2>
+
+<p>There is no single "right" way to study the Bible. There are tools, and each one is good at a different job. Below are the five most useful, stripped of jargon and explained like an adult is talking to you.</p>
+
+<p>You do not need all five at once. Read through them, notice which one makes your shoulders drop a little, and start there.</p>
+
+<h3>Method One: SOAP — The Daily Driver</h3>
+
+<p>SOAP is the reliable sedan of Bible study. Not flashy. Gets you everywhere.</p>
+
+<p>It's an acronym for four moves you make with a single passage:</p>
+
+<ul><li><strong>S — Scripture.</strong> Write out one verse or short passage by hand. Yes, copy it. The act of writing slows your eyes down and you'll notice words you'd have skimmed past.</li><li><strong>O — Observation.</strong> What's actually happening here? Who's speaking, to whom, about what? No interpretation yet — just report what's on the page like a journalist.</li><li><strong>A — Application.</strong> What does this mean for your actual life this week? Be specific. "Be more patient" is a fortune cookie. "Don't snap at my sister when she's late again Thursday" is application.</li><li><strong>P — Prayer.</strong> Write a short, plain response. Talking, not performing. "I don't really get this, but help me want to" counts.</li></ul>
+
+<p><strong>Best for:</strong> daily practice, beginners, busy people. Ten minutes, one passage, done.</p>
+
+<p><strong>Skip it when:</strong> you want to understand a whole book or a big idea — SOAP stays close to the ground.</p>
+
+<h3>Method Two: Verse Mapping — The Deep Dive</h3>
+
+<p>Verse mapping is for the verse that snags you — the one you keep coming back to and don't fully understand.</p>
+
+<p>You take one verse and pull it apart from every angle:</p>
+
+<ol><li>Write the verse in two or three different translations side by side. Where they differ, you've found something worth noticing.</li><li>Circle the key words. Look up what they meant in the original Hebrew or Greek. (A free app like Blue Letter Bible does this in seconds — tap a word, see the original.)</li><li>Note the context — what comes right before and after?</li><li>Cross-reference: where else does this idea show up? Most study Bibles list these in the margin.</li><li>Write one sentence: what do you understand now that you didn't before?</li></ol>
+
+<p><strong>Best for:</strong> verses that confuse or grip you. Word nerds. People who like to go deep on one thing.</p>
+
+<p><strong>Skip it when:</strong> you only have ten minutes or you're trying to cover ground.</p>
+
+<h3>Method Three: Inductive Study — The Detective</h3>
+
+<p>Inductive study is the most rigorous of the five, and the one that makes you genuinely good at reading the Bible on your own. It's three steps, done in order, and the order is the whole point:</p>
+
+<ul><li><strong>Observation: What does it say?</strong> Read the passage three times. Mark repeated words, contrasts ("but," "therefore"), commands, and anything that surprises you. Resist the urge to decide what it means.</li><li><strong>Interpretation: What did it mean to them?</strong> Now ask what the original author meant for the original audience. This is the step everyone skips, and skipping it is how verses get yanked wildly out of context.</li><li><strong>Application: What does it mean for me?</strong> Only after the first two. A passage can't mean to you what it never meant to them.</li></ul>
+
+<p><strong>Best for:</strong> studying a whole chapter or book. Skeptics who want to know they're reading honestly, not projecting. Anyone burned by out-of-context quoting.</p>
+
+<p><strong>Skip it when:</strong> you want speed or you want devotional warmth — this one is brainwork.</p>
+
+<h3>Method Four: Lectio Divina — The Slow One</h3>
+
+<p>Lectio Divina (Latin for "divine reading") is the opposite of detective mode. It's ancient, contemplative, and almost suspiciously simple. Four passes through a short passage:</p>
+
+<ol><li><strong>Read</strong> it slowly, out loud if you can.</li><li><strong>Reflect</strong> — which word or phrase catches you? Sit with it.</li><li><strong>Respond</strong> — say back to God whatever that phrase stirs up. Plainly.</li><li><strong>Rest</strong> — stop trying to produce anything. Just be quiet with it for a minute.</li></ol>
+
+<p><strong>Best for:</strong> anxious brains, burnout, overthinkers, people who treat everything as a task to optimize. This one refuses to be optimized, which is the medicine.</p>
+
+<p><strong>Skip it when:</strong> you want information or analysis. This is formation, not study in the academic sense.</p>
+
+<h3>Method Five: Character Study — The Storyteller</h3>
+
+<p>You pick a person — David, Ruth, Peter, Esther, anyone — and trace their whole arc across Scripture. You watch a real human make real choices and live with real consequences.</p>
+
+<p>How to run it:</p>
+
+<ul><li>Find every passage about your person (a search tool or the index in the back of a study Bible).</li><li>Read them in order. Track: their decisions, their turning points, where they failed, where they grew.</li><li>Ask: what was God doing through this messy person, and what does that tell me about how God works with messy people now?</li></ul>
+
+<p><strong>Best for:</strong> narrative thinkers, people who connect through story, anyone who finds abstract teaching slippery but remembers a good character forever.</p>
+
+<p><strong>Skip it when:</strong> you want to study a non-narrative book like Proverbs or Romans — there's no single character to follow.</p>
+
+<blockquote>Pick the method that fits the moment, not the method that sounds the most holy. Holiness isn't a study technique.</blockquote>
+
+<hr>
+
+<h2>Chapter Three: The Daily Template</h2>
+
+<p>Here's a ten-minute daily practice you can run with any of the methods above. Copy it into a notebook or a notes app. The format matters less than having one.</p>
+
+<p><strong>The Daily Page</strong></p>
+
+<pre><code>DATE: __________   METHOD: __________
+
+<p>PASSAGE: ________________________________</p>
+
+<p>What I see (just the facts):</p>
+<p>- </p>
+<p>- </p>
+
+<p>What it might mean:</p>
+<p>- </p>
+
+<p>One thing for today:</p>
+<p>- </p>
+
+<p>One line back to God:</p>
+<p>- </p>
+<p></code></pre></p>
+
+<p>Three rules for the daily page:</p>
+
+<ol><li><strong>Ten minutes is a full practice, not a failure.</strong> You are not behind. There is no behind.</li><li><strong>Pick your passage in advance.</strong> Decision fatigue kills more study sessions than busyness does. Know tonight what you'll read tomorrow.</li><li><strong>Done beats deep.</strong> A messy half-page every day will form you more than a perfect entry once a month.</li></ol>
+
+<hr>
+
+<h2>Chapter Four: The Weekly Template</h2>
+
+<p>Daily practice keeps the habit alive. A weekly session is where things actually click. Once a week, give yourself 30 to 45 minutes for a slightly bigger move.</p>
+
+<p><strong>The Weekly Deep Session</strong></p>
+
+<ul><li><strong>Pick one passage</strong> — ideally tied to what you read during the week, so it builds instead of scattering.</li><li><strong>Run one of the deeper methods</strong> — inductive or verse mapping work beautifully here.</li><li><strong>Ask the three weekly questions:</strong></li></ul>
+<p>  - What did I notice this week that I want to sit with?</p>
+<p>  - Where is this actually touching my real life — work, relationships, money, fear?</p>
+<p>  - What's one thing I'm carrying into next week?</p>
+<ul><li><strong>Write a "this week I learned" line.</strong> One sentence. This is the thread you'll pull next week.</li></ul>
+
+<p>Stack four weekly sessions and you've studied a whole short book of the Bible properly — with context, with comprehension, on your own terms. That's more real study than most people do in a year of streak-chasing.</p>
+
+<hr>
+
+<h2>Chapter Five: Building the Rhythm That Sticks</h2>
+
+<p>Now the part that actually determines whether you're still doing this in six months.</p>
+
+<p><strong>Anchor it to something you already do.</strong> Don't invent a new slot in your day — attach study to an existing habit. After your morning coffee. Before you open your laptop. On the train. Habits stick when they ride on the back of habits you already have.</p>
+
+<p><strong>Choose your floor, not your ceiling.</strong> Don't commit to "30 minutes every morning." Commit to "I open the text and read one verse." That's the floor. On great days you'll do far more. On hard days you'll hit the floor and stay in the game. The streak that matters is the identity, not the calendar.</p>
+
+<p><strong>Plan your re-entry before you need it.</strong> You will miss days. Decide right now: a missed day is not a failure, it's a Tuesday. You don't restart from zero. You just open the book again. Write this on the inside cover: <em>Missing a day is normal. Quitting is the only real failure, and I'm choosing not to.</em></p>
+
+<p><strong>Keep a "questions" page.</strong> When you hit something confusing — and you will — don't let it stop you. Write the question on a running list and keep moving. You'll be amazed how many answer themselves over time, and the rest give you something real to bring to a study group, a pastor, or a search bar.</p>
+
+<p><strong>Change methods when you go stale.</strong> Boredom isn't a sign you're failing. It's a sign you've outgrown your current tool. Rotate. SOAP for a season, then a character study, then a slow stretch of Lectio Divina. The variety is the sustainability.</p>
+
+<blockquote>A practice that bends doesn't break. Build one that bends.</blockquote>
+
+<hr>
+
+<h2>What's Next</h2>
+
+<p>You now have five real methods, two templates, and a rhythm that's built to survive contact with your actual life. That's not a starter kit. That's a practice.</p>
+
+<p>This book is the entry point to <strong>Scripture &amp; Strategy</strong> — my line of guides for women who want to study Scripture and build faith-aligned work without the guilt, the gatekeeping, or the seminary bill.</p>
+
+<p>If The Study is about your own practice, the rest of the line is about what you do with it:</p>
+
+<ul><li><strong>Gospel &amp; Grind</strong> — build a profitable practice grounded in what you actually believe.</li><li><strong>The Sermon Notes</strong> — turn your personal study into content people want.</li><li><strong>The Calling Card</strong> — build a faith-informed brand voice that's truly yours.</li><li><strong>Ministry, Monetized</strong> — launch and grow a Bible study community you can charge for.</li></ul>
+
+<p>Get all five in the <strong>Scripture &amp; Strategy bundle</strong> and save — it's the whole system, start to finish.</p>
+
+<p>And if you want the guided version — live teaching, templates, and a room full of people doing this with you — the <strong>Scripture &amp; Strategy course</strong> is open now.</p>
+
+<p>Everything lives at <strong><a href="https://mkparrish.com">mkparrish.com</a></strong>.</p>
+
+<p>You came in thinking you weren't a Bible-study person. You were just using the wrong method. Now you're not.</p>
+
+<p>Go open the book.</p>
+
+<p>— MK</p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

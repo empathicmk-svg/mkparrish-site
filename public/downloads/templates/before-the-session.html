@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Before the Session — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>Before the Session</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>Before the Session</h1>
+
+<h3>The pre-work that turns a strategy session into something you actually use.</h3>
+
+<p><strong>By MK Parrish</strong></p>
+<p><strong>Price: $18</strong></p>
+
+<hr>
+
+<h2>Why this exists</h2>
+
+<p>You book the call. You show up. You spend the first forty minutes explaining who you are, what you do, and why you're stuck — and then the clock runs out right as it gets good. You walk away with notes you'll never open and the same fog you came in with.</p>
+
+<p>That's not a bad session. That's an unprepared one.</p>
+
+<p>The clients who get the most out of a strategy session do the thinking <em>before</em> the call. They arrive knowing their own situation cold, so the hour goes to the part only an outside brain can do: seeing what they can't, and deciding what to do about it.</p>
+
+<p>This is that pre-work. It's the worksheet I send before <strong>The Session</strong> — the questions that surface the real problem so we don't waste the hour finding it. Run it solo before any strategy call, with any consultant. Or run it on yourself when you can't afford one yet.</p>
+
+<p>Set aside ninety minutes. Write your answers down — actually written, not "thought about." The friction of writing is where the clarity lives.</p>
+
+<hr>
+
+<h2>Part 1 — The Identity &amp; Positioning Self-Audit</h2>
+
+<p>You can't position what you can't name. Start here. Answer fast and honest; you can refine later.</p>
+
+<pre><code>WHO I ACTUALLY AM (not the title)
+
+<p>  I help ___________________ (specific people)</p>
+<p>  do/get __________________ (specific outcome)</p>
+<p>  so they can _____________ (the deeper why).</p>
+
+<p>  The thing I'm better at than most people in my field: __________</p>
+
+<p>  The thing people consistently come to ME for: __________</p>
+
+<p>  What I'm known for right now (be honest, even if you hate it): ____</p>
+
+<p>  What I WANT to be known for: __________</p>
+
+<p>  The gap between those two: __________</p>
+<p></code></pre></p>
+
+<h3>Worked example</h3>
+
+<pre><code>  I help mid-career engineers who want to move into management
+<p>  do it without faking a personality they don't have,</p>
+<p>  so they can lead without burning out pretending.</p>
+
+<p>  Better at than most: translating technical work into plain stakes.</p>
+<p>  People come to me for: untangling messy org problems.</p>
+<p>  Known for now: "the reliable senior IC who fixes things."</p>
+<p>  Want to be known for: "the one who can run the team."</p>
+<p>  The gap: everyone trusts my hands, no one's seen me lead.</p>
+<p></code></pre></p>
+
+<p>Notice what the example surfaces: the problem isn't skill, it's <em>perception</em>. That gap line is gold. It's the thing the session should be about. Find yours.</p>
+
+<hr>
+
+<h2>Part 2 — The Brand Clarity Questions</h2>
+
+<p>These are the questions I'd ask in the first fifteen minutes — so you arrive having already answered them. Don't skip the uncomfortable ones. Those are the load-bearing ones.</p>
+
+<h3>The Twelve</h3>
+
+<ul><li>[ ] <strong>1.</strong> If a stranger read everything you've published, what would they think you do? Is that right?</li><li>[ ] <strong>2.</strong> What do you say when someone asks "so what do you do?" — and do you cringe when you say it?</li><li>[ ] <strong>3.</strong> Who are the three people whose attention or respect you actually want? Name them.</li><li>[ ] <strong>4.</strong> What do you want them to think, feel, or do after encountering you?</li><li>[ ] <strong>5.</strong> What's the most impressive thing you've done that you've never put anywhere?</li><li>[ ] <strong>6.</strong> What are you tired of explaining? (That's often your real expertise.)</li><li>[ ] <strong>7.</strong> What do you turn down? (Your no's define your brand more than your yes's.)</li><li>[ ] <strong>8.</strong> Where are you currently being underestimated or misread?</li><li>[ ] <strong>9.</strong> What would you say if you weren't worried about sounding arrogant?</li><li>[ ] <strong>10.</strong> What's the one sentence you wish people understood about your work?</li><li>[ ] <strong>11.</strong> What's working right now that you can't explain — and want to do more of on purpose?</li><li>[ ] <strong>12.</strong> If nothing changed in twelve months, what would you most regret?</li></ul>
+
+<p>Write a real answer to each. One sentence minimum. The session moves at the speed of the answers you already have.</p>
+
+<hr>
+
+<h2>Part 3 — The Goal-Setting Framework for a 60-Minute Session</h2>
+
+<p>An hour is short. The single biggest waste is showing up with a vague goal — "I want clarity on my brand." Clarity on <em>what</em>, decided <em>how</em>, by <em>when</em>? Tighten it.</p>
+
+<h3>Step 1: Name the one decision</h3>
+
+<p>A session should produce a decision, not a feeling. Finish this sentence:</p>
+
+<pre><code>  By the end of this hour, I want to have decided: _______________
+
+<p>  EXAMPLE: "...whether to reposition as a leadership coach or stay</p>
+<p>  a technical consultant — and what my LinkedIn headline becomes</p>
+<p>  either way."</p>
+<p></code></pre></p>
+
+<p>If you have three things you want to decide, rank them. You'll likely only get through one well. Better one decision made than three half-touched.</p>
+
+<h3>Step 2: Define "useful"</h3>
+
+<pre><code>  This session was worth it if I leave with: _____________________
+
+<p>  Pick concrete outputs, e.g.:</p>
+<p>  - A positioning statement I can actually use</p>
+<p>  - A clear next 3 actions</p>
+<p>  - A decision I've been avoiding, made</p>
+<p>  - A rewritten headline / bio / pitch</p>
+<p></code></pre></p>
+
+<h3>Step 3: Surface the blockers</h3>
+
+<p>What's actually stopping you? Name it so the session can hit it directly.</p>
+
+<pre><code>  What I think is blocking me: __________
+<p>  What might REALLY be blocking me (the scary version): __________</p>
+<p>  What I've already tried that didn't work: __________</p>
+<p></code></pre></p>
+
+<h3>Step 4: The 3-2-1 prep</h3>
+
+<pre><code>  3 things I want feedback on: ___, ___, ___
+<p>  2 questions I'm afraid to ask out loud: ___, ___</p>
+<p>  1 outcome that would make this a no-brainer to have done: ___</p>
+<p></code></pre></p>
+
+<h3>Worked example — filled out</h3>
+
+<pre><code>  Decision: Whether to lead my consulting with "strategy" or "writing."
+
+<p>  Useful if I leave with: one clear positioning line + my new</p>
+<p>  homepage headline + a yes/no on dropping the lowest-tier offer.</p>
+
+<p>  Think is blocking me: I don't know which is more marketable.</p>
+<p>  REALLY blocking me: I'm scared "writer" sounds less senior than</p>
+<p>  "strategist" and I'll be paid less.</p>
+<p>  Already tried: rewriting my bio four times, kept both, said neither.</p>
+
+<p>  3 for feedback: homepage headline, my pricing page, my pitch on calls</p>
+<p>  2 scary questions: Am I charging too little? Is my niche too narrow?</p>
+<p>  1 no-brainer outcome: walk away able to say what I do in one sentence.</p>
+<p></code></pre></p>
+
+<p>Look at how much sharper this is than "help me with my brand." A session built on this prep can go straight to the real fear in minute two — and spend the other fifty-eight solving it.</p>
+
+<hr>
+
+<h2>The pre-session checklist</h2>
+
+<p>Do this the morning of the call.</p>
+
+<ul><li>[ ] All three parts filled in — written, not thought</li><li>[ ] The one decision named in a single sentence</li><li>[ ] "Useful" defined as concrete outputs</li><li>[ ] The scary version of the blocker written down</li><li>[ ] Relevant links/copy gathered in one place (bio, site, profile)</li><li>[ ] Phone off, notes app open, somewhere you can talk freely</li><li>[ ] One question you'd be slightly embarrassed to ask — bring it anyway</li></ul>
+
+<hr>
+
+<h2>After: lock it in within 24 hours</h2>
+
+<p>The session's value evaporates if you don't capture it fast. Within a day:</p>
+
+<pre><code>  THE ONE DECISION I MADE: __________
+<p>  THE NEXT 3 ACTIONS (with dates):</p>
+<p>    1. __________ by ___</p>
+<p>    2. __________ by ___</p>
+<p>    3. __________ by ___</p>
+<p>  THE SENTENCE I'M KEEPING: __________</p>
+<p>  WHAT I STILL NEED TO RESOLVE: __________</p>
+<p></code></pre></p>
+
+<hr>
+
+<h2>When you want the session itself</h2>
+
+<p>This is the prep. The prep alone will move you — most people have never sat down and answered these questions in writing, and the act of doing it surfaces things on its own.</p>
+
+<p>But prep isn't the session. The session is the outside brain that sees the gap you've been standing too close to read. <strong>The Session</strong> is 60 focused minutes where we take this pre-work and turn it into decisions you walk away ready to act on — positioning, voice, next moves.</p>
+
+<p>Come prepared with this, and we skip the warm-up entirely.</p>
+
+<p>Book it at <strong>mkparrish.com</strong>.</p>
+
+<p>Do the thinking. Then let's decide.</p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

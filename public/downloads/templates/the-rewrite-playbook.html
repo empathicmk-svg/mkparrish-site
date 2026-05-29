@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Rewrite Playbook — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --petal: #F2AFC6;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body {
+    background: var(--void);
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .cover-byline {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.04em;
+    color: var(--pearl);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 em {
+    color: var(--petal);
+    font-style: normal;
+  }
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .cover-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--petal);
+    margin: 0 auto;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin: 48px auto;
+    max-width: 720px;
+  }
+  .toc h2 {
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--ash);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .toc ol { padding-left: 0; list-style: none; }
+  .toc ol li { border-bottom: 1px solid var(--graphite); }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li a {
+    display: block;
+    padding: 10px 0;
+    color: var(--smoke);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+  .toc ol li a:hover { color: var(--petal); }
+  .toc ol li a .toc-num {
+    color: var(--iron);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Content */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Chapter header */
+  .chapter-header {
+    border-top: 1px solid var(--graphite);
+    padding-top: 64px;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+  .chapter-header:first-child { margin-top: 0; border-top: none; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pearl);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--graphite);
+  }
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petal);
+    margin: 36px 0 12px;
+  }
+  p { margin: 0 0 1.2em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  em { font-style: italic; }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0 0 1.5em;
+    color: var(--smoke);
+  }
+  li { margin-bottom: 0.5em; }
+
+  blockquote {
+    border-left: 2px solid var(--petal);
+    margin: 32px 0;
+    padding: 16px 24px;
+    background: var(--carbon);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--pearl);
+    line-height: 1.65;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    border-radius: 4px;
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: var(--petal);
+    line-height: 1.6;
+    white-space: pre;
+  }
+  p > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.9rem;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--pearl);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--graphite);
+    color: var(--smoke);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--graphite);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--iron);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer a { color: var(--ash); }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #111; }
+    .cover { background: #f9f9f9; }
+    .cover h1, h1 { color: #111; }
+    h2 { color: #222; }
+    p, li, td { color: #333; }
+    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
+    a { color: #111; }
+    .cover-rule { background: #c0a; }
+    pre, code { background: #f5f5f5; color: #333; }
+    .toc { background: #f5f5f5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-byline">MK Parrish · mkparrish.com</div>
+  <h1>The Rewrite Playbook</h1>
+  
+  <div class="cover-rule"></div>
+</div>
+
+<div class="content">
+<h1>The Rewrite Playbook</h1>
+
+<h3>A self-guided LinkedIn and professional story overhaul — the full thing.</h3>
+
+<p><strong>By MK Parrish</strong></p>
+<p><strong>Price: $45</strong></p>
+
+<hr>
+
+<h2>Why this exists</h2>
+
+<p>You are being read right now. By a recruiter skimming, a prospect deciding, a stranger forming an opinion in the four seconds it takes to scroll past your face. And the story they're reading isn't the one you'd tell. It's the leftover one — the bio you updated in a hurry two jobs ago, the headline that still says your old title, the "About" section that opens with "Experienced professional with a proven track record."</p>
+
+<p>You're being misread. Not because you're not impressive. Because nobody rewrote the page after you changed.</p>
+
+<p>The Rewrite is the work I do with people at a turn — a pivot, a promotion, a leaving, a starting-over. We don't decorate the old story. We rebuild it from the truth up, so the page finally matches the person. This Playbook is that whole process, documented and handed to you.</p>
+
+<p>It's longer than the others on purpose. This is the flagship. Set aside a few sessions. Work in order — the story audit feeds the positioning statement, which feeds the LinkedIn, which feeds the bios. Do them out of order and you'll be decorating again.</p>
+
+<p>What you'll build, in order:</p>
+<ol><li>A story audit — career, identity, and pivot narrative</li><li>A positioning statement that holds the whole thing together</li><li>A full LinkedIn rebuild, section by section</li><li>Bio rewrites for every length you need</li></ol>
+
+<p>Pen out. Let's find the real story and write it down straight.</p>
+
+<hr>
+
+<h2>Part 1 — The Story Audit</h2>
+
+<p>Before you write a word of copy, you find the story. Most people skip this and end up polishing a story that was never theirs to begin with. The audit runs in three layers: career, identity, pivot.</p>
+
+<h3>Layer 1 — The Career Audit</h3>
+
+<p>Don't list jobs. List <em>turns</em> — the moments the work changed you or you changed it.</p>
+
+<pre><code>THE TURNS
+<p>  For each significant role/project, answer:</p>
+
+<p>  - What was actually broken when I arrived? ____________</p>
+<p>  - What did I do that someone else wouldn't have? ____________</p>
+<p>  - What's the number, name, or outcome that proves it? ____________</p>
+<p>  - What did I learn that I still use? ____________</p>
+<p>  - What did I leave behind / outgrow here? ____________</p>
+<p></code></pre></p>
+
+<p>Run this for your last three or four meaningful roles. You're hunting for the through-line — the thing you keep doing across every job, regardless of title. That's your spine.</p>
+
+<pre><code>THE THROUGH-LINE
+<p>  Across every role, the thing I keep doing is: ____________</p>
+<p>  The kind of problem I'm always the one to solve: ____________</p>
+<p>  The skill I have that my title never named: ____________</p>
+<p></code></pre></p>
+
+<h3>Layer 2 — The Identity Audit</h3>
+
+<p>Title is what you were paid to do. Identity is what you <em>are</em>. They're rarely the same, and the gap is usually where you're being underestimated.</p>
+
+<pre><code>  My official title(s): ____________
+<p>  What I actually do all day: ____________</p>
+<p>  What people interrupt me to ask for: ____________</p>
+<p>  The thing I'm proud of that's nowhere on my résumé: ____________</p>
+<p>  The word people use about my work that I'd never pick: ____________</p>
+<p>  The word I'd pick: ____________</p>
+<p></code></pre></p>
+
+<h3>Layer 3 — The Pivot Narrative</h3>
+
+<p>If you're at a turn, the page has to explain the move — without sounding like an apology. The trap is the "I'm reinventing myself!" energy that reads as lost. You're not reinventing. You're continuing. Frame the pivot as the logical next step the through-line was always heading toward.</p>
+
+<pre><code>THE PIVOT FRAME
+<p>  I'm moving from ____________ to ____________.</p>
+
+<p>  The thing those two have in common (the through-line): ___________</p>
+
+<p>  The pivot isn't a break from my story — it's the part where: _______</p>
+
+<p>  What I'm NOT leaving behind (the transferable core): ____________</p>
+<p></code></pre></p>
+
+<h3>Worked example — the full audit</h3>
+
+<pre><code>CAREER through-line:
+<p>  "I keep getting handed broken processes and turning them into</p>
+<p>  systems people actually follow. Did it in ops, did it in product,</p>
+<p>  did it in the nonprofit. Title changed every time. The work didn't."</p>
+
+<p>IDENTITY:</p>
+<p>  Official title: "Senior Program Manager."</p>
+<p>  Actually do: design the system, then get humans to trust it.</p>
+<p>  People interrupt me for: "how do we make this not chaos."</p>
+<p>  Proud of, not on résumé: rewrote onboarding, cut ramp time in half.</p>
+<p>  Word others use: "organized." Word I'd pick: "calm under mess."</p>
+
+<p>PIVOT:</p>
+<p>  Moving from program management to operations consulting.</p>
+<p>  In common: making broken things run without burning people out.</p>
+<p>  The pivot is the part where I do it for many companies, not one.</p>
+<p>  Not leaving behind: the human side. Systems people hate don't work.</p>
+<p></code></pre></p>
+
+<p>Look at what the audit produced. Not a job history — a <em>thesis</em>. "I make broken things run without burning people out." Everything downstream gets written from that line.</p>
+
+<hr>
+
+<h2>Part 2 — The Positioning Statement Builder</h2>
+
+<p>This is the load-bearing sentence. Get it right and the LinkedIn, the bio, the pitch all write themselves from it. Get it wrong and you'll keep producing copy that doesn't quite fit.</p>
+
+<p>A positioning statement isn't a tagline. It's an internal tool — the truest, sharpest version of what you do, for whom, and why it matters. You may never publish it word for word. But everything you publish should be downstream of it.</p>
+
+<h3>The builder</h3>
+
+<pre><code>  I help [SPECIFIC PEOPLE]
+<p>  [DO / GET A SPECIFIC OUTCOME]</p>
+<p>  by [YOUR DISTINCT APPROACH / THE THING ONLY YOU DO],</p>
+<p>  so that [THE DEEPER STAKE — what it really changes for them].</p>
+
+<p>  Unlike [THE DEFAULT ALTERNATIVE], I [THE KEY DIFFERENCE].</p>
+<p></code></pre></p>
+
+<h3>The four tests</h3>
+
+<p>Run your draft through these. Fail one, rewrite.</p>
+
+<ul><li>[ ] <strong>The specific test.</strong> Could a competitor say the exact same sentence? If yes, it's not positioning — it's a category. Sharpen until it's yours alone.</li><li>[ ] <strong>The outcome test.</strong> Does it name what <em>changes</em> for the client, or just what you do? "I write copy" fails. "I make people sound like the smartest version of themselves" passes.</li><li>[ ] <strong>The proof test.</strong> Can you back the claim with one piece of evidence? If not, either find the proof or lower the claim.</li><li>[ ] <strong>The mouth test.</strong> Could you say it out loud to a stranger without cringing? If it only works on paper, it's too stiff.</li></ul>
+
+<h3>Worked example</h3>
+
+<pre><code>  WEAK (category, not position):
+<p>    "I'm an operations consultant who helps companies improve</p>
+<p>    their processes and increase efficiency."</p>
+
+<p>  STRONG (built from the audit thesis):</p>
+<p>    "I help fast-growing teams whose ops have turned to chaos</p>
+<p>    rebuild the systems — without making everyone hate the systems.</p>
+<p>    Most consultants leave you a 40-page playbook nobody opens.</p>
+<p>    I leave you something your team actually uses on a Monday."</p>
+<p></code></pre></p>
+
+<p>Keep this somewhere visible. It's the ruler you measure every other piece of copy against for the rest of the rewrite.</p>
+
+<hr>
+
+<h2>Part 3 — The LinkedIn Rebuild</h2>
+
+<p>LinkedIn is where you're read most and edited least. We rebuild it section by section, top to bottom, each one earning the scroll to the next.</p>
+
+<h3>The Headline</h3>
+
+<p>Not your job title. Your title is in the box below your name already — repeating it wastes the most valuable line on the profile. The headline is the value you create, in language a human searches and a human understands.</p>
+
+<pre><code>  FORMULA A (outcome-led):
+<p>    [What you do for whom] | [proof or specialty] | [optional: status/seeking]</p>
+
+<p>  FORMULA B (identity-led):</p>
+<p>    [The role you want to own] who [the distinct thing you do]</p>
+<p></code></pre></p>
+
+<pre><code>  WEAK:   "Senior Program Manager at Acme Corp"
+<p>  STRONG: "I rebuild the ops that chaos broke — without the 40-page</p>
+<p>           playbook nobody reads | Ops consulting for scaling teams"</p>
+<p></code></pre></p>
+
+<h3>The "About" Section</h3>
+
+<p>This is the heart of the rebuild. LinkedIn truncates after ~3 lines on mobile — so the opening must stand alone and pull the click. Write it in first person. Write it like you talk.</p>
+
+<pre><code>  STRUCTURE:
+<p>  [HOOK — one line that stands alone and earns the "see more" click]</p>
+
+<p>  [THE TURN — what changed, what you saw, why you do this. 2–4 lines.]</p>
+
+<p>  [THE PROOF — specific results. Numbers, names, outcomes. 2–3 lines.]</p>
+
+<p>  [THE NOW — what you're doing today and who it's for. 2–3 lines.]</p>
+
+<p>  [THE ASK — one clear next step. How to reach you / what to do.]</p>
+<p></code></pre></p>
+
+<pre><code>  WORKED EXAMPLE:
+
+<p>  Hook:</p>
+<p>    Every company I've walked into was drowning in its own processes.</p>
+
+<p>  The turn:</p>
+<p>    I used to think the fix was a better tool. It's not. It's a system</p>
+<p>    simple enough that people use it when no one's watching. After a</p>
+<p>    decade of building those inside companies, I started building them</p>
+<p>    for companies — and the difference is in who actually adopts them.</p>
+
+<p>  The proof:</p>
+<p>    At my last role I cut new-hire ramp time from 8 weeks to 4 and</p>
+<p>    killed three redundant approval layers nobody missed. The teams</p>
+<p>    didn't just tolerate the new system. They defended it.</p>
+
+<p>  The now:</p>
+<p>    I work with scaling teams — usually 20 to 100 people — at the point</p>
+<p>    where the duct tape stops holding. We rebuild the core operating</p>
+<p>    systems so growth stops breaking things.</p>
+
+<p>  The ask:</p>
+<p>    If your ops feel like chaos with a calendar, let's talk.</p>
+<p>    DM me or reach me at mkparrish.com.</p>
+<p></code></pre></p>
+
+<h3>The Experience Entries</h3>
+
+<p>Stop pasting the job description. Each entry is a mini-story: the broken thing, what you did, the result. Lead every bullet with a verb and end on proof.</p>
+
+<pre><code>  ENTRY STRUCTURE:
+<p>  [One line of context — what the role/company actually was]</p>
+<p>  • [Strong verb] [specific action] → [measurable result]</p>
+<p>  • [Strong verb] [specific action] → [measurable result]</p>
+<p>  • [Strong verb] [specific action] → [measurable result]</p>
+
+<p>  EXAMPLE:</p>
+<p>  Owned ops for a 60-person SaaS scaling past its processes.</p>
+<p>  • Redesigned onboarding → cut ramp time 8 weeks to 4</p>
+<p>  • Killed 3 redundant approval layers → 30% faster shipping</p>
+<p>  • Built the playbook the next two hires were trained on</p>
+<p></code></pre></p>
+
+<h3>The rest of the profile — quick checklist</h3>
+
+<ul><li>[ ] <strong>Photo:</strong> current, clear, looks like the person who'd show up to the meeting.</li><li>[ ] <strong>Banner:</strong> says or shows what you do — not a stock mountain.</li><li>[ ] <strong>Featured:</strong> 2–4 pieces of real proof — work samples, a post that landed, your site.</li><li>[ ] <strong>Skills:</strong> the ones that match the position you want, not every skill you have.</li><li>[ ] <strong>Custom URL:</strong> linkedin.com/in/yourname — not the auto-generated string.</li><li>[ ] <strong>Open to / Services:</strong> set if you want inbound. Off if you don't.</li></ul>
+
+<hr>
+
+<h2>Part 4 — The Bio Rewrites</h2>
+
+<p>You need your story at multiple lengths. Write the longest first, then cut down — never the reverse, or the short versions come out hollow. All four pull from the same positioning statement, so they sound like one person.</p>
+
+<h3>The 25-word bio (the bottom-of-an-email, the speaker intro)</h3>
+
+<pre><code>  TEMPLATE:
+<p>    [Name] [does the specific valuable thing] for [specific people].</p>
+<p>    [One line of proof or what they're known for].</p>
+
+<p>  EXAMPLE:</p>
+<p>    MK Parrish rewrites the way ambitious people are read on the page —</p>
+<p>    bios, sites, and LinkedIn profiles that finally match the person.</p>
+<p></code></pre></p>
+
+<h3>The 50-word bio (the website "about" blurb, the directory listing)</h3>
+
+<pre><code>  TEMPLATE:
+<p>    [Name] [does the thing] for [people]. [Approach — the distinct how].</p>
+<p>    [Proof line — a result, a name, a number]. [The now / the ask].</p>
+
+<p>  EXAMPLE:</p>
+<p>    Jordan Rivera rebuilds the operations that growth breaks — for teams</p>
+<p>    of 20 to 100 stuck in their own processes. Where most consultants</p>
+<p>    leave a playbook nobody opens, Jordan leaves systems teams actually</p>
+<p>    use. He cut one client's onboarding time in half. He's at jordan.co.</p>
+<p></code></pre></p>
+
+<h3>The 100-word bio (the conference program, the guest-post byline)</h3>
+
+<pre><code>  STRUCTURE:
+<p>    [Lead with the one thing you're known for — not your title.]</p>
+<p>    [The through-line: what you keep doing across roles.]</p>
+<p>    [Two beats of specific proof.]</p>
+<p>    [What you're doing now and who it's for.]</p>
+<p>    [Where to find you.]</p>
+<p></code></pre></p>
+
+<h3>The first-person version (for your own site, your newsletter)</h3>
+
+<p>Same content, but spoken. Contractions. The voice you'd use at the table, not the podium. Take the 50-word bio and rewrite it as "I" — then cut anything that sounds like you're reading it off a card.</p>
+
+<pre><code>  EXAMPLE:
+<p>    I rebuild the operations that growth breaks. I've spent a decade</p>
+<p>    walking into companies drowning in their own processes and leaving</p>
+<p>    them with systems simple enough that people actually use them. I cut</p>
+<p>    one team's onboarding time in half — and they defended the change.</p>
+<p>    Now I do it for scaling teams across the board. Find me at jordan.co.</p>
+<p></code></pre></p>
+
+<hr>
+
+<h2>The Rewrite checklist — before you hit publish</h2>
+
+<ul><li>[ ] Story audit done — you can state your through-line in one sentence</li><li>[ ] Positioning statement passes all four tests</li><li>[ ] Headline sells value, not title</li><li>[ ] "About" hook stands alone and earns the click</li><li>[ ] Every experience bullet ends on proof</li><li>[ ] All four bios trace back to the positioning statement</li><li>[ ] Read the whole profile out loud — sounds like you, not a category</li><li>[ ] One person who knows you read it and said "yes, that's you"</li><li>[ ] Pivot (if any) reads as continuation, never apology</li></ul>
+
+<hr>
+
+<h2>When you want it done for you</h2>
+
+<p>This is the full method. Run it and your page will finally match you.</p>
+
+<p>But here's the honest part: the story audit is the hardest thing to do on yourself. You're inside the story. You can't see which thread is the spine and which is the noise, because you lived all of it and it all feels load-bearing. An outside reader finds the through-line in twenty minutes that you've missed for years.</p>
+
+<p>That's <strong>The Rewrite</strong> — the done-for-you version. We run this whole process together, I find the story you can't see from inside it, and I write the page so it lands. LinkedIn, bios, positioning, the works.</p>
+
+<p>Find it at <strong>mkparrish.com</strong>.</p>
+
+<p>You've been misread long enough. Let's fix the page.</p>
+
+</div>
+
+<div class="footer">
+  <p>© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>
