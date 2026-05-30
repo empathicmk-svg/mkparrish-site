@@ -85,7 +85,7 @@ function StatCounter({ value, suffix, label }: { value: number; suffix: string; 
 }
 
 // ── Word cycling words ────────────────────────────────────────────────────────
-const CYCLE_WORDS = ["Messaging", "Positioning", "Pipeline", "Category", "Narrative"];
+const CYCLE_WORDS = ["Pipeline"];
 
 // ── Client type cards ────────────────────────────────────────────────────────
 const clientTypes = [
