@@ -94,25 +94,25 @@ const clientTypes = [
   {
     num: "01",
     title: "B2B SaaS",
-    desc: "You have product-market fit but your homepage still sounds like a seed-stage pitch. The pipeline tells a better story than your copy does.",
+    desc: "You have product-market fit, but your homepage still reads like a seed-stage pitch. Your pipeline tells a sharper story than your copy does.",
     href: "/brand",
   },
   {
     num: "02",
     title: "Agencies & Consultants",
-    desc: "You need a senior partner who owns the brief, runs the function, and delivers without hand-holding. Not a vendor — a resource who thinks like a principal.",
+    desc: "You need a senior partner who owns the brief, runs the function, and ships without hand-holding. Not a vendor — someone who thinks like a principal.",
     href: "/brand",
   },
   {
     num: "03",
     title: "Growth-Stage Teams",
-    desc: "You are past early traction and need the full stack: positioning, demand gen, web presence, and the execution to back it up.",
+    desc: "Past early traction and ready for the full stack: positioning, demand gen, web presence, and the execution to back it up.",
     href: "/growth",
   },
   {
     num: "04",
     title: "Companies in Transition",
-    desc: "Pivot, relaunch, new market, new category. The old story no longer fits the business you are running today. That is exactly the work.",
+    desc: "Pivot, relaunch, new market, new category. The old story no longer fits the business you run today. That gap is exactly the work.",
     href: "/next-chapter",
   },
 ];
@@ -165,7 +165,7 @@ const services = [
     tag: "Quick Fix",
     title: "The Edit",
     price: "From $100",
-    desc: "One piece of copy rewritten. Homepage headline, positioning statement, about page, or services copy. You know what is not working. I fix it in 48 hours.",
+    desc: "One piece of copy, rewritten. Headline, positioning statement, about page, or services copy. You know what is not working — I fix it in 48 hours.",
     perks: [
       "Homepage headline or tagline",
       "Positioning or mission statement",
@@ -210,7 +210,7 @@ const services = [
     tag: "Full Repositioning",
     title: "The New Chapter",
     price: "Custom",
-    desc: "Full company repositioning from strategy to final copy. Brand voice guide, complete website, founder narrative, and messaging framework. For pivots, relaunches, and new category plays.",
+    desc: "Full company repositioning, strategy to final copy. Brand voice guide, complete website, founder narrative, and messaging framework. For pivots, relaunches, and new-category plays.",
     perks: [
       "Brand voice and messaging guide",
       "Full website copy",
@@ -225,7 +225,7 @@ const services = [
     tag: "Ongoing",
     title: "The Byline",
     price: "From $1,500/mo",
-    desc: "Monthly ghostwriting under your founders' and executives' names. LinkedIn, essays, newsletters — written in their voice, consistent enough to build a reputation, sharp enough to open doors.",
+    desc: "Monthly ghostwriting under your founders' and executives' names. LinkedIn, essays, newsletters — in their voice, consistent enough to build a reputation and sharp enough to open doors.",
     perks: [
       "Founder and executive LinkedIn ghostwriting",
       "Long-form essays and thought leadership",
@@ -369,7 +369,7 @@ const productionServices = [
     tag: "Video",
     title: "The Channel",
     price: "From $1,500/video",
-    desc: "YouTube and long-form video production, soup to nuts. Scripting, editing, thumbnails, and publishing — built to grow a channel that actually compounds, not a pile of clips nobody finds.",
+    desc: "YouTube and long-form video, end to end. Scripting, editing, thumbnails, and publishing — built to grow a channel that compounds, not a pile of clips nobody finds.",
     perks: [
       "Scripting and story structure",
       "Editing, captions, and thumbnail design",
@@ -465,7 +465,7 @@ export default function Home() {
           </p>
 
           <p className="mt-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
-            Your business outpaced the language it is using to describe itself. I work with B2B SaaS teams, growth-stage companies, and the agencies that need a senior partner — to build the positioning, copy, and demand engine that finally closes the gap.
+            Your business outgrew the words describing it. I build the positioning, copy, and demand engine to close that gap — for B2B SaaS, growth-stage teams, and agencies that need a senior partner, not another vendor.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -494,7 +494,7 @@ export default function Home() {
           <span className="text-petal">you need?</span>
         </H2>
         <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "56ch" }}>
-          Every engagement starts with the same question: what does your company need the words to do? Pick the track that matches where the gap is right now.
+          Every engagement starts with one question: what does your company need the words to do? Pick the track that matches your gap right now.
         </p>
 
         <div className="grid gap-px bg-graphite sm:grid-cols-2">
@@ -545,7 +545,7 @@ export default function Home() {
           <span className="text-petal">words make.</span>
         </H2>
         <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "58ch" }}>
-          This is what repositioning actually looks like. Same company. Completely different signal.
+          This is what repositioning looks like. Same company, completely different signal.
         </p>
 
         <div className="grid gap-px bg-graphite md:grid-cols-2">
@@ -584,7 +584,7 @@ export default function Home() {
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
           <p className="font-body text-sm font-light text-smoke">
-            This is what The Rewrite does. This is what working with me looks like — for any company.
+            That shift is what The Rewrite delivers — for any company, in any market.
           </p>
           <BtnPrimary href="/book">Start Your Rewrite →</BtnPrimary>
         </div>
@@ -600,7 +600,7 @@ export default function Home() {
           <span className="text-petal">One standard.</span>
         </H2>
         <p className="mt-4 mb-3 font-body text-sm font-light text-smoke" style={{ maxWidth: "58ch" }}>
-          From a single-piece fix to a full company repositioning — every engagement is anchored in the same thing: copy that reflects what your business actually does, says something true, and earns the response.
+          From a single-piece fix to a full repositioning, every engagement holds the same standard: copy that reflects what your business actually does, says something true, and earns the response.
         </p>
         <p className="mb-12 font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal/70">
           All-in pricing. No retainer traps.
@@ -626,7 +626,7 @@ export default function Home() {
           <span className="text-petal">not just a writer.</span>
         </H2>
         <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
-          Full-funnel demand — paid, organic, SEO, content, lifecycle — built and run by one AI-native operator. For SLG teams layering on PLG, growth-stage companies building their first real demand engine, and B2B SaaS teams that need someone who strategizes, ships, and owns the number.
+          Full-funnel demand — outbound, paid, organic, SEO, content, lifecycle — built and run by one AI-native operator. For SLG teams layering on PLG, growth-stage companies building their first real demand engine, and B2B teams that need someone to strategize, ship, and own the number.
         </p>
 
         <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
@@ -638,7 +638,7 @@ export default function Home() {
         <div className="mt-8 flex flex-wrap items-center gap-6">
           <ArrowLink href="/growth">See the full growth offering</ArrowLink>
           <span className="font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-iron">
-            I pick the weapons. I ship. I own the outcome.
+            I pick the channels. I ship. I own the outcome.
           </span>
         </div>
       </RevealSection>
@@ -651,7 +651,7 @@ export default function Home() {
           <span className="text-petal">and kept running.</span>
         </H2>
         <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
-          Once the strategy and positioning are right, something has to ship them. Websites, hosting, social, and video — produced and managed end to end, on-brand, so your company's presence keeps pace with the business.
+          Strategy is only worth what ships. Websites, hosting, social, and video — produced and managed end to end, on-brand, so your company's presence keeps pace with the business.
         </p>
 
         <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
@@ -679,7 +679,7 @@ export default function Home() {
           <span className="text-petal">undeniable.</span>
         </H2>
         <p className="mt-4 mb-14 font-body text-sm font-light text-smoke" style={{ maxWidth: "56ch" }}>
-          Four steps. No ambiguity. Your team knows what happens, when it happens, and why every word made the cut.
+          Four steps, no ambiguity. Your team knows what happens, when, and why every word made the cut.
         </p>
 
         <div className="grid gap-px bg-graphite md:grid-cols-4">
@@ -717,7 +717,7 @@ export default function Home() {
             </H2>
             <H3Script>Frameworks, guides, and downloads built from real client work.</H3Script>
             <p className="mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "48ch" }}>
-              From decoding what the universe is sending you to rewriting how the world reads you — six guides that do actual work.
+              From decoding what the universe is sending you to rewriting how the world reads you — guides that do real work.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <BtnPrimary href="/shop">Browse the Full Shop</BtnPrimary>
@@ -865,7 +865,7 @@ export default function Home() {
             </H1>
           </div>
           <p className="mx-auto mt-8 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            The companies deciding whether to partner with you are forming that opinion from copy that was written for an earlier version of the business. Let&apos;s fix that.
+            The companies deciding whether to partner with you are judging an earlier version of your business — because that is the version your copy still describes. Let&apos;s fix that.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BtnPrimary href="/book">Book a Discovery Call →</BtnPrimary>
