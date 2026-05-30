@@ -13,7 +13,6 @@ import {
   FAQ,
 } from "@/app/components/ui";
 import {
-  STRIPE_CONTENT_ENGINE,
   STRIPE_INBOUND_SYSTEM,
   STRIPE_REVENUE_SYSTEMS,
 } from "@/app/lib/config";
@@ -26,18 +25,18 @@ export const metadata: Metadata = {
 
 const tiers = [
   {
-    tag: "Demand Gen",
-    title: "The Demand Engine",
-    price: "From $3,500/mo",
-    desc: "Top-of-funnel demand built from scratch. For SLG teams layering on PLG and early-stage companies with no traffic yet. I pick the channels that fit and ship — no agency overhead, no subcontracting.",
+    tag: "Outbound",
+    title: "The Outbound Engine",
+    price: "From $2,500/mo",
+    desc: "Qualified calls on your calendar. I build the lists, write the cold email and LinkedIn outreach, run the sends, and handle every reply — so your team talks to buyers, not tire-kickers. Recent campaigns: 32% reply rates. Performance-based and rev-share structures available.",
     perks: [
-      "Channel strategy across organic, SEO, and content",
-      "Founder-led and LinkedIn distribution that compounds",
-      "Landing pages and campaigns shipped, not specced",
-      "AI-native execution — one operator producing a team's output",
+      "ICP research and clean, targeted lead lists",
+      "Cold email and LinkedIn copy that earns replies",
+      "Follow-up sequences and reply handling, end to end",
+      "Qualified, briefed calls booked into your calendar",
     ],
-    cta: "Build Demand",
-    href: STRIPE_CONTENT_ENGINE,
+    cta: "Fill My Calendar",
+    href: "/book",
     highlight: false,
   },
   {

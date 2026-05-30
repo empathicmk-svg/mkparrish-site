@@ -112,7 +112,7 @@ export default function BrandPage() {
           <ServiceCard
             tag="Targeted Fix"
             title="The Edit"
-            price="From $100"
+            price="From $250"
             desc="One surface rewritten with strategic intent. Homepage tagline, positioning statement, about page, or services copy. You already know what is not working. This fixes that specific thing."
             perks={[
               "Homepage tagline or headline",
@@ -126,7 +126,7 @@ export default function BrandPage() {
           <ServiceCard
             tag="Core Messaging"
             title="The Rewrite"
-            price="From $1,500"
+            price="From $2,500"
             desc="Core company messaging overhauled with a positioning strategy built underneath it. Homepage rewritten, voice direction documented, and a 30-minute strategy session to make sure we are writing toward the right market goal."
             perks={[
               "Positioning statement and voice direction",

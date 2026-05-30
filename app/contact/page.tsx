@@ -119,14 +119,14 @@ export default function ContactPage() {
             {
               label: "Quick Fix",
               title: "The Edit",
-              price: "From $100",
+              price: "From $250",
               desc: "One piece of copy rewritten sharply. LinkedIn bio, about page, or positioning blurb.",
               href: STRIPE_EDIT,
             },
             {
               label: "Full Repositioning",
               title: "The Rewrite",
-              price: "From $1,500",
+              price: "From $2,500",
               desc: "Your professional story or brand copy overhauled. Plus a strategy session.",
               href: STRIPE_REWRITE,
             },
@@ -140,7 +140,7 @@ export default function ContactPage() {
             {
               label: "Ongoing",
               title: "The Byline",
-              price: "From $1,500/mo",
+              price: "From $2,500/mo",
               desc: "Monthly ghostwriting retainer. Your name, your voice, sharper than you have time to make it.",
               href: "#book",
             },

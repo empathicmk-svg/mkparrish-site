@@ -108,7 +108,7 @@ export default function CareerPage() {
           <ServiceCard
             tag="Quick Fix"
             title="The Edit"
-            price="From $100"
+            price="From $250"
             desc="One piece of leadership copy rewritten with precision. Founder or exec LinkedIn, executive bio, or positioning blurb. You know what is broken. This fixes it, fast."
             perks={[
               "Founder or exec LinkedIn headline and about",
@@ -122,7 +122,7 @@ export default function CareerPage() {
           <ServiceCard
             tag="Most Requested"
             title="The Rewrite"
-            price="From $1,500"
+            price="From $2,500"
             desc="Full leadership narrative overhaul for one or two key team members. LinkedIn rebuilt from scratch, authority story rewritten to reflect the company you are running today, anchored in a 30-minute strategy session."
             perks={[
               "Full LinkedIn overhaul",

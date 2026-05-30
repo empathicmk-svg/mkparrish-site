@@ -112,7 +112,7 @@ export default function PresencePage() {
           <ServiceCard
             tag="Quick Fix"
             title="The Edit"
-            price="From $100"
+            price="From $250"
             desc="One piece of company presence copy rewritten. Homepage headline, about section, or founder bio. The thing that is clearly not working. Fixed and delivered in days."
             perks={[
               "Homepage headline or about section",
@@ -126,7 +126,7 @@ export default function PresencePage() {
           <ServiceCard
             tag="Ongoing Thought Leadership"
             title="The Byline"
-            price="From $1,500/mo"
+            price="From $2,500/mo"
             desc="Monthly ghostwriting under your founders' and executives' names. LinkedIn posts, essays, and newsletter editions written in their actual voice on a consistent publishing schedule — sharp enough to open doors, consistent enough to build a reputation."
             perks={[
               "4 to 8 pieces per month",

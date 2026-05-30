@@ -112,7 +112,7 @@ export default function NextChapterPage() {
           <ServiceCard
             tag="Core repositioning"
             title="The Rewrite"
-            price="From $1,500"
+            price="From $2,500"
             desc="Your new direction, written. Core positioning narrative, homepage, and primary messaging rebuilt to reflect the company you are running now — not the one you launched with. Not a polish of the old story. A replacement of it."
             perks={[
               "New positioning narrative",

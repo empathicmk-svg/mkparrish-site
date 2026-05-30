@@ -16,12 +16,12 @@ const workLinks = [
 ];
 
 const megaServices = [
-  { tag: "Quick Fix",        title: "The Edit",        price: "From $100",      desc: "One piece of company copy fixed in 48 hours.", href: "/career" },
-  { tag: "Strategy Session", title: "The Session",     price: "$250",           desc: "60-min live positioning session with written brief.", href: "/book" },
-  { tag: "Most Requested",   title: "The Rewrite",     price: "From $1,500",    desc: "Core messaging overhauled. Results that match the copy.", href: "/brand" },
+  { tag: "Quick Fix",        title: "The Edit",        price: "From $250",      desc: "One piece of company copy fixed in 48 hours.", href: "/career" },
+  { tag: "Strategy Session", title: "The Session",     price: "$300",           desc: "60-min live positioning session with written brief.", href: "/book" },
+  { tag: "Most Requested",   title: "The Rewrite",     price: "From $2,500",    desc: "Core messaging overhauled. Results that match the copy.", href: "/brand" },
   { tag: "Repositioning",    title: "The New Chapter", price: "Custom",         desc: "Brand, website, and positioning rebuilt for where you are going.", href: "/next-chapter" },
-  { tag: "Ongoing",          title: "The Byline",      price: "From $1,500/mo", desc: "Monthly founder and exec thought leadership ghostwriting.", href: "/presence" },
-  { tag: "Full Site",        title: "The Build",       price: "From $3,500",    desc: "Strategy, copy, and production — done together.", href: "/brand" },
+  { tag: "Ongoing",          title: "The Byline",      price: "From $2,500/mo", desc: "Monthly founder and exec thought leadership ghostwriting.", href: "/presence" },
+  { tag: "Full Site",        title: "The Build",       price: "From $6,000",    desc: "Strategy, copy, design, and production — done together.", href: "/brand" },
 ];
 
 const readLinks = [

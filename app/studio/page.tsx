@@ -13,7 +13,7 @@ import {
   FAQ,
 } from "@/app/components/ui";
 import {
-  STRIPE_SITE,
+  STRIPE_BUILD,
   STRIPE_HOSTING,
   STRIPE_SOCIAL,
   STRIPE_YOUTUBE,
@@ -28,23 +28,23 @@ export const metadata: Metadata = {
 const tiers = [
   {
     tag: "Website",
-    title: "The Site",
-    price: "From $4,500",
-    desc: "Website production end to end — design, build, and launch on fast, modern infrastructure. Strategy and copy can come with it or arrive ready. You get a site that loads instantly, works on every screen, and is yours to keep.",
+    title: "The Build",
+    price: "From $6,000",
+    desc: "Your company website, built from the ground up — strategy, copy, design, and production in one engagement. Launch-ready in 3–4 weeks on fast, modern infrastructure, built to turn traffic into booked calls and yours to keep.",
     perks: [
-      "Custom design and full production build",
-      "Mobile-first, fast, and SEO-ready",
+      "Positioning, messaging, and page architecture",
+      "Full website copy and custom design",
+      "Mobile-first, fast, and SEO-ready build",
       "Launch and domain setup handled for you",
-      "Built to hand off or keep me on for upkeep",
     ],
-    cta: "Build My Site",
-    href: STRIPE_SITE,
+    cta: "Start The Build",
+    href: STRIPE_BUILD,
     highlight: false,
   },
   {
     tag: "Always-On",
     title: "The Upkeep",
-    price: "From $250/mo",
+    price: "From $300/mo",
     desc: "Managed hosting, maintenance, and care so your site never goes stale. Updates, backups, monitoring, and small changes handled — you never touch a dashboard or worry about something breaking.",
     perks: [
       "Managed hosting and uptime monitoring",
@@ -75,7 +75,7 @@ const tiers = [
     tag: "Video",
     title: "The Channel",
     price: "From $1,500/video",
-    desc: "YouTube and long-form video production, soup to nuts. Scripting, editing, thumbnails, and publishing — built to grow a channel that compounds, not a pile of clips nobody finds.",
+    desc: "YouTube and long-form video, end to end. Scripting, editing, thumbnails, and publishing — built to grow a channel that compounds, not a pile of clips nobody finds.",
     perks: [
       "Scripting and story structure",
       "Editing, captions, and thumbnail design",
@@ -107,7 +107,7 @@ const faqItems = [
   },
   {
     q: "Can production and hosting be a single ongoing arrangement?",
-    a: "Yes — that is the most common setup. The Site builds it, The Upkeep keeps it live and current, and The Social Suite or The Channel keeps the presence active. One point of contact for everything that ships, so nothing falls through the gaps between a designer, a host, and a social manager.",
+    a: "Yes — that is the most common setup. The Build ships it, The Upkeep keeps it live and current, and The Social Suite or The Channel keeps the presence active. One point of contact for everything that ships, so nothing falls through the gaps between a designer, a host, and a social manager.",
   },
 ];
 
