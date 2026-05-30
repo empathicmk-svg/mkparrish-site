@@ -255,6 +255,22 @@ const services = [
 
 const growthServices = [
   {
+    tag: "Outbound",
+    title: "The Outbound Engine",
+    price: "From $2,000/mo",
+    desc: "Qualified calls on your calendar. I build the lists, write the cold email and LinkedIn outreach, run the sends, and handle every reply — so your team talks to buyers, not tire-kickers. Recent campaigns: 32% reply rates.",
+    perks: [
+      "ICP research and clean, targeted lead lists",
+      "Cold email and LinkedIn copy that earns replies",
+      "Follow-up sequences and reply handling, end to end",
+      "Qualified, briefed calls booked into your calendar",
+      "Performance-based and rev-share structures available",
+    ],
+    cta: "Fill My Calendar",
+    href: "/book",
+    highlight: false,
+  },
+  {
     tag: "Demand Gen",
     title: "The Demand Engine",
     price: "From $3,500/mo",
@@ -425,7 +441,7 @@ export default function Home() {
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           {/* Service pills */}
           <div className="mb-6 flex flex-wrap items-center gap-3">
-            {["Growth Marketing", "Demand Gen", "Brand Messaging", "Paid + SEO", "Thought Leadership", "Web Production", "PLG / SLG"].map((s) => (
+            {["Growth Marketing", "Outbound & Appointment Setting", "Demand Gen", "Brand Messaging", "Web Production", "Lead Generation", "PLG / SLG"].map((s) => (
               <span key={s} className="border border-graphite px-3 py-1 font-body text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-iron">
                 {s}
               </span>
