@@ -398,12 +398,12 @@ export const PRINTS = [
 ] as const;
 
 export const SERVICES = [
-  { title: "The Edit",        price: "From $100",       tag: "Quick Fix",      href: STRIPE_EDIT },
-  { title: "The Session",     price: "$250",             tag: "Power Hour",     href: STRIPE_SESSION },
-  { title: "The Rewrite",     price: "From $1,500",     tag: "Most Requested", href: STRIPE_REWRITE },
-  { title: "The New Chapter", price: "Custom",           tag: "Full Reset",     href: "/book" },
-  { title: "The Byline",      price: "From $1,500/mo",  tag: "Ongoing",        href: STRIPE_BYLINE },
-  { title: "The Build",       price: "From $3,500",     tag: "Full Site",      href: STRIPE_BUILD },
+  { title: "The Build",          price: "From $6,000",     tag: "Websites",     href: STRIPE_BUILD },
+  { title: "The Outbound Engine", price: "From $2,500/mo", tag: "Outbound",     href: "/book" },
+  { title: "Full-Funnel Growth", price: "From $6,500/mo",  tag: "Growth",       href: STRIPE_INBOUND_SYSTEM },
+  { title: "The Rewrite",        price: "From $2,500",     tag: "Messaging",    href: STRIPE_REWRITE },
+  { title: "The Byline",         price: "From $2,500/mo",  tag: "Ghostwriting", href: STRIPE_BYLINE },
+  { title: "The Edit",           price: "From $250",       tag: "Quick Fix",    href: STRIPE_EDIT },
 ] as const;
 
 export const MARGINS_TIERS = [

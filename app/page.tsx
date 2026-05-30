@@ -21,10 +21,8 @@ import {
   STRIPE_BYLINE,
   STRIPE_BUILD,
   STRIPE_SESSION,
-  STRIPE_CONTENT_ENGINE,
   STRIPE_INBOUND_SYSTEM,
   STRIPE_REVENUE_SYSTEMS,
-  STRIPE_SITE,
   STRIPE_HOSTING,
   STRIPE_SOCIAL,
   STRIPE_YOUTUBE,
@@ -164,7 +162,7 @@ const services = [
   {
     tag: "Quick Fix",
     title: "The Edit",
-    price: "From $100",
+    price: "From $250",
     desc: "One piece of copy, rewritten. Headline, positioning statement, about page, or services copy. You know what is not working — I fix it in 48 hours.",
     perks: [
       "Homepage headline or tagline",
@@ -179,7 +177,7 @@ const services = [
   {
     tag: "Strategy Session",
     title: "The Session",
-    price: "$250",
+    price: "$300",
     desc: "One hour. Your messaging, your positioning, your strategy — live with me. Walk away with a written brief and a clear next move. Bring your team.",
     perks: [
       "60-minute strategy session",
@@ -194,7 +192,7 @@ const services = [
   {
     tag: "Most Requested",
     title: "The Rewrite",
-    price: "From $1,500",
+    price: "From $2,500",
     desc: "Core messaging overhauled. Homepage, positioning statement, and brand voice direction anchored in a strategy session. For companies whose results have outpaced their copy.",
     perks: [
       "Homepage and positioning copy",
@@ -224,7 +222,7 @@ const services = [
   {
     tag: "Ongoing",
     title: "The Byline",
-    price: "From $1,500/mo",
+    price: "From $2,500/mo",
     desc: "Monthly ghostwriting under your founders' and executives' names. LinkedIn, essays, newsletters — in their voice, consistent enough to build a reputation and sharp enough to open doors.",
     perks: [
       "Founder and executive LinkedIn ghostwriting",
@@ -239,13 +237,13 @@ const services = [
   {
     tag: "Full Site",
     title: "The Build",
-    price: "From $3,500",
-    desc: "Your company website, built from the ground up. Strategy, copy, and production — together. Launch-ready in 3–4 weeks, built to convert.",
+    price: "From $6,000",
+    desc: "Your company website, built from the ground up — strategy, copy, design, and production in one engagement. Launch-ready in 3–4 weeks, built to turn traffic into booked calls.",
     perks: [
-      "Brand strategy + positioning",
-      "Full website copy and design",
-      "Mobile-optimized, fast, and SEO-ready",
-      "Launch-ready in 3–4 weeks",
+      "Positioning, messaging, and page architecture",
+      "Full website copy and custom design",
+      "Mobile-first, fast, and SEO-ready build",
+      "Launch and domain setup handled for you",
     ],
     cta: "Let's Build It",
     href: STRIPE_BUILD,
@@ -257,7 +255,7 @@ const growthServices = [
   {
     tag: "Outbound",
     title: "The Outbound Engine",
-    price: "From $2,000/mo",
+    price: "From $2,500/mo",
     desc: "Qualified calls on your calendar. I build the lists, write the cold email and LinkedIn outreach, run the sends, and handle every reply — so your team talks to buyers, not tire-kickers. Recent campaigns: 32% reply rates.",
     perks: [
       "ICP research and clean, targeted lead lists",
@@ -271,27 +269,12 @@ const growthServices = [
     highlight: false,
   },
   {
-    tag: "Demand Gen",
-    title: "The Demand Engine",
-    price: "From $3,500/mo",
-    desc: "Top-of-funnel demand built from scratch. For SLG teams layering on PLG and early-stage companies with no traffic yet. I pick the channels that fit — organic, SEO, content, LinkedIn — and ship.",
-    perks: [
-      "Channel strategy across organic, SEO, and content",
-      "LinkedIn and founder-led distribution",
-      "Landing pages and campaigns shipped, not specced",
-      "AI-native execution — one operator, ten people's output",
-    ],
-    cta: "Build Demand",
-    href: STRIPE_CONTENT_ENGINE,
-    highlight: false,
-  },
-  {
     tag: "Most Popular",
     title: "Full-Funnel Growth",
     price: "From $6,500/mo",
-    desc: "Acquisition through activation, run as one motion. Paid, organic, and lifecycle wired together with the hyper-experimentation loop that tells you what is actually working — and what to kill.",
+    desc: "Demand through activation, run as one motion. Outbound, paid, organic, SEO, and lifecycle wired together — with the experimentation loop that tells you what is working and what to kill. The demand engine and the full funnel, under one operator.",
     perks: [
-      "Paid + organic + lifecycle, orchestrated together",
+      "Demand gen across outbound, paid, organic, and SEO",
       "Landing pages, campaigns, and email sequences shipped weekly",
       "Hybrid motion fluency — PLG layered on SLG, self-serve + assisted",
       "Experiment velocity: test, read the numbers, double down",
@@ -321,24 +304,9 @@ const growthServices = [
 
 const productionServices = [
   {
-    tag: "Website",
-    title: "The Site",
-    price: "From $4,500",
-    desc: "Website production end to end — design, build, and launch on fast, modern infrastructure. Strategy and copy can come with it or arrive ready. You get a site that loads instantly, works on every screen, and is yours to keep.",
-    perks: [
-      "Custom design and full production build",
-      "Mobile-first, fast, and SEO-ready",
-      "Launch and domain setup handled for you",
-      "Built to hand off or keep me on for upkeep",
-    ],
-    cta: "Build My Site",
-    href: STRIPE_SITE,
-    highlight: false,
-  },
-  {
     tag: "Always-On",
     title: "The Upkeep",
-    price: "From $250/mo",
+    price: "From $300/mo",
     desc: "Managed hosting, maintenance, and care so your site never goes stale. Updates, backups, monitoring, and small changes handled — you never touch a dashboard or worry about a thing breaking.",
     perks: [
       "Managed hosting and uptime monitoring",
@@ -651,10 +619,10 @@ export default function Home() {
           <span className="text-petal">and kept running.</span>
         </H2>
         <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
-          Strategy is only worth what ships. Websites, hosting, social, and video — produced and managed end to end, on-brand, so your company's presence keeps pace with the business.
+          Strategy is only worth what ships. Hosting, social, and video — produced and managed end to end, on-brand, so your company's presence keeps pace with the business once the site is live.
         </p>
 
-        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
           {productionServices.map((s) => (
             <ServiceCard key={s.title} {...s} />
           ))}
