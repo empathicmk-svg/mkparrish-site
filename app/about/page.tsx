@@ -15,7 +15,7 @@ import { PATREON_URL, CONTACT } from "@/app/lib/config";
 export const metadata: Metadata = {
   title: "About — MK Parrish",
   description:
-    "MK Parrish is a senior growth operator and writer: a decade inside Fortune 50s and startups, $40M+ in pipeline influenced. Websites, outbound, messaging, and growth — one operator, no agency layers.",
+    "MK Parrish is a senior growth operator and writer: two decades inside Fortune 50s and startups, $40M+ in pipeline influenced. Websites, outbound, messaging, and growth — one operator, no agency layers.",
 };
 
 export default function AboutPage() {
@@ -42,14 +42,14 @@ export default function AboutPage() {
             Senior growth operator. Writer. One pair of hands.
           </p>
           <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
-            A decade inside Fortune 50s and startups, $40M+ in pipeline influenced. I build the websites, run the outbound, and write the messaging that turn how a company is seen into revenue it can show a board.
+            Two decades inside Fortune 50s and startups, $40M+ in pipeline influenced. I build the websites, run the outbound, and write the messaging that turn how a company is seen into revenue it can show a board.
           </p>
 
           {/* Proof band */}
           <div className="mt-12 grid grid-cols-2 gap-px border-t border-graphite bg-graphite sm:grid-cols-4">
             {[
               { num: "$40M+", label: "Pipeline influenced" },
-              { num: "10 yrs", label: "Growth + marketing" },
+              { num: "20 yrs", label: "Growth + marketing" },
               { num: "32%", label: "Cold reply rates" },
               { num: "1", label: "Operator, no layers" },
             ].map((s) => (
@@ -93,7 +93,7 @@ export default function AboutPage() {
 
           <div className="space-y-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "66ch" }}>
             <p>
-              I spent a decade inside marketing and growth — Fortune 50 companies, funded startups, and everything between. I influenced over $40M in pipeline, ran demand across B2B and consumer, and built the systems that put qualified buyers in front of sales teams. Not activity reports. Revenue.
+              I spent two decades inside marketing and growth — Fortune 50 companies, funded startups, and everything between. I influenced over $40M in pipeline, ran demand across B2B and consumer, and built the systems that put qualified buyers in front of sales teams. Not activity reports. Revenue.
             </p>
             <p>
               Most agencies sell you a senior name on the pitch and junior work on the deliverable. I am the opposite: one operator who does the thinking and the shipping. I design and build the website, write the cold outreach, run the campaigns, and read the numbers. No account managers, no hand-offs, no telephone game between a strategist, a designer, and a writer who never speak.
