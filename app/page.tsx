@@ -429,24 +429,30 @@ export default function Home() {
           </H1>
 
           <p className="mt-5 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500, maxWidth: "none" }}>
-            Words, strategy, and growth infrastructure for companies ready to stop being underestimated.
+            The website, outbound, and messaging that turn how you&apos;re seen into revenue you can prove.
           </p>
 
           <p className="mt-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
-            Your business outgrew the words describing it. I build the positioning, copy, and demand engine to close that gap — for B2B SaaS, growth-stage teams, and agencies that need a senior partner, not another vendor.
+            Most companies leak revenue in the gap between what they&apos;ve become and how they read online. I close it — building conversion websites, running the outbound that books calls, and writing the messaging that lands. One senior operator for B2B SaaS, growth-stage teams, and agencies who want a partner, not another vendor.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <BtnPrimary href="/book">Book a Strategy Call →</BtnPrimary>
-            <BtnGhost href="#who">See the Work</BtnGhost>
+            <BtnGhost href="#who">See What I Build</BtnGhost>
           </div>
 
-          {/* Social proof strip */}
-          <div className="mt-12 flex flex-wrap items-center gap-6 border-t border-graphite pt-8">
-            {["Copy & Messaging", "Brand Strategy", "Growth Marketing", "Ghostwriting", "Web Production"].map((item) => (
-              <span key={item} className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-ash">
-                {item}
-              </span>
+          {/* Proof stat band */}
+          <div className="mt-12 grid grid-cols-2 gap-px border-t border-graphite bg-graphite pt-px sm:grid-cols-4">
+            {[
+              { num: "$40M+", label: "Pipeline influenced" },
+              { num: "10 yrs", label: "Growth + marketing" },
+              { num: "32%", label: "Cold reply rates" },
+              { num: "1", label: "Operator, no layers" },
+            ].map((s) => (
+              <div key={s.label} className="bg-void px-5 pt-8 pb-2">
+                <p className="font-display text-3xl tracking-[0.02em] text-petal md:text-4xl">{s.num}</p>
+                <p className="mt-2 font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ash">{s.label}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -462,7 +468,7 @@ export default function Home() {
           <span className="text-petal">you need?</span>
         </H2>
         <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "56ch" }}>
-          Every engagement starts with one question: what does your company need the words to do? Pick the track that matches your gap right now.
+          Every engagement starts with one question: where is revenue actually leaking? Pick the track that matches your gap right now.
         </p>
 
         <div className="grid gap-px bg-graphite sm:grid-cols-2">
