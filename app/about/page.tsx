@@ -15,7 +15,7 @@ import { PATREON_URL, CONTACT } from "@/app/lib/config";
 export const metadata: Metadata = {
   title: "About — MK Parrish",
   description:
-    "MK Parrish is a writer and strategist obsessed with the space between who people really are and how the world reads them.",
+    "MK Parrish is a senior growth operator and writer: a decade inside Fortune 50s and startups, $40M+ in pipeline influenced. Websites, outbound, messaging, and growth — one operator, no agency layers.",
 };
 
 export default function AboutPage() {
@@ -39,11 +39,26 @@ export default function AboutPage() {
             </H1>
           </div>
           <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-            Writer and strategist.
+            Senior growth operator. Writer. One pair of hands.
           </p>
-          <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-            Obsessed with the space between who people really are and how the world reads them.
+          <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
+            A decade inside Fortune 50s and startups, $40M+ in pipeline influenced. I build the websites, run the outbound, and write the messaging that turn how a company is seen into revenue it can show a board.
           </p>
+
+          {/* Proof band */}
+          <div className="mt-12 grid grid-cols-2 gap-px border-t border-graphite bg-graphite sm:grid-cols-4">
+            {[
+              { num: "$40M+", label: "Pipeline influenced" },
+              { num: "10 yrs", label: "Growth + marketing" },
+              { num: "32%", label: "Cold reply rates" },
+              { num: "1", label: "Operator, no layers" },
+            ].map((s) => (
+              <div key={s.label} className="bg-void px-5 py-6">
+                <p className="font-display text-3xl tracking-[0.02em] text-petal md:text-4xl">{s.num}</p>
+                <p className="mt-2 font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ash">{s.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -53,18 +68,18 @@ export default function AboutPage() {
           <div>
             <Eyebrow>The story</Eyebrow>
             <H2>
-              I started as a{" "}
-              <span className="text-petal">writer.</span>
+              I started as a writer.{" "}
+              <span className="text-petal">Then I learned to move revenue.</span>
             </H2>
-            <H3Script>That never changed. What changed is what I built around it.</H3Script>
+            <H3Script>Most people who can write can&apos;t build. Most who can build can&apos;t write. I do both.</H3Script>
             <div className="mt-8 flex flex-wrap gap-3">
               {[
-                "Copywriting",
-                "Ghostwriting",
-                "Brand Voice",
-                "Career Positioning",
-                "Thought Leadership",
-                "Reinvention Strategy",
+                "Website Design",
+                "Outbound & Appointment Setting",
+                "Growth Marketing",
+                "Brand Messaging",
+                "Executive Ghostwriting",
+                "Fractional Growth",
               ].map((tag) => (
                 <span
                   key={tag}
@@ -78,16 +93,16 @@ export default function AboutPage() {
 
           <div className="space-y-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "66ch" }}>
             <p>
-              I grew up in New York. I have been writing since before I knew writing was something you could do as a job. What started as a compulsion became a craft, and the craft became a career that has crossed industries, functions, and identities more than once.
+              I spent a decade inside marketing and growth — Fortune 50 companies, funded startups, and everything between. I influenced over $40M in pipeline, ran demand across B2B and consumer, and built the systems that put qualified buyers in front of sales teams. Not activity reports. Revenue.
             </p>
             <p>
-              I spent a decade inside marketing and growth. Fortune 50 companies, scrappy startups, and everything in between. I influenced over $40M in pipeline, led campaigns across B2B and consumer, and built demand gen systems for teams who needed results, not just activity reports. Along the way, I noticed that the gap between companies that convert and companies that just look busy almost always came down to the words.
+              Most agencies sell you a senior name on the pitch and junior work on the deliverable. I am the opposite: one operator who does the thinking and the shipping. I design and build the website, write the cold outreach, run the campaigns, and read the numbers. No account managers, no hand-offs, no telephone game between a strategist, a designer, and a writer who never speak.
             </p>
             <p>
-              I reinvented myself more than once. Not as a pivot, but as a sharpening. I know what it is to lose certainty about who you are professionally and come out the other side with more precision, more conviction, and a story that finally holds. That experience lives in every engagement. I do not write generic. I do not build noise. I write the story that was always there, but never quite said right.
+              The reason that works is the rare combination. I write — really write, every sentence — and I can build the funnel underneath it. So the positioning, the copy, the site, and the pipeline all say the same thing and pull in the same direction. That is where most companies leak: the words say one thing, the machine does another.
             </p>
             <p>
-              My clients are founders who need a voice, professionals in transition who need new language for a new chapter, executives who need someone to hold both the strategy and the sentence, and anyone who has ever felt sharper than the copy representing them online. I work ghost or credited, retained or project-based. If the words are not doing their job, that is where I come in.
+              I work with B2B SaaS teams, agencies, and growth-stage companies that need a senior partner who ships — on retainer, by project, or fractional, with rev-share available for the right outbound engagement. If how your company is seen does not match what it has become, that gap is exactly the work.
             </p>
           </div>
         </div>
@@ -117,16 +132,16 @@ export default function AboutPage() {
               desc: "The writing has to come from somewhere. Positioning, narrative, and intent come first. Then the words.",
             },
             {
-              title: "No AI in the work",
-              desc: "I write everything. Every sentence is thought about, not generated. If you wanted machine output, you would not need me.",
+              title: "Pipeline is the proof",
+              desc: "Marketing should move money, not look busy. I measure the work against booked calls and revenue — not impressions, not slide decks.",
             },
             {
-              title: "Honesty over flattery",
-              desc: "I will tell you when the old story is not working. I will tell you what it is actually saying. That is part of the service.",
+              title: "AI-native, taste-led",
+              desc: "I use an agent stack to ship a team's output as one operator — but judgment, voice, and the actual writing are mine. Leverage on the production, taste on the part that matters.",
             },
             {
-              title: "The real thing, finally said right",
-              desc: "Reinvention is not about inventing a new identity. It is about finally presenting the real one with precision, nerve, and taste.",
+              title: "One operator, one accountable name",
+              desc: "No account managers, no junior hand-offs. The person who sets the strategy is the person who ships the work and owns the outcome.",
             },
           ].map((item) => (
             <div key={item.title} className="bg-void p-8">
@@ -186,10 +201,10 @@ export default function AboutPage() {
           </p>
           <div className="mt-8 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { label: "Rewrite Your Career", href: "/career" },
-              { label: "Rewrite Your Brand", href: "/brand" },
-              { label: "Rewrite Your Presence", href: "/presence" },
-              { label: "Rewrite Your Next Chapter", href: "/next-chapter" },
+              { label: "Design & Build Your Site", href: "/studio" },
+              { label: "Fill Your Pipeline", href: "/growth" },
+              { label: "Rewrite Your Messaging", href: "/brand" },
+              { label: "Book a Call", href: "/book" },
             ].map((link) => (
               <Link
                 key={link.href}

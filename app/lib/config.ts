@@ -47,17 +47,6 @@ export const GR_BYLINE_METHOD         = "https://mkparrish.gumroad.com/l/the-byl
 export const GR_BUILD_COPY_GUIDE      = "https://mkparrish.gumroad.com/l/the-build-copy-guide";
 export const GR_SERVICES_VAULT        = "https://mkparrish.gumroad.com/l/the-services-vault";
 
-// ── Gumroad — Scripture & Strategy ebooks ────────────────────────────────────
-export const GR_THE_STUDY             = "https://mkparrish.gumroad.com/l/the-study";
-export const GR_GOSPEL_AND_GRIND      = "https://mkparrish.gumroad.com/l/gospel-and-grind";
-export const GR_SERMON_NOTES          = "https://mkparrish.gumroad.com/l/the-sermon-notes";
-export const GR_CALLING_CARD          = "https://mkparrish.gumroad.com/l/the-calling-card";
-export const GR_MINISTRY_MONETIZED    = "https://mkparrish.gumroad.com/l/ministry-monetized";
-export const GR_SCRIPTURE_BUNDLE      = "https://mkparrish.gumroad.com/l/scripture-strategy-bundle";
-
-// ── Gumroad — Scripture & Strategy flagship course ───────────────────────────
-export const GR_SCRIPTURE_COURSE      = "https://mkparrish.gumroad.com/l/scripture-and-strategy";
-
 // ── Products not yet live on Gumroad ─────────────────────────────────────────
 // Add a slug here to show "Coming Soon" instead of the buy button.
 export const COMING_SOON_SLUGS = new Set<string>();
@@ -288,106 +277,6 @@ export const SERVICE_EBOOKS = [
       "Future service guide releases included",
     ],
     desc: "Every consulting framework documented and packaged for self-study. For the woman who is ready to do the full work — on her own timeline.",
-  },
-] as const;
-
-// ── Scripture & Strategy — Bible study ebook brand ───────────────────────────
-export const SCRIPTURE_EBOOKS = [
-  {
-    slug:      "the-study",
-    title:     "The Study",
-    subtitle:  "A modern guide to building a Bible study practice that actually sticks — on your own terms.",
-    price:     "$18",
-    tag:       "Start Here",
-    highlight: true,
-    href:      GR_THE_STUDY,
-    features:  [
-      "5 Bible study methods decoded (no seminary required)",
-      "Daily and weekly study templates",
-      "No-church-required, no-guilt-required approach",
-      "Instant PDF download via Gumroad",
-    ],
-    desc: "For the woman who wants to study Scripture but has never found a method that fits her brain, her schedule, or her skepticism. This is the entry point.",
-  },
-  {
-    slug:      "gospel-and-grind",
-    title:     "Gospel & Grind",
-    subtitle:  "Build a profitable practice grounded in what you believe — without feeling like you're selling your faith.",
-    price:     "$28",
-    tag:       "Faith + Business",
-    highlight: false,
-    href:      GR_GOSPEL_AND_GRIND,
-    features:  [
-      "Faith-to-brand alignment framework",
-      "Monetization without manipulation guide",
-      "Values-based positioning for faith entrepreneurs",
-      "Instant PDF download via Gumroad",
-    ],
-    desc: "For the faith-driven entrepreneur who wants income and integrity in the same sentence. How to build something real without watering yourself down.",
-  },
-  {
-    slug:      "the-sermon-notes",
-    title:     "The Sermon Notes",
-    subtitle:  "Turn your personal Bible study into content your audience wants — and that you can charge for.",
-    price:     "$25",
-    tag:       "Content Creation",
-    highlight: false,
-    href:      GR_SERMON_NOTES,
-    features:  [
-      "Study-to-content pipeline (how one passage becomes a month of material)",
-      "12 content format templates for faith creators",
-      "Email, social, and course conversion frameworks",
-      "Instant PDF download via Gumroad",
-    ],
-    desc: "What you study privately does not have to stay private. A complete system for turning your own Scripture practice into shareable, sellable content.",
-  },
-  {
-    slug:      "the-calling-card",
-    title:     "The Calling Card",
-    subtitle:  "Build a faith-informed brand voice that connects, converts, and stays true to who you are.",
-    price:     "$35",
-    tag:       "Brand Voice",
-    highlight: false,
-    href:      GR_CALLING_CARD,
-    features:  [
-      "Faith brand voice framework (full build from scratch)",
-      "Audience language mapping for faith-based markets",
-      "Platform-specific voice calibration guide",
-      "Complete annotated brand voice example included",
-    ],
-    desc: "The Brand Voice Playbook — reimagined for faith content creators, teachers, and coaches who need their words to reflect their values and move people to act.",
-  },
-  {
-    slug:      "ministry-monetized",
-    title:     "Ministry, Monetized",
-    subtitle:  "Launch, grow, and charge for your Bible study community — without losing the calling in the process.",
-    price:     "$42",
-    tag:       "Revenue Strategy",
-    highlight: false,
-    href:      GR_MINISTRY_MONETIZED,
-    features:  [
-      "Community launch playbook (from zero to paying members)",
-      "Pricing and positioning guide for faith-based offerings",
-      "Membership tier framework for Bible study groups",
-      "Launch copy templates that lead with mission, not money",
-    ],
-    desc: "The playbook for women who have been giving their Bible study away for free and are ready to build something sustainable around it.",
-  },
-  {
-    slug:      "scripture-strategy-bundle",
-    title:     "The Scripture & Strategy Bundle",
-    subtitle:  "All five Scripture & Strategy ebooks — the complete faith-to-income library.",
-    price:     "$97",
-    tag:       "Complete Library",
-    highlight: false,
-    href:      GR_SCRIPTURE_BUNDLE,
-    features:  [
-      "All 5 Scripture & Strategy ebooks included",
-      "The Study + Gospel & Grind + The Sermon Notes",
-      "The Calling Card + Ministry, Monetized",
-      "Future Scripture & Strategy releases included",
-    ],
-    desc: "From first study to full income. Every framework in the Scripture & Strategy collection — for the woman ready to build her faith practice into something that pays.",
   },
 ] as const;
 
