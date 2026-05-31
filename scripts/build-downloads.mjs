@@ -323,19 +323,14 @@ function wrap(title, bodyHtml, opts = {}) {
   }
   .footer a { color: var(--ash); }
 
-  /* Print */
+  /* Print — preserve the dark site design in the PDF */
   @media print {
-    body { background: #fff; color: #111; }
-    .cover { background: #f9f9f9; }
-    .cover h1, h1 { color: #111; }
-    h2 { color: #222; }
-    p, li, td { color: #333; }
-    blockquote { border-color: #c0a; background: #f9f9f9; color: #111; }
-    a { color: #111; }
-    .cover-rule { background: #c0a; }
-    pre, code { background: #f5f5f5; color: #333; }
-    .toc { background: #f5f5f5; }
+    @page { margin: 0; }
+    html, body { background: var(--void) !important; color: var(--pearl) !important; }
+    h1, h2, h3 { break-after: avoid; }
+    blockquote, pre, .toc, figure { break-inside: avoid; }
   }
+  *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 </style>
 </head>
 <body>
@@ -373,83 +368,12 @@ function buildFile(srcPath, destPath, opts = {}) {
   console.log(`  ✓  ${path.relative(ROOT, destPath)}`);
 }
 
-// ── Build bundled course ───────────────────────────────────────────────────────
-
-function buildCourse() {
-  const courseDir = path.join(ROOT, 'products/course-scripture-and-strategy');
-  const outPath   = path.join(ROOT, 'public/downloads/scripture-and-strategy.html');
-
-  const files = [
-    '00-course-overview.md',
-    'module-0-welcome.md',
-    'module-1-source.md',
-    'module-2-calling.md',
-    'module-3-voice.md',
-    'module-4-offer.md',
-    'module-5-pipeline.md',
-    'module-6-engine.md',
-    'module-7-obedience.md',
-  ];
-
-  // Build TOC entries
-  const tocItems = [
-    ['00', 'Course Overview & Map'],
-    ['0', 'Module 0 — Welcome & The Frame'],
-    ['1', 'Module 1 — The Source: A Study Practice That Sticks'],
-    ['2', 'Module 2 — The Calling: Clarity Before Content'],
-    ['3', 'Module 3 — The Voice: Sounding Like Yourself'],
-    ['4', 'Module 4 — The Offer: Something Worth Paying For'],
-    ['5', 'Module 5 — The Pipeline: Study Into Content'],
-    ['6', 'Module 6 — The Engine: Launch, Grow, Sustain'],
-    ['7', 'Module 7 — The Long Obedience: Staying In It'],
-  ];
-
-  const tocHtml = `<div class="toc">
-<h2>Contents</h2>
-<ol>
-${tocItems.map(([num, label]) =>
-  `<li><a href="#module-${num}"><span class="toc-num">${num === '00' ? '—' : num}</span>${label}</a></li>`
-).join('\n')}
-</ol>
-</div>`;
-
-  // Build each module section
-  const sections = files.map((file, i) => {
-    const raw = fs.readFileSync(path.join(courseDir, file), 'utf8');
-    const id = file.replace('module-', '').replace('00-course-overview', '00').replace('.md', '');
-    const body = md(raw);
-    return `<div id="module-${id}" class="chapter-header">${body}</div>`;
-  }).join('\n\n');
-
-  const fullBody = tocHtml + '\n\n' + sections;
-
-  const html = wrap(
-    'Scripture &amp; Strategy',
-    fullBody,
-    {
-      subtitle: 'A complete faith-based business curriculum — from study practice to sustainable income.',
-      isCourse: true,
-    }
-  );
-
-  fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  fs.writeFileSync(outPath, html);
-  console.log(`  ✓  ${path.relative(ROOT, outPath)}`);
-}
-
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 const EBOOKS = [
-  ['ebooks/the-invisible-bruise.md',         'ebooks/the-invisible-bruise.html'],
   ['ebooks/reinvention-workbook.md',          'ebooks/reinvention-workbook.html'],
   ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
   ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
-  ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
-  ['ebooks/scripture/the-study.md',           'ebooks/the-study.html'],
-  ['ebooks/scripture/gospel-and-grind.md',    'ebooks/gospel-and-grind.html'],
-  ['ebooks/scripture/the-sermon-notes.md',    'ebooks/the-sermon-notes.html'],
-  ['ebooks/scripture/the-calling-card.md',    'ebooks/the-calling-card.html'],
-  ['ebooks/scripture/ministry-monetized.md',  'ebooks/ministry-monetized.html'],
 ];
 
 const TEMPLATES = [
@@ -460,9 +384,6 @@ const TEMPLATES = [
   ['templates/the-byline-method.md',       'templates/the-byline-method.html'],
   ['templates/the-build-copy-guide.md',    'templates/the-build-copy-guide.html'],
 ];
-
-console.log('\nBuilding Scripture & Strategy course...');
-buildCourse();
 
 console.log('\nBuilding ebooks...');
 for (const [src, dest] of EBOOKS) {
