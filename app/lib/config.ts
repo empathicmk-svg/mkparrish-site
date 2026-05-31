@@ -256,7 +256,13 @@ export const SERVICE_EBOOKS = [
 // Prints sell via Stripe. Add the buy.stripe.com link to `stripe` when created.
 export const PRINTS = [
   { title: "Promise Me",     price: "From $22", stripe: "https://buy.stripe.com/aFaeVe4vT65O1Qgghn8AE0a", sizes: ["8×10","11×14","16×20"] },
-  { title: "Mirage",         price: "From $22", stripe: "https://buy.stripe.com/cNi6oIbYl9i0bqQc178AE0b", sizes: ["8×10","11×14","16×20"] },
+  {
+    title:   "The Rewrite",
+    price:   "From $22",
+    stripe:  "https://buy.stripe.com/cNi6oIbYl9i0bqQc178AE0b",
+    sizes:   ["8×10","11×14","16×20"],
+    preview: "I picked up the pen and I felt the world shift / the weight of a lifetime becoming a gift.",
+  },
   { title: "Selected Lines", price: "From $18", stripe: "https://buy.stripe.com/fZubJ2geB3XGamMaX38AE0c", sizes: ["5×7","8×10"] },
 ] as const;
 
