@@ -4,7 +4,7 @@ export const STRIPE_REWRITE     = "https://buy.stripe.com/3cI8wHgJcd29b6h36Q0oM0
 export const STRIPE_NEW_CHAPTER = "https://buy.stripe.com/00w28j2Smfahfmx36Q0oM02";
 export const STRIPE_BYLINE      = "https://buy.stripe.com/fZu00b9gKbY5eitfTC0oM03";
 export const STRIPE_BUILD       = "https://buy.stripe.com/9B6cMX64ygel4HTazi0oM0f"; // The Build — $6,000 one-time
-export const STRIPE_SESSION     = "/book"; // 1-hr power session — link to Calendly/book when ready
+export const STRIPE_SESSION     = "https://buy.stripe.com/eVqaEPfF86DLa2dcHq0oM0g"; // The Session — $300 one-time
 export const STRIPE_AUDIT       = "/book"; // async positioning audit — link to checkout when ready
 
 // ── Growth / Revenue Systems ─────────────────────────────────────────────────
@@ -15,10 +15,10 @@ export const STRIPE_REVENUE_SYSTEMS = "/book"; // Fractional Growth Lead (custom
 
 // ── Production & Media (The Studio) ──────────────────────────────────────────
 // Replace with Stripe links when ready
-export const STRIPE_SITE     = "/book"; // The Site — website production (from $4,500)
-export const STRIPE_HOSTING  = "/book"; // The Upkeep — hosting & maintenance (from $250/mo)
-export const STRIPE_SOCIAL   = "/book"; // The Social Suite — complete social package (from $2,000/mo)
-export const STRIPE_YOUTUBE  = "/book"; // The Channel — YouTube/video production (from $1,500/video)
+export const STRIPE_SITE     = "/book"; // (legacy) The Site — merged into The Build
+export const STRIPE_HOSTING  = "https://buy.stripe.com/9B614fgJc0fn5LXcHq0oM0j"; // The Upkeep — $300/mo
+export const STRIPE_SOCIAL   = "https://buy.stripe.com/5kQ28j3Wqd29cal0YI0oM0k"; // The Social Suite — $2,000/mo
+export const STRIPE_YOUTUBE  = "https://buy.stripe.com/9B6fZ9gJc2nveit36Q0oM0l"; // The Channel — $1,500/video
 
 // ── Membership (Patreon) ─────────────────────────────────────────────────────
 export const PATREON_URL        = "https://www.patreon.com/MKParrish?utm_campaign=creatorshare_fan";
