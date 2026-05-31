@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalendlyEmbed from "@/app/components/CalendlyEmbed";
+import CustomBooking from "@/app/components/CustomBooking";
 import { CONTACT } from "@/app/lib/config";
 
 export const metadata: Metadata = {
@@ -73,7 +73,7 @@ export default function BookPage() {
         </div>
       </section>
 
-      {/* ── CALENDLY EMBED ───────────────────────────────────────── */}
+      {/* ── BOOKING ──────────────────────────────────────────────── */}
       <section className="bg-void" style={{ padding: "clamp(3.5rem, 7vw, 6rem) 0" }}>
         <div className="mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -81,12 +81,10 @@ export default function BookPage() {
               Pick a time
             </p>
             <p className="font-body text-xs font-light text-iron">
-              All times shown in your local timezone.
+              Times shown in your local timezone.
             </p>
           </div>
-          <div className="border border-graphite">
-            <CalendlyEmbed />
-          </div>
+          <CustomBooking />
         </div>
       </section>
 
