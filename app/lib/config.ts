@@ -50,11 +50,6 @@ export const GR_SERVICES_VAULT        = "https://mkparrish.gumroad.com/l/the-ser
 // Add a slug here to show "Coming Soon" instead of the buy button.
 export const COMING_SOON_SLUGS = new Set<string>();
 
-// ── Ko-fi — prints & merch ───────────────────────────────────────────────────
-export const SHOP_URL           = "https://ko-fi.com/mkparrish/shop";
-export const KOFI_PROMISE_ME    = "https://ko-fi.com/mkparrish/shop";
-export const KOFI_MIRAGE        = "https://ko-fi.com/mkparrish/shop";
-export const KOFI_SELECTED      = "https://ko-fi.com/mkparrish/shop";
 
 // ── Contact ──────────────────────────────────────────────────────────────────
 export const CONTACT = {
@@ -72,6 +67,8 @@ export const EBOOKS = [
     price:     "$18",
     tag:       "Digital Download",
     highlight: false,
+    free:      true,
+    download:  "/downloads/ebooks/reinvention-workbook.html",
     href:      GR_REINVENTION_WORKBOOK,
     features:  [
       "20 guided writing exercises",
@@ -88,6 +85,8 @@ export const EBOOKS = [
     price:     "$28",
     tag:       "Best Seller",
     highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/write-yourself-into-the-room.html",
     href:      GR_WRITE_YOURSELF,
     features:  [
       "The three-layer positioning framework",
@@ -104,6 +103,8 @@ export const EBOOKS = [
     price:     "$35",
     tag:       "Digital Download",
     highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/brand-voice-playbook.html",
     href:      GR_BRAND_VOICE,
     features:  [
       "Full brand voice framework",
@@ -120,6 +121,8 @@ export const EBOOKS = [
     price:     "$15",
     tag:       "New",
     highlight: false,
+    free:      true,
+    download:  "/downloads/ebooks/decoding-angel-numbers.html",
     href:      GR_ANGEL_NUMBERS,
     features:  [
       "All 10 primary sequences decoded",
@@ -136,6 +139,7 @@ export const EBOOKS = [
     price:     "$97",
     tag:       "Best Value",
     highlight: false,
+    free:      false,
     href:      GR_THE_VAULT,
     features:  [
       "All 4 ebooks & guides included",
@@ -156,6 +160,8 @@ export const SERVICE_EBOOKS = [
     price:     "$22",
     tag:       "Self-Serve",
     highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-edit-diy.html",
     href:      GR_EDIT_GUIDE,
     features:  [
       "Copy audit checklist for any piece of writing",
@@ -172,6 +178,8 @@ export const SERVICE_EBOOKS = [
     price:     "$18",
     tag:       "Strategy Prep",
     highlight: false,
+    free:      false,
+    download:  "/downloads/templates/before-the-session.html",
     href:      GR_BEFORE_SESSION,
     features:  [
       "Identity and positioning self-audit",
@@ -188,6 +196,8 @@ export const SERVICE_EBOOKS = [
     price:     "$45",
     tag:       "Deep Work",
     highlight: true,
+    free:      false,
+    download:  "/downloads/templates/the-rewrite-playbook.html",
     href:      GR_REWRITE_PLAYBOOK,
     features:  [
       "Full story audit framework (career, identity, pivot narrative)",
@@ -204,6 +214,8 @@ export const SERVICE_EBOOKS = [
     price:     "$35",
     tag:       "Brand Repositioning",
     highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-new-chapter-workbook.html",
     href:      GR_NEW_CHAPTER_WORKBOOK,
     features:  [
       "Brand audit + positioning map",
@@ -220,6 +232,8 @@ export const SERVICE_EBOOKS = [
     price:     "$38",
     tag:       "Ghostwriting",
     highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-byline-method.html",
     href:      GR_BYLINE_METHOD,
     features:  [
       "Voice capture interview questions (used with every ghostwriting client)",
@@ -236,6 +250,8 @@ export const SERVICE_EBOOKS = [
     price:     "$45",
     tag:       "Website Copy",
     highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-build-copy-guide.html",
     href:      GR_BUILD_COPY_GUIDE,
     features:  [
       "Page-by-page copy architecture (home, about, services, contact)",
@@ -252,6 +268,7 @@ export const SERVICE_EBOOKS = [
     price:     "$127",
     tag:       "Best Value",
     highlight: false,
+    free:      false,
     href:      GR_SERVICES_VAULT,
     features:  [
       "All 6 service guides included (every method, every framework)",
@@ -263,10 +280,11 @@ export const SERVICE_EBOOKS = [
   },
 ] as const;
 
+// Prints sell via Stripe. Add the buy.stripe.com link to `stripe` when created.
 export const PRINTS = [
-  { title: "Promise Me",     price: "From $22", href: KOFI_PROMISE_ME, sizes: ["8×10","11×14","16×20"] },
-  { title: "Mirage",         price: "From $22", href: KOFI_MIRAGE,     sizes: ["8×10","11×14","16×20"] },
-  { title: "Selected Lines", price: "From $18", href: KOFI_SELECTED,   sizes: ["5×7","8×10"] },
+  { title: "Promise Me",     price: "From $22", stripe: "", sizes: ["8×10","11×14","16×20"] },
+  { title: "Mirage",         price: "From $22", stripe: "", sizes: ["8×10","11×14","16×20"] },
+  { title: "Selected Lines", price: "From $18", stripe: "", sizes: ["5×7","8×10"] },
 ] as const;
 
 export const SERVICES = [

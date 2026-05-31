@@ -28,7 +28,6 @@ import {
   STRIPE_SOCIAL,
   STRIPE_YOUTUBE,
   PATREON_URL,
-  SHOP_URL,
   GR_ANGEL_NUMBERS,
   GR_WRITE_YOURSELF,
   GR_THE_VAULT,
@@ -687,8 +686,8 @@ export default function Home() {
               From decoding what the universe is sending you to rewriting how the world reads you — guides that do real work.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href="/shop">Browse the Full Shop</BtnPrimary>
-              <ArrowLink href={SHOP_URL}>Ko-fi Store</ArrowLink>
+              <BtnPrimary href="/shelf">Browse The Shelf</BtnPrimary>
+              <ArrowLink href="/shelf">See all downloads</ArrowLink>
             </div>
           </div>
           <div className="grid gap-px bg-graphite sm:grid-cols-2">

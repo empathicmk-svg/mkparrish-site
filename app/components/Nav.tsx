@@ -57,7 +57,7 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
   {
     label: "More",
     links: [
-      { label: "Shop",    href: "/shop" },
+      { label: "Shop",    href: "/shelf" },
       { label: "About",   href: "/about" },
       { label: "Contact", href: "/contact" },
     ],
@@ -328,7 +328,7 @@ export default function Nav() {
 
           <div className="hidden items-center gap-3 md:flex">
             <Link
-              href="/shop"
+              href="/shelf"
               className="btn-ghost px-4 py-2 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em]"
             >
               Shop
@@ -445,7 +445,7 @@ export default function Nav() {
                 Book a Call
               </Link>
               <Link
-                href="/shop"
+                href="/shelf"
                 onClick={() => setMobileNav(false)}
                 className="btn-ghost inline-flex justify-center px-5 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em]"
               >
@@ -545,7 +545,7 @@ export default function Nav() {
           </svg>
           Services
         </button>
-        <Link href="/shop" className={`mobile-bottom-nav-item${isActive("/shop") ? " active" : ""}`}>
+        <Link href="/shelf" className={`mobile-bottom-nav-item${isActive("/shelf") ? " active" : ""}`}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
             <line x1="3" y1="6" x2="21" y2="6" />

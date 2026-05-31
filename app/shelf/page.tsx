@@ -1,188 +1,253 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
-  RevealSection,
-  QuoteDivider,
-  Eyebrow,
-  H1,
-  H2,
-  H3Script,
-  BtnPrimary,
-  BtnGhost,
-  ArrowLink,
+  RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
+  BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
-import { SHOP_URL } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, PRINTS, MARGINS_TIERS, PATREON_URL } from "@/app/lib/config";
 
 export const metadata: Metadata = {
-  title: "The Shelf | MK Parrish",
+  title: "The Shelf — MK Parrish",
   description:
-    "Templates, prompts, starter packs, and digital downloads from MK Parrish.",
+    "Ebooks, guides, frameworks, and prints from MK Parrish. Buy directly on the page, or grab the free downloads. Instant access — no third-party store.",
 };
 
-const shelfItems = [
-  {
-    title: "Templates",
-    desc: "Clean starting points for the pages, profiles, pitches, and small pieces of copy that should not take three weeks to begin.",
-  },
-  {
-    title: "Starter Packs",
-    desc: "Focused bundles for when you know the problem, but need a sharper way into the draft.",
-  },
-  {
-    title: "Mini Guides",
-    desc: "Short, useful reads on voice, positioning, reinvention, and the work of sounding more like yourself on purpose.",
-  },
-];
+type Product = {
+  slug: string;
+  title: string;
+  price: string;
+  tag: string;
+  highlight: boolean;
+  desc: string;
+  features: readonly string[];
+  free?: boolean;
+  download?: string;
+  stripe?: string;
+  href: string;
+};
 
-const browseItems = [
-  {
-    title: "Profiles and Bios",
-    desc: "For LinkedIn, about pages, speaker blurbs, and the small introductions that carry more weight than they should.",
-  },
-  {
-    title: "Pages and Pitches",
-    desc: "For offers, services, websites, project notes, and the moments when the idea is real but the language is still soft.",
-  },
-  {
-    title: "Writing Practice",
-    desc: "Prompts and exercises for people who want their voice back without turning the process into homework.",
-  },
-];
+function buyHref(p: Product) {
+  // Prefer a live Stripe link; fall back to the existing checkout until Stripe links are wired.
+  return p.stripe && p.stripe.length > 0 ? p.stripe : p.href;
+}
+
+function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
+  const isFree = Boolean(p.free && p.download);
+  return (
+    <div
+      className={`relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 ${
+        p.highlight ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : bg === "void" ? "bg-void" : "bg-obsidian"
+      }`}
+      style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+    >
+      {p.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+      <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">{isFree ? "Free Download" : p.tag}</p>
+      <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl leading-tight">{p.title}</h3>
+      <p className="mt-2 font-display text-4xl text-white">{isFree ? "Free" : p.price}</p>
+      <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
+      <ul className="mt-5 space-y-2">
+        {p.features.map((f) => (
+          <li key={f} className="flex gap-3 font-body text-xs font-light leading-6 text-iron">
+            <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
+            {f}
+          </li>
+        ))}
+      </ul>
+      <div className="mt-8 space-y-2">
+        {isFree ? (
+          <a
+            href={p.download}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+          >
+            Download Free →
+          </a>
+        ) : (
+          <a
+            href={buyHref(p)}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+          >
+            Buy — {p.price}
+          </a>
+        )}
+        <Link
+          href={`/shop/${p.slug}`}
+          className="flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
+        >
+          View details →
+        </Link>
+      </div>
+    </div>
+  );
+}
 
 export default function ShelfPage() {
   return (
     <>
-      <section className="relative flex min-h-[75vh] flex-col justify-end bg-void pb-16 pt-28 md:pb-24">
+      {/* ── HERO ── */}
+      <section className="relative flex min-h-[80vh] flex-col justify-end bg-void pb-16 pt-28 md:pb-24">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-0 h-[60vh] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.12),transparent_65%)]" />
+          <div className="absolute left-1/2 top-0 h-[65vh] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.13),transparent_65%)]" />
         </div>
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            Templates &middot; Prompts &middot; Digital Downloads
-          </p>
-          <div className="mt-6">
-            <H1>
-              The{" "}
-              <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.35)" }}>
-                Shelf
-              </span>
-            </H1>
+          <Eyebrow>The Work, On Demand</Eyebrow>
+          <div className="mt-4">
+            <H1>The Shelf</H1>
           </div>
           <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-            A small shop for the useful pieces.
+            Ebooks. Frameworks. Prints. Bought right here.
           </p>
-          <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-            Templates, prompts, and digital downloads for the sentence, offer, profile, or page that needs a cleaner spine. Built for the blank doc moment, the almost-there draft, and the part where you are tired of sounding like everyone else.
+          <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
+            Everything is built from real work — not repurposed content. Buy directly on this page; some downloads are free. No third-party store, no detours.
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <BtnPrimary href={SHOP_URL}>Shop The Shelf</BtnPrimary>
-            <BtnGhost href="/book">Request Something Custom</BtnGhost>
+          <div className="mt-6 flex flex-wrap gap-6">
+            {["Instant download", "Secure checkout", "No subscription"].map((t) => (
+              <div key={t} className="flex items-center gap-3">
+                <span className="h-1 w-1 bg-petal" />
+                <span className="font-body text-xs font-light text-smoke">{t}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* ── EBOOKS & GUIDES ── */}
       <RevealSection bg="obsidian" num="01">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
-          <div>
-            <Eyebrow>What lives here</Eyebrow>
-            <H2>
-              Tools for the{" "}
-              <span className="text-petal">blank doc moment.</span>
-            </H2>
-            <H3Script>Less staring. More sentence.</H3Script>
-          </div>
-          <div className="space-y-5 font-body text-base font-light leading-8 text-smoke">
-            <p>
-              The Shelf is where the smaller, useful pieces live. Not full client work. Not a membership. Just the things you can pick up, download, and use when the words need a little more backbone.
-            </p>
-            <p>
-              Some pieces help you start. Some help you fix what is already there. Some are for the strange little business of describing yourself without disappearing into corporate fog.
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
-          {shelfItems.map((item) => (
-            <div key={item.title} className="bg-obsidian p-8">
-              <h3 className="font-display text-xl uppercase tracking-[0.02em] text-petal">{item.title}</h3>
-              <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{item.desc}</p>
-            </div>
+        <Eyebrow>Digital Downloads</Eyebrow>
+        <H2>Ebooks &{" "}<span className="text-petal">Guides</span></H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "56ch" }}>
+          Buy directly on this page, or grab the free ones with one click. Instant access.
+        </p>
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
+          {EBOOKS.map((e) => (
+            <ProductCard key={e.slug} p={e as Product} bg="obsidian" />
           ))}
         </div>
       </RevealSection>
 
-      <QuoteDivider index={6} />
+      <QuoteDivider index={16} />
 
+      {/* ── DIY FRAMEWORKS ── */}
       <RevealSection bg="void" num="02">
-        <Eyebrow>Browse by need</Eyebrow>
-        <H2>
-          Start where{" "}
-          <span className="text-petal">the words are stuck.</span>
-        </H2>
+        <Eyebrow>DIY Consulting Frameworks</Eyebrow>
+        <H2>The services,{" "}<span className="text-petal">self-guided.</span></H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
+          Every consulting service has a method. These guides document each one so you can run the process yourself.
+        </p>
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
+          {SERVICE_EBOOKS.map((e) => (
+            <ProductCard key={e.slug} p={e as Product} bg="void" />
+          ))}
+        </div>
+        <div className="mt-8 flex items-start gap-4 border border-graphite p-6">
+          <span className="mt-0.5 h-1.5 w-1.5 flex-shrink-0 bg-petal" />
+          <p className="font-body text-sm font-light leading-7 text-smoke">
+            Want the done-for-you version instead? <Link href="/book" className="text-petal transition hover:text-blush">Book a call</Link> for the full engagement — strategy, copy, and someone who actually writes it.
+          </p>
+        </div>
+      </RevealSection>
 
-        <div className="mt-12 grid gap-px bg-graphite lg:grid-cols-3">
-          {browseItems.map((item) => (
-            <div key={item.title} className="bg-void p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon">
-              <p className="font-mono text-xs tracking-[0.2em] text-iron">Shelf Note</p>
-              <h3 className="mt-4 font-display text-2xl uppercase tracking-[0.02em] text-pearl">{item.title}</h3>
-              <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{item.desc}</p>
+      <QuoteDivider index={19} />
+
+      {/* ── PRINTS ── */}
+      <RevealSection bg="void" num="03">
+        <Eyebrow>Poem Prints</Eyebrow>
+        <H2>The words,{" "}<span className="text-petal">on your wall.</span></H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "52ch" }}>
+          Archival-quality matte prints, shipped in a protective sleeve. Bought right here — no third-party store.
+        </p>
+        <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-3">
+          {PRINTS.map((p) => (
+            <div
+              key={p.title}
+              className="group relative flex flex-col bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon"
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-40" />
+              <span className="select-none font-serif text-[5rem] leading-none text-petal/[0.12]">&ldquo;</span>
+              <h3 className="font-display text-3xl uppercase tracking-[0.02em] text-pearl">{p.title}</h3>
+              <p className="mt-1 font-display text-2xl text-white">{p.price}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {p.sizes.map((s) => (
+                  <span key={s} className="border border-graphite px-3 py-1 font-mono text-[0.65rem] tracking-[0.15em] text-iron">{s}</span>
+                ))}
+              </div>
+              <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">
+                High-quality archival matte print. Ships in a protective sleeve. Multiple sizes available.
+              </p>
+              {p.stripe ? (
+                <a
+                  href={p.stripe}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-primary mt-8 flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+                >
+                  Buy — {p.price}
+                </a>
+              ) : (
+                <div className="mt-8 flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
+                  Coming Soon
+                </div>
+              )}
             </div>
           ))}
         </div>
-
-        <div className="mt-10">
-          <ArrowLink href={SHOP_URL}>Browse the shop</ArrowLink>
-        </div>
       </RevealSection>
 
-      <QuoteDivider index={7} />
+      <QuoteDivider index={18} />
 
-      <RevealSection bg="obsidian" num="03">
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+      {/* ── THE MARGINS ── */}
+      <RevealSection bg="obsidian" num="04">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
-            <Eyebrow>How it works</Eyebrow>
-            <H2>
-              This site holds the door.{" "}
-              <span className="text-petal">Ko-fi handles the shop.</span>
-            </H2>
-          </div>
-          <div className="space-y-5 font-body text-base font-light leading-8 text-smoke">
-            <p>
-              The Shelf keeps the shop in the same world as the rest of the site. Ko-fi handles payment, checkout, and downloads on the other side.
-            </p>
-            <p>
-              If you need something more specific than a download, book a call. The custom work still happens directly with me.
-            </p>
-            <div className="pt-4 flex flex-wrap gap-4">
-              <BtnPrimary href={SHOP_URL}>Shop on Ko-fi</BtnPrimary>
-              <BtnGhost href="/book">Book a Call</BtnGhost>
+            <Eyebrow>Membership</Eyebrow>
+            <H2>The{" "}<span className="text-petal">Margins.</span></H2>
+            <H3Script>The real work. Before it goes anywhere.</H3Script>
+            <div className="mt-6 space-y-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
+              <p>Weekly essays, raw memoir, strategy notes, and writing too honest for a public feed. Members get everything — unfiltered, early, and real.</p>
+              <p>For the women, survivors, romantics, and overthinkers who know what it feels like to rebuild from scratch and want company for it.</p>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
+              <ArrowLink href="/margins">See what&apos;s inside</ArrowLink>
             </div>
           </div>
+          <div className="flex flex-col gap-px">
+            {MARGINS_TIERS.map((t) => (
+              <div key={t.name} className={`relative p-8 ${t.highlight ? "bg-carbon" : "bg-void"}`}>
+                {t.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+                <div className="flex items-baseline justify-between">
+                  <p className="font-display text-xl uppercase tracking-[0.02em] text-pearl">{t.name}</p>
+                  <p className={`font-display text-2xl ${t.highlight ? "text-petal" : "text-white"}`}>{t.price}</p>
+                </div>
+                <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">{t.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </RevealSection>
 
-      <section className="relative bg-void" style={{ padding: "clamp(5rem, 10vw, 9rem) 0" }}>
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-1/2 h-[70vh] w-[70vw] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse,rgba(242,175,198,0.07),transparent_65%)]" />
+      {/* ── HOW TO BUY ── */}
+      <RevealSection bg="void">
+        <Eyebrow>How it works</Eyebrow>
+        <H2>Simple.<br /><span className="text-petal">Secure. Instant.</span></H2>
+        <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-3">
+          {[
+            { num: "01", title: "Buy or download", desc: "Free items download on click. Paid items open a secure checkout — you complete the purchase without leaving the site." },
+            { num: "02", title: "Pay securely", desc: "Card payment with bank-level security. No account required, no card data stored." },
+            { num: "03", title: "Read instantly", desc: "Your download is delivered immediately. Yours to keep, access anytime." },
+          ].map((s) => (
+            <div key={s.num} className="bg-void p-8">
+              <p className="font-mono text-xs tracking-[0.2em] text-petal/60">{s.num}</p>
+              <h3 className="mt-4 font-display text-2xl uppercase tracking-[0.02em] text-pearl">{s.title}</h3>
+              <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{s.desc}</p>
+            </div>
+          ))}
         </div>
-        <div className="relative mx-auto max-w-[1400px] text-center" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            The useful pieces
-          </p>
-          <div className="mt-6">
-            <H2>
-              Pull something{" "}
-              <span className="text-petal">off the shelf.</span>
-            </H2>
-          </div>
-          <p className="mx-auto mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            Start small. Fix the sentence in front of you. Come back when the next one starts making noise.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href={SHOP_URL}>Shop The Shelf</BtnPrimary>
-            <BtnGhost href="/margins">Read The Margins</BtnGhost>
-          </div>
-        </div>
-      </section>
+      </RevealSection>
     </>
   );
 }
