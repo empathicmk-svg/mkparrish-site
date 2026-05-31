@@ -1,19 +1,32 @@
 import Link from "next/link";
 import { PATREON_URL, CONTACT } from "@/app/lib/config";
 
-const footerLinks = [
-  { label: "Leadership",    href: "/career" },
-  { label: "Brand",         href: "/brand" },
-  { label: "Presence",      href: "/presence" },
-  { label: "Repositioning", href: "/next-chapter" },
-  { label: "Growth",        href: "/growth" },
-  { label: "Studio",        href: "/studio" },
-  { label: "LinkedIn",      href: "/linkedin" },
-  { label: "The Shelf",     href: "/shelf" },
-  { label: "The Margins",   href: "/margins" },
-  { label: "How I Work",    href: "/how-i-work" },
-  { label: "About",         href: "/about" },
-  { label: "Contact",       href: "/contact" },
+const footerGroups = [
+  {
+    heading: "Work",
+    links: [
+      { label: "All Offerings",      href: "/#offerings" },
+      { label: "Web Design & Build", href: "/studio" },
+      { label: "Outbound & Growth",  href: "/growth" },
+      { label: "Messaging & Copy",   href: "/brand" },
+    ],
+  },
+  {
+    heading: "Read",
+    links: [
+      { label: "Writing",     href: "/writing" },
+      { label: "The Shelf",   href: "/shelf" },
+      { label: "The Margins", href: "/margins" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "How I Work", href: "/how-i-work" },
+      { label: "About",      href: "/about" },
+      { label: "Contact",    href: "/contact" },
+    ],
+  },
 ];
 
 export default function Footer() {
@@ -36,15 +49,22 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-x-8 gap-y-3">
-            {footerLinks.map((l) => (
-              <Link
-                key={l.label}
-                href={l.href}
-                className="nav-link font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] text-iron transition hover:text-pearl"
-              >
-                {l.label}
-              </Link>
+          <div className="grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3">
+            {footerGroups.map((group) => (
+              <div key={group.heading} className="flex flex-col gap-3">
+                <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.28em] text-petal/70">
+                  {group.heading}
+                </p>
+                {group.links.map((l) => (
+                  <Link
+                    key={l.label}
+                    href={l.href}
+                    className="nav-link font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] text-iron transition hover:text-pearl"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
             ))}
           </div>
 

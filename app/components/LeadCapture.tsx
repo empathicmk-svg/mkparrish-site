@@ -134,7 +134,7 @@ export default function LeadCapture() {
                 Check your inbox. The checklist is on its way.
               </p>
               <p className="mt-2 font-body text-sm text-ash">
-                While you wait — the full rewrite starts at <a href="/career" onClick={dismiss} className="text-petal hover:underline">/career</a>.
+                While you wait — see everything I build at <a href="/#offerings" onClick={dismiss} className="text-petal hover:underline">the offerings</a>.
               </p>
               <button
                 onClick={dismiss}
