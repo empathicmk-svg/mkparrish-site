@@ -176,7 +176,7 @@ export default function AboutPage() {
             {[
               { label: "Email", value: CONTACT.email, href: `mailto:${CONTACT.email}` },
               { label: "LinkedIn", value: "/in/mkparrish", href: CONTACT.linkedin },
-              { label: "The Margins", value: "patreon.com/mkparrish", href: PATREON_URL },
+              { label: "The Margins", value: "https://www.patreon.com/cw/MKParrish/mkparrish", href: PATREON_URL },
             ].map((c) => (
               <a
                 key={c.label}
