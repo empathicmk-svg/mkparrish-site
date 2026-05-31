@@ -7,7 +7,7 @@ import {
   BtnPrimary,
   ArrowLink,
 } from "@/app/components/ui";
-import CalendlyEmbed from "@/app/components/CalendlyEmbed";
+import CustomBooking from "@/app/components/CustomBooking";
 import { PATREON_URL, CONTACT, STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/config";
 
 export const metadata: Metadata = {
@@ -56,9 +56,7 @@ export default function ContactPage() {
               We figure out what needs fixing, whether I am the right person for it, and what makes sense as a starting point. Pick a time below.
             </p>
           </div>
-          <div className="border border-graphite bg-void">
-            <CalendlyEmbed />
-          </div>
+          <CustomBooking />
         </div>
       </section>
 
