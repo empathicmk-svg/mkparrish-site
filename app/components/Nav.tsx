@@ -6,22 +6,20 @@ import Link from "next/link";
 import { PATREON_URL } from "@/app/lib/config";
 
 const workLinks = [
-  { label: "Leadership",     href: "/career" },
-  { label: "Brand",          href: "/brand" },
-  { label: "Presence",       href: "/presence" },
-  { label: "Repositioning",  href: "/next-chapter" },
-  { label: "Growth",         href: "/growth" },
-  { label: "Studio",         href: "/studio" },
-  { label: "LinkedIn",       href: "/linkedin" },
+  { label: "All Offerings",       href: "/#offerings" },
+  { label: "Web Design & Build",  href: "/studio" },
+  { label: "Outbound & Growth",   href: "/growth" },
+  { label: "Messaging & Copy",    href: "/brand" },
+  { label: "How I Work",          href: "/how-i-work" },
 ];
 
 const megaServices = [
-  { tag: "Quick Fix",        title: "The Edit",        price: "From $250",      desc: "One piece of company copy fixed in 48 hours.", href: "/career" },
-  { tag: "Strategy Session", title: "The Session",     price: "$300",           desc: "60-min live positioning session with written brief.", href: "/book" },
-  { tag: "Most Requested",   title: "The Rewrite",     price: "From $2,500",    desc: "Core messaging overhauled. Results that match the copy.", href: "/brand" },
-  { tag: "Repositioning",    title: "The New Chapter", price: "Custom",         desc: "Brand, website, and positioning rebuilt for where you are going.", href: "/next-chapter" },
-  { tag: "Ongoing",          title: "The Byline",      price: "From $2,500/mo", desc: "Monthly founder and exec thought leadership ghostwriting.", href: "/presence" },
-  { tag: "Full Site",        title: "The Build",       price: "From $6,000",    desc: "Strategy, copy, design, and production — done together.", href: "/brand" },
+  { tag: "Websites",     title: "The Build",          price: "From $6,000",    desc: "Conversion website — strategy, copy, design, and build, together.", href: "/#offerings" },
+  { tag: "Outbound",     title: "The Outbound Engine", price: "From $2,500/mo", desc: "Cold email + LinkedIn that books qualified calls.", href: "/#offerings" },
+  { tag: "Growth",       title: "Full-Funnel Growth", price: "From $6,500/mo", desc: "Demand through activation, run as one motion.", href: "/#offerings" },
+  { tag: "Messaging",    title: "The Rewrite",        price: "From $2,500",    desc: "Core messaging overhauled. Results that match the copy.", href: "/#offerings" },
+  { tag: "Ghostwriting", title: "The Byline",         price: "From $2,500/mo", desc: "Monthly founder and exec thought leadership.", href: "/#offerings" },
+  { tag: "Quick Fix",    title: "The Edit",           price: "From $250",      desc: "One piece of copy, fixed in 48 hours.", href: "/#offerings" },
 ];
 
 const readLinks = [
@@ -36,13 +34,11 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
   {
     label: "Work",
     links: [
-      { label: "Leadership",    href: "/career" },
-      { label: "Brand",         href: "/brand" },
-      { label: "Presence",      href: "/presence" },
-      { label: "Repositioning", href: "/next-chapter" },
-      { label: "Growth",        href: "/growth" },
-      { label: "Studio",        href: "/studio" },
-      { label: "LinkedIn",      href: "/linkedin" },
+      { label: "All Offerings",      href: "/#offerings" },
+      { label: "Web Design & Build", href: "/studio" },
+      { label: "Outbound & Growth",  href: "/growth" },
+      { label: "Messaging & Copy",   href: "/brand" },
+      { label: "How I Work",         href: "/how-i-work" },
     ],
   },
   {

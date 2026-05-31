@@ -87,6 +87,7 @@ export const EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/write-yourself-into-the-room.html",
+    stripe:    "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
     href:      GR_WRITE_YOURSELF,
     features:  [
       "The three-layer positioning framework",
@@ -105,6 +106,7 @@ export const EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/brand-voice-playbook.html",
+    stripe:    "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
     href:      GR_BRAND_VOICE,
     features:  [
       "Full brand voice framework",
@@ -140,6 +142,7 @@ export const EBOOKS = [
     tag:       "Best Value",
     highlight: false,
     free:      false,
+    stripe:    "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     href:      GR_THE_VAULT,
     features:  [
       "All 4 ebooks & guides included",
@@ -162,6 +165,7 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/the-edit-diy.html",
+    stripe:    "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
     href:      GR_EDIT_GUIDE,
     features:  [
       "Copy audit checklist for any piece of writing",
@@ -180,6 +184,7 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/before-the-session.html",
+    stripe:    "https://buy.stripe.com/cNieVe8M91Py2Uk5CJ8AE04",
     href:      GR_BEFORE_SESSION,
     features:  [
       "Identity and positioning self-audit",
@@ -198,6 +203,7 @@ export const SERVICE_EBOOKS = [
     highlight: true,
     free:      false,
     download:  "/downloads/templates/the-rewrite-playbook.html",
+    stripe:    "https://buy.stripe.com/5kQ4gAbYl79S3Yo7KR8AE05",
     href:      GR_REWRITE_PLAYBOOK,
     features:  [
       "Full story audit framework (career, identity, pivot narrative)",
@@ -216,6 +222,7 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/the-new-chapter-workbook.html",
+    stripe:    "https://buy.stripe.com/9B69AUe6tfGobqQ2qx8AE06",
     href:      GR_NEW_CHAPTER_WORKBOOK,
     features:  [
       "Brand audit + positioning map",
@@ -234,6 +241,7 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/the-byline-method.html",
+    stripe:    "https://buy.stripe.com/cNibJ2aUh8dWamMd5b8AE07",
     href:      GR_BYLINE_METHOD,
     features:  [
       "Voice capture interview questions (used with every ghostwriting client)",
@@ -252,6 +260,7 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/the-build-copy-guide.html",
+    stripe:    "https://buy.stripe.com/5kQ9AU8M9gKseD2aX38AE08",
     href:      GR_BUILD_COPY_GUIDE,
     features:  [
       "Page-by-page copy architecture (home, about, services, contact)",
@@ -269,6 +278,7 @@ export const SERVICE_EBOOKS = [
     tag:       "Best Value",
     highlight: false,
     free:      false,
+    stripe:    "https://buy.stripe.com/aFa14ogeBam452s0ip8AE09",
     href:      GR_SERVICES_VAULT,
     features:  [
       "All 6 service guides included (every method, every framework)",
@@ -282,9 +292,9 @@ export const SERVICE_EBOOKS = [
 
 // Prints sell via Stripe. Add the buy.stripe.com link to `stripe` when created.
 export const PRINTS = [
-  { title: "Promise Me",     price: "From $22", stripe: "", sizes: ["8×10","11×14","16×20"] },
-  { title: "Mirage",         price: "From $22", stripe: "", sizes: ["8×10","11×14","16×20"] },
-  { title: "Selected Lines", price: "From $18", stripe: "", sizes: ["5×7","8×10"] },
+  { title: "Promise Me",     price: "From $22", stripe: "https://buy.stripe.com/aFaeVe4vT65O1Qgghn8AE0a", sizes: ["8×10","11×14","16×20"] },
+  { title: "Mirage",         price: "From $22", stripe: "https://buy.stripe.com/cNi6oIbYl9i0bqQc178AE0b", sizes: ["8×10","11×14","16×20"] },
+  { title: "Selected Lines", price: "From $18", stripe: "https://buy.stripe.com/fZubJ2geB3XGamMaX38AE0c", sizes: ["5×7","8×10"] },
 ] as const;
 
 export const SERVICES = [
