@@ -31,7 +31,6 @@ export const SITE_URL           = "https://www.mkparrish.com";
 
 // ── Gumroad — ebooks & digital products ──────────────────────────────────────
 export const GUMROAD_BASE             = "https://mkparrish.gumroad.com";
-export const GR_INVISIBLE_BRUISE      = "https://mkparrish.gumroad.com/l/invisible-bruise";
 export const GR_REINVENTION_WORKBOOK  = "https://mkparrish.gumroad.com/l/reinvention-workbook";
 export const GR_WRITE_YOURSELF        = "https://mkparrish.gumroad.com/l/write-yourself-into-the-room";
 export const GR_BRAND_VOICE           = "https://mkparrish.gumroad.com/l/brand-voice-playbook";
@@ -66,22 +65,6 @@ export const CONTACT = {
 
 // ── All ebooks / digital products (used by shop page) ────────────────────────
 export const EBOOKS = [
-  {
-    slug:      "invisible-bruise",
-    title:     "The Invisible Bruise",
-    subtitle:  "Surviving emotional abuse, suffering in silence, and rewriting your life.",
-    price:     "$22",
-    tag:       "New Release",
-    highlight: true,
-    href:      GR_INVISIBLE_BRUISE,
-    features:  [
-      "8 chapters on emotional abuse + recovery",
-      "Poetry woven through every chapter",
-      "The Rewrite framework for rebuilding identity",
-      "Instant PDF download via Gumroad",
-    ],
-    desc: "For the woman who knows something is wrong but cannot yet prove it. Raw, honest, and written from inside it.",
-  },
   {
     slug:      "reinvention-workbook",
     title:     "The Reinvention Workbook",
@@ -155,10 +138,10 @@ export const EBOOKS = [
     highlight: false,
     href:      GR_THE_VAULT,
     features:  [
-      "All 5 ebooks & guides included",
+      "All 4 ebooks & guides included",
       "The Brand Voice Playbook + Write Yourself Into the Room",
-      "The Invisible Bruise + Reinvention Workbook",
-      "Decoding Angel Numbers — plus any future releases",
+      "The Reinvention Workbook + Decoding Angel Numbers",
+      "Plus any future releases",
     ],
     desc: "The full library. Every framework, every guide, every word. One price.",
   },

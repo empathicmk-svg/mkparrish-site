@@ -31,7 +31,6 @@ import {
   GR_ANGEL_NUMBERS,
   GR_WRITE_YOURSELF,
   GR_THE_VAULT,
-  GR_INVISIBLE_BRUISE,
 } from "@/app/lib/config";
 
 // ── Animated counter hook ─────────────────────────────────────────────────────
@@ -364,13 +363,6 @@ const digitalProducts = [
     price: "$28",
     href: GR_WRITE_YOURSELF,
     highlight: true,
-  },
-  {
-    label: "New Release",
-    title: "The Invisible Bruise",
-    price: "$22",
-    href: GR_INVISIBLE_BRUISE,
-    highlight: false,
   },
   {
     label: "Best Value",

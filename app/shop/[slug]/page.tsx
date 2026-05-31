@@ -22,22 +22,6 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 }
 
 const extraContent: Record<string, { about: string[]; forWho: string[]; pullQuote: string }> = {
-  "invisible-bruise": {
-    about: [
-      "This is not a clinical guide. It is the book I needed when I was living inside something I could not yet name — when I knew something was wrong but could not prove it. When I was being destroyed quietly, in a house that looked fine from the outside.",
-      "Eight chapters that move from the beginning of emotional abuse through what it does to your body, your memory, your identity — and into the long, non-linear work of rebuilding. Poetry woven through every chapter. No platitudes. No toxic positivity. Just the truth, written from inside it.",
-      "For the woman who is not ready to call it abuse yet. For the woman who called it love for too long. For the woman who is finally, quietly, done.",
-    ],
-    forWho: [
-      "You've been told you're too sensitive, too emotional, too much",
-      "You apologize constantly and aren't sure why",
-      "You monitor his mood before you decide how to speak",
-      "You've been told what you remember didn't happen that way",
-      "You stay because you love him and can't reconcile that with what he does",
-      "You're in the middle of leaving, or the aftermath of it",
-    ],
-    pullQuote: "She was not dramatic. She was documenting.",
-  },
   "reinvention-workbook": {
     about: [
       "Twenty writing exercises built from the actual reinvention process — not theory lifted from a business book. These exercises are what I used myself and refined with clients who were in the middle of becoming someone new.",
