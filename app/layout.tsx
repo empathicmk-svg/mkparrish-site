@@ -11,13 +11,13 @@ export const metadata: Metadata = {
     template: "%s — MK Parrish",
   },
   description:
-    "MK Parrish: copywriter, ghostwriter & brand strategist. Words, strategy, and reinvention for founders, executives, and people ready to stop being misread.",
+    "Websites, outbound, and messaging that turn how you're seen into revenue. A senior growth operator and writer for B2B SaaS, agencies, and growth-stage teams.",
   applicationName: "MK Parrish",
   metadataBase: new URL("https://www.mkparrish.com"),
   openGraph: {
     title: "MK Parrish — Rewrite Your Story",
     description:
-      "MK Parrish: copywriter, ghostwriter & brand strategist. Words, strategy, and reinvention for founders, executives, and people ready to stop being misread.",
+      "Websites, outbound, and messaging that turn how you're seen into revenue. A senior growth operator and writer for B2B SaaS, agencies, and growth-stage teams.",
     url: "https://www.mkparrish.com",
     siteName: "MK Parrish",
     type: "website",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MK Parrish — Rewrite Your Story",
     description:
-      "MK Parrish: copywriter, ghostwriter & brand strategist. Words, strategy, and reinvention for founders, executives, and people ready to stop being misread.",
+      "Websites, outbound, and messaging that turn how you're seen into revenue. A senior growth operator and writer for B2B SaaS, agencies, and growth-stage teams.",
   },
   appleWebApp: {
     title: "MK Parrish",

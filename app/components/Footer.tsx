@@ -88,7 +88,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
           <p className="font-body text-[0.7rem] font-light tracking-[0.1em] text-iron">
-            Words, strategy, and reinvention for people ready to stop being misread.
+            Websites, outbound, and messaging that turn how you&apos;re seen into revenue.
           </p>
           <p className="font-body text-[0.7rem] font-light tracking-[0.06em] text-iron">
             &copy; {new Date().getFullYear()} MK Parrish
