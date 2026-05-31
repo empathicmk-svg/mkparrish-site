@@ -86,76 +86,6 @@ function StatCounter({ value, suffix, label }: { value: number; suffix: string; 
 // ── Word cycling words ────────────────────────────────────────────────────────
 const CYCLE_WORDS = ["Pipeline"];
 
-// ── Client type cards ────────────────────────────────────────────────────────
-const clientTypes = [
-  {
-    num: "01",
-    title: "B2B SaaS",
-    desc: "You have product-market fit, but your homepage still reads like a seed-stage pitch. Your pipeline tells a sharper story than your copy does.",
-    href: "/brand",
-  },
-  {
-    num: "02",
-    title: "Agencies & Consultants",
-    desc: "You need a senior partner who owns the brief, runs the function, and ships without hand-holding. Not a vendor — someone who thinks like a principal.",
-    href: "/brand",
-  },
-  {
-    num: "03",
-    title: "Growth-Stage Teams",
-    desc: "Past early traction and ready for the full stack: positioning, demand gen, web presence, and the execution to back it up.",
-    href: "/growth",
-  },
-  {
-    num: "04",
-    title: "Companies in Transition",
-    desc: "Pivot, relaunch, new market, new category. The old story no longer fits the business you run today. That gap is exactly the work.",
-    href: "/next-chapter",
-  },
-];
-
-// ── Before/After data ────────────────────────────────────────────────────────
-const baPanels = [
-  {
-    label: "Website Homepage Headline",
-    before:
-      '"We provide comprehensive digital marketing solutions for businesses of all sizes."',
-    after:
-      '"Your competitors are getting the calls you should be getting. Here\'s exactly why — and how to fix it in 30 days."',
-  },
-  {
-    label: "Company Positioning Statement",
-    before:
-      '"A B2B SaaS platform that helps teams manage their workflows more efficiently."',
-    after:
-      '"The revenue intelligence layer your sales team didn\'t know they were missing — until the number stopped moving."',
-  },
-];
-
-// ── Process steps ────────────────────────────────────────────────────────────
-const processSteps = [
-  {
-    num: "01",
-    title: "Discovery Call",
-    desc: "We diagnose where the language is breaking down, what it needs to do, and how we measure success together.",
-  },
-  {
-    num: "02",
-    title: "Strategy Brief",
-    desc: "A written positioning document: your audience, your argument, your differentiators, your competitive angle — in writing before a word gets drafted.",
-  },
-  {
-    num: "03",
-    title: "The Rewrite",
-    desc: "Copy delivered in rounds with tracked changes. Your team sees every decision and the reasoning behind it.",
-  },
-  {
-    num: "04",
-    title: "Launch",
-    desc: "Final deliverables, formatted for every platform. Plus a 30-day check-in to confirm it is landing.",
-  },
-];
-
 // ── Services data ────────────────────────────────────────────────────────────
 const services = [
   {
@@ -377,8 +307,6 @@ const digitalProducts = [
 
 export default function Home() {
   const [wordIndex, setWordIndex] = useState(0);
-  const [baState, setBaState] = useState<Record<number, "before" | "after">>({ 0: "before", 1: "before" });
-  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -430,7 +358,7 @@ export default function Home() {
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <BtnPrimary href="/book">Book a Strategy Call →</BtnPrimary>
-            <BtnGhost href="#who">See What I Build</BtnGhost>
+            <BtnGhost href="#offerings">See What I Build</BtnGhost>
           </div>
 
           {/* Proof stat band */}
@@ -452,221 +380,48 @@ export default function Home() {
 
       <Marquee />
 
-      {/* ── WHO IS THIS FOR ───────────────────────────────────────────────────── */}
-      <RevealSection id="who" bg="obsidian" num="01">
-        <Eyebrow>Where We Work Best</Eyebrow>
+      {/* ── OFFERINGS ─────────────────────────────────────────────────────────── */}
+      <RevealSection id="offerings" bg="obsidian" num="01">
+        <Eyebrow>Work With Me</Eyebrow>
         <H2>
-          Which partner do{" "}
-          <span className="text-petal">you need?</span>
+          Everything I build,{" "}
+          <span className="text-petal">in one place.</span>
         </H2>
-        <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "56ch" }}>
-          Every engagement starts with one question: where is revenue actually leaking? Pick the track that matches your gap right now.
-        </p>
-
-        <div className="grid gap-px bg-graphite sm:grid-cols-2">
-          {clientTypes.map((card, i) => (
-            <Link
-              key={card.href}
-              href={card.href}
-              onMouseEnter={() => setActiveCard(i)}
-              onMouseLeave={() => setActiveCard(null)}
-              className="group relative flex flex-col justify-between bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon"
-              style={{
-                border: activeCard === i ? "1px solid rgba(242,175,198,0.35)" : "1px solid transparent",
-                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-            >
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-60" />
-              <div>
-                <p className="font-mono text-[2.5rem] leading-none tracking-[0.02em] text-petal/[0.18] font-bold">
-                  {card.num}
-                </p>
-                <h3 className="mt-4 font-display text-4xl uppercase tracking-[0.02em] text-pearl md:text-5xl">
-                  {card.title}
-                </h3>
-                <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{card.desc}</p>
-              </div>
-              <div className="mt-8 flex items-center gap-2">
-                <span className="font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-petal opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                  Explore →
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="mt-8 text-center">
-          <p className="font-body text-sm text-ash mb-4">Not sure which track fits? Start here.</p>
-          <BtnPrimary href="/book">Book a Free Discovery Call →</BtnPrimary>
-        </div>
-      </RevealSection>
-
-      <QuoteDivider index={1} />
-
-      {/* ── BEFORE / AFTER SHOWCASE ──────────────────────────────────────────── */}
-      <RevealSection bg="void" num="02">
-        <Eyebrow>The Transformation</Eyebrow>
-        <H2>
-          See the difference{" "}
-          <span className="text-petal">words make.</span>
-        </H2>
-        <p className="mt-4 mb-12 font-body text-sm font-light text-smoke" style={{ maxWidth: "58ch" }}>
-          This is what repositioning looks like. Same company, completely different signal.
-        </p>
-
-        <div className="grid gap-px bg-graphite md:grid-cols-2">
-          {baPanels.map((panel, idx) => (
-            <div key={idx} className="ba-panel">
-              <p className="mb-4 font-body text-[0.62rem] font-bold uppercase tracking-[0.25em] text-iron">
-                {panel.label}
-              </p>
-              <div className="ba-tab-bar">
-                <button
-                  className={`ba-tab${baState[idx] === "before" ? " active" : ""}`}
-                  onClick={() => setBaState((s) => ({ ...s, [idx]: "before" }))}
-                >
-                  Before
-                </button>
-                <button
-                  className={`ba-tab${baState[idx] === "after" ? " active" : ""}`}
-                  onClick={() => setBaState((s) => ({ ...s, [idx]: "after" }))}
-                >
-                  After
-                </button>
-              </div>
-              {baState[idx] === "before" ? (
-                <p className="before-text">{panel.before}</p>
-              ) : (
-                <p className="after-text">
-                  {panel.after}
-                  <span className="mt-3 block font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-petal">
-                    — Rewritten by MK
-                  </span>
-                </p>
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
-          <p className="font-body text-sm font-light text-smoke">
-            That shift is what The Rewrite delivers — for any company, in any market.
-          </p>
-          <BtnPrimary href="/book">Start Your Rewrite →</BtnPrimary>
-        </div>
-      </RevealSection>
-
-      <QuoteDivider index={2} />
-
-      {/* ── SERVICES ─────────────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="03">
-        <Eyebrow>Every way to work together</Eyebrow>
-        <H2>
-          Six services.{" "}
-          <span className="text-petal">One standard.</span>
-        </H2>
-        <p className="mt-4 mb-3 font-body text-sm font-light text-smoke" style={{ maxWidth: "58ch" }}>
-          From a single-piece fix to a full repositioning, every engagement holds the same standard: copy that reflects what your business actually does, says something true, and earns the response.
+        <p className="mt-4 mb-3 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
+          Websites, outbound, growth, and messaging — one senior operator, clear pricing, no agency layers. Buy or book directly below. Pick one or stack them.
         </p>
         <p className="mb-12 font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal/70">
           All-in pricing. No retainer traps.
         </p>
 
         <div className="grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
+          {[...services, ...growthServices, ...productionServices].map((s) => (
             <ServiceCard key={s.title} {...s} />
           ))}
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
-          <p className="font-body text-sm font-light text-smoke">Every engagement starts with a discovery call. No pitch, no obligation — just a clear diagnosis.</p>
+          <p className="font-body text-sm font-light text-smoke">Not sure where to start? One call and I&apos;ll tell you exactly where the revenue is leaking.</p>
           <BtnPrimary href="/book">Book a Discovery Call →</BtnPrimary>
         </div>
       </RevealSection>
 
-      {/* ── REVENUE SYSTEMS ──────────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="04">
-        <Eyebrow>Growth Marketing &amp; Demand Gen</Eyebrow>
-        <H2>
-          A growth operator,{" "}
-          <span className="text-petal">not just a writer.</span>
-        </H2>
-        <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
-          Full-funnel demand — outbound, paid, organic, SEO, content, lifecycle — built and run by one AI-native operator. For SLG teams layering on PLG, growth-stage companies building their first real demand engine, and B2B teams that need someone to strategize, ship, and own the number.
-        </p>
-
-        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
-          {growthServices.map((s) => (
-            <ServiceCard key={s.title} {...s} />
-          ))}
-        </div>
-
-        <div className="mt-8 flex flex-wrap items-center gap-6">
-          <ArrowLink href="/growth">See the full growth offering</ArrowLink>
-          <span className="font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-iron">
-            I pick the channels. I ship. I own the outcome.
-          </span>
-        </div>
-      </RevealSection>
-
-      {/* ── PRODUCTION & MEDIA ───────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="05">
-        <Eyebrow>The Studio — Production &amp; Media</Eyebrow>
-        <H2>
-          Built, produced,{" "}
-          <span className="text-petal">and kept running.</span>
-        </H2>
-        <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke">
-          Strategy is only worth what ships. Hosting, social, and video — produced and managed end to end, on-brand, so your company's presence keeps pace with the business once the site is live.
-        </p>
-
-        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
-          {productionServices.map((s) => (
-            <ServiceCard key={s.title} {...s} />
-          ))}
-        </div>
-
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
-          <p className="font-body text-sm font-light text-smoke">
-            Bundle production with copy and strategy, or bring me in for the build alone. Either way, it ships finished.
-          </p>
-          <BtnPrimary href="/book">Scope a Project →</BtnPrimary>
-        </div>
-      </RevealSection>
-
       <Marquee />
-      <QuoteDivider index={3} />
+      <QuoteDivider index={2} />
 
-      {/* ── PROCESS ──────────────────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="06">
-        <Eyebrow>How It Works</Eyebrow>
+      {/* ── HOW I WORK (teaser) ──────────────────────────────────────────────── */}
+      <RevealSection bg="void" num="02">
+        <Eyebrow>How I Work</Eyebrow>
         <H2>
           From unclear to{" "}
           <span className="text-petal">undeniable.</span>
         </H2>
-        <p className="mt-4 mb-14 font-body text-sm font-light text-smoke" style={{ maxWidth: "56ch" }}>
-          Four steps, no ambiguity. Your team knows what happens, when, and why every word made the cut.
+        <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
+          The four-step process, the companies I do my best work with, and proof of what repositioning actually changes — all in one place, so the homepage stays about what you can buy.
         </p>
-
-        <div className="grid gap-px bg-graphite md:grid-cols-4">
-          {processSteps.map((step) => (
-            <div key={step.num} className="bg-obsidian p-8">
-              <p
-                className="font-display leading-none text-petal/[0.15]"
-                style={{ fontSize: "clamp(3rem, 6vw, 5rem)", letterSpacing: "0.02em" }}
-              >
-                {step.num}
-              </p>
-              <h3 className="mt-4 font-display text-2xl uppercase tracking-[0.02em] text-pearl">
-                {step.title}
-              </h3>
-              <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">{step.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-10 text-center">
-          <BtnPrimary href="/book">Start With a Call →</BtnPrimary>
+        <div className="mt-8 flex flex-wrap items-center gap-6">
+          <BtnPrimary href="/how-i-work">See How I Work →</BtnPrimary>
+          <ArrowLink href="/book">Or just book a call</ArrowLink>
         </div>
       </RevealSection>
 

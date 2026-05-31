@@ -11,6 +11,7 @@ const footerLinks = [
   { label: "LinkedIn",      href: "/linkedin" },
   { label: "The Shelf",     href: "/shelf" },
   { label: "The Margins",   href: "/margins" },
+  { label: "How I Work",    href: "/how-i-work" },
   { label: "About",         href: "/about" },
   { label: "Contact",       href: "/contact" },
 ];
