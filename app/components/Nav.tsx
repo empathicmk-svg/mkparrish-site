@@ -23,10 +23,10 @@ const megaServices = [
 ];
 
 const readLinks = [
-  { label: "Writing",      desc: "Long-form essays on copy & branding",  href: "/writing" },
-  { label: "Quotes",       desc: "Words worth keeping",                   href: "/posts" },
-  { label: "The Shelf",    desc: "What's currently on my reading list",   href: "/shelf" },
-  { label: "The Margins",  desc: "Private membership essays & frameworks", href: "/margins" },
+  { label: "Writing",      desc: "Poetry, essays & the work that proves the voice", href: "/writing" },
+  { label: "The Shelf",    desc: "Ebooks, guides & prints — buy direct",            href: "/shelf" },
+  { label: "Quotes",       desc: "Words worth keeping",                             href: "/posts" },
+  { label: "The Margins",  desc: "Private membership essays & frameworks",          href: "/margins" },
 ];
 
 // Sectioned mobile menu
@@ -45,8 +45,8 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
     label: "Read",
     links: [
       { label: "Writing",     href: "/writing" },
-      { label: "Quotes",      href: "/posts" },
       { label: "The Shelf",   href: "/shelf" },
+      { label: "Quotes",      href: "/posts" },
       { label: "The Margins", href: "/margins" },
     ],
   },
