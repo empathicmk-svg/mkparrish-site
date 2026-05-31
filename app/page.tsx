@@ -21,6 +21,7 @@ import {
   STRIPE_BYLINE,
   STRIPE_BUILD,
   STRIPE_SESSION,
+  STRIPE_OUTBOUND,
   STRIPE_INBOUND_SYSTEM,
   STRIPE_REVENUE_SYSTEMS,
   STRIPE_HOSTING,
@@ -264,7 +265,7 @@ const growthServices = [
       "Performance-based and rev-share structures available",
     ],
     cta: "Fill My Calendar",
-    href: "/book",
+    href: STRIPE_OUTBOUND,
     highlight: false,
   },
   {

@@ -13,6 +13,7 @@ import {
   FAQ,
 } from "@/app/components/ui";
 import {
+  STRIPE_OUTBOUND,
   STRIPE_INBOUND_SYSTEM,
   STRIPE_REVENUE_SYSTEMS,
 } from "@/app/lib/config";
@@ -36,7 +37,7 @@ const tiers = [
       "Qualified, briefed calls booked into your calendar",
     ],
     cta: "Fill My Calendar",
-    href: "/book",
+    href: STRIPE_OUTBOUND,
     highlight: false,
   },
   {

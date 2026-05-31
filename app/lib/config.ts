@@ -3,15 +3,15 @@ export const STRIPE_EDIT        = "https://buy.stripe.com/14AcMX2Smd29gqB8ra0oM0
 export const STRIPE_REWRITE     = "https://buy.stripe.com/3cI8wHgJcd29b6h36Q0oM00";
 export const STRIPE_NEW_CHAPTER = "https://buy.stripe.com/00w28j2Smfahfmx36Q0oM02";
 export const STRIPE_BYLINE      = "https://buy.stripe.com/fZu00b9gKbY5eitfTC0oM03";
-export const STRIPE_BUILD       = "/book";
+export const STRIPE_BUILD       = "https://buy.stripe.com/9B6cMX64ygel4HTazi0oM0f"; // The Build — $6,000 one-time
 export const STRIPE_SESSION     = "/book"; // 1-hr power session — link to Calendly/book when ready
 export const STRIPE_AUDIT       = "/book"; // async positioning audit — link to checkout when ready
 
 // ── Growth / Revenue Systems ─────────────────────────────────────────────────
-// Replace with Stripe links when ready
-export const STRIPE_CONTENT_ENGINE  = "/book"; // LinkedIn Content Engine (from $2,500/mo)
-export const STRIPE_INBOUND_SYSTEM  = "/book"; // The Inbound System (from $5,000/mo)
-export const STRIPE_REVENUE_SYSTEMS = "/book"; // E2E Revenue Systems (custom)
+export const STRIPE_OUTBOUND        = "https://buy.stripe.com/28E7sD0Ked295LX22M0oM0e"; // The Outbound Engine — $2,500/mo
+export const STRIPE_CONTENT_ENGINE  = "/book"; // (legacy) link to checkout when ready
+export const STRIPE_INBOUND_SYSTEM  = "https://buy.stripe.com/eVq5kvdx01jr1vHazi0oM0d"; // Full-Funnel Growth — $6,500/mo
+export const STRIPE_REVENUE_SYSTEMS = "/book"; // Fractional Growth Lead (custom)
 
 // ── Production & Media (The Studio) ──────────────────────────────────────────
 // Replace with Stripe links when ready
@@ -271,7 +271,7 @@ export const PRINTS = [
 
 export const SERVICES = [
   { title: "The Build",          price: "From $6,000",     tag: "Websites",     href: STRIPE_BUILD },
-  { title: "The Outbound Engine", price: "From $2,500/mo", tag: "Outbound",     href: "/book" },
+  { title: "The Outbound Engine", price: "From $2,500/mo", tag: "Outbound",     href: STRIPE_OUTBOUND },
   { title: "Full-Funnel Growth", price: "From $6,500/mo",  tag: "Growth",       href: STRIPE_INBOUND_SYSTEM },
   { title: "The Rewrite",        price: "From $2,500",     tag: "Messaging",    href: STRIPE_REWRITE },
   { title: "The Byline",         price: "From $2,500/mo",  tag: "Ghostwriting", href: STRIPE_BYLINE },
