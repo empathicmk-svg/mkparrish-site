@@ -223,6 +223,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 ) : (
                   <a
                     href={buyTarget}
+                    download={isFree ? "" : undefined}
                     target="_blank"
                     rel="noreferrer"
                     className="btn-primary inline-flex items-center justify-center px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
@@ -267,6 +268,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 ) : (
                   <a
                     href={buyTarget}
+                    download={isFree ? "" : undefined}
                     target="_blank"
                     rel="noreferrer"
                     className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
@@ -301,6 +303,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               ) : (
                 <a
                   href={buyTarget}
+                  download={isFree ? "" : undefined}
                   target="_blank"
                   rel="noreferrer"
                   className="btn-primary inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
@@ -368,6 +371,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               ) : (
                 <a
                   href={buyTarget}
+                  download={isFree ? "" : undefined}
                   target="_blank"
                   rel="noreferrer"
                   className="btn-primary inline-flex items-center justify-center px-10 py-5 font-body text-[0.85rem] font-bold uppercase tracking-[0.2em] text-void"

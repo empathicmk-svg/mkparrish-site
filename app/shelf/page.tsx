@@ -57,8 +57,7 @@ function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
         {isFree ? (
           <a
             href={p.download}
-            target="_blank"
-            rel="noreferrer"
+            download
             className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
           >
             Download Free →

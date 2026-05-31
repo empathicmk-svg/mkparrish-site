@@ -278,13 +278,6 @@ const productionServices = [
 
 const digitalProducts = [
   {
-    label: "Free",
-    title: "Decoding Angel Numbers",
-    price: "Free",
-    href: "/downloads/ebooks/decoding-angel-numbers.html",
-    highlight: false,
-  },
-  {
     label: "Best Seller",
     title: "Write Yourself Into the Room",
     price: "$28",
@@ -435,7 +428,7 @@ export default function Home() {
             </H2>
             <H3Script>Frameworks, guides, and downloads built from real client work.</H3Script>
             <p className="mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "48ch" }}>
-              From decoding what the universe is sending you to rewriting how the world reads you — guides that do real work.
+              Frameworks and guides for rewriting how the world reads you — built from real client work, ready to use today.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <BtnPrimary href="/shelf">Browse The Shelf</BtnPrimary>
