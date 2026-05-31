@@ -21,7 +21,7 @@ export const STRIPE_SOCIAL   = "https://buy.stripe.com/5kQ28j3Wqd29cal0YI0oM0k";
 export const STRIPE_YOUTUBE  = "https://buy.stripe.com/9B6fZ9gJc2nveit36Q0oM0l"; // The Channel — $1,500/video
 
 // ── Membership (Patreon) ─────────────────────────────────────────────────────
-export const PATREON_URL        = "https://www.patreon.com/MKParrish?utm_campaign=creatorshare_fan";
+export const PATREON_URL        = "https://www.patreon.com/MKParrish";
 
 // ── Scheduling ───────────────────────────────────────────────────────────────
 export const CALENDLY_URL       = "https://www.calendly.com/mkparrish";
