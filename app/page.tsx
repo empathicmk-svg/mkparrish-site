@@ -445,7 +445,7 @@ export default function Home() {
           <div className="mt-12 grid grid-cols-2 gap-px border-t border-graphite bg-graphite pt-px sm:grid-cols-4">
             {[
               { num: "$40M+", label: "Pipeline influenced" },
-              { num: "20 yrs", label: "Growth + marketing" },
+              { num: "2 Decades", label: "Growth + marketing" },
               { num: "32%", label: "Cold reply rates" },
               { num: "1", label: "Operator, no layers" },
             ].map((s) => (
