@@ -50,8 +50,8 @@ export const EBOOKS = [
     tag:       "Digital Download",
     highlight: false,
     free:      true,
-    download:  "/downloads/ebooks/reinvention-workbook.html",
-    href:      "/downloads/ebooks/reinvention-workbook.html",
+    download:  "/downloads/ebooks/reinvention-workbook.pdf",
+    href:      "/downloads/ebooks/reinvention-workbook.pdf",
     features:  [
       "20 guided writing exercises",
       "The identity audit framework",
@@ -68,7 +68,7 @@ export const EBOOKS = [
     tag:       "Best Seller",
     highlight: false,
     free:      false,
-    download:  "/downloads/ebooks/write-yourself-into-the-room.html",
+    download:  "/downloads/ebooks/write-yourself-into-the-room.pdf",
     stripe:    "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
     href:      "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
     features:  [
@@ -87,7 +87,7 @@ export const EBOOKS = [
     tag:       "Digital Download",
     highlight: false,
     free:      false,
-    download:  "/downloads/ebooks/brand-voice-playbook.html",
+    download:  "/downloads/ebooks/brand-voice-playbook.pdf",
     stripe:    "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
     href:      "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
     features:  [
@@ -127,7 +127,7 @@ export const SERVICE_EBOOKS = [
     tag:       "Self-Serve",
     highlight: false,
     free:      false,
-    download:  "/downloads/templates/the-edit-diy.html",
+    download:  "/downloads/templates/the-edit-diy.pdf",
     stripe:    "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
     href:      "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
     features:  [
@@ -146,7 +146,7 @@ export const SERVICE_EBOOKS = [
     tag:       "Strategy Prep",
     highlight: false,
     free:      false,
-    download:  "/downloads/templates/before-the-session.html",
+    download:  "/downloads/templates/before-the-session.pdf",
     stripe:    "https://buy.stripe.com/cNieVe8M91Py2Uk5CJ8AE04",
     href:      "https://buy.stripe.com/cNieVe8M91Py2Uk5CJ8AE04",
     features:  [
@@ -165,7 +165,7 @@ export const SERVICE_EBOOKS = [
     tag:       "Deep Work",
     highlight: true,
     free:      false,
-    download:  "/downloads/templates/the-rewrite-playbook.html",
+    download:  "/downloads/templates/the-rewrite-playbook.pdf",
     stripe:    "https://buy.stripe.com/5kQ4gAbYl79S3Yo7KR8AE05",
     href:      "https://buy.stripe.com/5kQ4gAbYl79S3Yo7KR8AE05",
     features:  [
@@ -184,7 +184,7 @@ export const SERVICE_EBOOKS = [
     tag:       "Brand Repositioning",
     highlight: false,
     free:      false,
-    download:  "/downloads/templates/the-new-chapter-workbook.html",
+    download:  "/downloads/templates/the-new-chapter-workbook.pdf",
     stripe:    "https://buy.stripe.com/9B69AUe6tfGobqQ2qx8AE06",
     href:      "https://buy.stripe.com/9B69AUe6tfGobqQ2qx8AE06",
     features:  [
@@ -203,7 +203,7 @@ export const SERVICE_EBOOKS = [
     tag:       "Ghostwriting",
     highlight: false,
     free:      false,
-    download:  "/downloads/templates/the-byline-method.html",
+    download:  "/downloads/templates/the-byline-method.pdf",
     stripe:    "https://buy.stripe.com/cNibJ2aUh8dWamMd5b8AE07",
     href:      "https://buy.stripe.com/cNibJ2aUh8dWamMd5b8AE07",
     features:  [
@@ -222,7 +222,7 @@ export const SERVICE_EBOOKS = [
     tag:       "Website Copy",
     highlight: false,
     free:      false,
-    download:  "/downloads/templates/the-build-copy-guide.html",
+    download:  "/downloads/templates/the-build-copy-guide.pdf",
     stripe:    "https://buy.stripe.com/5kQ9AU8M9gKseD2aX38AE08",
     href:      "https://buy.stripe.com/5kQ9AU8M9gKseD2aX38AE08",
     features:  [
