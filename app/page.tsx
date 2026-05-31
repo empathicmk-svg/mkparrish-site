@@ -28,9 +28,6 @@ import {
   STRIPE_SOCIAL,
   STRIPE_YOUTUBE,
   PATREON_URL,
-  GR_ANGEL_NUMBERS,
-  GR_WRITE_YOURSELF,
-  GR_THE_VAULT,
 } from "@/app/lib/config";
 
 // ── Animated counter hook ─────────────────────────────────────────────────────
@@ -281,24 +278,24 @@ const productionServices = [
 
 const digitalProducts = [
   {
-    label: "New",
+    label: "Free",
     title: "Decoding Angel Numbers",
-    price: "$15",
-    href: GR_ANGEL_NUMBERS,
+    price: "Free",
+    href: "/downloads/ebooks/decoding-angel-numbers.html",
     highlight: false,
   },
   {
     label: "Best Seller",
     title: "Write Yourself Into the Room",
     price: "$28",
-    href: GR_WRITE_YOURSELF,
+    href: "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
     highlight: true,
   },
   {
     label: "Best Value",
     title: "The Vault — Full Bundle",
     price: "$97",
-    href: GR_THE_VAULT,
+    href: "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     highlight: false,
   },
 ];

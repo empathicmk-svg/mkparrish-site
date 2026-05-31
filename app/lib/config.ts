@@ -29,27 +29,9 @@ export const CALENDLY_URL       = "https://www.calendly.com/mkparrish";
 // ── Site ─────────────────────────────────────────────────────────────────────
 export const SITE_URL           = "https://www.mkparrish.com";
 
-// ── Gumroad — ebooks & digital products ──────────────────────────────────────
-export const GUMROAD_BASE             = "https://mkparrish.gumroad.com";
-export const GR_REINVENTION_WORKBOOK  = "https://mkparrish.gumroad.com/l/reinvention-workbook";
-export const GR_WRITE_YOURSELF        = "https://mkparrish.gumroad.com/l/write-yourself-into-the-room";
-export const GR_BRAND_VOICE           = "https://mkparrish.gumroad.com/l/brand-voice-playbook";
-export const GR_ANGEL_NUMBERS         = "https://mkparrish.gumroad.com/l/decoding-angel-numbers";
-export const GR_THE_VAULT             = "https://mkparrish.gumroad.com/l/the-vault"; // bundle
-
-// ── Gumroad — service companion ebooks ───────────────────────────────────────
-export const GR_EDIT_GUIDE            = "https://mkparrish.gumroad.com/l/the-edit-guide";
-export const GR_BEFORE_SESSION        = "https://mkparrish.gumroad.com/l/before-the-session";
-export const GR_REWRITE_PLAYBOOK      = "https://mkparrish.gumroad.com/l/the-rewrite-playbook";
-export const GR_NEW_CHAPTER_WORKBOOK  = "https://mkparrish.gumroad.com/l/the-new-chapter-workbook";
-export const GR_BYLINE_METHOD         = "https://mkparrish.gumroad.com/l/the-byline-method";
-export const GR_BUILD_COPY_GUIDE      = "https://mkparrish.gumroad.com/l/the-build-copy-guide";
-export const GR_SERVICES_VAULT        = "https://mkparrish.gumroad.com/l/the-services-vault";
-
-// ── Products not yet live on Gumroad ─────────────────────────────────────────
+// ── Products not yet live ────────────────────────────────────────────────────
 // Add a slug here to show "Coming Soon" instead of the buy button.
 export const COMING_SOON_SLUGS = new Set<string>();
-
 
 // ── Contact ──────────────────────────────────────────────────────────────────
 export const CONTACT = {
@@ -69,12 +51,12 @@ export const EBOOKS = [
     highlight: false,
     free:      true,
     download:  "/downloads/ebooks/reinvention-workbook.html",
-    href:      GR_REINVENTION_WORKBOOK,
+    href:      "/downloads/ebooks/reinvention-workbook.html",
     features:  [
       "20 guided writing exercises",
       "The identity audit framework",
       "Voice and narrative prompts",
-      "Instant PDF download via Gumroad",
+      "Instant download",
     ],
     desc: "Exercises, prompts, and frameworks pulled from real reinvention — not theory.",
   },
@@ -88,12 +70,12 @@ export const EBOOKS = [
     free:      false,
     download:  "/downloads/ebooks/write-yourself-into-the-room.html",
     stripe:    "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
-    href:      GR_WRITE_YOURSELF,
+    href:      "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
     features:  [
       "The three-layer positioning framework",
       "Bio writing templates + real examples",
       "LinkedIn audit checklist",
-      "Instant PDF download via Gumroad",
+      "Instant download",
     ],
     desc: "Learn to write bios, LinkedIn copy, and positioning statements that actually sound like you.",
   },
@@ -107,7 +89,7 @@ export const EBOOKS = [
     free:      false,
     download:  "/downloads/ebooks/brand-voice-playbook.html",
     stripe:    "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
-    href:      GR_BRAND_VOICE,
+    href:      "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
     features:  [
       "Full brand voice framework",
       "Tone spectrum mapping",
@@ -125,12 +107,12 @@ export const EBOOKS = [
     highlight: false,
     free:      true,
     download:  "/downloads/ebooks/decoding-angel-numbers.html",
-    href:      GR_ANGEL_NUMBERS,
+    href:      "/downloads/ebooks/decoding-angel-numbers.html",
     features:  [
       "All 10 primary sequences decoded",
       "Written for intelligent, attuned women",
       "Practical guidance for each number",
-      "Instant PDF download via Gumroad",
+      "Instant download",
     ],
     desc: "Not a list of cosmic platitudes. A framework for decoding the patterns your intuition has been sending you.",
   },
@@ -143,7 +125,7 @@ export const EBOOKS = [
     highlight: false,
     free:      false,
     stripe:    "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
-    href:      GR_THE_VAULT,
+    href:      "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     features:  [
       "All 4 ebooks & guides included",
       "The Brand Voice Playbook + Write Yourself Into the Room",
@@ -166,12 +148,12 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/templates/the-edit-diy.html",
     stripe:    "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
-    href:      GR_EDIT_GUIDE,
+    href:      "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
     features:  [
       "Copy audit checklist for any piece of writing",
       "Word-level edits for brand voice alignment",
       "Line-edit framework used in real client work",
-      "Instant PDF download via Gumroad",
+      "Instant download",
     ],
     desc: "The same eye MK brings to client copy — translated into a framework you can run yourself. Covers bios, emails, LinkedIn, and landing pages.",
   },
@@ -185,12 +167,12 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/templates/before-the-session.html",
     stripe:    "https://buy.stripe.com/cNieVe8M91Py2Uk5CJ8AE04",
-    href:      GR_BEFORE_SESSION,
+    href:      "https://buy.stripe.com/cNieVe8M91Py2Uk5CJ8AE04",
     features:  [
       "Identity and positioning self-audit",
       "Brand clarity questions (the ones that change how you see yourself)",
       "Goal-setting framework for a 60-minute session",
-      "Instant PDF download via Gumroad",
+      "Instant download",
     ],
     desc: "For the woman who books a strategy session and wants to arrive ready. This workbook extracts the clarity before the conversation starts.",
   },
@@ -204,7 +186,7 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/templates/the-rewrite-playbook.html",
     stripe:    "https://buy.stripe.com/5kQ4gAbYl79S3Yo7KR8AE05",
-    href:      GR_REWRITE_PLAYBOOK,
+    href:      "https://buy.stripe.com/5kQ4gAbYl79S3Yo7KR8AE05",
     features:  [
       "Full story audit framework (career, identity, pivot narrative)",
       "LinkedIn profile optimization — every section covered",
@@ -223,7 +205,7 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/templates/the-new-chapter-workbook.html",
     stripe:    "https://buy.stripe.com/9B69AUe6tfGobqQ2qx8AE06",
-    href:      GR_NEW_CHAPTER_WORKBOOK,
+    href:      "https://buy.stripe.com/9B69AUe6tfGobqQ2qx8AE06",
     features:  [
       "Brand audit + positioning map",
       "Website copy architecture (page by page)",
@@ -242,7 +224,7 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/templates/the-byline-method.html",
     stripe:    "https://buy.stripe.com/cNibJ2aUh8dWamMd5b8AE07",
-    href:      GR_BYLINE_METHOD,
+    href:      "https://buy.stripe.com/cNibJ2aUh8dWamMd5b8AE07",
     features:  [
       "Voice capture interview questions (used with every ghostwriting client)",
       "Tone calibration guide across formats",
@@ -261,7 +243,7 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/templates/the-build-copy-guide.html",
     stripe:    "https://buy.stripe.com/5kQ9AU8M9gKseD2aX38AE08",
-    href:      GR_BUILD_COPY_GUIDE,
+    href:      "https://buy.stripe.com/5kQ9AU8M9gKseD2aX38AE08",
     features:  [
       "Page-by-page copy architecture (home, about, services, contact)",
       "SEO-informed headline and subheadline frameworks",
@@ -279,7 +261,7 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     stripe:    "https://buy.stripe.com/aFa14ogeBam452s0ip8AE09",
-    href:      GR_SERVICES_VAULT,
+    href:      "https://buy.stripe.com/aFa14ogeBam452s0ip8AE09",
     features:  [
       "All 6 service guides included (every method, every framework)",
       "The Edit + Before the Session + The Rewrite Playbook",

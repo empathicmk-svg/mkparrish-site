@@ -12,8 +12,9 @@ export function generateStaticParams() {
   return ALL_SHOP_EBOOKS.map((e) => ({ slug: e.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const product = ALL_SHOP_EBOOKS.find((e) => e.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const product = ALL_SHOP_EBOOKS.find((e) => e.slug === slug);
   if (!product) return {};
   return {
     title: `${product.title} — MK Parrish`,
@@ -174,8 +175,9 @@ const extraContent: Record<string, { about: string[]; forWho: string[]; pullQuot
   },
 };
 
-export default function ProductPage({ params }: { params: { slug: string } }) {
-  const product = ALL_SHOP_EBOOKS.find((e) => e.slug === params.slug);
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const product = ALL_SHOP_EBOOKS.find((e) => e.slug === slug);
   if (!product) notFound();
 
   const extra = extraContent[product.slug] ?? {
@@ -365,19 +367,22 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                 </div>
               ) : (
                 <a
-                  href={product.href}
-                  data-gumroad-overlay-checkout="true"
+                  href={buyTarget}
+                  target="_blank"
+                  rel="noreferrer"
                   className="btn-primary inline-flex items-center justify-center px-10 py-5 font-body text-[0.85rem] font-bold uppercase tracking-[0.2em] text-void"
                 >
-                  Buy Now — {product.price}
+                  {buyLabel}{isFree ? " →" : ` — ${product.price}`}
                 </a>
               )}
-              <ArrowLink href="/shop">See all products</ArrowLink>
+              <ArrowLink href="/shelf">Browse The Shelf</ArrowLink>
             </div>
             <p className="mt-6 font-body text-xs font-light text-iron">
               {COMING_SOON_SLUGS.has(product.slug)
-                ? "Gumroad listing coming soon · PDF format · No subscription required"
-                : "Secure checkout via Gumroad · Instant PDF delivery · No subscription required"}
+                ? "Coming soon · PDF format · No subscription required"
+                : isFree
+                ? "Free · Instant download · No subscription required"
+                : "Secure checkout · Instant delivery · No subscription required"}
             </p>
           </div>
         </div>
