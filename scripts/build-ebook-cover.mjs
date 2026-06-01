@@ -18,95 +18,93 @@ const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: ${W_PX}px; height: ${H_PX}px; overflow: hidden; }
   body {
-    background: #080808;
+    background:
+      radial-gradient(ellipse at 78% 8%, rgba(242,175,198,0.14), transparent 55%),
+      radial-gradient(ellipse at 15% 100%, rgba(199,91,120,0.12), transparent 55%),
+      linear-gradient(180deg, #0B0B0B 0%, #080808 55%, #050505 100%);
     font-family: 'DM Sans', sans-serif;
     position: relative;
-    display: flex; align-items: center; justify-content: center;
   }
-  /* petal glow top-right */
-  .glow {
-    position: absolute; top: -6%; right: -8%;
-    width: 70%; height: 50%;
-    background: radial-gradient(ellipse at top right, rgba(242,175,198,0.13), transparent 62%);
+  /* thin inset hairline frame */
+  .edge {
+    position: absolute; inset: 56px;
+    border: 1px solid rgba(124,124,124,0.28);
   }
-  /* faint bottom carmine wash */
-  .glow2 {
-    position: absolute; bottom: -10%; left: -10%;
-    width: 60%; height: 40%;
-    background: radial-gradient(ellipse at bottom left, rgba(199,91,120,0.08), transparent 60%);
-  }
-  .frame {
-    position: relative;
-    border: 2px solid #2C2C2C;
-    width: 86%; height: 88%;
+  /* content stack, top-anchored editorial layout */
+  .wrap {
+    position: absolute; inset: 56px;
+    padding: 150px 130px;
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 120px 80px;
   }
-  /* corner ticks */
-  .tick { position: absolute; width: 28px; height: 28px; border-color: #C75B78; }
-  .tl { top: -2px; left: -2px; border-top: 2px solid; border-left: 2px solid; }
-  .tr { top: -2px; right: -2px; border-top: 2px solid; border-right: 2px solid; }
-  .bl { bottom: -2px; left: -2px; border-bottom: 2px solid; border-left: 2px solid; }
-  .br { bottom: -2px; right: -2px; border-bottom: 2px solid; border-right: 2px solid; }
+  .top-meta {
+    display: flex; align-items: center; gap: 28px;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    font-size: 28px; letter-spacing: 0.42em; text-transform: uppercase;
+    color: #B0B0B0;
+  }
+  .top-meta .bar { width: 64px; height: 2px; background: #C75B78; }
 
-  .eyebrow {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    font-size: 28px; letter-spacing: 0.38em; text-transform: uppercase;
-    color: #7A7A7A; margin-bottom: 80px;
-  }
-  .the {
-    font-family: 'Playfair Display', serif;
-    font-weight: 400;
-    font-size: 64px; letter-spacing: 0.12em;
-    color: #7A7A7A; margin-bottom: 12px;
+  .title-block { margin-top: 150px; }
+  .kicker {
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+    font-size: 72px; color: #F2AFC6; margin-bottom: 6px; letter-spacing: 0.01em;
   }
   .title {
-    font-family: 'Playfair Display', serif;
-    font-weight: 400;
-    color: #F0F0EE;
-    line-height: 0.88; letter-spacing: 0.03em;
-    font-size: 196px;
+    font-family: 'Bebas Neue', sans-serif;
+    color: #F0F0EE; text-transform: uppercase;
+    line-height: 0.84; letter-spacing: 0.005em;
+    font-size: 186px;
+    white-space: nowrap;
   }
-  .title .accent { color: #F2AFC6; font-style: italic; }
-  .rule { width: 120px; height: 3px; background: #C75B78; margin: 70px 0; }
+  .title .pink { color: #F2AFC6; }
+
+  .midrule {
+    margin-top: 90px;
+    width: 200px; height: 3px; background: #C75B78;
+  }
   .subtitle {
-    font-family: 'Playfair Display', serif; font-style: italic;
-    font-size: 44px; color: #B0B0B0; line-height: 1.55;
-    max-width: 20ch;
+    margin-top: 60px;
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+    font-size: 50px; color: #C8C8C6; line-height: 1.5;
+    max-width: 24ch;
   }
-  .dot { color: #F2AFC6; font-size: 60px; margin-top: 80px; }
-  .byline {
-    position: absolute; bottom: 70px; left: 0; right: 0;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    font-size: 28px; letter-spacing: 0.38em; text-transform: uppercase;
-    color: #4A4A4A;
+
+  .footer {
+    margin-top: auto;
+    display: flex; align-items: flex-end; justify-content: space-between;
+  }
+  .footer .author {
+    font-family: 'Playfair Display', serif; font-weight: 500;
+    font-size: 46px; color: #F0F0EE; letter-spacing: 0.01em;
+  }
+  .footer .url {
+    font-family: 'DM Sans', sans-serif; font-weight: 400;
+    font-size: 26px; letter-spacing: 0.34em; text-transform: uppercase;
+    color: #7A7A7A;
   }
 </style>
 </head>
 <body>
-  <div class="glow"></div>
-  <div class="glow2"></div>
-  <div class="frame">
-    <span class="tick tl"></span><span class="tick tr"></span>
-    <span class="tick bl"></span><span class="tick br"></span>
+  <div class="edge"></div>
+  <div class="wrap">
+    <div class="top-meta"><span class="bar"></span>A Guided Writing Practice</div>
 
-    <div class="eyebrow">MK Parrish</div>
-    <div class="the">The</div>
-    <div class="title"><span class="accent">Reinvention</span><br/>Workbook</div>
-    <div class="rule"></div>
-    <div class="subtitle">A guided writing practice for people in the middle of becoming someone new.</div>
-    <div class="dot">&#10022;</div>
+    <div class="title-block">
+      <div class="kicker">The</div>
+      <div class="title">Re<span class="pink">invention</span><br/>Workbook</div>
+      <div class="midrule"></div>
+      <div class="subtitle">For people in the middle of becoming someone new.</div>
+    </div>
 
-    <div class="byline">mkparrish.com</div>
+    <div class="footer">
+      <div class="author">MK Parrish</div>
+      <div class="url">mkparrish.com</div>
+    </div>
   </div>
 </body>
 </html>`;
