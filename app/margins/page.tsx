@@ -14,7 +14,7 @@ import { PATREON_URL } from "@/app/lib/config";
 export const metadata: Metadata = {
   title: "The Margins — MK Parrish",
   description:
-    "The private editorial side of MK Parrish. Essays, strategy notes, and the thinking behind the work. Join on Patreon.",
+    "The private editorial side of MK Parrish. Essays, strategy notes, and the thinking behind the work. Join on Substack.",
 };
 
 const tiers = [
@@ -187,7 +187,7 @@ export default function MarginsPage() {
             rel="noreferrer"
             className="mt-4 inline-block font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors hover:text-blush"
           >
-            View membership details on Patreon &rarr;
+            View membership details on Substack &rarr;
           </a>
         </div>
       </RevealSection>

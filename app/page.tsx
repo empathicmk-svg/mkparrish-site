@@ -508,7 +508,7 @@ export default function Home() {
                 </div>
                 <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">{t.desc}</p>
                 <p className="mt-3 font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-petal opacity-0 transition-opacity group-hover:opacity-100">
-                  Join on Patreon →
+                  Join on Substack →
                 </p>
               </a>
             ))}
