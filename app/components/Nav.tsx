@@ -587,7 +587,7 @@ export default function Nav() {
           pointerEvents: showMargins ? "auto" : "none",
           transition: "opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)",
         }}
-        aria-label="Join The Margins on Patreon"
+        aria-label="Join The Margins on Substack"
       >
         Enter The Margins →
       </a>
