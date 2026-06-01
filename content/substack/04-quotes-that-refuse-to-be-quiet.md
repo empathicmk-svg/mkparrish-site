@@ -106,4 +106,4 @@ A living collection of words worth keeping — from the people who put language 
 
 ---
 
-*A living collection. These words are returned to often — in client work, in essays, in the thinking that happens before the writing. [Subscribe to The Margins →](https://mkparrish.substack.com)*
+*A living collection. These words are returned to often — in client work, in essays, in the thinking that happens before the writing. [Subscribe to The Margins →](https://mkparrishthemargins.substack.com)*

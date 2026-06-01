@@ -19,12 +19,12 @@ bash scripts/setup-substack-mcp.sh
 ```
 
 This clones the server, installs it in an isolated venv, writes a `~/.substackrc`
-template (publication pre-filled to `mkparrish.substack.com`), and registers it
+template (publication pre-filled to `mkparrishthemargins.substack.com`), and registers it
 with Claude Code.
 
 ### Then — two steps only you can do
 
-1. **Add your cookie.** Open `mkparrish.substack.com` in your browser →
+1. **Add your cookie.** Open `mkparrishthemargins.substack.com` in your browser →
    DevTools (F12) → Application → Cookies → copy the value of `substack.sid`.
    Paste it into `~/.substackrc` in place of the placeholder.
    *(The cookie grants full access to post as you — keep it private; `~/.substackrc`

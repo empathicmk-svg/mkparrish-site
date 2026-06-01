@@ -36,4 +36,4 @@ and the woman I'm becoming is the whole reason I came.
 
 ---
 
-*This poem is the emotional center of everything I do. The writers who rewrite your story best are the ones who have done the work themselves — and survived it — in their own life. [More in The Margins →](https://mkparrish.substack.com)*
+*This poem is the emotional center of everything I do. The writers who rewrite your story best are the ones who have done the work themselves — and survived it — in their own life. [More in The Margins →](https://mkparrishthemargins.substack.com)*

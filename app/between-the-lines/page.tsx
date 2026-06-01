@@ -21,7 +21,7 @@ export default function Page() {
         </a>
         <a
           className="inline-flex items-center justify-center rounded-sm border border-pearl px-4 py-2 text-xs font-medium uppercase tracking-[0.12em] text-pearl hover:border-graphite"
-          href="https://mkparrish.substack.com/embed"
+          href="https://mkparrishthemargins.substack.com/embed"
           target="_blank"
           rel="noreferrer"
         >

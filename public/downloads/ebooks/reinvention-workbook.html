@@ -150,6 +150,27 @@
     border-bottom: 1px solid var(--graphite);
   }
   h2:first-child { margin-top: 0; }
+  h2.chapter-start {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 400;
+    border-bottom: 2px solid var(--petal);
+    padding-bottom: 12px;
+    margin: 64px 0 24px;
+  }
+  h2.chapter-start:first-child { margin-top: 0; }
+  .chapter-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: var(--petal);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+    margin-top: 64px;
+  }
   h3 {
     font-family: var(--font-body);
     font-weight: 500;
@@ -229,10 +250,13 @@
 
   /* Print */
   @media print {
-    @page { margin: 0; }
     html, body { background: var(--void) !important; color: var(--pearl) !important; }
+    .cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; break-after: page; }
+    .toc { break-after: page; }
+    h2.chapter-start { break-before: page; }
     h2, h3 { break-after: avoid; }
     blockquote, .toc, .response { break-inside: avoid; }
+    .chapter-divider { display: none; }
   }
   *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 </style>
@@ -250,17 +274,18 @@
   <h2>Contents</h2>
   <ol>
     <li><a href="#how-to-use"><span class="toc-num">—</span>How to Use This Workbook</a></li>
-    <li><a href="#part-one"><span class="toc-num">I</span>The Identity Audit <span style="color:var(--iron);font-size:0.85em">(Exercises 1–5)</span></a></li>
-    <li><a href="#part-two"><span class="toc-num">II</span>Excavating the Old Story <span style="color:var(--iron);font-size:0.85em">(Exercises 6–10)</span></a></li>
-    <li><a href="#part-three"><span class="toc-num">III</span>Voice &amp; Narrative <span style="color:var(--iron);font-size:0.85em">(Exercises 11–16)</span></a></li>
-    <li><a href="#part-four"><span class="toc-num">IV</span>Building the New Draft <span style="color:var(--iron);font-size:0.85em">(Exercises 17–20)</span></a></li>
+    <li><a href="#part-one"><span class="toc-num">I</span>The Identity Audit <span style="color:var(--iron);font-size:0.85em">Exercises 1–5</span></a></li>
+    <li><a href="#part-two"><span class="toc-num">II</span>Excavating the Old Story <span style="color:var(--iron);font-size:0.85em">Exercises 6–10</span></a></li>
+    <li><a href="#part-three"><span class="toc-num">III</span>Voice &amp; Narrative <span style="color:var(--iron);font-size:0.85em">Exercises 11–16</span></a></li>
+    <li><a href="#part-four"><span class="toc-num">IV</span>Building the New Draft <span style="color:var(--iron);font-size:0.85em">Exercises 17–20</span></a></li>
     <li><a href="#keep-going"><span class="toc-num">—</span>Keep Going</a></li>
   </ol>
 </div>
 
 <div class="content">
 
-<h2 id="how-to-use">How to Use This Workbook</h2>
+<span class="chapter-eyebrow">Before You Begin</span>
+<h2 id="how-to-use" class="chapter-start">How to Use This Workbook</h2>
 
 <p>You're not lost. You're between drafts.</p>
 
@@ -274,9 +299,8 @@
 
 <p>Set aside the urge to do this perfectly. The mess is the point. Begin.</p>
 
-<hr>
-
-<h2 id="part-one">Part One: The Identity Audit</h2>
+<span class="chapter-eyebrow">Part One — Exercises 1–5</span>
+<h2 id="part-one" class="chapter-start">The Identity Audit</h2>
 
 <p>Before you build the new, take inventory of the old. You can't revise a draft you've never read closely.</p>
 
@@ -320,9 +344,8 @@
 <p><em>Example:</em> "She kept everyone comfortable and herself postponed. She was, by every external measure, fine."</p>
 <div class="response response-sm"></div>
 
-<hr>
-
-<h2 id="part-two">Part Two: Excavating the Old Story</h2>
+<span class="chapter-eyebrow">Part Two — Exercises 6–10</span>
+<h2 id="part-two" class="chapter-start">Excavating the Old Story</h2>
 
 <p>You've been narrating yourself for years. Some of that narration is true. Some of it was installed by people who needed you to stay a certain shape.</p>
 
@@ -355,9 +378,8 @@
 <blockquote>Most of us are waiting for a permission that was never going to come from the outside. You are the only signature that was ever required.</blockquote>
 <div class="response response-sm"></div>
 
-<hr>
-
-<h2 id="part-three">Part Three: Voice &amp; Narrative</h2>
+<span class="chapter-eyebrow">Part Three — Exercises 11–16</span>
+<h2 id="part-three" class="chapter-start">Voice &amp; Narrative</h2>
 
 <p>You can't become someone new in a voice that belongs to your old self. This part is about how you sound — to yourself, on the page, out loud.</p>
 
@@ -399,9 +421,8 @@
 <p><strong>Instructions:</strong> Write down everything you're <em>not</em> doing anymore. The relationships, the apologies, the shrinking, the roles. Naming what you're leaving behind is as defining as naming what you're walking toward. "I'm not the one who manages everyone's feelings at the expense of my own. Anymore."</p>
 <div class="response"></div>
 
-<hr>
-
-<h2 id="part-four">Part Four: Building the New Draft</h2>
+<span class="chapter-eyebrow">Part Four — Exercises 17–20</span>
+<h2 id="part-four" class="chapter-start">Building the New Draft</h2>
 
 <p>You've audited the old and found your voice. Now you write forward.</p>
 
@@ -429,9 +450,8 @@
 <blockquote>You were never broken. You were a first draft. And the best thing about a draft is that it was always meant to be revised.</blockquote>
 <div class="response response-lg"></div>
 
-<hr>
-
-<h2 id="keep-going">Keep Going</h2>
+<span class="chapter-eyebrow">After the Work</span>
+<h2 id="keep-going" class="chapter-start">Keep Going</h2>
 
 <p>Reinvention isn't a weekend. It's a practice, and practices need company.</p>
 

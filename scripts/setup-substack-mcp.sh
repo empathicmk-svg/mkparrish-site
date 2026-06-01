@@ -7,7 +7,7 @@
 set -euo pipefail
 
 REPO_DIR="${SUBSTACK_MCP_DIR:-$HOME/substack-mcp}"
-PUBLICATION="mkparrish.substack.com"
+PUBLICATION="mkparrishthemargins.substack.com"
 
 echo "▶ Cloning substack-mcp into $REPO_DIR"
 if [ ! -d "$REPO_DIR/.git" ]; then

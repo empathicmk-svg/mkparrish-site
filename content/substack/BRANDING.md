@@ -19,7 +19,7 @@ Both are generated from the site's real fonts (Bebas Neue + Playfair Display) an
 
 - **Name:** `The Margins`
 - **Short description / tagline:** `The private side of the brand — essays, strategy notes, and the thinking before the edit.`
-- **Subdomain/URL:** leave as `mkparrish.substack.com` (don't change it — your site links point there). The display name and the URL are independent, so renaming to "The Margins" won't break any links.
+- **Subdomain/URL:** leave as `mkparrishthemargins.substack.com` (don't change it — your site links point there). The display name and the URL are independent, so renaming to "The Margins" won't break any links.
 
 ## Step 2 — Upload the brand assets
 
@@ -63,4 +63,4 @@ Substack only allows its built-in typefaces (no Bebas Neue / custom fonts). For 
 
 ---
 
-Once the name reads **The Margins** and the logo/cover are uploaded, the publication will match the site. Everything the website links to (`mkparrish.substack.com`) keeps working unchanged.
+Once the name reads **The Margins** and the logo/cover are uploaded, the publication will match the site. Everything the website links to (`mkparrishthemargins.substack.com`) keeps working unchanged.
