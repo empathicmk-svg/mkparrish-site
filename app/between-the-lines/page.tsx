@@ -1,3 +1,5 @@
+import { SUBSTACK_URL } from "@/app/lib/config";
+
 export const metadata = {
   title: 'Between the Lines — MK Parrish',
   description: 'Free 10-page brand voice audit. Written. Not generated.',
@@ -21,7 +23,7 @@ export default function Page() {
         </a>
         <a
           className="inline-flex items-center justify-center rounded-sm border border-pearl px-4 py-2 text-xs font-medium uppercase tracking-[0.12em] text-pearl hover:border-graphite"
-          href="https://mkparrishthemargins.substack.com/embed"
+          href={`${SUBSTACK_URL}/embed`}
           target="_blank"
           rel="noreferrer"
         >
@@ -31,7 +33,7 @@ export default function Page() {
 
       <div className="mt-10 border-t border-graphite pt-8 text-sm text-ash">
         <p>
-          Optional: swap the embed URL once you have the real newsletter embed, or hook this button up to a form (Tally/Typeform).
+          Newsletter signup opens the MK Parrish Substack embed. Paid Margins membership checkout runs through Substack once Stripe is connected there.
         </p>
       </div>
     </main>
