@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { EBOOKS, SERVICE_EBOOKS, PATREON_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, SUBSTACK_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
 import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, BtnGhost, ArrowLink,
@@ -430,7 +430,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               Weekly essays, raw memoir, strategy notes, and the writing that is too honest for a public feed. From $5/month. Cancel anytime.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
+              <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
               <ArrowLink href="/margins">Learn more</ArrowLink>
             </div>
           </div>

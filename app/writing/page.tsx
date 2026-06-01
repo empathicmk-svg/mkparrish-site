@@ -10,7 +10,7 @@ import {
   BtnGhost,
   ArrowLink,
 } from "@/app/components/ui";
-import { PATREON_URL } from "@/app/lib/config";
+import { SUBSTACK_URL } from "@/app/lib/config";
 
 const MIRAGE: string[][] = [
   [
@@ -149,7 +149,7 @@ export default function WritingPage() {
         <div className="mt-16 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-4">
           {[
             { type: "Poetry", desc: "Published and performed. The core of the voice — where economy of language and emotional precision meet.", link: "#mirage", cta: "Read Mirage →" },
-            { type: "Memoir", desc: "Long-form essays and raw narrative inside The Margins — the writing that never goes to a public feed.", link: PATREON_URL, cta: "Read in The Margins →" },
+            { type: "Memoir", desc: "Long-form essays and raw narrative inside The Margins — the writing that never goes to a public feed.", link: SUBSTACK_URL, cta: "Read in The Margins →" },
             { type: "Brand Copy", desc: "Bios, LinkedIn profiles, website copy, and positioning statements for 200+ founders and executives.", link: "/shop/write-yourself-into-the-room", cta: "Get the guide →" },
             { type: "Ghostwriting", desc: "Executive voice capture and ongoing content for founders who write under their own name.", link: "/shop/the-byline-method", cta: "See the method →" },
           ].map((item) => (
@@ -178,7 +178,7 @@ export default function WritingPage() {
             <div className="mt-8 space-y-3">
               <BtnPrimary href="/shelf">Shop the Writing</BtnPrimary>
               <div className="pt-1">
-                <ArrowLink href={PATREON_URL}>More in The Margins</ArrowLink>
+                <ArrowLink href={SUBSTACK_URL}>More in The Margins</ArrowLink>
               </div>
             </div>
           </div>
@@ -275,7 +275,7 @@ export default function WritingPage() {
               <p className="font-body text-[0.7rem] text-ash">~8 minutes</p>
             </div>
             <div className="mt-8">
-              <ArrowLink href={PATREON_URL}>More in The Margins</ArrowLink>
+              <ArrowLink href={SUBSTACK_URL}>More in The Margins</ArrowLink>
             </div>
           </div>
 
@@ -406,7 +406,7 @@ export default function WritingPage() {
               <p className="font-body text-[0.7rem] text-ash">~9 minutes</p>
             </div>
             <div className="mt-8">
-              <ArrowLink href={PATREON_URL}>More in The Margins</ArrowLink>
+              <ArrowLink href={SUBSTACK_URL}>More in The Margins</ArrowLink>
             </div>
           </div>
 
@@ -532,7 +532,7 @@ export default function WritingPage() {
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
+              <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
               <ArrowLink href="/margins">See membership tiers</ArrowLink>
             </div>
           </div>
@@ -558,7 +558,7 @@ export default function WritingPage() {
               </div>
             ))}
             <a
-              href={PATREON_URL}
+              href={SUBSTACK_URL}
               target="_blank"
               rel="noreferrer"
               className="btn-primary mt-px flex w-full items-center justify-center py-5 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"

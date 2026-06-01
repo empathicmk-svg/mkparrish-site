@@ -9,12 +9,12 @@ import {
   BtnPrimary,
   BtnGhost,
 } from "@/app/components/ui";
-import { PATREON_URL } from "@/app/lib/config";
+import { SUBSTACK_URL } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "The Margins — MK Parrish",
   description:
-    "The private editorial side of MK Parrish. Essays, strategy notes, and the thinking behind the work. Join on Patreon.",
+    "The private editorial side of MK Parrish. Essays, strategy notes, and the thinking behind the work. Join on Substack.",
 };
 
 const tiers = [
@@ -89,8 +89,8 @@ export default function MarginsPage() {
             The essays. The unfinished frameworks. The strategy notes that come out of real client work before they get cleaned up for public consumption. The Margins is not content. It is the thinking before the thinking gets positioned. If the public work is the final edit, this is where the earlier drafts still have all the notes in the margin.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
-            <BtnGhost href={PATREON_URL}>Start at $5/mo</BtnGhost>
+            <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
+            <BtnGhost href={SUBSTACK_URL}>Start at $5/mo</BtnGhost>
           </div>
         </div>
       </section>
@@ -163,7 +163,7 @@ export default function MarginsPage() {
               </ul>
               <div className="mt-8">
                 <a
-                  href={PATREON_URL}
+                  href={SUBSTACK_URL}
                   target="_blank"
                   rel="noreferrer"
                   className={`flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
@@ -182,12 +182,12 @@ export default function MarginsPage() {
             Cancel any time. No contracts. The work speaks for itself.
           </p>
           <a
-            href={PATREON_URL}
+            href={SUBSTACK_URL}
             target="_blank"
             rel="noreferrer"
             className="mt-4 inline-block font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors hover:text-blush"
           >
-            View membership details on Patreon &rarr;
+            View membership details on Substack &rarr;
           </a>
         </div>
       </RevealSection>
@@ -237,8 +237,8 @@ export default function MarginsPage() {
             For five dollars a month, you get the frameworks, thinking, and strategy that come out of real client work. No pitch. No performance. Just the actual work.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
-            <BtnGhost href={PATREON_URL}>See Membership Options</BtnGhost>
+            <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
+            <BtnGhost href={SUBSTACK_URL}>See Membership Options</BtnGhost>
           </div>
         </div>
       </section>

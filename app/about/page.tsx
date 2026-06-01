@@ -10,7 +10,7 @@ import {
   BtnPrimary,
   BtnGhost,
 } from "@/app/components/ui";
-import { PATREON_URL, CONTACT } from "@/app/lib/config";
+import { SUBSTACK_URL, CONTACT } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "About — MK Parrish",
@@ -176,7 +176,7 @@ export default function AboutPage() {
             {[
               { label: "Email", value: CONTACT.email, href: `mailto:${CONTACT.email}` },
               { label: "LinkedIn", value: "/in/mkparrish", href: CONTACT.linkedin },
-              { label: "The Margins", value: "https://www.patreon.com/cw/MKParrish", href: PATREON_URL },
+              { label: "The Margins", value: "mkparrish.substack.com", href: SUBSTACK_URL },
             ].map((c) => (
               <a
                 key={c.label}

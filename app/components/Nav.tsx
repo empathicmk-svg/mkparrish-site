@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { PATREON_URL } from "@/app/lib/config";
+import { SUBSTACK_URL } from "@/app/lib/config";
 
 const workLinks = [
   { label: "All Offerings",       href: "/#offerings" },
@@ -575,7 +575,7 @@ export default function Nav() {
 
       {/* Floating Margins pill */}
       <a
-        href={PATREON_URL}
+        href={SUBSTACK_URL}
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2 btn-primary whitespace-nowrap px-6 py-3 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void shadow-[0_0_40px_rgba(242,175,198,0.25)] md:bottom-8"
@@ -587,7 +587,7 @@ export default function Nav() {
           pointerEvents: showMargins ? "auto" : "none",
           transition: "opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1)",
         }}
-        aria-label="Join The Margins on Patreon"
+        aria-label="Join The Margins on Substack"
       >
         Enter The Margins →
       </a>

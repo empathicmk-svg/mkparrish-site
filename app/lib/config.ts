@@ -20,8 +20,8 @@ export const STRIPE_HOSTING  = "https://buy.stripe.com/9B614fgJc0fn5LXcHq0oM0j";
 export const STRIPE_SOCIAL   = "https://buy.stripe.com/5kQ28j3Wqd29cal0YI0oM0k"; // The Social Suite — $2,000/mo
 export const STRIPE_YOUTUBE  = "https://buy.stripe.com/9B6fZ9gJc2nveit36Q0oM0l"; // The Channel — $1,500/video
 
-// ── Membership (Patreon) ─────────────────────────────────────────────────────
-export const PATREON_URL        = "https://www.patreon.com/cw/MKParrish";
+// ── Membership (Substack) ────────────────────────────────────────────────────
+export const SUBSTACK_URL       = "https://mkparrish.substack.com/subscribe";
 
 // ── Scheduling ───────────────────────────────────────────────────────────────
 export const CALENDLY_URL       = "https://www.calendly.com/mkparrish";

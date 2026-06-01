@@ -27,7 +27,7 @@ import {
   STRIPE_HOSTING,
   STRIPE_SOCIAL,
   STRIPE_YOUTUBE,
-  PATREON_URL,
+  SUBSTACK_URL,
 } from "@/app/lib/config";
 
 // ── Animated counter hook ─────────────────────────────────────────────────────
@@ -483,7 +483,7 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={PATREON_URL}>Enter The Margins</BtnPrimary>
+              <BtnPrimary href={SUBSTACK_URL}>Enter The Margins</BtnPrimary>
               <ArrowLink href="/margins">Learn more</ArrowLink>
             </div>
           </div>
@@ -496,7 +496,7 @@ export default function Home() {
             ].map((t, i) => (
               <a
                 key={t.tier}
-                href={PATREON_URL}
+                href={SUBSTACK_URL}
                 target="_blank"
                 rel="noreferrer"
                 className={`group relative block p-8 transition-all duration-200 hover:brightness-110 ${i === 1 ? "bg-carbon" : "bg-obsidian"}`}
@@ -508,7 +508,7 @@ export default function Home() {
                 </div>
                 <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">{t.desc}</p>
                 <p className="mt-3 font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-petal opacity-0 transition-opacity group-hover:opacity-100">
-                  Join on Patreon →
+                  Join on Substack →
                 </p>
               </a>
             ))}
@@ -529,7 +529,7 @@ export default function Home() {
             </H2>
             <div className="mt-8 flex flex-wrap gap-4">
               <BtnPrimary href="/writing">Read the Work</BtnPrimary>
-              <ArrowLink href={PATREON_URL}>More in The Margins</ArrowLink>
+              <ArrowLink href={SUBSTACK_URL}>More in The Margins</ArrowLink>
             </div>
           </div>
           <div className="relative border-l-2 border-petal/40 pl-8">
