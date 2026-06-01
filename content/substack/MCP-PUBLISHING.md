@@ -41,7 +41,7 @@ file in `content/substack/`:
 | --- | --- |
 | `01-what-ai-cant-write-for-you.md` | `everyone` (free) |
 | `02-the-conversion-math-founders-avoid.md` | `only_paid` |
-| `03-mirage.md` | `everyone` (free) |
+| `03-the-rewrite.md` | `everyone` (free) |
 | `04-quotes-that-refuse-to-be-quiet.md` | `everyone` (free) |
 
 It creates **drafts** (not live posts) so you can review formatting in Substack

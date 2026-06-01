@@ -8,7 +8,7 @@ This folder contains every piece of writing from the website (`/writing` and `/p
 | --- | --- | --- |
 | `01-what-ai-cant-write-for-you.md` | What AI Can't Write For You (essay) | **Free** — your best list-growth + SEO piece |
 | `02-the-conversion-math-founders-avoid.md` | The Conversion Math Founders Avoid (essay) | **Paid** — free preview, paywall marked in the file |
-| `03-mirage.md` | Mirage (poem) | **Free** — pin as your welcome post |
+| `03-the-rewrite.md` | The Rewrite (poem) | **Free** — pin as your welcome post |
 | `04-quotes-that-refuse-to-be-quiet.md` | Quotes That Refuse to Be Quiet (collection) | **Free** — shareable, low-effort |
 
 ## How to publish each one (2 minutes each)
@@ -35,7 +35,7 @@ Patreon-style multi-tier pricing doesn't map to how Substack actually works. Sub
 
 - **Settings → Payments:** turn on paid subscriptions. Set monthly to **$9**, annual to **$90** (a built-in ~17% incentive to pay yearly).
 - **Founding Member:** enable it and set the suggested amount to **$300/yr**. Add the perks above to the description.
-- **Welcome email:** point new free subscribers to the Mirage poem and the AI essay, then make the soft case for upgrading.
+- **Welcome email:** point new free subscribers to The Rewrite poem and the AI essay, then make the soft case for upgrading.
 - **Paywall cadence:** keep ~70% of posts free to grow the list; reserve the frameworks, teardowns, and templates for paid. The free essays do the selling.
 
 ## Why these access levels
