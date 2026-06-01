@@ -57,33 +57,37 @@ const html = `<!DOCTYPE html>
   .br { bottom: -2px; right: -2px; border-bottom: 2px solid; border-right: 2px solid; }
 
   .eyebrow {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 34px; letter-spacing: 0.5em; text-transform: uppercase;
-    color: #7A7A7A; margin-bottom: 80px; padding-left: 0.5em;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 28px; letter-spacing: 0.38em; text-transform: uppercase;
+    color: #7A7A7A; margin-bottom: 80px;
   }
   .the {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 56px; letter-spacing: 0.55em; text-transform: uppercase;
-    color: #7A7A7A; margin-bottom: 18px; padding-left: 0.55em;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 64px; letter-spacing: 0.12em;
+    color: #7A7A7A; margin-bottom: 12px;
   }
   .title {
-    font-family: 'Bebas Neue', sans-serif;
-    text-transform: uppercase; color: #F0F0EE;
-    line-height: 0.84; letter-spacing: 0.02em;
-    font-size: 220px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: #F0F0EE;
+    line-height: 0.88; letter-spacing: 0.03em;
+    font-size: 196px;
   }
-  .title .accent { color: #F2AFC6; }
-  .rule { width: 120px; height: 4px; background: #C75B78; margin: 70px 0; }
+  .title .accent { color: #F2AFC6; font-style: italic; }
+  .rule { width: 120px; height: 3px; background: #C75B78; margin: 70px 0; }
   .subtitle {
     font-family: 'Playfair Display', serif; font-style: italic;
-    font-size: 46px; color: #B0B0B0; line-height: 1.5;
-    max-width: 18ch;
+    font-size: 44px; color: #B0B0B0; line-height: 1.55;
+    max-width: 20ch;
   }
   .dot { color: #F2AFC6; font-size: 60px; margin-top: 80px; }
   .byline {
     position: absolute; bottom: 70px; left: 0; right: 0;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 34px; letter-spacing: 0.42em; text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 28px; letter-spacing: 0.38em; text-transform: uppercase;
     color: #4A4A4A;
   }
 </style>
@@ -107,13 +111,13 @@ const html = `<!DOCTYPE html>
 </body>
 </html>`;
 
-const dest = '/home/user/mkparrish-site/public/downloads/ebooks/reinvention-workbook-ebook-cover.png';
+const dest = '/home/user/mkparrish-site/public/downloads/ebooks/reinvention-workbook-ebook-cover.jpg';
 
 const browser = await puppeteer.launch({ args: ['--no-sandbox','--disable-setuid-sandbox'], headless: true });
 const page = await browser.newPage();
 await page.setViewport({ width: W_PX, height: H_PX, deviceScaleFactor: SCALE });
 await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 });
-await page.screenshot({ path: dest, type: 'png' });
+await page.screenshot({ path: dest, type: 'jpeg', quality: 95 });
 await browser.close();
 
 const size = (fs.statSync(dest).size / 1024).toFixed(0);
