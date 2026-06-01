@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PATREON_URL, CONTACT } from "@/app/lib/config";
+import { SUBSTACK_URL, CONTACT } from "@/app/lib/config";
 
 const footerGroups = [
   {
@@ -76,7 +76,7 @@ export default function Footer() {
               Book a Call
             </Link>
             <a
-              href={PATREON_URL}
+              href={SUBSTACK_URL}
               target="_blank"
               rel="noreferrer"
               className="btn-ghost px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em]"

@@ -4,7 +4,7 @@ import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
-import { EBOOKS, SERVICE_EBOOKS, PRINTS, MARGINS_TIERS, PATREON_URL } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, PRINTS, MARGINS_TIERS, SUBSTACK_URL } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "The Shelf — MK Parrish",
@@ -210,7 +210,7 @@ export default function ShelfPage() {
               <p>For the women, survivors, romantics, and overthinkers who know what it feels like to rebuild from scratch and want company for it.</p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
+              <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
               <ArrowLink href="/margins">See what&apos;s inside</ArrowLink>
             </div>
           </div>

@@ -27,7 +27,8 @@ import {
   STRIPE_HOSTING,
   STRIPE_SOCIAL,
   STRIPE_YOUTUBE,
-  PATREON_URL,
+  SUBSTACK_URL,
+  MARGINS_TIERS,
 } from "@/app/lib/config";
 
 // ── Animated counter hook ─────────────────────────────────────────────────────
@@ -483,28 +484,24 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={PATREON_URL}>Enter The Margins</BtnPrimary>
+              <BtnPrimary href={SUBSTACK_URL}>Enter The Margins</BtnPrimary>
               <ArrowLink href="/margins">Learn more</ArrowLink>
             </div>
           </div>
 
           <div className="flex flex-col gap-px">
-            {[
-              { tier: "Soft Cover", price: "$5/mo", desc: "Weekly essays and strategy notes that never go to the public feed. The thinking before it gets edited into something safe." },
-              { tier: "Marked Up", price: "$12/mo", desc: "Everything in Soft Cover plus the raw frameworks pulled from client work, with the context that makes them actually useful." },
-              { tier: "First Edition", price: "$28/mo", desc: "Full access plus a monthly live Q&A, direct message access, and priority feedback on your own copy. The closest thing to working with me directly." },
-            ].map((t, i) => (
+            {MARGINS_TIERS.map((t) => (
               <a
-                key={t.tier}
-                href={PATREON_URL}
+                key={t.name}
+                href={SUBSTACK_URL}
                 target="_blank"
                 rel="noreferrer"
-                className={`group relative block p-8 transition-all duration-200 hover:brightness-110 ${i === 1 ? "bg-carbon" : "bg-obsidian"}`}
+                className={`group relative block p-8 transition-all duration-200 hover:brightness-110 ${t.highlight ? "bg-carbon" : "bg-obsidian"}`}
               >
-                {i === 1 && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+                {t.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
                 <div className="flex items-baseline justify-between">
-                  <p className="font-display text-xl uppercase tracking-[0.02em] text-pearl">{t.tier}</p>
-                  <p className={`font-display text-2xl ${i === 1 ? "text-petal" : "text-white"}`}>{t.price}</p>
+                  <p className="font-display text-xl uppercase tracking-[0.02em] text-pearl">{t.name}</p>
+                  <p className={`font-display text-2xl ${t.highlight ? "text-petal" : "text-white"}`}>{t.price}</p>
                 </div>
                 <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">{t.desc}</p>
                 <p className="mt-3 font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-petal opacity-0 transition-opacity group-hover:opacity-100">
@@ -529,7 +526,7 @@ export default function Home() {
             </H2>
             <div className="mt-8 flex flex-wrap gap-4">
               <BtnPrimary href="/writing">Read the Work</BtnPrimary>
-              <ArrowLink href={PATREON_URL}>More in The Margins</ArrowLink>
+              <ArrowLink href={SUBSTACK_URL}>More in The Margins</ArrowLink>
             </div>
           </div>
           <div className="relative border-l-2 border-petal/40 pl-8">

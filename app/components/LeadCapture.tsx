@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PATREON_URL } from "@/app/lib/config";
+import { SUBSTACK_URL } from "@/app/lib/config";
 
 export default function LeadCapture() {
   const [visible, setVisible] = useState(false);
@@ -117,13 +117,13 @@ export default function LeadCapture() {
               <div className="mt-8 border-t border-graphite pt-6 flex items-center justify-between">
                 <p className="font-body text-[0.65rem] uppercase tracking-[0.2em] text-iron">Or join The Margins</p>
                 <a
-                  href={PATREON_URL}
+                  href={SUBSTACK_URL}
                   target="_blank"
                   rel="noreferrer"
                   onClick={dismiss}
                   className="font-body text-[0.7rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:text-blush"
                 >
-                  From $5/mo →
+                  Read free →
                 </a>
               </div>
             </>

@@ -9,7 +9,7 @@ import {
   BtnPrimary,
   BtnGhost,
 } from "@/app/components/ui";
-import { PATREON_URL } from "@/app/lib/config";
+import { SUBSTACK_URL } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "The Margins — MK Parrish",
@@ -19,43 +19,43 @@ export const metadata: Metadata = {
 
 const tiers = [
   {
-    tag: "Entry",
-    title: "The Brief",
-    price: "$5",
-    cadence: "/mo",
-    desc: "Weekly essays and strategic notes that never reach the public feed. Real thinking, before it gets positioned for an audience.",
+    tag: "Free",
+    title: "The Free List",
+    price: "Free",
+    cadence: "",
+    desc: "The public essays, the poetry, and a monthly strategy note — straight to your inbox. The easiest way in.",
     perks: [
-      "Weekly long-form essays",
-      "Strategic frameworks and tools",
-      "Early access to published work",
-      "Monthly Q&A roundup",
+      "Public long-form essays",
+      "The poetry and memoir",
+      "A monthly strategy note",
+      "Cancel — or stay free — any time",
     ],
     highlight: false,
   },
   {
     tag: "Most Popular",
-    title: "The Retainer",
-    price: "$15",
+    title: "The Margins",
+    price: "$9",
     cadence: "/mo",
-    desc: "Everything in The Brief, plus the raw client frameworks documented with enough context to actually use them. The behind-the-scenes work that does not make the case study.",
+    desc: "The full archive plus the raw client frameworks documented with enough context to actually use them. The behind-the-scenes work that does not make the case study. Or $90/year.",
     perks: [
-      "All Brief content",
-      "Monthly strategy notes",
-      "Behind-the-scenes on client frameworks",
+      "Everything in the free list",
+      "Weekly frameworks from client work",
+      "Positioning teardowns and post-mortems",
       "Messaging and voice templates",
     ],
     highlight: true,
   },
   {
     tag: "Inner Circle",
-    title: "The Partner",
-    price: "$50",
-    cadence: "/mo",
-    desc: "Full access plus a direct line. Monthly live Q&A, direct message access, and priority feedback on your own copy. The closest thing to working with me directly, at a fraction of the project rate.",
+    title: "Founding Member",
+    price: "$300",
+    cadence: "/yr",
+    desc: "Full access plus a direct line. Quarterly live office hours, direct-message access, and priority feedback on your own copy. The closest thing to working with me directly, at a fraction of the project rate.",
     perks: [
-      "All Retainer content",
-      "Monthly live Q&A",
-      "Direct message access",
+      "Everything in The Margins",
+      "Quarterly live office hours",
+      "Direct-message access",
       "Priority feedback on your copy",
     ],
     highlight: false,
@@ -89,8 +89,8 @@ export default function MarginsPage() {
             The essays. The unfinished frameworks. The strategy notes that come out of real client work before they get cleaned up for public consumption. The Margins is not content. It is the thinking before the thinking gets positioned. If the public work is the final edit, this is where the earlier drafts still have all the notes in the margin.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
-            <BtnGhost href={PATREON_URL}>Start at $5/mo</BtnGhost>
+            <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
+            <BtnGhost href={SUBSTACK_URL}>Start free</BtnGhost>
           </div>
         </div>
       </section>
@@ -163,14 +163,14 @@ export default function MarginsPage() {
               </ul>
               <div className="mt-8">
                 <a
-                  href={PATREON_URL}
+                  href={SUBSTACK_URL}
                   target="_blank"
                   rel="noreferrer"
                   className={`flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
                     tier.highlight ? "btn-primary text-void" : "btn-ghost"
                   }`}
                 >
-                  Join as {tier.title}
+                  {tier.price === "Free" ? "Subscribe free" : `Join — ${tier.title}`}
                 </a>
               </div>
             </div>
@@ -182,7 +182,7 @@ export default function MarginsPage() {
             Cancel any time. No contracts. The work speaks for itself.
           </p>
           <a
-            href={PATREON_URL}
+            href={SUBSTACK_URL}
             target="_blank"
             rel="noreferrer"
             className="mt-4 inline-block font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors hover:text-blush"
@@ -234,11 +234,11 @@ export default function MarginsPage() {
             </H2>
           </div>
           <p className="mx-auto mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            For five dollars a month, you get the frameworks, thinking, and strategy that come out of real client work. No pitch. No performance. Just the actual work.
+            Start free, or go paid for nine dollars a month — and get the frameworks, thinking, and strategy that come out of real client work. No pitch. No performance. Just the actual work.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
-            <BtnGhost href={PATREON_URL}>See Membership Options</BtnGhost>
+            <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
+            <BtnGhost href={SUBSTACK_URL}>See Membership Options</BtnGhost>
           </div>
         </div>
       </section>

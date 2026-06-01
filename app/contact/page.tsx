@@ -8,7 +8,7 @@ import {
   ArrowLink,
 } from "@/app/components/ui";
 import CustomBooking from "@/app/components/CustomBooking";
-import { PATREON_URL, CONTACT, STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/config";
+import { SUBSTACK_URL, CONTACT, STRIPE_EDIT, STRIPE_REWRITE } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "Contact — MK Parrish",
@@ -164,7 +164,7 @@ export default function ContactPage() {
         </div>
       </RevealSection>
 
-      {/* ── PATREON LINK ─────────────────────────────────────────── */}
+      {/* ── SUBSTACK LINK ────────────────────────────────────────── */}
       <section className="bg-obsidian" style={{ padding: "clamp(4rem, 8vw, 7rem) 0" }}>
         <div className="mx-auto max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
@@ -174,11 +174,11 @@ export default function ContactPage() {
                 Enter The Margins.
               </h3>
               <p className="mt-4 font-body text-base font-light leading-8 text-smoke">
-                The editorial membership. Essays, strategy notes, and the thinking behind the work. From $5 a month.
+                The editorial newsletter. Essays, strategy notes, and the thinking behind the work. Free to start — paid from $9 a month.
               </p>
             </div>
             <div className="flex flex-shrink-0 flex-wrap gap-4">
-              <BtnPrimary href={PATREON_URL}>Join The Margins</BtnPrimary>
+              <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
               <ArrowLink href="/margins">Learn more</ArrowLink>
             </div>
           </div>
