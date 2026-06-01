@@ -13,21 +13,30 @@ const BASE = 96;                 // CSS px per inch
 const DPI_SCALE = 300 / BASE;    // → 300 DPI output
 const BLEED_IN = 0.125;
 const TRIM_W = 6, TRIM_H = 9;    // 6x9
-const PAGES = 40;
-const SPINE_IN = PAGES * 0.002252;          // white paper B&W
-
-const H_IN = TRIM_H + BLEED_IN * 2;
-const W_IN = BLEED_IN + TRIM_W + SPINE_IN + TRIM_W + BLEED_IN;
-const W_PX = Math.round(W_IN * BASE);
-const H_PX = Math.round(H_IN * BASE);
 const bldPx = Math.round(BLEED_IN * BASE);
 const trmPx = Math.round(TRIM_W * BASE);
-const spnPx = Math.round(SPINE_IN * BASE);
+
+// Per-book full-wrap dimensions, computed from the final interior page count.
+// KDP white-paper B&W spine = pages × 0.002252". Books under 100 pages may NOT
+// carry spine text, so it is omitted below that threshold.
+function dims(pages) {
+  const SPINE_IN = pages * 0.002252;
+  const H_IN = TRIM_H + BLEED_IN * 2;
+  const W_IN = BLEED_IN + TRIM_W + SPINE_IN + TRIM_W + BLEED_IN;
+  return {
+    pages, SPINE_IN, H_IN, W_IN,
+    W_PX: Math.round(W_IN * BASE),
+    H_PX: Math.round(H_IN * BASE),
+    spnPx: Math.round(SPINE_IN * BASE),
+    spineText: pages >= 100,
+  };
+}
 
 // ---- the two books -------------------------------------------------------
 const books = [
   {
     file: 'the-rewrite-starter-pack-kdp-cover',
+    pages: 26,
     spine: 'The Rewrite Starter Pack',
     eyebrow: 'MK Parrish',
     titleHtml: 'The<br><span class="accent">Rewrite</span>',
@@ -46,6 +55,7 @@ const books = [
   },
   {
     file: 'still-here-still-her-kdp-cover',
+    pages: 34,
     spine: 'Still Here, Still Her',
     eyebrow: 'MK Parrish',
     titleHtml: 'Still Here,<br>Still <span class="accent">Her</span>',
@@ -66,7 +76,8 @@ const books = [
 
 const fonts = `<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">`;
 
-function html(b) {
+function html(b, d) {
+  const { W_IN, H_IN, W_PX, H_PX, spnPx } = d;
   return `<!DOCTYPE html><html><head><meta charset="UTF-8">${fonts}
 <style>
   @page { size: ${W_IN}in ${H_IN}in; margin: 0; }
@@ -158,7 +169,7 @@ function html(b) {
     <div class="back-url">mkparrish.com</div>
   </div>
 
-  <div class="spine"><div class="spine-text">${b.spine} &nbsp;·&nbsp; MK Parrish</div></div>
+  <div class="spine">${d.spineText ? `<div class="spine-text">${b.spine} &nbsp;·&nbsp; MK Parrish</div>` : ''}</div>
 
   <div class="front">
     <div class="front-edge"></div>
@@ -176,17 +187,17 @@ function html(b) {
 
 const browser = await puppeteer.launch({ args: ['--no-sandbox','--disable-setuid-sandbox'], headless: true });
 for (const b of books) {
+  const d = dims(b.pages);
   const page = await browser.newPage();
-  await page.setViewport({ width: W_PX, height: H_PX, deviceScaleFactor: DPI_SCALE });
-  await page.setContent(html(b), { waitUntil: 'networkidle0', timeout: 30000 });
+  await page.setViewport({ width: d.W_PX, height: d.H_PX, deviceScaleFactor: DPI_SCALE });
+  await page.setContent(html(b, d), { waitUntil: 'networkidle0', timeout: 30000 });
   const png = `${OUT}/${b.file}.png`;
   const pdf = `${OUT}/${b.file}.pdf`;
   await page.screenshot({ path: png, type: 'png', fullPage: false });
   await page.close();
-  execSync(`python3 -c "import img2pdf; layout=img2pdf.get_layout_fun(pagesize=(img2pdf.in_to_pt(${W_IN}),img2pdf.in_to_pt(${H_IN}))); open('${pdf}','wb').write(img2pdf.convert('${png}',layout_fun=layout))"`);
+  execSync(`python3 -c "import img2pdf; layout=img2pdf.get_layout_fun(pagesize=(img2pdf.in_to_pt(${d.W_IN}),img2pdf.in_to_pt(${d.H_IN}))); open('${pdf}','wb').write(img2pdf.convert('${png}',layout_fun=layout))"`);
   const mb = (fs.statSync(pdf).size / 1024 / 1024).toFixed(1);
-  console.log(`${b.file}: PDF ${mb} MB`);
+  console.log(`${b.file}: ${b.pages}pp — wrap ${d.W_IN.toFixed(3)}"×${d.H_IN.toFixed(3)}", spine ${d.SPINE_IN.toFixed(4)}"${d.spineText ? '' : ' (no spine text)'} — PDF ${mb} MB`);
 }
 await browser.close();
-console.log(`\nFull-wrap: ${W_IN.toFixed(3)}" x ${H_IN.toFixed(3)}"  |  spine ${SPINE_IN.toFixed(4)}"  |  ${PAGES}pp 6x9`);
-console.log(`PNG px: ${Math.round(W_PX*DPI_SCALE)} x ${Math.round(H_PX*DPI_SCALE)} (300 DPI)`);
+console.log(`\nAll covers 6x9, 300 DPI, 0.125" bleed. Spine width matches final interior page count.`);
