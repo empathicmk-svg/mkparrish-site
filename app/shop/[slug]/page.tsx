@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { EBOOKS, SERVICE_EBOOKS, SUBSTACK_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, SUBSTACK_URL, MARGINS_TIERS, COMING_SOON_SLUGS } from "@/app/lib/config";
 import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, BtnGhost, ArrowLink,
@@ -427,7 +427,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <H2>Join<br /><span className="text-petal">The Margins.</span></H2>
             <H3Script>The writing that doesn't go anywhere else.</H3Script>
             <p className="mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-              Weekly essays, raw memoir, strategy notes, and the writing that is too honest for a public feed. From $5/month. Cancel anytime.
+              Weekly essays, raw memoir, strategy notes, and the writing that is too honest for a public feed. Free to start — paid from $9/month. Cancel anytime.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
@@ -435,16 +435,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
           <div className="flex flex-col justify-center gap-px">
-            {[
-              { name: "Soft Cover",   price: "$5/mo"  },
-              { name: "Marked Up",    price: "$12/mo" },
-              { name: "First Edition",price: "$28/mo" },
-            ].map((t, i) => (
-              <div key={t.name} className={`relative p-6 ${i === 1 ? "bg-carbon" : "bg-void"}`}>
-                {i === 1 && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+            {MARGINS_TIERS.map((t) => (
+              <div key={t.name} className={`relative p-6 ${t.highlight ? "bg-carbon" : "bg-void"}`}>
+                {t.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
                 <div className="flex items-baseline justify-between">
                   <p className="font-display text-lg uppercase tracking-[0.02em] text-pearl">{t.name}</p>
-                  <p className={`font-display text-xl ${i === 1 ? "text-petal" : "text-white"}`}>{t.price}</p>
+                  <p className={`font-display text-xl ${t.highlight ? "text-petal" : "text-white"}`}>{t.price}</p>
                 </div>
               </div>
             ))}

@@ -174,7 +174,7 @@ export default function ContactPage() {
                 Enter The Margins.
               </h3>
               <p className="mt-4 font-body text-base font-light leading-8 text-smoke">
-                The editorial membership. Essays, strategy notes, and the thinking behind the work. From $5 a month.
+                The editorial newsletter. Essays, strategy notes, and the thinking behind the work. Free to start — paid from $9 a month.
               </p>
             </div>
             <div className="flex flex-shrink-0 flex-wrap gap-4">

@@ -123,7 +123,7 @@ export default function LeadCapture() {
                   onClick={dismiss}
                   className="font-body text-[0.7rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:text-blush"
                 >
-                  From $5/mo →
+                  Read free →
                 </a>
               </div>
             </>

@@ -276,7 +276,7 @@ export const SERVICES = [
 ] as const;
 
 export const MARGINS_TIERS = [
-  { name: "Soft Cover",    price: "$5/mo",  desc: "Weekly essays and strategy notes that never go to the public feed.",                              highlight: false },
-  { name: "Marked Up",     price: "$12/mo", desc: "Everything in Soft Cover plus raw frameworks from client work.",                                  highlight: true  },
-  { name: "First Edition", price: "$28/mo", desc: "Full access, monthly live Q&A, direct message access, and priority feedback on your own copy.",   highlight: false },
+  { name: "The Free List",   price: "Free",    desc: "The public essays, the poetry, and a monthly strategy note — straight to your inbox.",                               highlight: false },
+  { name: "The Margins",     price: "$9/mo",   desc: "The full archive plus weekly frameworks pulled from real client work, positioning teardowns, and voice & copy templates. Or $90/yr.", highlight: true  },
+  { name: "Founding Member", price: "$300/yr", desc: "Everything in The Margins, plus quarterly live office hours, direct-message access, and priority feedback on your own copy.", highlight: false },
 ] as const;

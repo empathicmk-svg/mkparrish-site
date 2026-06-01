@@ -10,7 +10,7 @@ import {
   BtnGhost,
   ArrowLink,
 } from "@/app/components/ui";
-import { SUBSTACK_URL } from "@/app/lib/config";
+import { SUBSTACK_URL, MARGINS_TIERS } from "@/app/lib/config";
 
 const MIRAGE: string[][] = [
   [
@@ -539,11 +539,7 @@ export default function WritingPage() {
 
           {/* Tier preview */}
           <div className="flex flex-col gap-px">
-            {[
-              { name: "The Brief",    price: "$5/mo",  desc: "Weekly strategy essays and thinking-out-loud pieces that never go to the public feed.", highlight: false },
-              { name: "The Retainer", price: "$15/mo", desc: "Everything plus raw frameworks pulled from active client work, with the context that makes them actually useful.", highlight: true },
-              { name: "The Partner",  price: "$50/mo", desc: "Full access, monthly live Q&A, direct message access, and priority feedback on your own copy.", highlight: false },
-            ].map((t) => (
+            {MARGINS_TIERS.map((t) => (
               <div
                 key={t.name}
                 className={`relative p-8 transition-all duration-300 hover:-translate-y-px ${t.highlight ? "bg-carbon" : "bg-obsidian"}`}
