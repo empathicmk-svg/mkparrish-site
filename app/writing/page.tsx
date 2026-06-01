@@ -12,71 +12,39 @@ import {
 } from "@/app/components/ui";
 import { SUBSTACK_URL, MARGINS_TIERS } from "@/app/lib/config";
 
-const MIRAGE: string[][] = [
+const THE_REWRITE: string[][] = [
   [
-    "‘Wake up,’ the world said —",
-    "and the curtain of bliss she had mistaken for a veil",
-    "fell clean from her face.",
+    "I picked up the pen and I felt the world shift",
+    "the weight of a lifetime becoming a gift.",
   ],
   [
-    "Above her, a spider stood sentinel,",
-    "pinning its deadly web in place —",
-    "and caught in the silk, a girl",
-    "who thought she knew.",
-    "She choked on the words she once carried",
-    "like gospel, like grace.",
+    "Every scar now a sentence, every stumble a turn,",
+    "every bridge that I crossed and watched quietly burn",
+    "just smoke making room for the sky opening wide,",
+    "for the story that’s been living restless inside.",
   ],
   [
-    "The girl who had begun to dream",
-    "now stood still and watched each scene",
-    "unspool without her —",
-    "a puppet waiting on the string,",
-    "lungs full and breathless all the same,",
-    "unable to move,",
-    "unable to claim",
-    "the control,",
-    "the power,",
-    "the feeling of freedom —",
-    "that old country she remembered",
-    "like a half-heard name.",
+    "I am the author. I always have been.",
+    "I just had to believe in the plot I was in.",
   ],
   [
-    "Self-worth.",
-    "Accomplishment.",
-    "An identity that held.",
+    "The pages ahead are electric and bright,",
+    "soaked in color and possibility, drenched in light.",
   ],
   [
-    "Instead: a hollow.",
-    "A gaping hole where the story fell.",
-    "A never-ending forest with no clearing,",
-    "a novel no one opened, no one telling.",
+    "Every morning a chapter I’ve never touched yet,",
+    "every word a small promise I refuse to forget",
+    "that the best parts are coming,",
+    "that the best parts are mine,",
+    "that I was always the hero, just waiting in line.",
   ],
   [
-    "She stood there in the limbo of it,",
-    "still as driftwood, dense as stone —",
-    "once a girl with fire in the margins,",
-    "now a life that felt like someone else’s loan.",
+    "So I write myself boldly into what’s new,",
+    "into rooms full of wonder I’m finally walking into.",
   ],
   [
-    "How does a woman who wanted everything",
-    "end up owing herself nothing?",
-    "How does the one who dreamed the loudest",
-    "become the one afraid of her own voice?",
-  ],
-  [
-    "She wanted to rewrite the ending —",
-    "to scratch out every line of silence,",
-    "laugh at the version of herself",
-    "who waited to be chosen,",
-    "and shout her own name",
-    "into the open air",
-    "with the kind of confidence",
-    "that needs no permission,",
-    "no applause,",
-    "no net below.",
-  ],
-  [
-    "She just wanted to begin.",
+    "I am building a life from the ground of my name",
+    "and the woman I’m becoming is the whole reason I came.",
   ],
 ];
 
@@ -148,7 +116,7 @@ export default function WritingPage() {
 
         <div className="mt-16 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { type: "Poetry", desc: "Published and performed. The core of the voice — where economy of language and emotional precision meet.", link: "#mirage", cta: "Read Mirage →" },
+            { type: "Poetry", desc: "Published and performed. The core of the voice — where economy of language and emotional precision meet.", link: "#the-rewrite", cta: "Read The Rewrite →" },
             { type: "Memoir", desc: "Long-form essays and raw narrative inside The Margins — the writing that never goes to a public feed.", link: SUBSTACK_URL, cta: "Read in The Margins →" },
             { type: "Brand Copy", desc: "Bios, LinkedIn profiles, website copy, and positioning statements for 200+ founders and executives.", link: "/shop/write-yourself-into-the-room", cta: "Get the guide →" },
             { type: "Ghostwriting", desc: "Executive voice capture and ongoing content for founders who write under their own name.", link: "/shop/the-byline-method", cta: "See the method →" },
@@ -163,14 +131,14 @@ export default function WritingPage() {
         </div>
       </RevealSection>
 
-      {/* ── FEATURED POEM: MIRAGE ────────────────────────────────── */}
-      <RevealSection bg="void" num="01" id="mirage">
+      {/* ── FEATURED POEM: THE REWRITE ──────────────────────────── */}
+      <RevealSection bg="void" num="01" id="the-rewrite">
         <div className="grid gap-16 lg:grid-cols-[280px_1fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <Eyebrow>Featured Poem</Eyebrow>
-            <H2>Mirage</H2>
+            <H2>The Rewrite</H2>
             <p className="mt-5 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "28ch" }}>
-              On waking up mid-life, losing yourself, and the long climb back to choosing to begin.
+              On picking up the pen, rewriting the story, and discovering you were the author all along.
             </p>
             <p className="mt-4 font-body text-xs font-light leading-6 text-iron" style={{ maxWidth: "28ch" }}>
               Shared by thousands of women navigating identity transitions, career pivots, and reinvention. It is what the brand voice work is actually about.
@@ -188,7 +156,7 @@ export default function WritingPage() {
               &ldquo;
             </span>
             <div className="space-y-8">
-              {MIRAGE.map((stanza, si) => (
+              {THE_REWRITE.map((stanza, si) => (
                 <div key={si} className="space-y-1">
                   {stanza.map((line, li) => (
                     <p key={li} className="font-serif italic text-pearl" style={{ fontSize: "clamp(1rem, 2vw, 1.2rem)", lineHeight: 1.9, fontWeight: 500 }}>
@@ -198,7 +166,7 @@ export default function WritingPage() {
                 </div>
               ))}
             </div>
-            <p className="mt-12 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">— Mirage, MK Parrish</p>
+            <p className="mt-12 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">— The Rewrite, MK Parrish</p>
             <div className="mt-10 border-t border-graphite pt-8">
               <p className="mb-2 font-body text-xs font-bold uppercase tracking-[0.2em] text-ash">What this means for your brand</p>
               <p className="mb-6 font-body text-sm font-light leading-7 text-smoke" style={{ maxWidth: "52ch" }}>
