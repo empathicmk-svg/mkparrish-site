@@ -31,6 +31,7 @@ const html = `<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
 <style>
+  @page { size: ${W_IN}in ${H_IN}in; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: ${W_PX}px; height: ${H_PX}px; overflow: hidden; background: #080808; }
 
@@ -209,7 +210,9 @@ const html = `<!DOCTYPE html>
 </body>
 </html>`;
 
-const dest = '/home/user/mkparrish-site/public/downloads/ebooks/reinvention-workbook-kdp-cover.png';
+const BASE_DIR = '/home/user/mkparrish-site/public/downloads/ebooks';
+const destPng = `${BASE_DIR}/reinvention-workbook-kdp-cover.png`;
+const destPdf = `${BASE_DIR}/reinvention-workbook-kdp-cover.pdf`;
 
 const browser = await puppeteer.launch({
   args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -219,12 +222,24 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 await page.setViewport({ width: W_PX, height: H_PX, deviceScaleFactor: DPI_SCALE });
 await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 });
-await page.screenshot({ path: dest, type: 'png', fullPage: false });
+
+// PNG — preview / reference
+await page.screenshot({ path: destPng, type: 'png', fullPage: false });
+
+// PDF — KDP submission format (PNG→PDF via img2pdf preserves full color fidelity)
+const { execSync } = await import('child_process');
+execSync(`python3 -c "
+import img2pdf, os
+layout = img2pdf.get_layout_fun(pagesize=(img2pdf.in_to_pt(${W_IN}), img2pdf.in_to_pt(${H_IN})))
+open('${destPdf}','wb').write(img2pdf.convert('${destPng}', layout_fun=layout))
+"`);
+
 await browser.close();
 
-const size = (fs.statSync(dest).size / 1024 / 1024).toFixed(1);
-console.log(`Cover: ${dest}`);
-console.log(`Output size: ${W_PX * DPI_SCALE} x ${H_PX * DPI_SCALE} px (300 DPI)`);
-console.log(`File: ${size} MB`);
-console.log(`W: ${W_IN.toFixed(3)}" x H: ${H_IN.toFixed(3)}" (with bleed)`);
+const pngMB  = (fs.statSync(destPng).size / 1024 / 1024).toFixed(1);
+const pdfMB  = (fs.statSync(destPdf).size / 1024 / 1024).toFixed(1);
+console.log(`PNG: ${destPng} (${pngMB} MB)`);
+console.log(`PDF: ${destPdf} (${pdfMB} MB)  ← KDP submission file`);
+console.log(`Dimensions: ${W_IN.toFixed(3)}" × ${H_IN.toFixed(3)}" (with bleed)`);
 console.log(`Spine: ${SPINE_IN.toFixed(4)}"`);
+console.log(`PNG px: ${W_PX * DPI_SCALE} × ${H_PX * DPI_SCALE} (300 DPI)`);
