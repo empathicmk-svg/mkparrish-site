@@ -57,6 +57,7 @@ export const EBOOKS = [
     highlight: false,
     free:      true,
     download:  "/downloads/ebooks/reinvention-workbook.pdf",
+    epub:      "/downloads/ebooks/reinvention-workbook.epub",
     href:      "/downloads/ebooks/reinvention-workbook.pdf",
     features:  [
       "20 guided writing exercises",

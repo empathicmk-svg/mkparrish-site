@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Reinvention Workbook — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* KDP Interior — 8.5" × 11", B&W white paper
+     Margins set in PDF renderer: 0.875in inside, 0.5in outside, 0.75in top/bottom
+  */
+  :root {
+    --ink:     #111111;
+    --sub:     #555555;
+    --rule:    #CCCCCC;
+    --accent:  #C75B78;   /* carmine — mid-gray in B&W, on-brand in color */
+    --boxbg:   #F6F6F6;
+    --fn: 'Bebas Neue', sans-serif;
+    --fs: 'Playfair Display', serif;
+    --fb: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 11pt; }
+  body {
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--fb);
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  /* ── Copyright page ── */
+  .copyright-page {
+    min-height: 9.5in;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 0.5in;
+    break-after: page;
+  }
+  .copyright-page p {
+    font-size: 8.5pt;
+    color: var(--sub);
+    line-height: 1.9;
+  }
+
+  /* ── TOC ── */
+  .toc { break-after: page; padding-top: 0.4in; }
+  .toc-heading {
+    font-family: var(--fn);
+    font-size: 18pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-bottom: 1.5pt solid var(--ink);
+    padding-bottom: 8pt;
+    margin-bottom: 20pt;
+  }
+  .toc ol { list-style: none; }
+  .toc li {
+    display: flex;
+    align-items: baseline;
+    border-bottom: 0.5pt solid var(--rule);
+    padding: 8pt 0;
+    font-size: 10pt;
+  }
+  .toc-num {
+    font-family: var(--fn);
+    font-size: 11pt;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    min-width: 22pt;
+    flex-shrink: 0;
+  }
+  .toc-label { flex: 1; }
+  .toc-sub { font-size: 8pt; color: var(--sub); margin-left: 10pt; }
+
+  /* ── Intro ── */
+  .intro { break-after: page; padding-top: 0.3in; }
+
+  /* ── Eyebrow ── */
+  .eyebrow {
+    display: block;
+    font-family: var(--fn);
+    font-size: 7.5pt;
+    letter-spacing: 0.35em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 5pt;
+  }
+
+  /* ── Chapter title ── */
+  h2.chapter {
+    break-before: page;
+    font-family: var(--fn);
+    font-size: 30pt;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 10pt;
+    padding-bottom: 8pt;
+    border-bottom: 2pt solid var(--ink);
+    break-after: avoid;
+  }
+  h2.chapter + p { margin-top: 8pt; }
+
+  /* ── Inline heading (How to Use) ── */
+  h2.section {
+    font-family: var(--fs);
+    font-size: 15pt;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 20pt 0 8pt;
+    break-after: avoid;
+  }
+
+  /* ── Exercise heading ── */
+  h3 {
+    font-family: var(--fb);
+    font-weight: 500;
+    font-size: 7.5pt;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 24pt 0 7pt;
+    break-after: avoid;
+  }
+
+  p { margin: 0 0 8pt; color: var(--ink); font-size: 10.5pt; }
+  p.note { color: var(--sub); font-style: italic; font-size: 10pt; }
+  strong { font-weight: 600; }
+  em { font-style: italic; }
+  ul, ol { padding-left: 16pt; margin: 0 0 10pt; }
+  li { margin-bottom: 3pt; font-size: 10.5pt; }
+
+  blockquote {
+    border-left: 2pt solid var(--accent);
+    margin: 16pt 0;
+    padding: 10pt 16pt;
+    background: var(--boxbg);
+    font-family: var(--fs);
+    font-style: italic;
+    font-size: 11pt;
+    color: var(--ink);
+    line-height: 1.6;
+    break-inside: avoid;
+  }
+
+  /* ── Response boxes with writing lines ── */
+  .response {
+    margin: 8pt 0 18pt;
+    break-inside: avoid;
+  }
+  .response-label {
+    font-family: var(--fn);
+    font-size: 7pt;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sub);
+    margin-bottom: 5pt;
+  }
+  .line {
+    height: 26pt;
+    border-bottom: 0.5pt solid var(--rule);
+  }
+
+  /* ── Final page ── */
+  .final {
+    break-before: page;
+    padding-top: 2.5in;
+    text-align: center;
+  }
+  .final p {
+    font-family: var(--fs);
+    font-style: italic;
+    font-size: 12pt;
+    color: var(--sub);
+    max-width: 38em;
+    margin: 0 auto 10pt;
+    line-height: 1.7;
+  }
+  .final .byline {
+    font-family: var(--fn);
+    letter-spacing: 0.2em;
+    font-size: 10pt;
+    font-style: normal;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-top: 22pt;
+  }
+  .final .url {
+    font-size: 9pt;
+    color: var(--sub);
+    margin-top: 5pt;
+    font-style: normal;
+  }
+
+  @media print {
+    *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    h2, h3, .eyebrow { break-after: avoid; }
+    blockquote, .response { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Copyright page -->
+<div class="copyright-page">
+  <p><strong>THE REINVENTION WORKBOOK</strong></p>
+  <p>Copyright &copy; 2024 MK Parrish. All rights reserved.</p>
+  <p>No part of this publication may be reproduced, distributed, or transmitted<br>
+  in any form or by any means without the prior written permission of the author.</p>
+  <p>mkparrish.com</p>
+</div>
+
+<!-- Table of Contents -->
+<div class="toc">
+  <div class="toc-heading">Contents</div>
+  <ol>
+    <li><span class="toc-num">—</span><span class="toc-label">How to Use This Workbook</span></li>
+    <li><span class="toc-num">I</span><span class="toc-label">The Identity Audit</span><span class="toc-sub">Exercises 1–5</span></li>
+    <li><span class="toc-num">II</span><span class="toc-label">Excavating the Old Story</span><span class="toc-sub">Exercises 6–10</span></li>
+    <li><span class="toc-num">III</span><span class="toc-label">Voice &amp; Narrative</span><span class="toc-sub">Exercises 11–16</span></li>
+    <li><span class="toc-num">IV</span><span class="toc-label">Building the New Draft</span><span class="toc-sub">Exercises 17–20</span></li>
+    <li><span class="toc-num">—</span><span class="toc-label">Keep Going</span></li>
+  </ol>
+</div>
+
+<!-- How to Use -->
+<div class="intro">
+  <span class="eyebrow">Before You Begin</span>
+  <h2 class="section">How to Use This Workbook</h2>
+
+  <p>You're not lost. You're between drafts.</p>
+  <p>That restless, ungrounded feeling — like you've outgrown a life that still has your name on it — isn't a breakdown. It's a manuscript in revision. Something is being rewritten, and the discomfort is just the gap between the old version and the one that hasn't fully arrived yet.</p>
+  <p>This workbook is for that gap. It won't hand you a five-step plan or a personality quiz that flattens you into a color. Reinvention isn't a system. It's a writing practice. You become someone new the same way you write anything true — draft, cut, revise, keep the line that surprised you.</p>
+  <p>Twenty exercises follow, in four parts. Do them in order or out of it. Use a real notebook if you can; there's something about a hand moving across paper that bypasses the editor in your head. Each prompt has instructions, a few questions, and — where it helps — an example response so you know the depth I'm asking for. The examples are mine or composites. Don't copy them. Let them set the floor, then go past it.</p>
+  <blockquote>You don't find yourself. You write yourself. One honest sentence at a time.</blockquote>
+  <p>Set aside the urge to do this perfectly. The mess is the point. Begin.</p>
+</div>
+
+<!-- ══════════════════════════════════════
+     PART ONE: THE IDENTITY AUDIT
+     ══════════════════════════════════════ -->
+<span class="eyebrow">Part One — Exercises 1–5</span>
+<h2 class="chapter">The Identity Audit</h2>
+<p>Before you build the new, take inventory of the old. You can't revise a draft you've never read closely.</p>
+
+<h3>Exercise 1 — The Inventory</h3>
+<p><strong>Instructions:</strong> List ten roles, labels, or identities you currently carry — job titles, relationships, the descriptions you reach for at parties. Next to each, write one word: <em>keep</em>, <em>cut</em>, or <em>unsure</em>.</p>
+<p class="note">Example: Marketing manager — unsure &nbsp;·&nbsp; Reliable one — cut &nbsp;·&nbsp; Daughter — keep &nbsp;·&nbsp; "Not creative" — cut</p>
+<p>The <em>cut</em> and <em>unsure</em> lines are your real material. Circle them.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 2 — On Loan vs. Owned</h3>
+<p><strong>Instructions:</strong> Take three labels from Exercise 1. For each, write a sentence answering: <em>did I choose this, or was it handed to me?</em> Be honest about the inherited ones.</p>
+<p class="note">Example: "'Reliable one' was handed to me at about age nine, when being the easy kid kept the house calm. I've been paying interest on it ever since."</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 3 — The Costume Test</h3>
+<p><strong>Instructions:</strong> Describe a version of yourself you perform that doesn't match how you feel inside. Write it in third person, like a character. What does she wear, say, withhold? Then write one sentence on what it costs you to keep her up.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 4 — The Energy Map</h3>
+<p><strong>Instructions:</strong> Make two columns. Left: everything in your week that drains you. Right: everything that returns you to yourself. Don't moralize the lists — some draining things stay, some energizing things are impractical. Just look at the imbalance.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 5 — The Eulogy You'd Hate</h3>
+<p><strong>Instructions:</strong> Write the two-sentence summary of your life that would be true if nothing changed from today. The version that makes your stomach drop a little. This isn't despair — it's a compass. The drop tells you which direction is wrong.</p>
+<p class="note">Example: "She kept everyone comfortable and herself postponed. She was, by every external measure, fine."</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PART TWO: EXCAVATING THE OLD STORY
+     ══════════════════════════════════════ -->
+<span class="eyebrow">Part Two — Exercises 6–10</span>
+<h2 class="chapter">Excavating the Old Story</h2>
+<p>You've been narrating yourself for years. Some of that narration is true. Some of it was installed by people who needed you to stay a certain shape.</p>
+
+<h3>Exercise 6 — The Story You Tell About Yourself</h3>
+<p><strong>Instructions:</strong> Write your origin story the way you usually tell it. One paragraph. Then read it back and underline every sentence that sounds like a limitation stated as a fact. ("I've never been good with money." "I'm just not a leader.")</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 7 — Find the Author</h3>
+<p><strong>Instructions:</strong> Take three underlined limitations from Exercise 6. For each, write whose voice it is. A parent? A teacher? An ex? An era of your life? You'll often find the belief isn't yours — you've just been carrying it so long it feels native.</p>
+<p class="note">Example: "'I'm not creative' is my third-grade teacher's voice, who graded coloring inside the lines. I have been believing a woman who is no longer alive about a skill she never tested."</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 8 — The Greatest Hits of Being Misread</h3>
+<p><strong>Instructions:</strong> List three times someone got you completely wrong — underestimated you, mislabeled you, decided who you were before you spoke. For each, write the truer version. Notice how often the misreading became something you half-believed.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 9 — What You Quit Believing</h3>
+<p><strong>Instructions:</strong> Write about something you used to be certain of that you no longer are. A belief, an ambition, a person, a version of the future. Don't mourn it or celebrate it. Just describe the shift. Reinvention is partly the art of letting a belief die without dying with it.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 10 — The Permission Slip</h3>
+<p><strong>Instructions:</strong> Write a permission slip to yourself, signed, for the thing you keep waiting for someone else to authorize. Make it specific. "I give myself permission to ___." Then answer: who did you think had to sign this instead of you?</p>
+<blockquote>Most of us are waiting for a permission that was never going to come from the outside. You are the only signature that was ever required.</blockquote>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PART THREE: VOICE & NARRATIVE
+     ══════════════════════════════════════ -->
+<span class="eyebrow">Part Three — Exercises 11–16</span>
+<h2 class="chapter">Voice &amp; Narrative</h2>
+<p>You can't become someone new in a voice that belongs to your old self. This part is about how you sound — to yourself, on the page, out loud.</p>
+
+<h3>Exercise 11 — Your Unedited Voice</h3>
+<p><strong>Instructions:</strong> Set a timer for five minutes. Write about your day with zero editing — no fixing, no making it sound smart. Read it back and highlight the three phrases that sound most like <em>you</em> and least like a LinkedIn post. That's your raw voice. We're going to keep it.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 12 — The Words That Aren't Yours</h3>
+<p><strong>Instructions:</strong> List words and phrases you use because they sound professional, safe, or expected — but that you secretly hate. ("Circle back." "I'm passionate about." "Just wanted to check in.") Cross them out. Write what you'd say instead if you trusted yourself.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 13 — Describe Yourself Without the Résumé</h3>
+<p><strong>Instructions:</strong> Introduce yourself in three sentences without mentioning your job, your accomplishments, or anyone you're related to. Who are you when the credentials are off the table? Harder than it looks. That difficulty is the assignment.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 14 — The Letter From the Future You</h3>
+<p><strong>Instructions:</strong> Write a letter to yourself from the version of you two years into the reinvention — the one who already made it through this gap. What does she want you to stop apologizing for? What does she find funny now that you find terrifying? Let her be kind and a little impatient.</p>
+<p class="note">Example: "Dear you — stop drafting the email seventeen times. She presses send. That's the whole difference between us. Also: you were right about the thing you talked yourself out of. Go back to it."</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 15 — Your One Sentence</h3>
+<p><strong>Instructions:</strong> Reinvention needs a thesis. Write the single sentence that captures who you're becoming. Not a job title. A stance. Revise it ten times. The tenth one is usually the real one.</p>
+<p class="note">Example: Draft 1 — "I want to be a writer who helps people." &nbsp; Draft 10 — "I help people rewrite the story they were handed into one they'd actually sign."</p>
+<div class="response">
+  <div class="response-label">Your response — draft 1</div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div class="response">
+  <div class="response-label">Your response — draft 10</div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 16 — The Anti-Mission Statement</h3>
+<p><strong>Instructions:</strong> Write down everything you're <em>not</em> doing anymore. The relationships, the apologies, the shrinking, the roles. Naming what you're leaving behind is as defining as naming what you're walking toward.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PART FOUR: BUILDING THE NEW DRAFT
+     ══════════════════════════════════════ -->
+<span class="eyebrow">Part Four — Exercises 17–20</span>
+<h2 class="chapter">Building the New Draft</h2>
+<p>You've audited the old and found your voice. Now you write forward.</p>
+
+<h3>Exercise 17 — The Reinvention Inventory (Revisited)</h3>
+<p><strong>Instructions:</strong> Return to your <em>cut</em> and <em>unsure</em> list from Exercise 1. For each one you're ready to cut, write the small first action that begins the cut. Not the dramatic gesture — the quiet first move. Reinvention is mostly unglamorous logistics done with conviction.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 18 — One Brave Sentence a Day</h3>
+<p><strong>Instructions:</strong> For the next seven days, write one true sentence each morning that the old you wouldn't have written. Track them here. By day seven, read them in order. You'll see a person changing in real time.</p>
+<p class="note">Example sequence: "I'm allowed to want more." / "I told her no and survived it." / "My work is good even when no one claps." / "I'm not behind. I'm rerouting."</p>
+<div class="response">
+  <div class="response-label">Day 1</div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div class="response">
+  <div class="response-label">Day 2</div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div class="response">
+  <div class="response-label">Day 3</div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div class="response">
+  <div class="response-label">Day 4</div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div class="response">
+  <div class="response-label">Day 5</div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div class="response">
+  <div class="response-label">Day 6</div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div class="response">
+  <div class="response-label">Day 7</div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 19 — The Identity Rehearsal</h3>
+<p><strong>Instructions:</strong> Pick one trait of the person you're becoming. Spend one full day acting as if it's already settled fact, then write what happened. Did the sky fall? It rarely does. We rehearse the new self into existence before we believe in it — belief is the last thing to arrive, not the first.</p>
+<div class="response">
+  <div class="response-label">Your response</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<h3>Exercise 20 — The Closing Manifesto</h3>
+<p><strong>Instructions:</strong> Using everything in this workbook — your one sentence, your anti-mission, your true lines, your future self's letter — write a one-page manifesto for who you are now. Present tense. No hedging. Read it out loud. Then read it again when you forget. This is the new draft. It's allowed to keep changing. So are you.</p>
+<blockquote>You were never broken. You were a first draft. And the best thing about a draft is that it was always meant to be revised.</blockquote>
+<div class="response">
+  <div class="response-label">Your manifesto</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     KEEP GOING
+     ══════════════════════════════════════ -->
+<span class="eyebrow">After the Work</span>
+<h2 class="chapter">Keep Going</h2>
+
+<p>Reinvention isn't a weekend. It's a practice, and practices need company.</p>
+<p>If the excavation in Parts One and Two opened something tender — especially if the old story was written by someone who hurt you — read <strong>The Invisible Bruise</strong>, which sits with that wound directly.</p>
+<p>If you're ready to take your new voice public — into your bio, your brand, the rooms you want to be in — <strong>Write Yourself Into the Room</strong> is the next step.</p>
+<p>Find more writing, essays, and tools at <strong>mkparrish.com</strong>.</p>
+
+<div class="final">
+  <p>You picked up the pen.<br>That was always the hardest part.</p>
+  <p class="byline">— MK Parrish</p>
+  <p class="url">mkparrish.com</p>
+</div>
+
+<!-- ══════════════════════════════════════
+     NOTES PAGES (6 lined pages for free writing)
+     ══════════════════════════════════════ -->
+<div style="break-before:page; padding-top:0.4in;">
+  <span class="eyebrow">Notes</span>
+  <div style="border-bottom:1.5pt solid var(--ink); margin-bottom:20pt; padding-bottom:6pt; font-family:var(--fn); font-size:18pt; letter-spacing:0.18em; text-transform:uppercase;">My Notes</div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+</div>
+<div style="break-before:page; padding-top:0.4in;">
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div style="break-before:page; padding-top:0.4in;">
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div style="break-before:page; padding-top:0.4in;">
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div style="break-before:page; padding-top:0.4in;">
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+<div style="break-before:page; padding-top:0.4in;">
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  <div class="line"></div><div class="line"></div>
+</div>
+
+</body>
+</html>

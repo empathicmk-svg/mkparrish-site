@@ -194,6 +194,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const stripe = (product as { stripe?: string }).stripe;
   const buyTarget = isFree ? (dl as string) : (stripe && stripe.length > 0 ? stripe : product.href);
   const buyLabel = isFree ? "Download Free" : "Buy Now";
+  const epub = (product as { epub?: string }).epub;
 
   return (
     <>
@@ -276,11 +277,24 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     {buyLabel}{isFree ? " →" : ` — ${product.price}`}
                   </a>
                 )}
+                {!COMING_SOON_SLUGS.has(product.slug) && epub && (
+                  <a
+                    href={epub}
+                    download=""
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex w-full items-center justify-center border border-graphite py-3 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-smoke transition-colors hover:border-petal hover:text-petal"
+                  >
+                    Download EPUB →
+                  </a>
+                )}
                 <p className="text-center font-body text-[0.65rem] font-light text-iron">
                   {COMING_SOON_SLUGS.has(product.slug)
                     ? "Coming soon"
                     : isFree
-                    ? "Free · PDF format · No subscription"
+                    ? epub
+                      ? "Free · PDF + EPUB formats · No subscription"
+                      : "Free · PDF format · No subscription"
                     : "PDF format · Secure checkout · No subscription"}
                 </p>
               </div>
