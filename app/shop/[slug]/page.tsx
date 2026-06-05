@@ -158,6 +158,21 @@ const extraContent: Record<string, { about: string[]; forWho: string[]; pullQuot
     ],
     pullQuote: "She just wanted to begin.",
   },
+  "the-social-strategy-playbook": {
+    about: [
+      "The Social Suite is MK Parrish's managed content service — strategy, writing, and execution handled every month. This playbook isolates the strategy and framework side so you can run it yourself, at your own pace, without a retainer.",
+      "Covers the full content strategy build: how to find your three to five content pillars (the topics you can talk about with authority, not just the ones your industry expects), how to calibrate your voice for each platform, and how to batch and structure content so you're not starting from nothing every week.",
+      "The 30-day sprint template is the same structure used to onboard new Social Suite clients. It is a system, not a mood board.",
+    ],
+    forWho: [
+      "You know you need to show up on social but you don't have a system",
+      "You post when you feel like it and it shows in your consistency",
+      "Your content doesn't feel like you — it feels like generic industry filler",
+      "You want to batch content in advance instead of scrambling week to week",
+      "You're building a personal brand and need a strategy behind it, not just ideas",
+    ],
+    pullQuote: "The thing that separates the people who build something from the people who almost did is the system.",
+  },
   "the-services-vault": {
     about: [
       "Every consulting service MK offers has a methodology. The Services Vault is all of it — documented, packaged, and sequenced as a self-study library for the woman who is ready to do the full work herself.",
