@@ -37,7 +37,7 @@ export const SITE_URL           = "https://www.mkparrish.com";
 
 // ── Products not yet live ────────────────────────────────────────────────────
 // Add a slug here to show "Coming Soon" instead of the buy button.
-export const COMING_SOON_SLUGS = new Set<string>(["the-social-strategy-playbook"]);
+export const COMING_SOON_SLUGS = new Set<string>();
 
 // ── Contact ──────────────────────────────────────────────────────────────────
 export const CONTACT = {
@@ -248,8 +248,8 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/the-social-strategy-playbook.pdf",
-    stripe:    "/book",
-    href:      "/book",
+    stripe:    "https://buy.stripe.com/8x26oz9gKd294HTcHq0oM0m",
+    href:      "https://buy.stripe.com/8x26oz9gKd294HTcHq0oM0m",
     features:  [
       "Content pillar framework (what to say + why it builds authority)",
       "Brand voice calibration for social — Instagram, LinkedIn, TikTok",
