@@ -4,7 +4,7 @@ import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
-import { EBOOKS, SERVICE_EBOOKS, PRINTS, MARGINS_TIERS, SUBSTACK_URL } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, PRINTS, MARGINS_TIERS, SUBSTACK_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "The Shelf — MK Parrish",
@@ -54,7 +54,11 @@ function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
         ))}
       </ul>
       <div className="mt-8 space-y-2">
-        {isFree ? (
+        {COMING_SOON_SLUGS.has(p.slug) ? (
+          <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
+            Coming Soon
+          </div>
+        ) : isFree ? (
           <a
             href={p.download}
             download
