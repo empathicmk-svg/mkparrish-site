@@ -8,6 +8,8 @@ export default function LeadCapture() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [closing, setClosing] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -39,11 +41,25 @@ export default function LeadCapture() {
     }, 350);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email.trim()) return;
-    setSubmitted(true);
-    localStorage.setItem("mkp_lead_seen", "1");
+    if (!email.trim() || loading) return;
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      if (!res.ok) throw new Error("failed");
+      setSubmitted(true);
+      localStorage.setItem("mkp_lead_seen", "1");
+    } catch {
+      setError("Something went wrong — try again or join via Substack.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (!visible) return null;
@@ -105,11 +121,15 @@ export default function LeadCapture() {
                 />
                 <button
                   type="submit"
-                  className="btn-primary w-full py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+                  disabled={loading}
+                  className="btn-primary w-full py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send Me the Checklist →
+                  {loading ? "Sending…" : "Send Me the Checklist →"}
                 </button>
               </form>
+              {error && (
+                <p className="mt-3 font-body text-[0.7rem] text-petal leading-5">{error}</p>
+              )}
               <p className="mt-4 font-body text-[0.65rem] text-iron leading-5">
                 No spam. No pitch sequence. One email with the checklist. Unsubscribe any time.
               </p>
