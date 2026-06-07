@@ -404,7 +404,9 @@ function wrap(title, bodyHtml, opts = {}) {
      with black header boxes and pink/white titles.
      ═══════════════════════════════════════════════════════════════ */
   @media print {
-    @page { margin: 0; }
+    /* Uniform book margins on every page (Puppeteer's margin is set to 0 so
+       these @page margins are the single source of truth). */
+    @page { margin: 0.8in; }
 
     html, body {
       background: #ffffff !important;
@@ -412,15 +414,15 @@ function wrap(title, bodyHtml, opts = {}) {
     }
     body::before { display: none !important; }   /* no grain in print */
 
-    /* ── COVER: a black box on a white page ── */
+    /* ── COVER: a black box centered within the page margins ── */
     .cover {
-      min-height: 100vh;
+      min-height: 9.2in;          /* fills the Letter text area (11in − 2×0.8in) */
       display: flex;
       flex-direction: column;
       justify-content: center;
       background: #ffffff !important;
       border-bottom: none;
-      padding: 76px;
+      padding: 0;
       break-after: page;
     }
     .cover::before, .cover::after { display: none !important; }
@@ -444,8 +446,9 @@ function wrap(title, bodyHtml, opts = {}) {
     .cover .subtitle { color: var(--petal); }
     .cover-meta { color: #8a8a8a; }
 
-    /* ── BODY: black text on white ── */
-    .content { padding-top: 64px; color: #232323; }
+    /* ── BODY: black text on white, filling the page margins so header
+       boxes align flush with the body text block ── */
+    .content { max-width: none; margin: 0; padding: 0; color: #232323; }
     p { color: #2b2b2b; }
     strong { color: #0A0A0A; }
     a { color: #B23A59; }
