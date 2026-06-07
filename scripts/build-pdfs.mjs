@@ -56,10 +56,12 @@ for (const [src, dest] of FILES) {
 
   const page = await browser.newPage();
   await page.goto(`file://${srcPath}`, { waitUntil: 'networkidle0', timeout: 30000 });
+  await waitForFonts(page);
   await page.pdf({
     path: destPath,
     format: 'Letter',
-    margin: { top: '0.6in', right: '0.65in', bottom: '0.6in', left: '0.65in' },
+    // Book margins are owned by the CSS @page rule; keep Puppeteer's at 0.
+    margin: { top: '0', right: '0', bottom: '0', left: '0' },
     printBackground: true,
   });
   await page.close();
