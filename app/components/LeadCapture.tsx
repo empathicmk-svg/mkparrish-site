@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { SUBSTACK_URL } from "@/app/lib/config";
+import { SUBSTACK_URL, SUBSTACK_SUBSCRIBE_URL } from "@/app/lib/config";
 
 export default function LeadCapture() {
   const [visible, setVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [closing, setClosing] = useState(false);
+  const [subscribeUrl, setSubscribeUrl] = useState(SUBSTACK_SUBSCRIBE_URL);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -41,7 +42,25 @@ export default function LeadCapture() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email.trim()) return;
+    const value = email.trim();
+    if (!value) return;
+
+    // Hand the email to Substack's subscribe page — it captures the subscriber
+    // and sends the welcome email (where the Positioning Checklist is delivered).
+    // Passing the email as a query param pre-fills it so confirming is one click.
+    const params = new URLSearchParams({
+      email: value,
+      utm_source: "mkparrish.com",
+      utm_medium: "lead-popup",
+      utm_campaign: "positioning-checklist",
+    });
+    const url = `${SUBSTACK_SUBSCRIBE_URL}?${params.toString()}`;
+    setSubscribeUrl(url);
+
+    // Open Substack in a new tab so the on-site confirmation stays visible.
+    // If a popup blocker stops it, the success state shows a manual link.
+    window.open(url, "_blank", "noopener,noreferrer");
+
     setSubmitted(true);
     localStorage.setItem("mkp_lead_seen", "1");
   }
@@ -129,12 +148,15 @@ export default function LeadCapture() {
             </>
           ) : (
             <div className="text-center py-4">
-              <p className="font-display text-5xl uppercase tracking-[0.02em] text-petal leading-none">Done.</p>
+              <p className="font-display text-5xl uppercase tracking-[0.02em] text-petal leading-none">Almost there.</p>
               <p className="mt-6 font-serif italic text-smoke text-lg leading-7">
-                Check your inbox. The checklist is on its way.
+                I opened a tab to confirm your spot — hit subscribe and the checklist lands in your inbox.
               </p>
               <p className="mt-2 font-body text-sm text-ash">
-                While you wait — see everything I build at <a href="/#offerings" onClick={dismiss} className="text-petal hover:underline">the offerings</a>.
+                Tab didn&apos;t open?{" "}
+                <a href={subscribeUrl} target="_blank" rel="noreferrer" className="text-petal hover:underline">
+                  Confirm here →
+                </a>
               </p>
               <button
                 onClick={dismiss}
