@@ -60,7 +60,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-1.5 rounded-full bg-petal px-3.5 py-1.5 font-body text-[0.65rem] font-bold uppercase tracking-[0.12em] text-void transition hover:bg-pearl"
                 >
                   <span>{s.label}</span>
-                  <span className="font-medium normal-case tracking-normal opacity-70">{s.handle}</span>
+                  <span className="font-medium normal-case tracking-normal text-void">{s.handle}</span>
                 </a>
               ))}
             </div>
