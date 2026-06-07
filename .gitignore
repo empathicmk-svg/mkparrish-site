@@ -43,3 +43,6 @@ next-env.d.ts
 # patreon automation artifacts
 /patreon-agent-output/
 /patreon-user-data/
+
+# Scratch render/verification artifacts
+output/
