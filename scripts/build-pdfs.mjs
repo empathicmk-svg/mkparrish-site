@@ -30,6 +30,7 @@ const FILES = [
   ['public/downloads/templates/the-new-chapter-workbook.html',   'public/downloads/templates/the-new-chapter-workbook.pdf'],
   ['public/downloads/templates/the-byline-method.html',          'public/downloads/templates/the-byline-method.pdf'],
   ['public/downloads/templates/the-build-copy-guide.html',       'public/downloads/templates/the-build-copy-guide.pdf'],
+  ['public/downloads/templates/the-social-strategy-playbook.html', 'public/downloads/templates/the-social-strategy-playbook.pdf'],
   // course
   ['public/downloads/scripture-and-strategy.html',               'public/downloads/scripture-and-strategy.pdf'],
 ];
