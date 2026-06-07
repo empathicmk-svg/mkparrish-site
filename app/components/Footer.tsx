@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SUBSTACK_URL, CONTACT } from "@/app/lib/config";
+import { SUBSTACK_URL, CONTACT, SOCIALS } from "@/app/lib/config";
 
 const footerGroups = [
   {
@@ -46,6 +46,23 @@ export default function Footer() {
               <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" className="font-body text-[0.7rem] tracking-[0.08em] text-iron transition hover:text-petal">
                 /in/mkparrish
               </a>
+            </div>
+
+            {/* Social chips — petal pink, black text */}
+            <div className="mt-6 flex flex-wrap gap-2">
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${s.label} — ${s.handle}`}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-petal px-3.5 py-1.5 font-body text-[0.65rem] font-bold uppercase tracking-[0.12em] text-void transition hover:bg-pearl"
+                >
+                  <span>{s.label}</span>
+                  <span className="font-medium normal-case tracking-normal opacity-70">{s.handle}</span>
+                </a>
+              ))}
             </div>
           </div>
 
