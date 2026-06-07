@@ -27,23 +27,44 @@ export default function AboutPage() {
           <div className="absolute left-1/2 top-0 h-[55vh] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.13),transparent_65%)]" />
         </div>
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            About
-          </p>
-          <div className="mt-6">
-            <H1>
-              MK{" "}
-              <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.35)" }}>
-                Parrish
-              </span>
-            </H1>
+          <div className="grid items-end gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+            <div>
+              <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
+                About
+              </p>
+              <div className="mt-6">
+                <H1>
+                  MK{" "}
+                  <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.35)" }}>
+                    Parrish
+                  </span>
+                </H1>
+              </div>
+              <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
+                Senior growth operator. Writer. One pair of hands.
+              </p>
+              <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
+                Two decades inside Fortune 50s and startups, $40M+ in pipeline influenced. I build the websites, run the outbound, and write the messaging that turn how a company is seen into revenue it can show a board.
+              </p>
+            </div>
+
+            {/* Author portrait */}
+            <div className="relative mx-auto w-full max-w-[340px] lg:mx-0 lg:ml-auto">
+              <div className="pointer-events-none absolute -inset-4 bg-[radial-gradient(ellipse_at_center,rgba(242,175,198,0.22),transparent_70%)]" />
+              <div className="relative overflow-hidden border border-petal/20" style={{ aspectRatio: "4 / 5" }}>
+                <img
+                  src="/author/mk-parrish.jpg"
+                  alt="MK Parrish"
+                  className="h-full w-full object-cover object-center grayscale"
+                  loading="eager"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/40 via-transparent to-transparent" />
+              </div>
+              <p className="mt-3 text-center font-body text-[0.6rem] font-semibold uppercase tracking-[0.25em] text-iron lg:text-right">
+                MK Parrish
+              </p>
+            </div>
           </div>
-          <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-            Senior growth operator. Writer. One pair of hands.
-          </p>
-          <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
-            Two decades inside Fortune 50s and startups, $40M+ in pipeline influenced. I build the websites, run the outbound, and write the messaging that turn how a company is seen into revenue it can show a board.
-          </p>
 
           {/* Proof band */}
           <div className="mt-12 grid grid-cols-2 gap-px border-t border-graphite bg-graphite sm:grid-cols-4">
