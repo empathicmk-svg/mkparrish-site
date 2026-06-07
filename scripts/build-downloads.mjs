@@ -383,6 +383,7 @@ const TEMPLATES = [
   ['templates/the-new-chapter-workbook.md','templates/the-new-chapter-workbook.html'],
   ['templates/the-byline-method.md',       'templates/the-byline-method.html'],
   ['templates/the-build-copy-guide.md',    'templates/the-build-copy-guide.html'],
+  ['templates/the-social-strategy-playbook.md', 'templates/the-social-strategy-playbook.html'],
 ];
 
 console.log('\nBuilding ebooks...');
