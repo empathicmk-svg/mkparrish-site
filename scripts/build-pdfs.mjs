@@ -30,14 +30,24 @@ const FILES = [
   ['public/downloads/templates/the-new-chapter-workbook.html',   'public/downloads/templates/the-new-chapter-workbook.pdf'],
   ['public/downloads/templates/the-byline-method.html',          'public/downloads/templates/the-byline-method.pdf'],
   ['public/downloads/templates/the-build-copy-guide.html',       'public/downloads/templates/the-build-copy-guide.pdf'],
+  ['public/downloads/templates/the-social-strategy-playbook.html', 'public/downloads/templates/the-social-strategy-playbook.pdf'],
   // course
   ['public/downloads/scripture-and-strategy.html',               'public/downloads/scripture-and-strategy.pdf'],
 ];
 
 const browser = await puppeteer.launch({
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  // --ignore-certificate-errors lets the Google Fonts stylesheet load even when a
+  // network proxy presents an untrusted cert (otherwise fonts silently fall back
+  // to system defaults and the PDF loses its branding). Harmless off-proxy.
+  args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors'],
+  acceptInsecureCerts: true,
   headless: true,
 });
+
+// Give web fonts a beat to finish loading before each PDF is rendered.
+async function waitForFonts(page) {
+  try { await page.evaluate(() => document.fonts.ready); } catch {}
+}
 
 for (const [src, dest] of FILES) {
   const srcPath  = path.join(ROOT, src);

@@ -149,12 +149,15 @@ export default function LeadCapture() {
             </>
           ) : (
             <div className="text-center py-4">
-              <p className="font-display text-5xl uppercase tracking-[0.02em] text-petal leading-none">Done.</p>
+              <p className="font-display text-5xl uppercase tracking-[0.02em] text-petal leading-none">Check your inbox.</p>
               <p className="mt-6 font-serif italic text-smoke text-lg leading-7">
-                Check your inbox. The checklist is on its way.
+                You&apos;re on the list — the Positioning Checklist is on its way to your inbox.
               </p>
               <p className="mt-2 font-body text-sm text-ash">
-                While you wait — see everything I build at <a href="/#offerings" onClick={dismiss} className="text-petal hover:underline">the offerings</a>.
+                Didn&apos;t get it?{" "}
+                <a href={SUBSTACK_URL} target="_blank" rel="noreferrer" className="text-petal hover:underline">
+                  Join via Substack →
+                </a>
               </p>
               <button
                 onClick={dismiss}
