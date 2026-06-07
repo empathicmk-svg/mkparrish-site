@@ -14,10 +14,25 @@ export async function POST(req: NextRequest) {
       `https://${SUBSTACK_PUB}.substack.com/api/v1/free`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        headers: {
+          "Content-Type": "application/json",
+          "Referer": `https://${SUBSTACK_PUB}.substack.com`,
+          "Origin": `https://${SUBSTACK_PUB}.substack.com`,
+        },
+        body: JSON.stringify({ email, first_name: "", last_name: "" }),
       }
     );
+
+    // 400 often means already subscribed — treat as success
+    if (res.status === 400) {
+      const body = await res.json().catch(() => ({}));
+      const msg = (body?.error || body?.message || "").toLowerCase();
+      if (msg.includes("already") || msg.includes("subscribed") || msg.includes("exist")) {
+        return NextResponse.json({ ok: true });
+      }
+      console.error("Substack 400:", body);
+      return NextResponse.json({ error: "Subscription failed" }, { status: 502 });
+    }
 
     if (!res.ok) {
       const text = await res.text().catch(() => "");
