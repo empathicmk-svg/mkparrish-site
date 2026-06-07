@@ -10,6 +10,7 @@ import puppeteer from 'puppeteer';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { inlineGoogleFonts } from './lib/inline-fonts.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CSV_PATH = path.join(__dirname, '..', 'output', 'mk_philosophy_positivity_posts.csv');
@@ -23,11 +24,10 @@ const PEARL  = '#F0F0EE';
 const SMOKE  = '#B0B0B0';
 const ASH    = '#7A7A7A';
 
-const FONTS = `
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,500;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-`;
+// Inlined as base64 at startup (see Main section) so renders never hit the
+// network. FONTS holds the resulting <style> block.
+const FONTS_URL = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,500;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&display=swap';
+let FONTS = '';
 
 // ── CSV parsing ────────────────────────────────────────────────────────────────
 
@@ -308,31 +308,87 @@ const posts = parseCSV(csv);
 
 console.log(`\nGenerating ${posts.length} Instagram posts...\n`);
 
-const browser = await puppeteer.launch({
-  headless: true,
-  args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-lcd-text', '--font-render-hinting=none'],
-});
+// Download + inline the fonts once (cached on disk) so no render touches the net.
+FONTS = await inlineGoogleFonts(FONTS_URL);
+
+// Rendering many large (2160²) screenshots in one Chrome instance eventually
+// crashes the renderer ("Target closed"). We recycle the browser every
+// RESTART_EVERY images and retry any shot that fails on a fresh browser.
+const RESTART_EVERY = 8;
+
+function launchBrowser() {
+  return puppeteer.launch({
+    headless: true,
+    // Fonts are inlined as base64, so renders are fully offline. We still accept
+    // insecure certs defensively in case any HTML pulls a remote asset.
+    acceptInsecureCerts: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      // Containers ship a tiny /dev/shm; without this Chrome crashes mid-run.
+      '--disable-dev-shm-usage',
+      '--disable-lcd-text',
+      '--font-render-hinting=none',
+      '--ignore-certificate-errors',
+    ],
+  });
+}
+
+async function closeBrowser(browser) {
+  // browser.close() can hang in sandboxed environments — race it with a kill.
+  await Promise.race([
+    browser.close().catch(() => {}),
+    new Promise((r) => setTimeout(() => { try { browser.process()?.kill('SIGKILL'); } catch {} r(); }, 5000)),
+  ]);
+}
+
+let browser = await launchBrowser();
 
 async function shoot(html, filename) {
   const page = await browser.newPage();
-  await page.setViewport({ width: 1080, height: 1080, deviceScaleFactor: 2 });
-  await page.setContent(html, { waitUntil: 'networkidle0' });
-  await page.evaluate(() => document.fonts.ready);
-  await new Promise(r => setTimeout(r, 250));
-  const dest = path.join(OUT, filename);
-  await page.screenshot({ path: dest, type: 'png' });
-  await page.close();
-  const kb = (fs.statSync(dest).size / 1024).toFixed(0);
-  console.log(`  ✓  ${filename}  (${kb} kb)`);
+  try {
+    await page.setViewport({ width: 1080, height: 1080, deviceScaleFactor: 2 });
+    await page.setContent(html, { waitUntil: 'load', timeout: 30000 });
+    await page.evaluate(() => document.fonts.ready);
+    await new Promise(r => setTimeout(r, 250));
+    const dest = path.join(OUT, filename);
+    await page.screenshot({ path: dest, type: 'png' });
+    await page.close().catch(() => {});
+    const kb = (fs.statSync(dest).size / 1024).toFixed(0);
+    console.log(`  ✓  ${filename}  (${kb} kb)`);
+  } catch (err) {
+    try { await page.close(); } catch {}
+    throw err;
+  }
 }
 
+let sinceRestart = 0;
 for (const post of posts) {
   const num = String(post['Number'] || '').padStart(2, '0');
   const slug = slugify(post['Title'] || `post-${num}`);
   const filename = `post-${num}-${slug}.png`;
   const html = buildHTML(post);
-  await shoot(html, filename);
+
+  // Proactively recycle the browser to keep renderer memory in check.
+  if (sinceRestart >= RESTART_EVERY) {
+    await closeBrowser(browser);
+    browser = await launchBrowser();
+    sinceRestart = 0;
+  }
+
+  try {
+    await shoot(html, filename);
+  } catch (err) {
+    // A crash here usually means the renderer died — relaunch and retry once.
+    console.log(`  …  retrying ${filename} on a fresh browser (${err.message.split('\n')[0]})`);
+    await closeBrowser(browser);
+    browser = await launchBrowser();
+    sinceRestart = 0;
+    await shoot(html, filename);
+  }
+  sinceRestart++;
 }
 
-await browser.close();
+await closeBrowser(browser);
 console.log(`\n✓  All ${posts.length} posts saved to output/instagram/\n`);
+process.exit(0);
