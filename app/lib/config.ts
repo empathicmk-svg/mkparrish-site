@@ -46,6 +46,14 @@ export const CONTACT = {
   phone:    "347.853.4238",
 };
 
+// ── Social links ─────────────────────────────────────────────────────────────
+// Rendered as petal-pink chips with black text in the footer.
+export const SOCIALS = [
+  { label: "Instagram", handle: "@mkeezieee", href: "https://www.instagram.com/mkeezieee" },
+  { label: "Substack",  handle: "The Margins", href: SUBSTACK_URL },
+  { label: "LinkedIn",  handle: "/in/mkparrish", href: "https://www.linkedin.com/in/mkparrish" },
+];
+
 // ── All ebooks / digital products (used by shop page) ────────────────────────
 export const EBOOKS = [
   {
