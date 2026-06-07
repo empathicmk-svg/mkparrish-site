@@ -43,3 +43,6 @@ next-env.d.ts
 # patreon automation artifacts
 /patreon-agent-output/
 /patreon-user-data/
+
+# generated font cache for the Instagram/TikTok image scripts
+/output/.font-cache/
