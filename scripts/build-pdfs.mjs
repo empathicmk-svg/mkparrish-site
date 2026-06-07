@@ -36,9 +36,18 @@ const FILES = [
 ];
 
 const browser = await puppeteer.launch({
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  // --ignore-certificate-errors lets the Google Fonts stylesheet load even when a
+  // network proxy presents an untrusted cert (otherwise fonts silently fall back
+  // to system defaults and the PDF loses its branding). Harmless off-proxy.
+  args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors'],
+  acceptInsecureCerts: true,
   headless: true,
 });
+
+// Give web fonts a beat to finish loading before each PDF is rendered.
+async function waitForFonts(page) {
+  try { await page.evaluate(() => document.fonts.ready); } catch {}
+}
 
 for (const [src, dest] of FILES) {
   const srcPath  = path.join(ROOT, src);
