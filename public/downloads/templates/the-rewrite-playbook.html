@@ -366,11 +366,9 @@
       background: #0E0E0E;
       color: #ffffff;
       padding: 20px 26px;
-      margin: 0 0 30px;
+      margin: 46px 0 30px;
       border: none;
-      break-before: page;          /* each section opens a fresh page */
     }
-    h2:first-of-type { break-before: avoid; }   /* first section follows the cover */
     h2::before {
       background: none;
       -webkit-text-fill-color: var(--petal);
@@ -412,10 +410,10 @@
     .footer-legal { color: #8a8a8a; }
     .footer-legal a { color: #B23A59; }
 
-    /* ── PAGINATION — keep blocks whole, headings attached ── */
-    h1, h2, h3 { break-after: avoid-page; }
+    /* ── PAGINATION — natural flow; just avoid bad breaks ── */
+    h1, h2, h3 { break-after: avoid-page; break-inside: avoid; }
     p, li { orphans: 3; widows: 3; }
-    li, tr, blockquote, pre, table, figure, img { break-inside: avoid; }
+    h2, h3, li, tr, blockquote, pre, table, figure, img { break-inside: avoid; }
     ul, ol { break-before: avoid-page; }
     .footer { break-before: avoid-page; }
   }
