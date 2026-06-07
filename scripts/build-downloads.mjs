@@ -85,8 +85,8 @@ function wrap(title, bodyHtml, opts = {}) {
   const words = coverTitle.split(' ');
   const lastWord = words.length > 1 ? words.pop() : '';
   const coverTitleHtml = lastWord
-    ? `${words.join(' ')} <span class="outline">${lastWord}</span>`
-    : coverTitle;
+    ? `<span class="grad">${words.join(' ')}</span> <span class="outline">${lastWord}</span>`
+    : `<span class="grad">${coverTitle}</span>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -96,7 +96,7 @@ function wrap(title, bodyHtml, opts = {}) {
 <title>${title} — MK Parrish</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&family=Parisienne&display=swap" rel="stylesheet">
 <style>
   :root {
     --void: #080808;
@@ -116,11 +116,21 @@ function wrap(title, bodyHtml, opts = {}) {
     --font-serif: 'Playfair Display', Georgia, serif;
     --font-body: 'DM Sans', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+    --font-script: 'Parisienne', cursive;
+    --font-flourish: 'Parisienne', cursive;
+    /* Reusable gray → pink gradients */
+    --grad-pink: linear-gradient(120deg, var(--rose), var(--petal) 55%, var(--blush));
+    --grad-greypink: linear-gradient(120deg, var(--smoke), var(--petal) 70%, var(--blush));
+    --grad-rule: linear-gradient(90deg, transparent, var(--petal), transparent);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { font-size: 17px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
   body {
-    background: var(--void);
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(242,175,198,0.06), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, rgba(199,91,120,0.05), transparent 55%),
+      linear-gradient(180deg, var(--obsidian) 0%, var(--void) 38%);
+    background-attachment: fixed;
     color: var(--pearl);
     font-family: var(--font-body);
     font-weight: 300;
@@ -155,9 +165,19 @@ function wrap(title, bodyHtml, opts = {}) {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 90% 70% at 50% -10%, rgba(242,175,198,0.18) 0%, transparent 62%),
-      radial-gradient(ellipse 50% 50% at 88% 108%, rgba(199,91,120,0.10) 0%, transparent 60%);
+      radial-gradient(ellipse 90% 70% at 50% -10%, rgba(242,175,198,0.20) 0%, transparent 62%),
+      radial-gradient(ellipse 50% 50% at 88% 108%, rgba(199,91,120,0.12) 0%, transparent 60%),
+      linear-gradient(160deg, rgba(176,176,176,0.06), transparent 45%);
     pointer-events: none;
+  }
+  /* Thin gray→pink gradient hairline across the very top */
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--iron), var(--petal) 50%, var(--blush));
+    opacity: 0.7;
   }
   .cover > * { position: relative; z-index: 1; }
   .cover-kicker {
@@ -170,34 +190,46 @@ function wrap(title, bodyHtml, opts = {}) {
   }
   .cover h1 {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 9vw, 5.6rem);
-    letter-spacing: 0.03em;
-    color: var(--white);
-    line-height: 0.9;
+    font-size: clamp(2.6rem, 7.5vw, 4.6rem);
+    letter-spacing: 0.04em;
+    line-height: 0.92;
     text-transform: uppercase;
-    margin-bottom: 26px;
-    text-shadow: 0 0 34px rgba(242,175,198,0.32), 0 0 90px rgba(242,175,198,0.12);
+    margin-bottom: 22px;
+    color: var(--white);
+  }
+  /* Soft gray→white→pink gradient fill on the lead words */
+  .cover h1 .grad {
+    background: linear-gradient(135deg, var(--pearl) 0%, var(--pearl) 50%, var(--blush) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--pearl);
+    filter: drop-shadow(0 0 16px rgba(242,175,198,0.14));
   }
   .cover h1 .outline {
-    -webkit-text-stroke: 1.2px rgba(242,175,198,0.55);
+    -webkit-text-stroke: 1px rgba(242,175,198,0.5);
+    -webkit-text-fill-color: transparent;
     color: transparent;
-    text-shadow: none;
   }
+  /* Flowing script subtitle */
   .cover .subtitle {
-    font-family: var(--font-serif);
-    font-style: italic;
+    font-family: var(--font-script);
     font-weight: 400;
-    font-size: clamp(1.05rem, 2.4vw, 1.3rem);
-    color: var(--smoke);
-    max-width: 520px;
-    margin: 0 auto 34px;
-    line-height: 1.55;
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    background: var(--grad-greypink);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--petal);
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.4;
   }
   .cover-rule {
-    width: 84px;
+    width: 90px;
     height: 1px;
     margin: 0 auto;
-    background: linear-gradient(90deg, transparent, var(--petal), transparent);
+    background: linear-gradient(90deg, transparent, var(--rose), var(--petal), var(--blush), transparent);
   }
   .cover-meta {
     margin-top: 30px;
@@ -230,13 +262,13 @@ function wrap(title, bodyHtml, opts = {}) {
   h2 {
     counter-increment: section;
     font-family: var(--font-display);
-    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    font-size: clamp(1.4rem, 3.3vw, 1.95rem);
     font-weight: 400;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--white);
-    margin: 72px 0 20px;
-    padding-bottom: 16px;
+    color: var(--pearl);
+    margin: 68px 0 20px;
+    padding-bottom: 14px;
     border-bottom: 1px solid var(--graphite);
     position: relative;
   }
@@ -247,17 +279,34 @@ function wrap(title, bodyHtml, opts = {}) {
     font-size: 0.7rem;
     font-weight: 500;
     letter-spacing: 0.25em;
-    color: var(--petal);
     margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--rose), var(--petal));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--petal);
   }
   h2::after {
     content: '';
     position: absolute;
     left: 0;
     bottom: -1px;
-    width: 64px;
+    width: 88px;
     height: 1px;
-    background: var(--petal);
+    background: linear-gradient(90deg, var(--petal), rgba(242,175,198,0));
+  }
+  /* Editorial drop cap on the first paragraph of the first section */
+  h2:first-of-type + p::first-letter {
+    font-family: var(--font-flourish);
+    font-size: 3.2rem;
+    line-height: 0.7;
+    float: left;
+    margin: 0.1em 0.12em 0 0;
+    background: linear-gradient(160deg, var(--blush), var(--petal), var(--rose));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--petal);
   }
   h3 {
     font-family: var(--font-body);
@@ -267,6 +316,16 @@ function wrap(title, bodyHtml, opts = {}) {
     text-transform: uppercase;
     color: var(--petal);
     margin: 40px 0 12px;
+  }
+  h3::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    vertical-align: middle;
+    margin-right: 11px;
+    margin-bottom: 3px;
+    background: linear-gradient(90deg, var(--petal), transparent);
   }
   p { margin: 0 0 1.25em; color: var(--smoke); }
   strong { color: var(--pearl); font-weight: 500; }
@@ -280,15 +339,27 @@ function wrap(title, bodyHtml, opts = {}) {
   ol li::marker { color: var(--petal); font-family: var(--font-mono); font-size: 0.85em; }
 
   blockquote {
+    position: relative;
     border-left: 2px solid var(--petal);
-    margin: 36px 0;
-    padding: 22px 28px;
-    background: linear-gradient(90deg, rgba(242,175,198,0.06), transparent 80%);
+    margin: 40px 0;
+    padding: 26px 30px 26px 40px;
+    background: linear-gradient(110deg, rgba(242,175,198,0.10), rgba(176,176,176,0.04) 55%, transparent 90%);
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 1.18rem;
+    font-size: 1.08rem;
     color: var(--pearl);
     line-height: 1.6;
+  }
+  blockquote::before {
+    content: '\\201C';
+    position: absolute;
+    top: 0.08em;
+    left: 0.14em;
+    font-family: var(--font-flourish);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(242,175,198,0.22);
+    pointer-events: none;
   }
 
   pre {
@@ -306,6 +377,7 @@ function wrap(title, bodyHtml, opts = {}) {
   }
 
   table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.9rem; }
+  thead tr { background: linear-gradient(90deg, rgba(242,175,198,0.12), rgba(176,176,176,0.04) 70%, transparent); }
   th {
     text-align: left;
     padding: 12px 14px;
@@ -323,8 +395,8 @@ function wrap(title, bodyHtml, opts = {}) {
   hr {
     border: none;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--petal), transparent);
-    opacity: 0.4;
+    background: linear-gradient(90deg, transparent, var(--iron) 25%, var(--petal) 50%, var(--iron) 75%, transparent);
+    opacity: 0.6;
     margin: 52px 0;
   }
 
@@ -336,12 +408,16 @@ function wrap(title, bodyHtml, opts = {}) {
     background: var(--obsidian);
   }
   .footer-logo {
-    font-family: var(--font-display);
-    font-size: 1.9rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 14px;
+    font-family: var(--font-flourish);
+    font-size: 2.6rem;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    background: var(--grad-greypink);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--petal);
+    margin-bottom: 16px;
   }
   .footer-legal {
     font-family: var(--font-mono);
@@ -352,14 +428,40 @@ function wrap(title, bodyHtml, opts = {}) {
   }
   .footer-legal a { color: var(--ash); }
 
-  /* ── PRINT — keep the dark, pink-accented design in the PDF ── */
+  /* ── PRINT — tuned so every page sits right in the PDF ── */
   @media print {
     @page { margin: 0; }
-    html, body { background: var(--void) !important; color: var(--pearl) !important; }
+    /* Solid void on content pages keeps gradients consistent page-to-page;
+       the cover keeps its own gradient wash. */
+    html, body {
+      background: var(--void) !important;
+      color: var(--pearl) !important;
+    }
     /* The grain is a screen flourish — rasterizing it onto every page bloats the PDF. */
     body::before { display: none !important; }
-    h1, h2, h3 { break-after: avoid; }
-    blockquote, pre, table, figure { break-inside: avoid; }
+
+    /* Cover owns the first page, vertically centered */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 56px;
+      break-after: page;
+    }
+    .content { padding-top: 60px; }
+
+    /* Never strand a heading at the foot of a page */
+    h1, h2, h3 { break-after: avoid-page; }
+    h2 { break-before: auto; }
+    h2:first-of-type { break-before: avoid-page; }
+
+    /* Keep prose and structures whole */
+    p, li { orphans: 3; widows: 3; }
+    li, tr, blockquote, pre, table, figure, img { break-inside: avoid; }
+    ul, ol { break-before: avoid-page; }
+
+    .footer { break-before: avoid-page; }
   }
   *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 </style>
