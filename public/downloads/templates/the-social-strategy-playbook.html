@@ -324,12 +324,8 @@
     }
     body::before { display: none !important; }   /* no grain in print */
 
-    /* ── COVER: a black box centered within the page margins ── */
+    /* ── COVER: a full black title page within the white margins ── */
     .cover {
-      min-height: 9.2in;          /* fills the Letter text area (11in − 2×0.8in) */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       background: #ffffff !important;
       border-bottom: none;
       padding: 0;
@@ -337,7 +333,12 @@
     }
     .cover::before, .cover::after { display: none !important; }
     .cover-inner {
-      padding: 88px 56px;
+      box-sizing: border-box;
+      min-height: 9.3in;          /* fills the Letter text area (11in − 2×0.8in) */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 64px;
       background: #0E0E0E;
       border: 1px solid rgba(242, 175, 198, 0.45);
     }
