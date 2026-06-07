@@ -3,10 +3,26 @@ import { notFound } from "next/navigation";
 import { EBOOKS, SERVICE_EBOOKS, SUBSTACK_URL, MARGINS_TIERS, COMING_SOON_SLUGS } from "@/app/lib/config";
 import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
-  BtnPrimary, BtnGhost, ArrowLink,
+  BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
 
 const ALL_SHOP_EBOOKS = [...EBOOKS, ...SERVICE_EBOOKS] as const;
+type ShopProduct = (typeof ALL_SHOP_EBOOKS)[number];
+
+const productDownload = (product: ShopProduct) =>
+  (product as { download?: string }).download;
+
+const isFreeProduct = (product: ShopProduct) =>
+  Boolean((product as { free?: boolean }).free && productDownload(product));
+
+const productPriceLabel = (product: ShopProduct) =>
+  isFreeProduct(product) ? "Free" : product.price;
+
+const isLimitedFree = (product: ShopProduct) =>
+  isFreeProduct(product) && Boolean((product as { limitedFree?: boolean }).limitedFree);
+
+const productEyebrow = (product: ShopProduct) =>
+  product.tag === "Digital Download" ? product.tag : `${product.tag} · Digital Download`;
 
 export function generateStaticParams() {
   return ALL_SHOP_EBOOKS.map((e) => ({ slug: e.slug }));
@@ -203,12 +219,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   const otherProducts = ALL_SHOP_EBOOKS.filter((e) => e.slug !== product.slug).slice(0, 3);
 
-  // Free direct download vs paid checkout
-  const dl = (product as { download?: string }).download;
-  const isFree = Boolean((product as { free?: boolean }).free && dl);
+  const dl = productDownload(product);
+  const isFree = isFreeProduct(product);
   const stripe = (product as { stripe?: string }).stripe;
   const buyTarget = isFree ? (dl as string) : (stripe && stripe.length > 0 ? stripe : product.href);
   const buyLabel = isFree ? "Download Free" : "Buy Now";
+  const priceLabel = productPriceLabel(product);
+  const limitedFree = isLimitedFree(product);
+  const accessLabel = limitedFree
+    ? `Free for a limited time · normally ${product.price}`
+    : isFree ? "Direct download · Instant access" : "One-time purchase · Instant access";
 
   return (
     <>
@@ -220,7 +240,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <div className="grid gap-16 lg:grid-cols-[1fr_420px]">
             <div>
-              <Eyebrow>{product.tag} &middot; Digital Download</Eyebrow>
+              <Eyebrow>{productEyebrow(product)}</Eyebrow>
               <div className="mt-4">
                 <H1>{product.title}</H1>
               </div>
@@ -243,12 +263,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     rel="noreferrer"
                     className="btn-primary inline-flex items-center justify-center px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
-                    {buyLabel}{isFree ? " →" : ` — ${product.price}`}
+                    {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
                   </a>
                 )}
                 <span className="font-body text-xs font-light text-iron">
                   {COMING_SOON_SLUGS.has(product.slug)
                     ? "Coming soon"
+                    : limitedFree
+                    ? `Free for a limited time — normally ${product.price}`
                     : isFree
                     ? "Free instant download · No signup"
                     : "Instant download · Secure checkout"}
@@ -263,9 +285,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             >
               <div className="absolute inset-x-0 top-0 h-px bg-petal" />
               <div>
-                <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">{product.tag}</p>
-                <p className="mt-4 font-display text-5xl uppercase tracking-[0.01em] text-white">{product.price}</p>
-                <p className="mt-1 font-body text-xs font-light text-ash">One-time purchase · Instant access</p>
+                <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">{limitedFree ? "Limited-time free" : product.tag}</p>
+                <p className="mt-4 font-display text-5xl uppercase tracking-[0.01em] text-white">
+                  {priceLabel}
+                  {limitedFree && (
+                    <span className="ml-3 align-middle font-body text-xl font-light text-iron line-through">{product.price}</span>
+                  )}
+                </p>
+                <p className="mt-1 font-body text-xs font-light text-ash">{accessLabel}</p>
               </div>
               <ul className="my-8 space-y-4">
                 {product.features.map((f) => (
@@ -288,12 +315,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     rel="noreferrer"
                     className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
-                    {buyLabel}{isFree ? " →" : ` — ${product.price}`}
+                    {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
                   </a>
                 )}
                 <p className="text-center font-body text-[0.65rem] font-light text-iron">
                   {COMING_SOON_SLUGS.has(product.slug)
                     ? "Coming soon"
+                    : limitedFree
+                    ? `Free for a limited time · normally ${product.price}`
                     : isFree
                     ? "Free · PDF format · No subscription"
                     : "PDF format · Secure checkout · No subscription"}
@@ -323,7 +352,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   rel="noreferrer"
                   className="btn-primary inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                 >
-                  {isFree ? "Download Free →" : `Get It — ${product.price}`}
+                  {isFree ? "Download Free →" : `Get It — ${priceLabel}`}
                 </a>
               )}
             </div>
@@ -350,7 +379,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <RevealSection bg="void" num="02">
         <div className="grid gap-16 lg:grid-cols-[1fr_1fr]">
           <div>
-            <Eyebrow>Who it's for</Eyebrow>
+            <Eyebrow>Who it&apos;s for</Eyebrow>
             <H2>This is<br /><span className="text-petal">for you if —</span></H2>
           </div>
           <ul className="space-y-4 pt-2">
@@ -391,7 +420,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   rel="noreferrer"
                   className="btn-primary inline-flex items-center justify-center px-10 py-5 font-body text-[0.85rem] font-bold uppercase tracking-[0.2em] text-void"
                 >
-                  {buyLabel}{isFree ? " →" : ` — ${product.price}`}
+                  {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
                 </a>
               )}
               <ArrowLink href="/shelf">Browse The Shelf</ArrowLink>
@@ -424,7 +453,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-40" />
               <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-iron">{p.tag}</p>
               <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl">{p.title}</h3>
-              <p className="mt-2 font-display text-3xl text-petal">{p.price}</p>
+              <p className="mt-2 font-display text-3xl text-petal">{productPriceLabel(p)}</p>
               <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
               <span className="mt-6 font-body text-xs font-bold uppercase tracking-[0.2em] text-petal/60 transition-colors group-hover:text-petal">
                 View product →
@@ -440,7 +469,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div>
             <Eyebrow>Want more?</Eyebrow>
             <H2>Join<br /><span className="text-petal">The Margins.</span></H2>
-            <H3Script>The writing that doesn't go anywhere else.</H3Script>
+            <H3Script>The writing that doesn&apos;t go anywhere else.</H3Script>
             <p className="mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
               Weekly essays, raw memoir, strategy notes, and the writing that is too honest for a public feed. Free to start — paid from $9/month. Cancel anytime.
             </p>

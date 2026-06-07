@@ -322,42 +322,58 @@
     }
     body::before { display: none !important; }   /* no grain in print */
 
-    /* ── COVER: a black box on a white page ── */
+    /* ── COVER: a full-page black panel on a white sheet ── */
     .cover {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       background: #ffffff !important;
       border-bottom: none;
-      padding: 76px;
+      padding: 0;
       break-after: page;
     }
     .cover::before, .cover::after { display: none !important; }
+    /* The panel fills the printable page and centres the title block,
+       instead of floating as a thin band in the middle of the sheet. */
     .cover-inner {
-      padding: 88px 56px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 52px;
       background: #0E0E0E;
       border: 1px solid rgba(242, 175, 198, 0.45);
     }
     .cover-kicker { color: var(--petal); }
-    .cover h1 { color: #ffffff; }
+    .cover h1 { color: #ffffff; font-size: clamp(3rem, 8vw, 4rem); }
+    /* Solid fills only. background-clip:text and text-stroke rasterise as
+       opaque boxes / vanish entirely in print — that is what turned the old
+       title into a white rectangle. Keep the white + pink two-tone with
+       plain fills so it renders identically everywhere. */
     .cover h1 .grad {
-      background: linear-gradient(135deg, #ffffff 0%, #ffffff 46%, var(--blush) 100%);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: #ffffff;
+      background: none;
+      -webkit-background-clip: border-box; background-clip: border-box;
+      -webkit-text-fill-color: #ffffff; color: #ffffff;
       filter: none;
     }
     .cover h1 .outline {
-      -webkit-text-stroke: 1px var(--petal);
-      -webkit-text-fill-color: transparent; color: transparent;
+      -webkit-text-stroke: 0;
+      -webkit-text-fill-color: var(--petal); color: var(--petal);
     }
     .cover .subtitle { color: var(--petal); }
-    .cover-meta { color: #8a8a8a; }
+    .cover-meta { color: #B0B0B0; }
 
     /* ── BODY: black text on white ── */
     .content { padding-top: 64px; color: #232323; }
     p { color: #2b2b2b; }
-    strong { color: #0A0A0A; }
+    /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
+    strong {
+      background: #0E0E0E;
+      color: #FAFAF8;
+      font-weight: 600;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
     a { color: #B23A59; }
     ul li::marker, ol li::marker { color: #B23A59; }
 
@@ -365,10 +381,14 @@
     h2 {
       background: #0E0E0E;
       color: #ffffff;
-      padding: 20px 26px;
-      margin: 46px 0 30px;
+      padding: 24px 30px;
+      margin: 40px 0 42px;
       border: none;
+      break-before: page;          /* every Part / section starts a fresh page */
     }
+    /* …except the first section, which follows the cover (and any intro/metadata
+       block) on page 2 instead of forcing a near-empty page before it. */
+    .content h2:first-of-type { break-before: auto; }
     h2::before {
       background: none;
       -webkit-text-fill-color: var(--petal);
@@ -377,9 +397,17 @@
     }
     h2::after { display: none; }
 
-    /* Sub-labels and emphasis in a print-legible pink */
-    h3 { color: #B23A59; }
-    em { color: #B23A59; }
+    /* Exercise titles — pink, with extra breathing room above each */
+    h3 { color: #B23A59; margin: 58px 0 18px; }
+    /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
+    em {
+      background: var(--petal);
+      color: #1A1008;
+      font-style: italic;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
 
     /* ── PULL QUOTES: soft panel, pink rule + mark, dark text ── */
     blockquote {
@@ -426,21 +454,13 @@
   <div class="cover-inner">
     <div class="cover-kicker">MK Parrish · mkparrish.com</div>
     <h1><span class="grad">The Byline</span> <span class="outline">Method</span></h1>
-    
+    <p class="subtitle">The voice capture and ghostwriting framework — documented for the first time.</p>
     <div class="cover-rule"></div>
-    
+    <div class="cover-meta">By MK Parrish · $38</div>
   </div>
 </div>
 
 <div class="content">
-
-<h3>The voice capture and ghostwriting framework — documented for the first time.</h3>
-
-<p><strong>By MK Parrish</strong></p>
-<p><strong>Price: $38</strong></p>
-
-<hr>
-
 <h2>Why this exists</h2>
 
 <p>Ghostwriting that works doesn't sound ghostwritten. It sounds like the person — on their best day, with an editor in their head. Most ghostwriting fails at exactly this point. It's competent and generic. It could be anyone. And the moment a reader thinks "this doesn't sound like them," the trust is gone.</p>

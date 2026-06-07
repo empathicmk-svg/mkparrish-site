@@ -322,42 +322,58 @@
     }
     body::before { display: none !important; }   /* no grain in print */
 
-    /* ── COVER: a black box on a white page ── */
+    /* ── COVER: a full-page black panel on a white sheet ── */
     .cover {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       background: #ffffff !important;
       border-bottom: none;
-      padding: 76px;
+      padding: 0;
       break-after: page;
     }
     .cover::before, .cover::after { display: none !important; }
+    /* The panel fills the printable page and centres the title block,
+       instead of floating as a thin band in the middle of the sheet. */
     .cover-inner {
-      padding: 88px 56px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 52px;
       background: #0E0E0E;
       border: 1px solid rgba(242, 175, 198, 0.45);
     }
     .cover-kicker { color: var(--petal); }
-    .cover h1 { color: #ffffff; }
+    .cover h1 { color: #ffffff; font-size: clamp(3rem, 8vw, 4rem); }
+    /* Solid fills only. background-clip:text and text-stroke rasterise as
+       opaque boxes / vanish entirely in print — that is what turned the old
+       title into a white rectangle. Keep the white + pink two-tone with
+       plain fills so it renders identically everywhere. */
     .cover h1 .grad {
-      background: linear-gradient(135deg, #ffffff 0%, #ffffff 46%, var(--blush) 100%);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: #ffffff;
+      background: none;
+      -webkit-background-clip: border-box; background-clip: border-box;
+      -webkit-text-fill-color: #ffffff; color: #ffffff;
       filter: none;
     }
     .cover h1 .outline {
-      -webkit-text-stroke: 1px var(--petal);
-      -webkit-text-fill-color: transparent; color: transparent;
+      -webkit-text-stroke: 0;
+      -webkit-text-fill-color: var(--petal); color: var(--petal);
     }
     .cover .subtitle { color: var(--petal); }
-    .cover-meta { color: #8a8a8a; }
+    .cover-meta { color: #B0B0B0; }
 
     /* ── BODY: black text on white ── */
     .content { padding-top: 64px; color: #232323; }
     p { color: #2b2b2b; }
-    strong { color: #0A0A0A; }
+    /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
+    strong {
+      background: #0E0E0E;
+      color: #FAFAF8;
+      font-weight: 600;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
     a { color: #B23A59; }
     ul li::marker, ol li::marker { color: #B23A59; }
 
@@ -365,10 +381,14 @@
     h2 {
       background: #0E0E0E;
       color: #ffffff;
-      padding: 20px 26px;
-      margin: 46px 0 30px;
+      padding: 24px 30px;
+      margin: 40px 0 42px;
       border: none;
+      break-before: page;          /* every Part / section starts a fresh page */
     }
+    /* …except the first section, which follows the cover (and any intro/metadata
+       block) on page 2 instead of forcing a near-empty page before it. */
+    .content h2:first-of-type { break-before: auto; }
     h2::before {
       background: none;
       -webkit-text-fill-color: var(--petal);
@@ -377,9 +397,17 @@
     }
     h2::after { display: none; }
 
-    /* Sub-labels and emphasis in a print-legible pink */
-    h3 { color: #B23A59; }
-    em { color: #B23A59; }
+    /* Exercise titles — pink, with extra breathing room above each */
+    h3 { color: #B23A59; margin: 58px 0 18px; }
+    /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
+    em {
+      background: var(--petal);
+      color: #1A1008;
+      font-style: italic;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
 
     /* ── PULL QUOTES: soft panel, pink rule + mark, dark text ── */
     blockquote {
@@ -426,22 +454,13 @@
   <div class="cover-inner">
     <div class="cover-kicker">MK Parrish · mkparrish.com</div>
     <h1><span class="grad">Write Yourself Into the</span> <span class="outline">Room</span></h1>
-    
+    <p class="subtitle">The personal brand writing guide for people tired of sounding like everyone else.</p>
     <div class="cover-rule"></div>
-    
+    <div class="cover-meta">By MK Parrish · $28</div>
   </div>
 </div>
 
 <div class="content">
-
-<h3>The personal brand writing guide for people tired of sounding like everyone else.</h3>
-
-<p><strong>By MK Parrish</strong></p>
-
-<p><strong>$28</strong></p>
-
-<hr>
-
 <h2>Intro: The Room You Keep Getting Left Out Of</h2>
 
 <p>There's a room you want to be in. A client roster, an investor's shortlist, a curated panel, a feed where the people you admire actually read your stuff. And you keep getting left just outside the door — not because you lack the goods, but because your words don't carry them.</p>

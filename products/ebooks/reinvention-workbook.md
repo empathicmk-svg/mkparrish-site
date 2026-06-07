@@ -1,13 +1,5 @@
 # The Reinvention Workbook
 
-### A guided writing workbook for people in the middle of becoming someone new.
-
-**By MK Parrish**
-
-**$18**
-
----
-
 ## How to Use This Workbook
 
 You're not lost. You're between drafts.

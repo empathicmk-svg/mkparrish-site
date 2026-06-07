@@ -64,6 +64,7 @@ export const EBOOKS = [
     tag:       "Digital Download",
     highlight: false,
     free:      true,
+    limitedFree: true,   // free for a limited time; regular price is `price`
     download:  "/downloads/ebooks/reinvention-workbook.pdf",
     href:      "/downloads/ebooks/reinvention-workbook.pdf",
     features:  [

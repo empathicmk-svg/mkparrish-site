@@ -49,7 +49,11 @@ async function waitForFonts(page) {
   try { await page.evaluate(() => document.fonts.ready); } catch {}
 }
 
-for (const [src, dest] of FILES) {
+// Optional CLI filter: `node scripts/build-pdfs.mjs reinvention` renders only
+// files whose source path contains the argument. No argument renders all.
+const only = process.argv[2];
+const TARGETS = only ? FILES.filter(([s]) => s.includes(only)) : FILES;
+for (const [src, dest] of TARGETS) {
   const srcPath  = path.join(ROOT, src);
   const destPath = path.join(ROOT, dest);
   if (!fs.existsSync(srcPath)) { console.warn(`  ✗  missing: ${src}`); continue; }

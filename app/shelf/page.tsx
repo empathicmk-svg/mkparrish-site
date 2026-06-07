@@ -21,6 +21,7 @@ type Product = {
   desc: string;
   features: readonly string[];
   free?: boolean;
+  limitedFree?: boolean;
   download?: string;
   stripe?: string;
   href: string;
@@ -33,6 +34,7 @@ function buyHref(p: Product) {
 
 function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
   const isFree = Boolean(p.free && p.download);
+  const limitedFree = isFree && Boolean(p.limitedFree);
   return (
     <div
       className={`relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 ${
@@ -41,9 +43,12 @@ function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
       {p.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
-      <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">{isFree ? "Free Download" : p.tag}</p>
+      <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">{limitedFree ? "Free · Limited Time" : isFree ? "Free Download" : p.tag}</p>
       <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl leading-tight">{p.title}</h3>
-      <p className="mt-2 font-display text-4xl text-white">{isFree ? "Free" : p.price}</p>
+      <p className="mt-2 font-display text-4xl text-white">
+        {isFree ? "Free" : p.price}
+        {limitedFree && <span className="ml-2 align-middle font-body text-base font-light text-iron line-through">{p.price}</span>}
+      </p>
       <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
       <ul className="mt-5 space-y-2">
         {p.features.map((f) => (

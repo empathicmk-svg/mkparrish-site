@@ -412,42 +412,58 @@ function wrap(title, bodyHtml, opts = {}) {
     }
     body::before { display: none !important; }   /* no grain in print */
 
-    /* ── COVER: a black box on a white page ── */
+    /* ── COVER: a full-page black panel on a white sheet ── */
     .cover {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       background: #ffffff !important;
       border-bottom: none;
-      padding: 76px;
+      padding: 0;
       break-after: page;
     }
     .cover::before, .cover::after { display: none !important; }
+    /* The panel fills the printable page and centres the title block,
+       instead of floating as a thin band in the middle of the sheet. */
     .cover-inner {
-      padding: 88px 56px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 52px;
       background: #0E0E0E;
       border: 1px solid rgba(242, 175, 198, 0.45);
     }
     .cover-kicker { color: var(--petal); }
-    .cover h1 { color: #ffffff; }
+    .cover h1 { color: #ffffff; font-size: clamp(3rem, 8vw, 4rem); }
+    /* Solid fills only. background-clip:text and text-stroke rasterise as
+       opaque boxes / vanish entirely in print — that is what turned the old
+       title into a white rectangle. Keep the white + pink two-tone with
+       plain fills so it renders identically everywhere. */
     .cover h1 .grad {
-      background: linear-gradient(135deg, #ffffff 0%, #ffffff 46%, var(--blush) 100%);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: #ffffff;
+      background: none;
+      -webkit-background-clip: border-box; background-clip: border-box;
+      -webkit-text-fill-color: #ffffff; color: #ffffff;
       filter: none;
     }
     .cover h1 .outline {
-      -webkit-text-stroke: 1px var(--petal);
-      -webkit-text-fill-color: transparent; color: transparent;
+      -webkit-text-stroke: 0;
+      -webkit-text-fill-color: var(--petal); color: var(--petal);
     }
     .cover .subtitle { color: var(--petal); }
-    .cover-meta { color: #8a8a8a; }
+    .cover-meta { color: #B0B0B0; }
 
     /* ── BODY: black text on white ── */
     .content { padding-top: 64px; color: #232323; }
     p { color: #2b2b2b; }
-    strong { color: #0A0A0A; }
+    /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
+    strong {
+      background: #0E0E0E;
+      color: #FAFAF8;
+      font-weight: 600;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
     a { color: #B23A59; }
     ul li::marker, ol li::marker { color: #B23A59; }
 
@@ -455,10 +471,14 @@ function wrap(title, bodyHtml, opts = {}) {
     h2 {
       background: #0E0E0E;
       color: #ffffff;
-      padding: 20px 26px;
-      margin: 46px 0 30px;
+      padding: 24px 30px;
+      margin: 40px 0 42px;
       border: none;
+      break-before: page;          /* every Part / section starts a fresh page */
     }
+    /* …except the first section, which follows the cover (and any intro/metadata
+       block) on page 2 instead of forcing a near-empty page before it. */
+    .content h2:first-of-type { break-before: auto; }
     h2::before {
       background: none;
       -webkit-text-fill-color: var(--petal);
@@ -467,9 +487,17 @@ function wrap(title, bodyHtml, opts = {}) {
     }
     h2::after { display: none; }
 
-    /* Sub-labels and emphasis in a print-legible pink */
-    h3 { color: #B23A59; }
-    em { color: #B23A59; }
+    /* Exercise titles — pink, with extra breathing room above each */
+    h3 { color: #B23A59; margin: 58px 0 18px; }
+    /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
+    em {
+      background: var(--petal);
+      color: #1A1008;
+      font-style: italic;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
 
     /* ── PULL QUOTES: soft panel, pink rule + mark, dark text ── */
     blockquote {
@@ -544,8 +572,43 @@ function buildFile(srcPath, destPath, opts = {}) {
   const titleMatch = raw.match(/^# (.+)$/m);
   const title = opts.title || (titleMatch ? titleMatch[1] : path.basename(srcPath, '.md'));
   if (titleMatch) raw = raw.replace(/^# .+$\n?/m, '');
+
+  // Lift the cover front matter (subtitle + author/price) out of the body so it
+  // rides on the cover, the way the Reinvention Workbook does — unless the caller
+  // supplied it via opts. Only the block at the very top of the file is touched,
+  // so section dividers and emphasis deeper in the document are left alone.
+  let { subtitle = '', meta = '' } = opts;
+  let lifted = false;
+  const atTop = (i) => raw.slice(0, i).trim() === '';
+  if (!subtitle) {
+    const m = raw.match(/^\s*###\s+(.+?)\s*$/m);
+    if (m && atTop(m.index)) {
+      subtitle = m[1];
+      raw = raw.slice(0, m.index) + raw.slice(m.index + m[0].length);
+      lifted = true;
+    }
+  }
+  if (!meta) {
+    const bits = [];
+    const by = raw.match(/^\s*\*\*By ([^*]+?)\*\*\s*$/m);
+    if (by && atTop(by.index)) {
+      bits.push('By ' + by[1].trim());
+      raw = raw.slice(0, by.index) + raw.slice(by.index + by[0].length);
+      lifted = true;
+    }
+    const price = raw.match(/^\s*\*\*(?:Price:\s*)?(\$\d+)\*\*\s*$/m);
+    if (price && atTop(price.index)) {
+      bits.push(price[1]);
+      raw = raw.slice(0, price.index) + raw.slice(price.index + price[0].length);
+      lifted = true;
+    }
+    if (bits.length) meta = bits.join(' · ');
+  }
+  // Remove the horizontal rule that used to divide the front matter from the body.
+  if (lifted) raw = raw.replace(/^\s*---\s*$\n?/m, '');
+
   const bodyHtml = md(raw);
-  const html = wrap(title, bodyHtml, opts);
+  const html = wrap(title, bodyHtml, { ...opts, subtitle, meta });
   fs.mkdirSync(path.dirname(destPath), { recursive: true });
   fs.writeFileSync(destPath, html);
   console.log(`  ✓  ${path.relative(ROOT, destPath)}`);
@@ -554,7 +617,10 @@ function buildFile(srcPath, destPath, opts = {}) {
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 const EBOOKS = [
-  ['ebooks/reinvention-workbook.md',          'ebooks/reinvention-workbook.html'],
+  ['ebooks/reinvention-workbook.md',          'ebooks/reinvention-workbook.html', {
+    subtitle: 'A guided writing workbook for people in the middle of becoming someone new.',
+    meta:     'By MK Parrish · $18',
+  }],
   ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
   ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
 ];
@@ -569,19 +635,26 @@ const TEMPLATES = [
   ['templates/the-social-strategy-playbook.md', 'templates/the-social-strategy-playbook.html'],
 ];
 
+// Optional CLI filter: `node scripts/build-downloads.mjs reinvention` builds
+// only files whose source path contains the argument. No argument builds all.
+const only = process.argv[2];
+const pick = (list) => (only ? list.filter(([s]) => s.includes(only)) : list);
+
 console.log('\nBuilding ebooks...');
-for (const [src, dest] of EBOOKS) {
+for (const [src, dest, opts] of pick(EBOOKS)) {
   buildFile(
     path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest)
+    path.join(ROOT, 'public/downloads', dest),
+    opts
   );
 }
 
 console.log('\nBuilding templates...');
-for (const [src, dest] of TEMPLATES) {
+for (const [src, dest, opts] of pick(TEMPLATES)) {
   buildFile(
     path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest)
+    path.join(ROOT, 'public/downloads', dest),
+    opts
   );
 }
 
