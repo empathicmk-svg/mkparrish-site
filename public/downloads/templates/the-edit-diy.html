@@ -308,39 +308,115 @@
   }
   .footer-legal a { color: var(--ash); }
 
-  /* ── PRINT — tuned so every page sits right in the PDF ── */
+  /* ═══════════════════════════════════════════════════════════════
+     PRINT EDITION — light, publisher-style layout for the PDF.
+     The screen stays dark; the printed book inverts to a white page
+     with black header boxes and pink/white titles.
+     ═══════════════════════════════════════════════════════════════ */
   @media print {
     @page { margin: 0; }
-    /* Solid void on content pages keeps gradients consistent page-to-page;
-       the cover keeps its own gradient wash. */
-    html, body {
-      background: var(--void) !important;
-      color: var(--pearl) !important;
-    }
-    /* The grain is a screen flourish — rasterizing it onto every page bloats the PDF. */
-    body::before { display: none !important; }
 
-    /* Cover owns the first page, vertically centered */
+    html, body {
+      background: #ffffff !important;
+      color: #232323 !important;
+    }
+    body::before { display: none !important; }   /* no grain in print */
+
+    /* ── COVER: a black box on a white page ── */
     .cover {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 0 56px;
+      background: #ffffff !important;
+      border-bottom: none;
+      padding: 76px;
       break-after: page;
     }
-    .content { padding-top: 60px; }
+    .cover::before, .cover::after { display: none !important; }
+    .cover-inner {
+      padding: 88px 56px;
+      background: #0E0E0E;
+      border: 1px solid rgba(242, 175, 198, 0.45);
+    }
+    .cover-kicker { color: var(--petal); }
+    .cover h1 { color: #ffffff; }
+    .cover h1 .grad {
+      background: linear-gradient(135deg, #ffffff 0%, #ffffff 46%, var(--blush) 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: #ffffff;
+      filter: none;
+    }
+    .cover h1 .outline {
+      -webkit-text-stroke: 1px var(--petal);
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+    .cover .subtitle { color: var(--petal); }
+    .cover-meta { color: #8a8a8a; }
 
-    /* Never strand a heading at the foot of a page */
+    /* ── BODY: black text on white ── */
+    .content { padding-top: 64px; color: #232323; }
+    p { color: #2b2b2b; }
+    strong { color: #0A0A0A; }
+    a { color: #B23A59; }
+    ul li::marker, ol li::marker { color: #B23A59; }
+
+    /* ── SECTION HEADERS: black boxes, pink number + white title ── */
+    h2 {
+      background: #0E0E0E;
+      color: #ffffff;
+      padding: 20px 26px;
+      margin: 0 0 30px;
+      border: none;
+      break-before: page;          /* each section opens a fresh page */
+    }
+    h2:first-of-type { break-before: avoid; }   /* first section follows the cover */
+    h2::before {
+      background: none;
+      -webkit-text-fill-color: var(--petal);
+      color: var(--petal);
+      margin-bottom: 10px;
+    }
+    h2::after { display: none; }
+
+    /* Sub-labels and emphasis in a print-legible pink */
+    h3 { color: #B23A59; }
+    em { color: #B23A59; }
+
+    /* ── PULL QUOTES: soft panel, pink rule + mark, dark text ── */
+    blockquote {
+      background: #F5F2F0;
+      border-left: 3px solid #B23A59;
+      color: #232323;
+    }
+    blockquote::before { color: rgba(178, 58, 89, 0.3); }
+
+    /* ── TABLES: black header band ── */
+    thead tr { background: #0E0E0E; }
+    th { color: #ffffff; border-bottom: 1px solid #0E0E0E; }
+    td { color: #2b2b2b; border-bottom: 1px solid #e3e3e3; }
+
+    /* ── CODE: light chip ── */
+    pre { background: #f3f3f1; border: 1px solid #e3e3e3; }
+    pre code { color: #A8344F; }
+    p > code, li > code { background: #f0eeec; color: #A8344F; }
+
+    hr {
+      background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
+      opacity: 1;
+    }
+
+    /* ── FOOTER: white page, black signature ── */
+    .footer { background: #ffffff; border-top: 1px solid #dddddd; }
+    .footer-logo { color: #0A0A0A; }
+    .footer-legal { color: #8a8a8a; }
+    .footer-legal a { color: #B23A59; }
+
+    /* ── PAGINATION — keep blocks whole, headings attached ── */
     h1, h2, h3 { break-after: avoid-page; }
-    h2 { break-before: auto; }
-    h2:first-of-type { break-before: avoid-page; }
-
-    /* Keep prose and structures whole */
     p, li { orphans: 3; widows: 3; }
     li, tr, blockquote, pre, table, figure, img { break-inside: avoid; }
     ul, ol { break-before: avoid-page; }
-
     .footer { break-before: avoid-page; }
   }
   *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -349,11 +425,13 @@
 <body>
 
 <div class="cover">
-  <div class="cover-kicker">MK Parrish · mkparrish.com</div>
-  <h1><span class="grad">The</span> <span class="outline">Edit</span></h1>
-  <p class="subtitle">DIY Edition</p>
-  <div class="cover-rule"></div>
-  
+  <div class="cover-inner">
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">The</span> <span class="outline">Edit</span></h1>
+    <p class="subtitle">DIY Edition</p>
+    <div class="cover-rule"></div>
+    
+  </div>
 </div>
 
 <div class="content">
