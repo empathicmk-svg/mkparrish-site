@@ -24,44 +24,42 @@ export default function AboutPage() {
     <>
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative flex min-h-[75vh] flex-col justify-end bg-void pb-16 pt-28 md:pb-24">
-        <div className="pointer-events-none absolute inset-0">
+        {/* Faint author portrait behind the title */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <Image
+            src="/author/mk-parrish.jpg"
+            alt=""
+            aria-hidden="true"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_28%] opacity-[0.22] md:object-[center_32%] md:opacity-[0.26]"
+          />
+          {/* Legibility veils — keep the text crisp over the photo */}
+          <div className="absolute inset-0 bg-gradient-to-t from-void via-void/85 to-void/45" />
+          <div className="absolute inset-0 bg-gradient-to-r from-void/95 via-void/55 to-void/15" />
+          {/* Petal glow */}
           <div className="absolute left-1/2 top-0 h-[55vh] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.13),transparent_65%)]" />
         </div>
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          <div className="grid items-end gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(240px,320px)]">
-            <div>
-              <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-                About
-              </p>
-              <div className="mt-6">
-                <H1>
-                  MK{" "}
-                  <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.35)" }}>
-                    Parrish
-                  </span>
-                </H1>
-              </div>
-              <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-                Senior growth operator. Writer. One pair of hands.
-              </p>
-              <p className="mt-4 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
-                Two decades inside Fortune 50s and startups, $40M+ in pipeline influenced. I build the websites, run the outbound, and write the messaging that turn how a company is seen into revenue it can show a board.
-              </p>
+          <div className="max-w-3xl">
+            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
+              About
+            </p>
+            <div className="mt-6">
+              <H1>
+                MK{" "}
+                <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.35)" }}>
+                  Parrish
+                </span>
+              </H1>
             </div>
-
-            <figure className="relative mx-auto w-full max-w-[190px] sm:max-w-[220px] lg:mx-0 lg:max-w-[300px] lg:justify-self-end">
-              <div className="relative aspect-[4/5] overflow-hidden border border-petal/25 bg-obsidian shadow-[0_0_80px_rgba(242,175,198,0.12)]">
-                <Image
-                  src="/author/mk-parrish.jpg"
-                  alt="MK Parrish"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 300px, (min-width: 640px) 220px, 190px"
-                  className="object-cover object-[center_30%]"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/35 via-transparent to-transparent" />
-              </div>
-            </figure>
+            <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
+              Senior growth operator. Writer. One pair of hands.
+            </p>
+            <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
+              Two decades inside Fortune 50s and startups, $40M+ in pipeline influenced. I build the websites, run the outbound, and write the messaging that turn how a company is seen into revenue it can show a board.
+            </p>
           </div>
 
           {/* Proof band */}
