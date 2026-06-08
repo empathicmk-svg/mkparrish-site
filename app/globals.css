@@ -105,6 +105,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  cursor: url('/cursor-heart.svg') 9 9, auto;
 }
 
 body {
