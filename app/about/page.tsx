@@ -28,7 +28,7 @@ export default function AboutPage() {
           <div className="absolute left-1/2 top-0 h-[55vh] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.13),transparent_65%)]" />
         </div>
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          <div className="grid items-end gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(280px,420px)]">
+          <div className="grid items-end gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(240px,320px)]">
             <div>
               <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
                 About
@@ -49,15 +49,15 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <figure className="relative mx-auto w-full max-w-[340px] lg:mx-0 lg:max-w-[400px] lg:justify-self-end">
-              <div className="relative aspect-[2/3] overflow-hidden border border-petal/25 bg-obsidian shadow-[0_0_80px_rgba(242,175,198,0.12)]">
+            <figure className="relative mx-auto w-full max-w-[190px] sm:max-w-[220px] lg:mx-0 lg:max-w-[300px] lg:justify-self-end">
+              <div className="relative aspect-[4/5] overflow-hidden border border-petal/25 bg-obsidian shadow-[0_0_80px_rgba(242,175,198,0.12)]">
                 <Image
                   src="/author/mk-parrish.jpg"
                   alt="MK Parrish"
                   fill
                   priority
-                  sizes="(min-width: 1024px) 420px, min(90vw, 360px)"
-                  className="object-cover object-[center_28%]"
+                  sizes="(min-width: 1024px) 300px, (min-width: 640px) 220px, 190px"
+                  className="object-cover object-[center_30%]"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/35 via-transparent to-transparent" />
               </div>
