@@ -105,7 +105,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
-  cursor: url('/cursor-heart.svg') 9 9, auto;
+  /* SVG cursors work in Chrome/Firefox/Edge but NOT Safari — Safari (and some
+     older Edge) silently ignore SVG and fall back to the next value. So we list
+     a PNG fallback (32×32, hotspot 16,16) before `auto` so the heart shows
+     everywhere. Chrome still uses the crisp SVG. */
+  cursor: url('/cursor-heart.svg') 9 9, url('/cursor-heart.png') 16 16, auto;
 }
 
 body {

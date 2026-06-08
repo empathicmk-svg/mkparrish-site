@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AuthorGlow from "@/app/components/AuthorGlow";
+import Image from "next/image";
 import Link from "next/link";
 import {
   RevealSection,
@@ -89,8 +90,71 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ── ABOUT THE AUTHOR ─────────────────────────────────────── */}
+      <RevealSection bg="carbon" num="01">
+        <Eyebrow>About the author</Eyebrow>
+        <div className="mt-2 grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          {/* Portrait — drop a real photo at /public/author/mk-parrish-photo.jpg
+              to replace the monogram. The ♡ monogram still lives in the hero +
+              nav avatars (AuthorGlow → /author/mk-parrish.jpg). */}
+          <div className="mx-auto w-full max-w-sm lg:mx-0">
+            <div
+              className="relative aspect-[4/5] w-full overflow-hidden border border-petal/30 bg-void"
+              style={{ boxShadow: "0 0 60px rgba(242,175,198,0.12)" }}
+            >
+              <Image
+                src="/author/mk-parrish-photo.jpg"
+                alt="MK Parrish"
+                fill
+                sizes="(max-width: 1024px) 22rem, 26rem"
+                className="object-cover object-[center_25%]"
+              />
+              <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/45 via-transparent to-transparent" />
+            </div>
+            <p className="mt-3 text-center font-body text-[0.62rem] uppercase tracking-[0.25em] text-iron lg:text-left">
+              Brooklyn · by way of the library
+            </p>
+          </div>
+
+          {/* Bio — her words */}
+          <div>
+            <p className="font-serif text-2xl italic leading-snug text-pearl md:text-[1.75rem]" style={{ fontWeight: 500 }}>
+              MK Parrish is a writer, marketer, and lifelong{" "}
+              <span className="text-petal">editor of the ending.</span>
+            </p>
+
+            <div className="mt-7 space-y-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
+              <p>She got her library card at three.</p>
+              <p>
+                By the time she could spell her own name, she was already rewriting fairy tales. Better conflict. Sharper heroines. Some children accept happily ever after.{" "}
+                <span className="text-pearl">MK had notes.</span>
+              </p>
+              <p>Born in Brooklyn. Educated in contradictions.</p>
+              <p>
+                She finds equal genius in Carl Jung and The Notorious B.I.G., because both men spent their lives mapping the same thing: the shadow self, the hunger, the cost of becoming.
+              </p>
+              <p>Her work lives at the intersection of grief, ambition, humor, and survival.</p>
+              <p>She writes for people who have lived something real and need someone to put language to it.</p>
+            </div>
+
+            <blockquote className="mt-8 border-l-2 border-petal/50 pl-5">
+              <p className="font-serif text-lg italic leading-relaxed text-petal/90 md:text-xl">
+                &ldquo;What is it you plan to do with your one wild and precious life?&rdquo;
+              </p>
+              <cite className="mt-2 block font-body text-[0.66rem] not-italic uppercase tracking-[0.2em] text-ash">
+                &mdash; Mary Oliver
+              </cite>
+            </blockquote>
+
+            <p className="mt-7 font-display text-xl uppercase tracking-[0.02em] text-petal md:text-2xl">
+              You only get the one. Make it worth the read.
+            </p>
+          </div>
+        </div>
+      </RevealSection>
+
       {/* ── STORY ────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="01">
+      <RevealSection bg="obsidian" num="02">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <Eyebrow>The story</Eyebrow>
@@ -138,7 +202,7 @@ export default function AboutPage() {
       <QuoteDivider index={0} />
 
       {/* ── WHAT I BELIEVE ───────────────────────────────────────── */}
-      <RevealSection bg="void" num="02">
+      <RevealSection bg="void" num="03">
         <Eyebrow>How I work</Eyebrow>
         <H2>
           The things I will{" "}
@@ -182,7 +246,7 @@ export default function AboutPage() {
       <QuoteDivider index={8} />
 
       {/* ── CONNECT ──────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="03">
+      <RevealSection bg="obsidian" num="04">
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
           <div>
             <Eyebrow>Let&apos;s talk</Eyebrow>

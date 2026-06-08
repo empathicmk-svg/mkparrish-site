@@ -1,15 +1,23 @@
-# Author photo
+# Author images
 
-The About page hero (`app/about/page.tsx`) loads the author portrait from:
+Two files live here, used in different places:
 
-    public/author/mk-parrish.jpg
+| File | Used by | What it is |
+| --- | --- | --- |
+| `mk-parrish.jpg` | The round ♡ avatars in the hero + nav (`AuthorGlow`) | The branded **"MK" monogram**. Keep it. |
+| `mk-parrish-photo.jpg` | The **"About the author"** section on `/about` | Your **real portrait**. Replace this file. |
 
-Right now this is a branded **placeholder** (an "MK" monogram). To use the real
-photo, simply replace that file with the actual image — keep the same filename
-and no code changes are needed.
+## To add your real photo
+
+Drop your portrait in as **`mk-parrish-photo.jpg`** (keep the exact filename) —
+no code changes needed. It currently holds a copy of the monogram as a
+placeholder, so the page never shows a broken image until you swap it.
 
 **Recommended specs**
-- Portrait orientation, roughly 4:5 (e.g. 800×1000 or larger)
+- Portrait orientation, ~4:5 (e.g. 800×1000 or larger)
 - JPG, under ~500 KB
-- It is rendered in grayscale to match the site's monochrome aesthetic, so any
-  color photo will work — it will be desaturated automatically.
+- Put the focal point (your face) near the top third — the frame crops to
+  `object-[center_25%]`.
+
+The monogram (`mk-parrish.jpg`) still powers the round ♡ avatars in the hero and
+nav, so **keep both files**.
