@@ -66,6 +66,38 @@
   border-radius: 0 !important;
 }
 
+/* ── AUTHOR GLOW AVATAR — round, animated gradient ring + ♡ ──────── */
+/* These intentionally override the global `border-radius: 0` reset. */
+@property --ag-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes ag-spin { to { --ag-angle: 360deg; } }
+@keyframes ag-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(242, 175, 198, 0.35), 0 0 46px rgba(242, 175, 198, 0.16); }
+  50%      { box-shadow: 0 0 34px rgba(242, 175, 198, 0.60), 0 0 74px rgba(242, 175, 198, 0.32); }
+}
+@keyframes ag-heart {
+  0%, 100% { transform: scale(1)    rotate(-8deg); }
+  50%      { transform: scale(1.18) rotate(-8deg); }
+}
+.ag-round { border-radius: 9999px !important; }
+.ag-ring {
+  border-radius: 9999px !important;
+  background: conic-gradient(
+    from var(--ag-angle),
+    var(--color-petal), var(--color-blush), var(--color-white),
+    var(--color-rose), var(--color-petal)
+  );
+  animation: ag-spin 5s linear infinite, ag-pulse 3.4s ease-in-out infinite;
+}
+.ag-heart { animation: ag-heart 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .ag-ring  { animation: ag-pulse 3.4s ease-in-out infinite; }
+  .ag-heart { animation: none; }
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;

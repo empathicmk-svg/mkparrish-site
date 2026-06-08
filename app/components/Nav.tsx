@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { SUBSTACK_URL } from "@/app/lib/config";
+import AuthorGlow from "@/app/components/AuthorGlow";
 
 const workLinks = [
   { label: "All Offerings",       href: "/#offerings" },
@@ -157,13 +158,16 @@ export default function Nav() {
         />
 
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 lg:px-10">
-          <Link
-            href="/"
-            className="font-display text-2xl tracking-[0.02em] text-white"
-            style={{ lineHeight: 1 }}
-          >
-            MK PARRISH
-          </Link>
+          <div className="flex items-center gap-3">
+            <AuthorGlow size={40} ring={2} className="hidden sm:inline-block" />
+            <Link
+              href="/"
+              className="font-display text-2xl tracking-[0.02em] text-white"
+              style={{ lineHeight: 1 }}
+            >
+              MK PARRISH
+            </Link>
+          </div>
 
           {/* Desktop nav */}
           <nav className="ml-8 hidden min-w-0 flex-1 items-center justify-end gap-5 md:flex lg:gap-7">
@@ -216,7 +220,7 @@ export default function Nav() {
             {/* Services mega-dropdown */}
             <div
               ref={servicesRef}
-              className="mega-menu"
+              className="mega-menu order-first"
               onMouseEnter={() => { closeAllDropdowns(); setServicesOpen(true); }}
               onMouseLeave={() => setServicesOpen(false)}
             >

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import AuthorGlow from "@/app/components/AuthorGlow";
 import Link from "next/link";
 import {
   RevealSection,
@@ -11,7 +11,7 @@ import {
   BtnPrimary,
   BtnGhost,
 } from "@/app/components/ui";
-import { SUBSTACK_URL, CONTACT } from "@/app/lib/config";
+import { SUBSTACK_URL, CONTACT, SOCIALS } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: "About — MK Parrish",
@@ -24,42 +24,52 @@ export default function AboutPage() {
     <>
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative flex min-h-[75vh] flex-col justify-end bg-void pb-16 pt-28 md:pb-24">
-        {/* Faint author portrait behind the title */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <Image
-            src="/author/mk-parrish.jpg"
-            alt=""
-            aria-hidden="true"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[center_28%] opacity-[0.22] md:object-[center_32%] md:opacity-[0.26]"
-          />
-          {/* Legibility veils — keep the text crisp over the photo */}
-          <div className="absolute inset-0 bg-gradient-to-t from-void via-void/85 to-void/45" />
-          <div className="absolute inset-0 bg-gradient-to-r from-void/95 via-void/55 to-void/15" />
-          {/* Petal glow */}
-          <div className="absolute left-1/2 top-0 h-[55vh] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.13),transparent_65%)]" />
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/2 top-0 h-[55vh] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.14),transparent_65%)]" />
         </div>
         <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          <div className="max-w-3xl">
-            <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-              About
-            </p>
-            <div className="mt-6">
-              <H1>
-                MK{" "}
-                <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.35)" }}>
-                  Parrish
-                </span>
-              </H1>
+          <div className="flex flex-wrap items-center gap-x-10 gap-y-8">
+            <div className="min-w-0 max-w-3xl">
+              <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
+                About
+              </p>
+              <div className="mt-6">
+                <H1>
+                  MK{" "}
+                  <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.35)" }}>
+                    Parrish
+                  </span>
+                </H1>
+              </div>
             </div>
-            <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-              Senior growth operator. Writer. One pair of hands.
-            </p>
-            <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
-              Two decades inside Fortune 50s and startups, $40M+ in pipeline influenced. I build the websites, run the outbound, and write the messaging that turn how a company is seen into revenue it can show a board.
-            </p>
+
+            {/* Animated round portrait — glowing gradient ring + ♡ */}
+            <AuthorGlow size={132} ring={4} priority className="md:ml-auto" />
+          </div>
+
+          <p className="mt-7 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
+            Senior growth operator. Writer. One pair of hands.
+          </p>
+          <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
+            Two decades inside Fortune 50s and startups, $40M+ in pipeline influenced. I build the websites, run the outbound, and write the messaging that turn how a company is seen into revenue it can show a board.
+          </p>
+
+          {/* Social — petal blocks, black font */}
+          <div className="mt-8 flex flex-wrap gap-2.5">
+            {SOCIALS.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-2 bg-petal px-4 py-2 font-body text-[0.7rem] font-bold uppercase tracking-[0.14em] text-void transition-transform duration-200 hover:-translate-y-0.5 hover:brightness-105"
+              >
+                {s.label}
+                <span className="font-body text-[0.66rem] font-medium normal-case tracking-normal text-void/70">
+                  {s.handle}
+                </span>
+              </a>
+            ))}
           </div>
 
           {/* Proof band */}

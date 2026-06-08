@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import AuthorGlow from "@/app/components/AuthorGlow";
 import Link from "next/link";
 import {
   RevealSection,
@@ -353,26 +353,18 @@ export default function Home() {
             <BtnGhost href="#offerings">See What I Build</BtnGhost>
           </div>
 
-          {/* Author signature — small portrait, links to the About page */}
-          <Link href="/about" className="group mt-8 inline-flex w-fit items-center gap-3">
-            <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border border-petal/30 transition-colors duration-300 group-hover:border-petal/70">
-              <Image
-                src="/author/mk-parrish.jpg"
-                alt="MK Parrish"
-                fill
-                sizes="44px"
-                className="object-cover object-[center_25%]"
-              />
-            </span>
-            <span className="leading-tight">
+          {/* Author signature — animated glow portrait + name */}
+          <div className="mt-8 flex w-fit items-center gap-4">
+            <AuthorGlow size={66} ring={3} />
+            <Link href="/about" className="group leading-tight">
               <span className="block font-body text-sm font-semibold text-pearl transition-colors duration-300 group-hover:text-petal">
                 MK Parrish
               </span>
               <span className="block font-body text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-ash">
                 Senior growth operator &amp; writer
               </span>
-            </span>
-          </Link>
+            </Link>
+          </div>
 
           {/* Proof stat band */}
           <div className="mt-12 grid grid-cols-2 gap-px border-t border-graphite bg-graphite pt-px sm:grid-cols-4">
