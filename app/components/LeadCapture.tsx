@@ -10,6 +10,8 @@ export default function LeadCapture() {
   const [closing, setClosing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [checklistUrl, setChecklistUrl] = useState("/downloads/positioning-checklist.pdf");
+  const [emailed, setEmailed] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -53,6 +55,9 @@ export default function LeadCapture() {
         body: JSON.stringify({ email: email.trim() }),
       });
       if (!res.ok) throw new Error("failed");
+      const data = await res.json().catch(() => ({}));
+      if (data.checklist) setChecklistUrl(data.checklist);
+      setEmailed(Boolean(data.emailed));
       setSubmitted(true);
       localStorage.setItem("mkp_lead_seen", "1");
     } catch {
@@ -149,19 +154,27 @@ export default function LeadCapture() {
             </>
           ) : (
             <div className="text-center py-4">
-              <p className="font-display text-5xl uppercase tracking-[0.02em] text-petal leading-none">Check your inbox.</p>
+              <p className="font-display text-5xl uppercase tracking-[0.02em] text-petal leading-none">You&apos;re in.</p>
               <p className="mt-6 font-serif italic text-smoke text-lg leading-7">
-                You&apos;re on the list — the Positioning Checklist is on its way to your inbox.
+                {emailed
+                  ? "The Positioning Checklist is on its way to your inbox — and you can grab it right now below."
+                  : "Here's your Positioning Checklist — download it now. You're on the list for The Margins, too."}
               </p>
-              <p className="mt-2 font-body text-sm text-ash">
-                Didn&apos;t get it?{" "}
-                <a href={SUBSTACK_URL} target="_blank" rel="noreferrer" className="text-petal hover:underline">
-                  Join via Substack →
-                </a>
+              <a
+                href={checklistUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setTimeout(dismiss, 400)}
+                className="btn-primary mt-8 inline-block w-full py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+              >
+                Download the Checklist →
+              </a>
+              <p className="mt-4 font-body text-[0.7rem] text-iron leading-5">
+                {emailed ? "Didn't get the email? Use the button above — it's the same file." : "A copy is in your inbox if email delivery is on."}
               </p>
               <button
                 onClick={dismiss}
-                className="mt-8 btn-ghost px-8 py-3 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em]"
+                className="mt-6 btn-ghost px-8 py-3 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em]"
               >
                 Keep Reading →
               </button>
