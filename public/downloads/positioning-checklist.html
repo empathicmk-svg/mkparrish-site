@@ -1,100 +1,9 @@
-#!/usr/bin/env node
-/**
- * Converts product markdown files into branded, self-contained HTML downloads
- * for Gumroad uploads. Run: node scripts/build-downloads.mjs
- */
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { COURSE, courseMarkdown } from './lib/course.mjs';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(__dirname, '..');
-
-// ── Markdown → HTML ──────────────────────────────────────────────────────────
-
-function md(src) {
-  let html = src
-    // escape stray html
-    .replace(/&(?!amp;|lt;|gt;|quot;|#)/g, '&amp;')
-    // tables
-    .replace(/^\|(.+)\|\n\|[-:| ]+\|\n((?:\|.+\|\n?)+)/gm, (_, head, body) => {
-      const th = head.split('|').filter(Boolean).map(c => `<th>${inline(c.trim())}</th>`).join('');
-      const rows = body.trim().split('\n').map(row =>
-        `<tr>${row.split('|').filter(Boolean).map(c => `<td>${inline(c.trim())}</td>`).join('')}</tr>`
-      ).join('\n');
-      return `<table><thead><tr>${th}</tr></thead><tbody>${rows}</tbody></table>\n`;
-    })
-    // fenced code blocks
-    .replace(/```[\w]*\n([\s\S]*?)```/gm, (_, code) =>
-      `<pre><code>${code.replace(/&amp;/g, '&').replace(/</g, '&lt;')}</code></pre>`)
-    // blockquotes
-    .replace(/^((?:> .+\n?)+)/gm, block => {
-      const inner = block.replace(/^> ?/gm, '').trim();
-      return `<blockquote>${inline(inner)}</blockquote>\n`;
-    })
-    // hr
-    .replace(/^---+$/gm, '<hr>')
-    // headings
-    .replace(/^### (.+)$/gm, (_, t) => `<h3>${inline(t)}</h3>`)
-    .replace(/^## (.+)$/gm,  (_, t) => `<h2>${inline(t)}</h2>`)
-    .replace(/^# (.+)$/gm,   (_, t) => `<h1>${inline(t)}</h1>`)
-    // unordered lists
-    .replace(/^((?:[*\-] .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^[*\-] /, ''))}</li>`).join('');
-      return `<ul>${items}</ul>\n`;
-    })
-    // ordered lists
-    .replace(/^((?:\d+\. .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^\d+\. /, ''))}</li>`).join('');
-      return `<ol>${items}</ol>\n`;
-    })
-    // paragraphs (lines not already wrapped)
-    .replace(/^(?!<[a-z]|$)(.+)$/gm, (_, line) => `<p>${inline(line)}</p>`);
-
-  return html;
-}
-
-function inline(s) {
-  return s
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,     '<em>$1</em>')
-    .replace(/`(.+?)`/g,       '<code>$1</code>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>');
-}
-
-// ── HTML template ─────────────────────────────────────────────────────────────
-// Mirrors the live site (mkparrish.com): Bebas Neue / Playfair Display / DM Sans
-// / JetBrains Mono on black × pink × white × grey, with pink-gradient rules,
-// text-glow, an outlined display word, mono section numbers, and a grain overlay.
-
-function wrap(title, bodyHtml, opts = {}) {
-  const { subtitle = '', kicker = 'MK Parrish · mkparrish.com', meta = '', accent = '#F2AFC6', isCourse = false } = opts;
-
-  // Split a "Title: subtitle" headline so the cover gets a punchy display line
-  // plus an italic serif descender, the way the live hero is set.
-  let coverTitle = title;
-  let coverSub = subtitle;
-  const colon = title.indexOf(':');
-  if (!coverSub && colon > 0) {
-    coverTitle = title.slice(0, colon).trim();
-    coverSub = title.slice(colon + 1).trim();
-  }
-  // Outline the final word of the cover title (the site's hero treatment).
-  const words = coverTitle.split(' ');
-  const lastWord = words.length > 1 ? words.pop() : '';
-  const coverTitleHtml = lastWord
-    ? `<span class="grad">${words.join(' ')}</span> <span class="outline">${lastWord}</span>`
-    : `<span class="grad">${coverTitle}</span>`;
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${title} — MK Parrish</title>
+<title>The Positioning Checklist — MK Parrish</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -110,7 +19,7 @@ function wrap(title, bodyHtml, opts = {}) {
     --pearl: #F0F0EE;
     --white: #FAFAF8;
     --blush: #FFD6E4;
-    --petal: ${accent};
+    --petal: #F2AFC6;
     --rose: #E0869F;
     --carmine: #C75B78;
     --font-display: 'Bebas Neue', Impact, sans-serif;
@@ -326,7 +235,7 @@ function wrap(title, bodyHtml, opts = {}) {
     line-height: 1.6;
   }
   blockquote::before {
-    content: '\\201C';
+    content: '\201C';
     position: absolute;
     top: 0.08em;
     left: 0.14em;
@@ -548,16 +457,139 @@ function wrap(title, bodyHtml, opts = {}) {
 
 <div class="cover">
   <div class="cover-inner">
-    <div class="cover-kicker">${kicker}</div>
-    <h1>${coverTitleHtml}</h1>
-    ${coverSub ? `<p class="subtitle">${coverSub}</p>` : ''}
+    <div class="cover-kicker">MK Parrish · Free Resource</div>
+    <h1><span class="grad">The Positioning</span> <span class="outline">Checklist</span></h1>
+    <p class="subtitle">The 12-point audit I run on every client before we rewrite a single line.</p>
     <div class="cover-rule"></div>
-    ${meta ? `<div class="cover-meta">${meta}</div>` : ''}
+    <div class="cover-meta">By MK Parrish</div>
   </div>
 </div>
 
 <div class="content">
-${bodyHtml}
+<h2>How to Use This</h2>
+
+<p>Most copy doesn't fail because the sentences are bad. It fails because the <em>positioning</em> underneath the sentences is blurry — so no rewrite, no clever headline, no amount of "make it punchier" can save it. You're polishing a window in a house with no foundation.</p>
+
+<p>This is the audit I run before I touch a word of anyone's copy. Twelve questions. Go through them honestly. Every <em>no</em> is a leak — a place your copy is losing people before they ever get to your offer. Fix the leaks first. Then the writing gets easy, because there's finally something true to write toward.</p>
+
+<p>Read each point, answer <em>yes</em> or <em>no</em> out loud, and write one sentence on what you'd change. Don't rush to <em>yes</em>. The uncomfortable <em>no</em> is the one worth the most money.</p>
+
+<blockquote>You can't write your way out of a positioning problem. You have to <em>think</em> your way out — then the writing is just transcription.</blockquote>
+
+<hr>
+
+<h2>Part One: The Reader</h2>
+
+<h3>1 — Can you name one person, not a demographic?</h3>
+
+<p><strong>The test:</strong> Could you describe your ideal reader specifically enough that a stranger could pick her out of a crowded room — her job, her 11pm worry, the exact sentence she'd say to a friend about her problem?</p>
+
+<p><em>The failure mode:</em> "Women 25–45 who want to grow." That's a census, not a person. Copy written to everyone lands on no one. Write to one specific human and a thousand others will feel seen.</p>
+
+<h3>2 — Do you know the problem in <em>her</em> words, not yours?</h3>
+
+<p><strong>The test:</strong> Open a real message, review, or DM from someone like her. Are you using the language she actually uses — or the industry language you've absorbed?</p>
+
+<p><em>The failure mode:</em> You wrote "scalable content infrastructure." She said "I'm so tired of starting from scratch every Monday." Hers wins, every time. The market will tell you the words. Your job is to listen and steal them.</p>
+
+<h3>3 — Are you meeting her where she is, not where you wish she were?</h3>
+
+<p><strong>The test:</strong> Does your copy assume she already believes what you believe? Or does it start at <em>her</em> current understanding and walk her one true step forward?</p>
+
+<p><em>The failure mode:</em> You're selling the advanced solution to someone who hasn't admitted she has the beginner problem. You skipped the part where she gets to feel understood. No one buys the answer to a question they haven't been allowed to ask yet.</p>
+
+<hr>
+
+<h2>Part Two: The Offer</h2>
+
+<h3>4 — Can you say what it is in one sentence, without "and"?</h3>
+
+<p><strong>The test:</strong> Finish this: "This is a ___ that helps ___ do ___." If you need a second clause, a slash, or the word "basically," the offer isn't clear yet.</p>
+
+<p><em>The failure mode:</em> "It's a course and a community and also some coaching and templates." A pile of features is not an offer. One clear transformation is. Confusion is the most expensive thing on your page.</p>
+
+<h3>5 — Is the transformation specific and provable?</h3>
+
+<p><strong>The test:</strong> Does your promise name a <em>before</em> and an <em>after</em> a real person could verify? Or is it a mood — "elevate," "empower," "unlock"?</p>
+
+<p><em>The failure mode:</em> "Unlock your potential." Compared to what, measured how, by when? Vague promises read as either dishonest or unsure. "Write a bio you'd actually send" is small, concrete, and believable — and believable beats impressive.</p>
+
+<h3>6 — Have you named what it's <em>not</em>?</h3>
+
+<p><strong>The test:</strong> Does your copy draw a line — who this isn't for, what it won't do, the shortcut it refuses to sell?</p>
+
+<p><em>The failure mode:</em> In trying to be for everyone, you became forgettable to everyone. Naming the wrong-fit reader is the fastest way to make the right-fit one lean in. Boundaries are a trust signal. The thing that excludes is the thing that attracts.</p>
+
+<hr>
+
+<h2>Part Three: The Difference</h2>
+
+<h3>7 — Would your copy still make sense with a competitor's logo on it?</h3>
+
+<p><strong>The test:</strong> Swap your name for the closest competitor. Does anything break? If the page reads identically with their brand on top, you've written category copy, not positioning.</p>
+
+<p><em>The failure mode:</em> "We deliver results with integrity and a personal touch." So does everyone, allegedly. If it's not specific enough to be <em>only</em> yours, it's not doing any work. Say the thing only you would say.</p>
+
+<h3>8 — Is there a point of view someone could disagree with?</h3>
+
+<p><strong>The test:</strong> Find the sentence in your copy that a reasonable person in your field could argue with. Can't find one? That's the problem.</p>
+
+<p><em>The failure mode:</em> You sanded off every edge to avoid being wrong, and now there's nothing to be <em>right</em> about either. A real opinion is what separates a voice from a brochure. Safe is just forgettable with better manners.</p>
+
+<h3>9 — Does it sound like a person, or a committee?</h3>
+
+<p><strong>The test:</strong> Read it out loud. Do you wince? Do you hit phrases you'd never say to an actual human — "leverage synergies," "passionate about excellence"?</p>
+
+<p><em>The failure mode:</em> Professional-sounding mush. You traded your real voice for one that sounds "safe," and safe is invisible. The voice is the moat. Anyone can copy your offer; no one can copy how you see.</p>
+
+<hr>
+
+<h2>Part Four: The Proof &amp; The Path</h2>
+
+<h3>10 — Does your proof match your promise?</h3>
+
+<p><strong>The test:</strong> For your biggest claim, is there a piece of evidence sitting right next to it — a specific result, a screenshot, a named example, a number?</p>
+
+<p><em>The failure mode:</em> Big promise, no receipts. Or worse, proof of the wrong thing — testimonials about how "lovely you are to work with" when the promise was revenue. Match the evidence to the exact claim you're making, or the claim reads as a wish.</p>
+
+<h3>11 — Is there exactly one obvious next step?</h3>
+
+<p><strong>The test:</strong> On any given page, count the things you're asking the reader to do. The right number is one.</p>
+
+<p><em>The failure mode:</em> "Follow me, and read this, and book a call, and check out the blog, and..." Every extra option is a tax on a tired brain. One page, one decision. Confidence looks like a single clear door, not a hallway of them.</p>
+
+<h3>12 — Does the first line earn the second?</h3>
+
+<p><strong>The test:</strong> Read only your opening sentence. Does it create enough tension, curiosity, or recognition that <em>not</em> reading the next line feels uncomfortable?</p>
+
+<p><em>The failure mode:</em> You opened with a warm-up — context, throat-clearing, "In today's fast-paced world." The first line has one job: buy the second line. If it's not pulling, cut it and start where it gets interesting. Usually that's the third sentence you wrote.</p>
+
+<hr>
+
+<h2>What to Do With Your No's</h2>
+
+<p>Count them. Three or fewer, and you have a copy problem — sharpen the lines and you're close. Four or more, and you have a <em>positioning</em> problem wearing a copy costume, and no rewrite will fix it until the thinking underneath gets clear.</p>
+
+<p>That's not bad news. It's the most useful thing you'll learn this week. A copy problem takes an afternoon. A positioning problem, once you see it, changes everything downstream — your page, your pricing, the kind of client who shows up. Most people never diagnose it. You just did.</p>
+
+<blockquote>Clarity isn't a writing skill. It's a thinking skill that happens to come out as writing.</blockquote>
+
+<p>Start with your loudest <em>no</em> — the one you felt in your stomach. Write one true sentence fixing it. That sentence is the beginning of the rewrite.</p>
+
+<hr>
+
+<h2>When You're Ready to Go Deeper</h2>
+
+<p>This checklist diagnoses. The work of rewriting is its own craft — and I've written the playbooks.</p>
+
+<p>If your <strong>voice</strong> is the thing that went flat, <strong>Write Yourself Into the Room</strong> rebuilds it from the inside out. If it's your <strong>brand language</strong> that keeps coming out generic, the <strong>Brand Voice Playbook</strong> is the system I use with clients. And if you'd rather hand it to someone who does this every day, that's what I'm here for.</p>
+
+<p>Find it all at <strong>mkparrish.com</strong> — where I write about voice, positioning, and the long work of sounding like yourself on purpose.</p>
+
+<p>You found the leaks. That's the part most people skip.</p>
+
+<p>— MK Parrish</p>
+
 </div>
 
 <div class="footer">
@@ -566,146 +598,4 @@ ${bodyHtml}
 </div>
 
 </body>
-</html>`;
-}
-
-// ── Build individual file ──────────────────────────────────────────────────────
-
-function buildFile(srcPath, destPath, opts = {}) {
-  let raw = fs.readFileSync(srcPath, 'utf8');
-  // Pull the title from the first H1, then drop that line from the body so the
-  // cover carries the title instead of repeating it as the first heading.
-  const titleMatch = raw.match(/^# (.+)$/m);
-  const title = opts.title || (titleMatch ? titleMatch[1] : path.basename(srcPath, '.md'));
-  if (titleMatch) raw = raw.replace(/^# .+$\n?/m, '');
-
-  // Lift the cover front matter (subtitle + author/price) out of the body so it
-  // rides on the cover, the way the Reinvention Workbook does — unless the caller
-  // supplied it via opts. Only the block at the very top of the file is touched,
-  // so section dividers and emphasis deeper in the document are left alone.
-  let { subtitle = '', meta = '' } = opts;
-  let lifted = false;
-  const atTop = (i) => raw.slice(0, i).trim() === '';
-  if (!subtitle) {
-    const m = raw.match(/^\s*###\s+(.+?)\s*$/m);
-    if (m && atTop(m.index)) {
-      subtitle = m[1];
-      raw = raw.slice(0, m.index) + raw.slice(m.index + m[0].length);
-      lifted = true;
-    }
-  }
-  if (!meta) {
-    const bits = [];
-    const by = raw.match(/^\s*\*\*By ([^*]+?)\*\*\s*$/m);
-    if (by && atTop(by.index)) {
-      bits.push('By ' + by[1].trim());
-      raw = raw.slice(0, by.index) + raw.slice(by.index + by[0].length);
-      lifted = true;
-    }
-    const price = raw.match(/^\s*\*\*(?:Price:\s*)?(\$\d+)\*\*\s*$/m);
-    if (price && atTop(price.index)) {
-      bits.push(price[1]);
-      raw = raw.slice(0, price.index) + raw.slice(price.index + price[0].length);
-      lifted = true;
-    }
-    // Pattern B front matter — a leading block of "**Key:** value" lines
-    // (Format / Price / Length / Audience). Pull the price for the cover meta
-    // and strip the whole block so it doesn't leak into the body as gray text.
-    if (!bits.length) {
-      const metaBlock = raw.match(/^(?:[ \t]*\*\*[^*\n]+:\*\*[^\n]*\n?)+/m);
-      if (metaBlock && atTop(metaBlock.index)) {
-        const priceM = metaBlock[0].match(/\$\d[\d,]*/);
-        if (priceM) bits.push('By MK Parrish', priceM[0]);
-        raw = raw.slice(0, metaBlock.index) + raw.slice(metaBlock.index + metaBlock[0].length);
-        lifted = true;
-      }
-    }
-    if (bits.length) meta = bits.join(' · ');
-  }
-  // Remove the horizontal rule that used to divide the front matter from the body.
-  if (lifted) raw = raw.replace(/^\s*---\s*$\n?/m, '');
-
-  const bodyHtml = md(raw);
-  const html = wrap(title, bodyHtml, { ...opts, subtitle, meta });
-  fs.mkdirSync(path.dirname(destPath), { recursive: true });
-  fs.writeFileSync(destPath, html);
-  console.log(`  ✓  ${path.relative(ROOT, destPath)}`);
-}
-
-// ── Main ──────────────────────────────────────────────────────────────────────
-
-const EBOOKS = [
-  ['ebooks/reinvention-workbook.md',          'ebooks/reinvention-workbook.html', {
-    subtitle: 'A guided writing workbook for people in the middle of becoming someone new.',
-    meta:     'By MK Parrish · $18',
-  }],
-  ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
-  ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
-  ['ebooks/the-invisible-bruise.md',          'ebooks/the-invisible-bruise.html'],
-  ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
-  ['ebooks/scripture/the-study.md',           'ebooks/the-study.html'],
-  ['ebooks/scripture/gospel-and-grind.md',    'ebooks/gospel-and-grind.html'],
-  ['ebooks/scripture/the-sermon-notes.md',    'ebooks/the-sermon-notes.html'],
-  ['ebooks/scripture/the-calling-card.md',    'ebooks/the-calling-card.html'],
-  ['ebooks/scripture/ministry-monetized.md',  'ebooks/ministry-monetized.html'],
-];
-
-// Free lead magnets (the email-capture checklist, etc.) — flat in /downloads.
-const LEAD_MAGNETS = [
-  ['lead-magnets/positioning-checklist.md', 'positioning-checklist.html', { kicker: 'MK Parrish · Free Resource' }],
-];
-
-const TEMPLATES = [
-  ['templates/the-edit-diy.md',            'templates/the-edit-diy.html'],
-  ['templates/before-the-session.md',      'templates/before-the-session.html'],
-  ['templates/the-rewrite-playbook.md',    'templates/the-rewrite-playbook.html'],
-  ['templates/the-new-chapter-workbook.md','templates/the-new-chapter-workbook.html'],
-  ['templates/the-byline-method.md',       'templates/the-byline-method.html'],
-  ['templates/the-build-copy-guide.md',    'templates/the-build-copy-guide.html'],
-  ['templates/the-social-strategy-playbook.md', 'templates/the-social-strategy-playbook.html'],
-];
-
-// Optional CLI filter: `node scripts/build-downloads.mjs reinvention` builds
-// only files whose source path contains the argument. No argument builds all.
-const only = process.argv[2];
-const pick = (list) => (only ? list.filter(([s]) => s.includes(only)) : list);
-
-console.log('\nBuilding ebooks...');
-for (const [src, dest, opts] of pick(EBOOKS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding lead magnets...');
-for (const [src, dest, opts] of pick(LEAD_MAGNETS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding templates...');
-for (const [src, dest, opts] of pick(TEMPLATES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-// Course — assembled from its module files into one gold-standard document.
-if (!only || COURSE.slug.includes(only) || only === 'course') {
-  console.log('\nBuilding course...');
-  const html = wrap(COURSE.title, md(courseMarkdown(ROOT)), {
-    subtitle: COURSE.subtitle, meta: COURSE.meta, isCourse: true,
-  });
-  const dest = path.join(ROOT, 'public/downloads', `${COURSE.slug}.html`);
-  fs.writeFileSync(dest, html);
-  console.log(`  ✓  ${path.relative(ROOT, dest)}`);
-}
-
-console.log('\nDone. Files written to public/downloads/\n');
+</html>

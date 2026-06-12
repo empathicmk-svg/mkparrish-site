@@ -33,6 +33,8 @@ const FILES = [
   ['public/downloads/templates/the-social-strategy-playbook.html', 'public/downloads/templates/the-social-strategy-playbook.pdf'],
   // course
   ['public/downloads/scripture-and-strategy.html',               'public/downloads/scripture-and-strategy.pdf'],
+  // lead magnets
+  ['public/downloads/positioning-checklist.html',                'public/downloads/positioning-checklist.pdf'],
 ];
 
 const browser = await puppeteer.launch({

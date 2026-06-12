@@ -15,6 +15,8 @@ import path from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import puppeteer from 'puppeteer';
+import { COURSE, courseMarkdown } from './lib/course.mjs';
+import { coverHtml } from './lib/cover.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -29,6 +31,13 @@ const BOOKS = [
     subtitle: 'A guided writing workbook for people in the middle of becoming someone new.' },
   { src: 'ebooks/write-yourself-into-the-room.md',    out: 'ebooks/write-yourself-into-the-room.epub' },
   { src: 'ebooks/brand-voice-playbook.md',            out: 'ebooks/brand-voice-playbook.epub' },
+  { src: 'ebooks/the-invisible-bruise.md',            out: 'ebooks/the-invisible-bruise.epub' },
+  { src: 'ebooks/decoding-angel-numbers.md',          out: 'ebooks/decoding-angel-numbers.epub' },
+  { src: 'ebooks/scripture/the-study.md',             out: 'ebooks/the-study.epub' },
+  { src: 'ebooks/scripture/gospel-and-grind.md',      out: 'ebooks/gospel-and-grind.epub' },
+  { src: 'ebooks/scripture/the-sermon-notes.md',      out: 'ebooks/the-sermon-notes.epub' },
+  { src: 'ebooks/scripture/the-calling-card.md',      out: 'ebooks/the-calling-card.epub' },
+  { src: 'ebooks/scripture/ministry-monetized.md',    out: 'ebooks/ministry-monetized.epub' },
   { src: 'templates/the-edit-diy.md',                 out: 'templates/the-edit-diy.epub' },
   { src: 'templates/before-the-session.md',           out: 'templates/before-the-session.epub' },
   { src: 'templates/the-rewrite-playbook.md',         out: 'templates/the-rewrite-playbook.epub' },
@@ -36,6 +45,8 @@ const BOOKS = [
   { src: 'templates/the-byline-method.md',            out: 'templates/the-byline-method.epub' },
   { src: 'templates/the-build-copy-guide.md',         out: 'templates/the-build-copy-guide.epub' },
   { src: 'templates/the-social-strategy-playbook.md', out: 'templates/the-social-strategy-playbook.epub' },
+  // Course — assembled from its module files (no single source file).
+  { raw: courseMarkdown(ROOT), out: `${COURSE.slug}.epub`, title: COURSE.title, subtitle: COURSE.subtitle },
 ];
 
 // ── Markdown → HTML (kept in sync with build-downloads.mjs) ───────────────────
@@ -87,6 +98,10 @@ function parse(raw, opts = {}) {
   if (by && atTop(by.index)) { raw = raw.slice(0, by.index) + raw.slice(by.index + by[0].length); lifted = true; }
   const pr = raw.match(/^\s*\*\*(?:Price:\s*)?\$\d+\*\*\s*$/m);
   if (pr && atTop(pr.index)) { raw = raw.slice(0, pr.index) + raw.slice(pr.index + pr[0].length); lifted = true; }
+  // Pattern B front matter — strip a leading "**Key:** value" block so the
+  // Format/Price/Length/Audience lines don't leak into the eBook body.
+  const mb = raw.match(/^(?:[ \t]*\*\*[^*\n]+:\*\*[^\n]*\n?)+/m);
+  if (mb && atTop(mb.index)) { raw = raw.slice(0, mb.index) + raw.slice(mb.index + mb[0].length); lifted = true; }
   if (lifted) raw = raw.replace(/^\s*---\s*$\n?/m, '');
   let displayTitle = title;
   if (!subtitle) { const c = title.indexOf(':'); if (c > 0) { displayTitle = title.slice(0, c).trim(); subtitle = title.slice(c + 1).trim(); } }
@@ -95,11 +110,14 @@ function parse(raw, opts = {}) {
 function splitSections(body) {
   const re = /^## (.+)$/gm;
   const ms = [...body.matchAll(re)];
-  const pre = (ms.length ? body.slice(0, ms[0].index) : body).trim();
+  // Strip the trailing "---" that separated this section from the next one —
+  // each section is already its own EPUB chapter, so the rule is redundant.
+  const trim = (s) => s.trim().replace(/\n*-{3,}\s*$/, '').trim();
+  const pre = trim(ms.length ? body.slice(0, ms[0].index) : body);
   const secs = ms.map((m, i) => {
     const s = m.index + m[0].length;
     const e = i + 1 < ms.length ? ms[i + 1].index : body.length;
-    return { heading: m[1].trim(), content: body.slice(s, e).trim() };
+    return { heading: m[1].trim(), content: trim(body.slice(s, e)) };
   });
   return { pre, secs };
 }
@@ -162,51 +180,10 @@ code{font-family:monospace;background:#f0eeec;color:#A8344F;padding:0.1em 0.3em;
 .copyright{font-size:0.82em;color:#777;line-height:1.95;padding-top:30%;}
 .copyright strong{background:none;color:#0E0E0E;font-weight:700;padding:0;}`;
 
-// ── Cover HTML (rendered to a 1600x2560 Kindle cover) ─────────────────────────
-function coverHtml(displayTitle, subtitle) {
-  const words = displayTitle.split(/\s+/);
-  const last = words.length > 1 ? words.pop() : '';
-  const titleHtml = last
-    ? `${esc(words.join(' '))} <span class="accent">${esc(last)}</span>`
-    : esc(displayTitle);
-  const len = displayTitle.length;
-  const size = len > 24 ? 104 : len > 17 ? 128 : 150;
-  return `<!doctype html><html><head><meta charset="utf-8">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@1,500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{width:1600px;height:2560px}
-.c{width:1600px;height:2560px;background:#0E0E0E;position:relative;display:flex;flex-direction:column;
-  justify-content:center;align-items:center;text-align:center;padding:0 160px;overflow:hidden}
-.c::before{content:'';position:absolute;inset:0;background:
-  radial-gradient(ellipse 95% 55% at 50% -5%, rgba(242,175,198,0.18), transparent 60%),
-  radial-gradient(ellipse 60% 45% at 90% 108%, rgba(199,91,120,0.12), transparent 60%)}
-.c::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;
-  background:linear-gradient(90deg,#4A4A4A,#F2AFC6 50%,#FFD6E4)}
-.k{position:relative;font-family:'JetBrains Mono',monospace;font-size:30px;letter-spacing:0.34em;
-  text-transform:uppercase;color:#F2AFC6;margin-bottom:72px}
-h1{position:relative;font-family:'Bebas Neue',sans-serif;font-weight:400;text-transform:uppercase;
-  color:#FAFAF8;font-size:${size}px;line-height:0.9;letter-spacing:0.02em}
-h1 .accent{color:#F2AFC6}
-.r{position:relative;width:170px;height:2px;margin:64px 0;
-  background:linear-gradient(90deg,transparent,#E0869F,#F2AFC6,#FFD6E4,transparent)}
-.s{position:relative;font-family:'Playfair Display',serif;font-style:italic;font-weight:500;
-  font-size:50px;line-height:1.4;color:rgba(242,175,198,0.85);max-width:22ch}
-.by{position:absolute;bottom:140px;left:0;right:0;font-family:'JetBrains Mono',monospace;
-  font-size:28px;letter-spacing:0.3em;text-transform:uppercase;color:#9a9a9a}
-</style></head><body><div class="c">
-<div class="k">MK Parrish &#183; mkparrish.com</div>
-<h1>${titleHtml}</h1><div class="r"></div>
-${subtitle ? `<p class="s">${esc(subtitle)}</p>` : ''}
-<div class="by">MK Parrish</div>
-</div></body></html>`;
-}
-
 // ── Build one EPUB ────────────────────────────────────────────────────────────
 async function buildEpub(book, page) {
-  const srcPath = path.join(ROOT, 'products', book.src);
-  const raw = fs.readFileSync(srcPath, 'utf8');
+  // book.raw lets a book be assembled in memory (the course); otherwise read the file.
+  const raw = book.raw ?? fs.readFileSync(path.join(ROOT, 'products', book.src), 'utf8');
   const { title, displayTitle, subtitle, body } = parse(raw, book);
   const slug = path.basename(book.out, '.epub');
   const { pre, secs } = splitSections(body);
@@ -351,7 +328,7 @@ ${navPoints}
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 const filter = process.argv[2];
-const list = filter ? BOOKS.filter(b => b.src.includes(filter)) : BOOKS;
+const list = filter ? BOOKS.filter(b => (b.src || b.out).includes(filter)) : BOOKS;
 
 const browser = await puppeteer.launch({
   args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors'],
