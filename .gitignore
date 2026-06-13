@@ -46,3 +46,6 @@ next-env.d.ts
 
 # generated font cache for the Instagram/TikTok image scripts
 /output/.font-cache/
+
+# zipped image bundles (build artifacts, regenerated from the PNGs)
+/output/*.zip
