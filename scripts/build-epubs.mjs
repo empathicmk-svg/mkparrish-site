@@ -47,6 +47,9 @@ const BOOKS = [
   { src: 'templates/the-social-strategy-playbook.md', out: 'templates/the-social-strategy-playbook.epub' },
   // Course — assembled from its module files (no single source file).
   { raw: courseMarkdown(ROOT), out: `${COURSE.slug}.epub`, title: COURSE.title, subtitle: COURSE.subtitle },
+  // Bundles — the "what's inside" intro ebook for each bundle product.
+  { src: 'bundles/the-vault.md',          out: 'the-vault.epub' },
+  { src: 'bundles/the-services-vault.md', out: 'the-services-vault.epub' },
 ];
 
 // ── Markdown → HTML (kept in sync with build-downloads.mjs) ───────────────────

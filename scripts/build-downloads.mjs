@@ -655,6 +655,13 @@ const LEAD_MAGNETS = [
   ['lead-magnets/positioning-checklist.md', 'positioning-checklist.html', { kicker: 'MK Parrish · Free Resource' }],
 ];
 
+// Product bundles (The Vault, The Services Vault) — the "what's inside" intro
+// ebook that anchors each bundle. Flat in /downloads.
+const BUNDLES = [
+  ['bundles/the-vault.md',          'the-vault.html'],
+  ['bundles/the-services-vault.md', 'the-services-vault.html'],
+];
+
 const TEMPLATES = [
   ['templates/the-edit-diy.md',            'templates/the-edit-diy.html'],
   ['templates/before-the-session.md',      'templates/before-the-session.html'],
@@ -681,6 +688,15 @@ for (const [src, dest, opts] of pick(EBOOKS)) {
 
 console.log('\nBuilding lead magnets...');
 for (const [src, dest, opts] of pick(LEAD_MAGNETS)) {
+  buildFile(
+    path.join(ROOT, 'products', src),
+    path.join(ROOT, 'public/downloads', dest),
+    opts
+  );
+}
+
+console.log('\nBuilding bundles...');
+for (const [src, dest, opts] of pick(BUNDLES)) {
   buildFile(
     path.join(ROOT, 'products', src),
     path.join(ROOT, 'public/downloads', dest),

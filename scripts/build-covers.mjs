@@ -43,6 +43,8 @@ const PRODUCTS = [
   { src: 'templates/the-social-strategy-playbook.md', slug: 'the-social-strategy-playbook' },
   { raw: courseMarkdown(ROOT), slug: COURSE.slug, title: COURSE.title, subtitle: COURSE.subtitle },
   { src: 'lead-magnets/positioning-checklist.md', slug: 'positioning-checklist' },
+  { src: 'bundles/the-vault.md',                  slug: 'the-vault' },
+  { src: 'bundles/the-services-vault.md',         slug: 'the-services-vault' },
 ];
 
 const filter = process.argv[2];

@@ -35,6 +35,9 @@ const FILES = [
   ['public/downloads/scripture-and-strategy.html',               'public/downloads/scripture-and-strategy.pdf'],
   // lead magnets
   ['public/downloads/positioning-checklist.html',                'public/downloads/positioning-checklist.pdf'],
+  // bundles
+  ['public/downloads/the-vault.html',                            'public/downloads/the-vault.pdf'],
+  ['public/downloads/the-services-vault.html',                   'public/downloads/the-services-vault.pdf'],
 ];
 
 const browser = await puppeteer.launch({
