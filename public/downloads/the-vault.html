@@ -1,100 +1,9 @@
-#!/usr/bin/env node
-/**
- * Converts product markdown files into branded, self-contained HTML downloads
- * for Gumroad uploads. Run: node scripts/build-downloads.mjs
- */
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { COURSE, courseMarkdown } from './lib/course.mjs';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(__dirname, '..');
-
-// ── Markdown → HTML ──────────────────────────────────────────────────────────
-
-function md(src) {
-  let html = src
-    // escape stray html
-    .replace(/&(?!amp;|lt;|gt;|quot;|#)/g, '&amp;')
-    // tables
-    .replace(/^\|(.+)\|\n\|[-:| ]+\|\n((?:\|.+\|\n?)+)/gm, (_, head, body) => {
-      const th = head.split('|').filter(Boolean).map(c => `<th>${inline(c.trim())}</th>`).join('');
-      const rows = body.trim().split('\n').map(row =>
-        `<tr>${row.split('|').filter(Boolean).map(c => `<td>${inline(c.trim())}</td>`).join('')}</tr>`
-      ).join('\n');
-      return `<table><thead><tr>${th}</tr></thead><tbody>${rows}</tbody></table>\n`;
-    })
-    // fenced code blocks
-    .replace(/```[\w]*\n([\s\S]*?)```/gm, (_, code) =>
-      `<pre><code>${code.replace(/&amp;/g, '&').replace(/</g, '&lt;')}</code></pre>`)
-    // blockquotes
-    .replace(/^((?:> .+\n?)+)/gm, block => {
-      const inner = block.replace(/^> ?/gm, '').trim();
-      return `<blockquote>${inline(inner)}</blockquote>\n`;
-    })
-    // hr
-    .replace(/^---+$/gm, '<hr>')
-    // headings
-    .replace(/^### (.+)$/gm, (_, t) => `<h3>${inline(t)}</h3>`)
-    .replace(/^## (.+)$/gm,  (_, t) => `<h2>${inline(t)}</h2>`)
-    .replace(/^# (.+)$/gm,   (_, t) => `<h1>${inline(t)}</h1>`)
-    // unordered lists
-    .replace(/^((?:[*\-] .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^[*\-] /, ''))}</li>`).join('');
-      return `<ul>${items}</ul>\n`;
-    })
-    // ordered lists
-    .replace(/^((?:\d+\. .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^\d+\. /, ''))}</li>`).join('');
-      return `<ol>${items}</ol>\n`;
-    })
-    // paragraphs (lines not already wrapped)
-    .replace(/^(?!<[a-z]|$)(.+)$/gm, (_, line) => `<p>${inline(line)}</p>`);
-
-  return html;
-}
-
-function inline(s) {
-  return s
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,     '<em>$1</em>')
-    .replace(/`(.+?)`/g,       '<code>$1</code>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>');
-}
-
-// ── HTML template ─────────────────────────────────────────────────────────────
-// Mirrors the live site (mkparrish.com): Bebas Neue / Playfair Display / DM Sans
-// / JetBrains Mono on black × pink × white × grey, with pink-gradient rules,
-// text-glow, an outlined display word, mono section numbers, and a grain overlay.
-
-function wrap(title, bodyHtml, opts = {}) {
-  const { subtitle = '', kicker = 'MK Parrish · mkparrish.com', meta = '', accent = '#F2AFC6', isCourse = false } = opts;
-
-  // Split a "Title: subtitle" headline so the cover gets a punchy display line
-  // plus an italic serif descender, the way the live hero is set.
-  let coverTitle = title;
-  let coverSub = subtitle;
-  const colon = title.indexOf(':');
-  if (!coverSub && colon > 0) {
-    coverTitle = title.slice(0, colon).trim();
-    coverSub = title.slice(colon + 1).trim();
-  }
-  // Outline the final word of the cover title (the site's hero treatment).
-  const words = coverTitle.split(' ');
-  const lastWord = words.length > 1 ? words.pop() : '';
-  const coverTitleHtml = lastWord
-    ? `<span class="grad">${words.join(' ')}</span> <span class="outline">${lastWord}</span>`
-    : `<span class="grad">${coverTitle}</span>`;
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${title} — MK Parrish</title>
+<title>The Vault — MK Parrish</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -110,7 +19,7 @@ function wrap(title, bodyHtml, opts = {}) {
     --pearl: #F0F0EE;
     --white: #FAFAF8;
     --blush: #FFD6E4;
-    --petal: ${accent};
+    --petal: #F2AFC6;
     --rose: #E0869F;
     --carmine: #C75B78;
     --font-display: 'Bebas Neue', Impact, sans-serif;
@@ -326,7 +235,7 @@ function wrap(title, bodyHtml, opts = {}) {
     line-height: 1.6;
   }
   blockquote::before {
-    content: '\\201C';
+    content: '\201C';
     position: absolute;
     top: 0.08em;
     left: 0.14em;
@@ -548,16 +457,89 @@ function wrap(title, bodyHtml, opts = {}) {
 
 <div class="cover">
   <div class="cover-inner">
-    <div class="cover-kicker">${kicker}</div>
-    <h1>${coverTitleHtml}</h1>
-    ${coverSub ? `<p class="subtitle">${coverSub}</p>` : ''}
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">The</span> <span class="outline">Vault</span></h1>
+    <p class="subtitle">Every framework, every guide, every word — the complete library, in one place.</p>
     <div class="cover-rule"></div>
-    ${meta ? `<div class="cover-meta">${meta}</div>` : ''}
+    <div class="cover-meta">By MK Parrish</div>
   </div>
 </div>
 
 <div class="content">
-${bodyHtml}
+<h2>Welcome to The Vault</h2>
+
+<p>You didn't buy a book. You bought the whole shelf.</p>
+
+<p>The Vault is the complete MK Parrish writing-and-identity library — every ebook and guide I've made for the work of becoming someone new and saying it out loud. Bought one at a time, these add up. Together, they're a single, sequenced course in writing yourself into the room you're trying to enter.</p>
+
+<p>This short guide is your map. It tells you what's inside, what each piece is <em>for</em>, and the order to read them in depending on where you're standing right now. Read this first. Then start where it hurts — or where it's most exciting. Both are the right answer.</p>
+
+<blockquote>You don't find yourself. You write yourself. This is everything I know about how — in one place, on your terms, forever.</blockquote>
+
+<hr>
+
+<h2>What's Inside</h2>
+
+<p>Five complete works. Each stands alone; together they build on each other.</p>
+
+<h3>The Reinvention Workbook</h3>
+
+<p>A guided writing workbook for people in the middle of becoming someone new. Twenty exercises in four parts — audit the old identity, excavate the story you were handed, find your real voice, and draft the next version of yourself. <em>Best for:</em> the restless, between-drafts season when you've outgrown a life that still has your name on it.</p>
+
+<h3>The Invisible Bruise</h3>
+
+<p>Surviving emotional abuse, suffering in silence, and rewriting your life. The most tender book in the library — it sits directly with the wound, names what happened when there was no mark to point to, and helps you rebuild the person who was standing there before all of it started. <em>Best for:</em> when the old story was written by someone who hurt you.</p>
+
+<h3>Write Yourself Into the Room</h3>
+
+<p>The personal-brand writing guide for people tired of sounding like everyone else. A three-layer framework for your bio, your LinkedIn, your whole public voice — so you're read accurately instead of overlooked. <em>Best for:</em> taking your new voice public, into the rooms you want to be in.</p>
+
+<h3>The Brand Voice Playbook</h3>
+
+<p>Build a brand voice document from scratch — the exact process I run with clients. Tone-spectrum mapping, do/don't vocabulary, a complete worked example. <em>Best for:</em> when your writing keeps drifting generic and you need a system that holds it to <em>you.</em></p>
+
+<h3>Decoding Angel Numbers: A Skeptic's Guide</h3>
+
+<p>A grounded, non-woo framework for the spiritually curious who keep noticing patterns. Not a glossary of meanings — a practice of attention. <em>Best for:</em> the seeker who wants a discipline, not a prophecy.</p>
+
+<p><em>…plus any future releases. The Vault grows; your access doesn't expire.</em></p>
+
+<hr>
+
+<h2>Where to Start</h2>
+
+<p>Don't read front to back. Read by where you are.</p>
+
+<ul><li><strong>"I've outgrown my life but can't name the next one."</strong> → Start with <strong>The Reinvention Workbook.</strong> Then <strong>Write Yourself Into the Room</strong> to take the new self public.</li><li><strong>"The old story was written by someone who hurt me."</strong> → Start with <strong>The Invisible Bruise.</strong> Be gentle with the pace. Come to the Workbook when you're ready to build forward.</li><li><strong>"I know who I am — I just sound generic when I say it."</strong> → Start with <strong>The Brand Voice Playbook</strong>, then <strong>Write Yourself Into the Room.</strong></li><li><strong>"I keep noticing signs and don't know what to do with them."</strong> → Start with <strong>Decoding Angel Numbers</strong>, then let it point you back to the Workbook.</li></ul>
+
+<p>There's no wrong order. There's only the one you'll actually start.</p>
+
+<hr>
+
+<h2>How to Use the Library</h2>
+
+<p>A few things I've learned about how this work actually lands:</p>
+
+<p><strong>Use a real notebook.</strong> Every guide asks you to write. A hand moving across paper bypasses the editor in your head in a way a keyboard doesn't. The friction is the point.</p>
+
+<p><strong>Do one thing, not five.</strong> You own all of it, which makes it tempting to skim everything and finish nothing. Pick one guide. Do the exercises. The library will still be here.</p>
+
+<p><strong>Come back.</strong> These aren't one-time reads. The Reinvention Workbook means something different at the start of a change than in the middle of one. Re-read. You'll have changed; so will the book.</p>
+
+<blockquote>The mess is the point. Begin anywhere. Just begin.</blockquote>
+
+<hr>
+
+<h2>Keep Going</h2>
+
+<p>The Vault is the writing-and-identity library. If your work is faith-rooted, the <strong>Scripture &amp; Strategy</strong> collection extends it into building a business without watering down your calling. And if you'd rather hand the work to someone who does it every day, that's what the studio is for.</p>
+
+<p>Find everything — and start the free <strong>Positioning Checklist</strong> if you haven't — at <strong>mkparrish.com</strong>.</p>
+
+<p>You picked up the pen, and then you picked up all of it. That was never the hard part to want. It was the hard part to <em>start.</em> So start.</p>
+
+<p>— MK Parrish</p>
+
 </div>
 
 <div class="footer">
@@ -566,162 +548,4 @@ ${bodyHtml}
 </div>
 
 </body>
-</html>`;
-}
-
-// ── Build individual file ──────────────────────────────────────────────────────
-
-function buildFile(srcPath, destPath, opts = {}) {
-  let raw = fs.readFileSync(srcPath, 'utf8');
-  // Pull the title from the first H1, then drop that line from the body so the
-  // cover carries the title instead of repeating it as the first heading.
-  const titleMatch = raw.match(/^# (.+)$/m);
-  const title = opts.title || (titleMatch ? titleMatch[1] : path.basename(srcPath, '.md'));
-  if (titleMatch) raw = raw.replace(/^# .+$\n?/m, '');
-
-  // Lift the cover front matter (subtitle + author/price) out of the body so it
-  // rides on the cover, the way the Reinvention Workbook does — unless the caller
-  // supplied it via opts. Only the block at the very top of the file is touched,
-  // so section dividers and emphasis deeper in the document are left alone.
-  let { subtitle = '', meta = '' } = opts;
-  let lifted = false;
-  const atTop = (i) => raw.slice(0, i).trim() === '';
-  if (!subtitle) {
-    const m = raw.match(/^\s*###\s+(.+?)\s*$/m);
-    if (m && atTop(m.index)) {
-      subtitle = m[1];
-      raw = raw.slice(0, m.index) + raw.slice(m.index + m[0].length);
-      lifted = true;
-    }
-  }
-  if (!meta) {
-    const bits = [];
-    const by = raw.match(/^\s*\*\*By ([^*]+?)\*\*\s*$/m);
-    if (by && atTop(by.index)) {
-      bits.push('By ' + by[1].trim());
-      raw = raw.slice(0, by.index) + raw.slice(by.index + by[0].length);
-      lifted = true;
-    }
-    const price = raw.match(/^\s*\*\*(?:Price:\s*)?(\$\d+)\*\*\s*$/m);
-    if (price && atTop(price.index)) {
-      bits.push(price[1]);
-      raw = raw.slice(0, price.index) + raw.slice(price.index + price[0].length);
-      lifted = true;
-    }
-    // Pattern B front matter — a leading block of "**Key:** value" lines
-    // (Format / Price / Length / Audience). Pull the price for the cover meta
-    // and strip the whole block so it doesn't leak into the body as gray text.
-    if (!bits.length) {
-      const metaBlock = raw.match(/^(?:[ \t]*\*\*[^*\n]+:\*\*[^\n]*\n?)+/m);
-      if (metaBlock && atTop(metaBlock.index)) {
-        const priceM = metaBlock[0].match(/\$\d[\d,]*/);
-        if (priceM) bits.push('By MK Parrish', priceM[0]);
-        raw = raw.slice(0, metaBlock.index) + raw.slice(metaBlock.index + metaBlock[0].length);
-        lifted = true;
-      }
-    }
-    if (bits.length) meta = bits.join(' · ');
-  }
-  // Remove the horizontal rule that used to divide the front matter from the body.
-  if (lifted) raw = raw.replace(/^\s*---\s*$\n?/m, '');
-
-  const bodyHtml = md(raw);
-  const html = wrap(title, bodyHtml, { ...opts, subtitle, meta });
-  fs.mkdirSync(path.dirname(destPath), { recursive: true });
-  fs.writeFileSync(destPath, html);
-  console.log(`  ✓  ${path.relative(ROOT, destPath)}`);
-}
-
-// ── Main ──────────────────────────────────────────────────────────────────────
-
-const EBOOKS = [
-  ['ebooks/reinvention-workbook.md',          'ebooks/reinvention-workbook.html', {
-    subtitle: 'A guided writing workbook for people in the middle of becoming someone new.',
-    meta:     'By MK Parrish · $18',
-  }],
-  ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
-  ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
-  ['ebooks/the-invisible-bruise.md',          'ebooks/the-invisible-bruise.html'],
-  ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
-  ['ebooks/scripture/the-study.md',           'ebooks/the-study.html'],
-  ['ebooks/scripture/gospel-and-grind.md',    'ebooks/gospel-and-grind.html'],
-  ['ebooks/scripture/the-sermon-notes.md',    'ebooks/the-sermon-notes.html'],
-  ['ebooks/scripture/the-calling-card.md',    'ebooks/the-calling-card.html'],
-  ['ebooks/scripture/ministry-monetized.md',  'ebooks/ministry-monetized.html'],
-];
-
-// Free lead magnets (the email-capture checklist, etc.) — flat in /downloads.
-const LEAD_MAGNETS = [
-  ['lead-magnets/positioning-checklist.md', 'positioning-checklist.html', { kicker: 'MK Parrish · Free Resource' }],
-];
-
-// Product bundles (The Vault, The Services Vault) — the "what's inside" intro
-// ebook that anchors each bundle. Flat in /downloads.
-const BUNDLES = [
-  ['bundles/the-vault.md',          'the-vault.html'],
-  ['bundles/the-services-vault.md', 'the-services-vault.html'],
-];
-
-const TEMPLATES = [
-  ['templates/the-edit-diy.md',            'templates/the-edit-diy.html'],
-  ['templates/before-the-session.md',      'templates/before-the-session.html'],
-  ['templates/the-rewrite-playbook.md',    'templates/the-rewrite-playbook.html'],
-  ['templates/the-new-chapter-workbook.md','templates/the-new-chapter-workbook.html'],
-  ['templates/the-byline-method.md',       'templates/the-byline-method.html'],
-  ['templates/the-build-copy-guide.md',    'templates/the-build-copy-guide.html'],
-  ['templates/the-social-strategy-playbook.md', 'templates/the-social-strategy-playbook.html'],
-];
-
-// Optional CLI filter: `node scripts/build-downloads.mjs reinvention` builds
-// only files whose source path contains the argument. No argument builds all.
-const only = process.argv[2];
-const pick = (list) => (only ? list.filter(([s]) => s.includes(only)) : list);
-
-console.log('\nBuilding ebooks...');
-for (const [src, dest, opts] of pick(EBOOKS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding lead magnets...');
-for (const [src, dest, opts] of pick(LEAD_MAGNETS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding bundles...');
-for (const [src, dest, opts] of pick(BUNDLES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding templates...');
-for (const [src, dest, opts] of pick(TEMPLATES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-// Course — assembled from its module files into one gold-standard document.
-if (!only || COURSE.slug.includes(only) || only === 'course') {
-  console.log('\nBuilding course...');
-  const html = wrap(COURSE.title, md(courseMarkdown(ROOT)), {
-    subtitle: COURSE.subtitle, meta: COURSE.meta, isCourse: true,
-  });
-  const dest = path.join(ROOT, 'public/downloads', `${COURSE.slug}.html`);
-  fs.writeFileSync(dest, html);
-  console.log(`  ✓  ${path.relative(ROOT, dest)}`);
-}
-
-console.log('\nDone. Files written to public/downloads/\n');
+</html>
