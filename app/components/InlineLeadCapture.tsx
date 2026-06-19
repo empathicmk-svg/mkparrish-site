@@ -46,7 +46,7 @@ export default function InlineLeadCapture() {
         </h3>
         <p className="mt-4 max-w-xl font-body text-sm font-light leading-7 text-smoke">
           {emailed
-            ? "It is also headed to your inbox. Grab the same file now and start with the question that makes you slightly uncomfortable. That is usually the expensive one."
+            ? "It is also headed to your inbox. Start with the question that makes you slightly uncomfortable. That is usually the expensive one."
             : "Grab it now. You are also on the free list for The Margins."}
         </p>
         <a
@@ -65,10 +65,10 @@ export default function InlineLeadCapture() {
     <form onSubmit={handleSubmit} className="border border-graphite bg-obsidian p-7 md:p-9">
       <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Free positioning audit</p>
       <h3 className="mt-3 font-display text-3xl uppercase tracking-[0.02em] text-pearl md:text-4xl">
-        Find the leak before you rewrite the page.
+        See what your copy is not saying.
       </h3>
       <p className="mt-4 max-w-2xl font-body text-sm font-light leading-7 text-smoke">
-        Get the 12-point Positioning Checklist I use before client work. It shows where your copy is vague, dated, or quietly costing you the right opportunities.
+        Get the 12-point checklist I use before client work. It shows where your positioning is vague, dated, or quietly losing the right buyer.
       </p>
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -88,7 +88,7 @@ export default function InlineLeadCapture() {
           disabled={loading}
           className="btn-primary px-6 py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.18em] text-void disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {loading ? "Sending…" : "Send It →"}
+          {loading ? "Sending…" : "Get the Checklist →"}
         </button>
       </div>
 
