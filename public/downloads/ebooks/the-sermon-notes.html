@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sermon Notes — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --white: #FAFAF8;
+    --blush: #FFD6E4;
+    --petal: #F2AFC6;
+    --rose: #E0869F;
+    --carmine: #C75B78;
+    --font-display: 'Bebas Neue', Impact, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    /* Reusable gray → pink gradients */
+    --grad-pink: linear-gradient(120deg, var(--rose), var(--petal) 55%, var(--blush));
+    --grad-rule: linear-gradient(90deg, transparent, var(--petal), transparent);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(242,175,198,0.06), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, rgba(199,91,120,0.05), transparent 55%),
+      linear-gradient(180deg, var(--obsidian) 0%, var(--void) 38%);
+    background-attachment: fixed;
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.78;
+    position: relative;
+  }
+  /* Grain overlay — the site's signature texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9998;
+    mix-blend-mode: screen;
+  }
+  ::selection { background: var(--petal); color: var(--void); }
+
+  /* ── COVER ─────────────────────────────────────────── */
+  .cover {
+    position: relative;
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 104px 48px 84px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% -10%, rgba(242,175,198,0.20) 0%, transparent 62%),
+      radial-gradient(ellipse 50% 50% at 88% 108%, rgba(199,91,120,0.12) 0%, transparent 60%),
+      linear-gradient(160deg, rgba(176,176,176,0.06), transparent 45%);
+    pointer-events: none;
+  }
+  /* Thin gray→pink gradient hairline across the very top */
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--iron), var(--petal) 50%, var(--blush));
+    opacity: 0.7;
+  }
+  .cover > * { position: relative; z-index: 1; }
+  .cover-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7.5vw, 4.6rem);
+    letter-spacing: 0.04em;
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    color: var(--white);
+  }
+  /* Soft gray→white→pink gradient fill on the lead words */
+  .cover h1 .grad {
+    background: linear-gradient(135deg, var(--pearl) 0%, var(--pearl) 50%, var(--blush) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--pearl);
+    filter: drop-shadow(0 0 16px rgba(242,175,198,0.14));
+  }
+  .cover h1 .outline {
+    -webkit-text-stroke: 1px rgba(242,175,198,0.5);
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  /* Subtitle — matches the live site tagline: Playfair italic, petal */
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+    color: rgba(242, 175, 198, 0.8);
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.5;
+  }
+  .cover-rule {
+    width: 90px;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, var(--rose), var(--petal), var(--blush), transparent);
+  }
+  .cover-meta {
+    margin-top: 30px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+
+  /* ── CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    counter-reset: section;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    letter-spacing: 0.03em;
+    line-height: 1.04;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  /* Section headings get an editorial mono counter, like the site's section numbers */
+  h2 {
+    counter-increment: section;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.3vw, 1.95rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--pearl);
+    margin: 68px 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--graphite);
+    position: relative;
+  }
+  h2::before {
+    content: counter(section, decimal-leading-zero);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--rose), var(--petal));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--petal);
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 88px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--petal), rgba(242,175,198,0));
+  }
+  /* Sub-section labels — live-site accent: Playfair italic, petal */
+  h3 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--petal);
+    margin: 40px 0 12px;
+  }
+  p { margin: 0 0 1.25em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  /* Emphasis — live-site accent: Playfair italic, petal */
+  em { font-family: var(--font-serif); font-style: italic; color: var(--petal); }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { color: var(--blush); text-decoration: underline; }
+
+  ul, ol { padding-left: 1.4em; margin: 0 0 1.6em; color: var(--smoke); }
+  li { margin-bottom: 0.55em; padding-left: 0.35em; }
+  ul li::marker { color: var(--petal); }
+  ol li::marker { color: var(--petal); font-family: var(--font-mono); font-size: 0.85em; }
+
+  blockquote {
+    position: relative;
+    border-left: 2px solid var(--petal);
+    margin: 40px 0;
+    padding: 26px 30px 26px 40px;
+    background: linear-gradient(110deg, rgba(242,175,198,0.10), rgba(176,176,176,0.04) 55%, transparent 90%);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.08rem;
+    color: rgba(242, 175, 198, 0.9);
+    line-height: 1.6;
+  }
+  blockquote::before {
+    content: '\201C';
+    position: absolute;
+    top: 0.08em;
+    left: 0.14em;
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(242,175,198,0.22);
+    pointer-events: none;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code { font-family: var(--font-mono); font-size: 0.86rem; color: var(--petal); white-space: pre; }
+  p > code, li > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    font-size: 0.82em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.9rem; }
+  thead tr { background: linear-gradient(90deg, rgba(242,175,198,0.12), rgba(176,176,176,0.04) 70%, transparent); }
+  th {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--graphite); color: var(--smoke); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--iron) 25%, var(--petal) 50%, var(--iron) 75%, transparent);
+    opacity: 0.6;
+    margin: 52px 0;
+  }
+
+  /* ── FOOTER ────────────────────────────────────────── */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 48px 24px;
+    text-align: center;
+    background: var(--obsidian);
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .footer-legal {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+  .footer-legal a { color: var(--ash); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PRINT EDITION — light, publisher-style layout for the PDF.
+     The screen stays dark; the printed book inverts to a white page
+     with black header boxes and pink/white titles.
+     ═══════════════════════════════════════════════════════════════ */
+  @media print {
+    @page { margin: 0; }
+
+    html, body {
+      background: #ffffff !important;
+      color: #232323 !important;
+    }
+    body::before { display: none !important; }   /* no grain in print */
+
+    /* ── COVER: a full-page black panel on a white sheet ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      background: #ffffff !important;
+      border-bottom: none;
+      padding: 0;
+      break-after: page;
+    }
+    .cover::before, .cover::after { display: none !important; }
+    /* The panel fills the printable page and centres the title block,
+       instead of floating as a thin band in the middle of the sheet. */
+    .cover-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 52px;
+      background: #0E0E0E;
+      border: 1px solid rgba(242, 175, 198, 0.45);
+    }
+    .cover-kicker { color: var(--petal); }
+    .cover h1 { color: #ffffff; font-size: clamp(3rem, 8vw, 4rem); }
+    /* Solid fills only. background-clip:text and text-stroke rasterise as
+       opaque boxes / vanish entirely in print — that is what turned the old
+       title into a white rectangle. Keep the white + pink two-tone with
+       plain fills so it renders identically everywhere. */
+    .cover h1 .grad {
+      background: none;
+      -webkit-background-clip: border-box; background-clip: border-box;
+      -webkit-text-fill-color: #ffffff; color: #ffffff;
+      filter: none;
+    }
+    .cover h1 .outline {
+      -webkit-text-stroke: 0;
+      -webkit-text-fill-color: var(--petal); color: var(--petal);
+    }
+    .cover .subtitle { color: var(--petal); }
+    .cover-meta { color: #B0B0B0; }
+
+    /* ── BODY: black text on white ── */
+    .content { padding-top: 64px; color: #232323; }
+    p { color: #2b2b2b; }
+    /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
+    strong {
+      background: #0E0E0E;
+      color: #FAFAF8;
+      font-weight: 600;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    a { color: #B23A59; }
+    ul li::marker, ol li::marker { color: #B23A59; }
+
+    /* ── SECTION HEADERS: black boxes, pink number + white title ── */
+    h2 {
+      background: #0E0E0E;
+      color: #ffffff;
+      padding: 24px 30px;
+      margin: 40px 0 42px;
+      border: none;
+      break-before: page;          /* every Part / section starts a fresh page */
+    }
+    /* …except the first section, which follows the cover (and any intro/metadata
+       block) on page 2 instead of forcing a near-empty page before it. */
+    .content h2:first-of-type { break-before: auto; }
+    h2::before {
+      background: none;
+      -webkit-text-fill-color: var(--petal);
+      color: var(--petal);
+      margin-bottom: 10px;
+    }
+    h2::after { display: none; }
+
+    /* Exercise titles — pink, with extra breathing room above each */
+    h3 { color: #B23A59; margin: 58px 0 18px; }
+    /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
+    em {
+      background: var(--petal);
+      color: #1A1008;
+      font-style: italic;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    /* ── PULL QUOTES: soft panel, pink rule + mark, dark text ── */
+    blockquote {
+      background: #F5F2F0;
+      border-left: 3px solid #B23A59;
+      color: #232323;
+    }
+    blockquote::before { color: rgba(178, 58, 89, 0.3); }
+
+    /* ── TABLES: black header band ── */
+    thead tr { background: #0E0E0E; }
+    th { color: #ffffff; border-bottom: 1px solid #0E0E0E; }
+    td { color: #2b2b2b; border-bottom: 1px solid #e3e3e3; }
+
+    /* ── CODE: light chip ── */
+    pre { background: #f3f3f1; border: 1px solid #e3e3e3; }
+    pre code { color: #A8344F; }
+    p > code, li > code { background: #f0eeec; color: #A8344F; }
+
+    hr {
+      background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
+      opacity: 1;
+    }
+    /* The markdown "---" separators always sit just before a section heading,
+       and every section already starts a fresh page — so a rule landing right
+       before a heading is redundant and can strand alone on a near-empty page.
+       Hide those; keep any genuine in-content rule (one not followed by H2). */
+    hr:has(+ h2) { display: none; }
+
+    /* ── FOOTER: white page, black signature ── */
+    .footer { background: #ffffff; border-top: 1px solid #dddddd; }
+    .footer-logo { color: #0A0A0A; }
+    .footer-legal { color: #8a8a8a; }
+    .footer-legal a { color: #B23A59; }
+
+    /* ── PAGINATION — natural flow; just avoid bad breaks ── */
+    h1, h2, h3 { break-after: avoid-page; break-inside: avoid; }
+    p, li { orphans: 3; widows: 3; }
+    h2, h3, li, tr, blockquote, pre, table, figure, img { break-inside: avoid; }
+    ul, ol { break-before: avoid-page; }
+    .footer { break-before: avoid-page; }
+  }
+  *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">The Sermon</span> <span class="outline">Notes</span></h1>
+    <p class="subtitle">Turn your personal Bible study into content your audience wants — and that you can charge for.</p>
+    <div class="cover-rule"></div>
+    <div class="cover-meta">By MK Parrish · $25</div>
+  </div>
+</div>
+
+<div class="content">
+<h2>Start Here</h2>
+
+<p>You study. You actually do the work — you sit with the text, you wrestle, you walk away with something real. And then it evaporates into the same notebook nobody else will ever open.</p>
+
+<p>Meanwhile you stare at a blank caption box, convinced you have "nothing to post."</p>
+
+<p>You're not out of ideas. You're sitting on a goldmine and calling it a diary.</p>
+
+<p>Here's the shift this book makes: your personal study is not separate from your content. It <em>is</em> your content — raw, before processing. One honest hour with one passage holds enough material to fill a month, across every platform you touch, with stuff your audience will actually stop scrolling for. Because it's true. Because you lived it. Because it isn't recycled from someone else's recycling.</p>
+
+<blockquote>You don't have a content problem. You have a translation problem — study to shareable.</blockquote>
+
+<p>This book is the translation engine. We'll build the pipeline that turns one passage into a month of material, hand you twelve plug-and-play content formats, and show you exactly how to move people from a free post to an email to something they pay for — without ever feeling like a salesperson wearing a cross.</p>
+
+<p>Let's turn the notes into a body of work.</p>
+
+<hr>
+
+<h2>Chapter One: The Pipeline — One Passage, One Month</h2>
+
+<p>Most creators produce content the hard way: invent a topic, research it, write it, post it, repeat tomorrow from scratch. That's the road to burnout. The pipeline runs the other direction. You go <em>deep once</em>, then <em>distribute wide</em>.</p>
+
+<p>Here's the flow:</p>
+
+<p><strong>Study (deep) → Capture (raw) → Sort (into angles) → Format (into pieces) → Distribute (across platforms).</strong></p>
+
+<p>It starts in your actual study session — the kind you learned to run in <em>The Study</em>. The only addition: as you study, you capture differently.</p>
+
+<p><strong>The Capture Habit.</strong> While you study one passage, keep a second page open labeled "what would land." Every time something makes you go <em>oh</em> — a word that surprised you, a wrong assumption you'd been carrying, a connection to your real life, a question you couldn't shake — you jot it on that page. You're not writing content yet. You're harvesting sparks. A good study session yields eight to fifteen sparks from a single passage.</p>
+
+<p>That page of sparks is the raw ore. Everything else in this book refines it.</p>
+
+<p><strong>The Sort.</strong> Each spark falls into one of four angles. Tag them as you go:</p>
+
+<ul><li><strong>Teach</strong> — something you understood that others probably misunderstand.</li><li><strong>Confess</strong> — something the text exposed in you (the most shareable angle; vulnerability travels).</li><li><strong>Reframe</strong> — a common assumption the passage overturns.</li><li><strong>Apply</strong> — a concrete, do-it-this-week action.</li></ul>
+
+<p>One passage, sorted across four angles, with three to four sparks each, gives you a dozen distinct pieces of content before you've written a single full post. That's your month.</p>
+
+<hr>
+
+<h2>Chapter Two: The 12 Formats</h2>
+
+<p>Sparks become posts when you pour them into a format. Here are twelve, built for faith creators, organized by where they live. Pick the ones that fit your platforms and rotate them so your feed never feels like a template.</p>
+
+<h3>Short-Form Social (Instagram, threads, TikTok captions)</h3>
+
+<p><strong>1. The Cracked-Open Verse.</strong> One verse + the single thing you noticed that you'd never seen before. "I read this 100 times and missed [X]. Here's what changed." Pure <em>Teach</em> or <em>Reframe</em>.</p>
+
+<p><strong>2. The Honest Confession.</strong> Lead with the thing the text exposed in you. "I judged the older brother in that parable for years. Last week I realized I <em>am</em> him." Pure <em>Confess</em>. These outperform everything.</p>
+
+<p><strong>3. The Myth-Buster.</strong> "You've been told [common faith cliché]. The passage actually says the opposite." Name the cliché, then the correction. <em>Reframe</em>.</p>
+
+<p><strong>4. The Micro-Application.</strong> One verse, one absurdly specific action for this week. Specific beats inspirational every time. <em>Apply</em>.</p>
+
+<p><strong>5. The Question Post.</strong> Pose the real question the passage raised for you and genuinely ask the audience. Comments are the algorithm's favorite food, and faith audiences love to weigh in.</p>
+
+<h3>Long-Form (email, blog, LinkedIn, newsletter)</h3>
+
+<p><strong>6. The Study Walk-Through.</strong> Take readers through your actual process on one passage — what you noticed, where you got stuck, where you landed. Teaches the text <em>and</em> your method.</p>
+
+<p><strong>7. The Story Bridge.</strong> Open with a real moment from your week, bridge into the passage that spoke to it, close with what you're carrying. Personal essay meets devotional.</p>
+
+<p><strong>8. The Frame + Practice.</strong> Teach one idea from the passage, then give a concrete practice to live it out this week. This is your email workhorse — value-dense, action-oriented, and the natural lead-in to a paid offer.</p>
+
+<h3>Visual / Saveable</h3>
+
+<p><strong>9. The Carousel Teardown.</strong> Slide 1: the hook ("3 things this verse is NOT saying"). Slides 2–4: the points. Final slide: the takeaway + a soft next step. Built to be saved and shared.</p>
+
+<p><strong>10. The Quote Card.</strong> Your own reframed line — not just the verse, <em>your</em> sentence about it — on a clean background. Your voice on a card travels further than scripture alone, because it's unmistakably yours.</p>
+
+<h3>Audio / Video</h3>
+
+<p><strong>11. The Two-Minute Teach.</strong> Talk through one spark to camera. No script, just the <em>oh</em> moment. Imperfect and human outperforms polished and generic.</p>
+
+<p><strong>12. The Voice Memo Devotional.</strong> Audio-first: read the passage, then talk through it like you're voice-memoing a friend. Intimate, low-production, deeply on-brand for a faith creator.</p>
+
+<blockquote>Twelve formats, four angles, one passage. You will run out of weeks before you run out of content.</blockquote>
+
+<hr>
+
+<h2>Chapter Three: The Monthly Content Map</h2>
+
+<p>Let's assemble a real month from one Sunday's study. Say you studied the parable of the prodigal son and harvested twelve sparks across the four angles.</p>
+
+<p>Here's a four-week map that never repeats and never strains:</p>
+
+<p><strong>Week 1 — Teach.</strong> Mon: Cracked-Open Verse (short). Wed: Carousel Teardown (visual). Fri: Study Walk-Through (email).</p>
+
+<p><strong>Week 2 — Confess.</strong> Mon: Honest Confession (short). Wed: Two-Minute Teach (video). Fri: Story Bridge (email).</p>
+
+<p><strong>Week 3 — Reframe.</strong> Mon: Myth-Buster (short). Wed: Quote Card (visual). Fri: Frame + Practice (email — <em>this is your conversion email; more in Chapter Five</em>).</p>
+
+<p><strong>Week 4 — Apply.</strong> Mon: Micro-Application (short). Wed: Question Post (short). Fri: Voice Memo Devotional (audio).</p>
+
+<p>Twelve pieces. One passage. Zero days of staring at a blank box. And because it all flows from one coherent study, the month <em>feels</em> like a series instead of scattered noise — which is exactly what builds an audience that trusts you.</p>
+
+<p>Repeat with a new passage next month. After a year you've got twelve deep series and a back catalog you can repackage indefinitely.</p>
+
+<hr>
+
+<h2>Chapter Four: Writing So It Lands</h2>
+
+<p>Raw sparks are honest but rough. A few mechanics turn them into content people actually finish.</p>
+
+<p><strong>Lead with the bruise, not the bible.</strong> Don't open with the verse. Open with the human thing — the mistake, the question, the moment. <em>"I keep score in my marriage. I didn't know that until Tuesday."</em> Then bring the text. People lean in for the human and stay for the truth, never the reverse.</p>
+
+<p><strong>One idea per piece.</strong> The temptation is to dump the whole study into one post. Resist. One spark, one piece. Depth on a single point beats a shallow tour of five.</p>
+
+<p><strong>End with a turn, not a bow.</strong> Don't wrap it in a neat moral. Leave a turn — a question, a challenge, a "here's what I'm doing about it." Tidy endings get a nod. Open ones get a comment and a save.</p>
+
+<p><strong>Sound like you talk.</strong> Read it out loud. If you wouldn't say it to a friend over coffee, cut it. Faith content drowns in a fake-reverent voice nobody actually speaks. Yours shouldn't.</p>
+
+<blockquote>Polished content earns respect. Honest content earns trust. Trust is the thing you can build a business on.</blockquote>
+
+<hr>
+
+<h2>Chapter Five: From Free Content to Paid</h2>
+
+<p>Now the part most faith creators skip and then wonder why free content never turns into income. Free content builds trust. Paid offers monetize it. The bridge between them is <em>intentional</em> — it doesn't happen by accident.</p>
+
+<p>Here's the conversion framework.</p>
+
+<p><strong>The Ladder.</strong> Picture three rungs, and make sure every month moves people up:</p>
+
+<ol><li><strong>Free</strong> — your social posts. Job: earn attention and trust. Ask for nothing but a follow.</li><li><strong>Owned</strong> — your email list. Job: deepen the relationship somewhere the algorithm can't touch. The bridge from free to owned is a <em>lead magnet</em>: a free study guide, a passage breakdown, a template — something directly useful that requires an email.</li><li><strong>Paid</strong> — your products, courses, or community. Job: deliver the deep transformation your free content only hints at.</li></ol>
+
+<p><strong>The CTA rhythm.</strong> Match the ask to the rung. On social: "Want the full breakdown? It's in my newsletter — link in bio." In email: most issues give pure value; roughly one in four points to a paid offer. Never sell in every breath; never <em>only</em> give and wonder why nothing converts.</p>
+
+<p><strong>The Conversion Email (your Week 3 Frame + Practice).</strong> This is the template that does the work:</p>
+
+<pre><code>1. THE BRUISE — open with the honest, relatable struggle.
+<ol><li>THE TEACH — the passage + the reframe that addresses it.</li><li>THE PRACTICE — one concrete thing they can do today (real value, free).</li><li>THE BRIDGE — "If you want to go deeper than one email can take you..."</li><li>THE OFFER — name the paid thing, what it does, the price, one clear link.</li><li>THE CLEAN OUT — "And if not, this practice alone is worth doing. See you next week."</li></ol>
+<p></code></pre></p>
+
+<p>That last line matters. It lets people say no and stay. Clean exits keep your list warm and your conscience clear — and warm lists buy when the right offer comes.</p>
+
+<p><strong>Lead with mission, name the money.</strong> Your offers always lead with what they <em>do</em> for the reader — the change, the relief, the capability. But you <em>do</em> name the price, plainly, without apology or a wall of throat-clearing. Mission-led is not price-hidden. People trust a clear number far more than a coy one.</p>
+
+<hr>
+
+<h2>What's Next</h2>
+
+<p>You walked in with a notebook nobody read and a blank caption box. You're walking out with a pipeline that turns one passage into a month, twelve formats to pour it into, and a ladder that turns trust into income — honestly.</p>
+
+<p><strong>The Sermon Notes</strong> is part of <strong>Scripture &amp; Strategy</strong> — my line for women building faith-aligned work without the guilt, the gatekeeping, or the seminary bill.</p>
+
+<p>Where to go next:</p>
+
+<ul><li><strong>The Study</strong> — the deep study practice this whole pipeline feeds from.</li><li><strong>Gospel &amp; Grind</strong> — align what you believe with what you sell, and price it without flinching.</li><li><strong>The Calling Card</strong> — build the faith-informed brand voice that makes all this content unmistakably yours.</li><li><strong>Ministry, Monetized</strong> — turn your audience into a paying Bible study community.</li></ul>
+
+<p>Get all five in the <strong>Scripture &amp; Strategy bundle</strong> and save — the whole system, start to finish.</p>
+
+<p>Want it guided, with live teaching and a room of creators building alongside you? The <strong>Scripture &amp; Strategy course</strong> is open now.</p>
+
+<p>Everything lives at <strong><a href="https://mkparrish.com">mkparrish.com</a></strong>.</p>
+
+<p>Stop hiding your best thinking in a notebook. Go publish it.</p>
+
+<p>— MK</p>
+
+</div>
+
+<div class="footer">
+  <div class="footer-logo">MK Parrish</div>
+  <p class="footer-legal">© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>
