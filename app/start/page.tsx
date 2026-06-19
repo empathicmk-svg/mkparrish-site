@@ -24,7 +24,7 @@ const paths = [
     primaryLabel: "See All Services",
     secondaryHref: STRIPE_SESSION,
     secondaryLabel: "Book The $300 Session",
-    external: true,
+    external: false,
   },
   {
     number: "02",
