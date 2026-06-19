@@ -5,8 +5,9 @@ import LegacyOfferingsRedirect from "@/app/components/LegacyOfferingsRedirect";
 import { STRIPE_SESSION, SUBSTACK_URL } from "@/app/lib/config";
 
 export const metadata: Metadata = {
-  title: "MK Parrish — Choose Your Next Step",
-  description: "Hire MK Parrish, buy the frameworks behind the work, or join The Margins. Choose the level of help that fits your goals, urgency, and budget.",
+  title: "MK Parrish — Growth Strategy, Websites & Messaging",
+  description:
+    "MK Parrish builds sharper positioning, conversion websites, outbound, and demand systems that turn how B2B companies are seen into qualified pipeline.",
 };
 
 const paths = [
@@ -14,51 +15,51 @@ const paths = [
     number: "01",
     eyebrow: "Done for you",
     title: "Hire MK",
-    price: "From $250",
-    desc: "For companies and founders who want the outcome handled. Messaging, conversion websites, outbound, demand generation, and full-funnel growth without an agency relay race.",
+    price: "Projects from $250",
+    desc: "For founders and growth teams who need a senior operator to find the leak, fix the message, and ship the work. Strategy and execution stay in one pair of hands.",
     bullets: [
-      "Quick copy fixes and positioning work",
-      "Strategy sessions with a written action brief",
-      "Websites, outbound engines, and ongoing growth",
+      "Positioning and copy that make the value obvious",
+      "Conversion websites designed and built end to end",
+      "Outbound and demand systems tied to qualified pipeline",
     ],
     primaryHref: "/services#offerings",
-    primaryLabel: "See All Services",
+    primaryLabel: "Explore Services",
     secondaryHref: STRIPE_SESSION,
-    secondaryLabel: "Book The $300 Session",
+    secondaryLabel: "Book The $300 Strategy Session",
     external: false,
   },
   {
     number: "02",
-    eyebrow: "Do it yourself",
+    eyebrow: "Use my process",
     title: "Buy the Framework",
     price: "$18–$127",
-    desc: "For smart people who do not need more inspiration. They need the process, the prompts, and the exact structure used in real client work.",
+    desc: "For capable people who can do the work once the path is clear. Get the structures, prompts, and decision tools I use in real client engagements.",
     bullets: [
-      "Ebooks, workbooks, and implementation guides",
-      "Brand voice, website copy, and positioning systems",
-      "Bundles for the full self-study library",
+      "Website, positioning, and brand voice guides",
+      "Practical workbooks built for implementation",
+      "Bundles that replace a very expensive blank page",
     ],
     primaryHref: "/shelf",
-    primaryLabel: "Browse The Shelf",
-    secondaryHref: "/shelf",
-    secondaryLabel: "See Every Download",
+    primaryLabel: "Shop the Frameworks",
+    secondaryHref: "/resources",
+    secondaryLabel: "Start With a Free Tool",
     external: false,
   },
   {
     number: "03",
-    eyebrow: "Read first",
+    eyebrow: "Read the thinking",
     title: "Enter The Margins",
     price: "Free + paid",
-    desc: "For readers, writers, and future clients who want the thinking before the polished case study. Essays, strategy notes, voice, and the occasional beautifully useful detour.",
+    desc: "For people who care about voice, reinvention, and the thinking behind the polished work. Essays, strategy notes, and honest work from the middle of becoming.",
     bullets: [
-      "Free essays and practical strategy notes",
-      "Paid membership for deeper frameworks",
-      "A direct line into MK's evolving body of work",
+      "Free essays and useful strategy notes",
+      "Deeper paid frameworks and field notes",
+      "Writing with a pulse, not a content quota",
     ],
     primaryHref: SUBSTACK_URL,
-    primaryLabel: "Join The Margins",
+    primaryLabel: "Read The Margins",
     secondaryHref: "/margins",
-    secondaryLabel: "Learn More",
+    secondaryLabel: "See What It Is",
     external: true,
   },
 ] as const;
@@ -73,18 +74,43 @@ export default function HomePage() {
           <div className="absolute left-1/2 top-0 h-[70vh] w-[90vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.16),transparent_60%)]" />
         </div>
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
-          <p className="font-body text-[0.68rem] font-bold uppercase tracking-[0.32em] text-petal">Start here</p>
+          <p className="font-body text-[0.68rem] font-bold uppercase tracking-[0.32em] text-petal">
+            Senior growth operator + writer
+          </p>
           <h1 className="mt-5 max-w-5xl font-display text-6xl uppercase leading-[0.88] tracking-[0.01em] text-pearl md:text-8xl lg:text-9xl">
-            Pick the door that matches <span className="text-petal">what you need.</span>
+            Turn how you&apos;re seen <span className="text-petal">into revenue.</span>
           </h1>
           <p className="mt-7 max-w-3xl font-serif text-xl italic leading-9 text-smoke md:text-2xl">
-            Done for you. Do it yourself. Or read first and decide later. A business should make it easy to buy, not force people into a scavenger hunt.
+            I help B2B companies close the gap between what they have become and how they show up. Clearer positioning, conversion websites, and growth systems built by one senior operator from first sentence to qualified call.
+          </p>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/book"
+              className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void"
+            >
+              Book a Free Strategy Call →
+            </Link>
+            <Link
+              href="/services#offerings"
+              className="inline-flex justify-center border border-graphite px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal"
+            >
+              See Services & Pricing
+            </Link>
+          </div>
+          <p className="mt-7 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-iron">
+            $40M+ pipeline influenced · Fortune 50 to growth-stage teams · No agency layers
           </p>
         </div>
       </section>
 
       <section className="bg-obsidian py-16 md:py-24">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="mb-10 max-w-3xl">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Choose your level of help</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              Bring me the problem. Pick how much of it you want handled.
+            </h2>
+          </div>
           <div className="grid gap-px bg-graphite lg:grid-cols-3">
             {paths.map((path) => (
               <article key={path.number} className="flex h-full flex-col bg-void p-7 md:p-9">
@@ -149,18 +175,18 @@ export default function HomePage() {
       <section className="bg-void py-16 md:py-24">
         <div className="mx-auto grid max-w-[1400px] gap-10 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-10">
           <div>
-            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Not ready to buy</p>
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Free 12-point positioning audit</p>
             <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
-              Start with the thing that tells you what is broken.
+              Find the leak before you rewrite the page.
             </h2>
             <p className="mt-6 max-w-xl font-body text-base font-light leading-8 text-smoke">
-              The free Positioning Checklist is the cleanest first step. Twelve questions. No 47-email nurture sequence. No man in a rented Lamborghini explaining funnels.
+              Most weak copy is not a writing problem. It is a positioning problem wearing a nicer font. Use the questions I run before client work to see where your message is vague, dated, or costing you the right opportunities.
             </p>
             <Link
               href="/resources"
               className="mt-7 inline-flex font-body text-[0.7rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:text-blush"
             >
-              See the tools behind the work →
+              Browse all free resources →
             </Link>
           </div>
           <InlineLeadCapture />
