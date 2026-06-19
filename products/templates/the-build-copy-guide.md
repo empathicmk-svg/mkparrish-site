@@ -1,7 +1,9 @@
-# The Build Copy Guide: Every Word You Need for a New Website
+# The Build: Copy Guide
+
+### Every word you need for a new website.
 
 **Format:** Digital template pack (Google Docs + PDF)
-**Price:** $48
+**Price:** $45
 **Audience:** Founders and business owners launching or relaunching a website who need to write the copy themselves — or brief a copywriter — without guessing.
 
 ---
