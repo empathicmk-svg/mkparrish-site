@@ -4,7 +4,8 @@ import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
-import { EBOOKS, SERVICE_EBOOKS, PRINTS, MARGINS_TIERS, SUBSTACK_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
+import { PRINT_PRODUCTS } from "@/app/lib/shelf-catalog";
 
 export const metadata: Metadata = {
   title: "The Shelf — MK Parrish",
@@ -28,13 +29,13 @@ type Product = {
 };
 
 function buyHref(p: Product) {
-  // Prefer a live Stripe link; fall back to the existing checkout until Stripe links are wired.
   return p.stripe && p.stripe.length > 0 ? p.stripe : p.href;
 }
 
 function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
   const isFree = Boolean(p.free && p.download);
   const limitedFree = isFree && Boolean(p.limitedFree);
+
   return (
     <div
       className={`relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 ${
@@ -43,7 +44,9 @@ function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
       {p.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
-      <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">{limitedFree ? "Free · Limited Time" : isFree ? "Free Download" : p.tag}</p>
+      <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">
+        {limitedFree ? "Free · Limited Time" : isFree ? "Free Download" : p.tag}
+      </p>
       <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl leading-tight">{p.title}</h3>
       <p className="mt-2 font-display text-4xl text-white">
         {isFree ? "Free" : p.price}
@@ -82,7 +85,7 @@ function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
           </a>
         )}
         <Link
-          href={`/shop/${p.slug}`}
+          href={`/shelf/${p.slug}`}
           className="flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
         >
           View details →
@@ -95,7 +98,6 @@ function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
 export default function ShelfPage() {
   return (
     <>
-      {/* ── HERO ── */}
       <section className="relative flex min-h-[80vh] flex-col justify-end bg-void pb-16 pt-28 md:pb-24">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-0 h-[65vh] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.13),transparent_65%)]" />
@@ -112,7 +114,7 @@ export default function ShelfPage() {
             Everything is built from real work — not repurposed content. Buy directly on this page; some downloads are free. No third-party store, no detours.
           </p>
           <div className="mt-6 flex flex-wrap gap-6">
-            {["Instant download", "Secure checkout", "No subscription"].map((t) => (
+            {["Instant digital access", "Secure checkout", "No subscription"].map((t) => (
               <div key={t} className="flex items-center gap-3">
                 <span className="h-1 w-1 bg-petal" />
                 <span className="font-body text-xs font-light text-smoke">{t}</span>
@@ -122,7 +124,6 @@ export default function ShelfPage() {
         </div>
       </section>
 
-      {/* ── EBOOKS & GUIDES ── */}
       <RevealSection bg="obsidian" num="01">
         <Eyebrow>Digital Downloads</Eyebrow>
         <H2>Ebooks &{" "}<span className="text-petal">Guides</span></H2>
@@ -138,7 +139,6 @@ export default function ShelfPage() {
 
       <QuoteDivider index={16} />
 
-      {/* ── DIY FRAMEWORKS ── */}
       <RevealSection bg="void" num="02">
         <Eyebrow>DIY Consulting Frameworks</Eyebrow>
         <H2>The services,{" "}<span className="text-petal">self-guided.</span></H2>
@@ -160,7 +160,6 @@ export default function ShelfPage() {
 
       <QuoteDivider index={19} />
 
-      {/* ── PRINTS ── */}
       <RevealSection bg="void" num="03">
         <Eyebrow>Poem Prints</Eyebrow>
         <H2>The words,{" "}<span className="text-petal">on your wall.</span></H2>
@@ -168,9 +167,9 @@ export default function ShelfPage() {
           Archival-quality matte prints, shipped in a protective sleeve. Bought right here — no third-party store.
         </p>
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-3">
-          {PRINTS.map((p) => (
+          {PRINT_PRODUCTS.map((p) => (
             <div
-              key={p.title}
+              key={p.slug}
               className="group relative flex flex-col bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon"
               style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
             >
@@ -179,13 +178,11 @@ export default function ShelfPage() {
               <h3 className="font-display text-3xl uppercase tracking-[0.02em] text-pearl">{p.title}</h3>
               <p className="mt-1 font-display text-2xl text-white">{p.price}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {p.sizes.map((s) => (
+                {(p.sizes ?? []).map((s) => (
                   <span key={s} className="border border-graphite px-3 py-1 font-mono text-[0.65rem] tracking-[0.15em] text-iron">{s}</span>
                 ))}
               </div>
-              <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">
-                High-quality archival matte print. Ships in a protective sleeve. Multiple sizes available.
-              </p>
+              <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
               {p.stripe ? (
                 <a
                   href={p.stripe}
@@ -200,6 +197,12 @@ export default function ShelfPage() {
                   Coming Soon
                 </div>
               )}
+              <Link
+                href={`/shelf/${p.slug}`}
+                className="mt-2 flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
+              >
+                View details →
+              </Link>
             </div>
           ))}
         </div>
@@ -207,7 +210,6 @@ export default function ShelfPage() {
 
       <QuoteDivider index={18} />
 
-      {/* ── THE MARGINS ── */}
       <RevealSection bg="obsidian" num="04">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
@@ -238,15 +240,14 @@ export default function ShelfPage() {
         </div>
       </RevealSection>
 
-      {/* ── HOW TO BUY ── */}
       <RevealSection bg="void">
         <Eyebrow>How it works</Eyebrow>
-        <H2>Simple.<br /><span className="text-petal">Secure. Instant.</span></H2>
+        <H2>Simple.<br /><span className="text-petal">Secure. Clear.</span></H2>
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-3">
           {[
-            { num: "01", title: "Buy or download", desc: "Free items download on click. Paid items open a secure checkout — you complete the purchase without leaving the site." },
-            { num: "02", title: "Pay securely", desc: "Card payment with bank-level security. No account required, no card data stored." },
-            { num: "03", title: "Read instantly", desc: "Your download is delivered immediately. Yours to keep, access anytime." },
+            { num: "01", title: "Choose the work", desc: "Open any detail page to see exactly what is included, who it is for, the format, and the price before you buy." },
+            { num: "02", title: "Check out securely", desc: "Paid products open a secure Stripe checkout. Free downloads start directly, with no account or subscription required." },
+            { num: "03", title: "Get the order", desc: "Digital products are available immediately. Physical prints are produced and shipped in a protective sleeve." },
           ].map((s) => (
             <div key={s.num} className="bg-void p-8">
               <p className="font-mono text-xs tracking-[0.2em] text-petal/60">{s.num}</p>
