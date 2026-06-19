@@ -10,7 +10,7 @@ const paths = [
     label: "Hire MK",
     title: "You want the result handled.",
     desc: "Messaging, websites, outbound, and full-funnel growth with one senior operator owning the work.",
-    href: "/#offerings",
+    href: "/services#offerings",
     cta: "See services",
   },
   {
@@ -43,7 +43,7 @@ export default function MonetizationDrawer() {
     setOpen(false);
   }, [pathname]);
 
-  if (pathname === "/start" || hidden) return null;
+  if (pathname === "/" || pathname === "/start" || hidden) return null;
 
   function dismiss() {
     setOpen(false);
@@ -129,7 +129,7 @@ export default function MonetizationDrawer() {
 
             <div className="mt-7 border-t border-graphite pt-6">
               <Link
-                href="/start"
+                href="/"
                 className="btn-primary inline-flex w-full justify-center px-5 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void"
               >
                 Compare Every Path →
