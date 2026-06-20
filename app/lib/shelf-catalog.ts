@@ -21,7 +21,20 @@ export type ShelfProduct = {
   limitedFree?: boolean;
   sizes?: readonly string[];
   preview?: string;
+  cover?: string;
 };
+
+// Most product slugs map 1:1 to a generated cover at
+// /downloads/covers/<slug>-cover.jpg. A few catalog slugs differ from the
+// cover/source filename — list those exceptions here.
+const COVER_SLUG_OVERRIDES: Record<string, string> = {
+  "the-edit-guide": "the-edit-diy",
+};
+
+export function coverForSlug(slug: string): string {
+  const coverSlug = COVER_SLUG_OVERRIDES[slug] ?? slug;
+  return `/downloads/covers/${coverSlug}-cover.jpg`;
+}
 
 type DigitalSource = (typeof EBOOKS)[number] | (typeof SERVICE_EBOOKS)[number];
 
@@ -108,6 +121,7 @@ function normalizeDigital(product: DigitalSource, collection: Exclude<ShelfColle
     download: product.download,
     free: product.free,
     limitedFree: "limitedFree" in product ? product.limitedFree : false,
+    cover: coverForSlug(product.slug),
   };
 }
 

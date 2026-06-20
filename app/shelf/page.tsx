@@ -5,7 +5,7 @@ import {
   BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
 import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
-import { PRINT_PRODUCTS } from "@/app/lib/shelf-catalog";
+import { PRINT_PRODUCTS, coverForSlug } from "@/app/lib/shelf-catalog";
 
 export const metadata: Metadata = {
   title: "The Shelf — MK Parrish",
@@ -44,6 +44,18 @@ function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
       {p.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+      <Link href={`/shelf/${p.slug}`} className="group mb-7 block overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={coverForSlug(p.slug)}
+          alt={`${p.title} — book cover`}
+          width={1600}
+          height={2560}
+          loading="lazy"
+          className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_12px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-[1.03]"
+          style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+        />
+      </Link>
       <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">
         {limitedFree ? "Free · Limited Time" : isFree ? "Free Download" : p.tag}
       </p>

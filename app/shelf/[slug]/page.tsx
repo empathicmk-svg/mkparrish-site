@@ -168,6 +168,18 @@ export default async function ShelfProductPage({
 
             <aside className="relative bg-obsidian p-8 md:p-10">
               <div className="absolute inset-x-0 top-0 h-px bg-petal" />
+              {product.cover && (
+                <div className="mb-8 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={product.cover}
+                    alt={`${product.title} — book cover`}
+                    width={1600}
+                    height={2560}
+                    className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_16px_60px_rgba(0,0,0,0.55)]"
+                  />
+                </div>
+              )}
               <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.24em] text-iron">
                 {product.kind === "print" ? "Original Poetry Print" : product.tag}
               </p>
@@ -318,6 +330,19 @@ export default async function ShelfProductPage({
               style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
             >
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-50" />
+              {related.cover && (
+                <div className="mb-6 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={related.cover}
+                    alt={`${related.title} — book cover`}
+                    width={1600}
+                    height={2560}
+                    loading="lazy"
+                    className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_12px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+              )}
               <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-iron">
                 {related.tag}
               </p>
