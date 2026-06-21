@@ -61,12 +61,11 @@ export const EBOOKS = [
     title:     "The Reinvention Workbook",
     subtitle:  "A guided writing workbook for people in the middle of becoming someone new.",
     price:     "$18",
-    tag:       "Digital Download",
+    tag:       "Workbook",
     highlight: false,
-    free:      true,
-    limitedFree: true,   // free for a limited time; regular price is `price`
+    free:      false,
     download:  "/downloads/ebooks/reinvention-workbook.pdf",
-    href:      "/downloads/ebooks/reinvention-workbook.pdf",
+    href:      "/shop/reinvention-workbook",
     features:  [
       "20 guided writing exercises",
       "The identity audit framework",
@@ -114,22 +113,167 @@ export const EBOOKS = [
     desc: "The exact process used with clients — documented so you can run it yourself.",
   },
   {
+    slug:      "the-invisible-bruise",
+    title:     "The Invisible Bruise",
+    subtitle:  "Surviving emotional abuse, suffering in silence, and rewriting your life.",
+    price:     "$22",
+    tag:       "Healing & Memoir",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/the-invisible-bruise.pdf",
+    href:      "/shop/the-invisible-bruise",
+    features:  [
+      "A clear language map for naming emotional abuse",
+      "Recovery prompts for rebuilding trust in your own reality",
+      "The five-movement rewrite framework",
+      "Instant download",
+    ],
+    desc: "A tender, direct guide for naming invisible harm and rebuilding the story after it.",
+  },
+  {
+    slug:      "decoding-angel-numbers",
+    title:     "Decoding Angel Numbers",
+    subtitle:  "A skeptic's guide to spiritual curiosity.",
+    price:     "$14",
+    tag:       "Spiritual Curiosity",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/decoding-angel-numbers.pdf",
+    href:      "/shop/decoding-angel-numbers",
+    features:  [
+      "Grounded pattern-noticing framework",
+      "30-day journal practice",
+      "Reflection prompts for common number sequences",
+      "Instant download",
+    ],
+    desc: "A non-woo framework for noticing patterns, asking better questions, and staying discerning.",
+  },
+  {
+    slug:      "the-study",
+    title:     "The Study",
+    subtitle:  "A modern guide to building a Bible study practice that actually sticks — on your own terms.",
+    price:     "$18",
+    tag:       "Scripture & Strategy",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/the-study.pdf",
+    href:      "/shop/the-study",
+    features:  [
+      "Five Bible study methods explained plainly",
+      "A rhythm that works without shame or streak pressure",
+      "Daily-practice and deep-dive frameworks",
+      "Instant download",
+    ],
+    desc: "For the woman who has tried to study Scripture before and needs a method that fits her actual life.",
+  },
+  {
+    slug:      "gospel-and-grind",
+    title:     "Gospel & Grind",
+    subtitle:  "Build a profitable practice grounded in what you believe — without feeling like you're selling your faith.",
+    price:     "$28",
+    tag:       "Scripture & Strategy",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/gospel-and-grind.pdf",
+    href:      "/shop/gospel-and-grind",
+    features:  [
+      "Faith-and-business alignment map",
+      "Monetization without manipulation framework",
+      "Pricing guidance for values-led work",
+      "Instant download",
+    ],
+    desc: "A faith-rooted business guide for charging fairly without splitting your calling from your strategy.",
+  },
+  {
+    slug:      "the-sermon-notes",
+    title:     "The Sermon Notes",
+    subtitle:  "Turn your personal Bible study into content your audience wants — and that you can charge for.",
+    price:     "$25",
+    tag:       "Scripture & Strategy",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/the-sermon-notes.pdf",
+    href:      "/shop/the-sermon-notes",
+    features:  [
+      "Study-to-content pipeline",
+      "12 reusable content formats",
+      "Free-to-paid audience ladder",
+      "Instant download",
+    ],
+    desc: "A practical pipeline for turning one passage, one study session, or one conviction into a month of useful content.",
+  },
+  {
+    slug:      "the-calling-card",
+    title:     "The Calling Card",
+    subtitle:  "Build a faith-informed brand voice that connects, converts, and stays true to who you are.",
+    price:     "$35",
+    tag:       "Scripture & Strategy",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/the-calling-card.pdf",
+    href:      "/shop/the-calling-card",
+    features:  [
+      "Four-dial faith-informed voice framework",
+      "Audience language mapping system",
+      "Platform calibration without losing your voice",
+      "Instant download",
+    ],
+    desc: "A brand voice guide for faith-rooted creators who want to sound specific, human, and commercially clear.",
+  },
+  {
+    slug:      "ministry-monetized",
+    title:     "Ministry, Monetized",
+    subtitle:  "The launch and revenue playbook for faith-based creators.",
+    price:     "$42",
+    tag:       "Scripture & Strategy",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/ministry-monetized.pdf",
+    href:      "/shop/ministry-monetized",
+    features:  [
+      "Pre-launch clarity checks",
+      "Four-week launch architecture",
+      "Revenue model and evergreen sales frameworks",
+      "Instant download",
+    ],
+    desc: "A practical launch and revenue playbook for faith-based creators building sustainable income with integrity.",
+  },
+  {
     slug:      "the-vault",
     title:     "The Vault",
     subtitle:  "Every digital product in one bundle — the complete self-study library.",
     price:     "$97",
-    download:  "/downloads/the-vault.zip",
     tag:       "Best Value",
     highlight: false,
     free:      false,
+    download:  "/downloads/the-vault.pdf",
     stripe:    "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     href:      "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     features:  [
-      "All 3 ebooks & guides included",
+      "All 5 writing-and-identity ebooks included",
       "The Brand Voice Playbook + Write Yourself Into the Room",
-      "The Reinvention Workbook — plus any future releases",
+      "The Reinvention Workbook + The Invisible Bruise + Decoding Angel Numbers",
+      "Future library releases included",
     ],
     desc: "The full library. Every framework, every guide, every word. One price.",
+  },
+  {
+    slug:      "scripture-and-strategy",
+    title:     "Scripture & Strategy",
+    subtitle:  "The complete faith, voice, and revenue ebook collection.",
+    price:     "$97",
+    tag:       "Bundle",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/scripture-and-strategy.pdf",
+    href:      "/shop/scripture-and-strategy",
+    features:  [
+      "All 5 Scripture & Strategy ebooks included",
+      "The Study + Gospel & Grind + The Sermon Notes",
+      "The Calling Card + Ministry, Monetized",
+      "Instant download",
+    ],
+    desc: "The complete Scripture & Strategy reading stack for building faith-rooted work with clarity, voice, and revenue.",
   },
 ] as const;
 
@@ -144,6 +288,7 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/the-edit-diy.pdf",
+    cover:     "/downloads/covers/the-edit-diy-cover.jpg",
     stripe:    "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
     href:      "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
     features:  [
@@ -273,10 +418,10 @@ export const SERVICE_EBOOKS = [
     title:     "The Services Vault",
     subtitle:  "All seven service companion guides — the complete DIY consulting library.",
     price:     "$127",
-    download:  "/downloads/the-services-vault.zip",
     tag:       "Best Value",
     highlight: false,
     free:      false,
+    download:  "/downloads/the-services-vault.pdf",
     stripe:    "https://buy.stripe.com/aFa14ogeBam452s0ip8AE09",
     href:      "https://buy.stripe.com/aFa14ogeBam452s0ip8AE09",
     features:  [
@@ -288,6 +433,45 @@ export const SERVICE_EBOOKS = [
     desc: "Every consulting framework documented and packaged for self-study. For the woman who is ready to do the full work — on her own timeline.",
   },
 ] as const;
+
+export const SHOP_PRODUCTS = [...EBOOKS, ...SERVICE_EBOOKS] as const;
+
+export type ShopProduct = (typeof SHOP_PRODUCTS)[number];
+
+export const getShopProduct = (slug: string) =>
+  SHOP_PRODUCTS.find((product) => product.slug === slug);
+
+export const productDownload = (product: ShopProduct) =>
+  (product as { download?: string }).download;
+
+export const productCover = (product: ShopProduct) =>
+  (product as { cover?: string }).cover ?? `/downloads/covers/${product.slug}-cover.jpg`;
+
+export const isFreeProduct = (product: ShopProduct) =>
+  Boolean((product as { free?: boolean }).free && productDownload(product));
+
+export const productPriceLabel = (product: ShopProduct) =>
+  isFreeProduct(product) ? "Free" : product.price;
+
+export const isLimitedFreeProduct = (product: ShopProduct) =>
+  isFreeProduct(product) && Boolean((product as { limitedFree?: boolean }).limitedFree);
+
+export const productCheckoutHref = (product: ShopProduct) => {
+  const stripe = (product as { stripe?: string }).stripe;
+  return stripe && stripe.length > 0 ? stripe : product.href;
+};
+
+export const productDeliveryLinks = (product: ShopProduct) => {
+  const primary = productDownload(product);
+  if (!primary) return [];
+
+  const links = [{ label: "PDF", href: primary }];
+  if (primary.endsWith(".pdf")) {
+    links.push({ label: "EPUB", href: primary.replace(/\.pdf$/, ".epub") });
+  }
+
+  return links;
+};
 
 // Prints sell via Stripe. Add the buy.stripe.com link to `stripe` when created.
 export const PRINTS = [
