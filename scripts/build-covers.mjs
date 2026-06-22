@@ -41,6 +41,7 @@ const PRODUCTS = [
   { src: 'templates/the-byline-method.md',            slug: 'the-byline-method' },
   { src: 'templates/the-build-copy-guide.md',         slug: 'the-build-copy-guide' },
   { src: 'templates/the-social-strategy-playbook.md', slug: 'the-social-strategy-playbook' },
+  { src: 'templates/the-prompt-vault.md',             slug: 'the-prompt-vault' },
   { raw: courseMarkdown(ROOT), slug: COURSE.slug, title: COURSE.title, subtitle: COURSE.subtitle },
   { src: 'lead-magnets/positioning-checklist.md', slug: 'positioning-checklist' },
   { src: 'bundles/the-vault.md',                  slug: 'the-vault' },

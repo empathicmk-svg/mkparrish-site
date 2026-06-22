@@ -96,6 +96,11 @@ const PRODUCT_AUDIENCES: AudienceMap = {
     "You need content pillars tied to your actual authority and point of view",
     "You want a system that works even when inspiration is off-duty",
   ],
+  "the-prompt-vault": [
+    "You use AI to write and everything comes out sounding generic",
+    "You ghostwrite or run content and need the machine to hold a real voice",
+    "You want copy-paste prompts for positioning, bios, pages, and posts",
+  ],
   "the-services-vault": [
     "You want the complete DIY consulting methodology in one library",
     "You are building your own brand or improving the way you serve clients",

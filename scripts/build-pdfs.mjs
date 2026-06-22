@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
+const PAPERBACK_TRIM = { width: '6in', height: '9in' };
 
 const FILES = [
   // ebooks
@@ -31,6 +32,7 @@ const FILES = [
   ['public/downloads/templates/the-byline-method.html',          'public/downloads/templates/the-byline-method.pdf'],
   ['public/downloads/templates/the-build-copy-guide.html',       'public/downloads/templates/the-build-copy-guide.pdf'],
   ['public/downloads/templates/the-social-strategy-playbook.html', 'public/downloads/templates/the-social-strategy-playbook.pdf'],
+  ['public/downloads/templates/the-prompt-vault.html',           'public/downloads/templates/the-prompt-vault.pdf'],
   // course
   ['public/downloads/scripture-and-strategy.html',               'public/downloads/scripture-and-strategy.pdf'],
   // lead magnets
@@ -64,11 +66,15 @@ for (const [src, dest] of TARGETS) {
   if (!fs.existsSync(srcPath)) { console.warn(`  ✗  missing: ${src}`); continue; }
 
   const page = await browser.newPage();
-  await page.goto(`file://${srcPath}`, { waitUntil: 'networkidle0', timeout: 30000 });
+  await page.goto(`file://${srcPath}`, { waitUntil: 'load', timeout: 30000 });
+  await waitForFonts(page);
+  await new Promise((r) => setTimeout(r, 150));
   await page.pdf({
     path: destPath,
-    format: 'Letter',
-    margin: { top: '0.6in', right: '0.65in', bottom: '0.6in', left: '0.65in' },
+    width: PAPERBACK_TRIM.width,
+    height: PAPERBACK_TRIM.height,
+    margin: { top: 0, right: 0, bottom: 0, left: 0 },
+    preferCSSPageSize: true,
     printBackground: true,
   });
   await page.close();

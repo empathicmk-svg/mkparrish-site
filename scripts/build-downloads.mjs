@@ -72,6 +72,14 @@ function inline(s) {
 
 function wrap(title, bodyHtml, opts = {}) {
   const { subtitle = '', kicker = 'MK Parrish · mkparrish.com', meta = '', accent = '#F2AFC6', isCourse = false } = opts;
+  const notesHtml = Array.from({ length: 16 }, (_, i) => `
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">${title}</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">${String(i + 1).padStart(2, '0')}</div>
+</section>`).join('');
 
   // Split a "Title: subtitle" headline so the cover gets a punchy display line
   // plus an italic serif descender, the way the live hero is set.
@@ -220,6 +228,16 @@ function wrap(title, bodyHtml, opts = {}) {
     margin: 0 auto 28px;
     line-height: 1.5;
   }
+  .cover-heart {
+    width: 54px;
+    height: 54px;
+    margin: 24px auto 18px;
+    color: var(--petal);
+    filter:
+      drop-shadow(0 0 18px rgba(242,175,198,0.88))
+      drop-shadow(0 0 42px rgba(199,91,120,0.42));
+  }
+  .cover-heart svg { width: 100%; height: 100%; display: block; }
   .cover-rule {
     width: 90px;
     height: 1px;
@@ -398,6 +416,7 @@ function wrap(title, bodyHtml, opts = {}) {
     color: var(--iron);
   }
   .footer-legal a { color: var(--ash); }
+  .print-notes { display: none; }
 
   /* ═══════════════════════════════════════════════════════════════
      PRINT EDITION — light, publisher-style layout for the PDF.
@@ -405,37 +424,48 @@ function wrap(title, bodyHtml, opts = {}) {
      with black header boxes and pink/white titles.
      ═══════════════════════════════════════════════════════════════ */
   @media print {
-    @page { margin: 0; }
+    @page { size: 6in 9in; margin: 0.56in 0.48in 0.62in 0.58in; }
+    @page:first { margin: 0; }
 
     html, body {
       background: #ffffff !important;
       color: #232323 !important;
+      font-size: 10.5pt;
+      line-height: 1.55;
     }
     body::before { display: none !important; }   /* no grain in print */
 
     /* ── COVER: a full-page black panel on a white sheet ── */
     .cover {
-      min-height: 100vh;
+      width: 6in;
+      min-height: 9in;
       display: flex;
       background: #ffffff !important;
       border-bottom: none;
       padding: 0;
       break-after: page;
     }
-    .cover::before, .cover::after { display: none !important; }
+    .cover::before { display: none !important; }
     /* The panel fills the printable page and centres the title block,
        instead of floating as a thin band in the middle of the sheet. */
     .cover-inner {
+      position: relative;
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 80px 52px;
-      background: #0E0E0E;
+      margin: 0.18in;
+      padding: 0.68in 0.44in;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 96% 52% at 50% -8%, rgba(242,175,198,0.22), transparent 60%),
+        radial-gradient(ellipse 58% 44% at 92% 108%, rgba(199,91,120,0.14), transparent 60%),
+        linear-gradient(180deg, #141111 0%, #0E0E0E 42%, #070707 100%);
       border: 1px solid rgba(242, 175, 198, 0.45);
     }
+    .cover-inner > * { position: relative; z-index: 1; }
     .cover-kicker { color: var(--petal); }
-    .cover h1 { color: #ffffff; font-size: clamp(3rem, 8vw, 4rem); }
+    .cover h1 { color: #ffffff; font-size: clamp(2.6rem, 8vw, 3.8rem); }
     /* Solid fills only. background-clip:text and text-stroke rasterise as
        opaque boxes / vanish entirely in print — that is what turned the old
        title into a white rectangle. Keep the white + pink two-tone with
@@ -451,11 +481,30 @@ function wrap(title, bodyHtml, opts = {}) {
       -webkit-text-fill-color: var(--petal); color: var(--petal);
     }
     .cover .subtitle { color: var(--petal); }
+    .cover-heart {
+      width: 0.54in;
+      height: 0.54in;
+      margin: 0.22in auto 0.16in;
+      color: var(--petal);
+      filter:
+        drop-shadow(0 0 14px rgba(242,175,198,0.9))
+        drop-shadow(0 0 34px rgba(199,91,120,0.48));
+    }
     .cover-meta { color: #B0B0B0; }
 
     /* ── BODY: black text on white ── */
-    .content { padding-top: 64px; color: #232323; }
-    p { color: #2b2b2b; }
+    .content {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      color: #232323;
+    }
+    p {
+      color: #2b2b2b;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      margin-bottom: 0.86em;
+    }
     /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
     strong {
       background: #0E0E0E;
@@ -472,8 +521,10 @@ function wrap(title, bodyHtml, opts = {}) {
     h2 {
       background: #0E0E0E;
       color: #ffffff;
-      padding: 24px 30px;
-      margin: 40px 0 42px;
+      font-size: 20pt;
+      line-height: 1.04;
+      padding: 0.24in 0.26in 0.25in;
+      margin: 0 0 0.32in;
       border: none;
       break-before: page;          /* every Part / section starts a fresh page */
     }
@@ -489,7 +540,12 @@ function wrap(title, bodyHtml, opts = {}) {
     h2::after { display: none; }
 
     /* Exercise titles — pink, with extra breathing room above each */
-    h3 { color: #B23A59; margin: 58px 0 18px; }
+    h3 {
+      color: #B23A59;
+      font-size: 13.2pt;
+      line-height: 1.24;
+      margin: 0.34in 0 0.12in;
+    }
     /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
     em {
       background: var(--petal);
@@ -505,6 +561,9 @@ function wrap(title, bodyHtml, opts = {}) {
       background: #F5F2F0;
       border-left: 3px solid #B23A59;
       color: #232323;
+      margin: 0.26in 0;
+      padding: 0.18in 0.22in 0.18in 0.28in;
+      font-size: 11pt;
     }
     blockquote::before { color: rgba(178, 58, 89, 0.3); }
 
@@ -512,6 +571,15 @@ function wrap(title, bodyHtml, opts = {}) {
     thead tr { background: #0E0E0E; }
     th { color: #ffffff; border-bottom: 1px solid #0E0E0E; }
     td { color: #2b2b2b; border-bottom: 1px solid #e3e3e3; }
+    ul, ol {
+      margin-bottom: 0.95em;
+      padding-left: 1.25em;
+    }
+    li {
+      font-size: 10.5pt;
+      line-height: 1.48;
+      margin-bottom: 0.28em;
+    }
 
     /* ── CODE: light chip ── */
     pre { background: #f3f3f1; border: 1px solid #e3e3e3; }
@@ -528,8 +596,59 @@ function wrap(title, bodyHtml, opts = {}) {
        Hide those; keep any genuine in-content rule (one not followed by H2). */
     hr:has(+ h2) { display: none; }
 
-    /* ── FOOTER: white page, black signature ── */
-    .footer { background: #ffffff; border-top: 1px solid #dddddd; }
+    /* ── WORKING NOTES: enough lined pages for paperback minimums ── */
+    .print-notes { display: block; }
+    .notes-page {
+      break-before: page;
+      min-height: 7.45in;
+      display: flex;
+      flex-direction: column;
+      color: #232323;
+    }
+    .notes-kicker {
+      font-family: var(--font-mono);
+      font-size: 7.5pt;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B23A59;
+      margin-bottom: 0.16in;
+    }
+    .notes-title {
+      font-family: var(--font-display);
+      font-size: 18pt;
+      line-height: 1.02;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #0E0E0E;
+      margin-bottom: 0.14in;
+    }
+    .notes-rule {
+      height: 1px;
+      width: 1.1in;
+      background: linear-gradient(90deg, #B23A59, rgba(178,58,89,0));
+      margin-bottom: 0.22in;
+    }
+    .notes-lines {
+      flex: 1;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 0.33in,
+        rgba(178,58,89,0.28) 0.335in,
+        rgba(178,58,89,0.28) 0.345in
+      );
+    }
+    .notes-page-number {
+      margin-top: 0.18in;
+      font-family: var(--font-mono);
+      font-size: 8pt;
+      letter-spacing: 0.16em;
+      color: #B23A59;
+      text-align: right;
+    }
+
+    /* ── FOOTER: hide web footer in the paperback interior ── */
+    .footer { display: none !important; background: #ffffff; border-top: 1px solid #dddddd; }
     .footer-logo { color: #0A0A0A; }
     .footer-legal { color: #8a8a8a; }
     .footer-legal a { color: #B23A59; }
@@ -550,6 +669,11 @@ function wrap(title, bodyHtml, opts = {}) {
   <div class="cover-inner">
     <div class="cover-kicker">${kicker}</div>
     <h1>${coverTitleHtml}</h1>
+    <div class="cover-heart" aria-hidden="true">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" stroke="#FAFAF8" stroke-width="0.8"/>
+      </svg>
+    </div>
     ${coverSub ? `<p class="subtitle">${coverSub}</p>` : ''}
     <div class="cover-rule"></div>
     ${meta ? `<div class="cover-meta">${meta}</div>` : ''}
@@ -558,6 +682,10 @@ function wrap(title, bodyHtml, opts = {}) {
 
 <div class="content">
 ${bodyHtml}
+</div>
+
+<div class="print-notes">
+${notesHtml}
 </div>
 
 <div class="footer">
@@ -670,6 +798,7 @@ const TEMPLATES = [
   ['templates/the-byline-method.md',       'templates/the-byline-method.html'],
   ['templates/the-build-copy-guide.md',    'templates/the-build-copy-guide.html'],
   ['templates/the-social-strategy-playbook.md', 'templates/the-social-strategy-playbook.html'],
+  ['templates/the-prompt-vault.md',        'templates/the-prompt-vault.html'],
 ];
 
 // Optional CLI filter: `node scripts/build-downloads.mjs reinvention` builds
