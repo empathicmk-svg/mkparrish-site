@@ -33,6 +33,7 @@ const FILES = [
   ['public/downloads/templates/the-build-copy-guide.html',       'public/downloads/templates/the-build-copy-guide.pdf'],
   ['public/downloads/templates/the-social-strategy-playbook.html', 'public/downloads/templates/the-social-strategy-playbook.pdf'],
   ['public/downloads/templates/the-prompt-vault.html',           'public/downloads/templates/the-prompt-vault.pdf'],
+  ['public/downloads/templates/the-linkedin-bio-fix-kit.html',   'public/downloads/templates/the-linkedin-bio-fix-kit.pdf'],
   // course
   ['public/downloads/scripture-and-strategy.html',               'public/downloads/scripture-and-strategy.pdf'],
   // lead magnets

@@ -1,108 +1,9 @@
-#!/usr/bin/env node
-/**
- * Converts product markdown files into branded, self-contained HTML downloads
- * for Gumroad uploads. Run: node scripts/build-downloads.mjs
- */
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { COURSE, courseMarkdown } from './lib/course.mjs';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(__dirname, '..');
-
-// ── Markdown → HTML ──────────────────────────────────────────────────────────
-
-function md(src) {
-  let html = src
-    // escape stray html
-    .replace(/&(?!amp;|lt;|gt;|quot;|#)/g, '&amp;')
-    // tables
-    .replace(/^\|(.+)\|\n\|[-:| ]+\|\n((?:\|.+\|\n?)+)/gm, (_, head, body) => {
-      const th = head.split('|').filter(Boolean).map(c => `<th>${inline(c.trim())}</th>`).join('');
-      const rows = body.trim().split('\n').map(row =>
-        `<tr>${row.split('|').filter(Boolean).map(c => `<td>${inline(c.trim())}</td>`).join('')}</tr>`
-      ).join('\n');
-      return `<table><thead><tr>${th}</tr></thead><tbody>${rows}</tbody></table>\n`;
-    })
-    // fenced code blocks
-    .replace(/```[\w]*\n([\s\S]*?)```/gm, (_, code) =>
-      `<pre><code>${code.replace(/&amp;/g, '&').replace(/</g, '&lt;')}</code></pre>`)
-    // blockquotes
-    .replace(/^((?:> .+\n?)+)/gm, block => {
-      const inner = block.replace(/^> ?/gm, '').trim();
-      return `<blockquote>${inline(inner)}</blockquote>\n`;
-    })
-    // hr
-    .replace(/^---+$/gm, '<hr>')
-    // headings
-    .replace(/^### (.+)$/gm, (_, t) => `<h3>${inline(t)}</h3>`)
-    .replace(/^## (.+)$/gm,  (_, t) => `<h2>${inline(t)}</h2>`)
-    .replace(/^# (.+)$/gm,   (_, t) => `<h1>${inline(t)}</h1>`)
-    // unordered lists
-    .replace(/^((?:[*\-] .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^[*\-] /, ''))}</li>`).join('');
-      return `<ul>${items}</ul>\n`;
-    })
-    // ordered lists
-    .replace(/^((?:\d+\. .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^\d+\. /, ''))}</li>`).join('');
-      return `<ol>${items}</ol>\n`;
-    })
-    // paragraphs (lines not already wrapped)
-    .replace(/^(?!<[a-z]|$)(.+)$/gm, (_, line) => `<p>${inline(line)}</p>`);
-
-  return html;
-}
-
-function inline(s) {
-  return s
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,     '<em>$1</em>')
-    .replace(/`(.+?)`/g,       '<code>$1</code>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>');
-}
-
-// ── HTML template ─────────────────────────────────────────────────────────────
-// Mirrors the live site (mkparrish.com): Bebas Neue / Playfair Display / DM Sans
-// / JetBrains Mono on black × pink × white × grey, with pink-gradient rules,
-// text-glow, an outlined display word, mono section numbers, and a grain overlay.
-
-function wrap(title, bodyHtml, opts = {}) {
-  const { subtitle = '', kicker = 'MK Parrish · mkparrish.com', meta = '', accent = '#F2AFC6', isCourse = false } = opts;
-  const notesHtml = Array.from({ length: 16 }, (_, i) => `
-<section class="notes-page">
-  <div class="notes-kicker">MK Parrish · Working Notes</div>
-  <div class="notes-title">${title}</div>
-  <div class="notes-rule"></div>
-  <div class="notes-lines" aria-hidden="true"></div>
-  <div class="notes-page-number">${String(i + 1).padStart(2, '0')}</div>
-</section>`).join('');
-
-  // Split a "Title: subtitle" headline so the cover gets a punchy display line
-  // plus an italic serif descender, the way the live hero is set.
-  let coverTitle = title;
-  let coverSub = subtitle;
-  const colon = title.indexOf(':');
-  if (!coverSub && colon > 0) {
-    coverTitle = title.slice(0, colon).trim();
-    coverSub = title.slice(colon + 1).trim();
-  }
-  // Outline the final word of the cover title (the site's hero treatment).
-  const words = coverTitle.split(' ');
-  const lastWord = words.length > 1 ? words.pop() : '';
-  const coverTitleHtml = lastWord
-    ? `<span class="grad">${words.join(' ')}</span> <span class="outline">${lastWord}</span>`
-    : `<span class="grad">${coverTitle}</span>`;
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${title} — MK Parrish</title>
+<title>The LinkedIn Bio Fix Kit — MK Parrish</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -118,7 +19,7 @@ function wrap(title, bodyHtml, opts = {}) {
     --pearl: #F0F0EE;
     --white: #FAFAF8;
     --blush: #FFD6E4;
-    --petal: ${accent};
+    --petal: #F2AFC6;
     --rose: #E0869F;
     --carmine: #C75B78;
     --font-display: 'Bebas Neue', Impact, sans-serif;
@@ -344,7 +245,7 @@ function wrap(title, bodyHtml, opts = {}) {
     line-height: 1.6;
   }
   blockquote::before {
-    content: '\\201C';
+    content: '\201C';
     position: absolute;
     top: 0.08em;
     left: 0.14em;
@@ -667,25 +568,253 @@ function wrap(title, bodyHtml, opts = {}) {
 
 <div class="cover">
   <div class="cover-inner">
-    <div class="cover-kicker">${kicker}</div>
-    <h1>${coverTitleHtml}</h1>
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">The LinkedIn Bio Fix</span> <span class="outline">Kit</span></h1>
     <div class="cover-heart" aria-hidden="true">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" stroke="#FAFAF8" stroke-width="0.8"/>
       </svg>
     </div>
-    ${coverSub ? `<p class="subtitle">${coverSub}</p>` : ''}
+    <p class="subtitle">Fix the first thing everyone reads about you — in the next fifteen minutes.</p>
     <div class="cover-rule"></div>
-    ${meta ? `<div class="cover-meta">${meta}</div>` : ''}
+    <div class="cover-meta">By MK Parrish · $9</div>
   </div>
 </div>
 
 <div class="content">
-${bodyHtml}
+<p>Your LinkedIn headline and About section are the most-read words you'll ever write — and for most people, they're doing nothing. They list a job title, a few buzzwords, and a "passionate about" or two, then quietly lose the exact people who were about to reach out.</p>
+
+<p>This kit fixes that fast. No personal-branding philosophy, no 40-page workbook. Just the formula, the templates, and the swipe lines to rewrite your headline and About today. Fill in the blanks, paste it in, done.</p>
+
+<blockquote>Your bio isn't a résumé. It's the answer to one silent question: <em>"Is this person for me?"</em></blockquote>
+
+<hr>
+
+<h2>The 60-Second Diagnosis</h2>
+
+<p>Open your profile and check the honest truth. You need this kit if any of these are true:</p>
+
+<ul><li>Your headline is just your <strong>job title</strong> (or worse, "Open to work").</li><li>Your About section opens with <strong>"I am a [role] with X years of experience…"</strong></li><li>You use any of: <em>passionate, results-driven, seasoned, proven track record, detail-oriented, wearing many hats, journey, guru, ninja.</em></li><li>A stranger could not tell, in five seconds, <strong>who you help and what changes for them.</strong></li><li>It reads like it was written <em>for</em> a hiring algorithm, not <em>to</em> a human.</li></ul>
+
+<p>If you flinched at even one, keep reading. The fixes are below.</p>
+
+<hr>
+
+<h2>The Headline Formula</h2>
+
+<p>Your headline follows you everywhere — every comment, every search result, every connection request. It has one job: make the right person think <em>"that's exactly who I need."</em></p>
+
+<p>Use one of these three structures. Fill in the brackets.</p>
+
+<p><strong>Formula A — Who + Outcome (best for services &amp; consulting)</strong></p>
+
+<pre><code>I help [WHO] [DO THE THING] without [THE PAIN] | [CREDIBILITY]
+<p></code></pre></p>
+<p><em>Example:</em> "I help female founders rewrite their messaging so it finally sounds like them | Ex-agency, 200+ brands"</p>
+
+<p><strong>Formula B — Role + Proof + Edge (best for job seekers)</strong></p>
+
+<pre><code>[ROLE] who [SPECIFIC RESULT] · [INDUSTRY/NICHE] · [WHAT MAKES YOU DIFFERENT]
+<p></code></pre></p>
+<p><em>Example:</em> "Product marketer who turned a flat funnel into 40% MoM growth · B2B SaaS · I write the copy <em>and</em> read the data"</p>
+
+<p><strong>Formula C — The Stand (best for creators &amp; founders)</strong></p>
+
+<pre><code>[WHAT YOU BELIEVE / BUILD]. [WHO IT'S FOR]. [THE PROOF OR PROMISE].
+<p></code></pre></p>
+<p><em>Example:</em> "Websites that sound like a person, not a press release. For founders relaunching. From $6K."</p>
+
+<p><strong>Rules:</strong> Lead with the <em>reader's</em> outcome, not your title. One specific number or proof beats five adjectives. If a competitor could paste your headline onto their own profile unchanged, it's too generic — make it yours.</p>
+
+<hr>
+
+<h2>The About Section Template</h2>
+
+<p>The first two lines are everything — they're all that shows before "…see more." Earn the click, then keep it human.</p>
+
+<p>Copy this skeleton and fill it in:</p>
+
+<pre><code>[HOOK — one or two lines that name the reader's problem or a sharp belief.
+<p>Not "I am a…". Make them feel seen or make them curious.]</p>
+
+<p>[WHAT YOU DO — one plain sentence. Who you help, and what changes for them.]</p>
+
+<p>[PROOF — one or two concrete results, names, or specifics. No vague</p>
+<p>"track record." Show, don't claim.]</p>
+
+<p>[HOW YOU WORK / WHAT MAKES YOU DIFFERENT — the thing only you would say.</p>
+<p>Your actual point of view.]</p>
+
+<p>[ONE HUMAN LINE — something true and a little personal. People hire people.]</p>
+
+<p>[CALL TO ACTION — low pressure. "DM me 'AUDIT' and I'll take a look,"</p>
+<p>or "Booking [MONTH] now — link below."]</p>
+<p></code></pre></p>
+
+<p><strong>Worked example (before → after):</strong></p>
+
+<p><em>Before:</em> "Experienced marketing professional with a passion for driving results and a proven track record across multiple industries. Skilled in strategy, content, and brand."</p>
+
+<p><em>After:</em> "Most founders' websites read like a brochure nobody asked for. I rewrite them so they sound like a person and actually sell. I've rewritten messaging for 200+ brands — the ones that finally booked calls had one thing in common: they stopped trying to sound impressive and started sounding <em>true</em>. I write the strategy and the words. Currently booking two builds for [MONTH]. DM me 'SITE' to see if it's a fit."</p>
+
+<p>See the difference? The "after" never says "passionate." It shows a point of view, one proof point, and a way in.</p>
+
+<hr>
+
+<h2>The Swipe File: 15 Opening Lines That Earn the Click</h2>
+
+<p>Steal these for your first line. Adapt the brackets.</p>
+
+<ol><li>Most [audience] are one rewrite away from [outcome]. Here's what I fix.</li><li>Your [thing] isn't broken. Your <em>positioning</em> is.</li><li>I've [done specific thing] [number] times. Here's the pattern nobody talks about.</li><li>"[Common objection]" — said every client right before [result].</li><li>The best [role] don't [common mistake]. They [the better move].</li><li>I help [who] stop sounding like everyone else.</li><li>[Number] years, [number] [clients/projects], one obsession: [your thing].</li><li>If your [asset] sounds like a hostage statement, we should talk.</li><li>I do one thing extremely well: [the thing].</li><li>Hiring managers / clients skim. I write so they stop.</li><li>The gap between <em>talented</em> and <em>booked</em> is usually words. I close it.</li><li>I turned [unglamorous origin] into [credibility]. Here's how I help you.</li><li>Not a guru. Not a ninja. Just very good at [specific].</li><li>You don't need more content. You need to sound like <em>you</em>. Start here.</li><li>Quietly excellent at [thing]. Loudly allergic to jargon.</li></ol>
+
+<hr>
+
+<h2>The Banned-Words List</h2>
+
+<p>Delete these on sight. Each one is a place where you <em>told</em> instead of <em>showed</em>:</p>
+
+<p><em>passionate · results-driven · seasoned · proven track record · detail-oriented · think outside the box · wear many hats · synergy · leverage (as a verb) · journey · guru · ninja · rockstar · thought leader (about yourself) · dynamic · go-getter · hardworking · team player · self-starter · unlock · empower · elevate.</em></p>
+
+<p>For every one you cut, replace it with the <strong>specific</strong> thing it was hiding. "Results-driven" → the actual result. "Detail-oriented" → the mistake you catch that others miss.</p>
+
+<hr>
+
+<h2>The 15-Minute Fix Checklist</h2>
+
+<p>Do it in order. Set a timer.</p>
+
+<ol><li><strong>Rewrite the headline</strong> using Formula A, B, or C. (4 min)</li><li><strong>Write two hook lines</strong> for your About from the swipe file. Pick the better one. (3 min)</li><li><strong>Fill the About template</strong> — one sentence per block. (5 min)</li><li><strong>Run the banned-words scan.</strong> Delete and replace each one. (2 min)</li><li><strong>Add the CTA.</strong> Tell people exactly what to do next. (1 min)</li><li><strong>Read it out loud.</strong> If you wouldn't say it to someone's face, rewrite that line.</li></ol>
+
+<p>That's it. You just fixed the first thing everyone reads about you.</p>
+
+<hr>
+
+<h2>When You Want More Than a Fix</h2>
+
+<p>This kit gets your bio working. If you want the whole story — the positioning underneath it, your website, your full LinkedIn presence — that's the next step up:</p>
+
+<ul><li><strong>Write Yourself Into the Room</strong> — the full personal-brand writing guide ($28).</li><li><strong>The Rewrite Playbook</strong> — a complete story, LinkedIn, and positioning overhaul ($45).</li><li><strong>The Positioning Audit</strong> — send me your profile and I'll personally rewrite your headline + flag your top 3 fixes in 48 hours ($97).</li></ul>
+
+<p>You fixed the bio. Now go use it.</p>
+
+<p><em>— MK Parrish · mkparrish.com</em></p>
+
 </div>
 
 <div class="print-notes">
-${notesHtml}
+
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">01</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">02</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">03</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">04</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">05</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">06</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">07</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">08</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">09</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">10</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">11</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">12</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">13</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">14</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">15</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The LinkedIn Bio Fix Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">16</div>
+</section>
 </div>
 
 <div class="footer">
@@ -694,164 +823,4 @@ ${notesHtml}
 </div>
 
 </body>
-</html>`;
-}
-
-// ── Build individual file ──────────────────────────────────────────────────────
-
-function buildFile(srcPath, destPath, opts = {}) {
-  let raw = fs.readFileSync(srcPath, 'utf8');
-  // Pull the title from the first H1, then drop that line from the body so the
-  // cover carries the title instead of repeating it as the first heading.
-  const titleMatch = raw.match(/^# (.+)$/m);
-  const title = opts.title || (titleMatch ? titleMatch[1] : path.basename(srcPath, '.md'));
-  if (titleMatch) raw = raw.replace(/^# .+$\n?/m, '');
-
-  // Lift the cover front matter (subtitle + author/price) out of the body so it
-  // rides on the cover, the way the Reinvention Workbook does — unless the caller
-  // supplied it via opts. Only the block at the very top of the file is touched,
-  // so section dividers and emphasis deeper in the document are left alone.
-  let { subtitle = '', meta = '' } = opts;
-  let lifted = false;
-  const atTop = (i) => raw.slice(0, i).trim() === '';
-  if (!subtitle) {
-    const m = raw.match(/^\s*###\s+(.+?)\s*$/m);
-    if (m && atTop(m.index)) {
-      subtitle = m[1];
-      raw = raw.slice(0, m.index) + raw.slice(m.index + m[0].length);
-      lifted = true;
-    }
-  }
-  if (!meta) {
-    const bits = [];
-    const by = raw.match(/^\s*\*\*By ([^*]+?)\*\*\s*$/m);
-    if (by && atTop(by.index)) {
-      bits.push('By ' + by[1].trim());
-      raw = raw.slice(0, by.index) + raw.slice(by.index + by[0].length);
-      lifted = true;
-    }
-    const price = raw.match(/^\s*\*\*(?:Price:\s*)?(\$\d+)\*\*\s*$/m);
-    if (price && atTop(price.index)) {
-      bits.push(price[1]);
-      raw = raw.slice(0, price.index) + raw.slice(price.index + price[0].length);
-      lifted = true;
-    }
-    // Pattern B front matter — a leading block of "**Key:** value" lines
-    // (Format / Price / Length / Audience). Pull the price for the cover meta
-    // and strip the whole block so it doesn't leak into the body as gray text.
-    if (!bits.length) {
-      const metaBlock = raw.match(/^(?:[ \t]*\*\*[^*\n]+:\*\*[^\n]*\n?)+/m);
-      if (metaBlock && atTop(metaBlock.index)) {
-        const priceM = metaBlock[0].match(/\$\d[\d,]*/);
-        if (priceM) bits.push('By MK Parrish', priceM[0]);
-        raw = raw.slice(0, metaBlock.index) + raw.slice(metaBlock.index + metaBlock[0].length);
-        lifted = true;
-      }
-    }
-    if (bits.length) meta = bits.join(' · ');
-  }
-  // Remove the horizontal rule that used to divide the front matter from the body.
-  if (lifted) raw = raw.replace(/^\s*---\s*$\n?/m, '');
-
-  const bodyHtml = md(raw);
-  const html = wrap(title, bodyHtml, { ...opts, subtitle, meta });
-  fs.mkdirSync(path.dirname(destPath), { recursive: true });
-  fs.writeFileSync(destPath, html);
-  console.log(`  ✓  ${path.relative(ROOT, destPath)}`);
-}
-
-// ── Main ──────────────────────────────────────────────────────────────────────
-
-const EBOOKS = [
-  ['ebooks/reinvention-workbook.md',          'ebooks/reinvention-workbook.html', {
-    subtitle: 'A guided writing workbook for people in the middle of becoming someone new.',
-    meta:     'By MK Parrish · $18',
-  }],
-  ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
-  ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
-  ['ebooks/the-invisible-bruise.md',          'ebooks/the-invisible-bruise.html'],
-  ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
-  ['ebooks/scripture/the-study.md',           'ebooks/the-study.html'],
-  ['ebooks/scripture/gospel-and-grind.md',    'ebooks/gospel-and-grind.html'],
-  ['ebooks/scripture/the-sermon-notes.md',    'ebooks/the-sermon-notes.html'],
-  ['ebooks/scripture/the-calling-card.md',    'ebooks/the-calling-card.html'],
-  ['ebooks/scripture/ministry-monetized.md',  'ebooks/ministry-monetized.html'],
-];
-
-// Free lead magnets (the email-capture checklist, etc.) — flat in /downloads.
-const LEAD_MAGNETS = [
-  ['lead-magnets/positioning-checklist.md', 'positioning-checklist.html', { kicker: 'MK Parrish · Free Resource' }],
-];
-
-// Product bundles (The Vault, The Services Vault) — the "what's inside" intro
-// ebook that anchors each bundle. Flat in /downloads.
-const BUNDLES = [
-  ['bundles/the-vault.md',          'the-vault.html'],
-  ['bundles/the-services-vault.md', 'the-services-vault.html'],
-];
-
-const TEMPLATES = [
-  ['templates/the-edit-diy.md',            'templates/the-edit-diy.html'],
-  ['templates/before-the-session.md',      'templates/before-the-session.html'],
-  ['templates/the-rewrite-playbook.md',    'templates/the-rewrite-playbook.html'],
-  ['templates/the-new-chapter-workbook.md','templates/the-new-chapter-workbook.html'],
-  ['templates/the-byline-method.md',       'templates/the-byline-method.html'],
-  ['templates/the-build-copy-guide.md',    'templates/the-build-copy-guide.html'],
-  ['templates/the-social-strategy-playbook.md', 'templates/the-social-strategy-playbook.html'],
-  ['templates/the-prompt-vault.md',        'templates/the-prompt-vault.html'],
-  ['templates/the-linkedin-bio-fix-kit.md','templates/the-linkedin-bio-fix-kit.html'],
-];
-
-// Optional CLI filter: `node scripts/build-downloads.mjs reinvention` builds
-// only files whose source path contains the argument. No argument builds all.
-const only = process.argv[2];
-const pick = (list) => (only ? list.filter(([s]) => s.includes(only)) : list);
-
-console.log('\nBuilding ebooks...');
-for (const [src, dest, opts] of pick(EBOOKS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding lead magnets...');
-for (const [src, dest, opts] of pick(LEAD_MAGNETS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding bundles...');
-for (const [src, dest, opts] of pick(BUNDLES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding templates...');
-for (const [src, dest, opts] of pick(TEMPLATES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-// Course — assembled from its module files into one gold-standard document.
-if (!only || COURSE.slug.includes(only) || only === 'course') {
-  console.log('\nBuilding course...');
-  const html = wrap(COURSE.title, md(courseMarkdown(ROOT)), {
-    subtitle: COURSE.subtitle, meta: COURSE.meta, isCourse: true,
-  });
-  const dest = path.join(ROOT, 'public/downloads', `${COURSE.slug}.html`);
-  fs.writeFileSync(dest, html);
-  console.log(`  ✓  ${path.relative(ROOT, dest)}`);
-}
-
-console.log('\nDone. Files written to public/downloads/\n');
+</html>
