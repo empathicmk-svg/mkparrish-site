@@ -4,7 +4,7 @@ import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
-import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
 import { PRINT_PRODUCTS, coverForSlug } from "@/app/lib/shelf-catalog";
 
 export const metadata: Metadata = {
@@ -35,15 +35,17 @@ function buyHref(p: Product) {
 function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
   const isFree = Boolean(p.free && p.download);
   const limitedFree = isFree && Boolean(p.limitedFree);
+  // Bundles + flagged picks get the lit-up treatment — they're the ones to push.
+  const featured = p.highlight || p.tag === "Best Value";
 
   return (
     <div
       className={`relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 ${
-        p.highlight ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : bg === "void" ? "bg-void" : "bg-obsidian"
+        featured ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : bg === "void" ? "bg-void" : "bg-obsidian"
       }`}
       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
-      {p.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+      {featured && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
       <Link href={`/shelf/${p.slug}`} className="group mb-7 block overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -120,13 +122,13 @@ export default function ShelfPage() {
             <H1>The Shelf</H1>
           </div>
           <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-            Ebooks. Frameworks. Prints. Bought right here.
+            Templates. Ebooks. Prints. Yours in one click.
           </p>
-          <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-            Everything is built from real work — not repurposed content. Buy directly on this page; some downloads are free. No third-party store, no detours.
+          <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
+            Built from real client work — never recycled content. Buy on the page, download the moment you do. A few are free.
           </p>
           <div className="mt-6 flex flex-wrap gap-6">
-            {["Instant digital access", "Secure checkout", "No subscription"].map((t) => (
+            {["Instant download", "Secure checkout", "Yours to keep"].map((t) => (
               <div key={t} className="flex items-center gap-3">
                 <span className="h-1 w-1 bg-petal" />
                 <span className="font-body text-xs font-light text-smoke">{t}</span>
@@ -136,37 +138,39 @@ export default function ShelfPage() {
         </div>
       </section>
 
+      {/* ── TEMPLATES (self-guided frameworks) ── */}
       <RevealSection bg="obsidian" num="01">
-        <Eyebrow>Digital Downloads</Eyebrow>
-        <H2>Ebooks &{" "}<span className="text-petal">Guides</span></H2>
-        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "56ch" }}>
-          Buy directly on this page, or grab the free ones with one click. Instant access.
-        </p>
-        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
-          {EBOOKS.map((e) => (
-            <ProductCard key={e.slug} p={e as Product} bg="obsidian" />
-          ))}
-        </div>
-      </RevealSection>
-
-      <QuoteDivider index={16} />
-
-      <RevealSection bg="void" num="02">
-        <Eyebrow>DIY Consulting Frameworks</Eyebrow>
-        <H2>The services,{" "}<span className="text-petal">self-guided.</span></H2>
-        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
-          Every consulting service has a method. These guides document each one so you can run the process yourself.
+        <Eyebrow>Self-Guided Frameworks</Eyebrow>
+        <H2>The{" "}<span className="text-petal">Templates.</span></H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "58ch" }}>
+          Each one is the exact method behind a paid service — documented step by step. Same framework, your timeline. Start with a bundle and save.
         </p>
         <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
           {SERVICE_EBOOKS.map((e) => (
-            <ProductCard key={e.slug} p={e as Product} bg="void" />
+            <ProductCard key={e.slug} p={e as Product} bg="obsidian" />
           ))}
         </div>
         <div className="mt-8 flex items-start gap-4 border border-graphite p-6">
           <span className="mt-0.5 h-1.5 w-1.5 flex-shrink-0 bg-petal" />
           <p className="font-body text-sm font-light leading-7 text-smoke">
-            Want the done-for-you version instead? <Link href="/book" className="text-petal transition hover:text-blush">Book a call</Link> for the full engagement — strategy, copy, and someone who actually writes it.
+            Want it done for you instead? <Link href="/book" className="text-petal transition hover:text-blush">Book a call</Link> — strategy, copy, and someone who actually writes it.
           </p>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={16} />
+
+      {/* ── EBOOKS & GUIDES ── */}
+      <RevealSection bg="void" num="02">
+        <Eyebrow>Digital Downloads</Eyebrow>
+        <H2>Ebooks &{" "}<span className="text-petal">Guides.</span></H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "52ch" }}>
+          Read them tonight, use them tomorrow. One&apos;s free for now — grab it before it isn&apos;t.
+        </p>
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
+          {EBOOKS.map((e) => (
+            <ProductCard key={e.slug} p={e as Product} bg="void" />
+          ))}
         </div>
       </RevealSection>
 
@@ -252,7 +256,24 @@ export default function ShelfPage() {
         </div>
       </RevealSection>
 
+      {/* ── ALSO ON AMAZON ── */}
       <RevealSection bg="void">
+        <div className="grid items-center gap-8 border border-graphite p-8 md:grid-cols-[1fr_auto] md:p-12">
+          <div>
+            <Eyebrow>Also on Amazon</Eyebrow>
+            <H2>Read on{" "}<span className="text-petal">Kindle.</span></H2>
+            <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "46ch" }}>
+              Prefer Kindle, or a paperback on the shelf? My books live on Amazon too — same words, your format.
+            </p>
+          </div>
+          <div className="flex md:justify-end">
+            <BtnPrimary href={AMAZON_AUTHOR_URL}>MK Parrish on Amazon →</BtnPrimary>
+          </div>
+        </div>
+      </RevealSection>
+
+      {/* ── HOW TO BUY ── */}
+      <RevealSection bg="obsidian">
         <Eyebrow>How it works</Eyebrow>
         <H2>Simple.<br /><span className="text-petal">Secure. Clear.</span></H2>
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-3">

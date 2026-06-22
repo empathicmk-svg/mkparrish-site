@@ -35,6 +35,9 @@ export const CALENDLY_URL       = "https://www.calendly.com/mkparrish";
 // ── Site ─────────────────────────────────────────────────────────────────────
 export const SITE_URL           = "https://www.mkparrish.com";
 
+// ── Amazon author page (books on Kindle + paperback) ─────────────────────────
+export const AMAZON_AUTHOR_URL  = "https://www.amazon.com/author/mkparrish";
+
 // ── Products not yet live ────────────────────────────────────────────────────
 // Add a slug here to show "Coming Soon" instead of the buy button.
 export const COMING_SOON_SLUGS = new Set<string>();
@@ -52,6 +55,7 @@ export const SOCIALS = [
   { label: "Instagram", handle: "@mkeezieee", href: "https://www.instagram.com/mkeezieee" },
   { label: "Substack",  handle: "The Margins", href: SUBSTACK_URL },
   { label: "LinkedIn",  handle: "/in/mkparrish", href: "https://www.linkedin.com/in/mkparrish" },
+  { label: "Amazon",    handle: "Author Page", href: AMAZON_AUTHOR_URL },
 ];
 
 // ── All ebooks / digital products (used by shop page) ────────────────────────
@@ -285,7 +289,7 @@ export const SERVICE_EBOOKS = [
       "The New Chapter + The Byline Method + The Build Copy Guide + The Social Strategy Playbook",
       "Future service guide releases included",
     ],
-    desc: "Every consulting framework documented and packaged for self-study. For the woman who is ready to do the full work — on her own timeline.",
+    desc: "All seven guides total $241 bought one by one. The Vault is $127 — every framework, every method, plus future releases. The whole consulting playbook, your timeline.",
   },
 ] as const;
 
