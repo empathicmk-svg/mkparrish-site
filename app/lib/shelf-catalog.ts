@@ -22,6 +22,12 @@ export type ShelfProduct = {
   sizes?: readonly string[];
   preview?: string;
   cover?: string;
+  assetLinks?: readonly ShelfAssetLink[];
+};
+
+export type ShelfAssetLink = {
+  label: string;
+  href: string;
 };
 
 // Most product slugs map 1:1 to a generated cover at
@@ -34,6 +40,25 @@ const COVER_SLUG_OVERRIDES: Record<string, string> = {
 export function coverForSlug(slug: string): string {
   const coverSlug = COVER_SLUG_OVERRIDES[slug] ?? slug;
   return `/downloads/covers/${coverSlug}-cover.jpg`;
+}
+
+function assetSlugFor(slug: string): string {
+  return COVER_SLUG_OVERRIDES[slug] ?? slug;
+}
+
+export function assetLinksForSlug(slug: string, download?: string): readonly ShelfAssetLink[] {
+  if (!download) return [];
+
+  const assetSlug = assetSlugFor(slug);
+  const pdf = download.endsWith(".pdf") ? download : download.replace(/\.(zip|html|epub)$/, ".pdf");
+  const epub = download.endsWith(".epub") ? download : download.replace(/\.(pdf|zip|html)$/, ".epub");
+
+  return [
+    { label: "PDF", href: pdf },
+    { label: "Kindle EPUB", href: epub },
+    { label: "Cover JPG", href: coverForSlug(slug) },
+    { label: "KDP Info", href: `/downloads/kdp/${assetSlug}-kdp-upload-info.md` },
+  ];
 }
 
 type DigitalSource = (typeof EBOOKS)[number] | (typeof SERVICE_EBOOKS)[number];
@@ -56,10 +81,50 @@ const PRODUCT_AUDIENCES: AudienceMap = {
     "You need a practical voice guide for a team, contractor, or founder",
     "You want consistency without sanding off every trace of personality",
   ],
+  "the-invisible-bruise": [
+    "You are trying to name harm that did not leave a visible mark",
+    "You need language for emotional abuse, gaslighting, or silent survival",
+    "You are rebuilding trust in your own memory and reality",
+  ],
+  "decoding-angel-numbers": [
+    "You keep noticing patterns and want a grounded way to reflect on them",
+    "You are spiritually curious but do not want to outsource discernment",
+    "You want prompts and practice instead of a superstition script",
+  ],
+  "the-study": [
+    "You want a Bible study rhythm that fits your actual life",
+    "You have tried devotional plans before and need a shame-free method",
+    "You want structure without pretending you already know where to begin",
+  ],
+  "gospel-and-grind": [
+    "You are building faith-rooted work and need business language that fits",
+    "You underprice and call it humility",
+    "You want to sell without turning your faith into a costume",
+  ],
+  "the-sermon-notes": [
+    "Your notes are full but your content calendar is empty",
+    "You want to translate study into useful public work",
+    "You need a free-to-paid content ladder that feels honest",
+  ],
+  "the-calling-card": [
+    "Your faith-informed brand voice sounds flatter than you actually are",
+    "You need language that is warm, specific, and commercially clear",
+    "You want connection and conversion without losing integrity",
+  ],
+  "ministry-monetized": [
+    "You have a message and offer but need a launch structure",
+    "You want sustainable revenue without manufactured urgency",
+    "You are ready to build income around a calling without apology",
+  ],
   "the-vault": [
-    "You want the complete personal-brand writing library in one purchase",
-    "You are rebuilding both your positioning and the words around it",
-    "You prefer a full system over collecting disconnected templates",
+    "You want the complete writing, identity, and voice library in one purchase",
+    "You are rebuilding your story, your positioning, or the words around it",
+    "You prefer a sequenced self-study library over disconnected templates",
+  ],
+  "scripture-and-strategy": [
+    "You want the full faith, voice, content, and revenue collection",
+    "You are building a faith-rooted brand, offer, or content engine",
+    "You need spiritual clarity and practical structure in the same place",
   ],
   "the-edit-guide": [
     "Your copy is close, but still softer or more generic than it should be",
@@ -109,6 +174,12 @@ const PRODUCT_AUDIENCES: AudienceMap = {
 };
 
 function normalizeDigital(product: DigitalSource, collection: Exclude<ShelfCollection, "prints">): ShelfProduct {
+  const href: string = product.href;
+  const download: string | undefined = product.download;
+  const stripe: string | undefined = "stripe" in product ? product.stripe : undefined;
+  const free = Boolean(product.free);
+  const limitedFree = Boolean((product as { limitedFree?: boolean }).limitedFree);
+
   return {
     slug: product.slug,
     title: product.title,
@@ -121,12 +192,13 @@ function normalizeDigital(product: DigitalSource, collection: Exclude<ShelfColle
     collection,
     kind: "digital",
     highlight: product.highlight,
-    href: product.href,
-    stripe: "stripe" in product ? product.stripe : undefined,
-    download: product.download,
-    free: product.free,
-    limitedFree: "limitedFree" in product ? product.limitedFree : false,
+    href: href.startsWith("/shop/") ? download ?? href : href,
+    stripe,
+    download,
+    free,
+    limitedFree,
     cover: coverForSlug(product.slug),
+    assetLinks: assetLinksForSlug(product.slug, download),
   };
 }
 
