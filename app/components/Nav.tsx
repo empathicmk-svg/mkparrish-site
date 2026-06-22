@@ -11,6 +11,7 @@ const workLinks = [
   { label: "Web Design & Build",  href: "/studio" },
   { label: "Outbound & Growth",   href: "/growth" },
   { label: "Messaging & Copy",    href: "/brand" },
+  { label: "The Positioning Audit", href: "/audit" },
   { label: "How I Work",          href: "/how-i-work" },
 ];
 
@@ -39,6 +40,7 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
       { label: "Web Design & Build", href: "/studio" },
       { label: "Outbound & Growth",  href: "/growth" },
       { label: "Messaging & Copy",   href: "/brand" },
+      { label: "The Positioning Audit", href: "/audit" },
       { label: "How I Work",         href: "/how-i-work" },
     ],
   },

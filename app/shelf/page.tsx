@@ -4,7 +4,7 @@ import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
-import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, COMING_SOON_SLUGS } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, STRIPE_AUDIT, COMING_SOON_SLUGS } from "@/app/lib/config";
 import { PRINT_PRODUCTS, coverForSlug } from "@/app/lib/shelf-catalog";
 
 export const metadata: Metadata = {
@@ -171,6 +171,23 @@ export default function ShelfPage() {
           {EBOOKS.map((e) => (
             <ProductCard key={e.slug} p={e as Product} bg="void" />
           ))}
+        </div>
+      </RevealSection>
+
+      {/* ── AUDIT BRIDGE — the step between a PDF and a full engagement ── */}
+      <RevealSection bg="obsidian">
+        <div className="grid items-center gap-8 border border-petal/30 bg-carbon p-8 shadow-[0_0_60px_rgba(242,175,198,0.08)] md:grid-cols-[1fr_auto] md:p-12">
+          <div>
+            <Eyebrow pink>Want MK&apos;s eyes on it?</Eyebrow>
+            <H2>The 48-Hour{" "}<span className="text-petal">Positioning Audit.</span></H2>
+            <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "56ch" }}>
+              Past the PDFs, before a full engagement. Send your site, LinkedIn, and one offer page; get a Loom teardown, a scorecard, 3 rewritten headlines, and your top 3 fixes — in 48 hours. <span className="text-pearl">$97, async, no call.</span>
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 md:items-end">
+            <BtnPrimary href={STRIPE_AUDIT}>Get the Audit — $97</BtnPrimary>
+            <Link href="/audit" className="font-body text-[0.7rem] font-medium uppercase tracking-[0.15em] text-ash transition hover:text-petal">See what&apos;s included →</Link>
+          </div>
         </div>
       </RevealSection>
 

@@ -5,7 +5,7 @@ export const STRIPE_NEW_CHAPTER = "https://buy.stripe.com/00w28j2Smfahfmx36Q0oM0
 export const STRIPE_BYLINE      = "https://buy.stripe.com/fZu00b9gKbY5eitfTC0oM03";
 export const STRIPE_BUILD       = "https://buy.stripe.com/9B6cMX64ygel4HTazi0oM0f"; // The Build — $6,000 one-time
 export const STRIPE_SESSION     = "https://buy.stripe.com/eVqaEPfF86DLa2dcHq0oM0g"; // The Session — $300 one-time
-export const STRIPE_AUDIT       = "/book"; // async positioning audit — link to checkout when ready
+export const STRIPE_AUDIT       = "https://buy.stripe.com/9B64gA2nL51KamMaX38AE0e"; // The 48-Hour Positioning Audit — $97 (intake collected at checkout)
 
 // ── Growth / Revenue Systems ─────────────────────────────────────────────────
 export const STRIPE_OUTBOUND        = "https://buy.stripe.com/28E7sD0Ked295LX22M0oM0e"; // The Outbound Engine — $2,500/mo
@@ -60,6 +60,25 @@ export const SOCIALS = [
 
 // ── All ebooks / digital products (used by shop page) ────────────────────────
 export const EBOOKS = [
+  {
+    slug:      "the-linkedin-bio-fix-kit",
+    title:     "The LinkedIn Bio Fix Kit",
+    subtitle:  "Fix the first thing everyone reads about you — in fifteen minutes.",
+    price:     "$9",
+    tag:       "Start Here · $9",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-linkedin-bio-fix-kit.pdf",
+    stripe:    "https://buy.stripe.com/bJe6oI5zXbq852s3uB8AE0f",
+    href:      "https://buy.stripe.com/bJe6oI5zXbq852s3uB8AE0f",
+    features:  [
+      "3 headline formulas + a fill-in About template",
+      "15 swipe-file opening lines you can steal",
+      "The banned-words list + a 15-minute checklist",
+      "Instant download — PDF + EPUB",
+    ],
+    desc: "The fastest fix on the Shelf. Rewrite your LinkedIn headline and About in 15 minutes with copy-paste formulas, templates, and swipe lines. Your $9 front door to everything else.",
+  },
   {
     slug:      "reinvention-workbook",
     title:     "The Reinvention Workbook",
