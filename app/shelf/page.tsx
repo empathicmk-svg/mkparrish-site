@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
-  BtnPrimary, ArrowLink,
+  BtnPrimary, BtnGhost, ArrowLink,
 } from "@/app/components/ui";
 import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, STRIPE_AUDIT, COMING_SOON_SLUGS } from "@/app/lib/config";
 import { PRINT_PRODUCTS } from "@/app/lib/shelf-catalog";
@@ -81,9 +81,13 @@ export default function ShelfPage() {
             Templates. Ebooks. Prints. Yours in one click.
           </p>
           <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            Built from real client work — never recycled content. Buy on the page, download the moment you do. A few are free.
+            Built from real client work — never recycled content. Buy on the page, download the moment you do. Or start free on The Free List.
           </p>
-          <div className="mt-6 flex flex-wrap gap-6">
+          <div className="mt-8 flex flex-wrap gap-4">
+            <BtnPrimary href="#browse">Shop the Shelf</BtnPrimary>
+            <BtnGhost href={SUBSTACK_URL}>Start free →</BtnGhost>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-6">
             {["Instant download", "Secure checkout", "Yours to keep"].map((t) => (
               <div key={t} className="flex items-center gap-3">
                 <span className="h-1 w-1 bg-petal" />
@@ -94,9 +98,81 @@ export default function ShelfPage() {
         </div>
       </section>
 
-      {/* ── BROWSE: all digital products, filterable + sortable ── */}
+      {/* ── START HERE: the value ladder — read free, buy the method, or done-for-you ── */}
       <RevealSection bg="obsidian" num="01">
-        <Eyebrow>Frameworks, Ebooks & Bundles</Eyebrow>
+        <Eyebrow pink>Start Here</Eyebrow>
+        <H2>Three ways in,{" "}<span className="text-petal">one path up.</span></H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
+          Read it free, buy the method, or have it done for you. Start anywhere — most people climb.
+        </p>
+        <div className="mt-10 grid gap-px bg-graphite md:grid-cols-3">
+          {/* Rung 1 — Free */}
+          <div className="flex flex-col bg-obsidian p-8">
+            <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-iron">Read · Free</p>
+            <p className="mt-3 font-display text-4xl text-white">Free</p>
+            <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl">The Free List</h3>
+            <p className="mt-3 flex-1 font-body text-sm font-light leading-7 text-smoke">
+              Public essays, poetry, and a monthly strategy note — straight to your inbox. No card, no catch.
+            </p>
+            <a
+              href={SUBSTACK_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-ghost mt-7 flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em]"
+            >
+              Join free →
+            </a>
+          </div>
+
+          {/* Rung 2 — Buy once (highlight) */}
+          <div className="relative flex flex-col bg-carbon p-8 shadow-[0_0_60px_rgba(242,175,198,0.08)]">
+            <div className="absolute inset-x-0 top-0 h-px bg-petal" />
+            <span className="absolute right-4 top-4 bg-petal px-2.5 py-1 font-body text-[0.5rem] font-bold uppercase tracking-[0.2em] text-void">
+              Most popular
+            </span>
+            <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-petal">Buy once · Own it</p>
+            <p className="mt-3 font-display text-4xl text-white">From $14</p>
+            <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl">Frameworks &amp; Bundles</h3>
+            <p className="mt-3 flex-1 font-body text-sm font-light leading-7 text-smoke">
+              Every paid method, documented from real client work. Buy a single guide — or bundle the library and save.
+            </p>
+            <a
+              href="#browse"
+              className="btn-primary mt-7 flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+            >
+              Shop the Shelf →
+            </a>
+          </div>
+
+          {/* Rung 3 — Done-for-you */}
+          <div className="flex flex-col bg-obsidian p-8">
+            <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-iron">Done-for-you</p>
+            <p className="mt-3 font-display text-4xl text-white">From $97</p>
+            <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl">The 48-Hour Audit</h3>
+            <p className="mt-3 flex-1 font-body text-sm font-light leading-7 text-smoke">
+              MK&apos;s eyes on your positioning: a Loom teardown, a scorecard, and rewritten headlines — in 48 hours.
+            </p>
+            <a
+              href={STRIPE_AUDIT}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-primary mt-7 flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+            >
+              Get the Audit →
+            </a>
+            <Link
+              href="/book"
+              className="mt-2 flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
+            >
+              or book a full call →
+            </Link>
+          </div>
+        </div>
+      </RevealSection>
+
+      {/* ── BROWSE: all digital products, filterable + sortable ── */}
+      <RevealSection bg="void" num="02" id="browse">
+        <Eyebrow>Frameworks, Ebooks &amp; Bundles</Eyebrow>
         <H2>Browse{" "}<span className="text-petal">The Shelf.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
           Every framework is the exact method behind a paid service; every ebook is built from real client work. Filter by what you need, sort by price, and start with a bundle to save.
@@ -131,7 +207,40 @@ export default function ShelfPage() {
 
       <QuoteDivider index={19} />
 
-      <RevealSection bg="void" num="02">
+      {/* ── THE MARGINS — recurring membership revenue, surfaced above one-off prints ── */}
+      <RevealSection bg="void" num="03">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <Eyebrow>Membership</Eyebrow>
+            <H2>The{" "}<span className="text-petal">Margins.</span></H2>
+            <H3Script>The real work. Before it goes anywhere.</H3Script>
+            <div className="mt-6 space-y-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
+              <p>Weekly essays, raw memoir, strategy notes, and writing too honest for a public feed. Members get everything — unfiltered, early, and real.</p>
+              <p>For the women, survivors, romantics, and overthinkers who know what it feels like to rebuild from scratch and want company for it.</p>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
+              <ArrowLink href="/margins">See what&apos;s inside</ArrowLink>
+            </div>
+          </div>
+          <div className="flex flex-col gap-px">
+            {MARGINS_TIERS.map((t) => (
+              <div key={t.name} className={`relative p-8 ${t.highlight ? "bg-carbon" : "bg-void"}`}>
+                {t.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+                <div className="flex items-baseline justify-between">
+                  <p className="font-display text-xl uppercase tracking-[0.02em] text-pearl">{t.name}</p>
+                  <p className={`font-display text-2xl ${t.highlight ? "text-petal" : "text-white"}`}>{t.price}</p>
+                </div>
+                <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">{t.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={18} />
+
+      <RevealSection bg="obsidian" num="04">
         <Eyebrow>Poem Prints</Eyebrow>
         <H2>The words,{" "}<span className="text-petal">on your wall.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "52ch" }}>
@@ -176,38 +285,6 @@ export default function ShelfPage() {
               </Link>
             </div>
           ))}
-        </div>
-      </RevealSection>
-
-      <QuoteDivider index={18} />
-
-      <RevealSection bg="obsidian" num="03">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
-          <div>
-            <Eyebrow>Membership</Eyebrow>
-            <H2>The{" "}<span className="text-petal">Margins.</span></H2>
-            <H3Script>The real work. Before it goes anywhere.</H3Script>
-            <div className="mt-6 space-y-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-              <p>Weekly essays, raw memoir, strategy notes, and writing too honest for a public feed. Members get everything — unfiltered, early, and real.</p>
-              <p>For the women, survivors, romantics, and overthinkers who know what it feels like to rebuild from scratch and want company for it.</p>
-            </div>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={SUBSTACK_URL}>Join The Margins</BtnPrimary>
-              <ArrowLink href="/margins">See what&apos;s inside</ArrowLink>
-            </div>
-          </div>
-          <div className="flex flex-col gap-px">
-            {MARGINS_TIERS.map((t) => (
-              <div key={t.name} className={`relative p-8 ${t.highlight ? "bg-carbon" : "bg-void"}`}>
-                {t.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
-                <div className="flex items-baseline justify-between">
-                  <p className="font-display text-xl uppercase tracking-[0.02em] text-pearl">{t.name}</p>
-                  <p className={`font-display text-2xl ${t.highlight ? "text-petal" : "text-white"}`}>{t.price}</p>
-                </div>
-                <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">{t.desc}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </RevealSection>
 
