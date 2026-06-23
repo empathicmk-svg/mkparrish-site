@@ -91,40 +91,10 @@ const PRODUCT_AUDIENCES: AudienceMap = {
     "You are spiritually curious but do not want to outsource discernment",
     "You want prompts and practice instead of a superstition script",
   ],
-  "the-study": [
-    "You want a Bible study rhythm that fits your actual life",
-    "You have tried devotional plans before and need a shame-free method",
-    "You want structure without pretending you already know where to begin",
-  ],
-  "gospel-and-grind": [
-    "You are building faith-rooted work and need business language that fits",
-    "You underprice and call it humility",
-    "You want to sell without turning your faith into a costume",
-  ],
-  "the-sermon-notes": [
-    "Your notes are full but your content calendar is empty",
-    "You want to translate study into useful public work",
-    "You need a free-to-paid content ladder that feels honest",
-  ],
-  "the-calling-card": [
-    "Your faith-informed brand voice sounds flatter than you actually are",
-    "You need language that is warm, specific, and commercially clear",
-    "You want connection and conversion without losing integrity",
-  ],
-  "ministry-monetized": [
-    "You have a message and offer but need a launch structure",
-    "You want sustainable revenue without manufactured urgency",
-    "You are ready to build income around a calling without apology",
-  ],
   "the-vault": [
     "You want the complete writing, identity, and voice library in one purchase",
     "You are rebuilding your story, your positioning, or the words around it",
     "You prefer a sequenced self-study library over disconnected templates",
-  ],
-  "scripture-and-strategy": [
-    "You want the full faith, voice, content, and revenue collection",
-    "You are building a faith-rooted brand, offer, or content engine",
-    "You need spiritual clarity and practical structure in the same place",
   ],
   "the-edit-guide": [
     "Your copy is close, but still softer or more generic than it should be",
