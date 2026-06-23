@@ -9,6 +9,7 @@ export type BrowseItem = {
   title: string;
   price: string;
   priceNum: number;
+  compareAt?: string;
   tag: string;
   desc: string;
   features: readonly string[];
@@ -33,6 +34,12 @@ const FILTERS: { key: FilterKey; label: string }[] = [
   { key: "free", label: "Free" },
 ];
 
+function numFrom(price?: string): number {
+  if (!price) return 0;
+  const m = price.match(/\d+/);
+  return m ? parseInt(m[0], 10) : 0;
+}
+
 function badgeFor(p: BrowseItem): string | null {
   if (p.free) return "Free";
   if (p.category === "bundles") return "Best Value";
@@ -50,6 +57,7 @@ function Card({ p }: { p: BrowseItem }) {
   const isFree = Boolean(p.free && p.download);
   const limitedFree = isFree && Boolean(p.limitedFree);
   const badge = badgeFor(p);
+  const save = p.compareAt ? numFrom(p.compareAt) - p.priceNum : 0;
 
   return (
     <div
@@ -80,12 +88,20 @@ function Card({ p }: { p: BrowseItem }) {
 
       <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-iron">{p.tag}</p>
       <h3 className="mt-2 font-display text-2xl uppercase leading-tight tracking-[0.02em] text-pearl">{p.title}</h3>
-      <p className="mt-2 font-display text-4xl text-white">
+      <p className="mt-2 flex items-baseline gap-2 font-display text-4xl text-white">
         {isFree ? "Free" : p.price}
         {limitedFree && (
-          <span className="ml-2 align-middle font-body text-base font-light text-iron line-through">{p.price}</span>
+          <span className="align-middle font-body text-base font-light text-iron line-through">{p.price}</span>
+        )}
+        {!isFree && p.compareAt && (
+          <span className="font-body text-base font-light text-iron line-through">{p.compareAt}</span>
         )}
       </p>
+      {save > 0 && (
+        <p className="mt-1 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-petal">
+          Save ${save} vs. buying separately
+        </p>
+      )}
       <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
       <ul className="mt-5 space-y-2">
         {p.features.slice(0, 3).map((f) => (
@@ -133,6 +149,7 @@ function Card({ p }: { p: BrowseItem }) {
 export default function ShelfBrowser({ products }: { products: BrowseItem[] }) {
   const [filter, setFilter] = useState<FilterKey>("all");
   const [sort, setSort] = useState<SortKey>("featured");
+  const [query, setQuery] = useState("");
 
   const counts = useMemo(() => {
     return {
@@ -144,65 +161,120 @@ export default function ShelfBrowser({ products }: { products: BrowseItem[] }) {
     } as Record<FilterKey, number>;
   }, [products]);
 
+  // The best-value bundle drives the upsell nudge — pick the biggest saving.
+  const topBundle = useMemo(() => {
+    const bundles = products.filter((p) => p.category === "bundles" && p.compareAt);
+    return bundles.sort((a, b) => numFrom(b.compareAt) - b.priceNum - (numFrom(a.compareAt) - a.priceNum))[0] ?? null;
+  }, [products]);
+
   const shown = useMemo(() => {
+    const q = query.trim().toLowerCase();
     const filtered = products.filter((p) => {
-      if (filter === "all") return true;
-      if (filter === "free") return Boolean(p.free);
-      return p.category === filter;
+      const matchesFilter =
+        filter === "all" ? true : filter === "free" ? Boolean(p.free) : p.category === filter;
+      if (!matchesFilter) return false;
+      if (!q) return true;
+      return (
+        p.title.toLowerCase().includes(q) ||
+        p.desc.toLowerCase().includes(q) ||
+        p.tag.toLowerCase().includes(q)
+      );
     });
     if (sort === "price-asc") return [...filtered].sort((a, b) => a.priceNum - b.priceNum);
     if (sort === "price-desc") return [...filtered].sort((a, b) => b.priceNum - a.priceNum);
-    return filtered; // featured = curated input order
-  }, [products, filter, sort]);
+    // Featured: lead with bundles + bestsellers (featured), keep curated order within.
+    return [...filtered].sort((a, b) => Number(b.featured) - Number(a.featured));
+  }, [products, filter, sort, query]);
+
+  const showUpsell = topBundle && filter !== "bundles";
 
   return (
     <div>
       {/* Controls */}
-      <div className="flex flex-col gap-4 border-y border-graphite py-5 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-wrap gap-2" role="group" aria-label="Filter products">
-          {FILTERS.map((f) => {
-            const active = filter === f.key;
-            return (
-              <button
-                key={f.key}
-                onClick={() => setFilter(f.key)}
-                aria-pressed={active}
-                className={`flex items-center gap-2 border px-4 py-2 font-body text-[0.62rem] font-bold uppercase tracking-[0.18em] transition-colors ${
-                  active
-                    ? "border-petal bg-petal text-void"
-                    : "border-graphite text-ash hover:border-petal/50 hover:text-pearl"
-                }`}
-              >
-                {f.label}
-                <span className={active ? "text-void/70" : "text-iron"}>{counts[f.key]}</span>
-              </button>
-            );
-          })}
+      <div className="flex flex-col gap-4 border-y border-graphite py-5">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter products">
+            {FILTERS.map((f) => {
+              const active = filter === f.key;
+              return (
+                <button
+                  key={f.key}
+                  onClick={() => setFilter(f.key)}
+                  aria-pressed={active}
+                  className={`flex items-center gap-2 border px-4 py-2 font-body text-[0.62rem] font-bold uppercase tracking-[0.18em] transition-colors ${
+                    active
+                      ? "border-petal bg-petal text-void"
+                      : "border-graphite text-ash hover:border-petal/50 hover:text-pearl"
+                  }`}
+                >
+                  {f.label}
+                  <span className={active ? "text-void/70" : "text-iron"}>{counts[f.key]}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <label className="flex items-center gap-3 font-body text-[0.62rem] font-bold uppercase tracking-[0.18em] text-iron">
+            Sort
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as SortKey)}
+              className="border border-graphite bg-void px-3 py-2 font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] text-pearl outline-none transition-colors hover:border-petal/50 focus:border-petal"
+            >
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+          </label>
         </div>
 
-        <label className="flex items-center gap-3 font-body text-[0.62rem] font-bold uppercase tracking-[0.18em] text-iron">
-          Sort
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as SortKey)}
-            className="border border-graphite bg-void px-3 py-2 font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] text-pearl outline-none transition-colors hover:border-petal/50 focus:border-petal"
+        {/* Search */}
+        <div className="relative">
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search the shelf…"
+            aria-label="Search products"
+            className="w-full border border-graphite bg-void px-4 py-3 pl-10 font-body text-sm font-light text-pearl placeholder:text-iron outline-none transition-colors hover:border-petal/40 focus:border-petal"
+          />
+          <svg
+            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-iron"
+            width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden
           >
-            <option value="featured">Featured</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-          </select>
-        </label>
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.5" y2="16.5" />
+          </svg>
+        </div>
       </div>
+
+      {/* Bundle upsell nudge */}
+      {showUpsell && (
+        <Link
+          href={`/shelf/${topBundle.slug}`}
+          className="mt-6 flex flex-col items-start gap-2 border border-petal/30 bg-carbon p-5 transition-colors hover:border-petal/60 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <p className="font-body text-sm font-light leading-7 text-smoke">
+            <span className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-petal">Buying more than one?</span>
+            <br />
+            <span className="text-pearl">{topBundle.title}</span> bundles it all for {topBundle.price}
+            {topBundle.compareAt && (
+              <> — save ${numFrom(topBundle.compareAt) - topBundle.priceNum} vs. buying separately.</>
+            )}
+          </p>
+          <span className="font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-petal">Get the bundle →</span>
+        </Link>
+      )}
 
       {/* Grid */}
       {shown.length > 0 ? (
-        <div className="mt-10 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mt-8 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {shown.map((p) => (
             <Card key={p.slug} p={p} />
           ))}
         </div>
       ) : (
-        <p className="mt-10 font-body text-sm font-light text-iron">Nothing here yet — try another filter.</p>
+        <p className="mt-10 font-body text-sm font-light text-iron">No matches — try another filter or search.</p>
       )}
     </div>
   );
