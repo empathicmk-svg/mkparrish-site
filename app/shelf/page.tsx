@@ -5,7 +5,8 @@ import {
   BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
 import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, STRIPE_AUDIT, COMING_SOON_SLUGS } from "@/app/lib/config";
-import { PRINT_PRODUCTS, coverForSlug } from "@/app/lib/shelf-catalog";
+import { PRINT_PRODUCTS } from "@/app/lib/shelf-catalog";
+import ShelfBrowser, { type BrowseItem } from "@/app/components/ShelfBrowser";
 
 export const metadata: Metadata = {
   title: "The Shelf — MK Parrish",
@@ -13,101 +14,54 @@ export const metadata: Metadata = {
     "Ebooks, guides, frameworks, and prints from MK Parrish. Buy directly on the page, or grab the free downloads. Instant access — no third-party store.",
 };
 
-type Product = {
-  slug: string;
-  title: string;
-  price: string;
-  tag: string;
-  highlight: boolean;
-  desc: string;
-  features: readonly string[];
-  free?: boolean;
-  limitedFree?: boolean;
-  download?: string;
-  stripe?: string;
-  href: string;
-};
-
-function buyHref(p: Product) {
-  return p.stripe && p.stripe.length > 0 ? p.stripe : p.href;
+function priceToNum(price: string, free?: boolean): number {
+  if (free) return 0;
+  const m = price.match(/\d+/);
+  return m ? parseInt(m[0], 10) : 0;
 }
 
-function ProductCard({ p, bg }: { p: Product; bg: "obsidian" | "void" }) {
-  const isFree = Boolean(p.free && p.download);
-  const limitedFree = isFree && Boolean(p.limitedFree);
-  // Bundles + flagged picks get the lit-up treatment — they're the ones to push.
-  const featured = p.highlight || p.tag === "Best Value";
-
-  return (
-    <div
-      className={`relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 ${
-        featured ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : bg === "void" ? "bg-void" : "bg-obsidian"
-      }`}
-      style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-    >
-      {featured && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
-      <Link href={`/shelf/${p.slug}`} className="group mb-7 block overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={coverForSlug(p.slug)}
-          alt={`${p.title} — book cover`}
-          width={1600}
-          height={2560}
-          loading="lazy"
-          className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_12px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-[1.03]"
-          style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-        />
-      </Link>
-      <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-iron">
-        {limitedFree ? "Free · Limited Time" : isFree ? "Free Download" : p.tag}
-      </p>
-      <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl leading-tight">{p.title}</h3>
-      <p className="mt-2 font-display text-4xl text-white">
-        {isFree ? "Free" : p.price}
-        {limitedFree && <span className="ml-2 align-middle font-body text-base font-light text-iron line-through">{p.price}</span>}
-      </p>
-      <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
-      <ul className="mt-5 space-y-2">
-        {p.features.map((f) => (
-          <li key={f} className="flex gap-3 font-body text-xs font-light leading-6 text-iron">
-            <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
-            {f}
-          </li>
-        ))}
-      </ul>
-      <div className="mt-8 space-y-2">
-        {COMING_SOON_SLUGS.has(p.slug) ? (
-          <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
-            Coming Soon
-          </div>
-        ) : isFree ? (
-          <a
-            href={p.download}
-            download
-            className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
-          >
-            Download Free →
-          </a>
-        ) : (
-          <a
-            href={buyHref(p)}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
-          >
-            Buy — {p.price}
-          </a>
-        )}
-        <Link
-          href={`/shelf/${p.slug}`}
-          className="flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
-        >
-          View details →
-        </Link>
-      </div>
-    </div>
-  );
+function isBundle(tag: string): boolean {
+  return tag === "Best Value" || tag === "Bundle";
 }
+
+// One unified, filterable catalog: frameworks (the DIY service methods) + ebooks
+// and bundles. Order here is the "Featured" sort — curate the highest-intent items first.
+const BROWSE_ITEMS: BrowseItem[] = [
+  ...SERVICE_EBOOKS.map((e) => ({
+    slug: e.slug,
+    title: e.title,
+    price: e.price,
+    priceNum: priceToNum(e.price, e.free),
+    tag: e.tag,
+    desc: e.desc,
+    features: e.features,
+    free: e.free,
+    limitedFree: "limitedFree" in e ? (e as { limitedFree?: boolean }).limitedFree : false,
+    download: e.download,
+    stripe: "stripe" in e ? e.stripe : undefined,
+    href: e.href,
+    category: "frameworks" as const,
+    featured: e.highlight,
+    comingSoon: COMING_SOON_SLUGS.has(e.slug),
+  })),
+  ...EBOOKS.map((e) => ({
+    slug: e.slug,
+    title: e.title,
+    price: e.price,
+    priceNum: priceToNum(e.price, e.free),
+    tag: e.tag,
+    desc: e.desc,
+    features: e.features,
+    free: e.free,
+    limitedFree: "limitedFree" in e ? (e as { limitedFree?: boolean }).limitedFree : false,
+    download: e.download,
+    stripe: "stripe" in e ? e.stripe : undefined,
+    href: e.href,
+    category: isBundle(e.tag) ? ("bundles" as const) : ("ebooks" as const),
+    featured: e.highlight || isBundle(e.tag),
+    comingSoon: COMING_SOON_SLUGS.has(e.slug),
+  })),
+];
 
 export default function ShelfPage() {
   return (
@@ -138,39 +92,21 @@ export default function ShelfPage() {
         </div>
       </section>
 
-      {/* ── TEMPLATES (self-guided frameworks) ── */}
+      {/* ── BROWSE: all digital products, filterable + sortable ── */}
       <RevealSection bg="obsidian" num="01">
-        <Eyebrow>Self-Guided Frameworks</Eyebrow>
-        <H2>The{" "}<span className="text-petal">Templates.</span></H2>
-        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "58ch" }}>
-          Each one is the exact method behind a paid service — documented step by step. Same framework, your timeline. Start with a bundle and save.
+        <Eyebrow>Frameworks, Ebooks & Bundles</Eyebrow>
+        <H2>Browse{" "}<span className="text-petal">The Shelf.</span></H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
+          Every framework is the exact method behind a paid service; every ebook is built from real client work. Filter by what you need, sort by price, and start with a bundle to save.
         </p>
-        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
-          {SERVICE_EBOOKS.map((e) => (
-            <ProductCard key={e.slug} p={e as Product} bg="obsidian" />
-          ))}
+        <div className="mt-10">
+          <ShelfBrowser products={BROWSE_ITEMS} />
         </div>
         <div className="mt-8 flex items-start gap-4 border border-graphite p-6">
           <span className="mt-0.5 h-1.5 w-1.5 flex-shrink-0 bg-petal" />
           <p className="font-body text-sm font-light leading-7 text-smoke">
             Want it done for you instead? <Link href="/book" className="text-petal transition hover:text-blush">Book a call</Link> — strategy, copy, and someone who actually writes it.
           </p>
-        </div>
-      </RevealSection>
-
-      <QuoteDivider index={16} />
-
-      {/* ── EBOOKS & GUIDES ── */}
-      <RevealSection bg="void" num="02">
-        <Eyebrow>Digital Downloads</Eyebrow>
-        <H2>Ebooks &{" "}<span className="text-petal">Guides.</span></H2>
-        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "52ch" }}>
-          Read them tonight, use them tomorrow. One&apos;s free for now — grab it before it isn&apos;t.
-        </p>
-        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-4">
-          {EBOOKS.map((e) => (
-            <ProductCard key={e.slug} p={e as Product} bg="void" />
-          ))}
         </div>
       </RevealSection>
 
@@ -193,7 +129,7 @@ export default function ShelfPage() {
 
       <QuoteDivider index={19} />
 
-      <RevealSection bg="void" num="03">
+      <RevealSection bg="void" num="02">
         <Eyebrow>Poem Prints</Eyebrow>
         <H2>The words,{" "}<span className="text-petal">on your wall.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "52ch" }}>
@@ -243,7 +179,7 @@ export default function ShelfPage() {
 
       <QuoteDivider index={18} />
 
-      <RevealSection bg="obsidian" num="04">
+      <RevealSection bg="obsidian" num="03">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
             <Eyebrow>Membership</Eyebrow>
