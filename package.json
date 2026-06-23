@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "linkedin:carousel": "node scripts/build-linkedin-carousel.mjs"
+    "linkedin:carousel": "node scripts/build-linkedin-carousel.mjs",
+    "social": "node scripts/social/generate.mjs"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
