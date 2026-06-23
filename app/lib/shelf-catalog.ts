@@ -81,16 +81,6 @@ const PRODUCT_AUDIENCES: AudienceMap = {
     "You need a practical voice guide for a team, contractor, or founder",
     "You want consistency without sanding off every trace of personality",
   ],
-  "the-invisible-bruise": [
-    "You are trying to name harm that did not leave a visible mark",
-    "You need language for emotional abuse, gaslighting, or silent survival",
-    "You are rebuilding trust in your own memory and reality",
-  ],
-  "decoding-angel-numbers": [
-    "You keep noticing patterns and want a grounded way to reflect on them",
-    "You are spiritually curious but do not want to outsource discernment",
-    "You want prompts and practice instead of a superstition script",
-  ],
   "the-vault": [
     "You want the complete writing, identity, and voice library in one purchase",
     "You are rebuilding your story, your positioning, or the words around it",
