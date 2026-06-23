@@ -101,9 +101,7 @@ export default function ShelfPage() {
       {/* ── START HERE: the value ladder — read free, buy the method, or done-for-you ── */}
       <RevealSection bg="obsidian" num="01">
         <Eyebrow pink>Start Here</Eyebrow>
-        <h2 className="font-serif text-pearl" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", lineHeight: 1.05, fontWeight: 700 }}>
-          Three ways in, <span className="italic text-petal">one path up.</span>
-        </h2>
+        <H2>Three ways in,{" "}<span className="text-petal">one path up.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
           Read it free, buy the method, or have it done for you. Start anywhere — most people climb.
         </p>
@@ -111,8 +109,8 @@ export default function ShelfPage() {
           {/* Rung 1 — Free */}
           <div className="flex flex-col bg-obsidian p-8">
             <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-iron">Read · Free</p>
-            <h3 className="mt-3 font-serif text-3xl text-pearl" style={{ fontWeight: 600 }}>The Free List</h3>
-            <p className="mt-2 font-serif text-4xl text-white" style={{ fontWeight: 700 }}>Free</p>
+            <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl">The Free List</h3>
+            <p className="mt-2 font-display text-4xl text-white">Free</p>
             <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">
               Public essays, poetry, and a monthly strategy note — straight to your inbox. No card, no catch.
             </p>
@@ -133,8 +131,8 @@ export default function ShelfPage() {
               Most popular
             </span>
             <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-petal">Buy once · Own it</p>
-            <h3 className="mt-3 font-serif text-3xl text-pearl" style={{ fontWeight: 600 }}>Frameworks &amp; Bundles</h3>
-            <p className="mt-2 font-serif text-4xl text-white" style={{ fontWeight: 700 }}>
+            <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl">Frameworks &amp; Bundles</h3>
+            <p className="mt-2 font-display text-4xl text-white">
               <span className="mr-1.5 align-middle font-body text-sm font-light uppercase tracking-[0.1em] text-iron">From</span>$14
             </p>
             <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">
@@ -151,8 +149,8 @@ export default function ShelfPage() {
           {/* Rung 3 — Done-for-you */}
           <div className="flex flex-col bg-obsidian p-8">
             <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-iron">Done-for-you</p>
-            <h3 className="mt-3 font-serif text-3xl text-pearl" style={{ fontWeight: 600 }}>The 48-Hour Audit</h3>
-            <p className="mt-2 font-serif text-4xl text-white" style={{ fontWeight: 700 }}>
+            <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl">The 48-Hour Audit</h3>
+            <p className="mt-2 font-display text-4xl text-white">
               <span className="mr-1.5 align-middle font-body text-sm font-light uppercase tracking-[0.1em] text-iron">From</span>$97
             </p>
             <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">
