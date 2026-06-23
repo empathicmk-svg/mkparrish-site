@@ -101,9 +101,7 @@ export default function ShelfPage() {
       {/* ── START HERE: the value ladder — read free, buy the method, or done-for-you ── */}
       <RevealSection bg="obsidian" num="01">
         <Eyebrow pink>Start Here</Eyebrow>
-        <h2 className="font-serif text-pearl" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", lineHeight: 1.05, fontWeight: 700 }}>
-          Three ways in, <span className="italic text-petal">one path up.</span>
-        </h2>
+        <H2>Three ways in,{" "}<span className="text-petal">one path up.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
           Read it free, buy the method, or have it done for you. Start anywhere — most people climb.
         </p>
