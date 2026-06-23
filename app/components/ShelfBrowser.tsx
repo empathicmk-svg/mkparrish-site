@@ -194,7 +194,7 @@ export default function ShelfBrowser({ products }: { products: BrowseItem[] }) {
       <div className="flex flex-col gap-4 border-y border-graphite py-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter products">
-            {FILTERS.map((f) => {
+            {FILTERS.filter((f) => f.key !== "free" || counts.free > 0).map((f) => {
               const active = filter === f.key;
               return (
                 <button
