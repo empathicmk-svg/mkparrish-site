@@ -1,12 +1,11 @@
 # Launch Series: "I found 3 things in my GitHub I can sell"
 
-The story is the content. The repo is the proof. The product is the page (`/tools`).
+The story is the content. The repo is the proof. The product is the kit (`/shelf/the-authority-carousel-kit`).
 Use these across LinkedIn, the carousel, and TikTok over one week.
 
 Assets that ship with this series:
 - **Carousel:** `content/linkedin/carousels/three-github-products.json` → built slides + PDF in `output/linkedin/three-github-products/`
-- **Landing page:** `mkparrish.com/tools`
-- **Lead product:** The Authority Carousel Kit → `mkparrish.com/shelf/the-authority-carousel-kit`
+- **Lead product / CTA destination:** The Authority Carousel Kit → `mkparrish.com/shelf/the-authority-carousel-kit`
 
 ---
 
@@ -24,9 +23,9 @@ So I fixed that. Here's what I found, and what each one became:
 
 The lesson I keep relearning: you don't need a new idea. You need to ship the last one.
 
-I put all three on one page — buy the DIY kit, hire me to build yours, or book a session.
+The first one's already for sale: the Authority Carousel Kit — the exact system that built this carousel. $48, run it yourself.
 
-mkparrish.com/tools
+mkparrish.com/shelf/the-authority-carousel-kit
 
 (Swipe through 👇 — and yes, this carousel was made with the kit it's selling.)
 
@@ -66,7 +65,7 @@ Thing two: an ebook reader I built. Instead of selling another PDF, it becomes a
 
 Thing three: a video starter I cloned to learn from. I'm not selling the code. I'm selling the build — done-for-you video sales pages.
 
-The point: stop starting over. The thing you already finished is the product. I put all three on one page — link in bio."
+The point: stop starting over. The thing you already finished is the product. The one I started with is already for sale — link in bio."
 
 ---
 
@@ -91,6 +90,6 @@ The Authority Carousel Kit. Link in bio."
 - **Wed** — (let it breathe)
 - **Thu** — LinkedIn text follow-up (#2)
 - **Fri** — TikTok script B (dogfood reveal)
-- **Across all:** same CTA every time → mkparrish.com/tools
+- **Across all:** same CTA every time → mkparrish.com/shelf/the-authority-carousel-kit
 
 One idea. One week. One link. Repetition is the strategy.

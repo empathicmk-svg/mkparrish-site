@@ -46,10 +46,10 @@
     {
       "type": "cta",
       "eyebrow": "Your move",
-      "title": ["See all three."],
-      "body": "I put the three products on one page — buy the DIY kit, hire me to build yours, or book a session. The repo is the proof. The product is the page.",
-      "cta": "mkparrish.com/tools →",
-      "url": "mkparrish.com/tools",
+      "title": ["Steal the", "{{system.}}"],
+      "body": "This carousel was built with the kit that makes them — templates, the formula, the prompts, and one command. Buy it, run it, ship your own.",
+      "cta": "Get the Carousel Kit →",
+      "url": "mkparrish.com/shelf/the-authority-carousel-kit",
       "footer": "VISIT →"
     }
   ]
