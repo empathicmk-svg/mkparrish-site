@@ -218,15 +218,24 @@ try {
   const page = await browser.newPage();
   await page.setViewport({ width: 1080, height: 1080, deviceScaleFactor: 2 });
 
+  // 'load' + document.fonts.ready, not 'networkidle0': the Google Fonts CDN
+  // keep-alive never lets the network go idle, so networkidle0 times out. Mirrors
+  // the approach in build-covers.mjs. fonts.ready is the reliable "painted" signal.
+  async function renderReady(html) {
+    await page.setContent(html, { waitUntil: 'load', timeout: 60000 });
+    try { await page.evaluate(() => document.fonts.ready); } catch {}
+    await new Promise((r) => setTimeout(r, 200));
+  }
+
   for (let i = 0; i < data.slides.length; i += 1) {
     const html = documentHTML([slideHTML(data.slides[i], i, data.slides.length)]);
-    await page.setContent(html, { waitUntil: 'networkidle0' });
+    await renderReady(html);
     await page.screenshot({ path: path.join(OUT, `slide-${String(i + 1).padStart(2, '0')}.png`), type: 'png' });
     console.log(`✓ slide ${i + 1}/${data.slides.length}`);
   }
 
   const allSlides = data.slides.map((slide, index) => slideHTML(slide, index, data.slides.length));
-  await page.setContent(documentHTML(allSlides), { waitUntil: 'networkidle0' });
+  await renderReady(documentHTML(allSlides));
   await page.emulateMediaType('screen');
   await page.pdf({
     path: path.join(OUT, `${data.slug}.pdf`),

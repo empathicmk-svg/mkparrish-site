@@ -49,3 +49,4 @@ next-env.d.ts
 
 # zipped image bundles (build artifacts, regenerated from the PNGs)
 /output/*.zip
+/output/linkedin/

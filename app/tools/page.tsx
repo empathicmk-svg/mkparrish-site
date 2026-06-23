@@ -43,10 +43,10 @@ const TOOLS: Tool[] = [
     tiers: [
       {
         label: "DIY Kit",
-        price: "$38",
-        desc: "The Social Strategy Playbook — the carousel formula, content pillars, and a 30-day sprint you can run yourself.",
+        price: "$48",
+        desc: "The Authority Carousel Kit — editable JSON templates, the carousel formula, AI prompts, and one command that builds your slides.",
         cta: "Buy the DIY kit",
-        href: "/shelf/the-social-strategy-playbook",
+        href: "/shelf/the-authority-carousel-kit",
       },
       {
         label: "Done For You",

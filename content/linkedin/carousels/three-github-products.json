@@ -1,0 +1,56 @@
+{
+  "slug": "three-github-products",
+  "brand": "MK PARRISH",
+  "signature": "/in/mkparrish ♡",
+  "slides": [
+    {
+      "type": "cover",
+      "eyebrow": "Build in public",
+      "title": ["I found 3 things", "in my GitHub", "I can {{sell.}}"],
+      "body": "Not a new app. Not a SaaS. Three things I already built, sitting in repos, one rename away from being products. Here they are."
+    },
+    {
+      "type": "statement",
+      "eyebrow": "The trap",
+      "title": ["The problem isn't", "building. It's", "{{shipping.}}"],
+      "body": "Most of us have folders full of finished work nobody can buy. **The asset already exists.** The product is just packaging, a price, and a payment link."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Find 01",
+      "before": "A script that builds my LinkedIn carousels from a text file.",
+      "after": ["The Authority Carousel Kit —", "templates you run yourself."],
+      "takeaway": "A tool you use is a tool others will buy."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Find 02",
+      "before": "An ebook reader app with one sample book in it.",
+      "after": ["A guided reading experience", "with a checkout in front."],
+      "takeaway": "Stop selling PDFs. Sell the experience."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Find 03",
+      "before": "A video starter I cloned to learn from.",
+      "after": ["A done-for-you video", "sales page service."],
+      "takeaway": "Sell your build, not the starter kit."
+    },
+    {
+      "type": "statement",
+      "eyebrow": "The principle",
+      "title": ["You don't need", "a new idea.", "You need to ship", "the {{last one.}}"],
+      "size": "small",
+      "body": "Builder-brain says start over. The money says package what's already done and put a price on it today."
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Your move",
+      "title": ["See all three."],
+      "body": "I put the three products on one page — buy the DIY kit, hire me to build yours, or book a session. The repo is the proof. The product is the page.",
+      "cta": "mkparrish.com/tools →",
+      "url": "mkparrish.com/tools",
+      "footer": "VISIT →"
+    }
+  ]
+}

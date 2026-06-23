@@ -96,6 +96,11 @@ const PRODUCT_AUDIENCES: AudienceMap = {
     "You need content pillars tied to your actual authority and point of view",
     "You want a system that works even when inspiration is off-duty",
   ],
+  "the-authority-carousel-kit": [
+    "You need LinkedIn authority content but dread opening Canva",
+    "You want every carousel to look like one person made it on purpose",
+    "You'd rather write the words once and let a template do the design",
+  ],
   "the-prompt-vault": [
     "You use AI to write and everything comes out sounding generic",
     "You ghostwrite or run content and need the machine to hold a real voice",
