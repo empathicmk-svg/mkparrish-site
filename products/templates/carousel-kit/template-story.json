@@ -1,0 +1,56 @@
+{
+  "slug": "my-story",
+  "brand": "YOUR NAME",
+  "signature": "/in/yourhandle ♡",
+  "slides": [
+    {
+      "type": "cover",
+      "eyebrow": "The turn",
+      "title": ["The day I stopped", "doing it their way"],
+      "body": "I followed the advice everyone gives for two years. Here's what it cost me, and the one decision that changed it."
+    },
+    {
+      "type": "statement",
+      "eyebrow": "The setup",
+      "title": ["I did everything", "{{right.}}"],
+      "body": "On paper it was working. **It wasn't.** I was busy, booked, and quietly building someone else's idea of success."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Before",
+      "before": "What your life or work looked like then.",
+      "after": ["The moment it became", "impossible to ignore."],
+      "takeaway": "What you finally admitted."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "The decision",
+      "before": "The safe option you turned down.",
+      "after": ["The harder choice", "you made instead."],
+      "takeaway": "What it actually took."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "After",
+      "before": "The fear you had about changing.",
+      "after": ["What's true now that", "you did it anyway."],
+      "takeaway": "The proof it was the right call."
+    },
+    {
+      "type": "statement",
+      "eyebrow": "The principle",
+      "title": ["You can be doing", "everything right", "and still be wrong."],
+      "size": "small",
+      "body": "The hardest pivots aren't away from failure. They're away from a success that was never yours."
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Your move",
+      "title": ["What are you", "tolerating?"],
+      "body": "End with a question or an invitation that mirrors your reader's own quiet decision. One move only.",
+      "cta": "If this is you, let's talk →",
+      "url": "yoursite.com",
+      "footer": "VISIT →"
+    }
+  ]
+}

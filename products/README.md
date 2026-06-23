@@ -58,6 +58,7 @@ Lives in [`products/course-scripture-and-strategy/`](./course-scripture-and-stra
 | The New Chapter Workbook | $35 | Template | [`templates/the-new-chapter-workbook.md`](./templates/the-new-chapter-workbook.md) |
 | The Byline Method | $38 | Template | [`templates/the-byline-method.md`](./templates/the-byline-method.md) |
 | The Build Copy Guide | $45 | Template | [`templates/the-build-copy-guide.md`](./templates/the-build-copy-guide.md) |
+| The Authority Carousel Kit | $48 | Kit | [`templates/the-authority-carousel-kit.md`](./templates/the-authority-carousel-kit.md) |
 | The Services Vault | $127 | Bundle | [`templates/the-services-vault.md`](./templates/the-services-vault.md) |
 
 ### Services

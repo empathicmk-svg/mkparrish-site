@@ -1,108 +1,9 @@
-#!/usr/bin/env node
-/**
- * Converts product markdown files into branded, self-contained HTML downloads
- * for Gumroad uploads. Run: node scripts/build-downloads.mjs
- */
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { COURSE, courseMarkdown } from './lib/course.mjs';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(__dirname, '..');
-
-// ── Markdown → HTML ──────────────────────────────────────────────────────────
-
-function md(src) {
-  let html = src
-    // escape stray html
-    .replace(/&(?!amp;|lt;|gt;|quot;|#)/g, '&amp;')
-    // tables
-    .replace(/^\|(.+)\|\n\|[-:| ]+\|\n((?:\|.+\|\n?)+)/gm, (_, head, body) => {
-      const th = head.split('|').filter(Boolean).map(c => `<th>${inline(c.trim())}</th>`).join('');
-      const rows = body.trim().split('\n').map(row =>
-        `<tr>${row.split('|').filter(Boolean).map(c => `<td>${inline(c.trim())}</td>`).join('')}</tr>`
-      ).join('\n');
-      return `<table><thead><tr>${th}</tr></thead><tbody>${rows}</tbody></table>\n`;
-    })
-    // fenced code blocks
-    .replace(/```[\w]*\n([\s\S]*?)```/gm, (_, code) =>
-      `<pre><code>${code.replace(/&amp;/g, '&').replace(/</g, '&lt;')}</code></pre>`)
-    // blockquotes
-    .replace(/^((?:> .+\n?)+)/gm, block => {
-      const inner = block.replace(/^> ?/gm, '').trim();
-      return `<blockquote>${inline(inner)}</blockquote>\n`;
-    })
-    // hr
-    .replace(/^---+$/gm, '<hr>')
-    // headings
-    .replace(/^### (.+)$/gm, (_, t) => `<h3>${inline(t)}</h3>`)
-    .replace(/^## (.+)$/gm,  (_, t) => `<h2>${inline(t)}</h2>`)
-    .replace(/^# (.+)$/gm,   (_, t) => `<h1>${inline(t)}</h1>`)
-    // unordered lists
-    .replace(/^((?:[*\-] .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^[*\-] /, ''))}</li>`).join('');
-      return `<ul>${items}</ul>\n`;
-    })
-    // ordered lists
-    .replace(/^((?:\d+\. .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^\d+\. /, ''))}</li>`).join('');
-      return `<ol>${items}</ol>\n`;
-    })
-    // paragraphs (lines not already wrapped)
-    .replace(/^(?!<[a-z]|$)(.+)$/gm, (_, line) => `<p>${inline(line)}</p>`);
-
-  return html;
-}
-
-function inline(s) {
-  return s
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,     '<em>$1</em>')
-    .replace(/`(.+?)`/g,       '<code>$1</code>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>');
-}
-
-// ── HTML template ─────────────────────────────────────────────────────────────
-// Mirrors the live site (mkparrish.com): Bebas Neue / Playfair Display / DM Sans
-// / JetBrains Mono on black × pink × white × grey, with pink-gradient rules,
-// text-glow, an outlined display word, mono section numbers, and a grain overlay.
-
-function wrap(title, bodyHtml, opts = {}) {
-  const { subtitle = '', kicker = 'MK Parrish · mkparrish.com', meta = '', accent = '#F2AFC6', isCourse = false } = opts;
-  const notesHtml = Array.from({ length: 16 }, (_, i) => `
-<section class="notes-page">
-  <div class="notes-kicker">MK Parrish · Working Notes</div>
-  <div class="notes-title">${title}</div>
-  <div class="notes-rule"></div>
-  <div class="notes-lines" aria-hidden="true"></div>
-  <div class="notes-page-number">${String(i + 1).padStart(2, '0')}</div>
-</section>`).join('');
-
-  // Split a "Title: subtitle" headline so the cover gets a punchy display line
-  // plus an italic serif descender, the way the live hero is set.
-  let coverTitle = title;
-  let coverSub = subtitle;
-  const colon = title.indexOf(':');
-  if (!coverSub && colon > 0) {
-    coverTitle = title.slice(0, colon).trim();
-    coverSub = title.slice(colon + 1).trim();
-  }
-  // Outline the final word of the cover title (the site's hero treatment).
-  const words = coverTitle.split(' ');
-  const lastWord = words.length > 1 ? words.pop() : '';
-  const coverTitleHtml = lastWord
-    ? `<span class="grad">${words.join(' ')}</span> <span class="outline">${lastWord}</span>`
-    : `<span class="grad">${coverTitle}</span>`;
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${title} — MK Parrish</title>
+<title>The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel — MK Parrish</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -118,7 +19,7 @@ function wrap(title, bodyHtml, opts = {}) {
     --pearl: #F0F0EE;
     --white: #FAFAF8;
     --blush: #FFD6E4;
-    --petal: ${accent};
+    --petal: #F2AFC6;
     --rose: #E0869F;
     --carmine: #C75B78;
     --font-display: 'Bebas Neue', Impact, sans-serif;
@@ -344,7 +245,7 @@ function wrap(title, bodyHtml, opts = {}) {
     line-height: 1.6;
   }
   blockquote::before {
-    content: '\\201C';
+    content: '\201C';
     position: absolute;
     top: 0.08em;
     left: 0.14em;
@@ -667,25 +568,249 @@ function wrap(title, bodyHtml, opts = {}) {
 
 <div class="cover">
   <div class="cover-inner">
-    <div class="cover-kicker">${kicker}</div>
-    <h1>${coverTitleHtml}</h1>
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">The Authority Carousel</span> <span class="outline">Kit</span></h1>
     <div class="cover-heart" aria-hidden="true">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" stroke="#FAFAF8" stroke-width="0.8"/>
       </svg>
     </div>
-    ${coverSub ? `<p class="subtitle">${coverSub}</p>` : ''}
+    <p class="subtitle">Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</p>
     <div class="cover-rule"></div>
-    ${meta ? `<div class="cover-meta">${meta}</div>` : ''}
+    <div class="cover-meta">By MK Parrish · $48</div>
   </div>
 </div>
 
 <div class="content">
-${bodyHtml}
+<h2>What This Is</h2>
+
+<p>This is the exact carousel system behind the MK Parrish brand — the house style, the seven-slide story, the voice rules, and the build process — packaged so you can run it yourself.</p>
+
+<p>You do not need a designer. You do not need Canva. You write the words into a small text file, run one command, and get LinkedIn-ready slides plus a multi-page PDF out the other side. Same look every time. No dragging boxes, no fighting alignment, no "why did the font change."</p>
+
+<p>The kit is three things:</p>
+
+<ol><li><strong>The formula</strong> — how to turn one idea into a finished carousel, slide by slide.</li><li><strong>The templates</strong> — ready-to-edit JSON files for the formats that actually travel on LinkedIn.</li><li><strong>The system</strong> — the house style and voice rules that make every slide look and sound like one person made it on purpose.</li></ol>
+
+<p>Reading it does nothing. <em>Filling in a template and shipping it</em> is the product.</p>
+
+<blockquote>Authority is not a louder post. It is the same clear point of view, shown the same clean way, every single week until people associate the look with you.</blockquote>
+
+<hr>
+
+<h2>The House Style</h2>
+
+<p>Every carousel uses the same visual system. Consistency is the asset — when your slides look the same each week, the look itself becomes recognizable, and recognition is the beginning of authority.</p>
+
+<ul><li><strong>1080 × 1080 square pages</strong> — the native LinkedIn carousel ratio.</li><li><strong>Near-black editorial background</strong> with a restrained blush-pink glow. No bright white decks.</li><li><strong>Your name top left, page count top right.</strong> Quiet, consistent, unmistakable.</li><li><strong>Bebas Neue uppercase headlines. DM Sans body. Playfair Display italic signature.</strong></li><li><strong>Pearl white, smoke grey, and one petal pink</strong> — used only on the word carrying the tension.</li><li><strong>Left-aligned copy, generous negative space.</strong> White space reads as confidence.</li><li><strong>A pink <code>SWIPE →</code> block bottom left</strong>, your handle bottom right.</li><li><strong>No</strong> rounded cards, stock icons, overpowering gradients, or generic Canva decoration.</li></ul>
+
+<p>The rule under all of it: nothing decorative earns its place. If an element is not carrying the idea, it is in the way.</p>
+
+<hr>
+
+<h2>The Seven-Slide Story</h2>
+
+<p>The default carousel is a seven-slide arc. The slide count can flex when the idea demands it, but the rhythm stays the same — tension, then proof, then a rule, then one move.</p>
+
+<ol><li><strong>Cover</strong> — a strong promise with sharp tension. The whole swipe is earned or lost here.</li><li><strong>Problem</strong> — name what the audience is getting wrong. Make them feel seen.</li><li><strong>Evidence 01</strong> — your first proof: a before/after, an example, a step.</li><li><strong>Evidence 02</strong> — the second.</li><li><strong>Evidence 03</strong> — the third. Three is the number that feels complete without dragging.</li><li><strong>Principle</strong> — distill the lesson into one memorable rule they can repeat.</li><li><strong>CTA</strong> — one specific next move. Not "thoughts?" — a real action.</li></ol>
+
+<p>The arc works because it mirrors how trust actually forms: you name the pain, you prove you understand it, you hand over a rule, and then — only then — you ask for something.</p>
+
+<hr>
+
+<h2>Voice Rules</h2>
+
+<p>The look gets the swipe. The voice gets the follow.</p>
+
+<ul><li>Clear over clever, but never bland.</li><li>Specific outcomes instead of adjectives. "Onboarding cut from six weeks to six days," not "we drive efficiency."</li><li>One idea per slide. If a slide has two points, it is two slides.</li><li>Headlines sound like <em>you</em>, not a corporate content team.</li><li>Body copy stays conversational and decisive.</li><li>Avoid em dashes, jargon fog, and manufactured inspiration.</li><li>Pink emphasis is a scalpel, not a highlighter — one word per slide, the word that carries the tension.</li></ul>
+
+<hr>
+
+<h2>The Formula: One Idea → One Carousel</h2>
+
+<p>You do not start with seven slides. You start with one sentence and pressure-test it.</p>
+
+<p><strong>Step 1 — Find the one idea.</strong> Finish this: <em>"Most people in my field believe ____, but the truth is ____."</em> That tension is your cover.</p>
+
+<p><strong>Step 2 — Name the cost.</strong> What does the wrong belief actually cost the reader — in money, time, or standing? That is slide two.</p>
+
+<p><strong>Step 3 — Find three proofs.</strong> The fastest, most credible proof is the before/after. Take three weak examples and rewrite each one strong. Real beats hypothetical every time.</p>
+
+<p><strong>Step 4 — Write the rule.</strong> Compress the whole lesson into one line short enough to screenshot. If it takes two sentences, keep cutting.</p>
+
+<p><strong>Step 5 — Pick one move.</strong> A checklist, a free resource, a DM prompt, a booked call. One. A carousel that asks for two things gets neither.</p>
+
+<p>That is the entire method. The templates below are this formula, pre-poured into the right shape.</p>
+
+<hr>
+
+<h2>The Templates</h2>
+
+<p>Three editable JSON templates ship with this kit, plus a worked example. Each is the same formula in a different shape:</p>
+
+<ul><li><strong><code>template-teardown.json</code></strong> — before/after rewrites. The highest-converting format for anyone who sells words, positioning, design, or strategy. Show the weak version, show yours, name the rule.</li><li><strong><code>template-steps.json</code></strong> — a numbered method or framework. For teaching a repeatable process you want to be known for.</li><li><strong><code>template-story.json</code></strong> — a personal pivot or lesson. For the human pillar — the posts that build trust, not just reach.</li><li><strong><code>example-homepage-rewrite.json</code></strong> — a complete, shipped carousel you can read end to end to see the system working.</li></ul>
+
+<p>Each template is commented with where your words go. You change the copy, not the structure — the structure is what keeps every carousel on-brand.</p>
+
+<h3>Inline formatting</h3>
+
+<p>Inside any JSON copy field:</p>
+
+<ul><li><code>{{word}}</code> makes a word <strong>petal pink</strong> — your one emphasis per slide.</li><li><code><strong>phrase</strong></code> makes body copy <strong>bold</strong>.</li></ul>
+
+<p>That is the entire markup language. Two marks. Everything else is just writing.</p>
+
+<hr>
+
+<h2>How to Build</h2>
+
+<p>You need <a href="https://nodejs.org">Node.js</a> installed once. After that, every carousel is one command.</p>
+
+<ol><li>Duplicate a template and rename it — for example <code>content/linkedin/carousels/my-idea.json</code>.</li><li>Write your copy into the fields. One idea per slide. Keep it tight.</li><li>Run the build:</li></ol>
+
+<pre><code>npm run linkedin:carousel -- content/linkedin/carousels/my-idea.json
+<p></code></pre></p>
+
+<p>You get individual PNG slides and a LinkedIn-ready multi-page PDF in <code>output/linkedin/<slug>/</code>. Upload the PDF to LinkedIn as a document post, and the slides become a native swipeable carousel.</p>
+
+<p>No design tool. No subscription. No alignment wars. The same clean deck, every time, in the time it takes to write the words.</p>
+
+<hr>
+
+<h2>Ship It: The Posting Rhythm</h2>
+
+<p>A carousel kit is only an asset if it ships. Three rules keep it alive:</p>
+
+<ul><li><strong>One carousel a week beats four in a burst.</strong> The look compounds through repetition. Pick a day and defend it.</li><li><strong>Lead with the teardown format until people know you for it.</strong> A recognizable format is its own authority signal.</li><li><strong>Put the same CTA on every cover and last slide for a month.</strong> Repetition is how a "next move" becomes a habit in your reader.</li></ul>
+
+<blockquote>You will not out-discipline a blank canvas. Build the template once and let it carry the weeks your motivation doesn't show up.</blockquote>
+
+<hr>
+
+<h2>When You'd Rather Not</h2>
+
+<p>This kit is the do-it-yourself version of a managed service. If at any point you'd rather hand it off:</p>
+
+<ul><li><strong>The Social Suite</strong> — branded carousels, captions, and a full content engine, built and run for you every month.</li><li><strong>A Strategy Session</strong> — sixty minutes to map your authority angle, your pillars, and your first five carousel concepts together.</li></ul>
+
+<p>Both live at <strong>mkparrish.com</strong>. But you don't need either to start. You have the system in your hands. Write the one idea. Ship the swipe.</p>
+
 </div>
 
 <div class="print-notes">
-${notesHtml}
+
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">01</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">02</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">03</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">04</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">05</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">06</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">07</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">08</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">09</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">10</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">11</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">12</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">13</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">14</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">15</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Authority Carousel Kit: Turn One Idea Into a Scroll-Stopping LinkedIn Carousel</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">16</div>
+</section>
 </div>
 
 <div class="footer">
@@ -694,165 +819,4 @@ ${notesHtml}
 </div>
 
 </body>
-</html>`;
-}
-
-// ── Build individual file ──────────────────────────────────────────────────────
-
-function buildFile(srcPath, destPath, opts = {}) {
-  let raw = fs.readFileSync(srcPath, 'utf8');
-  // Pull the title from the first H1, then drop that line from the body so the
-  // cover carries the title instead of repeating it as the first heading.
-  const titleMatch = raw.match(/^# (.+)$/m);
-  const title = opts.title || (titleMatch ? titleMatch[1] : path.basename(srcPath, '.md'));
-  if (titleMatch) raw = raw.replace(/^# .+$\n?/m, '');
-
-  // Lift the cover front matter (subtitle + author/price) out of the body so it
-  // rides on the cover, the way the Reinvention Workbook does — unless the caller
-  // supplied it via opts. Only the block at the very top of the file is touched,
-  // so section dividers and emphasis deeper in the document are left alone.
-  let { subtitle = '', meta = '' } = opts;
-  let lifted = false;
-  const atTop = (i) => raw.slice(0, i).trim() === '';
-  if (!subtitle) {
-    const m = raw.match(/^\s*###\s+(.+?)\s*$/m);
-    if (m && atTop(m.index)) {
-      subtitle = m[1];
-      raw = raw.slice(0, m.index) + raw.slice(m.index + m[0].length);
-      lifted = true;
-    }
-  }
-  if (!meta) {
-    const bits = [];
-    const by = raw.match(/^\s*\*\*By ([^*]+?)\*\*\s*$/m);
-    if (by && atTop(by.index)) {
-      bits.push('By ' + by[1].trim());
-      raw = raw.slice(0, by.index) + raw.slice(by.index + by[0].length);
-      lifted = true;
-    }
-    const price = raw.match(/^\s*\*\*(?:Price:\s*)?(\$\d+)\*\*\s*$/m);
-    if (price && atTop(price.index)) {
-      bits.push(price[1]);
-      raw = raw.slice(0, price.index) + raw.slice(price.index + price[0].length);
-      lifted = true;
-    }
-    // Pattern B front matter — a leading block of "**Key:** value" lines
-    // (Format / Price / Length / Audience). Pull the price for the cover meta
-    // and strip the whole block so it doesn't leak into the body as gray text.
-    if (!bits.length) {
-      const metaBlock = raw.match(/^(?:[ \t]*\*\*[^*\n]+:\*\*[^\n]*\n?)+/m);
-      if (metaBlock && atTop(metaBlock.index)) {
-        const priceM = metaBlock[0].match(/\$\d[\d,]*/);
-        if (priceM) bits.push('By MK Parrish', priceM[0]);
-        raw = raw.slice(0, metaBlock.index) + raw.slice(metaBlock.index + metaBlock[0].length);
-        lifted = true;
-      }
-    }
-    if (bits.length) meta = bits.join(' · ');
-  }
-  // Remove the horizontal rule that used to divide the front matter from the body.
-  if (lifted) raw = raw.replace(/^\s*---\s*$\n?/m, '');
-
-  const bodyHtml = md(raw);
-  const html = wrap(title, bodyHtml, { ...opts, subtitle, meta });
-  fs.mkdirSync(path.dirname(destPath), { recursive: true });
-  fs.writeFileSync(destPath, html);
-  console.log(`  ✓  ${path.relative(ROOT, destPath)}`);
-}
-
-// ── Main ──────────────────────────────────────────────────────────────────────
-
-const EBOOKS = [
-  ['ebooks/reinvention-workbook.md',          'ebooks/reinvention-workbook.html', {
-    subtitle: 'A guided writing workbook for people in the middle of becoming someone new.',
-    meta:     'By MK Parrish · $18',
-  }],
-  ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
-  ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
-  ['ebooks/the-invisible-bruise.md',          'ebooks/the-invisible-bruise.html'],
-  ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
-  ['ebooks/scripture/the-study.md',           'ebooks/the-study.html'],
-  ['ebooks/scripture/gospel-and-grind.md',    'ebooks/gospel-and-grind.html'],
-  ['ebooks/scripture/the-sermon-notes.md',    'ebooks/the-sermon-notes.html'],
-  ['ebooks/scripture/the-calling-card.md',    'ebooks/the-calling-card.html'],
-  ['ebooks/scripture/ministry-monetized.md',  'ebooks/ministry-monetized.html'],
-];
-
-// Free lead magnets (the email-capture checklist, etc.) — flat in /downloads.
-const LEAD_MAGNETS = [
-  ['lead-magnets/positioning-checklist.md', 'positioning-checklist.html', { kicker: 'MK Parrish · Free Resource' }],
-];
-
-// Product bundles (The Vault, The Services Vault) — the "what's inside" intro
-// ebook that anchors each bundle. Flat in /downloads.
-const BUNDLES = [
-  ['bundles/the-vault.md',          'the-vault.html'],
-  ['bundles/the-services-vault.md', 'the-services-vault.html'],
-];
-
-const TEMPLATES = [
-  ['templates/the-edit-diy.md',            'templates/the-edit-diy.html'],
-  ['templates/before-the-session.md',      'templates/before-the-session.html'],
-  ['templates/the-rewrite-playbook.md',    'templates/the-rewrite-playbook.html'],
-  ['templates/the-new-chapter-workbook.md','templates/the-new-chapter-workbook.html'],
-  ['templates/the-byline-method.md',       'templates/the-byline-method.html'],
-  ['templates/the-build-copy-guide.md',    'templates/the-build-copy-guide.html'],
-  ['templates/the-social-strategy-playbook.md', 'templates/the-social-strategy-playbook.html'],
-  ['templates/the-prompt-vault.md',        'templates/the-prompt-vault.html'],
-  ['templates/the-linkedin-bio-fix-kit.md','templates/the-linkedin-bio-fix-kit.html'],
-  ['templates/the-authority-carousel-kit.md','templates/the-authority-carousel-kit.html'],
-];
-
-// Optional CLI filter: `node scripts/build-downloads.mjs reinvention` builds
-// only files whose source path contains the argument. No argument builds all.
-const only = process.argv[2];
-const pick = (list) => (only ? list.filter(([s]) => s.includes(only)) : list);
-
-console.log('\nBuilding ebooks...');
-for (const [src, dest, opts] of pick(EBOOKS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding lead magnets...');
-for (const [src, dest, opts] of pick(LEAD_MAGNETS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding bundles...');
-for (const [src, dest, opts] of pick(BUNDLES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding templates...');
-for (const [src, dest, opts] of pick(TEMPLATES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-// Course — assembled from its module files into one gold-standard document.
-if (!only || COURSE.slug.includes(only) || only === 'course') {
-  console.log('\nBuilding course...');
-  const html = wrap(COURSE.title, md(courseMarkdown(ROOT)), {
-    subtitle: COURSE.subtitle, meta: COURSE.meta, isCourse: true,
-  });
-  const dest = path.join(ROOT, 'public/downloads', `${COURSE.slug}.html`);
-  fs.writeFileSync(dest, html);
-  console.log(`  ✓  ${path.relative(ROOT, dest)}`);
-}
-
-console.log('\nDone. Files written to public/downloads/\n');
+</html>
