@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AuditMiniCard } from "@/app/components/AuditMiniCard";
 import InlineLeadCapture from "@/app/components/InlineLeadCapture";
 import LegacyOfferingsRedirect from "@/app/components/LegacyOfferingsRedirect";
-import { STRIPE_SESSION, SUBSTACK_URL } from "@/app/lib/config";
+import { SUBSTACK_URL } from "@/app/lib/config";
 
 export const metadata: Metadata = {
-  title: "MK Parrish — Growth Strategy, Websites & Messaging",
+  title: "MK Parrish | Growth Marketing, Positioning & Brand Strategy",
   description:
-    "MK Parrish builds sharper positioning, conversion websites, outbound, and demand systems that turn how B2B companies are seen into qualified pipeline.",
+    "Growth audits, positioning, website rewrites, outbound, and demand systems for founders, consultants, B2B SaaS teams, and growing companies.",
 };
 
 const paths = [
@@ -18,14 +19,15 @@ const paths = [
     price: "Projects from $250",
     desc: "For founders and growth teams who need a senior operator to find the leak, fix the message, and ship the work. Strategy and execution stay in one pair of hands.",
     bullets: [
+      "48-hour audit if you need the read before the rewrite",
       "Positioning and copy that make the value obvious",
       "Conversion websites designed and built end to end",
       "Outbound and demand systems tied to qualified pipeline",
     ],
     primaryHref: "/services#offerings",
     primaryLabel: "Explore Services",
-    secondaryHref: STRIPE_SESSION,
-    secondaryLabel: "Book The $300 Strategy Session",
+    secondaryHref: "/audit",
+    secondaryLabel: "Start With The $97 Audit",
     external: false,
   },
   {
@@ -85,10 +87,10 @@ export default function HomePage() {
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/book"
+              href="/audit"
               className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void"
             >
-              Book a Free Strategy Call →
+              Start With The $97 Audit →
             </Link>
             <Link
               href="/services#offerings"
@@ -98,12 +100,12 @@ export default function HomePage() {
             </Link>
           </div>
           <p className="mt-7 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-iron">
-            $40M+ pipeline influenced · Fortune 50 to growth-stage teams · No agency layers
+            $40M+ pipeline influenced · 20+ years across SaaS, media, consulting & technology · No agency layers
           </p>
         </div>
       </section>
 
-      <section className="bg-obsidian py-16 md:py-24">
+      <section id="offerings" className="bg-obsidian py-16 md:py-24">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="mb-10 max-w-3xl">
             <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Choose your level of help</p>
@@ -169,6 +171,21 @@ export default function HomePage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="bg-void py-16 md:py-24">
+        <div className="mx-auto grid max-w-[1400px] gap-8 px-6 lg:grid-cols-[1fr_360px] lg:px-10">
+          <div>
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Fastest paid entry point</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              Book the read before you buy the rewrite.
+            </h2>
+            <p className="mt-6 max-w-2xl font-body text-base font-light leading-8 text-smoke">
+              Send one page, profile, offer, or sales argument. I check the conversion path, message, funnel, and offer clarity, then send the practical fixes in 48 hours.
+            </p>
+          </div>
+          <AuditMiniCard />
         </div>
       </section>
 

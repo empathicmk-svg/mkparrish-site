@@ -8,6 +8,7 @@ import AuthorGlow from "@/app/components/AuthorGlow";
 
 const workLinks = [
   { label: "All Offerings",       href: "/#offerings" },
+  { label: "48-Hour Audit",       href: "/audit" },
   { label: "Web Design & Build",  href: "/studio" },
   { label: "Outbound & Growth",   href: "/growth" },
   { label: "Messaging & Copy",    href: "/brand" },
@@ -16,6 +17,7 @@ const workLinks = [
 ];
 
 const megaServices = [
+  { tag: "Async Audit",  title: "48-Hour Audit",      price: "$97",           desc: "A written read on your LinkedIn, website, offer, or sales page.", href: "/audit" },
   { tag: "Websites",     title: "The Build",          price: "From $6,000",    desc: "Conversion website — strategy, copy, design, and build, together.", href: "/#offerings" },
   { tag: "Outbound",     title: "The Outbound Engine", price: "From $2,500/mo", desc: "Cold email + LinkedIn that books qualified calls.", href: "/#offerings" },
   { tag: "Growth",       title: "Full-Funnel Growth", price: "From $6,500/mo", desc: "Demand through activation, run as one motion.", href: "/#offerings" },
@@ -37,6 +39,7 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
     label: "Work",
     links: [
       { label: "All Offerings",      href: "/#offerings" },
+      { label: "48-Hour Audit",      href: "/audit" },
       { label: "Web Design & Build", href: "/studio" },
       { label: "Outbound & Growth",  href: "/growth" },
       { label: "Messaging & Copy",   href: "/brand" },
@@ -341,10 +344,10 @@ export default function Nav() {
               The Shelf
             </Link>
             <Link
-              href="/book"
+              href="/audit"
               className="btn-primary px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void"
             >
-              Book a Call
+              Start Audit
             </Link>
           </div>
 
@@ -445,11 +448,11 @@ export default function Nav() {
               }}
             >
               <Link
-                href="/book"
+                href="/audit"
                 onClick={() => setMobileNav(false)}
                 className="btn-primary inline-flex justify-center px-5 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
               >
-                Book a Call
+                Start Audit
               </Link>
               <Link
                 href="/shelf"
@@ -520,11 +523,11 @@ export default function Nav() {
             </div>
 
             <Link
-              href="/book"
+              href="/audit"
               onClick={() => setMobileServices(false)}
               className="btn-primary mt-6 inline-flex w-full justify-center px-5 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
             >
-              Book a Free Strategy Call →
+              Start With The Audit →
             </Link>
           </div>
         </div>
@@ -573,14 +576,14 @@ export default function Nav() {
           </svg>
           Menu
         </button>
-        <Link href="/book" className="mobile-bottom-nav-book">
+        <Link href="/audit" className="mobile-bottom-nav-book">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <rect x="3" y="4" width="18" height="18" rx="2" />
             <line x1="16" y1="2" x2="16" y2="6" />
             <line x1="8" y1="2" x2="8" y2="6" />
             <line x1="3" y1="10" x2="21" y2="10" />
           </svg>
-          Book
+          Audit
         </Link>
       </nav>
 
