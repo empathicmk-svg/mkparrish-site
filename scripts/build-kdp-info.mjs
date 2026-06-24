@@ -216,6 +216,34 @@ Use it before a consulting session, before a brand audit, or anytime you need to
   },
   {
     type: 'Template',
+    slug: 'the-resume-rewrite-kit',
+    title: 'The Resume Rewrite Kit',
+    subtitle: 'Turn a quiet resume into a clear, specific case for why you belong in the room.',
+    price: '$18',
+    description: `A resume does not need to shout. It needs to make the right proof impossible to miss.
+
+The Resume Rewrite Kit is a self-guided resume positioning and bullet-writing workbook for professionals whose experience is stronger than the page currently suggests. MK Parrish walks readers through a resume audit, summary rewrite, achievement bank, bullet formulas, and proof-first editing passes that turn vague responsibilities into specific evidence.
+
+It is built for job seekers, career changers, operators, creatives, and anyone ready to stop making impressive work sound ordinary.`,
+    keywords: ['resume rewrite kit', 'resume bullet formulas', 'career change resume', 'professional resume template', 'achievement based resume', 'resume positioning', 'job search workbook'],
+    categories: ['Business & Money > Job Hunting & Careers', 'Business & Money > Skills', 'Reference > Writing Skills'],
+  },
+  {
+    type: 'Template',
+    slug: 'the-clean-resume-template',
+    title: 'The Clean Resume Template',
+    subtitle: 'An ATS-safe, human-readable resume layout with prompts built into every section.',
+    price: '$12',
+    description: `The best resume design gets out of the way.
+
+The Clean Resume Template is an ATS-safe, recruiter-friendly resume structure with writing prompts embedded into every section. It keeps the design quiet and the proof loud: a strong summary, scannable roles, measurable bullets, useful skills, and no decorative clutter that makes the reader work harder.
+
+Use it when the experience is there but the page needs to become easier to read, faster to understand, and harder to dismiss.`,
+    keywords: ['clean resume template', 'ATS resume template', 'one page resume layout', 'recruiter friendly resume', 'resume prompts', 'modern resume format', 'professional resume download'],
+    categories: ['Business & Money > Job Hunting & Careers', 'Business & Money > Skills', 'Reference > Writing Skills'],
+  },
+  {
+    type: 'Template',
     slug: 'the-rewrite-playbook',
     title: 'The Rewrite Playbook',
     subtitle: 'A self-guided LinkedIn and professional story overhaul.',

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { SUBSTACK_URL } from "@/app/lib/config";
+import { STRIPE_AUDIT, SUBSTACK_URL } from "@/app/lib/config";
 
 export default function LeadCapture() {
   const [visible, setVisible] = useState(false);
@@ -81,7 +81,7 @@ export default function LeadCapture() {
       onClick={(e) => { if (e.target === e.currentTarget) dismiss(); }}
     >
       <div
-        className="relative w-full max-w-[520px] bg-void border border-graphite"
+        className="relative max-h-[calc(100vh-2rem)] w-full max-w-[520px] overflow-y-auto border border-graphite bg-void"
         style={{
           transform: closing ? "translateY(20px) scale(0.97)" : "translateY(0) scale(1)",
           transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
@@ -103,19 +103,38 @@ export default function LeadCapture() {
           {!submitted ? (
             <>
               <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.35em] text-petal mb-5">
-                Free Resource
+                48-Hour Audit
               </p>
               <h2
                 className="font-display uppercase tracking-[0.02em] text-white leading-[0.9]"
                 style={{ fontSize: "clamp(2rem, 6vw, 3.2rem)" }}
               >
-                Stop Being<br />
-                <span className="text-petal">Misread.</span>
+                Get MK&apos;s Eyes<br />
+                <span className="text-petal">On Your Words.</span>
               </h2>
               <p className="mt-5 font-serif italic text-smoke leading-7" style={{ fontSize: "1rem" }}>
-                Get the free <strong className="text-pearl not-italic">Positioning Checklist</strong> — the 12-point audit I run on every client before we rewrite anything. Know exactly where your copy is losing people before you change a word.
+                Your bio, LinkedIn, or site is either opening doors or quietly closing them. Get a <strong className="text-pearl not-italic">48-hour positioning audit</strong>: a Loom teardown, a scorecard, and three rewritten headline directions.
               </p>
-              <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-3">
+              <div className="mt-6 grid gap-px bg-graphite sm:grid-cols-3">
+                {["Async Loom", "Scorecard", "3 rewrites"].map((item) => (
+                  <div key={item} className="bg-carbon px-3 py-3 text-center font-body text-[0.58rem] font-bold uppercase tracking-[0.18em] text-smoke">
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <a
+                href={STRIPE_AUDIT}
+                target="_blank"
+                rel="noreferrer"
+                onClick={dismiss}
+                className="btn-primary mt-7 flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+              >
+                Book the Audit — $97 →
+              </a>
+              <p className="mt-7 font-body text-[0.65rem] font-bold uppercase tracking-[0.22em] text-iron">
+                Not ready yet? Get the free positioning checklist.
+              </p>
+              <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-3">
                 <input
                   type="email"
                   required
@@ -129,14 +148,14 @@ export default function LeadCapture() {
                   disabled={loading}
                   className="btn-primary w-full py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {loading ? "Sending…" : "Send Me the Checklist →"}
+                  {loading ? "Sending…" : "Send the Free Checklist →"}
                 </button>
               </form>
               {error && (
                 <p className="mt-3 font-body text-[0.7rem] text-petal leading-5">{error}</p>
               )}
               <p className="mt-4 font-body text-[0.65rem] text-iron leading-5">
-                No spam. No pitch sequence. One email with the checklist. Unsubscribe any time.
+                The paid audit is the fastest path. The checklist is the free self-audit if you want to start quietly.
               </p>
 
               <div className="mt-8 border-t border-graphite pt-6 flex items-center justify-between">

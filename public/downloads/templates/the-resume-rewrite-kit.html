@@ -1,108 +1,9 @@
-#!/usr/bin/env node
-/**
- * Converts product markdown files into branded, self-contained HTML downloads
- * for Gumroad uploads. Run: node scripts/build-downloads.mjs
- */
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { COURSE, courseMarkdown } from './lib/course.mjs';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(__dirname, '..');
-
-// ── Markdown → HTML ──────────────────────────────────────────────────────────
-
-function md(src) {
-  let html = src
-    // escape stray html
-    .replace(/&(?!amp;|lt;|gt;|quot;|#)/g, '&amp;')
-    // tables
-    .replace(/^\|(.+)\|\n\|[-:| ]+\|\n((?:\|.+\|\n?)+)/gm, (_, head, body) => {
-      const th = head.split('|').filter(Boolean).map(c => `<th>${inline(c.trim())}</th>`).join('');
-      const rows = body.trim().split('\n').map(row =>
-        `<tr>${row.split('|').filter(Boolean).map(c => `<td>${inline(c.trim())}</td>`).join('')}</tr>`
-      ).join('\n');
-      return `<table><thead><tr>${th}</tr></thead><tbody>${rows}</tbody></table>\n`;
-    })
-    // fenced code blocks
-    .replace(/```[\w]*\n([\s\S]*?)```/gm, (_, code) =>
-      `<pre><code>${code.replace(/&amp;/g, '&').replace(/</g, '&lt;')}</code></pre>`)
-    // blockquotes
-    .replace(/^((?:> .+\n?)+)/gm, block => {
-      const inner = block.replace(/^> ?/gm, '').trim();
-      return `<blockquote>${inline(inner)}</blockquote>\n`;
-    })
-    // hr
-    .replace(/^---+$/gm, '<hr>')
-    // headings
-    .replace(/^### (.+)$/gm, (_, t) => `<h3>${inline(t)}</h3>`)
-    .replace(/^## (.+)$/gm,  (_, t) => `<h2>${inline(t)}</h2>`)
-    .replace(/^# (.+)$/gm,   (_, t) => `<h1>${inline(t)}</h1>`)
-    // unordered lists
-    .replace(/^((?:[*\-] .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^[*\-] /, ''))}</li>`).join('');
-      return `<ul>${items}</ul>\n`;
-    })
-    // ordered lists
-    .replace(/^((?:\d+\. .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^\d+\. /, ''))}</li>`).join('');
-      return `<ol>${items}</ol>\n`;
-    })
-    // paragraphs (lines not already wrapped)
-    .replace(/^(?!<[a-z]|$)(.+)$/gm, (_, line) => `<p>${inline(line)}</p>`);
-
-  return html;
-}
-
-function inline(s) {
-  return s
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,     '<em>$1</em>')
-    .replace(/`(.+?)`/g,       '<code>$1</code>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>');
-}
-
-// ── HTML template ─────────────────────────────────────────────────────────────
-// Mirrors the live site (mkparrish.com): Bebas Neue / Playfair Display / DM Sans
-// / JetBrains Mono on black × pink × white × grey, with pink-gradient rules,
-// text-glow, an outlined display word, mono section numbers, and a grain overlay.
-
-function wrap(title, bodyHtml, opts = {}) {
-  const { subtitle = '', kicker = 'MK Parrish · mkparrish.com', meta = '', accent = '#F2AFC6', isCourse = false } = opts;
-  const notesHtml = Array.from({ length: 16 }, (_, i) => `
-<section class="notes-page">
-  <div class="notes-kicker">MK Parrish · Working Notes</div>
-  <div class="notes-title">${title}</div>
-  <div class="notes-rule"></div>
-  <div class="notes-lines" aria-hidden="true"></div>
-  <div class="notes-page-number">${String(i + 1).padStart(2, '0')}</div>
-</section>`).join('');
-
-  // Split a "Title: subtitle" headline so the cover gets a punchy display line
-  // plus an italic serif descender, the way the live hero is set.
-  let coverTitle = title;
-  let coverSub = subtitle;
-  const colon = title.indexOf(':');
-  if (!coverSub && colon > 0) {
-    coverTitle = title.slice(0, colon).trim();
-    coverSub = title.slice(colon + 1).trim();
-  }
-  // Outline the final word of the cover title (the site's hero treatment).
-  const words = coverTitle.split(' ');
-  const lastWord = words.length > 1 ? words.pop() : '';
-  const coverTitleHtml = lastWord
-    ? `<span class="grad">${words.join(' ')}</span> <span class="outline">${lastWord}</span>`
-    : `<span class="grad">${coverTitle}</span>`;
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${title} — MK Parrish</title>
+<title>The Resume Rewrite Kit — MK Parrish</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -118,7 +19,7 @@ function wrap(title, bodyHtml, opts = {}) {
     --pearl: #F0F0EE;
     --white: #FAFAF8;
     --blush: #FFD6E4;
-    --petal: ${accent};
+    --petal: #F2AFC6;
     --rose: #E0869F;
     --carmine: #C75B78;
     --font-display: 'Bebas Neue', Impact, sans-serif;
@@ -344,7 +245,7 @@ function wrap(title, bodyHtml, opts = {}) {
     line-height: 1.6;
   }
   blockquote::before {
-    content: '\\201C';
+    content: '\201C';
     position: absolute;
     top: 0.08em;
     left: 0.14em;
@@ -667,25 +568,350 @@ function wrap(title, bodyHtml, opts = {}) {
 
 <div class="cover">
   <div class="cover-inner">
-    <div class="cover-kicker">${kicker}</div>
-    <h1>${coverTitleHtml}</h1>
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">The Resume Rewrite</span> <span class="outline">Kit</span></h1>
     <div class="cover-heart" aria-hidden="true">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" stroke="#FAFAF8" stroke-width="0.8"/>
       </svg>
     </div>
-    ${coverSub ? `<p class="subtitle">${coverSub}</p>` : ''}
+    <p class="subtitle">Turn a quiet resume into a clear, specific case for why you belong in the room.</p>
     <div class="cover-rule"></div>
-    ${meta ? `<div class="cover-meta">${meta}</div>` : ''}
+    <div class="cover-meta">By MK Parrish · $18</div>
   </div>
 </div>
 
 <div class="content">
-${bodyHtml}
+<h2>Why this exists</h2>
+
+<p>Most resumes are accurate and still not convincing.</p>
+
+<p>They list the job. They list the tools. They say "managed," "supported," "collaborated," and "responsible for" until every strong person sounds interchangeable with every other strong person. The work may be excellent. The page is not carrying it.</p>
+
+<p>This kit helps you rewrite the resume like a case. Not a biography. Not a keyword dump. A case.</p>
+
+<blockquote>Your resume is not the archive of everything you did. It is the argument for why the next room should open.</blockquote>
+
+<p>Use this when the experience is there but the language is not. Work in order. The audit finds the proof. The bank gives you raw material. The formulas turn it into bullets. The final checklist makes it clean enough for a human and structured enough for a system.</p>
+
+<hr>
+
+<h2>Part 1 - The Resume Positioning Audit</h2>
+
+<p>Before you rewrite a line, name the job the resume is trying to win.</p>
+
+<pre><code>TARGET ROLE:
+<p>  The role I want next: ______________________________</p>
+<p>  The level/seniority I am aiming for: ________________</p>
+<p>  The industry or company type I want: ________________</p>
+<p>  The three skills this role must believe I have:</p>
+<p>    1. __________________</p>
+<p>    2. __________________</p>
+<p>    3. __________________</p>
+
+<p>MY EDGE:</p>
+<p>  The problem I am unusually good at solving: __________</p>
+<p>  The kind of team or environment where I do my best work:</p>
+<p>  ______________________________________________________</p>
+<p>  The result people can trust me to create: ____________</p>
+<p></code></pre></p>
+
+<h3>The one-sentence position</h3>
+
+<p>Fill this in before editing the resume.</p>
+
+<pre><code>I am a [ROLE / IDENTITY] who helps [TEAM / COMPANY / CUSTOMER]
+<p>achieve [OUTCOME] by [DISTINCT STRENGTH / APPROACH].</p>
+<p></code></pre></p>
+
+<p>Examples:</p>
+
+<ul><li>I am an operations leader who helps growing teams turn messy processes into systems people actually use.</li><li>I am a product marketer who turns customer insight into launches that sales teams can explain.</li><li>I am a creative project manager who keeps ambitious work moving without making everyone live in chaos.</li></ul>
+
+<p>That sentence does not have to appear on the resume. It is the ruler. Every bullet should support it.</p>
+
+<hr>
+
+<h2>Part 2 - The Achievement Bank</h2>
+
+<p>A weak resume usually means the proof is still in your head. Pull it out before you format anything.</p>
+
+<p>For each role, answer these prompts.</p>
+
+<pre><code>ROLE:
+<p>  What was broken, unclear, slow, expensive, or risky when I arrived?</p>
+
+<p>  What did I build, fix, lead, write, launch, save, clean up, or improve?</p>
+
+<p>  Who depended on the work?</p>
+
+<p>  What changed because I did it?</p>
+
+<p>  What number, name, timeline, scale, audience, or scope proves it?</p>
+
+<p>  What did I do that someone else might not have done?</p>
+<p></code></pre></p>
+
+<h3>Proof types to hunt for</h3>
+
+<ul><li>Revenue created or protected</li><li>Costs reduced</li><li>Time saved</li><li>Error rate reduced</li><li>Team size, budget, project scope, or audience size</li><li>Launches shipped</li><li>Systems created</li><li>Stakeholders aligned</li><li>Customers served</li><li>Risk removed</li><li>Quality improved</li><li>Process adopted by other teams</li></ul>
+
+<p>If you do not have a number, use scope. If you do not have scope, use stakes. If you do not have stakes, name the before and after.</p>
+
+<p>Weak proof: "Managed social media."</p>
+
+<p>Better proof: "Owned weekly content calendar across Instagram, LinkedIn, and email for a 12-person team, turning scattered requests into a repeatable publishing system."</p>
+
+<p>Best proof: "Built a weekly content system across Instagram, LinkedIn, and email that cut last-minute requests by 40% and gave a 12-person team one source of truth."</p>
+
+<hr>
+
+<h2>Part 3 - The Bullet Formula</h2>
+
+<p>Most resume bullets are too small because they stop at the task. Use this instead:</p>
+
+<pre><code>ACTION + SCOPE + OUTCOME
+<p></code></pre></p>
+
+<p>Or:</p>
+
+<pre><code>BUILT / LED / FIXED [THING] for [WHO / WHAT SCALE],
+<p>resulting in [OUTCOME / PROOF].</p>
+<p></code></pre></p>
+
+<h3>The stronger verb list</h3>
+
+<p>Use verbs that show ownership and consequence:</p>
+
+<ul><li>Built</li><li>Led</li><li>Rebuilt</li><li>Launched</li><li>Designed</li><li>Simplified</li><li>Translated</li><li>Increased</li><li>Reduced</li><li>Protected</li><li>Consolidated</li><li>Operationalized</li><li>Turned</li><li>Created</li><li>Drove</li><li>Clarified</li><li>Shipped</li><li>Negotiated</li><li>Resolved</li><li>Introduced</li></ul>
+
+<p>Avoid starting every bullet with "Responsible for." Responsibility is not proof. Change is proof.</p>
+
+<h3>Before and after examples</h3>
+
+<p><strong>Before:</strong> Responsible for onboarding new hires.</p>
+
+<p><strong>After:</strong> Rebuilt new-hire onboarding into a 30-day checklist and manager handoff system, cutting repeated training questions and helping new teammates ramp faster.</p>
+
+<p><strong>Before:</strong> Managed client communications.</p>
+
+<p><strong>After:</strong> Owned client communication across 18 active accounts, translating project updates into clear next steps and reducing status-call churn.</p>
+
+<p><strong>Before:</strong> Helped with marketing campaigns.</p>
+
+<p><strong>After:</strong> Supported three product campaigns from brief to launch, coordinating copy, creative, and reporting so the team shipped on deadline.</p>
+
+<p><strong>Before:</strong> Created reports for leadership.</p>
+
+<p><strong>After:</strong> Built weekly leadership reporting that surfaced risk, blockers, and revenue movement in one page instead of five disconnected spreadsheets.</p>
+
+<hr>
+
+<h2>Part 4 - The Summary Rewrite</h2>
+
+<p>Your summary is not a paragraph about being hard-working. It is a fast orientation for the reader.</p>
+
+<p>Use this structure:</p>
+
+<pre><code>[ROLE / IDENTITY] with [YEARS OR DEPTH] in [FIELD / CONTEXT].
+<p>Known for [DISTINCT STRENGTH] and [SPECIFIC OUTCOME].</p>
+<p>Strongest in [ENVIRONMENT / PROBLEM TYPE].</p>
+<p></code></pre></p>
+
+<p>Examples:</p>
+
+<pre><code>Operations manager with 7+ years in fast-moving startup and agency environments.
+<p>Known for turning unclear processes into systems teams actually follow.</p>
+<p>Strongest where growth has created too much manual work and nobody owns the cleanup yet.</p>
+<p></code></pre></p>
+
+<pre><code>Product marketing lead with a background in customer research, launch strategy,
+<p>and sales enablement. Known for translating complex products into language buyers</p>
+<p>understand. Strongest in B2B teams where the product is better than the story</p>
+<p>around it.</p>
+<p></code></pre></p>
+
+<p>Keep it under five lines. The point is not to explain your whole life. The point is to make the rest of the page easier to read.</p>
+
+<hr>
+
+<h2>Part 5 - The Experience Section</h2>
+
+<p>Each role should do three things:</p>
+
+<ol><li>Show what kind of problem you handled.</li><li>Show the scope of your ownership.</li><li>Show what changed.</li></ol>
+
+<p>Use this layout:</p>
+
+<pre><code>ROLE TITLE
+<p>Company | Location or Remote | Dates</p>
+
+<p>One-line context: what the company/team did, what you owned, or why the role mattered.</p>
+
+<ul><li>Bullet 1: biggest outcome</li><li>Bullet 2: strongest scope</li><li>Bullet 3: proof of leadership, systems, collaboration, or judgment</li><li>Bullet 4: optional technical/tool/process detail if relevant</li></ul>
+<p></code></pre></p>
+
+<h3>The one-line context</h3>
+
+<p>Add this only when the company or role is not self-explanatory.</p>
+
+<p>Examples:</p>
+
+<ul><li>Joined a 40-person SaaS company during a sales-led growth push and owned lifecycle campaign operations.</li><li>Supported a founder-led creative studio with project management, client communication, and production workflows.</li><li>Led operations for a regional nonprofit serving 3,000+ families annually.</li></ul>
+
+<p>Context helps the reader understand why the bullets matter.</p>
+
+<hr>
+
+<h2>Part 6 - The Skills Section</h2>
+
+<p>A skills section should help search and scanning. It should not become a junk drawer.</p>
+
+<p>Group skills by use:</p>
+
+<pre><code>Strategy: Positioning, customer research, go-to-market planning, messaging
+<p>Operations: Process design, onboarding, reporting, vendor coordination</p>
+<p>Tools: HubSpot, Airtable, Notion, Asana, Google Analytics, Figma</p>
+<p></code></pre></p>
+
+<p>Only include a tool if you can speak to how you used it. A resume is not a wish list.</p>
+
+<hr>
+
+<h2>Part 7 - The Final Polish Checklist</h2>
+
+<p>Run this before sending.</p>
+
+<ul><li>[ ] The top third of the page makes the target role obvious.</li><li>[ ] Every bullet starts with a strong verb.</li><li>[ ] No bullet is only a task. Each one includes scope, outcome, or stakes.</li><li>[ ] The strongest proof appears first under each role.</li><li>[ ] The summary is under five lines.</li><li>[ ] The skills section is grouped, not dumped.</li><li>[ ] Dates, titles, punctuation, and spacing are consistent.</li><li>[ ] There are no orphan bullets with one or two words on a final line.</li><li>[ ] The file name is clean: <code>First-Last-Resume.pdf</code>.</li><li>[ ] The resume can be skimmed in ten seconds and still tell a clear story.</li></ul>
+
+<hr>
+
+<h2>The 20-Minute Rewrite Sprint</h2>
+
+<p>If you are short on time, do this.</p>
+
+<ol><li>Write the one-sentence position.</li><li>Pick your three strongest achievements.</li><li>Rewrite the top three bullets using ACTION + SCOPE + OUTCOME.</li><li>Rewrite the summary so it points toward the role you want.</li><li>Cut every "responsible for."</li><li>Save as PDF.</li></ol>
+
+<p>That is not the final version. It is the version that stops actively underselling you.</p>
+
+<p><em>MK Parrish · mkparrish.com</em></p>
+
 </div>
 
 <div class="print-notes">
-${notesHtml}
+
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">01</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">02</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">03</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">04</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">05</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">06</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">07</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">08</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">09</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">10</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">11</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">12</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">13</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">14</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">15</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Resume Rewrite Kit</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">16</div>
+</section>
 </div>
 
 <div class="footer">
@@ -694,167 +920,4 @@ ${notesHtml}
 </div>
 
 </body>
-</html>`;
-}
-
-// ── Build individual file ──────────────────────────────────────────────────────
-
-function buildFile(srcPath, destPath, opts = {}) {
-  let raw = fs.readFileSync(srcPath, 'utf8');
-  // Pull the title from the first H1, then drop that line from the body so the
-  // cover carries the title instead of repeating it as the first heading.
-  const titleMatch = raw.match(/^# (.+)$/m);
-  const title = opts.title || (titleMatch ? titleMatch[1] : path.basename(srcPath, '.md'));
-  if (titleMatch) raw = raw.replace(/^# .+$\n?/m, '');
-
-  // Lift the cover front matter (subtitle + author/price) out of the body so it
-  // rides on the cover, the way the Reinvention Workbook does — unless the caller
-  // supplied it via opts. Only the block at the very top of the file is touched,
-  // so section dividers and emphasis deeper in the document are left alone.
-  let { subtitle = '', meta = '' } = opts;
-  let lifted = false;
-  const atTop = (i) => raw.slice(0, i).trim() === '';
-  if (!subtitle) {
-    const m = raw.match(/^\s*###\s+(.+?)\s*$/m);
-    if (m && atTop(m.index)) {
-      subtitle = m[1];
-      raw = raw.slice(0, m.index) + raw.slice(m.index + m[0].length);
-      lifted = true;
-    }
-  }
-  if (!meta) {
-    const bits = [];
-    const by = raw.match(/^\s*\*\*By ([^*]+?)\*\*\s*$/m);
-    if (by && atTop(by.index)) {
-      bits.push('By ' + by[1].trim());
-      raw = raw.slice(0, by.index) + raw.slice(by.index + by[0].length);
-      lifted = true;
-    }
-    const price = raw.match(/^\s*\*\*(?:Price:\s*)?(\$\d+)\*\*\s*$/m);
-    if (price && atTop(price.index)) {
-      bits.push(price[1]);
-      raw = raw.slice(0, price.index) + raw.slice(price.index + price[0].length);
-      lifted = true;
-    }
-    // Pattern B front matter — a leading block of "**Key:** value" lines
-    // (Format / Price / Length / Audience). Pull the price for the cover meta
-    // and strip the whole block so it doesn't leak into the body as gray text.
-    if (!bits.length) {
-      const metaBlock = raw.match(/^(?:[ \t]*\*\*[^*\n]+:\*\*[^\n]*\n?)+/m);
-      if (metaBlock && atTop(metaBlock.index)) {
-        const priceM = metaBlock[0].match(/\$\d[\d,]*/);
-        if (priceM) bits.push('By MK Parrish', priceM[0]);
-        raw = raw.slice(0, metaBlock.index) + raw.slice(metaBlock.index + metaBlock[0].length);
-        lifted = true;
-      }
-    }
-    if (bits.length) meta = bits.join(' · ');
-  }
-  // Remove the horizontal rule that used to divide the front matter from the body.
-  if (lifted) raw = raw.replace(/^\s*---\s*$\n?/m, '');
-
-  const bodyHtml = md(raw);
-  const html = wrap(title, bodyHtml, { ...opts, subtitle, meta });
-  fs.mkdirSync(path.dirname(destPath), { recursive: true });
-  fs.writeFileSync(destPath, html);
-  console.log(`  ✓  ${path.relative(ROOT, destPath)}`);
-}
-
-// ── Main ──────────────────────────────────────────────────────────────────────
-
-const EBOOKS = [
-  ['ebooks/reinvention-workbook.md',          'ebooks/reinvention-workbook.html', {
-    subtitle: 'A guided writing workbook for people in the middle of becoming someone new.',
-    meta:     'By MK Parrish · $18',
-  }],
-  ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
-  ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
-  ['ebooks/the-invisible-bruise.md',          'ebooks/the-invisible-bruise.html'],
-  ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
-  ['ebooks/scripture/the-study.md',           'ebooks/the-study.html'],
-  ['ebooks/scripture/gospel-and-grind.md',    'ebooks/gospel-and-grind.html'],
-  ['ebooks/scripture/the-sermon-notes.md',    'ebooks/the-sermon-notes.html'],
-  ['ebooks/scripture/the-calling-card.md',    'ebooks/the-calling-card.html'],
-  ['ebooks/scripture/ministry-monetized.md',  'ebooks/ministry-monetized.html'],
-];
-
-// Free lead magnets (the email-capture checklist, etc.) — flat in /downloads.
-const LEAD_MAGNETS = [
-  ['lead-magnets/positioning-checklist.md', 'positioning-checklist.html', { kicker: 'MK Parrish · Free Resource' }],
-];
-
-// Product bundles (The Vault, The Services Vault) — the "what's inside" intro
-// ebook that anchors each bundle. Flat in /downloads.
-const BUNDLES = [
-  ['bundles/the-vault.md',          'the-vault.html'],
-  ['bundles/the-services-vault.md', 'the-services-vault.html'],
-];
-
-const TEMPLATES = [
-  ['templates/the-edit-diy.md',            'templates/the-edit-diy.html'],
-  ['templates/before-the-session.md',      'templates/before-the-session.html'],
-  ['templates/the-rewrite-playbook.md',    'templates/the-rewrite-playbook.html'],
-  ['templates/the-new-chapter-workbook.md','templates/the-new-chapter-workbook.html'],
-  ['templates/the-byline-method.md',       'templates/the-byline-method.html'],
-  ['templates/the-build-copy-guide.md',    'templates/the-build-copy-guide.html'],
-  ['templates/the-social-strategy-playbook.md', 'templates/the-social-strategy-playbook.html'],
-  ['templates/the-prompt-vault.md',        'templates/the-prompt-vault.html'],
-  ['templates/the-linkedin-bio-fix-kit.md','templates/the-linkedin-bio-fix-kit.html'],
-  ['templates/the-resume-rewrite-kit.md',  'templates/the-resume-rewrite-kit.html'],
-  ['templates/the-clean-resume-template.md','templates/the-clean-resume-template.html'],
-  ['templates/the-authority-carousel-kit.md','templates/the-authority-carousel-kit.html'],
-];
-
-// Optional CLI filter: `node scripts/build-downloads.mjs reinvention` builds
-// only files whose source path contains the argument. No argument builds all.
-const only = process.argv[2];
-const pick = (list) => (only ? list.filter(([s]) => s.includes(only)) : list);
-
-console.log('\nBuilding ebooks...');
-for (const [src, dest, opts] of pick(EBOOKS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding lead magnets...');
-for (const [src, dest, opts] of pick(LEAD_MAGNETS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding bundles...');
-for (const [src, dest, opts] of pick(BUNDLES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding templates...');
-for (const [src, dest, opts] of pick(TEMPLATES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-// Course — assembled from its module files into one gold-standard document.
-if (!only || COURSE.slug.includes(only) || only === 'course') {
-  console.log('\nBuilding course...');
-  const html = wrap(COURSE.title, md(courseMarkdown(ROOT)), {
-    subtitle: COURSE.subtitle, meta: COURSE.meta, isCourse: true,
-  });
-  const dest = path.join(ROOT, 'public/downloads', `${COURSE.slug}.html`);
-  fs.writeFileSync(dest, html);
-  console.log(`  ✓  ${path.relative(ROOT, dest)}`);
-}
-
-console.log('\nDone. Files written to public/downloads/\n');
+</html>
