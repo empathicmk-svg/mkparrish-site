@@ -11,7 +11,8 @@
     "social": "node scripts/social/generate.mjs",
     "social:carousel": "node scripts/social/generate-carousel.mjs",
     "social:video": "node scripts/social/generate-video.mjs",
-    "social:all": "npm run social && npm run social:carousel && npm run social:video"
+    "social:all": "npm run social && npm run social:carousel && npm run social:video",
+    "lead-magnet": "node scripts/lead-magnet/build.mjs"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
