@@ -61,6 +61,24 @@ export const SOCIALS = [
 // ── All ebooks / digital products (used by shop page) ────────────────────────
 export const EBOOKS = [
   {
+    slug:      "the-bio-teardown",
+    title:     "The Bio Teardown",
+    subtitle:  "5 LinkedIn headlines, rewritten — and the one formula behind every fix.",
+    price:     "Free",
+    tag:       "Free · Start Here",
+    highlight: true,
+    free:      true,
+    download:  "/downloads/lead-magnets/the-bio-teardown.pdf",
+    href:      "/shop/the-bio-teardown",
+    features:  [
+      "5 real before/after headline rewrites",
+      "The WHO → OUTCOME → EDGE formula",
+      "A quick win you can copy in 5 minutes",
+      "Instant free download — no payment",
+    ],
+    desc: "The free front door to the Shelf. Five LinkedIn headlines torn down and rewritten, plus the single formula behind every fix — then the 15-minute path to fixing your whole profile.",
+  },
+  {
     slug:      "the-linkedin-bio-fix-kit",
     title:     "The LinkedIn Bio Fix Kit",
     subtitle:  "Fix the first thing everyone reads about you — in fifteen minutes.",
