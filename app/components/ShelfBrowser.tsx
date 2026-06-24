@@ -87,32 +87,34 @@ function Card({ p }: { p: BrowseItem }) {
       </Link>
 
       <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-iron">{p.tag}</p>
-      <h3 className="mt-2 min-h-[3.5rem] font-display text-2xl uppercase leading-tight tracking-[0.02em] text-pearl">{p.title}</h3>
-      <p className="mt-2 flex items-baseline gap-2 font-display text-4xl text-white">
-        {isFree ? "Free" : p.price}
+      <h3 className="mt-2 line-clamp-3 min-h-[5rem] font-display text-2xl uppercase leading-tight tracking-[0.02em] text-pearl">{p.title}</h3>
+      <p className="mt-2 flex min-h-12 items-baseline gap-2 font-display text-4xl text-white">
+        <span className="leading-none">{isFree ? "Free" : p.price}</span>
         {limitedFree && (
-          <span className="align-middle font-body text-base font-light text-iron line-through">{p.price}</span>
+          <span className="align-middle font-body text-base font-light leading-none text-iron line-through">{p.price}</span>
         )}
         {!isFree && p.compareAt && (
-          <span className="font-body text-base font-light text-iron line-through">{p.compareAt}</span>
+          <span className="font-body text-base font-light leading-none text-iron line-through">{p.compareAt}</span>
         )}
       </p>
-      {save > 0 && (
-        <p className="mt-1 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-petal">
-          Save ${save} vs. buying separately
-        </p>
-      )}
-      <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
-      <ul className="mt-5 space-y-2">
+      <div className="mt-1 min-h-[1.25rem]">
+        {save > 0 && (
+          <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-petal">
+            Save ${save} vs. buying separately
+          </p>
+        )}
+      </div>
+      <p className="mt-4 line-clamp-4 min-h-[7rem] font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
+      <ul className="mt-5 min-h-[6.5rem] space-y-2">
         {p.features.slice(0, 3).map((f) => (
           <li key={f} className="flex gap-3 font-body text-xs font-light leading-6 text-iron">
             <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
-            {f}
+            <span className="line-clamp-2">{f}</span>
           </li>
         ))}
       </ul>
 
-      <div className="mt-7 space-y-2">
+      <div className="mt-auto space-y-2 pt-7">
         {p.comingSoon ? (
           <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
             Coming Soon

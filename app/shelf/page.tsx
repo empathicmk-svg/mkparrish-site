@@ -159,7 +159,7 @@ export default function ShelfPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <BtnPrimary href="#browse">Shop the Shelf</BtnPrimary>
-            <BtnGhost href="#print-shop">Shop the Print Shop</BtnGhost>
+            <BtnGhost href="#print-shop-studio">Shop the Print Shop</BtnGhost>
           </div>
           <div className="mt-8 flex flex-wrap gap-6">
             {["Instant download", "Secure checkout", "Yours to keep"].map((t) => (
@@ -322,14 +322,27 @@ export default function ShelfPage() {
         <Eyebrow>The Print Shop</Eyebrow>
         <H2>The words,{" "}<span className="text-petal">on your wall.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "58ch" }}>
-          Original MK lines, quote-page proofs, and custom typographic prints. Same shelf styling, same sharp fonts, now built for the wall instead of the download folder.
+          Start with a proof, change the line, and send it to MK before anything gets printed. The mockups are built from the same customizer system: Bebas Neue, Playfair Display, DM Sans, petal pink, and carbon grey.
         </p>
-        <div className="mt-12 grid auto-rows-fr gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
+        <PrintShopCustomizer contactEmail={CONTACT.email} products={PRINT_SHOP_PRODUCTS} />
+        <div className="mt-12 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-petal">
+              Shop The Proofs
+            </p>
+            <p className="mt-2 font-body text-sm font-light leading-6 text-smoke">
+              Ready-made starting points, displayed with the same card styling as the ebooks.
+            </p>
+          </div>
+          <a href="#print-shop-studio" className="font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:text-petal">
+            Customize first ↑
+          </a>
+        </div>
+        <div className="mt-6 grid auto-rows-fr gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
           {PRINT_SHOP_PRODUCTS.map((product) => (
             <PrintShopCard key={product.slug} product={product} />
           ))}
         </div>
-        <PrintShopCustomizer contactEmail={CONTACT.email} />
       </RevealSection>
 
       <QuoteDivider index={17} />

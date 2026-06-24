@@ -1,22 +1,13 @@
+#!/usr/bin/env node
 import fs from "node:fs/promises";
+import { existsSync } from "node:fs";
 import path from "node:path";
-import sharp from "sharp";
+import puppeteer from "puppeteer";
+import { FONT_CSS } from "./social/fonts.mjs";
 
 const ROOT = process.cwd();
 const COVER_DIR = path.join(ROOT, "public", "downloads", "covers");
-const FONT_DIR = path.join(ROOT, "scripts", "assets", "fonts");
-
-const palette = {
-  void: "#07070a",
-  obsidian: "#0d0d11",
-  carbon: "#15151b",
-  graphite: "#2a2a31",
-  petal: "#f2afc6",
-  blush: "#ffd7ed",
-  pearl: "#fff7fb",
-  smoke: "#b8bbc4",
-  iron: "#737782",
-};
+const SYSTEM_CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 const prints = [
   {
@@ -24,53 +15,46 @@ const prints = [
     title: "Promise Me",
     line: "Promise me you will not abandon yourself again.",
     byline: "Original MK Parrish line",
-    style: "serif",
   },
   {
     slug: "the-rewrite-print",
     title: "The Rewrite",
     line: "I picked up the pen and felt the world shift.",
     byline: "Original MK Parrish poem",
-    style: "serif",
   },
   {
     slug: "selected-lines",
     title: "Selected Lines",
     line: "The page is still yours.",
     byline: "Original MK Parrish line",
-    style: "display",
   },
   {
     slug: "live-out-loud-print",
     title: "Live Out Loud",
     line: "I am here to live out loud.",
     byline: "Quote page proof / Emile Zola",
-    style: "display",
   },
   {
     slug: "not-afraid-of-storms-print",
     title: "Not Afraid of Storms",
     line: "I am not afraid of storms.",
     byline: "Quote page proof / Louisa May Alcott",
-    style: "serif",
   },
   {
     slug: "never-too-late-print",
     title: "Never Too Late",
     line: "It is never too late.",
     byline: "Quote page proof / George Eliot",
-    style: "display",
   },
   {
     slug: "custom-quote-print",
     title: "Custom Quote Print",
     line: "Your words here.",
     byline: "Custom proof builder",
-    style: "serif",
   },
 ];
 
-function escapeXml(value) {
+function escapeHtml(value) {
   return value
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -78,97 +62,221 @@ function escapeXml(value) {
     .replaceAll('"', "&quot;");
 }
 
-function wrapWords(text, maxLength) {
-  return text.split(" ").reduce((lines, word) => {
-    const current = lines[lines.length - 1] ?? "";
-    if (`${current} ${word}`.trim().length > maxLength) lines.push(word);
-    else lines[lines.length - 1] = `${current} ${word}`.trim();
-    return lines;
-  }, [""]);
+function titleSize(title) {
+  if (title.length <= 12) return 178;
+  if (title.length <= 18) return 156;
+  return 136;
 }
 
-function tspans(lines, x, dy) {
-  return lines
-    .map((line, index) => `<tspan x="${x}" dy="${index === 0 ? 0 : dy}">${escapeXml(line)}</tspan>`)
-    .join("");
+function quoteSize(line) {
+  if (line.length <= 18) return 116;
+  if (line.length <= 30) return 102;
+  if (line.length <= 44) return 88;
+  return 78;
 }
 
-async function fontFace({ family, file, style = "normal", weight = "400" }) {
-  const data = await fs.readFile(path.join(FONT_DIR, file));
-  return `
-@font-face {
-  font-family: '${family}';
-  font-style: ${style};
-  font-weight: ${weight};
-  src: url(data:font/truetype;base64,${data.toString("base64")}) format('truetype');
-}`;
+function mockupHtml(print) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+${FONT_CSS}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --color-void: #080808;
+  --color-obsidian: #111111;
+  --color-carbon: #1A1A1A;
+  --color-graphite: #2C2C2C;
+  --color-iron: #4A4A4A;
+  --color-ash: #7A7A7A;
+  --color-smoke: #B0B0B0;
+  --color-pearl: #F0F0EE;
+  --color-white: #FAFAF8;
+  --color-blush: #FFD6E4;
+  --color-petal: #F2AFC6;
+  --font-display: "Bebas Neue", "Anton", Impact, sans-serif;
+  --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-body: "DM Sans", "Inter", system-ui, sans-serif;
 }
-
-async function fontCss() {
-  return [
-    await fontFace({ family: "Bebas Neue", file: "BebasNeue.ttf" }),
-    await fontFace({ family: "Playfair Display", file: "PlayfairDisplay.ttf", weight: "700" }),
-    await fontFace({ family: "Playfair Display", file: "PlayfairItalic.ttf", style: "italic", weight: "700" }),
-    await fontFace({ family: "DM Sans", file: "DMSans.ttf", weight: "400" }),
-  ].join("\n");
+html,
+body {
+  width: 1600px;
+  height: 2560px;
+  overflow: hidden;
 }
-
-function mockupSvg(print, fontCss) {
-  const width = 1600;
-  const height = 2560;
-  const lines = wrapWords(print.line, print.style === "display" ? 13 : 18);
-  const isDisplay = print.style === "display";
-  const lineHeight = isDisplay ? 152 : 140;
-  const fontSize = isDisplay ? 168 : 124;
-  const quoteY = Math.round(height / 2 - ((lines.length - 1) * lineHeight + fontSize) / 2 + fontSize * 0.78);
-  const titleLines = wrapWords(print.title.toUpperCase(), 12);
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXml(print.title)} print mockup">
-  <defs>
-    <style><![CDATA[
-${fontCss}
-    ]]></style>
-    <radialGradient id="petalWash" cx="50%" cy="38%" r="62%">
-      <stop offset="0" stop-color="${palette.petal}" stop-opacity="0.24"/>
-      <stop offset="0.44" stop-color="${palette.petal}" stop-opacity="0.08"/>
-      <stop offset="1" stop-color="${palette.void}" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0" stop-color="#141419"/>
-      <stop offset="0.48" stop-color="#0e0e12"/>
-      <stop offset="1" stop-color="#1a1a20"/>
-    </linearGradient>
-    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="34" stdDeviation="44" flood-color="#000000" flood-opacity="0.62"/>
-    </filter>
-  </defs>
-  <rect width="100%" height="100%" fill="${palette.void}"/>
-  <rect width="100%" height="100%" fill="url(#petalWash)"/>
-  <rect x="136" y="150" width="1328" height="2260" fill="url(#paper)" stroke="${palette.graphite}" stroke-width="2" filter="url(#softShadow)"/>
-  <rect x="192" y="214" width="1216" height="2132" fill="none" stroke="${palette.petal}" stroke-opacity="0.16" stroke-width="2"/>
-  <text x="800" y="330" font-family="'DM Sans', Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="8" text-anchor="middle" fill="${palette.iron}">MK PARRISH PRINT SHOP</text>
-  <text x="800" y="560" font-family="'Bebas Neue', 'Arial Narrow', Arial, sans-serif" font-size="132" font-weight="400" letter-spacing="6" text-anchor="middle" fill="${palette.pearl}">
-    ${tspans(titleLines, 800, 126)}
-  </text>
-  <line x1="520" x2="1080" y1="760" y2="760" stroke="${palette.petal}" stroke-width="3" opacity="0.7"/>
-  <text x="800" y="${quoteY}" font-family="${isDisplay ? "'Bebas Neue', 'Arial Narrow', Arial, sans-serif" : "'Playfair Display', Georgia, serif"}" font-size="${fontSize}" font-weight="${isDisplay ? 400 : 700}" ${isDisplay ? 'letter-spacing="7"' : 'font-style="italic"'} text-anchor="middle" fill="${isDisplay ? palette.pearl : palette.blush}">
-    ${tspans(lines, 800, lineHeight)}
-  </text>
-  <line x1="600" x2="1000" y1="1780" y2="1780" stroke="${palette.petal}" stroke-width="3" opacity="0.58"/>
-  <text x="800" y="1910" font-family="'DM Sans', Arial, sans-serif" font-size="38" font-weight="300" text-anchor="middle" fill="${palette.smoke}">${escapeXml(print.byline)}</text>
-  <text x="800" y="2210" font-family="'DM Sans', Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="7" text-anchor="middle" fill="${palette.iron}">5x7 / 8x10 / 11x14 / 16x20</text>
-</svg>`;
+body {
+  background: #202020;
+  color: var(--color-pearl);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+.font-serif {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.15;
+}
+.font-body {
+  font-family: var(--font-body);
+}
+.cover {
+  position: relative;
+  width: 1600px;
+  height: 2560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 156px 150px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 88% 48% at 50% -8%, rgba(242, 175, 198, 0.16), transparent 62%),
+    radial-gradient(ellipse 64% 42% at 108% 108%, rgba(122, 122, 122, 0.22), transparent 62%),
+    linear-gradient(180deg, #262626 0%, #202020 46%, var(--color-carbon) 100%);
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+.cover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-iron), var(--color-petal) 50%, var(--color-blush));
+}
+.frame {
+  position: absolute;
+  inset: 74px;
+  border: 1px solid rgba(242, 175, 198, 0.24);
+}
+.frame::before,
+.frame::after {
+  content: "";
+  position: absolute;
+  left: 94px;
+  right: 94px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(242, 175, 198, 0.46), transparent);
+}
+.frame::before { top: 128px; }
+.frame::after { bottom: 128px; }
+.brand {
+  position: absolute;
+  top: 188px;
+  left: 0;
+  right: 0;
+  color: var(--color-petal);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+.title {
+  position: relative;
+  z-index: 1;
+  max-width: 1140px;
+  color: var(--color-white);
+  font-size: ${titleSize(print.title)}px;
+  line-height: 0.88;
+  letter-spacing: 0.025em;
+  text-wrap: balance;
+}
+.divider {
+  position: relative;
+  z-index: 1;
+  width: 260px;
+  height: 2px;
+  margin: 74px auto 66px;
+  background: linear-gradient(90deg, transparent, var(--color-petal), var(--color-blush), transparent);
+  box-shadow: 0 0 24px rgba(242, 175, 198, 0.24);
+}
+.quote {
+  position: relative;
+  z-index: 1;
+  max-width: 1040px;
+  color: var(--color-blush);
+  font-size: ${quoteSize(print.line)}px;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+.byline {
+  position: relative;
+  z-index: 1;
+  margin-top: 72px;
+  color: var(--color-smoke);
+  font-size: 34px;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+.sizes {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 176px;
+  color: var(--color-ash);
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+  <main class="cover" aria-label="${escapeHtml(print.title)} print mockup">
+    <div class="frame"></div>
+    <p class="brand font-body">MK Parrish Print Shop</p>
+    <h1 class="title font-display">${escapeHtml(print.title)}</h1>
+    <div class="divider"></div>
+    <p class="quote font-serif">${escapeHtml(print.line)}</p>
+    <p class="byline font-body">${escapeHtml(print.byline)}</p>
+    <p class="sizes font-body">5x7 / 8x10 / 11x14 / 16x20</p>
+  </main>
+</body>
+</html>`;
 }
 
 await fs.mkdir(COVER_DIR, { recursive: true });
 
-const embeddedFonts = await fontCss();
+const browser = await puppeteer.launch({
+  ...(existsSync(SYSTEM_CHROME) ? { executablePath: SYSTEM_CHROME } : {}),
+  args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-lcd-text"],
+  headless: true,
+});
+const page = await browser.newPage();
+await page.setViewport({ width: 1600, height: 2560, deviceScaleFactor: 1 });
 
 for (const print of prints) {
-  const svg = mockupSvg(print, embeddedFonts);
+  await page.setContent(mockupHtml(print), { waitUntil: "load", timeout: 60000 });
+  await page.evaluate(() => document.fonts.ready);
+  await new Promise((resolve) => setTimeout(resolve, 150));
+
   const out = path.join(COVER_DIR, `${print.slug}-cover.jpg`);
-  await sharp(Buffer.from(svg)).jpeg({ quality: 92, mozjpeg: true }).toFile(out);
+  await page.screenshot({
+    path: out,
+    type: "jpeg",
+    quality: 94,
+    clip: { x: 0, y: 0, width: 1600, height: 2560 },
+  });
 }
+
+await browser.close();
 
 console.log(`Generated ${prints.length} print shop mockups in ${COVER_DIR}`);
