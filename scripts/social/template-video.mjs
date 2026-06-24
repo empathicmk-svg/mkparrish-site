@@ -8,6 +8,7 @@
 
 import { BRAND } from "./catalog.mjs";
 import { FONT_CSS } from "./fonts.mjs";
+import { HEART, HEART_CSS } from "./heart.mjs";
 
 export const VIDEO = { w: 1080, h: 1920, durationMs: 5000, fps: 30 };
 
@@ -35,11 +36,14 @@ export function renderVideo(post) {
     `<span class="line" style="animation-delay:${600 + i * 150}ms">${accent(l)}</span>`
   ).join("");
   const bullets = (post.bullets || []).map((b, i) =>
-    `<li style="animation-delay:${1500 + i * 160}ms"><span class="tick"></span><span>${esc(b)}</span></li>`
+    `<li style="animation-delay:${1500 + i * 160}ms">${HEART("sm")}<span>${esc(b)}</span></li>`
   ).join("");
 
   return `<!doctype html><html lang="en"><head><meta charset="utf-8" /><style>
 ${FONT_CSS}
+${HEART_CSS}
+.mid .heart.md{margin-bottom:18px}
+li .heart{flex:0 0 auto;margin-top:8px}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:${w}px;height:${h}px}
 body{position:relative;overflow:hidden;background:${P.void};color:${P.pearl};font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased}
@@ -51,7 +55,7 @@ body{position:relative;overflow:hidden;background:${P.void};color:${P.pearl};fon
 @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes drift{from{transform:scale(1)}to{transform:scale(1.035)}}
 .anim{animation-play-state:paused;animation-fill-mode:both;animation-timing-function:cubic-bezier(.16,1,.3,1)}
-.glow{position:absolute;left:50%;top:-12%;transform:translateX(-50%);width:${Math.round(w*1.1)}px;height:${Math.round(h*0.6)}px;background:radial-gradient(ellipse at top,rgba(242,175,198,0.22),transparent 62%);animation:pulse 5000ms linear;animation-play-state:paused;animation-fill-mode:both}
+.glow{position:absolute;left:50%;top:-12%;transform:translateX(-50%);width:${Math.round(w*1.1)}px;height:${Math.round(h*0.6)}px;background:radial-gradient(ellipse at top,rgba(242,175,198,0.30),transparent 64%);animation:pulse 5000ms linear;animation-play-state:paused;animation-fill-mode:both}
 .frame{position:absolute;inset:40px;border:1px solid rgba(242,175,198,0.16)}
 .scene{position:absolute;inset:0;animation:drift 5000ms linear;animation-play-state:paused;animation-fill-mode:both}
 .stage{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;padding:96px}
@@ -83,7 +87,7 @@ li .tick{flex:0 0 auto;margin-top:14px;width:14px;height:14px;background:${P.pet
     <div class="top"><div class="brand anim" style="animation-name:up;animation-duration:600ms;animation-delay:100ms">${esc(BRAND.name)}</div><div class="index anim" style="animation-name:up;animation-duration:600ms;animation-delay:160ms">${esc(post.n || "")} / THE SHELF</div></div>
     <span class="kicker anim"><span class="dot"></span>${esc(post.kicker || "")}</span>
     <div class="mid">
-      <div class="quote anim"></div>
+      <div class="anim" style="animation-name:pop;animation-duration:600ms;animation-delay:450ms;margin-bottom:18px">${HEART("md")}</div>
       <h1>${lines.replace(/class="line"/g, 'class="line anim"')}</h1>
       ${post.sub ? `<p class="sub anim">${esc(post.sub)}</p>` : ""}
       ${bullets ? `<ul>${bullets.replace(/<li /g, '<li class="anim" ')}</ul>` : ""}

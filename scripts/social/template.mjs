@@ -9,6 +9,7 @@
 
 import { BRAND } from "./catalog.mjs";
 import { FONT_CSS } from "./fonts.mjs";
+import { HEART, HEART_CSS } from "./heart.mjs";
 
 export const FORMATS = {
   reel: { w: 1080, h: 1920 },
@@ -57,7 +58,7 @@ export function renderPost(post, format = "reel") {
 
   const bullets = (post.bullets || [])
     .map(
-      (b) => `<li><span class="tick"></span><span>${esc(b)}</span></li>`
+      (b) => `<li>${HEART("sm")}<span>${esc(b)}</span></li>`
     )
     .join("");
 
@@ -67,6 +68,9 @@ export function renderPost(post, format = "reel") {
 <meta charset="utf-8" />
 <style>
 ${FONT_CSS}
+${HEART_CSS}
+  .mid .heart.md { margin-bottom: 18px; }
+  li .heart { flex:0 0 auto; margin-top:8px; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
     --void:${PALETTE.void}; --obsidian:${PALETTE.obsidian}; --carbon:${PALETTE.carbon};
@@ -85,7 +89,7 @@ ${FONT_CSS}
   .glow {
     position:absolute; left:50%; top:-12%; transform:translateX(-50%);
     width:${Math.round(w * 1.1)}px; height:${Math.round(h * 0.6)}px;
-    background: radial-gradient(ellipse at top, rgba(242,175,198,0.20), transparent 62%);
+    background: radial-gradient(ellipse at top, rgba(242,175,198,0.28), transparent 64%);
     pointer-events:none;
   }
   .grain {
@@ -154,7 +158,7 @@ ${FONT_CSS}
     <span class="kicker"><span class="dot"></span>${esc(post.kicker || "")}</span>
 
     <div class="mid">
-      <div class="quote">&ldquo;</div>
+      ${HEART("md")}
       <h1>${renderHook(post.hook)}</h1>
       ${post.sub ? `<p class="sub">${esc(post.sub)}</p>` : ""}
       ${bullets ? `<ul>${bullets}</ul>` : ""}

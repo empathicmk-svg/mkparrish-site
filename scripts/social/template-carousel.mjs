@@ -8,6 +8,7 @@
 
 import { BRAND } from "./catalog.mjs";
 import { FONT_CSS } from "./fonts.mjs";
+import { HEART, HEART_CSS } from "./heart.mjs";
 
 export const SLIDE = { w: 1080, h: 1350 };
 
@@ -26,7 +27,7 @@ function slideBody(post, i, total) {
     return `
       <span class="kicker"><span class="dot"></span>${esc(post.kicker || "")}</span>
       <div class="grow center">
-        <div class="quote">&ldquo;</div>
+        ${HEART("md")}
         <h1 class="cover">${hookHTML(post.hook)}</h1>
         ${post.sub ? `<p class="sub">${esc(post.sub)}</p>` : ""}
       </div>
@@ -37,6 +38,7 @@ function slideBody(post, i, total) {
     return `
       <span class="kicker"><span class="dot"></span>${esc(post.kicker || "")}</span>
       <div class="grow center">
+        ${HEART("md")}
         <p class="closeline">${esc(post.cta || "Get it")}</p>
         <div class="bigprice">${esc(post.price || "")}</div>
         <span class="cta">${esc(post.cta || "Shop now")} &rarr;</span>
@@ -49,6 +51,7 @@ function slideBody(post, i, total) {
   return `
     <div class="vtop"><span class="vidx">${idx}</span><span class="vof">/ ${String(total - 2).padStart(2, "0")}</span></div>
     <div class="grow center">
+      ${HEART("md")}
       <p class="vbullet">${esc(bullet)}</p>
     </div>
     <div class="meta"><span>${esc(post.kicker || "")}</span><span class="pink">${esc(BRAND.site)}</span></div>`;
@@ -59,10 +62,12 @@ export function renderSlide(post, i, total) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8" />
 <style>
   ${FONT_CSS}
+  ${HEART_CSS}
+  .center .heart.md{margin:0 auto 22px 0}
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{width:${w}px;height:${h}px}
   body{position:relative;overflow:hidden;background:${P.void};color:${P.pearl};font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased}
-  .glow{position:absolute;left:50%;top:-14%;transform:translateX(-50%);width:${Math.round(w*1.2)}px;height:${Math.round(h*0.7)}px;background:radial-gradient(ellipse at top,rgba(242,175,198,0.18),transparent 62%)}
+  .glow{position:absolute;left:50%;top:-14%;transform:translateX(-50%);width:${Math.round(w*1.2)}px;height:${Math.round(h*0.7)}px;background:radial-gradient(ellipse at top,rgba(242,175,198,0.26),transparent 64%)}
   .frame{position:absolute;inset:34px;border:1px solid rgba(242,175,198,0.16)}
   .stage{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;padding:84px}
   .grow{flex:1;display:flex;flex-direction:column}
