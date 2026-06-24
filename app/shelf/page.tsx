@@ -5,15 +5,14 @@ import {
   BtnPrimary, BtnGhost, ArrowLink,
 } from "@/app/components/ui";
 import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, STRIPE_AUDIT, COMING_SOON_SLUGS, CONTACT } from "@/app/lib/config";
-import { PRINT_PRODUCTS } from "@/app/lib/shelf-catalog";
+import { PRINT_SHOP_PRODUCTS, type ShelfProduct } from "@/app/lib/shelf-catalog";
 import ShelfBrowser, { type BrowseItem } from "@/app/components/ShelfBrowser";
-import { NeonWallArtStudio, type NeonDesign } from "./NeonWallArtStudio";
-import neonManifest from "@/public/neon-wall-art/manifest.json";
+import { PrintShopCustomizer } from "./PrintShopCustomizer";
 
 export const metadata: Metadata = {
   title: "The Shelf — MK Parrish",
   description:
-    "Ebooks, guides, frameworks, prints, and custom neon wall art from MK Parrish. Buy directly on the page, or grab the free downloads.",
+    "Ebooks, guides, frameworks, prints, and custom quote pieces from MK Parrish. Buy directly on the page, or grab the free downloads.",
 };
 
 function priceToNum(price: string, free?: boolean): number {
@@ -67,9 +66,80 @@ const BROWSE_ITEMS: BrowseItem[] = [
   })),
 ];
 
-export default function ShelfPage() {
-  const neonDesigns = neonManifest.designs as NeonDesign[];
+function productActionHref(product: ShelfProduct) {
+  return product.stripe && product.stripe.length > 0 ? product.stripe : product.href;
+}
 
+function PrintShopCard({ product }: { product: ShelfProduct }) {
+  const actionHref = productActionHref(product);
+  const comingSoon = COMING_SOON_SLUGS.has(product.slug);
+  const requestProof = actionHref.startsWith("mailto:");
+  const external = actionHref.startsWith("http");
+  const cover = product.cover ?? `/downloads/covers/${product.slug}-cover.jpg`;
+
+  return (
+    <div
+      className={`group/card relative flex h-full flex-col p-7 transition-all duration-300 hover:-translate-y-1 ${
+        product.highlight ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : "bg-obsidian"
+      }`}
+      style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+    >
+      {product.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+
+      <Link href={`/shelf/${product.slug}`} className="group relative mb-6 block shrink-0 overflow-hidden">
+        <span className="absolute left-3 top-3 z-10 bg-petal px-2.5 py-1 font-body text-[0.55rem] font-bold uppercase tracking-[0.2em] text-void">
+          {product.tag}
+        </span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={cover}
+          alt={`${product.title} print mockup`}
+          width={1600}
+          height={2560}
+          loading="lazy"
+          className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_12px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-[1.03]"
+          style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+        />
+      </Link>
+
+      <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-iron">The Print Shop</p>
+      <h3 className="mt-2 min-h-[3.5rem] font-display text-2xl uppercase leading-tight tracking-[0.02em] text-pearl">{product.title}</h3>
+      <p className="mt-2 font-display text-4xl text-white">{product.price}</p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {(product.sizes ?? []).map((size) => (
+          <span key={size} className="border border-graphite px-3 py-1 font-mono text-[0.65rem] tracking-[0.15em] text-iron">
+            {size}
+          </span>
+        ))}
+      </div>
+      <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{product.desc}</p>
+
+      <div className="mt-7 space-y-2">
+        {comingSoon ? (
+          <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
+            Coming Soon
+          </div>
+        ) : (
+          <a
+            href={actionHref}
+            {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+            className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
+          >
+            {requestProof ? "Request Proof" : `Buy — ${product.price}`}
+          </a>
+        )}
+        <Link
+          href={`/shelf/${product.slug}`}
+          className="flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
+        >
+          View details →
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export default function ShelfPage() {
   return (
     <>
       <section className="relative flex min-h-[80vh] flex-col justify-end bg-void pb-16 pt-28 md:pb-24">
@@ -89,7 +159,7 @@ export default function ShelfPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <BtnPrimary href="#browse">Shop the Shelf</BtnPrimary>
-            <BtnGhost href={SUBSTACK_URL}>Start free →</BtnGhost>
+            <BtnGhost href="#print-shop">Shop the Print Shop</BtnGhost>
           </div>
           <div className="mt-8 flex flex-wrap gap-6">
             {["Instant download", "Secure checkout", "Yours to keep"].map((t) => (
@@ -248,64 +318,21 @@ export default function ShelfPage() {
 
       <QuoteDivider index={18} />
 
-      <RevealSection bg="obsidian" num="04">
-        <Eyebrow>Poem Prints</Eyebrow>
+      <RevealSection id="print-shop" bg="obsidian" num="04">
+        <Eyebrow>The Print Shop</Eyebrow>
         <H2>The words,{" "}<span className="text-petal">on your wall.</span></H2>
-        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "52ch" }}>
-          Archival-quality matte prints, shipped in a protective sleeve. Bought right here — no third-party store.
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "58ch" }}>
+          Original MK lines, quote-page proofs, and custom typographic prints. Same shelf styling, same sharp fonts, now built for the wall instead of the download folder.
         </p>
-        <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-3">
-          {PRINT_PRODUCTS.map((p) => (
-            <div
-              key={p.slug}
-              className="group relative flex flex-col bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon"
-              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-            >
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-40" />
-              <span className="select-none font-serif text-[5rem] leading-none text-petal/[0.12]">&ldquo;</span>
-              <h3 className="font-display text-3xl uppercase tracking-[0.02em] text-pearl">{p.title}</h3>
-              <p className="mt-1 font-display text-2xl text-white">{p.price}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {(p.sizes ?? []).map((s) => (
-                  <span key={s} className="border border-graphite px-3 py-1 font-mono text-[0.65rem] tracking-[0.15em] text-iron">{s}</span>
-                ))}
-              </div>
-              <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
-              {p.stripe ? (
-                <a
-                  href={p.stripe}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-primary mt-8 flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
-                >
-                  Buy — {p.price}
-                </a>
-              ) : (
-                <div className="mt-8 flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
-                  Coming Soon
-                </div>
-              )}
-              <Link
-                href={`/shelf/${p.slug}`}
-                className="mt-2 flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
-              >
-                View details →
-              </Link>
-            </div>
+        <div className="mt-12 grid auto-rows-fr gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
+          {PRINT_SHOP_PRODUCTS.map((product) => (
+            <PrintShopCard key={product.slug} product={product} />
           ))}
         </div>
+        <PrintShopCustomizer contactEmail={CONTACT.email} />
       </RevealSection>
 
       <QuoteDivider index={17} />
-
-      <RevealSection id="neon-wall-art" bg="obsidian" num="05">
-        <Eyebrow>Neon Wall Art</Eyebrow>
-        <H2>Glowing pink{" "}<span className="text-petal">quote pieces.</span></H2>
-        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "58ch" }}>
-          JPG quote mockups from the MK archive, plus a custom proof builder for names, vows, private lines, and phrases that deserve to live on the wall.
-        </p>
-        <NeonWallArtStudio designs={neonDesigns} contactEmail={CONTACT.email} />
-      </RevealSection>
 
       {/* ── ALSO ON AMAZON ── */}
       <RevealSection bg="void">

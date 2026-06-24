@@ -61,14 +61,14 @@ function Card({ p }: { p: BrowseItem }) {
 
   return (
     <div
-      className={`group/card relative flex flex-col p-7 transition-all duration-300 hover:-translate-y-1 ${
+      className={`group/card relative flex h-full flex-col p-7 transition-all duration-300 hover:-translate-y-1 ${
         p.featured ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : "bg-obsidian"
       }`}
       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
       {p.featured && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
 
-      <Link href={`/shelf/${p.slug}`} className="group relative mb-6 block overflow-hidden">
+      <Link href={`/shelf/${p.slug}`} className="group relative mb-6 block shrink-0 overflow-hidden">
         {badge && (
           <span className="absolute left-3 top-3 z-10 bg-petal px-2.5 py-1 font-body text-[0.55rem] font-bold uppercase tracking-[0.2em] text-void">
             {badge}
@@ -87,7 +87,7 @@ function Card({ p }: { p: BrowseItem }) {
       </Link>
 
       <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-iron">{p.tag}</p>
-      <h3 className="mt-2 font-display text-2xl uppercase leading-tight tracking-[0.02em] text-pearl">{p.title}</h3>
+      <h3 className="mt-2 min-h-[3.5rem] font-display text-2xl uppercase leading-tight tracking-[0.02em] text-pearl">{p.title}</h3>
       <p className="mt-2 flex items-baseline gap-2 font-display text-4xl text-white">
         {isFree ? "Free" : p.price}
         {limitedFree && (
@@ -268,7 +268,7 @@ export default function ShelfBrowser({ products }: { products: BrowseItem[] }) {
 
       {/* Grid */}
       {shown.length > 0 ? (
-        <div className="mt-8 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mt-8 grid auto-rows-fr gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {shown.map((p) => (
             <Card key={p.slug} p={p} />
           ))}

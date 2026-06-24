@@ -18,7 +18,7 @@ const paths = [
     title: "You want the framework.",
     desc: "Buy the exact guides, workbooks, and templates behind the client process, starting at $18.",
     href: "/shelf",
-    cta: "Browse The Shelf",
+    cta: "Shop the Shelf",
   },
   {
     label: "Read",
