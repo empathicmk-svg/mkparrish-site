@@ -136,9 +136,14 @@ export default function Nav() {
 
   // Close everything on route change
   useEffect(() => {
-    setMobileNav(false);
-    setMobileServices(false);
-    closeAllDropdowns();
+    const frame = window.requestAnimationFrame(() => {
+      setMobileNav(false);
+      setMobileServices(false);
+      setWorkOpen(false);
+      setServicesOpen(false);
+      setReadOpen(false);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
   const isActive = (href: string) =>
