@@ -50,3 +50,6 @@ next-env.d.ts
 # zipped image bundles (build artifacts, regenerated from the PNGs)
 /output/*.zip
 /output/linkedin/
+
+# generated social bulk-upload assets (regenerated via `npm run social`)
+scripts/social/out/

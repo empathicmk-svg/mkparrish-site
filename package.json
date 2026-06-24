@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "linkedin:carousel": "node scripts/build-linkedin-carousel.mjs"
+    "linkedin:carousel": "node scripts/build-linkedin-carousel.mjs",
+    "social": "node scripts/social/generate.mjs",
+    "social:carousel": "node scripts/social/generate-carousel.mjs",
+    "social:video": "node scripts/social/generate-video.mjs",
+    "social:all": "npm run social && npm run social:carousel && npm run social:video"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
@@ -24,6 +28,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.2",
+    "ffmpeg-static": "^5.3.0",
     "playwright": "^1.59.1",
     "puppeteer": "^24.40.0",
     "tailwindcss": "^4",
