@@ -1,18 +1,26 @@
 # Social bulk-upload generator
 
 Turns the Shelf catalog (books, service guides, bundles, the audit, the
-membership) into a batch of **highly-stylized, on-brand social posts** plus the
-**captions and bulk-upload CSVs** that scheduling tools ingest — so a month of
-monetizing content ships in one command.
+membership) into a batch of **highly-stylized, on-brand social content** —
+static posts, swipe carousels, and animated MP4 reels — plus the **captions and
+bulk-upload CSVs** that scheduling tools ingest. A month of monetizing content
+in one command.
+
+Everything matches the site exactly: **Bebas Neue / Playfair Display / DM Sans**
+(the woff2 files are embedded in `fonts/embedded.css`, so renders are identical
+and don't depend on the Google Fonts CDN), void-black + petal-pink, glow + grain.
 
 ```bash
-npm run social
-# or with options:
-node scripts/social/generate.mjs --formats=reel,feed --start=2026-07-01
+npm run social:all        # posts + carousels + reels
+# or individually:
+npm run social            # static posts (reel + feed)
+npm run social:carousel   # multi-slide swipe carousels
+npm run social:video      # animated MP4 reels
 ```
 
 Everything lands in `scripts/social/out/` (git-ignored — regenerate any time):
 
+### Static posts — `out/`
 | File | What it is |
 | --- | --- |
 | `<slug>-reel.png` | 1080×1920 — TikTok / IG Reels / Stories cover |
@@ -22,6 +30,20 @@ Everything lands in `scripts/social/out/` (git-ignored — regenerate any time):
 | `tiktok-bulk.csv` | TikTok-style schedule (short hook + 6 tags + #fyp) → reel images |
 | `bulk-schedule.csv` | Generic Date/Time/**Platform**/Media/Caption/Link for any tool |
 | `manifest.json` | Machine-readable index of every post + asset |
+
+### Carousels — `out/carousels/`
+| File | What it is |
+| --- | --- |
+| `<slug>-NN.png` | 1080×1350 slides: cover → one value slide per bullet → CTA close |
+| `carousels.csv` | One row per carousel: slide list (in order), caption, link |
+
+### Reels — `out/videos/`
+| File | What it is |
+| --- | --- |
+| `<slug>.mp4` | 1080×1920 H.264, 5s, animated entrance + silent AAC track |
+| `videos.csv` | TikTok/Reels schedule (Date, Time, Video File, Caption, Link) |
+
+Reel options: `--fps=30 --seconds=5`. All generators take `--start=YYYY-MM-DD`.
 
 ## Options
 
