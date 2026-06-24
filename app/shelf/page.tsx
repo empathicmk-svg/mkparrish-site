@@ -4,14 +4,16 @@ import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, BtnGhost, ArrowLink,
 } from "@/app/components/ui";
-import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, STRIPE_AUDIT, COMING_SOON_SLUGS } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, STRIPE_AUDIT, COMING_SOON_SLUGS, CONTACT } from "@/app/lib/config";
 import { PRINT_PRODUCTS } from "@/app/lib/shelf-catalog";
 import ShelfBrowser, { type BrowseItem } from "@/app/components/ShelfBrowser";
+import { NeonWallArtStudio, type NeonDesign } from "./NeonWallArtStudio";
+import neonManifest from "@/public/neon-wall-art/manifest.json";
 
 export const metadata: Metadata = {
   title: "The Shelf — MK Parrish",
   description:
-    "Ebooks, guides, frameworks, and prints from MK Parrish. Buy directly on the page, or grab the free downloads. Instant access — no third-party store.",
+    "Ebooks, guides, frameworks, prints, and custom neon wall art from MK Parrish. Buy directly on the page, or grab the free downloads.",
 };
 
 function priceToNum(price: string, free?: boolean): number {
@@ -66,6 +68,8 @@ const BROWSE_ITEMS: BrowseItem[] = [
 ];
 
 export default function ShelfPage() {
+  const neonDesigns = neonManifest.designs as NeonDesign[];
+
   return (
     <>
       <section className="relative flex min-h-[80vh] flex-col justify-end bg-void pb-16 pt-28 md:pb-24">
@@ -290,6 +294,17 @@ export default function ShelfPage() {
             </div>
           ))}
         </div>
+      </RevealSection>
+
+      <QuoteDivider index={17} />
+
+      <RevealSection id="neon-wall-art" bg="obsidian" num="05">
+        <Eyebrow>Neon Wall Art</Eyebrow>
+        <H2>Glowing pink{" "}<span className="text-petal">quote pieces.</span></H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "58ch" }}>
+          JPG quote mockups from the MK archive, plus a custom proof builder for names, vows, private lines, and phrases that deserve to live on the wall.
+        </p>
+        <NeonWallArtStudio designs={neonDesigns} contactEmail={CONTACT.email} />
       </RevealSection>
 
       {/* ── ALSO ON AMAZON ── */}

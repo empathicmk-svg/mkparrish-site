@@ -1,0 +1,214 @@
+{
+  "generatedAt": "2026-06-22T23:31:24.970Z",
+  "designs": [
+    {
+      "slug": "stop-being-misread",
+      "phrase": "Stop being misread.",
+      "subtitle": "Sharp brand voice neon wall art",
+      "category": "quote",
+      "style": "display",
+      "format": "square",
+      "width": 2000,
+      "height": 2000,
+      "image": "/neon-wall-art/stop-being-misread.jpg"
+    },
+    {
+      "slug": "safe-is-invisible",
+      "phrase": "Safe is invisible.",
+      "subtitle": "Positioning line in hot pink",
+      "category": "quote",
+      "style": "display",
+      "format": "landscape",
+      "width": 2400,
+      "height": 1600,
+      "image": "/neon-wall-art/safe-is-invisible.jpg"
+    },
+    {
+      "slug": "voice-is-the-moat",
+      "phrase": "The voice is the moat.",
+      "subtitle": "Brand voice wall art",
+      "category": "quote",
+      "style": "display",
+      "format": "square",
+      "width": 2000,
+      "height": 2000,
+      "image": "/neon-wall-art/voice-is-the-moat.jpg"
+    },
+    {
+      "slug": "start-where-it-gets-interesting",
+      "phrase": "Start where it gets interesting.",
+      "subtitle": "Copy desk neon statement",
+      "category": "quote",
+      "style": "display",
+      "format": "landscape",
+      "width": 2400,
+      "height": 1600,
+      "image": "/neon-wall-art/start-where-it-gets-interesting.jpg"
+    },
+    {
+      "slug": "first-line-one-job",
+      "phrase": "The first line has one job.",
+      "subtitle": "Writing-room neon rule",
+      "category": "quote",
+      "style": "display",
+      "format": "landscape",
+      "width": 2400,
+      "height": 1600,
+      "image": "/neon-wall-art/first-line-one-job.jpg"
+    },
+    {
+      "slug": "i-am-the-author",
+      "phrase": "I am the author. I always have been.",
+      "subtitle": "Script neon line from The Rewrite",
+      "category": "quote",
+      "style": "script",
+      "format": "portrait",
+      "width": 1800,
+      "height": 2400,
+      "image": "/neon-wall-art/i-am-the-author.jpg"
+    },
+    {
+      "slug": "every-scar-a-sentence",
+      "phrase": "Every scar now a sentence.",
+      "subtitle": "Poetry line in soft pink",
+      "category": "quote",
+      "style": "script",
+      "format": "square",
+      "width": 2000,
+      "height": 2000,
+      "image": "/neon-wall-art/every-scar-a-sentence.jpg"
+    },
+    {
+      "slug": "she-just-wanted-to-begin",
+      "phrase": "She just wanted to begin.",
+      "subtitle": "Glowing pink poetry line",
+      "category": "quote",
+      "style": "script",
+      "format": "portrait",
+      "width": 1800,
+      "height": 2400,
+      "image": "/neon-wall-art/she-just-wanted-to-begin.jpg"
+    },
+    {
+      "slug": "load-bearing-weirdness",
+      "phrase": "Keep the load-bearing weirdness.",
+      "subtitle": "A studio rule for memorable voice",
+      "category": "quote",
+      "style": "script",
+      "format": "portrait",
+      "width": 1800,
+      "height": 2400,
+      "image": "/neon-wall-art/load-bearing-weirdness.jpg"
+    },
+    {
+      "slug": "woman-im-becoming",
+      "phrase": "The woman I'm becoming is the whole reason I came.",
+      "subtitle": "Reinvention line in script neon",
+      "category": "quote",
+      "style": "script",
+      "format": "portrait",
+      "width": 1800,
+      "height": 2400,
+      "image": "/neon-wall-art/woman-im-becoming.jpg"
+    },
+    {
+      "slug": "your-words-here",
+      "phrase": "Your words here.",
+      "subtitle": "Custom phrase preview",
+      "category": "custom",
+      "style": "display",
+      "format": "landscape",
+      "width": 2400,
+      "height": 1600,
+      "image": "/neon-wall-art/your-words-here.jpg"
+    },
+    {
+      "slug": "custom-neon-phrase",
+      "phrase": "Custom neon phrase.",
+      "subtitle": "Online order proof mockup",
+      "category": "custom",
+      "style": "display",
+      "format": "landscape",
+      "width": 2400,
+      "height": 1600,
+      "image": "/neon-wall-art/custom-neon-phrase.jpg"
+    },
+    {
+      "slug": "choose-your-glow",
+      "phrase": "Choose your glow.",
+      "subtitle": "Pink, white, or smoke gray",
+      "category": "custom",
+      "style": "display",
+      "format": "square",
+      "width": 2000,
+      "height": 2000,
+      "image": "/neon-wall-art/choose-your-glow.jpg"
+    },
+    {
+      "slug": "make-it-yours",
+      "phrase": "Make it yours.",
+      "subtitle": "Personalized neon wall art",
+      "category": "custom",
+      "style": "script",
+      "format": "square",
+      "width": 2000,
+      "height": 2000,
+      "image": "/neon-wall-art/make-it-yours.jpg"
+    },
+    {
+      "slug": "name-date-vow",
+      "phrase": "Name + date + vow.",
+      "subtitle": "Wedding, studio, and bedroom neon concept",
+      "category": "custom",
+      "style": "display",
+      "format": "landscape",
+      "width": 2400,
+      "height": 1600,
+      "image": "/neon-wall-art/name-date-vow.jpg"
+    },
+    {
+      "slug": "approve-the-proof",
+      "phrase": "Approve the proof.",
+      "subtitle": "Ordering flow sign mockup",
+      "category": "custom",
+      "style": "display",
+      "format": "square",
+      "width": 2000,
+      "height": 2000,
+      "image": "/neon-wall-art/approve-the-proof.jpg"
+    },
+    {
+      "slug": "hang-the-feeling",
+      "phrase": "Hang the feeling.",
+      "subtitle": "Custom wall art sales phrase",
+      "category": "custom",
+      "style": "script",
+      "format": "landscape",
+      "width": 2400,
+      "height": 1600,
+      "image": "/neon-wall-art/hang-the-feeling.jpg"
+    },
+    {
+      "slug": "upload-a-line",
+      "phrase": "Upload a line.",
+      "subtitle": "Turn a private sentence into wall art",
+      "category": "custom",
+      "style": "display",
+      "format": "square",
+      "width": 2000,
+      "height": 2000,
+      "image": "/neon-wall-art/upload-a-line.jpg"
+    },
+    {
+      "slug": "customizer-ordering-flow",
+      "phrase": "Custom neon ordering flow",
+      "subtitle": "Pick a line, choose the glow, approve the proof, hang it",
+      "category": "custom",
+      "style": "display",
+      "format": "landscape",
+      "width": 2400,
+      "height": 1600,
+      "image": "/neon-wall-art/customizer-ordering-flow.jpg"
+    }
+  ]
+}

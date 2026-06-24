@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1600" viewBox="0 0 2400 1600" role="img" aria-label="Hang the feeling. neon wall art mockup">
+  <defs>
+    <linearGradient id="wall" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#121216"/>
+      <stop offset="0.48" stop-color="#1d1d23"/>
+      <stop offset="1" stop-color="#0a0a0d"/>
+    </linearGradient>
+    <radialGradient id="pinkWash" cx="50%" cy="44%" r="58%">
+      <stop offset="0" stop-color="#ff5cac" stop-opacity="0.25"/>
+      <stop offset="0.46" stop-color="#ff2f99" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#07070a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="noise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.12"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="glowMax" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="35" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowWide" x="-70%" y="-70%" width="240%" height="240%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowTight" x="-55%" y="-55%" width="210%" height="210%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#wall)"/>
+  <rect width="100%" height="100%" filter="url(#noise)" opacity="0.35"/>
+  <rect width="100%" height="100%" fill="url(#pinkWash)"/>
+  <g opacity="0.2">
+    <line x1="0" x2="2400" y1="0" y2="0" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="100" y2="100" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="200" y2="200" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="300" y2="300" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="400" y2="400" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="500" y2="500" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="600" y2="600" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="700" y2="700" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="800" y2="800" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="900" y2="900" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="1000" y2="1000" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="1100" y2="1100" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="1200" y2="1200" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="1300" y2="1300" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="1400" y2="1400" stroke="#737782" stroke-width="1"/><line x1="0" x2="2400" y1="1500" y2="1500" stroke="#737782" stroke-width="1"/>
+  </g>
+  <rect x="144" y="144" width="2112" height="1312" rx="34" fill="#09090c" opacity="0.58" stroke="#737782" stroke-opacity="0.28" stroke-width="2"/>
+  <rect x="162" y="162" width="2076" height="1276" rx="24" fill="none" stroke="#fff7fb" stroke-opacity="0.08" stroke-width="2"/>
+  <circle cx="192" cy="192" r="12" fill="#b8bbc4" opacity="0.42"/>
+  <circle cx="2208" cy="192" r="12" fill="#b8bbc4" opacity="0.42"/>
+  <circle cx="192" cy="1408" r="12" fill="#b8bbc4" opacity="0.42"/>
+  <circle cx="2208" cy="1408" r="12" fill="#b8bbc4" opacity="0.42"/>
+  
+    <g font-family="'Playfair Display', 'Cormorant Garamond', Georgia, serif" font-size="240" font-weight="700" font-style="italic" text-anchor="middle" letter-spacing="0">
+      <text x="1200" y="738" fill="none" stroke="#ff2f99" stroke-width="20" stroke-linejoin="round" opacity="0.28" filter="url(#glowMax)"><tspan x="1200" dy="0">Hang</tspan><tspan x="1200" dy="259">the feeling</tspan></text>
+      <text x="1200" y="738" fill="none" stroke="#ff5cac" stroke-width="12" stroke-linejoin="round" opacity="0.55" filter="url(#glowWide)"><tspan x="1200" dy="0">Hang</tspan><tspan x="1200" dy="259">the feeling</tspan></text>
+      <text x="1200" y="738" fill="none" stroke="#ffd7ed" stroke-width="5" stroke-linejoin="round" opacity="0.92" filter="url(#glowTight)"><tspan x="1200" dy="0">Hang</tspan><tspan x="1200" dy="259">the feeling</tspan></text>
+      <text x="1200" y="738" fill="#ffd7ed" stroke="#fff7fb" stroke-width="1.5" paint-order="stroke" opacity="0.98"><tspan x="1200" dy="0">Hang</tspan><tspan x="1200" dy="259">the feeling</tspan></text>
+    </g>
+  <line x1="576" x2="1824" y1="1299" y2="1299" stroke="#ff5cac" stroke-width="3" opacity="0.65" filter="url(#glowTight)"/>
+  <text x="1200" y="1357" font-family="'DM Sans', Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle" letter-spacing="8" fill="#b8bbc4" opacity="0.82">CUSTOM ORDER MOCKUP</text>
+  <text x="1200" y="1411" font-family="'DM Sans', Arial, sans-serif" font-size="36" font-weight="300" text-anchor="middle" fill="#fff7fb" opacity="0.76">Custom wall art sales phrase</text>
+</svg>
