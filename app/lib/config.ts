@@ -40,7 +40,7 @@ export const AMAZON_AUTHOR_URL  = "https://www.amazon.com/author/mkparrish";
 
 // ── Products not yet live ────────────────────────────────────────────────────
 // Add a slug here to show "Coming Soon" instead of the buy button.
-export const COMING_SOON_SLUGS = new Set<string>();
+export const COMING_SOON_SLUGS = new Set<string>(["rebecoming"]);
 
 // ── Contact ──────────────────────────────────────────────────────────────────
 export const CONTACT = {
@@ -77,6 +77,25 @@ export const EBOOKS = [
       "Instant free download — no payment",
     ],
     desc: "The free front door to the Shelf. Five LinkedIn headlines torn down and rewritten, plus the single formula behind every fix — then the 15-minute path to fixing your whole profile.",
+  },
+  {
+    slug:      "rebecoming",
+    title:     "REBECOMING: The Latest Model",
+    subtitle:  "A memoir about losing your fear without losing yourself.",
+    price:     "$49",
+    tag:       "The Memoir",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/rebecoming.pdf",
+    stripe:    "",
+    href:      "/shop/rebecoming",
+    features:  [
+      "A present-tense memoir in ten chapters",
+      "On fear, faith, prayer, and rebecoming yourself",
+      "Complete PDF + Kindle-ready EPUB",
+      "Instant download",
+    ],
+    desc: "MK Parrish's flagship memoir. Ten chapters on fear, faith, prayer, and the eleven minutes it took to walk through a door she was sure wasn't for her — and on becoming the latest model of the person she always was.",
   },
   {
     slug:      "the-linkedin-bio-fix-kit",
