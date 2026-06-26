@@ -91,7 +91,7 @@ export const EBOOKS = [
     href:      "https://buy.stripe.com/14A5kE7I51PydyYaX38AE0h",
     // Paperback via Lulu print-on-demand (sold direct, you keep the margin).
     // href is the Lulu storefront product URL — added once the title is uploaded.
-    paperback: { price: "$39", href: "" },
+    paperback: { price: "$39", href: "https://buy.stripe.com/4gMdRageBcuceD25CJ8AE0l" },
     features:  [
       "A present-tense memoir in ten chapters",
       "On fear, faith, prayer, and rebecoming yourself",
@@ -130,7 +130,7 @@ export const EBOOKS = [
     download:  "/downloads/ebooks/reinvention-workbook.pdf",
     stripe:    "https://buy.stripe.com/14A9AUe6t65O9iIe9f8AE0k",
     href:      "https://buy.stripe.com/14A9AUe6t65O9iIe9f8AE0k",
-    paperback: { price: "$34", href: "" },
+    paperback: { price: "$34", href: "https://buy.stripe.com/8x27sM4vTfGo2Ukc178AE0o" },
     features:  [
       "20 guided writing exercises",
       "The identity audit framework",
@@ -150,7 +150,7 @@ export const EBOOKS = [
     download:  "/downloads/ebooks/write-yourself-into-the-room.pdf",
     stripe:    "https://buy.stripe.com/14AeVefax3XGdyY5CJ8AE0i",
     href:      "https://buy.stripe.com/14AeVefax3XGdyY5CJ8AE0i",
-    paperback: { price: "$44", href: "" },
+    paperback: { price: "$44", href: "https://buy.stripe.com/6oUaEY3rPcuc66w6GN8AE0m" },
     features:  [
       "The three-layer positioning framework",
       "Bio writing templates + real examples",
@@ -170,7 +170,7 @@ export const EBOOKS = [
     download:  "/downloads/ebooks/brand-voice-playbook.pdf",
     stripe:    "https://buy.stripe.com/9B6bJ27I5bq8fH6aX38AE0j",
     href:      "https://buy.stripe.com/9B6bJ27I5bq8fH6aX38AE0j",
-    paperback: { price: "$49", href: "" },
+    paperback: { price: "$49", href: "https://buy.stripe.com/6oU7sM5zXeCkamM3uB8AE0n" },
     features:  [
       "Full brand voice framework",
       "Tone spectrum mapping",
