@@ -17,8 +17,18 @@ import { dirname, join } from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import puppeteer from "puppeteer";
-import ffmpegPath from "ffmpeg-static";
+import { createRequire } from "node:module";
 import { POSTS } from "./catalog.mjs";
+
+// Resolve an ffmpeg binary: prefer ffmpeg-static, fall back to @ffmpeg-installer,
+// then a system ffmpeg on PATH. (This repo's node_modules ships @ffmpeg-installer.)
+const requireCjs = createRequire(import.meta.url);
+const ffmpegPath = (() => {
+  for (const m of ["ffmpeg-static", "@ffmpeg-installer/ffmpeg"]) {
+    try { const r = requireCjs(m); return typeof r === "string" ? r : r.path; } catch { /* next */ }
+  }
+  return "ffmpeg";
+})();
 import { renderVideo, VIDEO } from "./template-video.mjs";
 import { csvRow, ttCaption, scheduler, nextMonday } from "./util.mjs";
 
@@ -61,14 +71,14 @@ async function main() {
           try { a.currentTime = time; } catch { /* finished */ }
         }
       }, t);
-      await page.screenshot({ path: join(TMP, `f${String(f).padStart(4, "0")}.png`), type: "png" });
+      await page.screenshot({ path: join(TMP, `f${String(f).padStart(4, "0")}.jpg`), type: "jpeg", quality: 92 });
     }
 
     const mp4 = join(OUT, `${post.slug}.mp4`);
     await run(ffmpegPath, [
       "-y",
       "-framerate", String(FPS),
-      "-i", join(TMP, "f%04d.png"),
+      "-i", join(TMP, "f%04d.jpg"),
       "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
       "-shortest",
       "-c:v", "libx264", "-pix_fmt", "yuv420p", "-profile:v", "high", "-level", "4.0",

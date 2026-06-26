@@ -12,8 +12,9 @@
 
 export const BRAND = {
   name:    "MK PARRISH",
-  handle:  "@mkeezieee",
+  handle:  "@mk_parrish",
   site:    "mkparrish.com",
+  shop:    "mkparrish.com/shop",
   margins: "The Margins on Substack",
 };
 

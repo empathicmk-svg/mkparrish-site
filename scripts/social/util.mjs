@@ -1,5 +1,5 @@
 // Shared caption / hashtag / CSV helpers for the social generators.
-import { BASE_TAGS } from "./catalog.mjs";
+import { BASE_TAGS, BRAND } from "./catalog.mjs";
 
 export const csvCell = (v = "") => `"${String(v).replace(/"/g, '""')}"`;
 export const csvRow = (cells) => cells.map(csvCell).join(",");
@@ -7,12 +7,13 @@ export const csvRow = (cells) => cells.map(csvCell).join(",");
 export const allTags = (post) => [...new Set([...(post.tags || []), ...BASE_TAGS])];
 export const hashtags = (post) => allTags(post).map((t) => `#${t}`).join(" ");
 
+// Heavy, repeated CTA toward the shop + the specific product.
 export const igCaption = (post) =>
-  `${post.caption}\n\n🔗 ${post.cta}: link in bio\n\n${hashtags(post)}`;
+  `${post.caption}\n\n🛍️ SHOP ALL THE EBOOKS → ${BRAND.shop}\n🔗 ${post.cta} — tap the link in bio\n\n${hashtags(post)}`;
 
 export const ttCaption = (post) => {
   const tags = allTags(post).slice(0, 6).map((t) => `#${t}`).join(" ");
-  return `${post.caption.split("\n")[0]} ${tags} #fyp`;
+  return `${post.caption.split("\n")[0]}\n\n🛍️ Shop all the ebooks → ${BRAND.shop} (link in bio)\n${tags} #fyp #smallbusinesscheck`;
 };
 
 // Simple 3-slots/day scheduler starting from `start` (Date).
