@@ -11,6 +11,7 @@ const workLinks = [
   { label: "Web Design & Build",  href: "/studio" },
   { label: "Outbound & Growth",   href: "/growth" },
   { label: "Messaging & Copy",    href: "/brand" },
+  { label: "The Positioning Audit", href: "/audit" },
   { label: "How I Work",          href: "/how-i-work" },
 ];
 
@@ -25,7 +26,7 @@ const megaServices = [
 
 const readLinks = [
   { label: "Writing",      desc: "Poetry, essays & the work that proves the voice", href: "/writing" },
-  { label: "The Shelf",    desc: "Ebooks, guides & prints — buy direct",            href: "/shelf" },
+  { label: "Shop",         desc: "Shop the Shelf or the Print Shop",                href: "/shop" },
   { label: "Quotes",       desc: "Words worth keeping",                             href: "/posts" },
   { label: "The Margins",  desc: "Private membership essays & frameworks",          href: "/margins" },
 ];
@@ -39,6 +40,7 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
       { label: "Web Design & Build", href: "/studio" },
       { label: "Outbound & Growth",  href: "/growth" },
       { label: "Messaging & Copy",   href: "/brand" },
+      { label: "The Positioning Audit", href: "/audit" },
       { label: "How I Work",         href: "/how-i-work" },
     ],
   },
@@ -46,7 +48,7 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
     label: "Read",
     links: [
       { label: "Writing",     href: "/writing" },
-      { label: "The Shelf",   href: "/shelf" },
+      { label: "Shop",        href: "/shop" },
       { label: "Quotes",      href: "/posts" },
       { label: "The Margins", href: "/margins" },
     ],
@@ -54,7 +56,7 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
   {
     label: "More",
     links: [
-      { label: "Shop",    href: "/shelf" },
+      { label: "Shop", href: "/shop" },
       { label: "About",   href: "/about" },
       { label: "Contact", href: "/contact" },
     ],
@@ -134,9 +136,14 @@ export default function Nav() {
 
   // Close everything on route change
   useEffect(() => {
-    setMobileNav(false);
-    setMobileServices(false);
-    closeAllDropdowns();
+    const frame = window.requestAnimationFrame(() => {
+      setMobileNav(false);
+      setMobileServices(false);
+      setWorkOpen(false);
+      setServicesOpen(false);
+      setReadOpen(false);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
   const isActive = (href: string) =>
@@ -328,7 +335,7 @@ export default function Nav() {
 
           <div className="hidden items-center gap-3 md:flex">
             <Link
-              href="/shelf"
+              href="/shop"
               className="btn-ghost px-4 py-2 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em]"
             >
               Shop
@@ -445,7 +452,7 @@ export default function Nav() {
                 Book a Call
               </Link>
               <Link
-                href="/shelf"
+                href="/shop"
                 onClick={() => setMobileNav(false)}
                 className="btn-ghost inline-flex justify-center px-5 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em]"
               >
@@ -545,7 +552,7 @@ export default function Nav() {
           </svg>
           Services
         </button>
-        <Link href="/shelf" className={`mobile-bottom-nav-item${isActive("/shelf") ? " active" : ""}`}>
+        <Link href="/shop" className={`mobile-bottom-nav-item${isActive("/shop") ? " active" : ""}`}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
             <line x1="3" y1="6" x2="21" y2="6" />

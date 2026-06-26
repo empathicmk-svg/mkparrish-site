@@ -5,7 +5,7 @@ export const STRIPE_NEW_CHAPTER = "https://buy.stripe.com/00w28j2Smfahfmx36Q0oM0
 export const STRIPE_BYLINE      = "https://buy.stripe.com/fZu00b9gKbY5eitfTC0oM03";
 export const STRIPE_BUILD       = "https://buy.stripe.com/9B6cMX64ygel4HTazi0oM0f"; // The Build — $6,000 one-time
 export const STRIPE_SESSION     = "https://buy.stripe.com/eVqaEPfF86DLa2dcHq0oM0g"; // The Session — $300 one-time
-export const STRIPE_AUDIT       = "/book"; // async positioning audit — link to checkout when ready
+export const STRIPE_AUDIT       = "https://buy.stripe.com/9B64gA2nL51KamMaX38AE0e"; // The 48-Hour Positioning Audit — $97 (intake collected at checkout)
 
 // ── Growth / Revenue Systems ─────────────────────────────────────────────────
 export const STRIPE_OUTBOUND        = "https://buy.stripe.com/28E7sD0Ked295LX22M0oM0e"; // The Outbound Engine — $2,500/mo
@@ -35,9 +35,16 @@ export const CALENDLY_URL       = "https://www.calendly.com/mkparrish";
 // ── Site ─────────────────────────────────────────────────────────────────────
 export const SITE_URL           = "https://www.mkparrish.com";
 
+// ── Amazon author page (books on Kindle + paperback) ─────────────────────────
+export const AMAZON_AUTHOR_URL  = "https://www.amazon.com/author/mkparrish";
+
 // ── Products not yet live ────────────────────────────────────────────────────
 // Add a slug here to show "Coming Soon" instead of the buy button.
-export const COMING_SOON_SLUGS = new Set<string>();
+export const COMING_SOON_SLUGS = new Set<string>([
+  "live-out-loud-print",
+  "not-afraid-of-storms-print",
+  "never-too-late-print",
+]);
 
 // ── Contact ──────────────────────────────────────────────────────────────────
 export const CONTACT = {
@@ -49,24 +56,85 @@ export const CONTACT = {
 // ── Social links ─────────────────────────────────────────────────────────────
 // Rendered as petal-pink chips with black text in the footer.
 export const SOCIALS = [
-  { label: "Instagram", handle: "@mkeezieee", href: "https://www.instagram.com/mkeezieee" },
+  { label: "Instagram", handle: "@mk_parrish", href: "https://www.instagram.com/mk_parrish" },
   { label: "Substack",  handle: "The Margins", href: SUBSTACK_URL },
   { label: "LinkedIn",  handle: "/in/mkparrish", href: "https://www.linkedin.com/in/mkparrish" },
+  { label: "Amazon",    handle: "Author Page", href: AMAZON_AUTHOR_URL },
 ];
 
 // ── All ebooks / digital products (used by shop page) ────────────────────────
 export const EBOOKS = [
   {
+    slug:      "the-bio-teardown",
+    title:     "The Bio Teardown",
+    subtitle:  "5 LinkedIn headlines, rewritten — and the one formula behind every fix.",
+    price:     "Free",
+    tag:       "Free · Start Here",
+    highlight: true,
+    free:      true,
+    download:  "/downloads/lead-magnets/the-bio-teardown.pdf",
+    href:      "/shop/the-bio-teardown",
+    features:  [
+      "5 real before/after headline rewrites",
+      "The WHO → OUTCOME → EDGE formula",
+      "A quick win you can copy in 5 minutes",
+      "Instant free download — no payment",
+    ],
+    desc: "The free front door to the Shelf. Five LinkedIn headlines torn down and rewritten, plus the single formula behind every fix — then the 15-minute path to fixing your whole profile.",
+  },
+  {
+    slug:      "rebecoming",
+    title:     "REBECOMING: The Latest Model",
+    subtitle:  "A memoir about losing your fear without losing yourself.",
+    price:     "$49",
+    tag:       "The Memoir",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/rebecoming.pdf",
+    stripe:    "https://buy.stripe.com/14A5kE7I51PydyYaX38AE0h",
+    href:      "https://buy.stripe.com/14A5kE7I51PydyYaX38AE0h",
+    // Paperback via Lulu print-on-demand (sold direct, you keep the margin).
+    // href is the Lulu storefront product URL — added once the title is uploaded.
+    paperback: { price: "$39", href: "https://buy.stripe.com/4gMdRageBcuceD25CJ8AE0l" },
+    features:  [
+      "A present-tense memoir in ten chapters",
+      "On fear, faith, prayer, and rebecoming yourself",
+      "Complete PDF + Kindle-ready EPUB",
+      "Instant download",
+    ],
+    desc: "MK Parrish's flagship memoir. Ten chapters on fear, faith, prayer, and the eleven minutes it took to walk through a door she was sure wasn't for her — and on becoming the latest model of the person she always was.",
+  },
+  {
+    slug:      "the-linkedin-bio-fix-kit",
+    title:     "The LinkedIn Bio Fix Kit",
+    subtitle:  "Fix the first thing everyone reads about you — in fifteen minutes.",
+    price:     "$9",
+    tag:       "Start Here · $9",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-linkedin-bio-fix-kit.pdf",
+    stripe:    "https://buy.stripe.com/bJe6oI5zXbq852s3uB8AE0f",
+    href:      "https://buy.stripe.com/bJe6oI5zXbq852s3uB8AE0f",
+    features:  [
+      "3 headline formulas + a fill-in About template",
+      "15 swipe-file opening lines you can steal",
+      "The banned-words list + a 15-minute checklist",
+      "Instant download — PDF + EPUB",
+    ],
+    desc: "The fastest fix on the Shelf. Rewrite your LinkedIn headline and About in 15 minutes with copy-paste formulas, templates, and swipe lines. Your $9 front door to everything else.",
+  },
+  {
     slug:      "reinvention-workbook",
     title:     "The Reinvention Workbook",
     subtitle:  "A guided writing workbook for people in the middle of becoming someone new.",
-    price:     "$18",
-    tag:       "Digital Download",
+    price:     "$29",
+    tag:       "Workbook",
     highlight: false,
-    free:      true,
-    limitedFree: true,   // free for a limited time; regular price is `price`
+    free:      false,
     download:  "/downloads/ebooks/reinvention-workbook.pdf",
-    href:      "/downloads/ebooks/reinvention-workbook.pdf",
+    stripe:    "https://buy.stripe.com/14A9AUe6t65O9iIe9f8AE0k",
+    href:      "https://buy.stripe.com/14A9AUe6t65O9iIe9f8AE0k",
+    paperback: { price: "$34", href: "https://buy.stripe.com/8x27sM4vTfGo2Ukc178AE0o" },
     features:  [
       "20 guided writing exercises",
       "The identity audit framework",
@@ -79,13 +147,14 @@ export const EBOOKS = [
     slug:      "write-yourself-into-the-room",
     title:     "Write Yourself Into the Room",
     subtitle:  "The personal brand writing guide for people tired of sounding like everyone else.",
-    price:     "$28",
+    price:     "$39",
     tag:       "Best Seller",
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/write-yourself-into-the-room.pdf",
-    stripe:    "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
-    href:      "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
+    stripe:    "https://buy.stripe.com/14AeVefax3XGdyY5CJ8AE0i",
+    href:      "https://buy.stripe.com/14AeVefax3XGdyY5CJ8AE0i",
+    paperback: { price: "$44", href: "https://buy.stripe.com/6oUaEY3rPcuc66w6GN8AE0m" },
     features:  [
       "The three-layer positioning framework",
       "Bio writing templates + real examples",
@@ -98,13 +167,14 @@ export const EBOOKS = [
     slug:      "brand-voice-playbook",
     title:     "The Brand Voice Playbook",
     subtitle:  "Build a brand voice document from scratch.",
-    price:     "$35",
+    price:     "$45",
     tag:       "Digital Download",
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/brand-voice-playbook.pdf",
-    stripe:    "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
-    href:      "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
+    stripe:    "https://buy.stripe.com/9B6bJ27I5bq8fH6aX38AE0j",
+    href:      "https://buy.stripe.com/9B6bJ27I5bq8fH6aX38AE0j",
+    paperback: { price: "$49", href: "https://buy.stripe.com/6oU7sM5zXeCkamM3uB8AE0n" },
     features:  [
       "Full brand voice framework",
       "Tone spectrum mapping",
@@ -121,12 +191,14 @@ export const EBOOKS = [
     tag:       "Best Value",
     highlight: false,
     free:      false,
+    download:  "/downloads/the-vault.pdf",
     stripe:    "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     href:      "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     features:  [
-      "All 3 ebooks & guides included",
+      "All 3 writing-and-identity ebooks included",
       "The Brand Voice Playbook + Write Yourself Into the Room",
-      "The Reinvention Workbook — plus any future releases",
+      "The Reinvention Workbook",
+      "Future library releases included",
     ],
     desc: "The full library. Every framework, every guide, every word. One price.",
   },
@@ -143,6 +215,7 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/the-edit-diy.pdf",
+    cover:     "/downloads/covers/the-edit-diy-cover.jpg",
     stripe:    "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
     href:      "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
     features:  [
@@ -268,24 +341,103 @@ export const SERVICE_EBOOKS = [
     desc: "For founders and thought leaders who know they need to show up online — and finally have a repeatable system for it. The exact content strategy framework behind The Social Suite, documented for self-study.",
   },
   {
+    slug:      "the-authority-carousel-kit",
+    title:     "The Authority Carousel Kit",
+    subtitle:  "Turn one idea into a scroll-stopping LinkedIn carousel — without the Canva chaos.",
+    price:     "$48",
+    tag:       "LinkedIn & Carousels",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-authority-carousel-kit.zip",
+    stripe:    "https://buy.stripe.com/5kQcN63rPdyg52s2qx8AE0g",
+    href:      "https://buy.stripe.com/5kQcN63rPdyg52s2qx8AE0g",
+    features:  [
+      "Editable JSON carousel templates — teardown, steps & story formats",
+      "The full PDF guide: house style, the 7-slide story, voice rules & the formula",
+      "Copy-paste AI prompts to draft a carousel in your voice",
+      "One command turns your words into LinkedIn-ready slides + a multi-page PDF",
+    ],
+    desc: "The carousel system behind the MK Parrish brand, packaged so you can run it yourself. Write your words into a template, run one command, and get on-brand LinkedIn slides — no designer, no Canva, no subscription. The DIY version of The Social Suite.",
+  },
+  {
+    slug:      "the-prompt-vault",
+    title:     "The Prompt Vault",
+    subtitle:  "The AI prompt library for brand, copy & positioning — so the machine sounds like you, not everyone else.",
+    price:     "$34",
+    tag:       "AI & Prompts",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-prompt-vault.pdf",
+    stripe:    "https://buy.stripe.com/bJe3cw1jH65OgLa7KR8AE0d",
+    href:      "https://buy.stripe.com/bJe3cw1jH65OgLa7KR8AE0d",
+    features:  [
+      "40+ copy-paste prompts mapped to all 7 service methods",
+      "The voice-capture prompt that makes AI sound like you",
+      "Edit + de-slop prompts that kill the dead giveaways of AI",
+      "Instant download — PDF + EPUB, 35 pages",
+    ],
+    desc: "Stop shipping the average of the internet. 40+ prompts for positioning, bios, website copy, content, and email — engineered so AI drafts in your voice. The AI companion to the Services Vault.",
+  },
+  {
     slug:      "the-services-vault",
     title:     "The Services Vault",
-    subtitle:  "All seven service companion guides — the complete DIY consulting library.",
+    subtitle:  "All eight service companion guides — the complete DIY consulting + AI library.",
     price:     "$127",
+    compareAt: "$275",
     tag:       "Best Value",
     highlight: false,
     free:      false,
+    download:  "/downloads/the-services-vault.pdf",
     stripe:    "https://buy.stripe.com/aFa14ogeBam452s0ip8AE09",
     href:      "https://buy.stripe.com/aFa14ogeBam452s0ip8AE09",
     features:  [
-      "All 7 service guides included (every method, every framework)",
-      "The Edit + Before the Session + The Rewrite Playbook",
-      "The New Chapter + The Byline Method + The Build Copy Guide + The Social Strategy Playbook",
-      "Future service guide releases included",
+      "All 8 guides included (every method, every framework, every prompt)",
+      "The Edit + Before the Session + The Rewrite Playbook + The New Chapter",
+      "The Byline Method + The Build Copy Guide + The Social Strategy Playbook",
+      "The Prompt Vault (AI prompt library) + future releases included",
     ],
-    desc: "Every consulting framework documented and packaged for self-study. For the woman who is ready to do the full work — on her own timeline.",
+    desc: "All eight guides total $275 bought one by one. The Vault is $127 — every framework, every method, the full AI prompt library, plus future releases. The whole consulting playbook, your timeline.",
   },
 ] as const;
+
+export const SHOP_PRODUCTS = [...EBOOKS, ...SERVICE_EBOOKS] as const;
+
+export type ShopProduct = (typeof SHOP_PRODUCTS)[number];
+
+export const getShopProduct = (slug: string) =>
+  SHOP_PRODUCTS.find((product) => product.slug === slug);
+
+export const productDownload = (product: ShopProduct) =>
+  (product as { download?: string }).download;
+
+export const productCover = (product: ShopProduct) =>
+  (product as { cover?: string }).cover ?? `/downloads/covers/${product.slug}-cover.jpg`;
+
+export const isFreeProduct = (product: ShopProduct) =>
+  Boolean((product as { free?: boolean }).free && productDownload(product));
+
+export const productPriceLabel = (product: ShopProduct) =>
+  isFreeProduct(product) ? "Free" : product.price;
+
+export const isLimitedFreeProduct = (product: ShopProduct) =>
+  isFreeProduct(product) && Boolean((product as { limitedFree?: boolean }).limitedFree);
+
+export const productCheckoutHref = (product: ShopProduct) => {
+  const stripe = (product as { stripe?: string }).stripe;
+  return stripe && stripe.length > 0 ? stripe : product.href;
+};
+
+export const productDeliveryLinks = (product: ShopProduct) => {
+  const primary = productDownload(product);
+  if (!primary) return [];
+
+  const links = [{ label: "PDF", href: primary }];
+  if (primary.endsWith(".pdf")) {
+    links.push({ label: "EPUB", href: primary.replace(/\.pdf$/, ".epub") });
+  }
+
+  return links;
+};
 
 // Prints sell via Stripe. Add the buy.stripe.com link to `stripe` when created.
 export const PRINTS = [
@@ -298,6 +450,24 @@ export const PRINTS = [
     preview: "I picked up the pen and I felt the world shift / the weight of a lifetime becoming a gift.",
   },
   { title: "Selected Lines", price: "From $18", stripe: "https://buy.stripe.com/fZubJ2geB3XGamMaX38AE0c", sizes: ["5×7","8×10"] },
+  {
+    title:   "Live Out Loud",
+    price:   "From $22",
+    sizes:   ["8×10","11×14","16×20"],
+    preview: "I am here to live out loud.",
+  },
+  {
+    title:   "Not Afraid of Storms",
+    price:   "From $22",
+    sizes:   ["8×10","11×14","16×20"],
+    preview: "I am not afraid of storms.",
+  },
+  {
+    title:   "Never Too Late",
+    price:   "From $18",
+    sizes:   ["5×7","8×10"],
+    preview: "It is never too late.",
+  },
 ] as const;
 
 export const SERVICES = [

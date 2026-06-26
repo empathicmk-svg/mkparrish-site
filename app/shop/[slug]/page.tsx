@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EBOOKS, SERVICE_EBOOKS, SUBSTACK_URL, MARGINS_TIERS, COMING_SOON_SLUGS } from "@/app/lib/config";
+import {
+  PRINT_SHOP_PRODUCTS,
+  findShelfProduct,
+  relatedShelfProducts,
+  type ShelfProduct,
+} from "@/app/lib/shelf-catalog";
 import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, ArrowLink,
@@ -25,20 +32,47 @@ const productEyebrow = (product: ShopProduct) =>
   product.tag === "Digital Download" ? product.tag : `${product.tag} · Digital Download`;
 
 export function generateStaticParams() {
-  return ALL_SHOP_EBOOKS.map((e) => ({ slug: e.slug }));
+  return [
+    ...ALL_SHOP_EBOOKS.map((e) => ({ slug: e.slug })),
+    ...PRINT_SHOP_PRODUCTS.map((p) => ({ slug: p.slug })),
+  ];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const product = ALL_SHOP_EBOOKS.find((e) => e.slug === slug);
-  if (!product) return {};
-  return {
-    title: `${product.title} — MK Parrish`,
-    description: `${product.subtitle} ${product.desc}`,
-  };
+  if (product) {
+    return {
+      title: `${product.title} — MK Parrish`,
+      description: `${product.subtitle} ${product.desc}`,
+    };
+  }
+  const print = findShelfProduct(slug);
+  if (print && print.kind === "print") {
+    return {
+      title: `${print.title} — MK Parrish`,
+      description: `${print.subtitle} ${print.desc}`,
+    };
+  }
+  return {};
 }
 
 const extraContent: Record<string, { about: string[]; forWho: string[]; pullQuote: string }> = {
+  "rebecoming": {
+    about: [
+      "REBECOMING: The Latest Model is MK Parrish's flagship memoir, restructured into ten present-tense chapters that read like she is in your head, figuring it out alongside you. It opens on a rainy set of church steps, with a QR code and eleven minutes she almost spends walking the other way, and it does not let go.",
+      "It is a book about fear — the kind that moves in like a roommate and quietly runs the thermostat of your whole life — and about the slow, unglamorous, profoundly human work of growing bigger than it. It is about being an empath in a world that keeps calling your sensitivity a malfunction. It is about prayer and novenas and the Blessed Mother, about a father's last phone call and an irrefutable family story of the afterlife, about a grandmother's rosary, and about a roomful of women who became the great loves of a life.",
+      "Above all, it is written to take apart a lie: that faith, and Bible study, and the warm rooms where people tell each other the truth, are for a certain kind of person and not for you. They are for you. This book walks down the steps, takes your cold hand, and tells you exactly what is on the other side of the door.",
+    ],
+    forWho: [
+      "You are standing at the bottom of your own set of steps, certain a room isn't for you",
+      "You carry your fear quietly and have been told to just toughen up",
+      "You are an empath or a highly sensitive person learning the volume was the gift",
+      "You are curious about faith but allergic to performance and judgment",
+      "You love a memoir that is vivid, honest, and quietly transformative",
+    ],
+    pullQuote: "Certainty is just fear in a better coat. Faith is what you do while your hands are still shaking.",
+  },
   "reinvention-workbook": {
     about: [
       "Twenty writing exercises built from the actual reinvention process — not theory lifted from a business book. These exercises are what I used myself and refined with clients who were in the middle of becoming someone new.",
@@ -206,10 +240,202 @@ const extraContent: Record<string, { about: string[]; forWho: string[]; pullQuot
   },
 };
 
+function isProofRequest(product: ShelfProduct) {
+  return (product.stripe || product.href).startsWith("mailto:");
+}
+
+function PrintDetailPage({ product }: { product: ShelfProduct }) {
+  const comingSoon = COMING_SOON_SLUGS.has(product.slug);
+  const proof = isProofRequest(product);
+  const buyHref = product.stripe || product.href;
+  const external = buyHref.startsWith("http");
+  const related = relatedShelfProducts(product);
+
+  const BuyAction = ({ className }: { className: string }) => {
+    if (comingSoon) {
+      return <div className={`${className} border border-graphite text-iron`}>Coming Soon</div>;
+    }
+    return (
+      <a
+        href={buyHref}
+        {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+        className={`${className} btn-primary text-void`}
+      >
+        {proof ? "Request Proof" : `Buy Print — ${product.price}`}
+      </a>
+    );
+  };
+
+  return (
+    <>
+      <section className="relative overflow-hidden bg-void pb-16 pt-32 md:pb-24 md:pt-40">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/2 top-0 h-[70vh] w-[90vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.14),transparent_62%)]" />
+        </div>
+
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <Link
+            href="/shop#print-shop"
+            className="font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ash transition hover:text-petal"
+          >
+            ← Back to the Print Shop
+          </Link>
+
+          <div className="mt-10 grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16">
+            <div>
+              <Eyebrow>{product.tag} · Physical Print</Eyebrow>
+              <div className="mt-4 max-w-5xl">
+                <H1>{product.title}</H1>
+              </div>
+              <p className="mt-6 max-w-3xl font-serif text-xl italic leading-9 text-petal/85 md:text-2xl" style={{ fontWeight: 500 }}>
+                {product.subtitle}
+              </p>
+              <p className="mt-5 max-w-2xl font-body text-base font-light leading-8 text-smoke">
+                {product.desc}
+              </p>
+
+              {product.preview && (
+                <blockquote className="mt-8 max-w-2xl border-l-2 border-petal/40 pl-6">
+                  <p className="font-serif text-lg italic leading-8 text-pearl">&ldquo;{product.preview}&rdquo;</p>
+                </blockquote>
+              )}
+            </div>
+
+            <aside className="relative bg-obsidian p-8 md:p-10">
+              <div className="absolute inset-x-0 top-0 h-px bg-petal" />
+              {product.cover && (
+                <div className="mb-8 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={product.cover}
+                    alt={`${product.title} — print mockup`}
+                    width={1600}
+                    height={2560}
+                    className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_16px_60px_rgba(0,0,0,0.55)]"
+                  />
+                </div>
+              )}
+              <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.24em] text-iron">The Print Shop</p>
+              <p className="mt-4 font-display text-5xl uppercase tracking-[0.01em] text-white">{product.price}</p>
+              <p className="mt-2 font-body text-xs font-light leading-6 text-ash">
+                {comingSoon
+                  ? "Coming soon"
+                  : proof
+                  ? "Custom proof request · No payment until the print is confirmed"
+                  : "Secure checkout · Printed and shipped to you"}
+              </p>
+
+              <ul className="my-8 space-y-4">
+                {product.features.map((feature) => (
+                  <li key={feature} className="flex gap-3 font-body text-sm font-light leading-6 text-smoke">
+                    <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <BuyAction className="flex w-full items-center justify-center px-5 py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.18em]" />
+              <p className="mt-4 text-center font-body text-[0.65rem] font-light leading-5 text-iron">
+                {proof
+                  ? "Proof request opens email · Sizes and pricing confirmed before printing"
+                  : "Secure Stripe checkout · Available sizes shown at checkout"}
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <RevealSection bg="void" num="01">
+        <div className="grid gap-14 lg:grid-cols-2">
+          <div>
+            <Eyebrow>Made for</Eyebrow>
+            <H2>This belongs<br /><span className="text-petal">with you if —</span></H2>
+          </div>
+          <ul className="space-y-4 pt-2">
+            {product.forWho.map((item, index) => (
+              <li key={item} className="flex gap-4 border-b border-graphite pb-4 last:border-0">
+                <span className="mt-1 font-mono text-xs tracking-[0.2em] text-petal/60">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="font-body text-sm font-light leading-7 text-smoke">{item}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={17} />
+
+      <RevealSection bg="obsidian">
+        <div className="relative overflow-hidden text-center">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute left-1/2 top-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse,rgba(242,175,198,0.09),transparent_65%)]" />
+          </div>
+          <div className="relative py-12 md:py-20">
+            <Eyebrow>Ready when you are</Eyebrow>
+            <H2>{product.title}</H2>
+            <p className="mx-auto mt-6 max-w-xl font-body text-base font-light leading-8 text-smoke">
+              {product.subtitle}
+            </p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
+              <BuyAction className="inline-flex items-center justify-center px-9 py-5 font-body text-[0.8rem] font-bold uppercase tracking-[0.18em]" />
+              <ArrowLink href="/shop">Browse the Shop</ArrowLink>
+            </div>
+          </div>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={13} />
+
+      <RevealSection bg="void">
+        <Eyebrow>Keep browsing</Eyebrow>
+        <H2>More from<br /><span className="text-petal">the shop.</span></H2>
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
+          {related.map((rel) => (
+            <Link
+              key={rel.slug}
+              href={`/shop/${rel.slug}`}
+              className="group relative flex min-h-[300px] flex-col bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon"
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-50" />
+              {rel.cover && (
+                <div className="mb-6 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={rel.cover}
+                    alt={`${rel.title} — cover`}
+                    width={1600}
+                    height={2560}
+                    loading="lazy"
+                    className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_12px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+              )}
+              <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-iron">{rel.tag}</p>
+              <h3 className="mt-4 font-display text-2xl uppercase leading-tight tracking-[0.02em] text-pearl">{rel.title}</h3>
+              <p className="mt-2 font-display text-3xl text-petal">{rel.price}</p>
+              <span className="mt-7 font-body text-xs font-bold uppercase tracking-[0.2em] text-petal/60 transition group-hover:text-petal">
+                View details →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </RevealSection>
+    </>
+  );
+}
+
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const product = ALL_SHOP_EBOOKS.find((e) => e.slug === slug);
-  if (!product) notFound();
+  if (!product) {
+    const print = findShelfProduct(slug);
+    if (print && print.kind === "print") {
+      return <PrintDetailPage product={print} />;
+    }
+    notFound();
+  }
 
   const extra = extraContent[product.slug] ?? {
     about: [product.desc],
@@ -221,6 +447,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   const dl = productDownload(product);
   const isFree = isFreeProduct(product);
+  const paperback = (product as { paperback?: { price: string; href: string } }).paperback;
+  const showPaperback = Boolean(paperback?.href && paperback.href.length > 0 && !COMING_SOON_SLUGS.has(product.slug));
   const stripe = (product as { stripe?: string }).stripe;
   const buyTarget = isFree ? (dl as string) : (stripe && stripe.length > 0 ? stripe : product.href);
   const buyLabel = isFree ? "Download Free" : "Buy Now";
@@ -264,6 +492,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     className="btn-primary inline-flex items-center justify-center px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
                     {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
+                  </a>
+                )}
+                {showPaperback && (
+                  <a
+                    href={paperback!.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center border border-graphite px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
+                  >
+                    Paperback — {paperback!.price}
                   </a>
                 )}
                 <span className="font-body text-xs font-light text-iron">
@@ -316,6 +554,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
                     {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
+                  </a>
+                )}
+                {showPaperback && (
+                  <a
+                    href={paperback!.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
+                  >
+                    Paperback — {paperback!.price}
                   </a>
                 )}
                 <p className="text-center font-body text-[0.65rem] font-light text-iron">
@@ -423,7 +671,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
                 </a>
               )}
-              <ArrowLink href="/shelf">Browse The Shelf</ArrowLink>
+              <ArrowLink href="/shop">Browse the Shop</ArrowLink>
             </div>
             <p className="mt-6 font-body text-xs font-light text-iron">
               {COMING_SOON_SLUGS.has(product.slug)

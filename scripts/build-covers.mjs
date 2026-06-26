@@ -27,6 +27,7 @@ const PRODUCTS = [
     subtitle: 'A guided writing workbook for people in the middle of becoming someone new.' },
   { src: 'ebooks/write-yourself-into-the-room.md',    slug: 'write-yourself-into-the-room' },
   { src: 'ebooks/brand-voice-playbook.md',            slug: 'brand-voice-playbook' },
+  { src: 'ebooks/rebecoming.md',                      slug: 'rebecoming' },
   { src: 'ebooks/the-invisible-bruise.md',            slug: 'the-invisible-bruise' },
   { src: 'ebooks/decoding-angel-numbers.md',          slug: 'decoding-angel-numbers' },
   { src: 'ebooks/scripture/the-study.md',             slug: 'the-study' },
@@ -41,8 +42,14 @@ const PRODUCTS = [
   { src: 'templates/the-byline-method.md',            slug: 'the-byline-method' },
   { src: 'templates/the-build-copy-guide.md',         slug: 'the-build-copy-guide' },
   { src: 'templates/the-social-strategy-playbook.md', slug: 'the-social-strategy-playbook' },
+  { src: 'templates/the-prompt-vault.md',             slug: 'the-prompt-vault' },
+  { src: 'templates/the-linkedin-bio-fix-kit.md',     slug: 'the-linkedin-bio-fix-kit' },
+  { src: 'templates/the-authority-carousel-kit.md',   slug: 'the-authority-carousel-kit' },
+  { raw: '# The Positioning Audit\n\n### A 48-hour teardown of how you show up — and exactly what to fix.\n', slug: 'the-positioning-audit', title: 'The Positioning Audit', subtitle: 'A 48-hour teardown of how you show up.' },
   { raw: courseMarkdown(ROOT), slug: COURSE.slug, title: COURSE.title, subtitle: COURSE.subtitle },
   { src: 'lead-magnets/positioning-checklist.md', slug: 'positioning-checklist' },
+  { src: 'bundles/the-vault.md',                  slug: 'the-vault' },
+  { src: 'bundles/the-services-vault.md',         slug: 'the-services-vault' },
 ];
 
 const filter = process.argv[2];

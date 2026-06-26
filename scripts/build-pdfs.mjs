@@ -10,12 +10,14 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
+const PAPERBACK_TRIM = { width: '6in', height: '9in' };
 
 const FILES = [
   // ebooks
   ['public/downloads/ebooks/reinvention-workbook.html',          'public/downloads/ebooks/reinvention-workbook.pdf'],
   ['public/downloads/ebooks/write-yourself-into-the-room.html',  'public/downloads/ebooks/write-yourself-into-the-room.pdf'],
   ['public/downloads/ebooks/brand-voice-playbook.html',          'public/downloads/ebooks/brand-voice-playbook.pdf'],
+  ['public/downloads/ebooks/rebecoming.html',                    'public/downloads/ebooks/rebecoming.pdf'],
   ['public/downloads/ebooks/the-invisible-bruise.html',          'public/downloads/ebooks/the-invisible-bruise.pdf'],
   ['public/downloads/ebooks/decoding-angel-numbers.html',        'public/downloads/ebooks/decoding-angel-numbers.pdf'],
   ['public/downloads/ebooks/the-study.html',                     'public/downloads/ebooks/the-study.pdf'],
@@ -31,10 +33,16 @@ const FILES = [
   ['public/downloads/templates/the-byline-method.html',          'public/downloads/templates/the-byline-method.pdf'],
   ['public/downloads/templates/the-build-copy-guide.html',       'public/downloads/templates/the-build-copy-guide.pdf'],
   ['public/downloads/templates/the-social-strategy-playbook.html', 'public/downloads/templates/the-social-strategy-playbook.pdf'],
+  ['public/downloads/templates/the-prompt-vault.html',           'public/downloads/templates/the-prompt-vault.pdf'],
+  ['public/downloads/templates/the-linkedin-bio-fix-kit.html',   'public/downloads/templates/the-linkedin-bio-fix-kit.pdf'],
+  ['public/downloads/templates/the-authority-carousel-kit.html', 'public/downloads/templates/the-authority-carousel-kit.pdf'],
   // course
   ['public/downloads/scripture-and-strategy.html',               'public/downloads/scripture-and-strategy.pdf'],
   // lead magnets
   ['public/downloads/positioning-checklist.html',                'public/downloads/positioning-checklist.pdf'],
+  // bundles
+  ['public/downloads/the-vault.html',                            'public/downloads/the-vault.pdf'],
+  ['public/downloads/the-services-vault.html',                   'public/downloads/the-services-vault.pdf'],
 ];
 
 const browser = await puppeteer.launch({
@@ -61,11 +69,15 @@ for (const [src, dest] of TARGETS) {
   if (!fs.existsSync(srcPath)) { console.warn(`  ✗  missing: ${src}`); continue; }
 
   const page = await browser.newPage();
-  await page.goto(`file://${srcPath}`, { waitUntil: 'networkidle0', timeout: 30000 });
+  await page.goto(`file://${srcPath}`, { waitUntil: 'load', timeout: 30000 });
+  await waitForFonts(page);
+  await new Promise((r) => setTimeout(r, 150));
   await page.pdf({
     path: destPath,
-    format: 'Letter',
-    margin: { top: '0.6in', right: '0.65in', bottom: '0.6in', left: '0.65in' },
+    width: PAPERBACK_TRIM.width,
+    height: PAPERBACK_TRIM.height,
+    margin: { top: 0, right: 0, bottom: 0, left: 0 },
+    preferCSSPageSize: true,
     printBackground: true,
   });
   await page.close();

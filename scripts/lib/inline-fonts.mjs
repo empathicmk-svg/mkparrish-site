@@ -16,6 +16,13 @@ import { fileURLToPath } from 'url';
 const __dirname  = path.dirname(fileURLToPath(import.meta.url));
 const CACHE_DIR  = path.join(__dirname, '..', '..', 'output', '.font-cache');
 
+// Behind a corporate/sandbox proxy, Node's built-in fetch silently ignores
+// HTTPS_PROXY unless NODE_USE_ENV_PROXY is set — without this, font fetches
+// either hang or fail with no proxy error at all. No-op when there's no proxy.
+if ((process.env.HTTPS_PROXY || process.env.https_proxy) && !process.env.NODE_USE_ENV_PROXY) {
+  process.env.NODE_USE_ENV_PROXY = '1';
+}
+
 // A real browser UA so Google serves modern woff2 files.
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 

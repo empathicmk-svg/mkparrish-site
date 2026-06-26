@@ -15,7 +15,7 @@ const footerGroups = [
     heading: "Read",
     links: [
       { label: "Writing",     href: "/writing" },
-      { label: "The Shelf",   href: "/shelf" },
+      { label: "Shop",        href: "/shop" },
       { label: "The Margins", href: "/margins" },
     ],
   },

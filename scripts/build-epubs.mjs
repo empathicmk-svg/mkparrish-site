@@ -31,6 +31,7 @@ const BOOKS = [
     subtitle: 'A guided writing workbook for people in the middle of becoming someone new.' },
   { src: 'ebooks/write-yourself-into-the-room.md',    out: 'ebooks/write-yourself-into-the-room.epub' },
   { src: 'ebooks/brand-voice-playbook.md',            out: 'ebooks/brand-voice-playbook.epub' },
+  { src: 'ebooks/rebecoming.md',                      out: 'ebooks/rebecoming.epub' },
   { src: 'ebooks/the-invisible-bruise.md',            out: 'ebooks/the-invisible-bruise.epub' },
   { src: 'ebooks/decoding-angel-numbers.md',          out: 'ebooks/decoding-angel-numbers.epub' },
   { src: 'ebooks/scripture/the-study.md',             out: 'ebooks/the-study.epub' },
@@ -45,8 +46,13 @@ const BOOKS = [
   { src: 'templates/the-byline-method.md',            out: 'templates/the-byline-method.epub' },
   { src: 'templates/the-build-copy-guide.md',         out: 'templates/the-build-copy-guide.epub' },
   { src: 'templates/the-social-strategy-playbook.md', out: 'templates/the-social-strategy-playbook.epub' },
+  { src: 'templates/the-prompt-vault.md',             out: 'templates/the-prompt-vault.epub' },
+  { src: 'templates/the-linkedin-bio-fix-kit.md',     out: 'templates/the-linkedin-bio-fix-kit.epub' },
   // Course — assembled from its module files (no single source file).
   { raw: courseMarkdown(ROOT), out: `${COURSE.slug}.epub`, title: COURSE.title, subtitle: COURSE.subtitle },
+  // Bundles — the "what's inside" intro ebook for each bundle product.
+  { src: 'bundles/the-vault.md',          out: 'the-vault.epub' },
+  { src: 'bundles/the-services-vault.md', out: 'the-services-vault.epub' },
 ];
 
 // ── Markdown → HTML (kept in sync with build-downloads.mjs) ───────────────────
