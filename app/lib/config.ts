@@ -40,7 +40,11 @@ export const AMAZON_AUTHOR_URL  = "https://www.amazon.com/author/mkparrish";
 
 // ── Products not yet live ────────────────────────────────────────────────────
 // Add a slug here to show "Coming Soon" instead of the buy button.
-export const COMING_SOON_SLUGS = new Set<string>();
+export const COMING_SOON_SLUGS = new Set<string>([
+  "live-out-loud-print",
+  "not-afraid-of-storms-print",
+  "never-too-late-print",
+]);
 
 // ── Contact ──────────────────────────────────────────────────────────────────
 export const CONTACT = {
@@ -79,6 +83,28 @@ export const EBOOKS = [
     desc: "The free front door to the Shelf. Five LinkedIn headlines torn down and rewritten, plus the single formula behind every fix — then the 15-minute path to fixing your whole profile.",
   },
   {
+    slug:      "rebecoming",
+    title:     "REBECOMING: The Latest Model",
+    subtitle:  "A memoir about losing your fear without losing yourself.",
+    price:     "$49",
+    tag:       "The Memoir",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/rebecoming.pdf",
+    stripe:    "https://buy.stripe.com/14A5kE7I51PydyYaX38AE0h",
+    href:      "https://buy.stripe.com/14A5kE7I51PydyYaX38AE0h",
+    // Paperback via Lulu print-on-demand (sold direct, you keep the margin).
+    // href is the Lulu storefront product URL — added once the title is uploaded.
+    paperback: { price: "$39", href: "https://buy.stripe.com/4gMdRageBcuceD25CJ8AE0l" },
+    features:  [
+      "A present-tense memoir in ten chapters",
+      "On fear, faith, prayer, and rebecoming yourself",
+      "Complete PDF + Kindle-ready EPUB",
+      "Instant download",
+    ],
+    desc: "MK Parrish's flagship memoir. Ten chapters on fear, faith, prayer, and the eleven minutes it took to walk through a door she was sure wasn't for her — and on becoming the latest model of the person she always was.",
+  },
+  {
     slug:      "the-linkedin-bio-fix-kit",
     title:     "The LinkedIn Bio Fix Kit",
     subtitle:  "Fix the first thing everyone reads about you — in fifteen minutes.",
@@ -101,12 +127,14 @@ export const EBOOKS = [
     slug:      "reinvention-workbook",
     title:     "The Reinvention Workbook",
     subtitle:  "A guided writing workbook for people in the middle of becoming someone new.",
-    price:     "$18",
+    price:     "$29",
     tag:       "Workbook",
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/reinvention-workbook.pdf",
-    href:      "/shop/reinvention-workbook",
+    stripe:    "https://buy.stripe.com/14A9AUe6t65O9iIe9f8AE0k",
+    href:      "https://buy.stripe.com/14A9AUe6t65O9iIe9f8AE0k",
+    paperback: { price: "$34", href: "https://buy.stripe.com/8x27sM4vTfGo2Ukc178AE0o" },
     features:  [
       "20 guided writing exercises",
       "The identity audit framework",
@@ -119,13 +147,14 @@ export const EBOOKS = [
     slug:      "write-yourself-into-the-room",
     title:     "Write Yourself Into the Room",
     subtitle:  "The personal brand writing guide for people tired of sounding like everyone else.",
-    price:     "$28",
+    price:     "$39",
     tag:       "Best Seller",
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/write-yourself-into-the-room.pdf",
-    stripe:    "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
-    href:      "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
+    stripe:    "https://buy.stripe.com/14AeVefax3XGdyY5CJ8AE0i",
+    href:      "https://buy.stripe.com/14AeVefax3XGdyY5CJ8AE0i",
+    paperback: { price: "$44", href: "https://buy.stripe.com/6oUaEY3rPcuc66w6GN8AE0m" },
     features:  [
       "The three-layer positioning framework",
       "Bio writing templates + real examples",
@@ -138,13 +167,14 @@ export const EBOOKS = [
     slug:      "brand-voice-playbook",
     title:     "The Brand Voice Playbook",
     subtitle:  "Build a brand voice document from scratch.",
-    price:     "$35",
+    price:     "$45",
     tag:       "Digital Download",
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/brand-voice-playbook.pdf",
-    stripe:    "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
-    href:      "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
+    stripe:    "https://buy.stripe.com/9B6bJ27I5bq8fH6aX38AE0j",
+    href:      "https://buy.stripe.com/9B6bJ27I5bq8fH6aX38AE0j",
+    paperback: { price: "$49", href: "https://buy.stripe.com/6oU7sM5zXeCkamM3uB8AE0n" },
     features:  [
       "Full brand voice framework",
       "Tone spectrum mapping",
@@ -420,6 +450,24 @@ export const PRINTS = [
     preview: "I picked up the pen and I felt the world shift / the weight of a lifetime becoming a gift.",
   },
   { title: "Selected Lines", price: "From $18", stripe: "https://buy.stripe.com/fZubJ2geB3XGamMaX38AE0c", sizes: ["5×7","8×10"] },
+  {
+    title:   "Live Out Loud",
+    price:   "From $22",
+    sizes:   ["8×10","11×14","16×20"],
+    preview: "I am here to live out loud.",
+  },
+  {
+    title:   "Not Afraid of Storms",
+    price:   "From $22",
+    sizes:   ["8×10","11×14","16×20"],
+    preview: "I am not afraid of storms.",
+  },
+  {
+    title:   "Never Too Late",
+    price:   "From $18",
+    sizes:   ["5×7","8×10"],
+    preview: "It is never too late.",
+  },
 ] as const;
 
 export const SERVICES = [

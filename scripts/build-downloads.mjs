@@ -7,9 +7,13 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { COURSE, courseMarkdown } from './lib/course.mjs';
+import { inlineGoogleFonts } from './lib/inline-fonts.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
+
+const FONTS_URL = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap';
+const FONTS = await inlineGoogleFonts(FONTS_URL);
 
 // ── Markdown → HTML ──────────────────────────────────────────────────────────
 
@@ -37,7 +41,7 @@ function md(src) {
     .replace(/^---+$/gm, '<hr>')
     // headings
     .replace(/^### (.+)$/gm, (_, t) => `<h3>${inline(t)}</h3>`)
-    .replace(/^## (.+)$/gm,  (_, t) => `<h2>${inline(t)}</h2>`)
+    .replace(/^## (.+)$/gm,  (_, t) => `<h2 id="${slugify(t.replace(/\*\*?/g, ''))}">${inline(t)}</h2>`)
     .replace(/^# (.+)$/gm,   (_, t) => `<h1>${inline(t)}</h1>`)
     // unordered lists
     .replace(/^((?:[*\-] .+\n?)+)/gm, block => {
@@ -65,13 +69,23 @@ function inline(s) {
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>');
 }
 
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
 // ── HTML template ─────────────────────────────────────────────────────────────
 // Mirrors the live site (mkparrish.com): Bebas Neue / Playfair Display / DM Sans
 // / JetBrains Mono on black × pink × white × grey, with pink-gradient rules,
 // text-glow, an outlined display word, mono section numbers, and a grain overlay.
 
 function wrap(title, bodyHtml, opts = {}) {
-  const { subtitle = '', kicker = 'MK Parrish · mkparrish.com', meta = '', accent = '#F2AFC6', isCourse = false } = opts;
+  const { subtitle = '', kicker = 'MK Parrish · mkparrish.com', meta = '', accent = '#F2AFC6', isCourse = false, toc = [] } = opts;
+  const tocHtml = toc.length ? `
+<div class="toc-page">
+  <div class="toc-kicker">Table of Contents</div>
+  <ol class="toc-list">
+    ${toc.map((t, i) => `<li><a href="#${t.slug}"><span class="toc-num">${String(i + 1).padStart(2, '0')}</span><span class="toc-title">${esc(t.title)}</span></a></li>`).join('\n    ')}
+  </ol>
+</div>` : '';
   const notesHtml = Array.from({ length: 16 }, (_, i) => `
 <section class="notes-page">
   <div class="notes-kicker">MK Parrish · Working Notes</div>
@@ -103,9 +117,7 @@ function wrap(title, bodyHtml, opts = {}) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title} — MK Parrish</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+${FONTS}
 <style>
   :root {
     --void: #080808;
@@ -418,6 +430,22 @@ function wrap(title, bodyHtml, opts = {}) {
   .footer-legal a { color: var(--ash); }
   .print-notes { display: none; }
 
+  /* ── TABLE OF CONTENTS ─────────────────────────────── */
+  .toc-page { max-width: 720px; margin: 0 auto 24px; padding: 56px 24px 0; }
+  .toc-kicker {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.32em;
+    color: var(--petal); text-transform: uppercase; text-align: center; margin-bottom: 26px;
+  }
+  .toc-list { list-style: none; border-top: 1px solid var(--graphite); }
+  .toc-list li { border-bottom: 1px solid var(--graphite); }
+  .toc-list a {
+    display: flex; align-items: baseline; gap: 16px; padding: 15px 4px;
+    color: var(--pearl); text-decoration: none; font-family: var(--font-body);
+  }
+  .toc-list a:hover { color: var(--petal); }
+  .toc-num { font-family: var(--font-mono); color: var(--petal); font-size: 0.82rem; flex-shrink: 0; }
+  .toc-title { flex: 1; }
+
   /* ═══════════════════════════════════════════════════════════════
      PRINT EDITION — light, publisher-style layout for the PDF.
      The screen stays dark; the printed book inverts to a white page
@@ -491,6 +519,20 @@ function wrap(title, bodyHtml, opts = {}) {
         drop-shadow(0 0 34px rgba(199,91,120,0.48));
     }
     .cover-meta { color: #B0B0B0; }
+
+    /* ── TABLE OF CONTENTS: its own page between the cover and chapter one ── */
+    .toc-page {
+      max-width: none;
+      margin: 0;
+      padding: 0.9in 0 0;
+      break-after: page;
+      min-height: 7.45in;
+    }
+    .toc-kicker { color: var(--petal); font-size: 9pt; }
+    .toc-list { border-top: 1px solid #cfcfcf; }
+    .toc-list li { border-bottom: 1px solid #e3e3e3; }
+    .toc-list a { color: #232323; padding: 0.16in 0.04in; font-size: 11pt; }
+    .toc-num { color: #B23A59; }
 
     /* ── BODY: black text on white ── */
     .content {
@@ -679,7 +721,7 @@ function wrap(title, bodyHtml, opts = {}) {
     ${meta ? `<div class="cover-meta">${meta}</div>` : ''}
   </div>
 </div>
-
+${tocHtml}
 <div class="content">
 ${bodyHtml}
 </div>
@@ -753,8 +795,13 @@ function buildFile(srcPath, destPath, opts = {}) {
   // Remove the horizontal rule that used to divide the front matter from the body.
   if (lifted) raw = raw.replace(/^\s*---\s*$\n?/m, '');
 
+  const toc = [...raw.matchAll(/^## (.+)$/gm)].map((m) => {
+    const text = m[1].replace(/\*\*?/g, '').trim();
+    return { title: text, slug: slugify(text) };
+  });
+
   const bodyHtml = md(raw);
-  const html = wrap(title, bodyHtml, { ...opts, subtitle, meta });
+  const html = wrap(title, bodyHtml, { ...opts, subtitle, meta, toc });
   fs.mkdirSync(path.dirname(destPath), { recursive: true });
   fs.writeFileSync(destPath, html);
   console.log(`  ✓  ${path.relative(ROOT, destPath)}`);
@@ -769,6 +816,7 @@ const EBOOKS = [
   }],
   ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
   ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
+  ['ebooks/rebecoming.md',                    'ebooks/rebecoming.html'],
   ['ebooks/the-invisible-bruise.md',          'ebooks/the-invisible-bruise.html'],
   ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
   ['ebooks/scripture/the-study.md',           'ebooks/the-study.html'],

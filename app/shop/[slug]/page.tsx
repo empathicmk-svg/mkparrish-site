@@ -39,6 +39,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const extraContent: Record<string, { about: string[]; forWho: string[]; pullQuote: string }> = {
+  "rebecoming": {
+    about: [
+      "REBECOMING: The Latest Model is MK Parrish's flagship memoir, restructured into ten present-tense chapters that read like she is in your head, figuring it out alongside you. It opens on a rainy set of church steps, with a QR code and eleven minutes she almost spends walking the other way, and it does not let go.",
+      "It is a book about fear — the kind that moves in like a roommate and quietly runs the thermostat of your whole life — and about the slow, unglamorous, profoundly human work of growing bigger than it. It is about being an empath in a world that keeps calling your sensitivity a malfunction. It is about prayer and novenas and the Blessed Mother, about a father's last phone call and an irrefutable family story of the afterlife, about a grandmother's rosary, and about a roomful of women who became the great loves of a life.",
+      "Above all, it is written to take apart a lie: that faith, and Bible study, and the warm rooms where people tell each other the truth, are for a certain kind of person and not for you. They are for you. This book walks down the steps, takes your cold hand, and tells you exactly what is on the other side of the door.",
+    ],
+    forWho: [
+      "You are standing at the bottom of your own set of steps, certain a room isn't for you",
+      "You carry your fear quietly and have been told to just toughen up",
+      "You are an empath or a highly sensitive person learning the volume was the gift",
+      "You are curious about faith but allergic to performance and judgment",
+      "You love a memoir that is vivid, honest, and quietly transformative",
+    ],
+    pullQuote: "Certainty is just fear in a better coat. Faith is what you do while your hands are still shaking.",
+  },
   "reinvention-workbook": {
     about: [
       "Twenty writing exercises built from the actual reinvention process — not theory lifted from a business book. These exercises are what I used myself and refined with clients who were in the middle of becoming someone new.",
@@ -221,6 +236,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   const dl = productDownload(product);
   const isFree = isFreeProduct(product);
+  const paperback = (product as { paperback?: { price: string; href: string } }).paperback;
+  const showPaperback = Boolean(paperback?.href && paperback.href.length > 0 && !COMING_SOON_SLUGS.has(product.slug));
   const stripe = (product as { stripe?: string }).stripe;
   const buyTarget = isFree ? (dl as string) : (stripe && stripe.length > 0 ? stripe : product.href);
   const buyLabel = isFree ? "Download Free" : "Buy Now";
@@ -264,6 +281,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     className="btn-primary inline-flex items-center justify-center px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
                     {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
+                  </a>
+                )}
+                {showPaperback && (
+                  <a
+                    href={paperback!.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center border border-graphite px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
+                  >
+                    Paperback — {paperback!.price}
                   </a>
                 )}
                 <span className="font-body text-xs font-light text-iron">
@@ -316,6 +343,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
                     {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
+                  </a>
+                )}
+                {showPaperback && (
+                  <a
+                    href={paperback!.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
+                  >
+                    Paperback — {paperback!.price}
                   </a>
                 )}
                 <p className="text-center font-body text-[0.65rem] font-light text-iron">

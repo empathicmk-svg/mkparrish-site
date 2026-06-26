@@ -27,6 +27,7 @@ const PRODUCTS = [
     subtitle: 'A guided writing workbook for people in the middle of becoming someone new.' },
   { src: 'ebooks/write-yourself-into-the-room.md',    slug: 'write-yourself-into-the-room' },
   { src: 'ebooks/brand-voice-playbook.md',            slug: 'brand-voice-playbook' },
+  { src: 'ebooks/rebecoming.md',                      slug: 'rebecoming' },
   { src: 'ebooks/the-invisible-bruise.md',            slug: 'the-invisible-bruise' },
   { src: 'ebooks/decoding-angel-numbers.md',          slug: 'decoding-angel-numbers' },
   { src: 'ebooks/scripture/the-study.md',             slug: 'the-study' },
