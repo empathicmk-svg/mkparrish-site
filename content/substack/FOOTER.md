@@ -32,7 +32,7 @@ This is the private editorial side of [MK Parrish](https://www.mkparrish.com) �
 
 [**Subscribe →**](https://mkparrishthemargins.substack.com/subscribe)
 
-[Website](https://www.mkparrish.com) · [Instagram](https://www.instagram.com/mkeezieee) · [LinkedIn](https://www.linkedin.com/in/mkparrish) · [Work with MK](https://www.mkparrish.com/book)
+[Website](https://www.mkparrish.com) · [Instagram](https://www.instagram.com/mk_parrish) · [LinkedIn](https://www.linkedin.com/in/mkparrish) · [Work with MK](https://www.mkparrish.com/book)
 
 *The Margins — the thinking before the edit.*
 ```
