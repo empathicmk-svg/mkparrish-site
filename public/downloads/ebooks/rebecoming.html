@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>REBECOMING: The Latest Model — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --white: #FAFAF8;
+    --blush: #FFD6E4;
+    --petal: #F2AFC6;
+    --rose: #E0869F;
+    --carmine: #C75B78;
+    --font-display: 'Bebas Neue', Impact, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    /* Reusable gray → pink gradients */
+    --grad-pink: linear-gradient(120deg, var(--rose), var(--petal) 55%, var(--blush));
+    --grad-rule: linear-gradient(90deg, transparent, var(--petal), transparent);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(242,175,198,0.06), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, rgba(199,91,120,0.05), transparent 55%),
+      linear-gradient(180deg, var(--obsidian) 0%, var(--void) 38%);
+    background-attachment: fixed;
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.78;
+    position: relative;
+  }
+  /* Grain overlay — the site's signature texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9998;
+    mix-blend-mode: screen;
+  }
+  ::selection { background: var(--petal); color: var(--void); }
+
+  /* ── COVER ─────────────────────────────────────────── */
+  .cover {
+    position: relative;
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 104px 48px 84px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% -10%, rgba(242,175,198,0.20) 0%, transparent 62%),
+      radial-gradient(ellipse 50% 50% at 88% 108%, rgba(199,91,120,0.12) 0%, transparent 60%),
+      linear-gradient(160deg, rgba(176,176,176,0.06), transparent 45%);
+    pointer-events: none;
+  }
+  /* Thin gray→pink gradient hairline across the very top */
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--iron), var(--petal) 50%, var(--blush));
+    opacity: 0.7;
+  }
+  .cover > * { position: relative; z-index: 1; }
+  .cover-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7.5vw, 4.6rem);
+    letter-spacing: 0.04em;
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    color: var(--white);
+  }
+  /* Soft gray→white→pink gradient fill on the lead words */
+  .cover h1 .grad {
+    background: linear-gradient(135deg, var(--pearl) 0%, var(--pearl) 50%, var(--blush) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--pearl);
+    filter: drop-shadow(0 0 16px rgba(242,175,198,0.14));
+  }
+  .cover h1 .outline {
+    -webkit-text-stroke: 1px rgba(242,175,198,0.5);
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  /* Subtitle — matches the live site tagline: Playfair italic, petal */
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+    color: rgba(242, 175, 198, 0.8);
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.5;
+  }
+  .cover-heart {
+    width: 54px;
+    height: 54px;
+    margin: 24px auto 18px;
+    color: var(--petal);
+    filter:
+      drop-shadow(0 0 18px rgba(242,175,198,0.88))
+      drop-shadow(0 0 42px rgba(199,91,120,0.42));
+  }
+  .cover-heart svg { width: 100%; height: 100%; display: block; }
+  .cover-rule {
+    width: 90px;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, var(--rose), var(--petal), var(--blush), transparent);
+  }
+  .cover-meta {
+    margin-top: 30px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+
+  /* ── CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    counter-reset: section;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    letter-spacing: 0.03em;
+    line-height: 1.04;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  /* Section headings get an editorial mono counter, like the site's section numbers */
+  h2 {
+    counter-increment: section;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.3vw, 1.95rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--pearl);
+    margin: 68px 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--graphite);
+    position: relative;
+  }
+  h2::before {
+    content: counter(section, decimal-leading-zero);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--rose), var(--petal));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--petal);
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 88px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--petal), rgba(242,175,198,0));
+  }
+  /* Sub-section labels — live-site accent: Playfair italic, petal */
+  h3 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--petal);
+    margin: 40px 0 12px;
+  }
+  p { margin: 0 0 1.25em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  /* Emphasis — live-site accent: Playfair italic, petal */
+  em { font-family: var(--font-serif); font-style: italic; color: var(--petal); }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { color: var(--blush); text-decoration: underline; }
+
+  ul, ol { padding-left: 1.4em; margin: 0 0 1.6em; color: var(--smoke); }
+  li { margin-bottom: 0.55em; padding-left: 0.35em; }
+  ul li::marker { color: var(--petal); }
+  ol li::marker { color: var(--petal); font-family: var(--font-mono); font-size: 0.85em; }
+
+  blockquote {
+    position: relative;
+    border-left: 2px solid var(--petal);
+    margin: 40px 0;
+    padding: 26px 30px 26px 40px;
+    background: linear-gradient(110deg, rgba(242,175,198,0.10), rgba(176,176,176,0.04) 55%, transparent 90%);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.08rem;
+    color: rgba(242, 175, 198, 0.9);
+    line-height: 1.6;
+  }
+  blockquote::before {
+    content: '\201C';
+    position: absolute;
+    top: 0.08em;
+    left: 0.14em;
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(242,175,198,0.22);
+    pointer-events: none;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code { font-family: var(--font-mono); font-size: 0.86rem; color: var(--petal); white-space: pre; }
+  p > code, li > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    font-size: 0.82em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.9rem; }
+  thead tr { background: linear-gradient(90deg, rgba(242,175,198,0.12), rgba(176,176,176,0.04) 70%, transparent); }
+  th {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--graphite); color: var(--smoke); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--iron) 25%, var(--petal) 50%, var(--iron) 75%, transparent);
+    opacity: 0.6;
+    margin: 52px 0;
+  }
+
+  /* ── FOOTER ────────────────────────────────────────── */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 48px 24px;
+    text-align: center;
+    background: var(--obsidian);
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .footer-legal {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+  .footer-legal a { color: var(--ash); }
+  .print-notes { display: none; }
+
+  /* ── TABLE OF CONTENTS ─────────────────────────────── */
+  .toc-page { max-width: 720px; margin: 0 auto 24px; padding: 56px 24px 0; }
+  .toc-kicker {
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.32em;
+    color: var(--petal); text-transform: uppercase; text-align: center; margin-bottom: 26px;
+  }
+  .toc-list { list-style: none; border-top: 1px solid var(--graphite); }
+  .toc-list li { border-bottom: 1px solid var(--graphite); }
+  .toc-list a {
+    display: flex; align-items: baseline; gap: 16px; padding: 15px 4px;
+    color: var(--pearl); text-decoration: none; font-family: var(--font-body);
+  }
+  .toc-list a:hover { color: var(--petal); }
+  .toc-num { font-family: var(--font-mono); color: var(--petal); font-size: 0.82rem; flex-shrink: 0; }
+  .toc-title { flex: 1; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PRINT EDITION — light, publisher-style layout for the PDF.
+     The screen stays dark; the printed book inverts to a white page
+     with black header boxes and pink/white titles.
+     ═══════════════════════════════════════════════════════════════ */
+  @media print {
+    @page { size: 6in 9in; margin: 0.56in 0.48in 0.62in 0.58in; }
+    @page:first { margin: 0; }
+
+    html, body {
+      background: #ffffff !important;
+      color: #232323 !important;
+      font-size: 10.5pt;
+      line-height: 1.55;
+    }
+    body::before { display: none !important; }   /* no grain in print */
+
+    /* ── COVER: a full-page black panel on a white sheet ── */
+    .cover {
+      width: 6in;
+      min-height: 9in;
+      display: flex;
+      background: #ffffff !important;
+      border-bottom: none;
+      padding: 0;
+      break-after: page;
+    }
+    .cover::before { display: none !important; }
+    /* The panel fills the printable page and centres the title block,
+       instead of floating as a thin band in the middle of the sheet. */
+    .cover-inner {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0.18in;
+      padding: 0.68in 0.44in;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 96% 52% at 50% -8%, rgba(242,175,198,0.22), transparent 60%),
+        radial-gradient(ellipse 58% 44% at 92% 108%, rgba(199,91,120,0.14), transparent 60%),
+        linear-gradient(180deg, #141111 0%, #0E0E0E 42%, #070707 100%);
+      border: 1px solid rgba(242, 175, 198, 0.45);
+    }
+    .cover-inner > * { position: relative; z-index: 1; }
+    .cover-kicker { color: var(--petal); }
+    .cover h1 { color: #ffffff; font-size: clamp(2.6rem, 8vw, 3.8rem); }
+    /* Solid fills only. background-clip:text and text-stroke rasterise as
+       opaque boxes / vanish entirely in print — that is what turned the old
+       title into a white rectangle. Keep the white + pink two-tone with
+       plain fills so it renders identically everywhere. */
+    .cover h1 .grad {
+      background: none;
+      -webkit-background-clip: border-box; background-clip: border-box;
+      -webkit-text-fill-color: #ffffff; color: #ffffff;
+      filter: none;
+    }
+    .cover h1 .outline {
+      -webkit-text-stroke: 0;
+      -webkit-text-fill-color: var(--petal); color: var(--petal);
+    }
+    .cover .subtitle { color: var(--petal); }
+    .cover-heart {
+      width: 0.54in;
+      height: 0.54in;
+      margin: 0.22in auto 0.16in;
+      color: var(--petal);
+      filter:
+        drop-shadow(0 0 14px rgba(242,175,198,0.9))
+        drop-shadow(0 0 34px rgba(199,91,120,0.48));
+    }
+    .cover-meta { color: #B0B0B0; }
+
+    /* ── TABLE OF CONTENTS: its own page between the cover and chapter one ── */
+    .toc-page {
+      max-width: none;
+      margin: 0;
+      padding: 0.9in 0 0;
+      break-after: page;
+      min-height: 7.45in;
+    }
+    .toc-kicker { color: var(--petal); font-size: 9pt; }
+    .toc-list { border-top: 1px solid #cfcfcf; }
+    .toc-list li { border-bottom: 1px solid #e3e3e3; }
+    .toc-list a { color: #232323; padding: 0.16in 0.04in; font-size: 11pt; }
+    .toc-num { color: #B23A59; }
+
+    /* ── BODY: black text on white ── */
+    .content {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      color: #232323;
+    }
+    p {
+      color: #2b2b2b;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      margin-bottom: 0.86em;
+    }
+    /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
+    strong {
+      background: #0E0E0E;
+      color: #FAFAF8;
+      font-weight: 600;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    a { color: #B23A59; }
+    ul li::marker, ol li::marker { color: #B23A59; }
+
+    /* ── SECTION HEADERS: black boxes, pink number + white title ── */
+    h2 {
+      background: #0E0E0E;
+      color: #ffffff;
+      font-size: 20pt;
+      line-height: 1.04;
+      padding: 0.24in 0.26in 0.25in;
+      margin: 0 0 0.32in;
+      border: none;
+      break-before: page;          /* every Part / section starts a fresh page */
+    }
+    /* …except the first section, which follows the cover (and any intro/metadata
+       block) on page 2 instead of forcing a near-empty page before it. */
+    .content h2:first-of-type { break-before: auto; }
+    h2::before {
+      background: none;
+      -webkit-text-fill-color: var(--petal);
+      color: var(--petal);
+      margin-bottom: 10px;
+    }
+    h2::after { display: none; }
+
+    /* Exercise titles — pink, with extra breathing room above each */
+    h3 {
+      color: #B23A59;
+      font-size: 13.2pt;
+      line-height: 1.24;
+      margin: 0.34in 0 0.12in;
+    }
+    /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
+    em {
+      background: var(--petal);
+      color: #1A1008;
+      font-style: italic;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    /* ── PULL QUOTES: soft panel, pink rule + mark, dark text ── */
+    blockquote {
+      background: #F5F2F0;
+      border-left: 3px solid #B23A59;
+      color: #232323;
+      margin: 0.26in 0;
+      padding: 0.18in 0.22in 0.18in 0.28in;
+      font-size: 11pt;
+    }
+    blockquote::before { color: rgba(178, 58, 89, 0.3); }
+
+    /* ── TABLES: black header band ── */
+    thead tr { background: #0E0E0E; }
+    th { color: #ffffff; border-bottom: 1px solid #0E0E0E; }
+    td { color: #2b2b2b; border-bottom: 1px solid #e3e3e3; }
+    ul, ol {
+      margin-bottom: 0.95em;
+      padding-left: 1.25em;
+    }
+    li {
+      font-size: 10.5pt;
+      line-height: 1.48;
+      margin-bottom: 0.28em;
+    }
+
+    /* ── CODE: light chip ── */
+    pre { background: #f3f3f1; border: 1px solid #e3e3e3; }
+    pre code { color: #A8344F; }
+    p > code, li > code { background: #f0eeec; color: #A8344F; }
+
+    hr {
+      background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
+      opacity: 1;
+    }
+    /* The markdown "---" separators always sit just before a section heading,
+       and every section already starts a fresh page — so a rule landing right
+       before a heading is redundant and can strand alone on a near-empty page.
+       Hide those; keep any genuine in-content rule (one not followed by H2). */
+    hr:has(+ h2) { display: none; }
+
+    /* ── WORKING NOTES: enough lined pages for paperback minimums ── */
+    .print-notes { display: block; }
+    .notes-page {
+      break-before: page;
+      min-height: 7.45in;
+      display: flex;
+      flex-direction: column;
+      color: #232323;
+    }
+    .notes-kicker {
+      font-family: var(--font-mono);
+      font-size: 7.5pt;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B23A59;
+      margin-bottom: 0.16in;
+    }
+    .notes-title {
+      font-family: var(--font-display);
+      font-size: 18pt;
+      line-height: 1.02;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #0E0E0E;
+      margin-bottom: 0.14in;
+    }
+    .notes-rule {
+      height: 1px;
+      width: 1.1in;
+      background: linear-gradient(90deg, #B23A59, rgba(178,58,89,0));
+      margin-bottom: 0.22in;
+    }
+    .notes-lines {
+      flex: 1;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 0.33in,
+        rgba(178,58,89,0.28) 0.335in,
+        rgba(178,58,89,0.28) 0.345in
+      );
+    }
+    .notes-page-number {
+      margin-top: 0.18in;
+      font-family: var(--font-mono);
+      font-size: 8pt;
+      letter-spacing: 0.16em;
+      color: #B23A59;
+      text-align: right;
+    }
+
+    /* ── FOOTER: hide web footer in the paperback interior ── */
+    .footer { display: none !important; background: #ffffff; border-top: 1px solid #dddddd; }
+    .footer-logo { color: #0A0A0A; }
+    .footer-legal { color: #8a8a8a; }
+    .footer-legal a { color: #B23A59; }
+
+    /* ── PAGINATION — natural flow; just avoid bad breaks ── */
+    h1, h2, h3 { break-after: avoid-page; break-inside: avoid; }
+    p, li { orphans: 3; widows: 3; }
+    h2, h3, li, tr, blockquote, pre, table, figure, img { break-inside: avoid; }
+    ul, ol { break-before: avoid-page; }
+    .footer { break-before: avoid-page; }
+  }
+  *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">REBECOMING: The Latest</span> <span class="outline">Model</span></h1>
+    <div class="cover-heart" aria-hidden="true">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" stroke="#FAFAF8" stroke-width="0.8"/>
+      </svg>
+    </div>
+    <p class="subtitle">A memoir, restructured</p>
+    <div class="cover-rule"></div>
+    <div class="cover-meta">By MK Parrish</div>
+  </div>
+</div>
+
+<div class="toc-page">
+  <div class="toc-kicker">Table of Contents</div>
+  <ol class="toc-list">
+    <li><a href="#part-one-the-qr-code"><span class="toc-num">01</span><span class="toc-title">Part One: The QR Code</span></a></li>
+    <li><a href="#part-two-what-fear-costs"><span class="toc-num">02</span><span class="toc-title">Part Two: What Fear Costs</span></a></li>
+    <li><a href="#part-three-the-turning-point"><span class="toc-num">03</span><span class="toc-title">Part Three: The Turning Point</span></a></li>
+    <li><a href="#part-four-rebecoming-in-practice"><span class="toc-num">04</span><span class="toc-title">Part Four: Rebecoming, in Practice</span></a></li>
+    <li><a href="#part-five-the-latest-model"><span class="toc-num">05</span><span class="toc-title">Part Five: The Latest Model</span></a></li>
+  </ol>
+</div>
+<div class="content">
+<p><em>A note before we start</em></p>
+
+<p>Most books that promise to change you open with a promise and close with a worksheet. This one has no worksheet. It has a QR code, a rainy set of church steps, a paper cup of coffee, and eleven minutes I almost spent walking the other way. I found the code by accident, the way the important things tend to arrive, while I was looking for something else. After that, nothing in my life sat in quite the same place again.</p>
+
+<p>I am a Pisces and a poet and a lifelong insomniac, which means I feel everything at a volume the world keeps calling a malfunction. For years I was sure that if I thought hard enough and stayed up late enough, I could out-argue my own fear. I could not. You do not think your way out of a feeling. You walk through the middle of it, and it helps to have someone on the far side holding the door.</p>
+
+<p>Two of the people who told me I had a story worth telling are gone now. I am telling it anyway. This is me, finally, telling it.</p>
+
+<hr>
+
+<h2 id="part-one-the-qr-code">Part One: The QR Code</h2>
+
+<p>It was raining by the time I reached the church, and I stood at the bottom of the steps for eleven minutes without going up them.</p>
+
+<p>I know it was eleven, because I watched each one turn over on my phone, the same small screen that had carried me here, the same screen that holds the whole shouting world, the way you watch a kettle you are praying will not boil. When you do not own a car, you arrive at things on foot and on time and with no armor at all. There is no idling at the curb with the heater running, no metal shell to sit inside while you lose your nerve in private. There is only you, the cold coming up through the soles of your shoes, the gray Saturday morning going wet around you, and a lit doorway forty feet off that might as well have been across an ocean.</p>
+
+<p>I had a speech ready. I had walked the whole way over rehearsing it, a small and reasonable case for why this particular morning was not the morning. I was tired. I had a Saturday's worth of errands I could hide inside. My dog needed me, which was a lie, because Biggie had been unconscious on the good pillow since breakfast and treats my entire existence as a mild interruption to his sleep.</p>
+
+<p>Underneath the speech sat the real reason, and it wore a costume I knew well. It leaned in close, in my own voice, and it said: <em>you are not the kind of woman who goes to Bible study.</em></p>
+
+<p>I had a whole picture of how it would go. A certain kind of woman with a certain kind of certainty, women who had never once lain awake doubting, who would look at the wreckage of me and quietly thank God they had been spared it. A row of judges. A club I had failed to qualify for without ever applying. I had carried that picture for years, fully formed and never once examined, the way you can hold an opinion your whole life without ever asking where you picked it up. That picture is the stigma, and taking it apart, gently, is most of what this book turned out to be.</p>
+
+<p>Then the rain stopped pretending. It came down all at once, ran the ink on the bulletin still folded in my fist, and pushed me up the steps and through the door, partly by grace and partly because I would not fall apart on a public sidewalk like a woman in the third act of a film no one had agreed to make.</p>
+
+<p>The room took apart every idea I had carried in with me. Low gold lamplight instead of the fluorescent glare I had braced for. Warmth I could smell — coffee gone bitter on its third pour, candle wax, the soft dust of an old building that has kept a lot of people warm. None of the folding-table bleakness I had pictured. I had come ready to endure something. Instead I wanted to stay.</p>
+
+<p>There were twelve of us. A college sophomore with her sleeves pulled down over her hands. A woman much further along who looked as though she had buried a couple of husbands and kept most of their secrets out of politeness. And women in the middle, like me, calm on the outside, carrying things on the inside we had never said to anyone.</p>
+
+<p>No one made it strange. That was the first miracle, and I have learned since not to rank my miracles by size. The woman next to me slid a paper cup of coffee across the table without any ceremony at all, the way you hand a life ring to someone who has not yet admitted she is in the water.</p>
+
+<p>"First time's the hardest. And you already did it."</p>
+
+<p><em>You already did it.</em></p>
+
+<p>I thought about the prodigal son on the walk home, the way I had not thought about him in years. Everyone remembers the homecoming — the robe, the ring, the fattened calf, the father hitching up his good clothes to run down the road. I kept landing on the part that comes first, the part no one paints. The son is still a long way off, still in the mud, still rank with pig, and he has not been forgiven yet and has no idea how any of it will land, and he gets up anyway and turns toward home and starts to walk.</p>
+
+<p>No one puts that part in stained glass. The turning around. The eleven minutes at the bottom of the steps. The thumb hovering over a square of black and white.</p>
+
+<p>I had not arrived anywhere yet. I had only turned around and started walking home. It would take me a long time to understand that this was the whole thing.</p>
+
+<h2 id="part-two-what-fear-costs">Part Two: What Fear Costs</h2>
+
+<p>Here is what nobody tells you about the picture I'd been carrying: it wasn't really about Bible study. It was about a roommate I'd had for most of my life.</p>
+
+<p>For most of my life, fear and I were roommates. It never paid rent and somehow always controlled the thermostat. I met it most nights around two in the morning, when the apartment had gone quiet and ticking and I was the only one awake to keep it company. It never arrived looking like fear. That was the trick of it. It came dressed as being responsible. As being realistic. As simply not getting my hopes up, so they could not be dashed. It wore the good sober suit of maturity, and for years I mistook it for wisdom, when underneath the suit it was only ever a small and shrieking animal sure that I was about to die.</p>
+
+<p>It took me a long time to understand that I was not afraid of any one nameable thing. I was afraid of existing, and existing turns out to be a fear with a thousand outfits. There is the fear of being annihilated, of stopping, of the lights going out mid-sentence. There is its opposite, the fear of continuing, of all these years stacked ahead of me like dishes reaching the ceiling. There is the fear of being known, of letting someone see the unedited me and watching them reach for their coat, and its cruel twin, the fear of never being known at all, of moving through my one life as a rumor of myself. Kierkegaard called freedom a kind of dizziness, the vertigo at the cliff-edge of everything you might still become. Jung said the thing you are most afraid to look at is usually the exact thing you most need to pick up and carry home. I read them all. I underlined them in three colors of ink, and I can report, after years of careful research, that underlining a book about anxiety does precisely nothing to cure your anxiety.</p>
+
+<p>Here is the part that still makes me laugh, the kind of laugh that loosens something in the chest. The single most repeated instruction in the whole Bible is some version of <em>do not be afraid</em>. People like to say it lands three hundred and sixty-five times, one for every day, and I suspect whoever counted was also avoiding something, but the point holds and it floors me. The most frequent thing the divine ever says to us is not <em>behave</em>. It is not <em>believe the right things in the right order</em>. It is closer to: <em>calm down. I have got this.</em></p>
+
+<p>We did not take the note. We built the evening news. Then the push notification. Then the comment section.</p>
+
+<p>I think about Jonah more than is probably healthy. Handed an assignment he did not want, he did not argue — he went straight to the harbor, boarded a boat pointed at the far opposite edge of the map, and tried to outrun the whole of heaven. He is the patron saint of everyone who has ever left a hard conversation on read. And the joke of his story, the part that undoes me, is that he still washed up exactly where he was always meant to be, only later, and by way of three days inside a fish, and much the worse for the detour.</p>
+
+<p>That is running, in the end. It works for a while. It genuinely works, right up until you are sitting in the dark, in the belly of something you cannot name, with no memory of how you got there. You cannot outrun it. You can only turn around and finally speak to it. Mine began to go quiet the Saturday morning I said its name out loud, in that beautiful room, to women I had known for barely an hour. The ceiling, against all my predictions, stayed exactly where it was.</p>
+
+<p>And running has a cost, and the cost is not abstract. It came due in my body.</p>
+
+<p>There was a season I was not okay in a way that left metaphor behind and moved into the body. The fear, refused at the mouth, found another way out. It came out as the insomnia, the long hours after two in the morning when the apartment ticked and settled and I was the only one awake to hear it. It came out as a chest that would not unclench, a breath that only ever went halfway down. It came out as a gray flatness laid over everything I used to love, the strange sense of watching my own life through a window painted shut from the outside. The mind sends its unpaid bills straight down to the body, and the body, loyal and uncomplaining, always pays. The body keeps the receipts.</p>
+
+<p>For the longest time I was sure the brave thing, the only respectable thing, was to carry all of it alone. To be the strong one. The friend everyone else leaned on, the one with the level voice and the right advice and the casserole already in the oven, the one who was always, reliably, fine. I had built an entire self on being fine. Being fine was the finest work I had ever done.</p>
+
+<p>It was also, quietly and without any drama, killing me, which is a strange thing to have to write about something you mistook for a personality trait.</p>
+
+<h2 id="part-three-the-turning-point">Part Three: The Turning Point</h2>
+
+<p>This is the part I had backward for so long, and getting it backward is what nearly kept me on that sidewalk for good.</p>
+
+<p>When Lazarus comes out of the tomb, there is a detail I missed for years. He comes out alive, and still wrapped head to foot in the grave clothes. Still bound. Still trailing the linen of the place he had just left. And the instruction is not, <em>wonderful, you are breathing, sort the rest out yourself.</em> The instruction, spoken to the people standing right there in the daylight, is this: <em>unbind him, and let him go.</em> The miracle got him out of the grave. The people who loved him got him out of the wrappings. He could not, for all the resurrection in the world, unwrap himself. Somebody had to come close and do it with him, with their own hands.</p>
+
+<p>I thought reaching for help was the white flag, the gesture you made once you had finally failed at being strong. It was the opposite. It was the second half of the resurrection, the half nobody thinks to put in the stained glass, the part where the people who love you crowd in close and start, with their own hands, to unwind the linen. I needed a warm room. I needed a paper cup of coffee and a QR code I almost did not scan. I needed other people. I am not ashamed of that anymore. It is just true.</p>
+
+<p>I did not come to faith as a stranger. I came to it as a Catholic-school girl in a pleated plaid skirt, with the words to the prayers worn so smooth in my mouth that I could say them without hearing a single one. I knew the choreography in my body — when to stand, when to kneel, when to murmur the response, when to cross myself. But knowing the choreography is not the same as having the relationship, and my relationship with God ran hot and cold and hot again across the length of my life. I came back to it this time the way you come back to a hometown after a long time away. Wary. Out of options. Half hoping it had changed, half furious that it had not.</p>
+
+<p>So I want to be plain about the thing at the center of this book: the room I walked into that Saturday morning matched nothing on the long list of dread I had carried in from the rain.</p>
+
+<p>It was called Walking with Purpose, and it was simpler than anything I had braced for. There was no stage, no expert, no one performing certainty from on high. There was a circle of chairs, and a book, and two hours. We took a chapter at a time, one for each Saturday, and we talked about it the way women talk when no one is keeping score, slowly and honestly, doubling back, comparing maps of the same hard country. It was never really about the verses, though we read them and loved them. It was about twelve women telling the truth in a warm room. It was acceptance with no audition and encouragement with no invoice and the plain mercy of being believed the first time. It was the group texts that started lighting up my phone in the middle of the week, a casserole of prayer requests and small hard-won victories and somebody's kid's good news. It was, and I will just put the word down on the table, love.</p>
+
+<p>I had filed Bible study under judgment and brittle certainty and a kind of airless performed goodness. What I found was the photographic negative of all of it — the least judgmental room I had ever sat in, full of women who led with their doubt instead of their answers. The stigma had never once been describing the thing. It had only ever been describing my fear of the thing.</p>
+
+<p>It took me most of my life to learn the difference between faith and certainty. I had always treated them as one thing, faith as a place you finally arrive and plant a flag on and get to feel a little superior about. But certainty is not faith. <strong>Certainty is just fear in a better coat.</strong> Faith is what you do while your hands are still shaking. Faith is walking toward the thing you cannot yet see and trusting the floor to come up and meet your foot. I learned that in a circle of folding chairs, from women who had far more reason than I did to be sure of everything and had decided, instead, to keep showing up unsure.</p>
+
+<p><em>All you need is faith the size of a mustard seed,</em> the old line goes, a seed so small you could lose it in the lines of your palm. For years I heard that as a low bar set out of pity. Now I think it is the most generous arithmetic in the world. You do not need a mountain of belief. You need a crumb. I had a crumb. The women had a beautiful room and coffee that ran from terrible to wonderful depending on who poured it and a circle with one seat still open. It turned out to be more than enough. Grace never once asked for my qualifications.</p>
+
+<p>But the insight is one thing. Living inside it is another, and I want to be honest that I am still mid-renovation.</p>
+
+<p>By day I am good at marketing, and I have been for years. I build the campaign that lands. I write the words a chief executive says on a stage as if they had always been his. I can take a quarter of pipeline panic and turn it into a plan that holds, and I can walk into a room of executives and know inside a minute what each of them is afraid of. None of that is the problem. The problem is quieter, and it does not fit on a résumé: there is a particular ache to spending your one wild stretch of daylight on work that does not match the size of what you carry, the low daily grief of feeling your real life running in a browser tab you can hear but cannot quite click over to. I build the brand and the demand and the beautiful deck, the workday finally closes its laptop, and the poet I have been since I was a girl is still sitting in the corner with her arms crossed, waiting to be let out. I am in a hallway, not a room. Hallways, however long and however dim, are not where anyone is meant to live.</p>
+
+<p>And here is the two-things-at-once truth I have had to learn to hold in one open hand. I am also proud — proud of what I built out of not much, proud of the rooms I clawed my way into without an invitation. But if I am honest all the way down, I am prouder of the obstacles than the wins. Anyone can be proud of a clean win on a good day with the wind behind them. I am proud of the comebacks. I am proud of the unwitnessed version of me who kept going when going forward was the only thing left on the board, and even that felt like too much to ask.</p>
+
+<p>This is where faith stops being a feeling and turns into a paradox, the truest thing those women taught me. Faith is, at the same time, the easiest and the hardest thing a person can hold. Easy, because a crumb of it will do, because grace waves you through without the background check, because the whole entry fee is that you turn around. And hard, brutally hard, because of what it asks next: it asks me to surrender. All the way.</p>
+
+<p>I used to use that word as if it were soft, a spa word, a candle scent. It is not soft. Surrender means taking my hands off the controls. It means prying my own white knuckles off the wheel and trusting something higher and wiser to drive. I am not built to let go of the wheel. The whole architecture of my fear was poured to keep my knuckles white around it. And there, calm as anything, is faith, asking for the grip itself. I have not mastered this. I am a beginner at surrender, clumsy, grabbing the wheel back out of plain habit every ten minutes. But I have felt, in flashes, what it does when it works — the unclench, the sudden clean quiet of a problem I finally set down because I decided it was never mine to carry alone.</p>
+
+<h2 id="part-four-rebecoming-in-practice">Part Four: Rebecoming, in Practice</h2>
+
+<p>Theory is easy to write. What it costs to live it is a different book, and this is where mine turns concrete, because faith never came to me as a voice from a cloud. It came wearing faces — the faces of the people who refused to let go of me.</p>
+
+<p>My mother calls me teddy bear baby. I am a grown woman with a profession and strong opinions about font kerning and the correct way to load a dishwasher, and to her I am, and will always be, teddy bear baby. There is a particular grace in being loved by someone who knew you before you built a personality to perform, before you had a single follower or a single fear. She does not love the latest model. She never needed the upgrade. She loves the original, scratches and all.</p>
+
+<p>Then there is my father, and his is a harder story to tell, because for most of my life I did not have one to tell about him at all. My parents divorced when I was four. He moved to Arizona, and for twenty-five years he was less a father than a fact, a man at the far edge of the map of my life. I did not hate him. You cannot really hate a rumor.</p>
+
+<p>What finally brought him back was the worst thing. In April 2017 my best friend Rob died, falling an inch off a ladder. You can write that sentence as many times as you like and it never starts to make sense. An inch. A whole irreplaceable man, gone over the length of a thumb. My father saw it on Facebook. He sent me a message to say he was sorry for my loss. I sat with that little gray bubble on my screen for a long time. And then I did the one thing about this whole story I will never have to regret. I decided I did not want to feel this again, this exact tearing, on the day <em>he</em> died, with twenty-five years of unsaid things locked in a room between us. So I wrote back.</p>
+
+<p>For the next year, we made up for all of it at once. We texted and called every single day, like two schoolgirls passing notes, like we were trying to spend a whole quarter century of words before some clock neither of us could see ran out. He was an FDNY firefighter and a grandmaster Mason out in Arizona, and he had become, of all the unlikely things on this earth, my best friend. We made a plan. I would move out there. I would start over near him, finally, and we would take whatever years were left and fill them.</p>
+
+<p>And here is the regret I will carry to my own grave, so I am going to set it down plainly and let it stand. I did not get on the plane. I stayed in New York and guarded my boxes and my lease and my furniture as though any of it could keep me warm, telling myself there was time to sort the logistics out first. I chose the weight I knew over the leap I didn't. I chose my things. He died before I fixed it. I have spent a good part of this book talking about surrender, about prying my fingers off the wheel, and the plain truth is that I learned the cost of refusing to in the most expensive way there is.</p>
+
+<p>The night before he died, we were on the phone for four hours. I hung up at four in the morning, New York time, and sat there in the dark afterward with the strangest, warmest thought: <em>wow. You actually have a father who loves you.</em> He told me a story I had never heard. Years before I was born, working as a firefighter, he was overcome by carbon monoxide and dropped into a coma, and while he was under he had a near-death experience. He saw the light, and in it he saw his uncle Norman, a tugboat captain — the same uncle who, when my father was a little boy, had told him he could fly because he was wearing a Superman cape. He had seen Norman appear to him once before, too, on the very day Norman died in a tugboat fire, before anyone had come to say the words out loud. To my father, none of it was a trick of an oxygen-starved brain. It was proof that the people who go ahead of us are not gone but only out of sight.</p>
+
+<p>Before we hung up, I confessed something to him. I told him I did not know what my purpose was. He did not even pause. He said, "Well, ya got a great story, kid. Ya just need to tell it."</p>
+
+<p>The next day, the fourteenth of April, 2018, a massive heart attack took him, all at once, with no warning and no goodbye beyond the one we did not know we had already said. I never made it to Arizona. I never got on the plane. And the last whole thing my father gave me was an instruction that I am, at this very moment, in the only way I know how, finally carrying out.</p>
+
+<p>I see him now in numbers. He died on the fourteenth of the fourth, and ever since, 414 finds me everywhere — on clocks and receipts and license plates and the corners of unrelated days. There is another, 444, that belongs to my grandmother, and that one finds me too. People are welcome to call it coincidence if they need to. I call them my angel numbers.</p>
+
+<p>Because the other face faith wears, the one I have carried longest, belongs to my grandmother. Ju Ju. She passed last November, and all these months later I am still learning how to build a sentence with her inside the past tense. Her faith was the quiet kind, never performed, only lived, threaded so finely through the ordinary hours of her days that after a while you stopped seeing the thread and saw only the warmth it held together. She was also the first person on this earth to believe in my writing, back when there was nothing yet to believe in, when it was all just promise and bad first drafts. She told me, more than once, looking right at me, that I was a great writer. She did not say it the way you offer a comfort. She said it the way you state a fact about the weather. She is the reason this book exists. And she will never hold it.</p>
+
+<p>When I was small, my mother and Ju Ju and I used to go to the cemetery, the same one where Ju Ju is buried now. While they tended the people they had come to visit, I would run loops around a stone statue of the Blessed Mother, all that little-girl energy circling her calm bowed head. The grave that holds Ju Ju now sits directly across from that same statue. I did not arrange that. I do not know who did. It was pouring the day I went looking for her, the cemetery unfolding like a small flooded city, row after row, and I went through it in the rain with the water running down my face until I could not tell anymore which of it was the sky and which of it was me. Somewhere in all that water I found her name. Across from the Blessed Mother. Right where the circle closed.</p>
+
+<p>I remember her last hours with a clarity that frightens me a little. We prayed the rosary. I can still feel the rhythm of it in my hands, the smooth beads moving one by one through my fingers, the repetition that somewhere along the decades stops being repetition and becomes a kind of shared breathing. I held her hand in both of mine, and we prayed, and I will spend the rest of my life grateful that the last language between us was that one, the oldest one, the one she taught me first.</p>
+
+<p>There is an old stubborn idea in my church called the communion of saints — the notion that everyone who has ever loved you, the living and the long gone, belongs to one body, and that they go on holding you up together across the distance of time. I am not theologian enough to defend it in an argument. I am only experienced enough now to know it in my own chest. My father is in that communion. My grandmother is in it. I feel the grip of it most on Saturdays, and at 4:14, and at 4:44, and in the rain. I mean Biggie, too, my dog, unbothered by every word of this, possibly a minor angel, possibly just a dog, less and less convinced there is any difference, who heals me daily by needing his dinner, reliably and indignantly, at five.</p>
+
+<p>I used to believe I was self-made. I said it like it was a virtue. It was a lie, the kind we tell from podiums. I am held up, in every moment, by a hundred small unglamorous hands, and some of them stopped being attached to anyone breathing years ago, and they hold me anyway. The pews in that old church hold you up so your body is free to pray. I have come to think people are pews too — the quiet structure that kept me upright and facing forward on the days my own legs stopped agreeing to.</p>
+
+<h2 id="part-five-the-latest-model">Part Five: The Latest Model</h2>
+
+<p>So. Who am I now.</p>
+
+<p>Not the woman who stood at the bottom of the steps for eleven minutes, terrified of a lit and harmless door. Not quite her anymore. And yet, somehow, the part I never saw coming, also completely her.</p>
+
+<p>I had assumed healing would turn me into someone else. A different woman. An upgrade so total and so clean that I would lose the old one in the swap. I was almost looking forward to it, the way you look forward to the last page of a chapter you have hated. <em>Good riddance to her,</em> I thought. The scared one. The fine one. The one out on the sidewalk in the rain with her hands going numb.</p>
+
+<p>That is not what happened. What happened is harder to fit on a book jacket and far truer to live inside. I did not become someone else. I became her again — the woman I had been long before fear talked me, slowly and so reasonably, into making myself smaller and quieter and easier to carry. The poet. The loud one. The one who feels everything at a volume the world keeps calling a malfunction and who has finally decided the volume was never the bug. The volume was the gift the whole time. I got her back. Same soul. The latest model.</p>
+
+<p><em>You do not put new wine in old wineskins,</em> the old line warns, because the new wine keeps fermenting and swelling and breathing, and in time it splits the brittle old skin down the side. For most of my life I read that as a story about replacement — out with the old, in with the new. Now I read it as a story about capacity, and it stops my breath. You do not get a brand-new self handed to you clean at the door. You get a self finally grown big enough, and soft enough, to hold without bursting everything that was always already alive in you.</p>
+
+<p>Rebecoming is not erasing who you were. It is recovering her. It is finding her right where you left her, in the dark, and at last building her more room. The resurrection, stripped down to the frame, is the most audacious reinvention story ever told. Same person. The same wounds, even, still open enough to touch. And yet more alive than before, unkillable in a way the earlier version was not. That is the model I am working from. Not a clean swap, not a factory reset, not a stranger in your old clothes. A return. A coming back. With every scar left in on purpose, because the scars were never the damage. <strong>The scars are the proof.</strong></p>
+
+<p>I am still afraid sometimes. I want to be honest about that, here at the end, because every book that swears the fear leaves for good is selling the same lie the algorithm sells, only with a cross on the cover and a higher price at the register. The fear still comes around. It still knocks. The only difference now, and it is the difference that remade my life, is that it no longer runs the thermostat. It knocks, I open the door, I let it in out of the cold, I pour it a cup of that famously terrible coffee, and we sit a while. Then it goes. It does not get to stay the night anymore. That bed is mine.</p>
+
+<p>I traded fear for faith. Not by getting rid of the fear, in the end, but by growing, slowly and with an enormous amount of help, bigger than it. By learning, one ordinary Saturday morning at a time, to peel my own fingers off the wheel. By building a self out of a scanned QR code and a mother's impossible nickname and a grandmother's worn rosary and a father's last phone call and an unbothered dog and a roomful of women who held the door — a self finally roomy enough to hold all that fear and keep walking anyway.</p>
+
+<p>The last thing my father gave me was a sentence. <em>You got a great story, kid, you just need to tell it.</em> I could not find my purpose the night he asked me for it, and I have come to believe it was hiding inside his answer the entire time. Not a title. Not a job. Just this. Telling the truth out loud until it reaches whoever needs it next.</p>
+
+<p>If you are standing where I stood — at the bottom of some set of steps, in some kind of rain, with a speech ready and a costume of good reasons and a door that feels farther than forty feet — I cannot walk up for you. But I can tell you what is on the other side of it: not certainty, not a clean fix, just a warm room and a paper cup of coffee and people willing to say <em>you already did it</em> before you believe them. Find your version of the steps. Stand at the bottom as long as you need to. Then go up anyway.</p>
+
+<p>I am still a draft. I am still a long way from home. I am still, most mornings, a little afraid. But I get up. I put the coffee on. I scan the code, I climb the steps, I walk in. And I have finally stopped pretending I am doing any of it alone.</p>
+
+<p>♡ MK</p>
+
+</div>
+
+<div class="print-notes">
+
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">01</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">02</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">03</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">04</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">05</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">06</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">07</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">08</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">09</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">10</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">11</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">12</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">13</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">14</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">15</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">REBECOMING: The Latest Model</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">16</div>
+</section>
+</div>
+
+<div class="footer">
+  <div class="footer-logo">MK Parrish</div>
+  <p class="footer-legal">© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>
