@@ -284,7 +284,7 @@ export const PRINT_PRODUCTS: readonly ShelfProduct[] = PRINTS.map((print) => {
     collection: "prints",
     kind: "print",
     highlight: false,
-    href: "stripe" in print && print.stripe ? print.stripe : `/shelf/${copy.slug}`,
+    href: "stripe" in print && print.stripe ? print.stripe : `/shop/${copy.slug}`,
     stripe: "stripe" in print ? print.stripe : undefined,
     sizes: print.sizes,
     preview: "preview" in print ? print.preview : undefined,

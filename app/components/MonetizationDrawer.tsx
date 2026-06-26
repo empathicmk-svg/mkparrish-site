@@ -17,7 +17,7 @@ const paths = [
     label: "DIY",
     title: "You want the framework.",
     desc: "Buy the exact guides, workbooks, and templates behind the client process, starting at $18.",
-    href: "/shelf",
+    href: "/shop",
     cta: "Shop the Shelf",
   },
   {

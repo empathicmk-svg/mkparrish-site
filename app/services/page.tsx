@@ -446,8 +446,8 @@ export default function Home() {
               Frameworks and guides for rewriting how the world reads you — built from real client work, ready to use today.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href="/shelf">Browse The Shelf</BtnPrimary>
-              <ArrowLink href="/shelf">See all downloads</ArrowLink>
+              <BtnPrimary href="/shop">Browse The Shelf</BtnPrimary>
+              <ArrowLink href="/shop">See all downloads</ArrowLink>
             </div>
           </div>
           <div className="grid gap-px bg-graphite sm:grid-cols-2">

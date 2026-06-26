@@ -39,7 +39,7 @@ const paths = [
       "Practical workbooks built for implementation",
       "Bundles that replace a very expensive blank page",
     ],
-    primaryHref: "/shelf",
+    primaryHref: "/shop",
     primaryLabel: "Shop the Frameworks",
     secondaryHref: "/resources",
     secondaryLabel: "Start With a Free Tool",
