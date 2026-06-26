@@ -236,6 +236,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   const dl = productDownload(product);
   const isFree = isFreeProduct(product);
+  const paperback = (product as { paperback?: { price: string; href: string } }).paperback;
+  const showPaperback = Boolean(paperback?.href && paperback.href.length > 0 && !COMING_SOON_SLUGS.has(product.slug));
   const stripe = (product as { stripe?: string }).stripe;
   const buyTarget = isFree ? (dl as string) : (stripe && stripe.length > 0 ? stripe : product.href);
   const buyLabel = isFree ? "Download Free" : "Buy Now";
@@ -279,6 +281,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     className="btn-primary inline-flex items-center justify-center px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
                     {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
+                  </a>
+                )}
+                {showPaperback && (
+                  <a
+                    href={paperback!.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center border border-graphite px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
+                  >
+                    Paperback — {paperback!.price}
                   </a>
                 )}
                 <span className="font-body text-xs font-light text-iron">
@@ -331,6 +343,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
                     {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
+                  </a>
+                )}
+                {showPaperback && (
+                  <a
+                    href={paperback!.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
+                  >
+                    Paperback — {paperback!.price}
                   </a>
                 )}
                 <p className="text-center font-body text-[0.65rem] font-light text-iron">

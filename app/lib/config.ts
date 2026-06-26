@@ -40,7 +40,7 @@ export const AMAZON_AUTHOR_URL  = "https://www.amazon.com/author/mkparrish";
 
 // ── Products not yet live ────────────────────────────────────────────────────
 // Add a slug here to show "Coming Soon" instead of the buy button.
-export const COMING_SOON_SLUGS = new Set<string>(["rebecoming"]);
+export const COMING_SOON_SLUGS = new Set<string>();
 
 // ── Contact ──────────────────────────────────────────────────────────────────
 export const CONTACT = {
@@ -87,8 +87,11 @@ export const EBOOKS = [
     highlight: true,
     free:      false,
     download:  "/downloads/ebooks/rebecoming.pdf",
-    stripe:    "",
-    href:      "/shop/rebecoming",
+    stripe:    "https://buy.stripe.com/14A5kE7I51PydyYaX38AE0h",
+    href:      "https://buy.stripe.com/14A5kE7I51PydyYaX38AE0h",
+    // Paperback via Lulu print-on-demand (sold direct, you keep the margin).
+    // href is the Lulu storefront product URL — added once the title is uploaded.
+    paperback: { price: "$39", href: "" },
     features:  [
       "A present-tense memoir in ten chapters",
       "On fear, faith, prayer, and rebecoming yourself",
@@ -126,6 +129,7 @@ export const EBOOKS = [
     free:      false,
     download:  "/downloads/ebooks/reinvention-workbook.pdf",
     href:      "/shop/reinvention-workbook",
+    paperback: { price: "$29", href: "" },
     features:  [
       "20 guided writing exercises",
       "The identity audit framework",
@@ -145,6 +149,7 @@ export const EBOOKS = [
     download:  "/downloads/ebooks/write-yourself-into-the-room.pdf",
     stripe:    "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
     href:      "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
+    paperback: { price: "$39", href: "" },
     features:  [
       "The three-layer positioning framework",
       "Bio writing templates + real examples",
@@ -164,6 +169,7 @@ export const EBOOKS = [
     download:  "/downloads/ebooks/brand-voice-playbook.pdf",
     stripe:    "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
     href:      "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
+    paperback: { price: "$45", href: "" },
     features:  [
       "Full brand voice framework",
       "Tone spectrum mapping",
