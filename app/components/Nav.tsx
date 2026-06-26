@@ -26,7 +26,7 @@ const megaServices = [
 
 const readLinks = [
   { label: "Writing",      desc: "Poetry, essays & the work that proves the voice", href: "/writing" },
-  { label: "The Shelf",    desc: "Ebooks, guides & prints — buy direct",            href: "/shelf" },
+  { label: "Shop",         desc: "Shop the Shelf or the Print Shop",                href: "/shelf" },
   { label: "Quotes",       desc: "Words worth keeping",                             href: "/posts" },
   { label: "The Margins",  desc: "Private membership essays & frameworks",          href: "/margins" },
 ];
@@ -48,7 +48,7 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
     label: "Read",
     links: [
       { label: "Writing",     href: "/writing" },
-      { label: "The Shelf",   href: "/shelf" },
+      { label: "Shop",        href: "/shelf" },
       { label: "Quotes",      href: "/posts" },
       { label: "The Margins", href: "/margins" },
     ],
@@ -56,7 +56,7 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
   {
     label: "More",
     links: [
-      { label: "The Shelf", href: "/shelf" },
+      { label: "Shop", href: "/shelf" },
       { label: "About",   href: "/about" },
       { label: "Contact", href: "/contact" },
     ],
@@ -338,7 +338,7 @@ export default function Nav() {
               href="/shelf"
               className="btn-ghost px-4 py-2 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em]"
             >
-              The Shelf
+              Shop
             </Link>
             <Link
               href="/book"
@@ -456,7 +456,7 @@ export default function Nav() {
                 onClick={() => setMobileNav(false)}
                 className="btn-ghost inline-flex justify-center px-5 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em]"
               >
-                The Shelf
+                Shop
               </Link>
             </div>
           </div>
@@ -558,7 +558,7 @@ export default function Nav() {
             <line x1="3" y1="6" x2="21" y2="6" />
             <path d="M16 10a4 4 0 01-8 0" />
           </svg>
-          The Shelf
+          Shop
         </Link>
         <button
           onClick={() => setMobileNav(!mobileNav)}
