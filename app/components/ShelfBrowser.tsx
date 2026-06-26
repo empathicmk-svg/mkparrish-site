@@ -61,14 +61,14 @@ function Card({ p }: { p: BrowseItem }) {
 
   return (
     <div
-      className={`group/card relative flex flex-col p-7 transition-all duration-300 hover:-translate-y-1 ${
+      className={`group/card relative flex h-full flex-col p-7 transition-all duration-300 hover:-translate-y-1 ${
         p.featured ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : "bg-obsidian"
       }`}
       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
       {p.featured && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
 
-      <Link href={`/shelf/${p.slug}`} className="group relative mb-6 block overflow-hidden">
+      <Link href={`/shelf/${p.slug}`} className="group relative mb-6 block shrink-0 overflow-hidden">
         {badge && (
           <span className="absolute left-3 top-3 z-10 bg-petal px-2.5 py-1 font-body text-[0.55rem] font-bold uppercase tracking-[0.2em] text-void">
             {badge}
@@ -87,32 +87,34 @@ function Card({ p }: { p: BrowseItem }) {
       </Link>
 
       <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-iron">{p.tag}</p>
-      <h3 className="mt-2 font-display text-2xl uppercase leading-tight tracking-[0.02em] text-pearl">{p.title}</h3>
-      <p className="mt-2 flex items-baseline gap-2 font-display text-4xl text-white">
-        {isFree ? "Free" : p.price}
+      <h3 className="mt-2 line-clamp-3 min-h-[5rem] font-display text-2xl uppercase leading-tight tracking-[0.02em] text-pearl">{p.title}</h3>
+      <p className="mt-2 flex min-h-12 items-baseline gap-2 font-display text-4xl text-white">
+        <span className="leading-none">{isFree ? "Free" : p.price}</span>
         {limitedFree && (
-          <span className="align-middle font-body text-base font-light text-iron line-through">{p.price}</span>
+          <span className="align-middle font-body text-base font-light leading-none text-iron line-through">{p.price}</span>
         )}
         {!isFree && p.compareAt && (
-          <span className="font-body text-base font-light text-iron line-through">{p.compareAt}</span>
+          <span className="font-body text-base font-light leading-none text-iron line-through">{p.compareAt}</span>
         )}
       </p>
-      {save > 0 && (
-        <p className="mt-1 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-petal">
-          Save ${save} vs. buying separately
-        </p>
-      )}
-      <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
-      <ul className="mt-5 space-y-2">
+      <div className="mt-1 min-h-[1.25rem]">
+        {save > 0 && (
+          <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-petal">
+            Save ${save} vs. buying separately
+          </p>
+        )}
+      </div>
+      <p className="mt-4 line-clamp-4 min-h-[7rem] font-body text-sm font-light leading-7 text-smoke">{p.desc}</p>
+      <ul className="mt-5 min-h-[6.5rem] space-y-2">
         {p.features.slice(0, 3).map((f) => (
           <li key={f} className="flex gap-3 font-body text-xs font-light leading-6 text-iron">
             <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
-            {f}
+            <span className="line-clamp-2">{f}</span>
           </li>
         ))}
       </ul>
 
-      <div className="mt-7 space-y-2">
+      <div className="mt-auto space-y-2 pt-7">
         {p.comingSoon ? (
           <div className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.75rem] font-light uppercase tracking-[0.2em] text-iron">
             Coming Soon
@@ -268,7 +270,7 @@ export default function ShelfBrowser({ products }: { products: BrowseItem[] }) {
 
       {/* Grid */}
       {shown.length > 0 ? (
-        <div className="mt-8 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mt-8 grid auto-rows-fr gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {shown.map((p) => (
             <Card key={p.slug} p={p} />
           ))}

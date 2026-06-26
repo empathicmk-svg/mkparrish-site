@@ -18,7 +18,7 @@ const paths = [
     title: "You want the framework.",
     desc: "Buy the exact guides, workbooks, and templates behind the client process, starting at $18.",
     href: "/shelf",
-    cta: "Browse The Shelf",
+    cta: "Shop the Shelf",
   },
   {
     label: "Read",
@@ -36,11 +36,17 @@ export default function MonetizationDrawer() {
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    setHidden(sessionStorage.getItem("mkp_start_hidden") === "1");
+    const frame = window.requestAnimationFrame(() => {
+      setHidden(sessionStorage.getItem("mkp_start_hidden") === "1");
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
-    setOpen(false);
+    const frame = window.requestAnimationFrame(() => {
+      setOpen(false);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
   if (pathname === "/" || pathname === "/start" || hidden) return null;
