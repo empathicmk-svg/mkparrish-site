@@ -6,6 +6,7 @@ const footerGroups = [
     heading: "Work",
     links: [
       { label: "All Offerings",      href: "/#offerings" },
+      { label: "48-Hour Audit",      href: "/audit" },
       { label: "Web Design & Build", href: "/studio" },
       { label: "Outbound & Growth",  href: "/growth" },
       { label: "Messaging & Copy",   href: "/brand" },

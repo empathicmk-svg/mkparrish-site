@@ -7,6 +7,13 @@ import { SUBSTACK_URL } from "@/app/lib/config";
 
 const paths = [
   {
+    label: "Audit",
+    title: "You need the read first.",
+    desc: "A $97 async review of the page, profile, offer, or funnel that is not converting.",
+    href: "/audit",
+    cta: "Start with the audit",
+  },
+  {
     label: "Hire MK",
     title: "You want the result handled.",
     desc: "Messaging, websites, outbound, and full-funnel growth with one senior operator owning the work.",
@@ -97,7 +104,7 @@ export default function MonetizationDrawer() {
             </div>
 
             <p className="mt-5 font-body text-sm font-light leading-7 text-smoke">
-              No maze. No twelve-tab funnel. Choose the door that matches your budget, urgency, and appetite for doing it yourself.
+              No maze. Choose the door that matches your budget, urgency, and appetite for doing it yourself.
             </p>
 
             <div className="mt-7 space-y-3">
