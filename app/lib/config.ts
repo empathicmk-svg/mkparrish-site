@@ -56,7 +56,7 @@ export const CONTACT = {
 // ── Social links ─────────────────────────────────────────────────────────────
 // Rendered as petal-pink chips with black text in the footer.
 export const SOCIALS = [
-  { label: "Instagram", handle: "@mkeezieee", href: "https://www.instagram.com/mkeezieee" },
+  { label: "Instagram", handle: "@mk_parrish", href: "https://www.instagram.com/mk_parrish" },
   { label: "Substack",  handle: "The Margins", href: SUBSTACK_URL },
   { label: "LinkedIn",  handle: "/in/mkparrish", href: "https://www.linkedin.com/in/mkparrish" },
   { label: "Amazon",    handle: "Author Page", href: AMAZON_AUTHOR_URL },
