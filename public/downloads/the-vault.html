@@ -129,6 +129,16 @@
     margin: 0 auto 28px;
     line-height: 1.5;
   }
+  .cover-heart {
+    width: 54px;
+    height: 54px;
+    margin: 24px auto 18px;
+    color: var(--petal);
+    filter:
+      drop-shadow(0 0 18px rgba(242,175,198,0.88))
+      drop-shadow(0 0 42px rgba(199,91,120,0.42));
+  }
+  .cover-heart svg { width: 100%; height: 100%; display: block; }
   .cover-rule {
     width: 90px;
     height: 1px;
@@ -307,6 +317,7 @@
     color: var(--iron);
   }
   .footer-legal a { color: var(--ash); }
+  .print-notes { display: none; }
 
   /* ═══════════════════════════════════════════════════════════════
      PRINT EDITION — light, publisher-style layout for the PDF.
@@ -314,37 +325,48 @@
      with black header boxes and pink/white titles.
      ═══════════════════════════════════════════════════════════════ */
   @media print {
-    @page { margin: 0; }
+    @page { size: 6in 9in; margin: 0.56in 0.48in 0.62in 0.58in; }
+    @page:first { margin: 0; }
 
     html, body {
       background: #ffffff !important;
       color: #232323 !important;
+      font-size: 10.5pt;
+      line-height: 1.55;
     }
     body::before { display: none !important; }   /* no grain in print */
 
     /* ── COVER: a full-page black panel on a white sheet ── */
     .cover {
-      min-height: 100vh;
+      width: 6in;
+      min-height: 9in;
       display: flex;
       background: #ffffff !important;
       border-bottom: none;
       padding: 0;
       break-after: page;
     }
-    .cover::before, .cover::after { display: none !important; }
+    .cover::before { display: none !important; }
     /* The panel fills the printable page and centres the title block,
        instead of floating as a thin band in the middle of the sheet. */
     .cover-inner {
+      position: relative;
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 80px 52px;
-      background: #0E0E0E;
+      margin: 0.18in;
+      padding: 0.68in 0.44in;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 96% 52% at 50% -8%, rgba(242,175,198,0.22), transparent 60%),
+        radial-gradient(ellipse 58% 44% at 92% 108%, rgba(199,91,120,0.14), transparent 60%),
+        linear-gradient(180deg, #141111 0%, #0E0E0E 42%, #070707 100%);
       border: 1px solid rgba(242, 175, 198, 0.45);
     }
+    .cover-inner > * { position: relative; z-index: 1; }
     .cover-kicker { color: var(--petal); }
-    .cover h1 { color: #ffffff; font-size: clamp(3rem, 8vw, 4rem); }
+    .cover h1 { color: #ffffff; font-size: clamp(2.6rem, 8vw, 3.8rem); }
     /* Solid fills only. background-clip:text and text-stroke rasterise as
        opaque boxes / vanish entirely in print — that is what turned the old
        title into a white rectangle. Keep the white + pink two-tone with
@@ -360,11 +382,30 @@
       -webkit-text-fill-color: var(--petal); color: var(--petal);
     }
     .cover .subtitle { color: var(--petal); }
+    .cover-heart {
+      width: 0.54in;
+      height: 0.54in;
+      margin: 0.22in auto 0.16in;
+      color: var(--petal);
+      filter:
+        drop-shadow(0 0 14px rgba(242,175,198,0.9))
+        drop-shadow(0 0 34px rgba(199,91,120,0.48));
+    }
     .cover-meta { color: #B0B0B0; }
 
     /* ── BODY: black text on white ── */
-    .content { padding-top: 64px; color: #232323; }
-    p { color: #2b2b2b; }
+    .content {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      color: #232323;
+    }
+    p {
+      color: #2b2b2b;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      margin-bottom: 0.86em;
+    }
     /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
     strong {
       background: #0E0E0E;
@@ -381,8 +422,10 @@
     h2 {
       background: #0E0E0E;
       color: #ffffff;
-      padding: 24px 30px;
-      margin: 40px 0 42px;
+      font-size: 20pt;
+      line-height: 1.04;
+      padding: 0.24in 0.26in 0.25in;
+      margin: 0 0 0.32in;
       border: none;
       break-before: page;          /* every Part / section starts a fresh page */
     }
@@ -398,7 +441,12 @@
     h2::after { display: none; }
 
     /* Exercise titles — pink, with extra breathing room above each */
-    h3 { color: #B23A59; margin: 58px 0 18px; }
+    h3 {
+      color: #B23A59;
+      font-size: 13.2pt;
+      line-height: 1.24;
+      margin: 0.34in 0 0.12in;
+    }
     /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
     em {
       background: var(--petal);
@@ -414,6 +462,9 @@
       background: #F5F2F0;
       border-left: 3px solid #B23A59;
       color: #232323;
+      margin: 0.26in 0;
+      padding: 0.18in 0.22in 0.18in 0.28in;
+      font-size: 11pt;
     }
     blockquote::before { color: rgba(178, 58, 89, 0.3); }
 
@@ -421,6 +472,15 @@
     thead tr { background: #0E0E0E; }
     th { color: #ffffff; border-bottom: 1px solid #0E0E0E; }
     td { color: #2b2b2b; border-bottom: 1px solid #e3e3e3; }
+    ul, ol {
+      margin-bottom: 0.95em;
+      padding-left: 1.25em;
+    }
+    li {
+      font-size: 10.5pt;
+      line-height: 1.48;
+      margin-bottom: 0.28em;
+    }
 
     /* ── CODE: light chip ── */
     pre { background: #f3f3f1; border: 1px solid #e3e3e3; }
@@ -437,8 +497,59 @@
        Hide those; keep any genuine in-content rule (one not followed by H2). */
     hr:has(+ h2) { display: none; }
 
-    /* ── FOOTER: white page, black signature ── */
-    .footer { background: #ffffff; border-top: 1px solid #dddddd; }
+    /* ── WORKING NOTES: enough lined pages for paperback minimums ── */
+    .print-notes { display: block; }
+    .notes-page {
+      break-before: page;
+      min-height: 7.45in;
+      display: flex;
+      flex-direction: column;
+      color: #232323;
+    }
+    .notes-kicker {
+      font-family: var(--font-mono);
+      font-size: 7.5pt;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B23A59;
+      margin-bottom: 0.16in;
+    }
+    .notes-title {
+      font-family: var(--font-display);
+      font-size: 18pt;
+      line-height: 1.02;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #0E0E0E;
+      margin-bottom: 0.14in;
+    }
+    .notes-rule {
+      height: 1px;
+      width: 1.1in;
+      background: linear-gradient(90deg, #B23A59, rgba(178,58,89,0));
+      margin-bottom: 0.22in;
+    }
+    .notes-lines {
+      flex: 1;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 0.33in,
+        rgba(178,58,89,0.28) 0.335in,
+        rgba(178,58,89,0.28) 0.345in
+      );
+    }
+    .notes-page-number {
+      margin-top: 0.18in;
+      font-family: var(--font-mono);
+      font-size: 8pt;
+      letter-spacing: 0.16em;
+      color: #B23A59;
+      text-align: right;
+    }
+
+    /* ── FOOTER: hide web footer in the paperback interior ── */
+    .footer { display: none !important; background: #ffffff; border-top: 1px solid #dddddd; }
     .footer-logo { color: #0A0A0A; }
     .footer-legal { color: #8a8a8a; }
     .footer-legal a { color: #B23A59; }
@@ -459,6 +570,11 @@
   <div class="cover-inner">
     <div class="cover-kicker">MK Parrish · mkparrish.com</div>
     <h1><span class="grad">The</span> <span class="outline">Vault</span></h1>
+    <div class="cover-heart" aria-hidden="true">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" stroke="#FAFAF8" stroke-width="0.8"/>
+      </svg>
+    </div>
     <p class="subtitle">Every framework, every guide, every word — the complete library, in one place.</p>
     <div class="cover-rule"></div>
     <div class="cover-meta">By MK Parrish</div>
@@ -470,76 +586,468 @@
 
 <p>You didn't buy a book. You bought the whole shelf.</p>
 
-<p>The Vault is the complete MK Parrish writing-and-identity library — every ebook and guide I've made for the work of becoming someone new and saying it out loud. Bought one at a time, these add up. Together, they're a single, sequenced course in writing yourself into the room you're trying to enter.</p>
+<p>The Vault is the complete MK Parrish writing-and-identity library: every ebook and guide I have made for the work of becoming someone new and saying it out loud. Bought one at a time, these books add up. Together, they become a sequenced course in writing yourself into the room you are trying to enter.</p>
 
-<p>This short guide is your map. It tells you what's inside, what each piece is <em>for</em>, and the order to read them in depending on where you're standing right now. Read this first. Then start where it hurts — or where it's most exciting. Both are the right answer.</p>
+<p>This is the companion guide that turns the bundle into a system. It tells you what is inside, what each piece is for, where to begin, how to pace the work, and how to keep the momentum from dissolving into a folder full of unopened files.</p>
 
-<blockquote>You don't find yourself. You write yourself. This is everything I know about how — in one place, on your terms, forever.</blockquote>
-
-<hr>
-
-<h2>What's Inside</h2>
-
-<p>Five complete works. Each stands alone; together they build on each other.</p>
-
-<h3>The Reinvention Workbook</h3>
-
-<p>A guided writing workbook for people in the middle of becoming someone new. Twenty exercises in four parts — audit the old identity, excavate the story you were handed, find your real voice, and draft the next version of yourself. <em>Best for:</em> the restless, between-drafts season when you've outgrown a life that still has your name on it.</p>
-
-<h3>The Invisible Bruise</h3>
-
-<p>Surviving emotional abuse, suffering in silence, and rewriting your life. The most tender book in the library — it sits directly with the wound, names what happened when there was no mark to point to, and helps you rebuild the person who was standing there before all of it started. <em>Best for:</em> when the old story was written by someone who hurt you.</p>
-
-<h3>Write Yourself Into the Room</h3>
-
-<p>The personal-brand writing guide for people tired of sounding like everyone else. A three-layer framework for your bio, your LinkedIn, your whole public voice — so you're read accurately instead of overlooked. <em>Best for:</em> taking your new voice public, into the rooms you want to be in.</p>
-
-<h3>The Brand Voice Playbook</h3>
-
-<p>Build a brand voice document from scratch — the exact process I run with clients. Tone-spectrum mapping, do/don't vocabulary, a complete worked example. <em>Best for:</em> when your writing keeps drifting generic and you need a system that holds it to <em>you.</em></p>
-
-<h3>Decoding Angel Numbers: A Skeptic's Guide</h3>
-
-<p>A grounded, non-woo framework for the spiritually curious who keep noticing patterns. Not a glossary of meanings — a practice of attention. <em>Best for:</em> the seeker who wants a discipline, not a prophecy.</p>
-
-<p><em>…plus any future releases. The Vault grows; your access doesn't expire.</em></p>
+<blockquote>You do not find yourself. You write yourself. This is everything I know about how, gathered in one place.</blockquote>
 
 <hr>
 
-<h2>Where to Start</h2>
+<h2>What You Own</h2>
 
-<p>Don't read front to back. Read by where you are.</p>
+<p>The Vault includes five complete works, each designed to stand alone and also build into the next.</p>
 
-<ul><li><strong>"I've outgrown my life but can't name the next one."</strong> → Start with <strong>The Reinvention Workbook.</strong> Then <strong>Write Yourself Into the Room</strong> to take the new self public.</li><li><strong>"The old story was written by someone who hurt me."</strong> → Start with <strong>The Invisible Bruise.</strong> Be gentle with the pace. Come to the Workbook when you're ready to build forward.</li><li><strong>"I know who I am — I just sound generic when I say it."</strong> → Start with <strong>The Brand Voice Playbook</strong>, then <strong>Write Yourself Into the Room.</strong></li><li><strong>"I keep noticing signs and don't know what to do with them."</strong> → Start with <strong>Decoding Angel Numbers</strong>, then let it point you back to the Workbook.</li></ul>
+<ol><li><strong>The Reinvention Workbook</strong> — identity, story, voice, and next-chapter writing exercises.</li><li><strong>The Invisible Bruise</strong> — language for emotional abuse, silent suffering, and recovery.</li><li><strong>Write Yourself Into the Room</strong> — personal-brand writing, bios, LinkedIn, and positioning.</li><li><strong>The Brand Voice Playbook</strong> — a full voice-guide system for a personal or company brand.</li><li><strong>Decoding Angel Numbers</strong> — a grounded practice of spiritual attention for the curious but discerning.</li></ol>
 
-<p>There's no wrong order. There's only the one you'll actually start.</p>
+<p>Think of these as five rooms in the same house. Reinvention is the foundation. Healing clears the floor. Personal brand opens the door. Brand voice keeps the house sounding like itself. Spiritual attention teaches you to notice when the next door appears.</p>
 
 <hr>
 
-<h2>How to Use the Library</h2>
+<h2>How This Bundle Is Different</h2>
 
-<p>A few things I've learned about how this work actually lands:</p>
+<p>The Vault is not a folder of PDFs you are supposed to admire.</p>
 
-<p><strong>Use a real notebook.</strong> Every guide asks you to write. A hand moving across paper bypasses the editor in your head in a way a keyboard doesn't. The friction is the point.</p>
+<p>It is a working library. Every book gives you prompts, frameworks, questions, examples, and language you can use in real life. Some pages are meant to be read slowly. Some pages are meant to be answered messily. Some pages are meant to become copy you publish.</p>
 
-<p><strong>Do one thing, not five.</strong> You own all of it, which makes it tempting to skim everything and finish nothing. Pick one guide. Do the exercises. The library will still be here.</p>
+<p>The point is not to finish everything as fast as possible. The point is to move from vague self-awareness into usable language.</p>
 
-<p><strong>Come back.</strong> These aren't one-time reads. The Reinvention Workbook means something different at the start of a change than in the middle of one. Re-read. You'll have changed; so will the book.</p>
+<p>The promise of this library is simple: when your life changes, your words have to catch up. The Vault helps them.</p>
 
-<blockquote>The mess is the point. Begin anywhere. Just begin.</blockquote>
+<hr>
+
+<h2>The House Order</h2>
+
+<p>If you want the cleanest path, read the books in this order:</p>
+
+<ol><li><strong>The Reinvention Workbook</strong> — name the draft you are leaving.</li><li><strong>The Invisible Bruise</strong> — tell the truth about what distorted your story.</li><li><strong>Write Yourself Into the Room</strong> — turn the true story into public language.</li><li><strong>The Brand Voice Playbook</strong> — make that language repeatable.</li><li><strong>Decoding Angel Numbers</strong> — practice attention without surrendering discernment.</li></ol>
+
+<p>This order moves from private to public. First you become honest with yourself. Then you become legible to others. Then you make the voice consistent enough to build with.</p>
+
+<hr>
+
+<h2>If You Are In A Life Transition</h2>
+
+<p>Start with <strong>The Reinvention Workbook</strong>.</p>
+
+<p>Do not begin by rewriting your LinkedIn. Do not begin by choosing a color palette. Do not begin by announcing a pivot before you have language for the person doing the pivoting.</p>
+
+<p>Start with identity. The workbook asks the questions most people skip because they are inconvenient: What no longer fits? Which version of you are you still performing? What did the old life teach you that the new one gets to keep? What are you done explaining?</p>
+
+<p>Read it with a notebook beside you. Answer in sentences, not bullet points, when you can. Reinvention needs evidence, not aesthetics.</p>
+
+<hr>
+
+<h2>If You Are Healing From A Distorted Story</h2>
+
+<p>Start with <strong>The Invisible Bruise</strong>.</p>
+
+<p>There are seasons when personal branding is not the assignment. Telling the truth is. If someone trained you to distrust your own memory, minimize your own pain, or explain away your own body, the first work is not visibility. It is recovery of reality.</p>
+
+<p>This book gives you language for harm that does not photograph well. Emotional abuse is often invisible from the outside and consuming from the inside. The book helps you stop asking whether it was "bad enough" and start asking what it cost.</p>
+
+<p>Move slowly. You are not behind because you need gentleness. Gentleness is part of the method.</p>
+
+<hr>
+
+<h2>If Your Work Is Good But Your Words Are Not</h2>
+
+<p>Start with <strong>Write Yourself Into the Room</strong>.</p>
+
+<p>This is the book for the gap between how good the work is and how generic it sounds online. It is for bios that flatten you, LinkedIn pages that undersell you, and positioning statements that sound like they could belong to anyone in the category.</p>
+
+<p>The book teaches you to write yourself in layers: the seven-word version, the sentence version, the paragraph version, the full public story. You are not trying to become louder. You are trying to become more accurate.</p>
+
+<p>Use this after a reinvention, before a launch, or anytime people keep misunderstanding what you actually do.</p>
+
+<hr>
+
+<h2>If Your Brand Voice Keeps Drifting</h2>
+
+<p>Start with <strong>The Brand Voice Playbook</strong>.</p>
+
+<p>Voice is not decoration. Voice is how trust sounds before someone has proof.</p>
+
+<p>This playbook helps you build a real voice guide: tone spectrums, words you use, words you never use, audience language, examples, and calibration across formats. It is the book for founders, writers, and teams who keep sounding different depending on who touched the draft last.</p>
+
+<p>Use it when you need consistency. Use it when you are hiring help. Use it when you are tired of rewriting everything because the first version technically says the right thing and still somehow sounds wrong.</p>
+
+<hr>
+
+<h2>If You Keep Noticing Patterns</h2>
+
+<p>Start with <strong>Decoding Angel Numbers</strong>.</p>
+
+<p>This is the book for spiritual curiosity with both feet on the floor. It does not hand you a fixed glossary and tell you the universe is texting. It gives you a practice of attention.</p>
+
+<p>The question is not, "What does this number mean forever?" The better question is, "What was I thinking when I noticed it, what am I being invited to consider, and what would discernment look like here?"</p>
+
+<p>Use this book when you want to stay open without becoming careless. Mystery does not require you to abandon judgment.</p>
+
+<hr>
+
+<h2>The 7-Day Start</h2>
+
+<p>If you want momentum quickly, use this first-week path.</p>
+
+<p><strong>Day 1:</strong> Read this guide and choose your starting book.</p>
+
+<p><strong>Day 2:</strong> Read the introduction and first section of that book. Do not skim.</p>
+
+<p><strong>Day 3:</strong> Answer the first exercise by hand.</p>
+
+<p><strong>Day 4:</strong> Highlight three lines that feel uncomfortably true.</p>
+
+<p><strong>Day 5:</strong> Rewrite one of those lines into a sentence you could say out loud.</p>
+
+<p><strong>Day 6:</strong> Read the next section and answer one prompt badly on purpose.</p>
+
+<p><strong>Day 7:</strong> Write a one-paragraph note called "What I know now."</p>
+
+<p>The goal is not completion. The goal is contact.</p>
+
+<hr>
+
+<h2>The 30-Day Vault Plan</h2>
+
+<p>If you want to treat The Vault like a short course, use this rhythm.</p>
+
+<p><strong>Week 1: Inventory.</strong> Work through the first quarter of The Reinvention Workbook. Name what no longer fits and what you keep carrying out of habit.</p>
+
+<p><strong>Week 2: Truth.</strong> Read The Invisible Bruise or the healing sections that apply. Write down what happened without arguing against yourself.</p>
+
+<p><strong>Week 3: Language.</strong> Move into Write Yourself Into the Room. Draft the one-liner, the short bio, and the positioning paragraph.</p>
+
+<p><strong>Week 4: Consistency.</strong> Use The Brand Voice Playbook to build the voice rules that keep the new language from collapsing back into generic polish.</p>
+
+<p>Save Decoding Angel Numbers for the morning pages, the walks, the moments when you keep noticing something and want to ask better questions.</p>
+
+<hr>
+
+<h2>The Reinvention Workbook: Use It Like This</h2>
+
+<p>Do not use the workbook as a personality quiz. Use it as a mirror with structure.</p>
+
+<p>Start by answering the prompts in rough language. The first answer is usually the socially acceptable one. The second answer is usually the more useful one. The third answer is sometimes the sentence you have been avoiding for years.</p>
+
+<p>When a prompt asks who you are becoming, do not answer with a job title. Answer with a pattern. "I am becoming someone who stops apologizing for needing clarity." "I am becoming someone who can leave without narrating the exit to everyone." "I am becoming someone whose public work matches her private standards."</p>
+
+<p>Those are better beginnings.</p>
+
+<hr>
+
+<h2>Reinvention Prompt Page</h2>
+
+<p>Use these prompts before or after the workbook.</p>
+
+<ol><li>What part of my old identity still gets rewarded, even though it costs me too much?</li><li>What sentence would I write if I were not trying to sound grateful?</li><li>What am I calling confusion because I am afraid to call it desire?</li><li>Which room do I keep entering as the old version of myself?</li><li>What do I already know that I keep asking other people to confirm?</li></ol>
+
+<p>Write for ten minutes. Do not edit. Circle the sentence that has heat.</p>
+
+<hr>
+
+<h2>The Invisible Bruise: Use It Like This</h2>
+
+<p>Read this book with permission to pause.</p>
+
+<p>Some books are built for momentum. This one is built for recognition. If you feel your body react to a sentence, stop. That reaction is information. You do not need to decide what it means immediately.</p>
+
+<p>Make two columns in your notebook: <strong>What happened</strong> and <strong>What I was told it meant</strong>. Emotional abuse often survives by controlling the interpretation. The recovery begins when you separate the event from the story someone attached to it.</p>
+
+<p>You are allowed to write plain facts. You are allowed to stop minimizing because the sentence looks small on the page.</p>
+
+<hr>
+
+<h2>Healing Prompt Page</h2>
+
+<p>Use these when a memory feels hard to name.</p>
+
+<ol><li>What did I learn to stop saying because it made things worse?</li><li>What did I call "peace" that was actually self-abandonment?</li><li>What proof did I keep collecting for someone who had already decided not to believe me?</li><li>Where did my body know before my language did?</li><li>What would I say if I did not have to defend the sentence afterward?</li></ol>
+
+<p>End with: <strong>I am allowed to believe my own record of my own life.</strong></p>
+
+<hr>
+
+<h2>Write Yourself Into The Room: Use It Like This</h2>
+
+<p>This is the bridge from private clarity to public language.</p>
+
+<p>Do not start by trying to sound impressive. Start by trying to be findable by the people who need exactly what you do. Impressive copy performs. Accurate copy works.</p>
+
+<p>Draft the three layers: seven words, one sentence, one paragraph. Then test them against reality. Would someone understand what you do? Would the right person know they are being addressed? Would the wrong person self-select out? Does the language sound like a person or a category page?</p>
+
+<p>Specificity will feel risky. That is usually how you know it is beginning to work.</p>
+
+<hr>
+
+<h2>Public Language Prompt Page</h2>
+
+<p>Answer these before you publish a bio, About section, or LinkedIn rewrite.</p>
+
+<ol><li>What do people currently assume about my work that is incomplete?</li><li>What do I want the right person to understand in the first five seconds?</li><li>What phrase in my current bio could belong to anyone?</li><li>What result, transformation, or point of view can only I credibly claim?</li><li>What sentence would make the wrong-fit person leave and the right-fit person lean in?</li></ol>
+
+<p>Turn one answer into a headline. Turn another into a bio line.</p>
+
+<hr>
+
+<h2>The Brand Voice Playbook: Use It Like This</h2>
+
+<p>Voice becomes useful when it becomes repeatable.</p>
+
+<p>Do not only choose adjectives. "Warm, smart, honest" is not a voice guide. A voice guide needs proof: sample lines, banned phrases, cadence notes, examples of what changes by platform, and a clear sense of what the brand never does for attention.</p>
+
+<p>Build the voice guide after you have some true language from the earlier books. Otherwise you will systematize the old voice. That is how brands get trapped in their own archive.</p>
+
+<p>The best voice guide is not fancy. It is the document that stops you from publishing something that sounds almost right.</p>
+
+<hr>
+
+<h2>Voice Prompt Page</h2>
+
+<p>Use this to build your working voice guide.</p>
+
+<ol><li>Three words people use when they quote me back to myself:</li><li>Three words I never want my work to sound like:</li><li>A sentence that sounds exactly like me:</li><li>A sentence that sounds like my category but not like me:</li><li>The line I would rather be known for than any credential:</li></ol>
+
+<p>Now write this rule: <strong>When in doubt, my voice chooses ______ over ______.</strong></p>
+
+<p>Examples: precision over polish, warmth over hype, clarity over cleverness.</p>
+
+<hr>
+
+<h2>Decoding Angel Numbers: Use It Like This</h2>
+
+<p>Attention is a practice, not a performance.</p>
+
+<p>When you notice a pattern, write down the context before you search for meaning. What were you thinking about? What decision was near? What feeling was already in the room? What did the noticing interrupt?</p>
+
+<p>The book is not asking you to believe everything. It is asking you to become a better witness to your own attention.</p>
+
+<p>Discernment keeps spiritual curiosity from becoming a script someone else can sell back to you.</p>
+
+<hr>
+
+<h2>Attention Prompt Page</h2>
+
+<p>Use this when you notice a number, phrase, dream, coincidence, or repeated theme.</p>
+
+<ol><li>What exactly did I notice?</li><li>What was I thinking or feeling in the minute before I noticed it?</li><li>What meaning am I tempted to assign too quickly?</li><li>What is the grounded, ordinary explanation?</li><li>What question is still worth asking?</li><li>What action would be wise even if the sign meant nothing?</li></ol>
+
+<p>Let the answer be modest. Modest answers are often the ones you can actually live.</p>
+
+<hr>
+
+<h2>Build Your Personal Reading Path</h2>
+
+<p>Write the five titles down in a column. Beside each one, write one of these labels:</p>
+
+<ul><li><strong>Now</strong></li><li><strong>Soon</strong></li><li><strong>Later</strong></li><li><strong>When I am braver</strong></li><li><strong>When I am steadier</strong></li></ul>
+
+<p>The label matters. Some books are not for the version of you who bought them. They are for the version of you who will be ready in three weeks, or six months, or one honest conversation from now.</p>
+
+<p>Do not shame yourself for not opening the hardest one first. The library is yours. The timing can be honest.</p>
+
+<hr>
+
+<h2>The One-Book Rule</h2>
+
+<p>Own everything. Work one thing.</p>
+
+<p>The fastest way to waste a bundle is to hop between files every time a section becomes uncomfortable. That feels like productivity because you are still reading. It is often avoidance wearing a highlighter.</p>
+
+<p>Pick one book. Finish one section. Answer one page. Use one framework in the real world. Then move.</p>
+
+<p>Depth beats browsing. A single answered prompt can change more than five skimmed PDFs.</p>
+
+<hr>
+
+<h2>The Notebook System</h2>
+
+<p>Use one notebook for the whole Vault.</p>
+
+<p>Create five tabs or sections:</p>
+
+<ol><li>Reinvention</li><li>Healing</li><li>Public language</li><li>Voice system</li><li>Attention</li></ol>
+
+<p>At the end of every reading session, write three lines:</p>
+
+<ul><li><strong>What I read:</strong></li><li><strong>What it made obvious:</strong></li><li><strong>What I will do next:</strong></li></ul>
+
+<p>The third line is the important one. Insight without next action becomes emotional decor.</p>
+
+<hr>
+
+<h2>The Copy You Can Pull From This</h2>
+
+<p>The Vault can become more than private work.</p>
+
+<p>From <strong>The Reinvention Workbook</strong>, pull a new About-page origin story.</p>
+
+<p>From <strong>The Invisible Bruise</strong>, pull language for boundaries, recovery, or a private letter you never send.</p>
+
+<p>From <strong>Write Yourself Into the Room</strong>, pull your bio, your positioning line, and your LinkedIn About section.</p>
+
+<p>From <strong>The Brand Voice Playbook</strong>, pull a voice brief for writers, designers, AI tools, or collaborators.</p>
+
+<p>From <strong>Decoding Angel Numbers</strong>, pull a practice for noticing what your calendar, body, and attention keep trying to tell you.</p>
+
+<p>The books are inputs. Your life is the output.</p>
+
+<hr>
+
+<h2>The Review Page</h2>
+
+<p>At the end of each book, answer these.</p>
+
+<ol><li>What sentence did I underline twice?</li><li>What did I resist because it was too accurate?</li><li>What language can I use this week?</li><li>What do I need to stop explaining?</li><li>What is the next honest draft?</li></ol>
+
+<p>If you cannot answer all five, do not panic. Go back to the section that made you restless. Restlessness is usually a map.</p>
+
+<hr>
+
+<h2>When To Revisit Each Book</h2>
+
+<p>Return to <strong>The Reinvention Workbook</strong> whenever the old story starts feeling too tight.</p>
+
+<p>Return to <strong>The Invisible Bruise</strong> when you start minimizing again.</p>
+
+<p>Return to <strong>Write Yourself Into the Room</strong> before every public profile update, launch, pitch, or bio request.</p>
+
+<p>Return to <strong>The Brand Voice Playbook</strong> before hiring, delegating, publishing, or building with AI.</p>
+
+<p>Return to <strong>Decoding Angel Numbers</strong> when you keep noticing something and want to stay curious without handing away your judgment.</p>
+
+<p>The Vault is not linear. It is seasonal.</p>
 
 <hr>
 
 <h2>Keep Going</h2>
 
-<p>The Vault is the writing-and-identity library. If your work is faith-rooted, the <strong>Scripture &amp; Strategy</strong> collection extends it into building a business without watering down your calling. And if you'd rather hand the work to someone who does it every day, that's what the studio is for.</p>
+<p>The Vault is the writing-and-identity library. If your work is faith-rooted, the <strong>Scripture &amp; Strategy</strong> collection extends this into business, content, and revenue without watering down your calling. If you want the same frameworks applied with you instead of by you, that is what the studio is for.</p>
 
-<p>Find everything — and start the free <strong>Positioning Checklist</strong> if you haven't — at <strong>mkparrish.com</strong>.</p>
+<p>Find the next step at <strong>mkparrish.com</strong>.</p>
 
-<p>You picked up the pen, and then you picked up all of it. That was never the hard part to want. It was the hard part to <em>start.</em> So start.</p>
+<p>You picked up the pen, and then you picked up all of it. That was never the hard part to want. It was the hard part to start.</p>
+
+<p>Start.</p>
 
 <p>— MK Parrish</p>
 
+</div>
+
+<div class="print-notes">
+
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">01</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">02</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">03</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">04</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">05</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">06</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">07</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">08</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">09</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">10</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">11</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">12</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">13</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">14</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">15</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Vault</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">16</div>
+</section>
 </div>
 
 <div class="footer">
