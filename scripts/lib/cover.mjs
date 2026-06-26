@@ -8,6 +8,11 @@
  * petal pink, a Playfair-italic tagline, and a JetBrains-Mono byline. Rendered
  * at 1600x2560 (KDP/Kindle cover ratio).
  */
+import { inlineGoogleFonts } from './inline-fonts.mjs';
+
+const FONTS_URL = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@1,500&family=JetBrains+Mono:wght@500&display=swap';
+const fonts = await inlineGoogleFonts(FONTS_URL);
+
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 function balancedTitleLines(title) {
@@ -47,8 +52,7 @@ export function coverHtml(displayTitle, subtitle) {
     return `<span class="title-line">${words}</span>`;
   }).join('');
   return `<!doctype html><html><head><meta charset="utf-8">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@1,500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+${fonts}
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:1600px;height:2560px}
