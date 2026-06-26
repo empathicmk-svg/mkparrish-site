@@ -6,35 +6,89 @@ import CursorGlow from "@/app/components/CursorGlow";
 import LeadCapture from "@/app/components/LeadCapture";
 import MonetizationDrawer from "@/app/components/MonetizationDrawer";
 import { Analytics } from "@vercel/analytics/next";
+import { CONTACT, SITE_URL, SOCIALS } from "@/app/lib/config";
 
 export const metadata: Metadata = {
   title: {
-    default: "MK Parrish — Rewrite Your Story",
+    default: "MK Parrish | Growth Marketing, Positioning & Brand Strategy",
     template: "%s — MK Parrish",
   },
   description:
-    "Websites, outbound, and messaging that turn how you're seen into revenue. A senior growth operator and writer for B2B SaaS, agencies, and growth-stage teams.",
+    "Marketing strategy, positioning, website rewrites, outbound, and growth audits for founders, consultants, B2B SaaS teams, and growing companies.",
   applicationName: "MK Parrish",
-  metadataBase: new URL("https://www.mkparrish.com"),
+  metadataBase: new URL(SITE_URL),
+  keywords: [
+    "growth marketing consultant",
+    "positioning strategist",
+    "brand messaging consultant",
+    "website rewrite",
+    "B2B SaaS marketing",
+    "founder marketing strategy",
+    "LinkedIn positioning audit",
+    "MK Parrish",
+  ],
+  authors: [{ name: "MK Parrish", url: "https://www.mkparrish.com" }],
+  creator: "MK Parrish",
+  publisher: "MK Parrish",
+  category: "Marketing consulting",
   openGraph: {
-    title: "MK Parrish — Rewrite Your Story",
+    title: "MK Parrish | Growth Marketing, Positioning & Brand Strategy",
     description:
-      "Websites, outbound, and messaging that turn how you're seen into revenue. A senior growth operator and writer for B2B SaaS, agencies, and growth-stage teams.",
-    url: "https://www.mkparrish.com",
+      "Marketing strategy, positioning, website rewrites, outbound, and growth audits for founders, consultants, B2B SaaS teams, and growing companies.",
+    url: SITE_URL,
     siteName: "MK Parrish",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "MK Parrish — Rewrite Your Story",
+    title: "MK Parrish | Growth Marketing, Positioning & Brand Strategy",
     description:
-      "Websites, outbound, and messaging that turn how you're seen into revenue. A senior growth operator and writer for B2B SaaS, agencies, and growth-stage teams.",
+      "Marketing strategy, positioning, website rewrites, outbound, and growth audits for founders, consultants, B2B SaaS teams, and growing companies.",
   },
   appleWebApp: {
     title: "MK Parrish",
     statusBarStyle: "black-translucent",
   },
 };
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "MK Parrish",
+    url: SITE_URL,
+    jobTitle: "Growth Marketing and Positioning Strategist",
+    email: CONTACT.email,
+    telephone: CONTACT.phone,
+    sameAs: SOCIALS.map((social) => social.href),
+    knowsAbout: [
+      "Growth marketing",
+      "Positioning",
+      "Website copywriting",
+      "Outbound strategy",
+      "B2B SaaS marketing",
+      "LinkedIn positioning",
+      "Digital products",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "MK Parrish",
+    url: SITE_URL,
+    email: CONTACT.email,
+    telephone: CONTACT.phone,
+    areaServed: "United States",
+    serviceType: [
+      "Growth audit",
+      "Positioning strategy",
+      "Website rewrite",
+      "Outbound marketing",
+      "Fractional growth leadership",
+      "Brand messaging",
+    ],
+  },
+];
 
 export default function RootLayout({
   children,
@@ -44,6 +98,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark h-full antialiased">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
