@@ -1,4 +1,4 @@
-import { EBOOKS, PRINTS, SERVICE_EBOOKS } from "@/app/lib/config";
+import { CONTACT, EBOOKS, PRINTS, SERVICE_EBOOKS } from "@/app/lib/config";
 
 export type ShelfCollection = "ebooks" | "frameworks" | "prints";
 
@@ -174,6 +174,7 @@ const PRINT_COPY: Record<PrintTitle, {
   subtitle: string;
   desc: string;
   forWho: readonly string[];
+  source?: string;
 }> = {
   "Promise Me": {
     slug: "promise-me",
@@ -184,6 +185,7 @@ const PRINT_COPY: Record<PrintTitle, {
       "You are marking a new chapter, recovery, or personal promise",
       "You are buying for someone who needs words with a pulse",
     ],
+    source: "Original MK Parrish line",
   },
   "The Rewrite": {
     slug: "the-rewrite-print",
@@ -194,6 +196,7 @@ const PRINT_COPY: Record<PrintTitle, {
       "You want a daily reminder that authorship is a decision",
       "You like literary art that feels personal without becoming precious",
     ],
+    source: "Original MK Parrish poem",
   },
   "Selected Lines": {
     slug: "selected-lines",
@@ -204,6 +207,40 @@ const PRINT_COPY: Record<PrintTitle, {
       "You collect language the way other people collect photographs",
       "You need a thoughtful gift that does not feel mass-produced",
     ],
+    source: "Original MK Parrish lines",
+  },
+  "Live Out Loud": {
+    slug: "live-out-loud-print",
+    subtitle: "A short quote-page proof for rooms that need more courage in them.",
+    desc: "A clean typographic mockup built from the same MK Parrish print system: petal pink, sharp display type, and enough white space to breathe.",
+    forWho: [
+      "You want the room to remind you to stop shrinking the voice",
+      "You collect quotes that feel like permission slips with better typography",
+      "You want a proof-ready concept before choosing a final custom line",
+    ],
+    source: "Quote page: Émile Zola",
+  },
+  "Not Afraid of Storms": {
+    slug: "not-afraid-of-storms-print",
+    subtitle: "A quote-page proof about courage, steadiness, and learning the weather.",
+    desc: "A restrained typographic print mockup for the person learning how to move through hard things without becoming hard.",
+    forWho: [
+      "You are building courage without needing it to look loud",
+      "You want a literary quote that still feels soft and modern",
+      "You like wall art that speaks quietly but lands cleanly",
+    ],
+    source: "Quote page: Louisa May Alcott",
+  },
+  "Never Too Late": {
+    slug: "never-too-late-print",
+    subtitle: "A compact quote-page proof for a second life, second try, or second draft.",
+    desc: "A small-format print mockup for the desk, shelf, or nightstand: the kind of line you look at before you start again.",
+    forWho: [
+      "You are in a new chapter and want the wall to know it",
+      "You prefer a smaller print with a clean, literary feel",
+      "You need a quiet reminder that timing is not the same as permission",
+    ],
+    source: "Quote page: George Eliot",
   },
 };
 
@@ -211,6 +248,23 @@ export const DIGITAL_PRODUCTS: readonly ShelfProduct[] = [
   ...EBOOKS.map((product) => normalizeDigital(product, "ebooks")),
   ...SERVICE_EBOOKS.map((product) => normalizeDigital(product, "frameworks")),
 ];
+
+function customPrintHref() {
+  const subject = "Custom Print Shop proof request";
+  const body = [
+    "Hi MK,",
+    "",
+    "I want a custom Print Shop proof.",
+    "",
+    "Phrase:",
+    "Size:",
+    "Style direction:",
+    "",
+    "Please send the next steps.",
+  ].join("\n");
+
+  return `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
 export const PRINT_PRODUCTS: readonly ShelfProduct[] = PRINTS.map((print) => {
   const copy = PRINT_COPY[print.title];
@@ -230,16 +284,54 @@ export const PRINT_PRODUCTS: readonly ShelfProduct[] = PRINTS.map((print) => {
     collection: "prints",
     kind: "print",
     highlight: false,
-    href: print.stripe,
-    stripe: print.stripe,
+    href: "stripe" in print && print.stripe ? print.stripe : `/shelf/${copy.slug}`,
+    stripe: "stripe" in print ? print.stripe : undefined,
     sizes: print.sizes,
     preview: "preview" in print ? print.preview : undefined,
+    cover: coverForSlug(copy.slug),
+    assetLinks: [
+      { label: "Mockup JPG", href: coverForSlug(copy.slug) },
+      ...(copy.source ? [{ label: copy.source, href: "/posts" }] : []),
+    ],
   };
 });
 
+export const CUSTOM_PRINT_PRODUCT: ShelfProduct = {
+  slug: "custom-quote-print",
+  title: "Custom Quote Print",
+  subtitle: "Your line, vow, name, or private sentence in the MK Parrish print-shop system.",
+  price: "From $45",
+  tag: "Custom Proof",
+  desc: "Choose a line, size, and typographic direction; MK sends a proof before anything goes to print.",
+  features: [
+    "Your words styled in the site font system",
+    "Petal pink, pearl, smoke, or black-and-white direction",
+    "Digital proof before printing",
+    "Available as a gift, studio print, or personal wall piece",
+  ],
+  forWho: [
+    "You have a sentence you keep returning to",
+    "You want wall art that sounds like your life, not a catalog",
+    "You are making a gift, vow, desk print, or new-chapter marker",
+  ],
+  collection: "prints",
+  kind: "print",
+  highlight: true,
+  href: customPrintHref(),
+  sizes: ["5×7", "8×10", "11×14", "16×20"],
+  preview: "Your words here.",
+  cover: coverForSlug("custom-quote-print"),
+  assetLinks: [{ label: "Proof mockup", href: coverForSlug("custom-quote-print") }],
+};
+
+export const PRINT_SHOP_PRODUCTS: readonly ShelfProduct[] = [
+  ...PRINT_PRODUCTS,
+  CUSTOM_PRINT_PRODUCT,
+];
+
 export const SHELF_PRODUCTS: readonly ShelfProduct[] = [
   ...DIGITAL_PRODUCTS,
-  ...PRINT_PRODUCTS,
+  ...PRINT_SHOP_PRODUCTS,
 ];
 
 export function findShelfProduct(slug: string) {

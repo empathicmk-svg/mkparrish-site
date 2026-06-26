@@ -40,7 +40,11 @@ export const AMAZON_AUTHOR_URL  = "https://www.amazon.com/author/mkparrish";
 
 // ── Products not yet live ────────────────────────────────────────────────────
 // Add a slug here to show "Coming Soon" instead of the buy button.
-export const COMING_SOON_SLUGS = new Set<string>();
+export const COMING_SOON_SLUGS = new Set<string>([
+  "live-out-loud-print",
+  "not-afraid-of-storms-print",
+  "never-too-late-print",
+]);
 
 // ── Contact ──────────────────────────────────────────────────────────────────
 export const CONTACT = {
@@ -446,6 +450,24 @@ export const PRINTS = [
     preview: "I picked up the pen and I felt the world shift / the weight of a lifetime becoming a gift.",
   },
   { title: "Selected Lines", price: "From $18", stripe: "https://buy.stripe.com/fZubJ2geB3XGamMaX38AE0c", sizes: ["5×7","8×10"] },
+  {
+    title:   "Live Out Loud",
+    price:   "From $22",
+    sizes:   ["8×10","11×14","16×20"],
+    preview: "I am here to live out loud.",
+  },
+  {
+    title:   "Not Afraid of Storms",
+    price:   "From $22",
+    sizes:   ["8×10","11×14","16×20"],
+    preview: "I am not afraid of storms.",
+  },
+  {
+    title:   "Never Too Late",
+    price:   "From $18",
+    sizes:   ["5×7","8×10"],
+    preview: "It is never too late.",
+  },
 ] as const;
 
 export const SERVICES = [

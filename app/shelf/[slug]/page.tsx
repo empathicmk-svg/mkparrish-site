@@ -50,14 +50,20 @@ function isFreeProduct(product: ShelfProduct) {
   return Boolean(product.free && product.download);
 }
 
+function isProofRequest(product: ShelfProduct) {
+  return product.kind === "print" && (product.stripe || product.href).startsWith("mailto:");
+}
+
 function purchaseLabel(product: ShelfProduct) {
   if (isFreeProduct(product)) return "Download Free";
+  if (isProofRequest(product)) return "Request Proof";
   if (product.kind === "print") return `Buy Print — ${product.price}`;
   return `Buy Now — ${product.price}`;
 }
 
 function accessLabel(product: ShelfProduct) {
   if (COMING_SOON_SLUGS.has(product.slug)) return "Coming soon";
+  if (isProofRequest(product)) return "Custom proof request · No payment until the print is confirmed";
   if (product.kind === "print") return "Secure checkout · Printed and shipped to you";
   if (product.limitedFree) return `Free for a limited time · Normally ${product.price}`;
   if (isFreeProduct(product)) return "Free PDF · Instant download · No signup";
@@ -87,11 +93,13 @@ function ProductAction({
     );
   }
 
+  const href = product.stripe || product.href;
+  const external = href.startsWith("http");
+
   return (
     <a
-      href={product.stripe || product.href}
-      target="_blank"
-      rel="noreferrer"
+      href={href}
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
       className={`${className} btn-primary text-void`}
     >
       {purchaseLabel(product)}
@@ -101,7 +109,7 @@ function ProductAction({
 
 function formatDescription(product: ShelfProduct) {
   if (product.kind === "print") {
-    return "An original MK Parrish poetry print produced as archival-quality wall art. Clean enough for a modern room, personal enough to mean something every time you pass it.";
+    return "A typographic piece from the MK Parrish print shop: literary, minimal, and personal enough to mean something every time you pass it.";
   }
 
   if (product.collection === "frameworks") {
@@ -181,7 +189,7 @@ export default async function ShelfProductPage({
                 </div>
               )}
               <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.24em] text-iron">
-                {product.kind === "print" ? "Original Poetry Print" : product.tag}
+                {product.kind === "print" ? "The Print Shop" : product.tag}
               </p>
               <p className="mt-4 font-display text-5xl uppercase tracking-[0.01em] text-white">
                 {free ? "Free" : product.price}
@@ -209,7 +217,9 @@ export default async function ShelfProductPage({
                 className="flex w-full items-center justify-center px-5 py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.18em]"
               />
               <p className="mt-4 text-center font-body text-[0.65rem] font-light leading-5 text-iron">
-                {product.kind === "print"
+                {isProofRequest(product)
+                  ? "Proof request opens email · Sizes and pricing confirmed before printing"
+                  : product.kind === "print"
                   ? "Secure Stripe checkout · Available sizes shown at checkout"
                   : free
                     ? "No account required · Yours to keep"
