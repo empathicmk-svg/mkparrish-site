@@ -140,7 +140,7 @@ export default function HowIWorkPage() {
             <H3Script>If your question is not here, just ask.</H3Script>
             <div className="mt-8 flex flex-wrap gap-4">
               <BtnPrimary href="/book">Book a Call</BtnPrimary>
-              <ArrowLink href="/shelf">Browse The Shelf</ArrowLink>
+              <ArrowLink href="/shop">Browse The Shelf</ArrowLink>
             </div>
           </div>
           <FAQ items={faqItems} />

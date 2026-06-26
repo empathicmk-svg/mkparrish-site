@@ -146,7 +146,7 @@ export default function ResourcesPage() {
               Choose Your Next Step →
             </Link>
             <Link
-              href="/shelf"
+              href="/shop"
               className="inline-flex justify-center border border-graphite px-6 py-4 font-body text-[0.68rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal"
             >
               Browse The Shelf

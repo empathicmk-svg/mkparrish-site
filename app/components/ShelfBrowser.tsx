@@ -68,7 +68,7 @@ function Card({ p }: { p: BrowseItem }) {
     >
       {p.featured && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
 
-      <Link href={`/shelf/${p.slug}`} className="group relative mb-6 block shrink-0 overflow-hidden">
+      <Link href={`/shop/${p.slug}`} className="group relative mb-6 block shrink-0 overflow-hidden">
         {badge && (
           <span className="absolute left-3 top-3 z-10 bg-petal px-2.5 py-1 font-body text-[0.55rem] font-bold uppercase tracking-[0.2em] text-void">
             {badge}
@@ -138,7 +138,7 @@ function Card({ p }: { p: BrowseItem }) {
           </a>
         )}
         <Link
-          href={`/shelf/${p.slug}`}
+          href={`/shop/${p.slug}`}
           className="flex w-full items-center justify-center py-2 font-body text-[0.65rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
         >
           View details →
@@ -253,7 +253,7 @@ export default function ShelfBrowser({ products }: { products: BrowseItem[] }) {
       {/* Bundle upsell nudge */}
       {showUpsell && (
         <Link
-          href={`/shelf/${topBundle.slug}`}
+          href={`/shop/${topBundle.slug}`}
           className="mt-6 flex flex-col items-start gap-2 border border-petal/30 bg-carbon p-5 transition-colors hover:border-petal/60 sm:flex-row sm:items-center sm:justify-between"
         >
           <p className="font-body text-sm font-light leading-7 text-smoke">

@@ -107,7 +107,7 @@ export default function AuditPage() {
         <div className="mt-8 flex items-start gap-4 border border-graphite p-6">
           <span className="mt-0.5 h-1.5 w-1.5 flex-shrink-0 bg-petal" />
           <p className="font-body text-sm font-light leading-7 text-smoke">
-            Want it taken further? The audit credits toward the bigger work — <Link href="/shelf/the-rewrite-playbook" className="text-petal transition hover:text-blush">The Rewrite</Link>, <Link href="/book" className="text-petal transition hover:text-blush">a Session</Link>, or <Link href="/studio" className="text-petal transition hover:text-blush">The Build</Link>. Start here; go as far as you want.
+            Want it taken further? The audit credits toward the bigger work — <Link href="/shop/the-rewrite-playbook" className="text-petal transition hover:text-blush">The Rewrite</Link>, <Link href="/book" className="text-petal transition hover:text-blush">a Session</Link>, or <Link href="/studio" className="text-petal transition hover:text-blush">The Build</Link>. Start here; go as far as you want.
           </p>
         </div>
       </RevealSection>
@@ -118,7 +118,7 @@ export default function AuditPage() {
           <Eyebrow>One small, fast yes</Eyebrow>
           <H3Script>The cheapest way to find out exactly what&apos;s costing you the click.</H3Script>
           <BtnPrimary href={STRIPE_AUDIT}>Get the Audit — $97</BtnPrimary>
-          <ArrowLink href="/shelf">Or browse The Shelf first</ArrowLink>
+          <ArrowLink href="/shop">Or browse The Shelf first</ArrowLink>
         </div>
       </RevealSection>
     </>
