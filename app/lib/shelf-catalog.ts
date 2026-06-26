@@ -96,6 +96,16 @@ const PRODUCT_AUDIENCES: AudienceMap = {
     "You know the problem but have not organized the thinking yet",
     "You want to arrive clear instead of trying to discover everything out loud",
   ],
+  "the-resume-rewrite-kit": [
+    "Your resume is technically accurate but still undersells the work",
+    "You are changing roles, industries, or seniority levels and need the page to carry the pivot",
+    "You want a rewrite system that turns vague responsibilities into proof",
+  ],
+  "the-clean-resume-template": [
+    "You need a resume layout that looks polished without fighting the ATS",
+    "Your experience is strong, but the page is hard to scan quickly",
+    "You want prompts inside the structure so the template helps you write, not just format",
+  ],
   "the-rewrite-playbook": [
     "Your professional story no longer matches the person doing the work",
     "You are changing careers, relaunching, or stepping into a bigger role",

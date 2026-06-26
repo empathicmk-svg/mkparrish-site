@@ -1,108 +1,9 @@
-#!/usr/bin/env node
-/**
- * Converts product markdown files into branded, self-contained HTML downloads
- * for Gumroad uploads. Run: node scripts/build-downloads.mjs
- */
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { COURSE, courseMarkdown } from './lib/course.mjs';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(__dirname, '..');
-
-// ── Markdown → HTML ──────────────────────────────────────────────────────────
-
-function md(src) {
-  let html = src
-    // escape stray html
-    .replace(/&(?!amp;|lt;|gt;|quot;|#)/g, '&amp;')
-    // tables
-    .replace(/^\|(.+)\|\n\|[-:| ]+\|\n((?:\|.+\|\n?)+)/gm, (_, head, body) => {
-      const th = head.split('|').filter(Boolean).map(c => `<th>${inline(c.trim())}</th>`).join('');
-      const rows = body.trim().split('\n').map(row =>
-        `<tr>${row.split('|').filter(Boolean).map(c => `<td>${inline(c.trim())}</td>`).join('')}</tr>`
-      ).join('\n');
-      return `<table><thead><tr>${th}</tr></thead><tbody>${rows}</tbody></table>\n`;
-    })
-    // fenced code blocks
-    .replace(/```[\w]*\n([\s\S]*?)```/gm, (_, code) =>
-      `<pre><code>${code.replace(/&amp;/g, '&').replace(/</g, '&lt;')}</code></pre>`)
-    // blockquotes
-    .replace(/^((?:> .+\n?)+)/gm, block => {
-      const inner = block.replace(/^> ?/gm, '').trim();
-      return `<blockquote>${inline(inner)}</blockquote>\n`;
-    })
-    // hr
-    .replace(/^---+$/gm, '<hr>')
-    // headings
-    .replace(/^### (.+)$/gm, (_, t) => `<h3>${inline(t)}</h3>`)
-    .replace(/^## (.+)$/gm,  (_, t) => `<h2>${inline(t)}</h2>`)
-    .replace(/^# (.+)$/gm,   (_, t) => `<h1>${inline(t)}</h1>`)
-    // unordered lists
-    .replace(/^((?:[*\-] .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^[*\-] /, ''))}</li>`).join('');
-      return `<ul>${items}</ul>\n`;
-    })
-    // ordered lists
-    .replace(/^((?:\d+\. .+\n?)+)/gm, block => {
-      const items = block.trim().split('\n').map(l =>
-        `<li>${inline(l.replace(/^\d+\. /, ''))}</li>`).join('');
-      return `<ol>${items}</ol>\n`;
-    })
-    // paragraphs (lines not already wrapped)
-    .replace(/^(?!<[a-z]|$)(.+)$/gm, (_, line) => `<p>${inline(line)}</p>`);
-
-  return html;
-}
-
-function inline(s) {
-  return s
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,     '<em>$1</em>')
-    .replace(/`(.+?)`/g,       '<code>$1</code>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>');
-}
-
-// ── HTML template ─────────────────────────────────────────────────────────────
-// Mirrors the live site (mkparrish.com): Bebas Neue / Playfair Display / DM Sans
-// / JetBrains Mono on black × pink × white × grey, with pink-gradient rules,
-// text-glow, an outlined display word, mono section numbers, and a grain overlay.
-
-function wrap(title, bodyHtml, opts = {}) {
-  const { subtitle = '', kicker = 'MK Parrish · mkparrish.com', meta = '', accent = '#F2AFC6', isCourse = false } = opts;
-  const notesHtml = Array.from({ length: 16 }, (_, i) => `
-<section class="notes-page">
-  <div class="notes-kicker">MK Parrish · Working Notes</div>
-  <div class="notes-title">${title}</div>
-  <div class="notes-rule"></div>
-  <div class="notes-lines" aria-hidden="true"></div>
-  <div class="notes-page-number">${String(i + 1).padStart(2, '0')}</div>
-</section>`).join('');
-
-  // Split a "Title: subtitle" headline so the cover gets a punchy display line
-  // plus an italic serif descender, the way the live hero is set.
-  let coverTitle = title;
-  let coverSub = subtitle;
-  const colon = title.indexOf(':');
-  if (!coverSub && colon > 0) {
-    coverTitle = title.slice(0, colon).trim();
-    coverSub = title.slice(colon + 1).trim();
-  }
-  // Outline the final word of the cover title (the site's hero treatment).
-  const words = coverTitle.split(' ');
-  const lastWord = words.length > 1 ? words.pop() : '';
-  const coverTitleHtml = lastWord
-    ? `<span class="grad">${words.join(' ')}</span> <span class="outline">${lastWord}</span>`
-    : `<span class="grad">${coverTitle}</span>`;
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${title} — MK Parrish</title>
+<title>The Clean Resume Template — MK Parrish</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -118,7 +19,7 @@ function wrap(title, bodyHtml, opts = {}) {
     --pearl: #F0F0EE;
     --white: #FAFAF8;
     --blush: #FFD6E4;
-    --petal: ${accent};
+    --petal: #F2AFC6;
     --rose: #E0869F;
     --carmine: #C75B78;
     --font-display: 'Bebas Neue', Impact, sans-serif;
@@ -344,7 +245,7 @@ function wrap(title, bodyHtml, opts = {}) {
     line-height: 1.6;
   }
   blockquote::before {
-    content: '\\201C';
+    content: '\201C';
     position: absolute;
     top: 0.08em;
     left: 0.14em;
@@ -667,25 +568,307 @@ function wrap(title, bodyHtml, opts = {}) {
 
 <div class="cover">
   <div class="cover-inner">
-    <div class="cover-kicker">${kicker}</div>
-    <h1>${coverTitleHtml}</h1>
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">The Clean Resume</span> <span class="outline">Template</span></h1>
     <div class="cover-heart" aria-hidden="true">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" stroke="#FAFAF8" stroke-width="0.8"/>
       </svg>
     </div>
-    ${coverSub ? `<p class="subtitle">${coverSub}</p>` : ''}
+    <p class="subtitle">An ATS-safe, human-readable resume layout with prompts built into every section.</p>
     <div class="cover-rule"></div>
-    ${meta ? `<div class="cover-meta">${meta}</div>` : ''}
+    <div class="cover-meta">By MK Parrish · $12</div>
   </div>
 </div>
 
 <div class="content">
-${bodyHtml}
+<h2>Why this exists</h2>
+
+<p>The best resume design is quiet.</p>
+
+<p>It does not hide the work behind columns, icons, tiny type, or decorative lines that confuse applicant tracking systems. It gives the reader the proof fast. A recruiter is not trying to admire the page. They are trying to decide whether to keep reading.</p>
+
+<p>This template gives you a clean structure and the prompts to fill it well.</p>
+
+<blockquote>Make the page easy to scan. Make the proof hard to dismiss.</blockquote>
+
+<p>Use the template first. Then use the examples to sharpen the language.</p>
+
+<hr>
+
+<h2>The Template</h2>
+
+<p>Copy this structure into your document editor.</p>
+
+<pre><code>FIRST LAST
+<p>City, State or Remote | Email | Phone | LinkedIn | Portfolio</p>
+
+<p>TARGET ROLE / PROFESSIONAL IDENTITY</p>
+<p>One or two lines that explain who you are, what you do, and the proof</p>
+<p>or context that matters most for the role you want.</p>
+
+<p>CORE STRENGTHS</p>
+<p>Strength 1 | Strength 2 | Strength 3 | Strength 4 | Strength 5 | Strength 6</p>
+
+<p>EXPERIENCE</p>
+
+<p>ROLE TITLE</p>
+<p>Company | Location or Remote | Month Year - Month Year</p>
+<p>One-line context if the company, team, or scope needs explanation.</p>
+
+<ul><li>Built / led / improved [thing] for [scope], resulting in [outcome].</li><li>Rebuilt / simplified / created [system or process] so [team/user/business result].</li><li>Partnered with [stakeholders] to [action], improving [metric or experience].</li></ul>
+
+<p>ROLE TITLE</p>
+<p>Company | Location or Remote | Month Year - Month Year</p>
+
+<ul><li>[Strongest proof first.]</li><li>[Scope, ownership, or complexity.]</li><li>[Collaboration, systems, judgment, or execution.]</li></ul>
+
+<p>EDUCATION</p>
+<p>Degree or Credential | School | Year</p>
+
+<p>TOOLS / SKILLS</p>
+<p>Category: skill, skill, skill</p>
+<p>Category: skill, skill, skill</p>
+<p></code></pre></p>
+
+<hr>
+
+<h2>Header Rules</h2>
+
+<p>Keep the header simple and searchable.</p>
+
+<p>Use:</p>
+
+<ul><li>Name</li><li>City/state or "Remote"</li><li>Email</li><li>Phone</li><li>LinkedIn</li><li>Portfolio, if relevant</li></ul>
+
+<p>Skip:</p>
+
+<ul><li>Full mailing address</li><li>Icons</li><li>Headshot</li><li>Decorative monograms</li><li>Multiple phone numbers</li><li>Quotes in the header</li></ul>
+
+<p>Your name can be larger. Everything else should be boring on purpose.</p>
+
+<hr>
+
+<h2>Summary Formula</h2>
+
+<p>Use one of these.</p>
+
+<h3>Formula A - Career pivot</h3>
+
+<pre><code>[ROLE / IDENTITY] with a background in [PAST FIELD] and strength in [TRANSFERABLE SKILL].
+<p>Known for [OUTCOME / EDGE]. Moving toward [TARGET ROLE] where [VALUE YOU BRING].</p>
+<p></code></pre></p>
+
+<p>Example:</p>
+
+<pre><code>Operations-minded project manager with a background in hospitality and creative production.
+<p>Known for turning moving parts into calm systems people actually follow. Moving toward</p>
+<p>client operations roles where speed, communication, and judgment matter.</p>
+<p></code></pre></p>
+
+<h3>Formula B - Senior operator</h3>
+
+<pre><code>[ROLE] with [YEARS]+ years in [CONTEXT]. Strongest in [PROBLEM TYPE],
+<p>with a record of [PROOF / OUTCOME].</p>
+<p></code></pre></p>
+
+<p>Example:</p>
+
+<pre><code>Marketing operations lead with 8+ years in B2B SaaS and founder-led teams.
+<p>Strongest in messy handoffs, campaign systems, and reporting cleanup, with a record</p>
+<p>of turning scattered processes into repeatable revenue support.</p>
+<p></code></pre></p>
+
+<h3>Formula C - Creative or strategist</h3>
+
+<pre><code>[ROLE] who helps [AUDIENCE / TEAM] [OUTCOME] through [METHOD / EDGE].
+<p>Experienced across [CONTEXTS] with strength in [SKILL].</p>
+<p></code></pre></p>
+
+<p>Example:</p>
+
+<pre><code>Brand strategist who helps early-stage founders turn vague ideas into language
+<p>people can understand and buy. Experienced across websites, launches, and content,</p>
+<p>with strength in voice, positioning, and proof.</p>
+<p></code></pre></p>
+
+<hr>
+
+<h2>Bullet Rules</h2>
+
+<p>Good bullets have weight. They are not job descriptions copied from HR.</p>
+
+<p>Use this pattern:</p>
+
+<pre><code>Strong verb + thing you owned + scope + result.
+<p></code></pre></p>
+
+<h3>Strong bullet examples</h3>
+
+<ul><li>Built a client onboarding tracker in Airtable that gave sales, delivery, and leadership one shared source of truth.</li><li>Led weekly campaign operations across email, paid social, and sales enablement for a four-person marketing team.</li><li>Rewrote internal reporting into a one-page dashboard used by leadership to spot blocked revenue and delayed launches.</li><li>Coordinated 30+ vendor, client, and internal stakeholders across a six-week production timeline with no missed delivery dates.</li><li>Simplified the intake process from six disconnected forms into one workflow, reducing duplicate requests and manual follow-up.</li></ul>
+
+<h3>Weak words to replace</h3>
+
+<p>Replace:</p>
+
+<ul><li>Responsible for</li><li>Helped with</li><li>Assisted in</li><li>Worked on</li><li>Handled</li><li>Involved in</li></ul>
+
+<p>With:</p>
+
+<ul><li>Owned</li><li>Built</li><li>Led</li><li>Supported</li><li>Coordinated</li><li>Improved</li><li>Rebuilt</li><li>Launched</li><li>Managed</li><li>Simplified</li><li>Translated</li></ul>
+
+<p>If "assisted" is true, be specific about your piece of the work. Supporting work still has value when the scope is clear.</p>
+
+<hr>
+
+<h2>One-Page Layout Rules</h2>
+
+<p>Use these settings unless your industry expects something else.</p>
+
+<ul><li>Font: 10.5 to 11.5 pt for body text</li><li>Margins: 0.5 to 0.75 inches</li><li>Name: 18 to 24 pt</li><li>Section headers: bold, all caps, simple</li><li>Dates: right aligned or same line, but consistent</li><li>Bullets: 2 to 5 per role</li><li>File format: PDF for sending, DOCX only when requested</li></ul>
+
+<p>Avoid:</p>
+
+<ul><li>Two-column layouts</li><li>Text boxes</li><li>Tables</li><li>Icons</li><li>Skill bars</li><li>Photos</li><li>Tiny gray type</li><li>Decorative script fonts</li></ul>
+
+<p>Clean does not mean plain. Clean means the reader does not have to fight the page.</p>
+
+<hr>
+
+<h2>The Ten-Second Scan</h2>
+
+<p>Before sending, give yourself ten seconds and answer:</p>
+
+<ul><li>What role is this person aiming for?</li><li>What are they clearly good at?</li><li>What is the strongest proof on the page?</li><li>Does the top third make me want to keep reading?</li><li>Can I find their contact information immediately?</li></ul>
+
+<p>If you cannot answer those quickly, the page is not clean yet.</p>
+
+<hr>
+
+<h2>Final Export Checklist</h2>
+
+<ul><li>[ ] Saved as <code>First-Last-Resume.pdf</code></li><li>[ ] Links tested</li><li>[ ] No icons or layout elements that might break parsing</li><li>[ ] Same date format throughout</li><li>[ ] Same punctuation style throughout</li><li>[ ] Strongest role bullets appear first</li><li>[ ] Summary points toward the target role</li><li>[ ] Skills are grouped and relevant</li><li>[ ] One page if possible, two pages only if the proof earns it</li></ul>
+
+<p>The goal is not to look impressive. The goal is to make the truth legible.</p>
+
+<p><em>MK Parrish · mkparrish.com</em></p>
+
 </div>
 
 <div class="print-notes">
-${notesHtml}
+
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">01</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">02</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">03</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">04</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">05</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">06</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">07</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">08</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">09</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">10</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">11</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">12</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">13</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">14</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">15</div>
+</section>
+<section class="notes-page">
+  <div class="notes-kicker">MK Parrish · Working Notes</div>
+  <div class="notes-title">The Clean Resume Template</div>
+  <div class="notes-rule"></div>
+  <div class="notes-lines" aria-hidden="true"></div>
+  <div class="notes-page-number">16</div>
+</section>
 </div>
 
 <div class="footer">
@@ -694,167 +877,4 @@ ${notesHtml}
 </div>
 
 </body>
-</html>`;
-}
-
-// ── Build individual file ──────────────────────────────────────────────────────
-
-function buildFile(srcPath, destPath, opts = {}) {
-  let raw = fs.readFileSync(srcPath, 'utf8');
-  // Pull the title from the first H1, then drop that line from the body so the
-  // cover carries the title instead of repeating it as the first heading.
-  const titleMatch = raw.match(/^# (.+)$/m);
-  const title = opts.title || (titleMatch ? titleMatch[1] : path.basename(srcPath, '.md'));
-  if (titleMatch) raw = raw.replace(/^# .+$\n?/m, '');
-
-  // Lift the cover front matter (subtitle + author/price) out of the body so it
-  // rides on the cover, the way the Reinvention Workbook does — unless the caller
-  // supplied it via opts. Only the block at the very top of the file is touched,
-  // so section dividers and emphasis deeper in the document are left alone.
-  let { subtitle = '', meta = '' } = opts;
-  let lifted = false;
-  const atTop = (i) => raw.slice(0, i).trim() === '';
-  if (!subtitle) {
-    const m = raw.match(/^\s*###\s+(.+?)\s*$/m);
-    if (m && atTop(m.index)) {
-      subtitle = m[1];
-      raw = raw.slice(0, m.index) + raw.slice(m.index + m[0].length);
-      lifted = true;
-    }
-  }
-  if (!meta) {
-    const bits = [];
-    const by = raw.match(/^\s*\*\*By ([^*]+?)\*\*\s*$/m);
-    if (by && atTop(by.index)) {
-      bits.push('By ' + by[1].trim());
-      raw = raw.slice(0, by.index) + raw.slice(by.index + by[0].length);
-      lifted = true;
-    }
-    const price = raw.match(/^\s*\*\*(?:Price:\s*)?(\$\d+)\*\*\s*$/m);
-    if (price && atTop(price.index)) {
-      bits.push(price[1]);
-      raw = raw.slice(0, price.index) + raw.slice(price.index + price[0].length);
-      lifted = true;
-    }
-    // Pattern B front matter — a leading block of "**Key:** value" lines
-    // (Format / Price / Length / Audience). Pull the price for the cover meta
-    // and strip the whole block so it doesn't leak into the body as gray text.
-    if (!bits.length) {
-      const metaBlock = raw.match(/^(?:[ \t]*\*\*[^*\n]+:\*\*[^\n]*\n?)+/m);
-      if (metaBlock && atTop(metaBlock.index)) {
-        const priceM = metaBlock[0].match(/\$\d[\d,]*/);
-        if (priceM) bits.push('By MK Parrish', priceM[0]);
-        raw = raw.slice(0, metaBlock.index) + raw.slice(metaBlock.index + metaBlock[0].length);
-        lifted = true;
-      }
-    }
-    if (bits.length) meta = bits.join(' · ');
-  }
-  // Remove the horizontal rule that used to divide the front matter from the body.
-  if (lifted) raw = raw.replace(/^\s*---\s*$\n?/m, '');
-
-  const bodyHtml = md(raw);
-  const html = wrap(title, bodyHtml, { ...opts, subtitle, meta });
-  fs.mkdirSync(path.dirname(destPath), { recursive: true });
-  fs.writeFileSync(destPath, html);
-  console.log(`  ✓  ${path.relative(ROOT, destPath)}`);
-}
-
-// ── Main ──────────────────────────────────────────────────────────────────────
-
-const EBOOKS = [
-  ['ebooks/reinvention-workbook.md',          'ebooks/reinvention-workbook.html', {
-    subtitle: 'A guided writing workbook for people in the middle of becoming someone new.',
-    meta:     'By MK Parrish · $18',
-  }],
-  ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
-  ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
-  ['ebooks/the-invisible-bruise.md',          'ebooks/the-invisible-bruise.html'],
-  ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
-  ['ebooks/scripture/the-study.md',           'ebooks/the-study.html'],
-  ['ebooks/scripture/gospel-and-grind.md',    'ebooks/gospel-and-grind.html'],
-  ['ebooks/scripture/the-sermon-notes.md',    'ebooks/the-sermon-notes.html'],
-  ['ebooks/scripture/the-calling-card.md',    'ebooks/the-calling-card.html'],
-  ['ebooks/scripture/ministry-monetized.md',  'ebooks/ministry-monetized.html'],
-];
-
-// Free lead magnets (the email-capture checklist, etc.) — flat in /downloads.
-const LEAD_MAGNETS = [
-  ['lead-magnets/positioning-checklist.md', 'positioning-checklist.html', { kicker: 'MK Parrish · Free Resource' }],
-];
-
-// Product bundles (The Vault, The Services Vault) — the "what's inside" intro
-// ebook that anchors each bundle. Flat in /downloads.
-const BUNDLES = [
-  ['bundles/the-vault.md',          'the-vault.html'],
-  ['bundles/the-services-vault.md', 'the-services-vault.html'],
-];
-
-const TEMPLATES = [
-  ['templates/the-edit-diy.md',            'templates/the-edit-diy.html'],
-  ['templates/before-the-session.md',      'templates/before-the-session.html'],
-  ['templates/the-rewrite-playbook.md',    'templates/the-rewrite-playbook.html'],
-  ['templates/the-new-chapter-workbook.md','templates/the-new-chapter-workbook.html'],
-  ['templates/the-byline-method.md',       'templates/the-byline-method.html'],
-  ['templates/the-build-copy-guide.md',    'templates/the-build-copy-guide.html'],
-  ['templates/the-social-strategy-playbook.md', 'templates/the-social-strategy-playbook.html'],
-  ['templates/the-prompt-vault.md',        'templates/the-prompt-vault.html'],
-  ['templates/the-linkedin-bio-fix-kit.md','templates/the-linkedin-bio-fix-kit.html'],
-  ['templates/the-resume-rewrite-kit.md',  'templates/the-resume-rewrite-kit.html'],
-  ['templates/the-clean-resume-template.md','templates/the-clean-resume-template.html'],
-  ['templates/the-authority-carousel-kit.md','templates/the-authority-carousel-kit.html'],
-];
-
-// Optional CLI filter: `node scripts/build-downloads.mjs reinvention` builds
-// only files whose source path contains the argument. No argument builds all.
-const only = process.argv[2];
-const pick = (list) => (only ? list.filter(([s]) => s.includes(only)) : list);
-
-console.log('\nBuilding ebooks...');
-for (const [src, dest, opts] of pick(EBOOKS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding lead magnets...');
-for (const [src, dest, opts] of pick(LEAD_MAGNETS)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding bundles...');
-for (const [src, dest, opts] of pick(BUNDLES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-console.log('\nBuilding templates...');
-for (const [src, dest, opts] of pick(TEMPLATES)) {
-  buildFile(
-    path.join(ROOT, 'products', src),
-    path.join(ROOT, 'public/downloads', dest),
-    opts
-  );
-}
-
-// Course — assembled from its module files into one gold-standard document.
-if (!only || COURSE.slug.includes(only) || only === 'course') {
-  console.log('\nBuilding course...');
-  const html = wrap(COURSE.title, md(courseMarkdown(ROOT)), {
-    subtitle: COURSE.subtitle, meta: COURSE.meta, isCourse: true,
-  });
-  const dest = path.join(ROOT, 'public/downloads', `${COURSE.slug}.html`);
-  fs.writeFileSync(dest, html);
-  console.log(`  ✓  ${path.relative(ROOT, dest)}`);
-}
-
-console.log('\nDone. Files written to public/downloads/\n');
+</html>

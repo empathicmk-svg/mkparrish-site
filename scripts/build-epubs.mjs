@@ -47,6 +47,8 @@ const BOOKS = [
   { src: 'templates/the-social-strategy-playbook.md', out: 'templates/the-social-strategy-playbook.epub' },
   { src: 'templates/the-prompt-vault.md',             out: 'templates/the-prompt-vault.epub' },
   { src: 'templates/the-linkedin-bio-fix-kit.md',     out: 'templates/the-linkedin-bio-fix-kit.epub' },
+  { src: 'templates/the-resume-rewrite-kit.md',       out: 'templates/the-resume-rewrite-kit.epub' },
+  { src: 'templates/the-clean-resume-template.md',     out: 'templates/the-clean-resume-template.epub' },
   // Course — assembled from its module files (no single source file).
   { raw: courseMarkdown(ROOT), out: `${COURSE.slug}.epub`, title: COURSE.title, subtitle: COURSE.subtitle },
   // Bundles — the "what's inside" intro ebook for each bundle product.

@@ -43,6 +43,8 @@ const PRODUCTS = [
   { src: 'templates/the-social-strategy-playbook.md', slug: 'the-social-strategy-playbook' },
   { src: 'templates/the-prompt-vault.md',             slug: 'the-prompt-vault' },
   { src: 'templates/the-linkedin-bio-fix-kit.md',     slug: 'the-linkedin-bio-fix-kit' },
+  { src: 'templates/the-resume-rewrite-kit.md',       slug: 'the-resume-rewrite-kit' },
+  { src: 'templates/the-clean-resume-template.md',     slug: 'the-clean-resume-template' },
   { src: 'templates/the-authority-carousel-kit.md',   slug: 'the-authority-carousel-kit' },
   { raw: '# The Positioning Audit\n\n### A 48-hour teardown of how you show up — and exactly what to fix.\n', slug: 'the-positioning-audit', title: 'The Positioning Audit', subtitle: 'A 48-hour teardown of how you show up.' },
   { raw: courseMarkdown(ROOT), slug: COURSE.slug, title: COURSE.title, subtitle: COURSE.subtitle },
