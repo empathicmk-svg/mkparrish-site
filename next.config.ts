@@ -4,14 +4,11 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1", "localhost"],
   async redirects() {
     return [
-      {
-        source: "/shop/:path*",
-        destination: "/shelf/:path*",
-        permanent: true,
-      },
+      // The store lives at /shop. /shelf and /shelf/[slug] redirect to /shop in
+      // the route handlers; keep the old /theshelf path working too.
       {
         source: "/theshelf/:path*",
-        destination: "/shelf/:path*",
+        destination: "/shop/:path*",
         permanent: true,
       },
     ];
