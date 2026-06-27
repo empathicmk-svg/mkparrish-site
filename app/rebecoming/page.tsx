@@ -9,7 +9,7 @@ const COVER = "/downloads/covers/rebecoming-cover.jpg";
 export const metadata: Metadata = {
   title: "REBECOMING: The Latest Model — A Memoir by MK Parrish",
   description:
-    "A present-tense memoir about fear, faith, prayer, and the courage to walk through a door you were told was not for you. Read it as an ebook or order the paperback.",
+    "A present-tense memoir in eleven chapters, woven through with Scripture and the saints, about fear, faith, prayer, and the courage to walk through a door you were told was not for you. Read it as an ebook or order the paperback.",
   alternates: { canonical: `${SITE_URL}/rebecoming` },
   openGraph: {
     title: "REBECOMING: The Latest Model — A Memoir by MK Parrish",
@@ -53,9 +53,10 @@ export default function RebecomingMicrosite() {
               A memoir about losing your fear without losing yourself.
             </p>
             <p className="mt-5 max-w-xl font-body text-base font-light leading-8 text-smoke">
-              Ten present-tense chapters on fear, faith, prayer, and the eleven minutes it took to walk through a door I was sure
-              was not for me. It is a book written to take apart one quiet lie: that faith, Bible study, and the warm rooms where
-              people tell each other the truth are for a certain kind of person and not for you. They are for you.
+              Eleven present-tense chapters on fear, faith, prayer, and the eleven minutes it took to walk through a door I was sure
+              was not for me. Woven through with Scripture, the saints, and the Blessed Mother, it is a book written to take apart
+              one quiet lie: that faith, Bible study, and the warm rooms where people tell each other the truth are for a certain
+              kind of person and not for you. They are for you.
             </p>
 
             {/* Buy options */}

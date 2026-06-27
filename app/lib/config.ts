@@ -93,12 +93,12 @@ export const EBOOKS = [
     // href is the Lulu storefront product URL — added once the title is uploaded.
     paperback: { price: "$39", href: "https://buy.stripe.com/4gMdRageBcuceD25CJ8AE0l" },
     features:  [
-      "A present-tense memoir in ten chapters",
+      "A present-tense memoir in eleven chapters",
+      "Woven through with Scripture, the saints, and the Blessed Mother",
       "On fear, faith, prayer, and rebecoming yourself",
       "Complete PDF + Kindle-ready EPUB",
-      "Instant download",
     ],
-    desc: "MK Parrish's flagship memoir. Ten chapters on fear, faith, prayer, and the eleven minutes it took to walk through a door she was sure wasn't for her — and on becoming the latest model of the person she always was.",
+    desc: "MK Parrish's flagship memoir, now expanded to eleven present-tense chapters and woven through with Scripture, the saints, and the Blessed Mother. A vivid story about fear, faith, prayer, friendship, and the eleven minutes it took to walk through a door she was sure was not for her, and about becoming the latest model of the person she always was.",
   },
   {
     slug:      "the-linkedin-bio-fix-kit",
