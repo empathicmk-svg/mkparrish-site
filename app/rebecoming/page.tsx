@@ -82,7 +82,10 @@ export default function RebecomingMicrosite() {
                 </a>
               )}
             </div>
-            <p className="mt-4 font-body text-xs font-light text-iron">
+            <p className="mt-4 font-body text-xs font-medium text-petal">
+              ♡ A portion of every sale is donated to my local parish.
+            </p>
+            <p className="mt-2 font-body text-xs font-light text-iron">
               Secure checkout by Stripe · No account required · Paperback orders collect your shipping address at checkout.
             </p>
           </div>
@@ -110,6 +113,11 @@ export default function RebecomingMicrosite() {
             <p>
               I wrote it to destigmatize Bible study and to spread the word that the door is open. If you have ever felt like faith
               was for other people, this one is for you.
+            </p>
+            <p>
+              And because this book was born in a beautiful old parish church that welcomed me before I had said a word, a portion
+              of every sale goes back to my local parish, so that the door stays open and the lights stay on for whoever comes
+              next.
             </p>
           </div>
 
