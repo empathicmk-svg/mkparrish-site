@@ -80,7 +80,7 @@ export const EBOOKS = [
   },
   {
     slug:      "rebecoming",
-    title:     "REBECOMING: The Latest Model",
+    title:     "REBECOMING: From Fear to Faith",
     subtitle:  "A memoir about losing your fear without losing yourself.",
     price:     "$39",
     tag:       "The Memoir",
@@ -93,12 +93,12 @@ export const EBOOKS = [
     // href is the Lulu storefront product URL — added once the title is uploaded.
     paperback: { price: "$39", href: "https://buy.stripe.com/4gMdRageBcuceD25CJ8AE0l" },
     features:  [
-      "A present-tense memoir in eleven chapters",
+      "A present-tense memoir in thirteen chapters",
       "Woven through with Scripture, the saints, and the Blessed Mother",
       "On fear, faith, prayer, and rebecoming yourself",
       "Complete PDF + Kindle-ready EPUB",
     ],
-    desc: "MK Parrish's flagship memoir, now expanded to eleven present-tense chapters and woven through with Scripture, the saints, and the Blessed Mother. A vivid story about fear, faith, prayer, friendship, and the eleven minutes it took to walk through a door she was sure was not for her, and about becoming the latest model of the person she always was.",
+    desc: "MK Parrish's flagship memoir, now expanded to thirteen present-tense chapters and woven through with Scripture, the saints, and the Blessed Mother. A vivid story about fear, faith, prayer, friendship, and the eleven minutes it took to walk through a door she was sure was not for her, and about becoming the latest model of the person she always was.",
   },
   {
     slug:      "the-linkedin-bio-fix-kit",
