@@ -82,13 +82,13 @@ export const EBOOKS = [
     slug:      "rebecoming",
     title:     "REBECOMING: The Latest Model",
     subtitle:  "A memoir about losing your fear without losing yourself.",
-    price:     "$49",
+    price:     "$39",
     tag:       "The Memoir",
     highlight: true,
     free:      false,
     download:  "/downloads/ebooks/rebecoming.pdf",
-    stripe:    "https://buy.stripe.com/14A5kE7I51PydyYaX38AE0h",
-    href:      "https://buy.stripe.com/14A5kE7I51PydyYaX38AE0h",
+    stripe:    "https://buy.stripe.com/cNi4gAbYl65OamM6GN8AE0s",
+    href:      "https://buy.stripe.com/cNi4gAbYl65OamM6GN8AE0s",
     // Paperback via Lulu print-on-demand (sold direct, you keep the margin).
     // href is the Lulu storefront product URL — added once the title is uploaded.
     paperback: { price: "$39", href: "https://buy.stripe.com/4gMdRageBcuceD25CJ8AE0l" },
@@ -214,6 +214,7 @@ export const SERVICE_EBOOKS = [
     cover:     "/downloads/covers/the-edit-diy-cover.jpg",
     stripe:    "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
     href:      "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
+    paperback: { price: "$29", href: "https://buy.stripe.com/00w3cw6E18dW52s8OV8AE0t" },
     features:  [
       "Copy audit checklist for any piece of writing",
       "Word-level edits for brand voice alignment",
@@ -233,6 +234,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/before-the-session.pdf",
     stripe:    "https://buy.stripe.com/cNieVe8M91Py2Uk5CJ8AE04",
     href:      "https://buy.stripe.com/cNieVe8M91Py2Uk5CJ8AE04",
+    paperback: { price: "$26", href: "https://buy.stripe.com/eVq7sM4vT3XG3YoaX38AE0u" },
     features:  [
       "Identity and positioning self-audit",
       "Brand clarity questions (the ones that change how you see yourself)",
@@ -252,6 +254,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/the-rewrite-playbook.pdf",
     stripe:    "https://buy.stripe.com/5kQ4gAbYl79S3Yo7KR8AE05",
     href:      "https://buy.stripe.com/5kQ4gAbYl79S3Yo7KR8AE05",
+    paperback: { price: "$52", href: "https://buy.stripe.com/9B63cw6E1gKseD2d5b8AE0v" },
     features:  [
       "Full story audit framework (career, identity, pivot narrative)",
       "LinkedIn profile optimization — every section covered",
@@ -271,6 +274,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/the-new-chapter-workbook.pdf",
     stripe:    "https://buy.stripe.com/9B69AUe6tfGobqQ2qx8AE06",
     href:      "https://buy.stripe.com/9B69AUe6tfGobqQ2qx8AE06",
+    paperback: { price: "$42", href: "https://buy.stripe.com/fZu28s2nLbq81Qgd5b8AE0w" },
     features:  [
       "Brand audit + positioning map",
       "Website copy architecture (page by page)",
@@ -290,6 +294,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/the-byline-method.pdf",
     stripe:    "https://buy.stripe.com/cNibJ2aUh8dWamMd5b8AE07",
     href:      "https://buy.stripe.com/cNibJ2aUh8dWamMd5b8AE07",
+    paperback: { price: "$45", href: "https://buy.stripe.com/4gMaEY2nLdyg7aAe9f8AE0x" },
     features:  [
       "Voice capture interview questions (used with every ghostwriting client)",
       "Tone calibration guide across formats",
@@ -309,6 +314,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/the-build-copy-guide.pdf",
     stripe:    "https://buy.stripe.com/5kQ9AU8M9gKseD2aX38AE08",
     href:      "https://buy.stripe.com/5kQ9AU8M9gKseD2aX38AE08",
+    paperback: { price: "$52", href: "https://buy.stripe.com/aFaaEY6E179SfH64yF8AE0y" },
     features:  [
       "Page-by-page copy architecture (home, about, services, contact)",
       "SEO-informed headline and subheadline frameworks",
@@ -328,6 +334,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/the-social-strategy-playbook.pdf",
     stripe:    "https://buy.stripe.com/8x26oz9gKd294HTcHq0oM0m",
     href:      "https://buy.stripe.com/8x26oz9gKd294HTcHq0oM0m",
+    paperback: { price: "$45", href: "https://buy.stripe.com/4gM7sMaUh3XGeD24yF8AE0z" },
     features:  [
       "Content pillar framework (what to say + why it builds authority)",
       "Brand voice calibration for social — Instagram, LinkedIn, TikTok",
@@ -366,6 +373,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/the-prompt-vault.pdf",
     stripe:    "https://buy.stripe.com/bJe3cw1jH65OgLa7KR8AE0d",
     href:      "https://buy.stripe.com/bJe3cw1jH65OgLa7KR8AE0d",
+    paperback: { price: "$41", href: "https://buy.stripe.com/fZu7sMfax3XG7aAghn8AE0A" },
     features:  [
       "40+ copy-paste prompts mapped to all 7 service methods",
       "The voice-capture prompt that makes AI sound like you",
