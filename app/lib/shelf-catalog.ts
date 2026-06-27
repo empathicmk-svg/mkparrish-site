@@ -279,6 +279,7 @@ export const PRINT_PRODUCTS: readonly ShelfProduct[] = PRINTS.map((print) => {
       "Archival-quality matte print",
       `Available in ${print.sizes.join(", ")}`,
       "Shipped in a protective sleeve",
+      "Free US shipping included",
     ],
     forWho: copy.forWho,
     collection: "prints",
