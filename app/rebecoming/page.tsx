@@ -7,12 +7,12 @@ const paperback = (BOOK as { paperback?: { price: string; href: string } }).pape
 const COVER = "/downloads/covers/rebecoming-cover.jpg";
 
 export const metadata: Metadata = {
-  title: "REBECOMING: The Latest Model — A Memoir by MK Parrish",
+  title: "REBECOMING: From Fear to Faith — A Memoir by MK Parrish",
   description:
-    "A present-tense memoir in eleven chapters, woven through with Scripture and the saints, about fear, faith, prayer, and the courage to walk through a door you were told was not for you. Read it as an ebook or order the paperback.",
+    "A present-tense memoir in thirteen chapters, woven through with Scripture and the saints, about fear, faith, prayer, and the courage to walk through a door you were told was not for you. Read it as an ebook or order the paperback.",
   alternates: { canonical: `${SITE_URL}/rebecoming` },
   openGraph: {
-    title: "REBECOMING: The Latest Model — A Memoir by MK Parrish",
+    title: "REBECOMING: From Fear to Faith — A Memoir by MK Parrish",
     description:
       "A memoir about losing your fear without losing yourself — on faith, prayer, and finding the room that was always yours.",
     url: `${SITE_URL}/rebecoming`,
@@ -35,7 +35,7 @@ export default function RebecomingMicrosite() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={COVER}
-              alt="REBECOMING: The Latest Model — book cover"
+              alt="REBECOMING: From Fear to Faith — book cover"
               width={1600}
               height={2560}
               className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_24px_80px_rgba(0,0,0,0.6)]"
@@ -48,12 +48,12 @@ export default function RebecomingMicrosite() {
             <h1 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.01em] text-white md:text-7xl">
               Rebecoming
             </h1>
-            <p className="mt-3 font-display text-xl uppercase tracking-[0.18em] text-pearl/80 md:text-2xl">The Latest Model</p>
+            <p className="mt-3 font-display text-xl uppercase tracking-[0.18em] text-pearl/80 md:text-2xl">From Fear to Faith</p>
             <p className="mt-6 max-w-xl font-serif text-xl italic leading-9 text-petal/85 md:text-2xl" style={{ fontWeight: 500 }}>
               A memoir about losing your fear without losing yourself.
             </p>
             <p className="mt-5 max-w-xl font-body text-base font-light leading-8 text-smoke">
-              Eleven present-tense chapters on fear, faith, prayer, and the eleven minutes it took to walk through a door I was sure
+              Thirteen present-tense chapters on fear, faith, prayer, and the eleven minutes it took to walk through a door I was sure
               was not for me. Woven through with Scripture, the saints, and the Blessed Mother, it is a book written to take apart
               one quiet lie: that faith, Bible study, and the warm rooms where people tell each other the truth are for a certain
               kind of person and not for you. They are for you.
