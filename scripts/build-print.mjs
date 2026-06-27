@@ -34,7 +34,7 @@ const YEAR = new Date().getFullYear();
 
 const BOOKS = [
   { slug: 'rebecoming', src: 'ebooks/rebecoming.md',
-    blurb: 'A luminous, present-tense memoir about fear, faith, and the courage to walk through a door you were told was not for you. In ten chapters, MK Parrish moves from a rainy set of church steps to a roomful of women who became the great loves of her life, and takes apart, gently, the lie that any of it was ever off-limits to you. A book about losing your fear without losing yourself, and becoming the latest model of the person you always were.' },
+    blurb: 'A luminous, present-tense memoir about fear, faith, and the courage to walk through a door you were told was not for you. In eleven chapters, MK Parrish moves from a rainy set of church steps to a roomful of women who became the great loves of her life, and takes apart, gently, the lie that any of it was ever off-limits to you. A book about losing your fear without losing yourself, and becoming the latest model of the person you always were.' },
   { slug: 'write-yourself-into-the-room', src: 'ebooks/write-yourself-into-the-room.md',
     blurb: 'You were always qualified for the room. You just were not legible yet. A complete, example-rich guide to positioning, bios, and the voice that makes the right people stop and read, so you stop sounding like everyone else and start sounding like the only option. Includes a three-layer positioning framework, before-and-after bio templates, a LinkedIn audit, and a thirty-day plan.' },
   { slug: 'reinvention-workbook', src: 'ebooks/reinvention-workbook.md',
