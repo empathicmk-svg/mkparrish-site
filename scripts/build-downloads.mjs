@@ -524,14 +524,14 @@ ${FONTS}
     .toc-page {
       max-width: none;
       margin: 0;
-      padding: 0.9in 0 0;
+      padding: 0.6in 0 0;
       break-after: page;
       min-height: 7.45in;
     }
     .toc-kicker { color: var(--petal); font-size: 9pt; }
     .toc-list { border-top: 1px solid #cfcfcf; }
     .toc-list li { border-bottom: 1px solid #e3e3e3; }
-    .toc-list a { color: #232323; padding: 0.16in 0.04in; font-size: 11pt; }
+    .toc-list a { color: #232323; padding: 0.11in 0.04in; font-size: 10.5pt; }
     .toc-num { color: #B23A59; }
 
     /* ── BODY: black text on white ── */
