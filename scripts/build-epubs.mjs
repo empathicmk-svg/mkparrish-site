@@ -241,6 +241,18 @@ async function buildEpub(book, page) {
   // optional intro/details block (content before first ## — e.g. Pattern-B metadata)
   if (pre) add('details', 'details.xhtml', 'About', `<div class="details">${xhtmlify(md(pre))}</div>`, false);
 
+  // visible Contents page in the linear reading flow (so it shows while reading,
+  // not only in the reader's own navigation menu)
+  add('contents', 'contents.xhtml', 'Contents',
+    `<h2 class="section"><span class="num">&#8212;</span>Contents</h2>` +
+    `<ol style="list-style:none;margin:0;padding:0;">` +
+    secs.map((s, i) =>
+      `<li style="border-bottom:1px solid #e3e3e3;padding:0.55em 0;font-family:'DM Sans',sans-serif;">` +
+      `<a href="sec${i + 1}.xhtml" style="text-decoration:none;color:#232323;">` +
+      `<span style="color:#B23A59;font-weight:600;margin-right:0.8em;font-size:0.85em;">${String(i + 1).padStart(2, '0')}</span>` +
+      `${esc(s.heading)}</a></li>`).join('') +
+    `</ol>`, false);
+
   // numbered sections
   secs.forEach((s, i) => {
     const nn = String(i + 1).padStart(2, '0');
