@@ -126,7 +126,7 @@ code{font-family:'DM Sans',monospace;font-size:0.9em;}
 hr{border:none;text-align:center;margin:0.22in 0;}
 hr:after{content:'\\2766';color:#c9879b;font-size:13pt;}
 strong{background:#0E0E0E;color:#FAFAF8;font-weight:600;padding:0.02em 0.2em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
-em{background:#F2AFC6;color:#1A1008;font-style:italic;padding:0.02em 0.18em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
+em{background:#E7E7E7;color:#1A1008;font-style:italic;padding:0.02em 0.18em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
 blockquote em{background:none;color:inherit;padding:0;}
 .toc{break-before:page;padding-top:1.1in;}
 .toc h1{font-family:'Bebas Neue',sans-serif;font-weight:400;text-transform:uppercase;font-size:26pt;letter-spacing:0.04em;color:#0E0E0E;margin:0 0 0.32in;}
