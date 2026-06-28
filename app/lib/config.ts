@@ -332,8 +332,8 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/the-social-strategy-playbook.pdf",
-    stripe:    "https://buy.stripe.com/8x26oz9gKd294HTcHq0oM0m",
-    href:      "https://buy.stripe.com/8x26oz9gKd294HTcHq0oM0m",
+    stripe:    "https://buy.stripe.com/eVq7sM7I53XG66wfdj8AE0B",
+    href:      "https://buy.stripe.com/eVq7sM7I53XG66wfdj8AE0B",
     paperback: { price: "$45", href: "https://buy.stripe.com/4gM7sMaUh3XGeD24yF8AE0z" },
     features:  [
       "Content pillar framework (what to say + why it builds authority)",
