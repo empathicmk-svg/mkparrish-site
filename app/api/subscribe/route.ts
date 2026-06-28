@@ -7,6 +7,9 @@ const SUBSTACK_PUB = "mkparrishthemargins";
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.mkparrish.com").replace(/\/+$/, "");
 const CHECKLIST_PATH = "/downloads/positioning-checklist.pdf";
 const CHECKLIST_URL = `${SITE_URL}${CHECKLIST_PATH}`;
+const SAMPLE_PATH = "/downloads/ebooks/rebecoming-sample.pdf";
+const SAMPLE_URL = `${SITE_URL}${SAMPLE_PATH}`;
+const BOOK_URL = `${SITE_URL}/rebecoming`;
 
 // Must be an address on a domain verified in Resend (e.g. mkparrish.com).
 const FROM = process.env.LEAD_FROM_EMAIL || "MK Parrish <hello@mkparrish.com>";
@@ -93,17 +96,74 @@ async function sendChecklistEmail(email: string): Promise<boolean> {
   }
 }
 
+// Email the free first chapter of REBECOMING, with a clear buy-the-book CTA.
+async function sendRebecomingEmail(email: string): Promise<boolean> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.warn("RESEND_API_KEY not set — sample email skipped. Popup serves the direct link.");
+    return false;
+  }
+  const html = `<!doctype html><html><body style="margin:0;background:#f4f2f0;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2f0;padding:32px 16px;"><tr><td align="center">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#fff;border:1px solid #e7e3df;">
+      <tr><td style="height:4px;background:linear-gradient(90deg,#E0869F,#F2AFC6 55%,#FFD6E4);font-size:0;line-height:0;">&nbsp;</td></tr>
+      <tr><td style="padding:38px 40px 8px;">
+        <p style="margin:0 0 16px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B23A59;">MK Parrish &middot; The Memoir</p>
+        <h1 style="margin:0 0 6px;font-family:Georgia,serif;font-size:30px;line-height:1.1;color:#0E0E0E;">REBECOMING: <span style="color:#B23A59;">From Fear to Faith</span></h1>
+        <p style="margin:14px 0 0;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#7a7a7a;">Here is your free first chapter. Then you decide.</p>
+      </td></tr>
+      <tr><td style="padding:18px 40px 8px;">
+        <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#2b2b2b;">Thank you for wanting to read. The opening chapter is attached as a link below. If the door is calling you the way it called me, the whole story is waiting.</p>
+      </td></tr>
+      <tr><td align="center" style="padding:8px 40px 14px;">
+        <a href="${SAMPLE_URL}" style="display:inline-block;background:#0E0E0E;color:#fff;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;padding:15px 30px;">Read Chapter One &rarr;</a>
+      </td></tr>
+      <tr><td align="center" style="padding:0 40px 34px;">
+        <a href="${BOOK_URL}" style="display:inline-block;background:#B23A59;color:#fff;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;padding:15px 30px;">Get the Full Book &rarr;</a>
+        <p style="margin:14px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#9a9a9a;">Instant ebook or paperback. A portion of every sale supports my local parish.</p>
+      </td></tr>
+      <tr><td style="padding:22px 40px;border-top:1px solid #eeeae6;">
+        <p style="margin:0;font-family:Georgia,serif;font-style:italic;font-size:15px;color:#0E0E0E;">&mdash; MK Parrish</p>
+        <p style="margin:4px 0 0;font-family:'Courier New',monospace;font-size:11px;letter-spacing:1px;color:#b0b0b0;">mkparrish.com</p>
+      </td></tr>
+    </table></td></tr></table></body></html>`;
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: FROM,
+        to: [email],
+        subject: "Your free first chapter of REBECOMING",
+        html,
+        text:
+          `Here is your free first chapter of REBECOMING: From Fear to Faith.\n\n` +
+          `Read chapter one: ${SAMPLE_URL}\n\nGet the full book: ${BOOK_URL}\n\n— MK Parrish\nmkparrish.com`,
+      }),
+    });
+    if (!res.ok) {
+      console.error("Resend send error:", res.status, await res.text().catch(() => ""));
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error("Resend fetch error:", err);
+    return false;
+  }
+}
+
 export async function POST(req: NextRequest) {
-  const { email } = await req.json().catch(() => ({ email: "" }));
+  const { email, offer } = await req.json().catch(() => ({ email: "" }));
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
-  // Add to the list (non-blocking) and send the checklist (awaited so the UI can
-  // report whether the email went out). Always return the link for instant access.
+  // Add to the list (non-blocking) and send the right lead magnet (awaited so the
+  // UI can report whether the email went out). Always return the link for access.
   subscribeToSubstack(email);
-  const emailed = await sendChecklistEmail(email);
+  const isBook = offer === "rebecoming";
+  const emailed = isBook ? await sendRebecomingEmail(email) : await sendChecklistEmail(email);
 
-  return NextResponse.json({ ok: true, emailed, checklist: CHECKLIST_PATH });
+  return NextResponse.json({ ok: true, emailed, checklist: isBook ? SAMPLE_PATH : CHECKLIST_PATH });
 }

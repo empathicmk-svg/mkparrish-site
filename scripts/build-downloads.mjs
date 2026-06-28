@@ -817,6 +817,10 @@ const EBOOKS = [
   ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
   ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
   ['ebooks/rebecoming.md',                    'ebooks/rebecoming.html'],
+  ['ebooks/rebecoming-sample.md',             'ebooks/rebecoming-sample.html', {
+    subtitle: 'The Free First Chapter',
+    meta:     'By MK Parrish',
+  }],
   ['ebooks/the-invisible-bruise.md',          'ebooks/the-invisible-bruise.html'],
   ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
   ['ebooks/scripture/the-study.md',           'ebooks/the-study.html'],
