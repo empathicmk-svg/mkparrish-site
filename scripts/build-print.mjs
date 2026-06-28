@@ -99,7 +99,7 @@ function notesPages(n) {
   return out;
 }
 
-function interiorHtml(title, subtitle, body, notes) {
+function interiorHtml(title, subtitle, toc, body, notes) {
   return `<!doctype html><html><head><meta charset="utf-8">${FONTS}<style>
 @page { size: ${TRIM_W}in ${TRIM_H}in; margin: 0.8in 0.65in 0.8in 0.8in; }
 *{box-sizing:border-box;}
@@ -125,7 +125,14 @@ li{margin:0.05in 0;}
 code{font-family:'DM Sans',monospace;font-size:0.9em;}
 hr{border:none;text-align:center;margin:0.22in 0;}
 hr:after{content:'\\2766';color:#c9879b;font-size:13pt;}
-strong{font-weight:600;}em{font-style:italic;}
+strong{background:#0E0E0E;color:#FAFAF8;font-weight:600;padding:0.02em 0.2em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
+em{background:#F2AFC6;color:#1A1008;font-style:italic;padding:0.02em 0.18em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
+blockquote em{background:none;color:inherit;padding:0;}
+.toc{break-before:page;padding-top:1.1in;}
+.toc h1{font-family:'Bebas Neue',sans-serif;font-weight:400;text-transform:uppercase;font-size:26pt;letter-spacing:0.04em;color:#0E0E0E;margin:0 0 0.32in;}
+.toc ol{list-style:none;margin:0;padding:0;border-top:1px solid #cfcfcf;}
+.toc li{border-bottom:1px solid #e3e3e3;padding:0.11in 0.02in;font-family:'DM Sans',sans-serif;font-size:11pt;color:#222;text-indent:0;text-align:left;}
+.toc .n{color:#B23A59;font-family:'DM Sans',sans-serif;font-weight:600;font-size:9pt;margin-right:0.3in;letter-spacing:0.05em;}
 .notespage{break-before:page;}
 .notes{margin-top:0.2in;}
 .nl{border-bottom:1px solid #d9d9d9;height:0.34in;}
@@ -138,6 +145,7 @@ strong{font-weight:600;}em{font-style:italic;}
 <p>mkparrish.com</p>
 <p>First edition, ${YEAR}.</p>
 </div>
+${toc && toc.length ? `<div class="toc"><h1>Contents</h1><ol>${toc.map((t, i) => `<li><span class="n">${String(i + 1).padStart(2, '0')}</span>${esc(t)}</li>`).join('')}</ol></div>` : ''}
 ${body}
 ${notesPages(notes)}
 </body></html>`;
@@ -214,15 +222,16 @@ for (const book of list) {
     .replace(/^\*\*By .+\*\*$/m, '')
     .replace(/^\*\*\$.+\*\*$/m, '');
   const bHtml = bodyHtml(body);
+  const chapters = [...body.matchAll(/^## (.+)$/gm)].map((m) => m[1].trim());
   const interiorPath = path.join(OUT, `${book.slug}-interior.pdf`);
 
   // Pass 1: no notes, count the content pages.
-  let pages = await renderInterior(browser, interiorHtml(title, subtitle, bHtml, 0), interiorPath);
+  let pages = await renderInterior(browser, interiorHtml(title, subtitle, chapters, bHtml, 0), interiorPath);
   // Pass 2: add back-matter notes pages if needed to clear the print minimum.
   let added = 0;
   if (pages < MIN_PAGES) {
     added = MIN_PAGES - pages;
-    pages = await renderInterior(browser, interiorHtml(title, subtitle, bHtml, added), interiorPath);
+    pages = await renderInterior(browser, interiorHtml(title, subtitle, chapters, bHtml, added), interiorPath);
   }
 
   const spine = Math.max(0.06, +(pages * SPINE_PER_PAGE).toFixed(3));
