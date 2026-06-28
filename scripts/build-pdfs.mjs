@@ -18,6 +18,7 @@ const FILES = [
   ['public/downloads/ebooks/write-yourself-into-the-room.html',  'public/downloads/ebooks/write-yourself-into-the-room.pdf'],
   ['public/downloads/ebooks/brand-voice-playbook.html',          'public/downloads/ebooks/brand-voice-playbook.pdf'],
   ['public/downloads/ebooks/rebecoming.html',                    'public/downloads/ebooks/rebecoming.pdf'],
+  ['public/downloads/ebooks/rebecoming-sample.html',             'public/downloads/ebooks/rebecoming-sample.pdf'],
   ['public/downloads/ebooks/the-invisible-bruise.html',          'public/downloads/ebooks/the-invisible-bruise.pdf'],
   ['public/downloads/ebooks/decoding-angel-numbers.html',        'public/downloads/ebooks/decoding-angel-numbers.pdf'],
   ['public/downloads/ebooks/the-study.html',                     'public/downloads/ebooks/the-study.pdf'],
