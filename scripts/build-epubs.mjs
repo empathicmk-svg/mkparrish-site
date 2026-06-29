@@ -32,6 +32,8 @@ const BOOKS = [
   { src: 'ebooks/write-yourself-into-the-room.md',    out: 'ebooks/write-yourself-into-the-room.epub' },
   { src: 'ebooks/brand-voice-playbook.md',            out: 'ebooks/brand-voice-playbook.epub' },
   { src: 'ebooks/rebecoming.md',                      out: 'ebooks/rebecoming.epub' },
+  { src: 'ebooks/street-smarts.md',                   out: 'ebooks/street-smarts.epub' },
+  { src: 'ebooks/make-my-own-light.md',               out: 'ebooks/make-my-own-light.epub' },
   { src: 'ebooks/the-invisible-bruise.md',            out: 'ebooks/the-invisible-bruise.epub' },
   { src: 'ebooks/decoding-angel-numbers.md',          out: 'ebooks/decoding-angel-numbers.epub' },
   { src: 'ebooks/scripture/the-study.md',             out: 'ebooks/the-study.epub' },
@@ -67,6 +69,8 @@ function md(src) {
     })
     .replace(/```[\w]*\n([\s\S]*?)```/gm, (_, code) =>
       `<pre><code>${code.replace(/&amp;/g, '&').replace(/</g, '&lt;')}</code></pre>`)
+    .replace(/^~~~\n([\s\S]*?)\n~~~$/gm, (_, body) =>
+      `<p class="verse">${inline(body).replace(/\n{2,}/g, '<br/><br/>').replace(/\n/g, '<br/>')}</p>\n`)
     .replace(/^((?:> .+\n?)+)/gm, block => `<blockquote>${inline(block.replace(/^> ?/gm, '').trim())}</blockquote>\n`)
     .replace(/^---+$/gm, '<hr/>')
     .replace(/^### (.+)$/gm, (_, t) => `<h3>${inline(t)}</h3>`)
@@ -155,6 +159,7 @@ h3{font-family:"Playfair Display",serif;font-style:italic;font-weight:600;font-s
   color:#B23A59;margin:1.6em 0 0.5em;line-height:1.2;}
 
 p{margin:0 0 0.9em;color:#2b2b2b;}
+.verse{text-indent:0;margin:0 0 1.4em;line-height:1.95;}
 strong{background:#0E0E0E;color:#FAFAF8;font-weight:600;padding:0.04em 0.3em;
   -webkit-box-decoration-break:clone;box-decoration-break:clone;}
 em{background:#F2AFC6;color:#1A1008;font-style:italic;padding:0.04em 0.3em;

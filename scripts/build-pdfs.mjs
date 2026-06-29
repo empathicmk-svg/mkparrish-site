@@ -19,6 +19,8 @@ const FILES = [
   ['public/downloads/ebooks/brand-voice-playbook.html',          'public/downloads/ebooks/brand-voice-playbook.pdf'],
   ['public/downloads/ebooks/rebecoming.html',                    'public/downloads/ebooks/rebecoming.pdf'],
   ['public/downloads/ebooks/rebecoming-sample.html',             'public/downloads/ebooks/rebecoming-sample.pdf'],
+  ['public/downloads/ebooks/street-smarts.html',                 'public/downloads/ebooks/street-smarts.pdf'],
+  ['public/downloads/ebooks/make-my-own-light.html',             'public/downloads/ebooks/make-my-own-light.pdf'],
   ['public/downloads/ebooks/the-invisible-bruise.html',          'public/downloads/ebooks/the-invisible-bruise.pdf'],
   ['public/downloads/ebooks/decoding-angel-numbers.html',        'public/downloads/ebooks/decoding-angel-numbers.pdf'],
   ['public/downloads/ebooks/the-study.html',                     'public/downloads/ebooks/the-study.pdf'],

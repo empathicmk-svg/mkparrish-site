@@ -32,6 +32,9 @@ function md(src) {
     // fenced code blocks
     .replace(/```[\w]*\n([\s\S]*?)```/gm, (_, code) =>
       `<pre><code>${code.replace(/&amp;/g, '&').replace(/</g, '&lt;')}</code></pre>`)
+    // verse blocks (poetry): ~~~ ... ~~~  → single <p> with line breaks preserved
+    .replace(/^~~~\n([\s\S]*?)\n~~~$/gm, (_, body) =>
+      `<p class="verse">${inline(body).replace(/\n{2,}/g, '<br/><br/>').replace(/\n/g, '<br/>')}</p>\n`)
     // blockquotes
     .replace(/^((?:> .+\n?)+)/gm, block => {
       const inner = block.replace(/^> ?/gm, '').trim();
@@ -332,6 +335,7 @@ ${FONTS}
     margin: 40px 0 12px;
   }
   p { margin: 0 0 1.25em; color: var(--smoke); }
+  .verse { text-indent: 0 !important; margin: 0 0 1.8em; line-height: 1.95; font-family: var(--font-serif, Georgia, serif); }
   strong { color: var(--pearl); font-weight: 500; }
   /* Emphasis — live-site accent: Playfair italic, petal */
   em { font-family: var(--font-serif); font-style: italic; color: var(--petal); }
@@ -817,6 +821,8 @@ const EBOOKS = [
   ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
   ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
   ['ebooks/rebecoming.md',                    'ebooks/rebecoming.html'],
+  ['ebooks/street-smarts.md',                 'ebooks/street-smarts.html'],
+  ['ebooks/make-my-own-light.md',             'ebooks/make-my-own-light.html'],
   ['ebooks/rebecoming-sample.md',             'ebooks/rebecoming-sample.html', {
     subtitle: 'The Free First Chapter',
     meta:     'By MK Parrish',

@@ -28,6 +28,8 @@ const PRODUCTS = [
   { src: 'ebooks/write-yourself-into-the-room.md',    slug: 'write-yourself-into-the-room' },
   { src: 'ebooks/brand-voice-playbook.md',            slug: 'brand-voice-playbook' },
   { src: 'ebooks/rebecoming.md',                      slug: 'rebecoming' },
+  { src: 'ebooks/street-smarts.md',                   slug: 'street-smarts' },
+  { src: 'ebooks/make-my-own-light.md',               slug: 'make-my-own-light' },
   { src: 'ebooks/the-invisible-bruise.md',            slug: 'the-invisible-bruise' },
   { src: 'ebooks/decoding-angel-numbers.md',          slug: 'decoding-angel-numbers' },
   { src: 'ebooks/scripture/the-study.md',             slug: 'the-study' },
