@@ -1,8 +1,47 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const FREE_CHAPTER = "/downloads/ebooks/rebecoming-sample.pdf";
+const STORAGE_KEY = "mkp_lead_capture_status";
+const DISMISS_DAYS = 7;
+
+function getDaysFromNow(days: number) {
+  return Date.now() + days * 24 * 60 * 60 * 1000;
+}
+
+function shouldSuppressPopup() {
+  if (typeof window === "undefined") return true;
+
+  const pathname = window.location.pathname;
+  const suppressedPaths = ["/rebecoming", "/contact", "/shop", "/services"];
+  if (suppressedPaths.some((path) => pathname.startsWith(path))) return true;
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return false;
+
+  try {
+    const status = JSON.parse(saved) as { expiresAt?: number; submitted?: boolean };
+    if (status.submitted) return true;
+    if (status.expiresAt && status.expiresAt > Date.now()) return true;
+  } catch {
+    localStorage.removeItem(STORAGE_KEY);
+  }
+
+  return false;
+}
+
+function rememberPopup(status: "dismissed" | "submitted") {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({
+      status,
+      submitted: status === "submitted",
+      expiresAt: status === "submitted" ? getDaysFromNow(365) : getDaysFromNow(DISMISS_DAYS),
+    }),
+  );
+}
 
 export default function LeadCapture() {
   const [visible, setVisible] = useState(false);
@@ -13,54 +52,91 @@ export default function LeadCapture() {
   const [error, setError] = useState("");
   const [emailed, setEmailed] = useState(false);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (localStorage.getItem("mkp_lead_seen")) return;
+  const pageSource = useMemo(() => {
+    if (typeof window === "undefined") return "popup";
+    return `popup:${window.location.pathname}`;
+  }, []);
 
-    const timer = setTimeout(() => setVisible(true), 8000);
+  useEffect(() => {
+    if (typeof window === "undefined" || shouldSuppressPopup()) return;
+
+    let hasOpened = false;
+    const openOnce = () => {
+      if (hasOpened || shouldSuppressPopup()) return;
+      hasOpened = true;
+      setVisible(true);
+    };
+
+    const timer = window.setTimeout(openOnce, 12000);
 
     const onScroll = () => {
-      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      if (pct >= 40 && !localStorage.getItem("mkp_lead_seen")) {
-        setVisible(true);
-        window.removeEventListener("scroll", onScroll);
-      }
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      const pct = (window.scrollY / scrollable) * 100;
+      if (pct >= 45) openOnce();
     };
+
+    const onMouseOut = (event: MouseEvent) => {
+      if (window.innerWidth < 900) return;
+      if (event.clientY <= 0) openOnce();
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("mouseout", onMouseOut);
 
     return () => {
-      clearTimeout(timer);
+      window.clearTimeout(timer);
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("mouseout", onMouseOut);
     };
   }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") dismiss();
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [visible]);
 
   function dismiss() {
     setClosing(true);
     setTimeout(() => {
       setVisible(false);
       setClosing(false);
-      localStorage.setItem("mkp_lead_seen", "1");
+      rememberPopup("dismissed");
     }, 350);
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email.trim() || loading) return;
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail || loading) return;
+
     setLoading(true);
     setError("");
+
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), offer: "rebecoming" }),
+        body: JSON.stringify({
+          email: cleanEmail,
+          offer: "rebecoming-sample",
+          source: pageSource,
+        }),
       });
-      if (!res.ok) throw new Error("failed");
       const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "failed");
+
       setEmailed(Boolean(data.emailed));
       setSubmitted(true);
-      localStorage.setItem("mkp_lead_seen", "1");
+      rememberPopup("submitted");
     } catch {
-      setError("Something went wrong — please try again.");
+      setError("Something went wrong. You can still read the chapter below, then try your email again.");
     } finally {
       setLoading(false);
     }
@@ -78,6 +154,9 @@ export default function LeadCapture() {
         transition: "opacity 0.35s cubic-bezier(0.16,1,0.3,1)",
       }}
       onClick={(e) => { if (e.target === e.currentTarget) dismiss(); }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="lead-capture-title"
     >
       <div
         className="relative grid w-full max-w-[860px] overflow-hidden border border-graphite bg-void md:grid-cols-[0.85fr_1fr]"
@@ -88,7 +167,6 @@ export default function LeadCapture() {
       >
         <div className="absolute inset-x-0 top-0 z-10 h-px bg-petal" />
 
-        {/* Close */}
         <button
           onClick={dismiss}
           className="absolute right-4 top-4 z-20 font-body text-sm text-ash transition hover:text-pearl"
@@ -97,20 +175,18 @@ export default function LeadCapture() {
           ✕
         </button>
 
-        {/* Cover panel */}
         <div className="relative hidden items-center justify-center bg-carbon p-8 md:flex">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(242,175,198,0.18),transparent_70%)]" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/downloads/covers/rebecoming-cover.jpg"
-            alt="REBECOMING: From Fear to Faith — book cover"
+            alt="REBECOMING: From Fear to Faith book cover"
             width={1600}
             height={2560}
             className="relative aspect-[5/8] w-full max-w-[240px] border border-graphite/70 object-cover shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
           />
         </div>
 
-        {/* Content */}
         <div className="p-8 md:p-10">
           {!submitted ? (
             <>
@@ -118,18 +194,27 @@ export default function LeadCapture() {
                 The Memoir · Free First Chapter
               </p>
               <h2
+                id="lead-capture-title"
                 className="font-display uppercase leading-[0.9] tracking-[0.02em] text-white"
                 style={{ fontSize: "clamp(1.9rem, 5vw, 2.8rem)" }}
               >
                 Read the first<br /><span className="text-petal">chapter free.</span>
               </h2>
               <p className="mt-4 font-serif text-base italic leading-7 text-smoke">
-                <strong className="text-pearl not-italic">REBECOMING: From Fear to Faith</strong> — a memoir about losing your fear without losing yourself. Enter your email and I&apos;ll send you the opening chapter. Then you decide.
+                <strong className="text-pearl not-italic">REBECOMING: From Fear to Faith</strong> is a memoir about losing your fear without losing yourself. Enter your email and I&apos;ll send the opening chapter. Then you decide.
               </p>
+              <ul className="mt-5 space-y-2 font-body text-xs leading-5 text-smoke">
+                <li>• Immediate chapter access after signup.</li>
+                <li>• A direct inbox copy when email delivery is enabled.</li>
+                <li>• Occasional notes from The Margins. No spam circus.</li>
+              </ul>
               <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
+                <label className="sr-only" htmlFor="lead-email">Email address</label>
                 <input
+                  id="lead-email"
                   type="email"
                   required
+                  autoComplete="email"
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -143,20 +228,30 @@ export default function LeadCapture() {
                   {loading ? "Sending…" : "Send Me Chapter One →"}
                 </button>
               </form>
-              {error && <p className="mt-3 font-body text-[0.7rem] leading-5 text-petal">{error}</p>}
+              {error && <p className="mt-3 font-body text-[0.7rem] leading-5 text-petal" aria-live="polite">{error}</p>}
+              {error && (
+                <a
+                  href={FREE_CHAPTER}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-flex font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal underline underline-offset-4"
+                >
+                  Read without waiting →
+                </a>
+              )}
               <p className="mt-4 font-body text-[0.65rem] leading-5 text-iron">
                 One email with your free chapter. A portion of every book sale is donated to my local parish. Unsubscribe any time.
               </p>
             </>
           ) : (
-            <div className="py-2">
+            <div className="py-2" aria-live="polite">
               <p className="font-display text-4xl uppercase leading-none tracking-[0.02em] text-petal">
                 Chapter one<br />is yours.
               </p>
               <p className="mt-5 font-serif text-base italic leading-7 text-smoke">
                 {emailed
-                  ? "It is on its way to your inbox — and you can start reading right now."
-                  : "Start reading right now — and a copy is in your inbox if email is on."}
+                  ? "It is on its way to your inbox, and you can start reading right now."
+                  : "Start reading right now. A copy will also send when email delivery is enabled."}
               </p>
 
               <a
@@ -173,7 +268,7 @@ export default function LeadCapture() {
                   Don&apos;t want to wait?
                 </p>
                 <p className="mt-2 font-body text-sm font-light leading-6 text-smoke">
-                  Read the whole story now — instant ebook or a paperback shipped to your door.
+                  Read the whole story now - instant ebook or a paperback shipped to your door.
                 </p>
                 <a
                   href="/rebecoming"
