@@ -12,7 +12,8 @@ export default function InlineLeadCapture() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!email.trim() || loading) return;
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail || loading) return;
 
     setLoading(true);
     setError("");
@@ -21,12 +22,16 @@ export default function InlineLeadCapture() {
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({
+          email: cleanEmail,
+          offer: "positioning-checklist",
+          source: "inline-lead-capture",
+        }),
       });
 
-      if (!response.ok) throw new Error("Subscription failed");
-
       const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || "Subscription failed");
+
       if (data.checklist) setChecklistUrl(data.checklist);
       setEmailed(Boolean(data.emailed));
       setSubmitted(true);
