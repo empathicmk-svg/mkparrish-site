@@ -36,6 +36,10 @@ fs.mkdirSync(PUB_DIR, { recursive: true });
 const dataUri = (buf, mime) => `data:${mime};base64,${buf.toString("base64")}`;
 const fileDataUri = (p, mime) => dataUri(fs.readFileSync(p), mime);
 
+// Brand fonts, inlined as base64 @font-face so rendering never depends on the
+// network (a remote @import was silently falling back to Liberation/DejaVu).
+const FONT_CSS = fs.readFileSync(path.join(__dirname, "assets", "fonts-embedded.css"), "utf8");
+
 // ── SCREENSHOTS ─────────────────────────────────────────────────────────────
 const SHOT_PAGES = [
   { slug: "home", route: "/" },
@@ -86,7 +90,7 @@ async function makeQr() {
 
 // ── SHARED BRAND CSS ─────────────────────────────────────────────────────────
 const BRAND_CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
+  ${FONT_CSS}
   :root {
     --void:#080808; --obsidian:#111111; --carbon:#1A1A1A; --graphite:#2C2C2C;
     --iron:#4A4A4A; --ash:#7A7A7A; --smoke:#B0B0B0; --pearl:#F0F0EE; --white:#FAFAF8;
@@ -485,7 +489,8 @@ async function renderDoc(browser, { html, basename }) {
   const page = await browser.newPage();
   await page.setViewport({ width: 794, height: 1123, deviceScaleFactor: 2 });
   await page.goto(`file://${htmlPath}`, { waitUntil: "networkidle0" });
-  await new Promise((r) => setTimeout(r, 600));
+  await page.evaluate(async () => { await document.fonts.ready; });
+  await new Promise((r) => setTimeout(r, 400));
 
   const pngPath = path.join(OUT_DIR, `${basename}.png`);
   await page.screenshot({ path: pngPath, fullPage: true });

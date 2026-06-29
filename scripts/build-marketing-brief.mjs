@@ -44,6 +44,10 @@ function fileDataUri(absPath, mime) {
   return dataUri(fs.readFileSync(absPath), mime);
 }
 
+// Brand fonts inlined as base64 @font-face — rendering must not depend on the
+// network (a remote @import was silently falling back to Liberation/DejaVu).
+const FONT_CSS = fs.readFileSync(path.join(__dirname, "assets", "fonts-embedded.css"), "utf8");
+
 // ── 1. SCREENSHOTS ──────────────────────────────────────────────────────────
 const SHOT_PAGES = [
   { slug: "home", route: "/" },
@@ -108,7 +112,7 @@ function buildHtml({ headshot, qr, shots }) {
 <meta charset="UTF-8" />
 <title>Product Marketing Candidate Brief — MK Parrish</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
+  ${FONT_CSS}
 
   :root {
     --void:#080808; --obsidian:#111111; --carbon:#1A1A1A; --graphite:#2C2C2C;
@@ -396,7 +400,8 @@ async function main() {
   const page = await browser.newPage();
   await page.setViewport({ width: 794, height: 1123, deviceScaleFactor: 2 });
   await page.goto(`file://${htmlPath}`, { waitUntil: "networkidle0" });
-  await new Promise((r) => setTimeout(r, 600)); // let fonts settle
+  await page.evaluate(async () => { await document.fonts.ready; });
+  await new Promise((r) => setTimeout(r, 400)); // let fonts settle
 
   const pngPath = path.join(OUT_DIR, `${BASENAME}.png`);
   await page.screenshot({ path: pngPath, fullPage: true });
