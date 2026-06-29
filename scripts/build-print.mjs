@@ -59,6 +59,14 @@ const BOOKS = [
     blurb: 'Build a content strategy you will actually use. A content-pillar framework tied to real authority, brand-voice calibration for each platform, a thirty-day sprint template, and a posting system that does not depend on inspiration, the method behind The Social Suite.' },
   { slug: 'the-prompt-vault', src: 'templates/the-prompt-vault.md',
     blurb: 'Stop shipping the average of the internet. Forty-plus copy-paste prompts for positioning, bios, website copy, content, and email, the voice-capture prompt that makes AI sound like you, and edit prompts that kill the dead giveaways of AI, engineered so the machine drafts in your voice.' },
+  { slug: 'street-smarts', src: 'ebooks/street-smarts.md',
+    blurb: 'A raw and luminous memoir about a father found late and lost too soon. MK Parrish reads back the 1,109 texts that gave her a dad after twenty-five years of silence, walks honestly through the dark years that followed, and finds the long way home from merely existing to making her own light. A book about grief, survival, and the education that only ever comes the hard way.' },
+  { slug: 'make-my-own-light', src: 'ebooks/make-my-own-light.md',
+    blurb: 'A short, fierce collection of poems from the dark and the turning toward it. Eleven confessional pieces on grief, fear, faith, and the decision to stop waiting for someone else to light the way. For anyone who has ever read in the dark and needed a reason to keep the light lit.' },
+  { slug: 'the-invisible-bruise', src: 'ebooks/the-invisible-bruise.md',
+    blurb: 'A clear-eyed companion for anyone who has survived emotional abuse. What it actually is, why you stayed quiet, how the body keeps the record, and a framework for rewriting your life one true line forward. Honest, unflinching, and finally hopeful.' },
+  { slug: 'decoding-angel-numbers', src: 'ebooks/decoding-angel-numbers.md',
+    blurb: 'A skeptic’s guide to spiritual curiosity. Not a glossary of magical meanings, but a grounded framework for the patterns you keep noticing and what they might be telling you. For the spiritually curious who still want to keep their feet on the ground.' },
 ];
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -72,10 +80,18 @@ function bodyHtml(md) {
   let out = '';
   let para = [];
   let list = null;
+  let verse = null;
   const flushPara = () => { if (para.length) { out += `<p>${inline(para.join(' '))}</p>\n`; para = []; } };
   const flushList = () => { if (list) { out += `</${list}>\n`; list = null; } };
   for (let raw of lines) {
     const line = raw.replace(/\s+$/, '');
+    // verse blocks (poetry): ~~~ ... ~~~ keep their line breaks
+    if (line.trim() === '~~~') {
+      if (verse === null) { flushPara(); flushList(); verse = []; }
+      else { out += `<p class="verse">${inline(verse.join('\n')).replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>')}</p>\n`; verse = null; }
+      continue;
+    }
+    if (verse !== null) { verse.push(line); continue; }
     if (/^## /.test(line)) { flushPara(); flushList(); out += `<h2 class="chap">${inline(line.slice(3))}</h2>\n`; continue; }
     if (/^### /.test(line)) { flushPara(); flushList(); out += `<h3>${inline(line.slice(4))}</h3>\n`; continue; }
     if (/^#### /.test(line)) { flushPara(); flushList(); out += `<h4>${inline(line.slice(5))}</h4>\n`; continue; }
@@ -106,6 +122,7 @@ function interiorHtml(title, subtitle, toc, body, notes) {
 html,body{margin:0;padding:0;}
 body{font-family:'DM Sans',sans-serif;font-size:11.5pt;line-height:1.62;color:#161616;}
 p{margin:0;text-align:justify;text-indent:1.3em;orphans:2;widows:2;}
+p.verse{text-align:left;text-indent:0;margin:0 0 0.2in;line-height:1.7;}
 h2.chap + p,h3 + p,blockquote + p,hr + p{text-indent:0;}
 .halftitle{height:7.4in;display:flex;align-items:center;justify-content:center;text-align:center;}
 .halftitle h1{font-family:'Bebas Neue',sans-serif;font-weight:400;text-transform:uppercase;font-size:30pt;letter-spacing:0.04em;color:#0E0E0E;margin:0;}
