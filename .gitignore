@@ -53,3 +53,9 @@ next-env.d.ts
 
 # generated social bulk-upload assets (regenerated via `npm run social`)
 scripts/social/out/
+
+# job-search package build artifacts — large inlined HTML/PNG working files
+# (regenerated via build-marketing-brief.mjs / build-portfolio.mjs).
+# The shippable PDFs + preview PNGs live in /public/downloads/{marketing-brief,portfolio}/.
+/output/marketing-brief/
+/output/portfolio/
