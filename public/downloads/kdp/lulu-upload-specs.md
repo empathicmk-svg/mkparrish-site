@@ -52,6 +52,10 @@ address) or turn on Lulu's own distribution.
 | The Build Copy Guide | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
 | The Social Strategy Playbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $45 |
 | The Prompt Vault | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $41 |
+| Street Smarts | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $25 |
+| Make My Own Light | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
+| The Invisible Bruise | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $29 |
+| Decoding Angel Numbers | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $21 |
 
 ### File slugs (for the URLs above)
 
@@ -67,6 +71,10 @@ address) or turn on Lulu's own distribution.
 - The Build Copy Guide → `the-build-copy-guide`
 - The Social Strategy Playbook → `the-social-strategy-playbook`
 - The Prompt Vault → `the-prompt-vault`
+- Street Smarts → `street-smarts`
+- Make My Own Light → `make-my-own-light`
+- The Invisible Bruise → `the-invisible-bruise`
+- Decoding Angel Numbers → `decoding-angel-numbers`
 
 ---
 
