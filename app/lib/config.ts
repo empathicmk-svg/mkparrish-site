@@ -190,6 +190,7 @@ export const EBOOKS = [
     download:  "/downloads/ebooks/street-smarts.pdf",
     stripe:    "https://buy.stripe.com/PENDING-street-smarts",
     href:      "/shop/street-smarts",
+    paperback: { price: "$25", href: "https://buy.stripe.com/PENDING-street-smarts-pb" },
     features:  [
       "A father, a daughter, and an education that came too late",
       "The 1,109 texts, read back like scripture",
@@ -209,6 +210,7 @@ export const EBOOKS = [
     download:  "/downloads/ebooks/make-my-own-light.pdf",
     stripe:    "https://buy.stripe.com/PENDING-make-my-own-light",
     href:      "/shop/make-my-own-light",
+    paperback: { price: "$19", href: "https://buy.stripe.com/PENDING-make-my-own-light-pb" },
     features:  [
       "Eleven confessional poems on grief, fear, and faith",
       "From free-falling to making your own light",
@@ -228,6 +230,7 @@ export const EBOOKS = [
     download:  "/downloads/ebooks/the-invisible-bruise.pdf",
     stripe:    "https://buy.stripe.com/9B63cw6E1gKseD2d5b8AE0v__PENDING",
     href:      "/shop/the-invisible-bruise",
+    paperback: { price: "$29", href: "https://buy.stripe.com/PENDING-the-invisible-bruise-pb" },
     features:  [
       "What emotional abuse actually is, named plainly",
       "Gaslighting and the theft of your reality",
@@ -247,6 +250,7 @@ export const EBOOKS = [
     download:  "/downloads/ebooks/decoding-angel-numbers.pdf",
     stripe:    "https://buy.stripe.com/PENDING",
     href:      "/shop/decoding-angel-numbers",
+    paperback: { price: "$21", href: "https://buy.stripe.com/PENDING-decoding-angel-numbers-pb" },
     features:  [
       "A grounded, non-woo framework for the patterns you notice",
       "Why we notice numbers, and what it means",
