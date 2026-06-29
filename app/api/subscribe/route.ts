@@ -1,21 +1,59 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const SUBSTACK_PUB = "mkparrishthemargins";
-
-// Where the hosted checklist lives. NEXT_PUBLIC_SITE_URL lets previews/staging
-// point the email link at the right origin; defaults to the production domain.
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.mkparrish.com").replace(/\/+$/, "");
 const CHECKLIST_PATH = "/downloads/positioning-checklist.pdf";
 const CHECKLIST_URL = `${SITE_URL}${CHECKLIST_PATH}`;
 const SAMPLE_PATH = "/downloads/ebooks/rebecoming-sample.pdf";
 const SAMPLE_URL = `${SITE_URL}${SAMPLE_PATH}`;
 const BOOK_URL = `${SITE_URL}/rebecoming`;
-
-// Must be an address on a domain verified in Resend (e.g. mkparrish.com).
 const FROM = process.env.LEAD_FROM_EMAIL || "MK Parrish <hello@mkparrish.com>";
 
-// Add the subscriber to the Substack free list. Fire-and-forget: a Substack
-// hiccup must not stop the checklist from being delivered.
+type LeadOffer = "positioning-checklist" | "rebecoming-sample";
+
+type SubscribeBody = {
+  email?: unknown;
+  offer?: unknown;
+  source?: unknown;
+};
+
+const recentSubmissions = new Map<string, number>();
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const MAX_EMAIL_LENGTH = 254;
+
+function cleanEmail(value: unknown) {
+  return typeof value === "string" ? value.trim().toLowerCase() : "";
+}
+
+function isValidEmail(email: string) {
+  return email.length <= MAX_EMAIL_LENGTH && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function cleanText(value: unknown, fallback: string) {
+  if (typeof value !== "string") return fallback;
+  return value.trim().slice(0, 120) || fallback;
+}
+
+function normalizeOffer(value: unknown): LeadOffer {
+  if (value === "rebecoming" || value === "rebecoming-sample") return "rebecoming-sample";
+  return "positioning-checklist";
+}
+
+function checkDuplicate(email: string, offer: LeadOffer) {
+  const now = Date.now();
+  const key = `${email}:${offer}`;
+
+  for (const [storedKey, expiresAt] of recentSubmissions.entries()) {
+    if (expiresAt <= now) recentSubmissions.delete(storedKey);
+  }
+
+  const existingExpiry = recentSubmissions.get(key);
+  if (existingExpiry && existingExpiry > now) return true;
+
+  recentSubmissions.set(key, now + RATE_WINDOW_MS);
+  return false;
+}
+
 async function subscribeToSubstack(email: string) {
   try {
     const res = await fetch(`https://${SUBSTACK_PUB}.substack.com/api/v1/free`, {
@@ -45,15 +83,15 @@ function checklistEmailHtml(): string {
           <p style="margin:14px 0 0;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#7a7a7a;">The 12-point audit I run on every client before we rewrite a single line.</p>
         </td></tr>
         <tr><td style="padding:20px 40px 8px;">
-          <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#2b2b2b;">It's yours. Twelve questions that find exactly where your copy is losing people <em>before</em> you change a word. Go through them honestly — the uncomfortable <strong>no</strong> is the one worth the most money.</p>
+          <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#2b2b2b;">It's yours. Twelve questions that find exactly where your copy is losing people <em>before</em> you change a word. Go through them honestly. The uncomfortable <strong>no</strong> is the one worth the most money.</p>
         </td></tr>
         <tr><td align="center" style="padding:16px 40px 36px;">
           <a href="${CHECKLIST_URL}" style="display:inline-block;background:#0E0E0E;color:#ffffff;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;padding:16px 34px;">Download the Checklist &rarr;</a>
           <p style="margin:18px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#9a9a9a;">Or paste this into your browser:<br><a href="${CHECKLIST_URL}" style="color:#B23A59;">${CHECKLIST_URL}</a></p>
         </td></tr>
         <tr><td style="padding:24px 40px;border-top:1px solid #eeeae6;">
-          <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.7;color:#555;">You're also on <strong>The Margins</strong>, where I write about voice, positioning, and sounding like yourself on purpose. No pitch sequence — unsubscribe any time.</p>
-          <p style="margin:16px 0 0;font-family:Georgia,serif;font-style:italic;font-size:15px;color:#0E0E0E;">— MK Parrish</p>
+          <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.7;color:#555;">You're also on <strong>The Margins</strong>, where I write about voice, positioning, and sounding like yourself on purpose. No pitch sequence. Unsubscribe any time.</p>
+          <p style="margin:16px 0 0;font-family:Georgia,serif;font-style:italic;font-size:15px;color:#0E0E0E;">- MK Parrish</p>
           <p style="margin:4px 0 0;font-family:'Courier New',monospace;font-size:11px;letter-spacing:1px;color:#b0b0b0;">mkparrish.com</p>
         </td></tr>
       </table>
@@ -61,49 +99,8 @@ function checklistEmailHtml(): string {
   </table></body></html>`;
 }
 
-// Email the checklist via Resend's REST API (no SDK dependency). Returns true
-// only if the message was accepted. Missing key → skip cleanly (the popup still
-// hands over the same download link, so the lead magnet is never withheld).
-async function sendChecklistEmail(email: string): Promise<boolean> {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    console.warn("RESEND_API_KEY not set — checklist email skipped. Subscriber added; popup serves the direct download link.");
-    return false;
-  }
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from: FROM,
-        to: [email],
-        subject: "Your Positioning Checklist",
-        html: checklistEmailHtml(),
-        text:
-          `Here's your Positioning Checklist — the 12-point audit I run before rewriting any client's copy.\n\n` +
-          `Download it: ${CHECKLIST_URL}\n\n— MK Parrish\nmkparrish.com`,
-      }),
-    });
-    if (!res.ok) {
-      console.error("Resend send error:", res.status, await res.text().catch(() => ""));
-      return false;
-    }
-    console.log("Checklist email sent to", email);
-    return true;
-  } catch (err) {
-    console.error("Resend fetch error:", err);
-    return false;
-  }
-}
-
-// Email the free first chapter of REBECOMING, with a clear buy-the-book CTA.
-async function sendRebecomingEmail(email: string): Promise<boolean> {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    console.warn("RESEND_API_KEY not set — sample email skipped. Popup serves the direct link.");
-    return false;
-  }
-  const html = `<!doctype html><html><body style="margin:0;background:#f4f2f0;">
+function rebecomingEmailHtml(): string {
+  return `<!doctype html><html><body style="margin:0;background:#f4f2f0;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2f0;padding:32px 16px;"><tr><td align="center">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#fff;border:1px solid #e7e3df;">
       <tr><td style="height:4px;background:linear-gradient(90deg,#E0869F,#F2AFC6 55%,#FFD6E4);font-size:0;line-height:0;">&nbsp;</td></tr>
@@ -113,7 +110,7 @@ async function sendRebecomingEmail(email: string): Promise<boolean> {
         <p style="margin:14px 0 0;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#7a7a7a;">Here is your free first chapter. Then you decide.</p>
       </td></tr>
       <tr><td style="padding:18px 40px 8px;">
-        <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#2b2b2b;">Thank you for wanting to read. The opening chapter is attached as a link below. If the door is calling you the way it called me, the whole story is waiting.</p>
+        <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#2b2b2b;">Thank you for wanting to read. The opening chapter is below. If the door is calling you the way it called me, the whole story is waiting.</p>
       </td></tr>
       <tr><td align="center" style="padding:8px 40px 14px;">
         <a href="${SAMPLE_URL}" style="display:inline-block;background:#0E0E0E;color:#fff;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;padding:15px 30px;">Read Chapter One &rarr;</a>
@@ -123,28 +120,52 @@ async function sendRebecomingEmail(email: string): Promise<boolean> {
         <p style="margin:14px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#9a9a9a;">Instant ebook or paperback. A portion of every sale supports my local parish.</p>
       </td></tr>
       <tr><td style="padding:22px 40px;border-top:1px solid #eeeae6;">
-        <p style="margin:0;font-family:Georgia,serif;font-style:italic;font-size:15px;color:#0E0E0E;">&mdash; MK Parrish</p>
+        <p style="margin:0;font-family:Georgia,serif;font-style:italic;font-size:15px;color:#0E0E0E;">- MK Parrish</p>
         <p style="margin:4px 0 0;font-family:'Courier New',monospace;font-size:11px;letter-spacing:1px;color:#b0b0b0;">mkparrish.com</p>
       </td></tr>
     </table></td></tr></table></body></html>`;
+}
+
+async function sendLeadEmail(email: string, offer: LeadOffer, source: string): Promise<boolean> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.warn("RESEND_API_KEY not set. Lead email skipped; direct download link returned.");
+    return false;
+  }
+
+  const isBook = offer === "rebecoming-sample";
+  const subject = isBook ? "Your free first chapter of REBECOMING" : "Your Positioning Checklist";
+  const html = isBook ? rebecomingEmailHtml() : checklistEmailHtml();
+  const text = isBook
+    ? `Here is your free first chapter of REBECOMING: From Fear to Faith.\n\nRead chapter one: ${SAMPLE_URL}\n\nGet the full book: ${BOOK_URL}\n\n- MK Parrish\nmkparrish.com`
+    : `Here's your Positioning Checklist - the 12-point audit I run before rewriting any client's copy.\n\nDownload it: ${CHECKLIST_URL}\n\n- MK Parrish\nmkparrish.com`;
+
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         from: FROM,
         to: [email],
-        subject: "Your free first chapter of REBECOMING",
+        subject,
         html,
-        text:
-          `Here is your free first chapter of REBECOMING: From Fear to Faith.\n\n` +
-          `Read chapter one: ${SAMPLE_URL}\n\nGet the full book: ${BOOK_URL}\n\n— MK Parrish\nmkparrish.com`,
+        text,
+        tags: [
+          { name: "offer", value: offer },
+          { name: "source", value: source.replace(/[^a-zA-Z0-9:_-]/g, "_").slice(0, 60) },
+        ],
       }),
     });
+
     if (!res.ok) {
       console.error("Resend send error:", res.status, await res.text().catch(() => ""));
       return false;
     }
+
+    console.log("Lead email sent", { email, offer, source });
     return true;
   } catch (err) {
     console.error("Resend fetch error:", err);
@@ -153,17 +174,25 @@ async function sendRebecomingEmail(email: string): Promise<boolean> {
 }
 
 export async function POST(req: NextRequest) {
-  const { email, offer } = await req.json().catch(() => ({ email: "" }));
+  const body = await req.json().catch(() => ({} as SubscribeBody));
+  const email = cleanEmail(body.email);
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!isValidEmail(email)) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
-  // Add to the list (non-blocking) and send the right lead magnet (awaited so the
-  // UI can report whether the email went out). Always return the link for access.
-  subscribeToSubstack(email);
-  const isBook = offer === "rebecoming";
-  const emailed = isBook ? await sendRebecomingEmail(email) : await sendChecklistEmail(email);
+  const offer = normalizeOffer(body.offer);
+  const source = cleanText(body.source, "unknown");
+  const isDuplicate = checkDuplicate(email, offer);
+  const checklist = offer === "rebecoming-sample" ? SAMPLE_PATH : CHECKLIST_PATH;
 
-  return NextResponse.json({ ok: true, emailed, checklist: isBook ? SAMPLE_PATH : CHECKLIST_PATH });
+  if (isDuplicate) {
+    return NextResponse.json({ ok: true, emailed: false, duplicate: true, checklist });
+  }
+
+  const substackPromise = subscribeToSubstack(email);
+  const emailed = await sendLeadEmail(email, offer, source);
+  await substackPromise.catch(() => undefined);
+
+  return NextResponse.json({ ok: true, emailed, checklist });
 }
