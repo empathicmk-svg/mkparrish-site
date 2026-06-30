@@ -1,10 +1,25 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { SUBSTACK_URL } from "@/app/lib/config";
 import AuthorGlow from "@/app/components/AuthorGlow";
+
+type NavLinkItem = {
+  label: string;
+  href: string;
+  desc?: string;
+  external?: boolean;
+};
+
+type NavGroup = {
+  label: string;
+  links: NavLinkItem[];
+};
+
+const PORTFOLIO_URL = "https://mkp-portfolio-advanced.vercel.app";
+const VAULT_URL = `${PORTFOLIO_URL}/links#vault`;
 
 const workLinks = [
   { label: "All Offerings",       href: "/#offerings" },
@@ -31,8 +46,55 @@ const readLinks = [
   { label: "The Margins",  desc: "Private membership essays & frameworks",          href: "/margins" },
 ];
 
+const portfolioGroups: NavGroup[] = [
+  {
+    label: "Portfolios",
+    links: [
+      { label: "Public Portfolio", desc: "Web, growth, writing, video, and lead magnet proof", href: `${PORTFOLIO_URL}/`, external: true },
+      { label: "Writing Portfolio", desc: "Dedicated writing samples and positioning proof", href: `${PORTFOLIO_URL}/writing`, external: true },
+      { label: "Asset Vault", desc: "Public links plus protected premium assets", href: `${PORTFOLIO_URL}/links`, external: true },
+    ],
+  },
+  {
+    label: "Public Files",
+    links: [
+      { label: "Resume PDF", desc: "Career proof and contact details", href: `${PORTFOLIO_URL}/downloads/mk-parrish-resume-2026.pdf`, external: true },
+      { label: "Portfolio One-Sheet", desc: "Printable summary for follow-up", href: `${PORTFOLIO_URL}/downloads/mk-parrish-portfolio-one-sheet.pdf`, external: true },
+      { label: "Writing Portfolio Pack", desc: "When-to-send writing sample map", href: `${PORTFOLIO_URL}/downloads/mk-parrish-writing-portfolio-pack.md`, external: true },
+      { label: "Lead Magnet Index", desc: "Public map of assets and vault items", href: `${PORTFOLIO_URL}/downloads/mk-parrish-lead-magnet-index.md`, external: true },
+      { label: "Website Leak Map", desc: "Free diagnostic sample", href: `${PORTFOLIO_URL}/downloads/lead-magnets/website-leak-map.md`, external: true },
+      { label: "Brand Voice Sample", desc: "Open PDF writing sample", href: `${PORTFOLIO_URL}/downloads/writing-samples/mk-parrish-brand-voice-playbook.pdf`, external: true },
+    ],
+  },
+  {
+    label: "Protected Writing",
+    links: [
+      { label: "Build Copy Guide", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "Rewrite Playbook", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "Rewrite Checklist", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "Ghostwriting Playbook", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "Margin Notes Vol. III", desc: "Code required in the vault", href: VAULT_URL, external: true },
+    ],
+  },
+  {
+    label: "Protected Magnets",
+    links: [
+      { label: "About Page Rewrite Map", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "LinkedIn Swipe File", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "Brand Voice Template", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "Founder Ghostwriting Brief", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "AI Copy Humanizer", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "Growth System Map", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "90-Second Video Library", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "Carousel Copy Packs", desc: "Code required in the vault", href: VAULT_URL, external: true },
+    ],
+  },
+];
+
+const portfolioMobileLinks = portfolioGroups.flatMap((group) => group.links);
+
 // Sectioned mobile menu
-const mobileSections: { label: string; links: { label: string; href: string }[] }[] = [
+const mobileSections: { label: string; links: NavLinkItem[] }[] = [
   {
     label: "Work",
     links: [
@@ -54,6 +116,10 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
     ],
   },
   {
+    label: "Portfolios + Files",
+    links: portfolioMobileLinks,
+  },
+  {
     label: "More",
     links: [
       { label: "Shop", href: "/shop" },
@@ -62,6 +128,36 @@ const mobileSections: { label: string; links: { label: string; href: string }[] 
     ],
   },
 ];
+
+function NavItem({
+  href,
+  external,
+  className,
+  role,
+  onClick,
+  children,
+}: {
+  href: string;
+  external?: boolean;
+  className?: string;
+  role?: string;
+  onClick?: () => void;
+  children: ReactNode;
+}) {
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" role={role} className={className} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} role={role} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
 
 export default function Nav() {
   const pathname = usePathname();
@@ -73,15 +169,18 @@ export default function Nav() {
   const [progress,        setProgress]        = useState(0);
   const [workOpen,        setWorkOpen]        = useState(false);
   const [servicesOpen,    setServicesOpen]    = useState(false);
+  const [portfolioOpen,   setPortfolioOpen]   = useState(false);
   const [readOpen,        setReadOpen]        = useState(false);
 
   const workRef     = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
+  const portfolioRef = useRef<HTMLDivElement>(null);
   const readRef     = useRef<HTMLDivElement>(null);
 
   const closeAllDropdowns = () => {
     setWorkOpen(false);
     setServicesOpen(false);
+    setPortfolioOpen(false);
     setReadOpen(false);
   };
 
@@ -103,6 +202,7 @@ export default function Nav() {
     const handleClick = (e: MouseEvent) => {
       if (workRef.current && !workRef.current.contains(e.target as Node)) setWorkOpen(false);
       if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) setServicesOpen(false);
+      if (portfolioRef.current && !portfolioRef.current.contains(e.target as Node)) setPortfolioOpen(false);
       if (readRef.current && !readRef.current.contains(e.target as Node)) setReadOpen(false);
     };
     document.addEventListener("mousedown", handleClick);
@@ -141,12 +241,14 @@ export default function Nav() {
       setMobileServices(false);
       setWorkOpen(false);
       setServicesOpen(false);
+      setPortfolioOpen(false);
       setReadOpen(false);
     });
     return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
   const isActive = (href: string) =>
+    href.startsWith("http") ? false :
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
@@ -260,6 +362,62 @@ export default function Nav() {
                     <p className="mt-1 font-display text-sm text-petal">{s.price}</p>
                     <p className="mt-1.5 font-body text-[0.7rem] font-light leading-5 text-smoke">{s.desc}</p>
                   </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Portfolio + file vault dropdown */}
+            <div
+              ref={portfolioRef}
+              className="relative"
+              onMouseEnter={() => { closeAllDropdowns(); setPortfolioOpen(true); }}
+              onMouseLeave={() => setPortfolioOpen(false)}
+            >
+              <button
+                onClick={() => { closeAllDropdowns(); setPortfolioOpen(true); }}
+                aria-expanded={portfolioOpen}
+                aria-haspopup="true"
+                className={`nav-link flex items-center gap-1 whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
+                  portfolioOpen ? "text-pearl" : "text-ash"
+                }`}
+              >
+                Portfolio
+                <span
+                  className="transition-transform duration-200"
+                  style={{ transform: portfolioOpen ? "rotate(180deg)" : "rotate(0deg)", fontSize: "0.5rem" }}
+                  aria-hidden
+                >
+                  ▾
+                </span>
+              </button>
+              <div
+                role="menu"
+                className={`absolute left-1/2 top-full z-50 grid w-[min(920px,calc(100vw-48px))] -translate-x-1/2 grid-cols-2 gap-0 border border-graphite bg-void/97 p-3 backdrop-blur-xl transition-all duration-200 lg:grid-cols-4 ${
+                  portfolioOpen ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2"
+                }`}
+              >
+                {portfolioGroups.map((group) => (
+                  <div key={group.label} className="border-graphite/70 p-3 lg:border-r last:border-r-0">
+                    <p className="mb-2 font-body text-[0.55rem] font-bold uppercase tracking-[0.24em] text-petal">
+                      {group.label}
+                    </p>
+                    <div className="flex flex-col">
+                      {group.links.map((l) => (
+                        <NavItem
+                          key={`${group.label}-${l.label}`}
+                          href={l.href}
+                          external={l.external}
+                          role="menuitem"
+                          className="group block py-2 transition-colors hover:bg-carbon/70"
+                        >
+                          <p className="font-body text-[0.62rem] font-bold uppercase tracking-[0.12em] text-pearl transition-colors group-hover:text-petal">
+                            {l.label}
+                          </p>
+                          <p className="mt-0.5 font-body text-[0.6rem] font-light leading-4 text-iron">{l.desc}</p>
+                        </NavItem>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -422,16 +580,17 @@ export default function Nav() {
                 </p>
                 <div className="flex flex-col gap-0">
                   {section.links.map((l) => (
-                    <Link
-                      key={l.href}
+                    <NavItem
+                      key={`${section.label}-${l.label}`}
                       href={l.href}
+                      external={l.external}
                       onClick={() => setMobileNav(false)}
                       className={`py-3 font-display text-2xl uppercase tracking-[0.02em] transition-colors hover:text-petal ${
                         isActive(l.href) ? "text-petal" : "text-pearl"
                       }`}
                     >
                       {l.label}
-                    </Link>
+                    </NavItem>
                   ))}
                 </div>
               </div>
