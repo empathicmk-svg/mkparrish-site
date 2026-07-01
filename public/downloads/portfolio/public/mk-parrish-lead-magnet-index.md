@@ -2,28 +2,28 @@
 
 ## Interactive Tools
 
-- Website Leak Map: `/downloads/lead-magnets/website-leak-map.md`
-- Growth System Map: `/links#vault`
+- [Website Leak Map](./lead-magnets/website-leak-map.html)
+- [Growth System Map](../protected/lead-magnets/growth-system-map.html)
 
 ## Writing And Copy Assets
 
-- About Page Rewrite Map: `/links#vault`
-- Brand Voice Doc Template: `/links#vault`
-- Founder Ghostwriting Brief: `/links#vault`
-- AI Copy Humanizer: `/links#vault`
-- LinkedIn Positioning Swipe File: `/links#vault`
+- [About Page Rewrite Map](../protected/lead-magnets/about-page-rewrite-map.html)
+- [Brand Voice Doc Template](../protected/lead-magnets/brand-voice-doc-template.html)
+- [Founder Ghostwriting Brief](../protected/lead-magnets/founder-ghostwriting-brief.html)
+- [AI Copy Humanizer](../protected/lead-magnets/ai-copy-humanizer.html)
+- [LinkedIn Positioning Swipe File](../protected/lead-magnets/linkedin-positioning-swipe.html)
 
 ## Video Assets
 
-- 90-Second Video Library: `/links#vault`
+- [90-Second Video Library](../protected/video-scripts/90-second-video-library.html)
 
 ## Carousel Assets
 
-- Homepage Sentences: `/links#vault`
-- Brand Voice Is Not Tone: `/links#vault`
-- About Page: `/links#vault`
-- Copy Audit Checklist: `/links#vault`
-- AI Copy Humanizer: `/links#vault`
+- [Homepage Sentences](../protected/carousels/homepage-sentences-carousel.html)
+- [Brand Voice Is Not Tone](../protected/carousels/brand-voice-not-tone-carousel.html)
+- [About Page](../protected/carousels/about-page-carousel.html)
+- [Copy Audit Checklist](../protected/carousels/copy-audit-checklist-carousel.html)
+- [AI Copy Humanizer](../protected/carousels/ai-copy-humanizer-carousel.html)
 
 ## How To Use
 
@@ -31,4 +31,4 @@
 2. Send one practical download, not the whole library.
 3. Add one sentence explaining why it matters.
 4. Point to the relevant portfolio page or sample.
-5. Use `/links` when the asset should require an access code.
+5. Use the vault index when the asset should stay grouped with protected portfolio proof.

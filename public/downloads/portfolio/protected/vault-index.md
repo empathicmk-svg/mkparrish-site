@@ -10,11 +10,11 @@
 
 ## Protected magnets
 
-- [About Page Rewrite Map](./lead-magnets/about-page-rewrite-map.md)
-- [LinkedIn Swipe File](./lead-magnets/linkedin-positioning-swipe.md)
-- [Brand Voice Template](./lead-magnets/brand-voice-doc-template.md)
-- [Founder Ghostwriting Brief](./lead-magnets/founder-ghostwriting-brief.md)
-- [AI Copy Humanizer](./lead-magnets/ai-copy-humanizer.md)
-- [Growth System Map](./lead-magnets/growth-system-map.md)
-- [90-Second Video Library](./video-scripts/90-second-video-library.md)
+- [About Page Rewrite Map](./lead-magnets/about-page-rewrite-map.html)
+- [LinkedIn Swipe File](./lead-magnets/linkedin-positioning-swipe.html)
+- [Brand Voice Template](./lead-magnets/brand-voice-doc-template.html)
+- [Founder Ghostwriting Brief](./lead-magnets/founder-ghostwriting-brief.html)
+- [AI Copy Humanizer](./lead-magnets/ai-copy-humanizer.html)
+- [Growth System Map](./lead-magnets/growth-system-map.html)
+- [90-Second Video Library](./video-scripts/90-second-video-library.html)
 - [Carousel Copy Packs](./carousel-copy-packs.zip)

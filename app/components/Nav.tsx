@@ -21,7 +21,7 @@ type NavGroup = {
 const PORTFOLIO_URL = "https://mkp-portfolio-advanced.vercel.app";
 const PORTFOLIO_PUBLIC_DOWNLOADS = "/downloads/portfolio/public";
 const PORTFOLIO_VAULT_DOWNLOADS = "/downloads/portfolio/protected";
-const VAULT_URL = `${PORTFOLIO_VAULT_DOWNLOADS}/vault-index.md`;
+const VAULT_URL = `${PORTFOLIO_VAULT_DOWNLOADS}/vault-index.html`;
 
 const workLinks = [
   { label: "All Offerings",       href: "/#offerings" },
@@ -62,9 +62,9 @@ const portfolioGroups: NavGroup[] = [
     links: [
       { label: "Resume PDF", desc: "Career proof and contact details", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/mk-parrish-resume-2026.pdf`, external: true },
       { label: "Portfolio One-Sheet", desc: "Printable summary for follow-up", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/mk-parrish-portfolio-one-sheet.pdf`, external: true },
-      { label: "Writing Portfolio Pack", desc: "When-to-send writing sample map", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/mk-parrish-writing-portfolio-pack.md`, external: true },
-      { label: "Lead Magnet Index", desc: "Public map of assets and vault items", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/mk-parrish-lead-magnet-index.md`, external: true },
-      { label: "Website Leak Map", desc: "Free diagnostic sample", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/lead-magnets/website-leak-map.md`, external: true },
+      { label: "Writing Portfolio Pack", desc: "When-to-send writing sample map", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/mk-parrish-writing-portfolio-pack.html`, external: true },
+      { label: "Lead Magnet Index", desc: "Public map of assets and vault items", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/mk-parrish-lead-magnet-index.html`, external: true },
+      { label: "Website Leak Map", desc: "Free diagnostic sample", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/lead-magnets/website-leak-map.html`, external: true },
       { label: "Brand Voice Sample", desc: "Open PDF writing sample", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/writing-samples/mk-parrish-brand-voice-playbook.pdf`, external: true },
     ],
   },
@@ -81,13 +81,13 @@ const portfolioGroups: NavGroup[] = [
   {
     label: "Protected Magnets",
     links: [
-      { label: "About Page Rewrite Map", desc: "Markdown lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/about-page-rewrite-map.md`, external: true },
-      { label: "LinkedIn Swipe File", desc: "Markdown lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/linkedin-positioning-swipe.md`, external: true },
-      { label: "Brand Voice Template", desc: "Markdown lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/brand-voice-doc-template.md`, external: true },
-      { label: "Founder Ghostwriting Brief", desc: "Markdown lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/founder-ghostwriting-brief.md`, external: true },
-      { label: "AI Copy Humanizer", desc: "Markdown lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/ai-copy-humanizer.md`, external: true },
-      { label: "Growth System Map", desc: "Markdown lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/growth-system-map.md`, external: true },
-      { label: "90-Second Video Library", desc: "Markdown video library", href: `${PORTFOLIO_VAULT_DOWNLOADS}/video-scripts/90-second-video-library.md`, external: true },
+      { label: "About Page Rewrite Map", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/about-page-rewrite-map.html`, external: true },
+      { label: "LinkedIn Swipe File", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/linkedin-positioning-swipe.html`, external: true },
+      { label: "Brand Voice Template", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/brand-voice-doc-template.html`, external: true },
+      { label: "Founder Ghostwriting Brief", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/founder-ghostwriting-brief.html`, external: true },
+      { label: "AI Copy Humanizer", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/ai-copy-humanizer.html`, external: true },
+      { label: "Growth System Map", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/growth-system-map.html`, external: true },
+      { label: "90-Second Video Library", desc: "Readable video library", href: `${PORTFOLIO_VAULT_DOWNLOADS}/video-scripts/90-second-video-library.html`, external: true },
       { label: "Carousel Copy Packs", desc: "Downloadable carousel copy pack", href: `${PORTFOLIO_VAULT_DOWNLOADS}/carousel-copy-packs.zip`, external: true },
     ],
   },
