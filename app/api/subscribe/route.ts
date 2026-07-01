@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getLeadMagnet, type LeadMagnet } from "@/app/lib/lead-magnets";
 
 const SUBSTACK_PUB = "mkparrishthemargins";
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.mkparrish.com").replace(/\/+$/, "");
@@ -14,6 +15,9 @@ type LeadOffer = "positioning-checklist" | "rebecoming-sample";
 type SubscribeBody = {
   email?: unknown;
   offer?: unknown;
+  resource?: unknown;
+  leadMagnet?: unknown;
+  magnet?: unknown;
   source?: unknown;
 };
 
@@ -39,7 +43,7 @@ function normalizeOffer(value: unknown): LeadOffer {
   return "positioning-checklist";
 }
 
-function checkDuplicate(email: string, offer: LeadOffer) {
+function checkDuplicate(email: string, offer: string) {
   const now = Date.now();
   const key = `${email}:${offer}`;
 
@@ -52,6 +56,18 @@ function checkDuplicate(email: string, offer: LeadOffer) {
 
   recentSubmissions.set(key, now + RATE_WINDOW_MS);
   return false;
+}
+
+function leadMagnetUrl(magnet: LeadMagnet) {
+  return `${SITE_URL}${magnet.download}`;
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
 
 async function subscribeToSubstack(email: string) {
@@ -126,6 +142,84 @@ function rebecomingEmailHtml(): string {
     </table></td></tr></table></body></html>`;
 }
 
+function leadMagnetEmailHtml(magnet: LeadMagnet): string {
+  const title = escapeHtml(magnet.title);
+  const shortTitle = escapeHtml(magnet.shortTitle);
+  const promise = escapeHtml(magnet.promise);
+  const teaser = escapeHtml(magnet.emailTeaser);
+  const url = leadMagnetUrl(magnet);
+
+  return `<!doctype html><html><body style="margin:0;padding:0;background:#f4f2f0;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2f0;padding:32px 16px;">
+    <tr><td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border:1px solid #e7e3df;">
+        <tr><td style="height:4px;background:linear-gradient(90deg,#E0869F,#F2AFC6 55%,#FFD6E4);font-size:0;line-height:0;">&nbsp;</td></tr>
+        <tr><td style="padding:40px 40px 8px;">
+          <p style="margin:0 0 18px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B23A59;">MK Parrish &middot; Free Resource</p>
+          <h1 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.1;color:#0E0E0E;">${title}</h1>
+          <p style="margin:14px 0 0;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#7a7a7a;">${promise}</p>
+        </td></tr>
+        <tr><td style="padding:20px 40px 8px;">
+          <p style="margin:0 0 16px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#2b2b2b;">It's yours. ${teaser} Go through it honestly. The uncomfortable answer is usually the one worth the most money.</p>
+        </td></tr>
+        <tr><td align="center" style="padding:16px 40px 36px;">
+          <a href="${url}" style="display:inline-block;background:#0E0E0E;color:#ffffff;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;padding:16px 34px;">Download ${shortTitle} &rarr;</a>
+          <p style="margin:18px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#9a9a9a;">Or paste this into your browser:<br><a href="${url}" style="color:#B23A59;">${url}</a></p>
+        </td></tr>
+        <tr><td style="padding:24px 40px;border-top:1px solid #eeeae6;">
+          <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.7;color:#555;">You're also on <strong>The Margins</strong>, where I write about voice, positioning, and sounding like yourself on purpose. No pitch sequence. Unsubscribe any time.</p>
+          <p style="margin:16px 0 0;font-family:Georgia,serif;font-style:italic;font-size:15px;color:#0E0E0E;">- MK Parrish</p>
+          <p style="margin:4px 0 0;font-family:'Courier New',monospace;font-size:11px;letter-spacing:1px;color:#b0b0b0;">mkparrish.com</p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table></body></html>`;
+}
+
+async function sendLeadMagnetEmail(email: string, magnet: LeadMagnet, source: string): Promise<boolean> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.warn("RESEND_API_KEY not set. Lead magnet email skipped; direct download link returned.");
+    return false;
+  }
+
+  const url = leadMagnetUrl(magnet);
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: FROM,
+        to: [email],
+        subject: magnet.emailSubject,
+        html: leadMagnetEmailHtml(magnet),
+        text:
+          `Here's ${magnet.title}.\n\n${magnet.emailTeaser}\n\n` +
+          `Download it: ${url}\n\n- MK Parrish\nmkparrish.com`,
+        tags: [
+          { name: "offer", value: magnet.slug },
+          { name: "source", value: source.replace(/[^a-zA-Z0-9:_-]/g, "_").slice(0, 60) },
+        ],
+      }),
+    });
+
+    if (!res.ok) {
+      console.error("Resend lead magnet send error:", res.status, await res.text().catch(() => ""));
+      return false;
+    }
+
+    console.log("Lead magnet email sent", { email, resource: magnet.slug, source });
+    return true;
+  } catch (err) {
+    console.error("Resend lead magnet fetch error:", err);
+    return false;
+  }
+}
+
 async function sendLeadEmail(email: string, offer: LeadOffer, source: string): Promise<boolean> {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
@@ -181,8 +275,38 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
-  const offer = normalizeOffer(body.offer);
   const source = cleanText(body.source, "unknown");
+  const resource = body.resource ?? body.leadMagnet ?? body.magnet;
+
+  if (typeof resource === "string" && resource.trim()) {
+    const magnet = getLeadMagnet(resource);
+    const isDuplicate = checkDuplicate(email, `resource:${magnet.slug}`);
+
+    if (isDuplicate) {
+      return NextResponse.json({
+        ok: true,
+        emailed: false,
+        duplicate: true,
+        checklist: magnet.download,
+        download: magnet.download,
+        resource: magnet.slug,
+      });
+    }
+
+    const substackPromise = subscribeToSubstack(email);
+    const emailed = await sendLeadMagnetEmail(email, magnet, source);
+    await substackPromise.catch(() => undefined);
+
+    return NextResponse.json({
+      ok: true,
+      emailed,
+      checklist: magnet.download,
+      download: magnet.download,
+      resource: magnet.slug,
+    });
+  }
+
+  const offer = normalizeOffer(body.offer);
   const isDuplicate = checkDuplicate(email, offer);
   const checklist = offer === "rebecoming-sample" ? SAMPLE_PATH : CHECKLIST_PATH;
 
