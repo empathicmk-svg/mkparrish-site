@@ -245,27 +245,42 @@ function isProofRequest(product: ShelfProduct) {
   return (product.stripe || product.href).startsWith("mailto:");
 }
 
+function PrintBuyAction({
+  product,
+  className,
+  comingSoon,
+  proof,
+  buyHref,
+  external,
+}: {
+  product: ShelfProduct;
+  className: string;
+  comingSoon: boolean;
+  proof: boolean;
+  buyHref: string;
+  external: boolean;
+}) {
+  if (comingSoon) {
+    return <div className={`${className} border border-graphite text-iron`}>Coming Soon</div>;
+  }
+
+  return (
+    <a
+      href={buyHref}
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      className={`${className} btn-primary text-void`}
+    >
+      {proof ? "Request Proof" : `Buy Print — ${product.price}`}
+    </a>
+  );
+}
+
 function PrintDetailPage({ product }: { product: ShelfProduct }) {
   const comingSoon = COMING_SOON_SLUGS.has(product.slug);
   const proof = isProofRequest(product);
   const buyHref = product.stripe || product.href;
   const external = buyHref.startsWith("http");
   const related = relatedShelfProducts(product);
-
-  const BuyAction = ({ className }: { className: string }) => {
-    if (comingSoon) {
-      return <div className={`${className} border border-graphite text-iron`}>Coming Soon</div>;
-    }
-    return (
-      <a
-        href={buyHref}
-        {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-        className={`${className} btn-primary text-void`}
-      >
-        {proof ? "Request Proof" : `Buy Print — ${product.price}`}
-      </a>
-    );
-  };
 
   return (
     <>
@@ -335,7 +350,14 @@ function PrintDetailPage({ product }: { product: ShelfProduct }) {
                 ))}
               </ul>
 
-              <BuyAction className="flex w-full items-center justify-center px-5 py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.18em]" />
+              <PrintBuyAction
+                product={product}
+                className="flex w-full items-center justify-center px-5 py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.18em]"
+                comingSoon={comingSoon}
+                proof={proof}
+                buyHref={buyHref}
+                external={external}
+              />
               <p className="mt-4 text-center font-body text-[0.65rem] font-light leading-5 text-iron">
                 {proof
                   ? "Proof request opens email · Sizes and pricing confirmed before printing"
@@ -379,7 +401,14 @@ function PrintDetailPage({ product }: { product: ShelfProduct }) {
               {product.subtitle}
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
-              <BuyAction className="inline-flex items-center justify-center px-9 py-5 font-body text-[0.8rem] font-bold uppercase tracking-[0.18em]" />
+              <PrintBuyAction
+                product={product}
+                className="inline-flex items-center justify-center px-9 py-5 font-body text-[0.8rem] font-bold uppercase tracking-[0.18em]"
+                comingSoon={comingSoon}
+                proof={proof}
+                buyHref={buyHref}
+                external={external}
+              />
               <ArrowLink href="/shop">Browse the Shop</ArrowLink>
             </div>
           </div>

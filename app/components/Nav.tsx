@@ -19,7 +19,9 @@ type NavGroup = {
 };
 
 const PORTFOLIO_URL = "https://mkp-portfolio-advanced.vercel.app";
-const VAULT_URL = `${PORTFOLIO_URL}/links#vault`;
+const PORTFOLIO_PUBLIC_DOWNLOADS = "/downloads/portfolio/public";
+const PORTFOLIO_VAULT_DOWNLOADS = "/downloads/portfolio/protected";
+const VAULT_URL = `${PORTFOLIO_VAULT_DOWNLOADS}/vault-index.html`;
 
 const workLinks = [
   { label: "All Offerings",       href: "/#offerings" },
@@ -52,41 +54,41 @@ const portfolioGroups: NavGroup[] = [
     links: [
       { label: "Public Portfolio", desc: "Web, growth, writing, video, and lead magnet proof", href: `${PORTFOLIO_URL}/`, external: true },
       { label: "Writing Portfolio", desc: "Dedicated writing samples and positioning proof", href: `${PORTFOLIO_URL}/writing`, external: true },
-      { label: "Asset Vault", desc: "Public links plus protected premium assets", href: `${PORTFOLIO_URL}/links`, external: true },
+      { label: "Asset Vault", desc: "Public links plus protected premium assets", href: VAULT_URL, external: true },
     ],
   },
   {
     label: "Public Files",
     links: [
-      { label: "Resume PDF", desc: "Career proof and contact details", href: `${PORTFOLIO_URL}/downloads/mk-parrish-resume-2026.pdf`, external: true },
-      { label: "Portfolio One-Sheet", desc: "Printable summary for follow-up", href: `${PORTFOLIO_URL}/downloads/mk-parrish-portfolio-one-sheet.pdf`, external: true },
-      { label: "Writing Portfolio Pack", desc: "When-to-send writing sample map", href: `${PORTFOLIO_URL}/downloads/mk-parrish-writing-portfolio-pack.md`, external: true },
-      { label: "Lead Magnet Index", desc: "Public map of assets and vault items", href: `${PORTFOLIO_URL}/downloads/mk-parrish-lead-magnet-index.md`, external: true },
-      { label: "Website Leak Map", desc: "Free diagnostic sample", href: `${PORTFOLIO_URL}/downloads/lead-magnets/website-leak-map.md`, external: true },
-      { label: "Brand Voice Sample", desc: "Open PDF writing sample", href: `${PORTFOLIO_URL}/downloads/writing-samples/mk-parrish-brand-voice-playbook.pdf`, external: true },
+      { label: "Resume PDF", desc: "Career proof and contact details", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/mk-parrish-resume-2026.pdf`, external: true },
+      { label: "Portfolio One-Sheet", desc: "Printable summary for follow-up", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/mk-parrish-portfolio-one-sheet.pdf`, external: true },
+      { label: "Writing Portfolio Pack", desc: "When-to-send writing sample map", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/mk-parrish-writing-portfolio-pack.html`, external: true },
+      { label: "Lead Magnet Index", desc: "Public map of assets and vault items", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/mk-parrish-lead-magnet-index.html`, external: true },
+      { label: "Website Leak Map", desc: "Free diagnostic sample", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/lead-magnets/website-leak-map.html`, external: true },
+      { label: "Brand Voice Sample", desc: "Open PDF writing sample", href: `${PORTFOLIO_PUBLIC_DOWNLOADS}/writing-samples/mk-parrish-brand-voice-playbook.pdf`, external: true },
     ],
   },
   {
     label: "Protected Writing",
     links: [
-      { label: "Build Copy Guide", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "Rewrite Playbook", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "Rewrite Checklist", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "Ghostwriting Playbook", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "Margin Notes Vol. III", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "Build Copy Guide", desc: "PDF writing sample", href: `${PORTFOLIO_VAULT_DOWNLOADS}/writing-samples/mk-parrish-build-copy-guide.pdf`, external: true },
+      { label: "Rewrite Playbook", desc: "PDF writing sample", href: `${PORTFOLIO_VAULT_DOWNLOADS}/writing-samples/mk-parrish-rewrite-playbook.pdf`, external: true },
+      { label: "Rewrite Checklist", desc: "PDF writing sample", href: `${PORTFOLIO_VAULT_DOWNLOADS}/writing-samples/mk-parrish-rewrite-checklist.pdf`, external: true },
+      { label: "Ghostwriting Playbook", desc: "EPUB writing sample", href: `${PORTFOLIO_VAULT_DOWNLOADS}/writing-samples/mk-parrish-ghostwriting-playbook.epub`, external: true },
+      { label: "Margin Notes Vol. III", desc: "PDF writing sample", href: `${PORTFOLIO_VAULT_DOWNLOADS}/writing-samples/mk-parrish-margin-notes-vol-iii.pdf`, external: true },
     ],
   },
   {
     label: "Protected Magnets",
     links: [
-      { label: "About Page Rewrite Map", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "LinkedIn Swipe File", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "Brand Voice Template", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "Founder Ghostwriting Brief", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "AI Copy Humanizer", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "Growth System Map", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "90-Second Video Library", desc: "Code required in the vault", href: VAULT_URL, external: true },
-      { label: "Carousel Copy Packs", desc: "Code required in the vault", href: VAULT_URL, external: true },
+      { label: "About Page Rewrite Map", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/about-page-rewrite-map.html`, external: true },
+      { label: "LinkedIn Swipe File", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/linkedin-positioning-swipe.html`, external: true },
+      { label: "Brand Voice Template", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/brand-voice-doc-template.html`, external: true },
+      { label: "Founder Ghostwriting Brief", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/founder-ghostwriting-brief.html`, external: true },
+      { label: "AI Copy Humanizer", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/ai-copy-humanizer.html`, external: true },
+      { label: "Growth System Map", desc: "Readable lead magnet", href: `${PORTFOLIO_VAULT_DOWNLOADS}/lead-magnets/growth-system-map.html`, external: true },
+      { label: "90-Second Video Library", desc: "Readable video library", href: `${PORTFOLIO_VAULT_DOWNLOADS}/video-scripts/90-second-video-library.html`, external: true },
+      { label: "Carousel Copy Packs", desc: "Downloadable carousel copy pack", href: `${PORTFOLIO_VAULT_DOWNLOADS}/carousel-copy-packs.zip`, external: true },
     ],
   },
 ];
