@@ -1,30 +1,23 @@
 import Link from "next/link";
-import { SUBSTACK_URL, CONTACT, SOCIALS } from "@/app/lib/config";
+import { CONTACT } from "@/app/lib/config";
 
 const footerGroups = [
   {
-    heading: "Work",
+    heading: "Services",
     links: [
-      { label: "All Offerings",      href: "/#offerings" },
+      { label: "All Offerings", href: "/#offerings" },
       { label: "Web Design & Build", href: "/studio" },
-      { label: "Outbound & Growth",  href: "/growth" },
-      { label: "Messaging & Copy",   href: "/brand" },
-    ],
-  },
-  {
-    heading: "Read",
-    links: [
-      { label: "Writing",     href: "/writing" },
-      { label: "Shop",        href: "/shop" },
-      { label: "The Margins", href: "/margins" },
+      { label: "Outbound & Growth", href: "/growth" },
+      { label: "Messaging & Copy", href: "/brand" },
     ],
   },
   {
     heading: "Company",
     links: [
       { label: "How I Work", href: "/how-i-work" },
-      { label: "About",      href: "/about" },
-      { label: "Contact",    href: "/contact" },
+      { label: "Resources", href: "/resources" },
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
     ],
   },
 ];
@@ -37,7 +30,7 @@ export default function Footer() {
           <div>
             <p className="font-display text-2xl uppercase tracking-[0.02em] text-pearl">MK Parrish</p>
             <p className="mt-1 font-serif text-base italic text-smoke" style={{ fontWeight: 500 }}>
-              Rewrite Your Story
+              Growth strategy, websites, and messaging.
             </p>
             <div className="mt-4 flex flex-col gap-1.5">
               <a href={`mailto:${CONTACT.email}`} className="font-body text-[0.7rem] tracking-[0.08em] text-iron transition hover:text-petal">
@@ -47,26 +40,9 @@ export default function Footer() {
                 /in/mkparrish
               </a>
             </div>
-
-            {/* Social chips — petal pink, black text */}
-            <div className="mt-6 flex flex-wrap gap-2">
-              {SOCIALS.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`${s.label} — ${s.handle}`}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-petal px-3.5 py-1.5 font-body text-[0.65rem] font-bold uppercase tracking-[0.12em] text-void transition hover:bg-pearl"
-                >
-                  <span>{s.label}</span>
-                  <span className="font-medium normal-case tracking-normal text-void">{s.handle}</span>
-                </a>
-              ))}
-            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-10 gap-y-8">
             {footerGroups.map((group) => (
               <div key={group.heading} className="flex flex-col gap-3">
                 <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.28em] text-petal/70">
@@ -92,14 +68,12 @@ export default function Footer() {
             >
               Book a Call
             </Link>
-            <a
-              href={SUBSTACK_URL}
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              href="/resources"
               className="btn-ghost px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em]"
             >
-              The Margins
-            </a>
+              Free Resources
+            </Link>
           </div>
         </div>
 
