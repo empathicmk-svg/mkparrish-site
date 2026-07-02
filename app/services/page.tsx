@@ -24,10 +24,10 @@ import {
   STRIPE_SESSION,
   STRIPE_OUTBOUND,
   STRIPE_INBOUND_SYSTEM,
-  STRIPE_REVENUE_SYSTEMS,
   STRIPE_HOSTING,
   STRIPE_SOCIAL,
   STRIPE_YOUTUBE,
+  BOOK_CALL_URL,
   SUBSTACK_URL,
   MARGINS_TIERS,
 } from "@/app/lib/config";
@@ -144,7 +144,7 @@ const services = [
       "On-brand copy bank for your team",
     ],
     cta: "Let's Talk",
-    href: "/book",
+    href: BOOK_CALL_URL,
     highlight: false,
   },
   {
@@ -225,7 +225,7 @@ const growthServices = [
       "Clean, project-by-project collaboration with your team",
     ],
     cta: "Partner With Me",
-    href: STRIPE_REVENUE_SYSTEMS,
+    href: BOOK_CALL_URL,
     highlight: false,
   },
 ];
@@ -282,8 +282,8 @@ const digitalProducts = [
   {
     label: "Best Seller",
     title: "Write Yourself Into the Room",
-    price: "$28",
-    href: "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
+    price: "$39",
+    href: "https://buy.stripe.com/14AeVefax3XGdyY5CJ8AE0i",
     highlight: true,
   },
   {

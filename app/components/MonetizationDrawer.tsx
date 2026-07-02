@@ -62,7 +62,7 @@ export default function MonetizationDrawer() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="fixed right-0 top-[38%] z-[70] border border-r-0 border-petal/30 bg-carbon/95 px-2 py-4 font-body text-[0.6rem] font-bold uppercase tracking-[0.22em] text-petal shadow-[-8px_0_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition hover:bg-petal hover:text-void"
+        className="fixed right-0 top-[38%] z-[70] hidden border border-r-0 border-petal/30 bg-carbon/95 px-2 py-4 font-body text-[0.6rem] font-bold uppercase tracking-[0.22em] text-petal shadow-[-8px_0_24px_rgba(0,0,0,0.25)] backdrop-blur-md transition hover:bg-petal hover:text-void md:block"
         style={{ writingMode: "vertical-rl" }}
         aria-label="Open Start Here menu"
       >

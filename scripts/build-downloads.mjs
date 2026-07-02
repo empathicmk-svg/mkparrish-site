@@ -817,6 +817,10 @@ const EBOOKS = [
   ['ebooks/write-yourself-into-the-room.md',  'ebooks/write-yourself-into-the-room.html'],
   ['ebooks/brand-voice-playbook.md',          'ebooks/brand-voice-playbook.html'],
   ['ebooks/rebecoming.md',                    'ebooks/rebecoming.html'],
+  ['ebooks/still-here-still-hers.md',         'ebooks/still-here-still-hers.html', {
+    subtitle: 'Essays on losing yourself, surviving the in-between, and learning to belong to your own life.',
+    meta:     'By MK Parrish · $29',
+  }],
   ['ebooks/rebecoming-sample.md',             'ebooks/rebecoming-sample.html', {
     subtitle: 'The Free First Chapter',
     meta:     'By MK Parrish',

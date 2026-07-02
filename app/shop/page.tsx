@@ -5,7 +5,7 @@ import {
   BtnPrimary, BtnGhost, ArrowLink,
 } from "@/app/components/ui";
 import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, STRIPE_AUDIT, COMING_SOON_SLUGS, CONTACT } from "@/app/lib/config";
-import { PRINT_SHOP_PRODUCTS, type ShelfProduct } from "@/app/lib/shelf-catalog";
+import { PRINT_SHOP_PRODUCTS, coverForSlug, type ShelfProduct } from "@/app/lib/shelf-catalog";
 import ShelfBrowser, { type BrowseItem } from "@/app/components/ShelfBrowser";
 import { PrintShopCustomizer } from "../shelf/PrintShopCustomizer";
 
@@ -25,27 +25,9 @@ function isBundle(tag: string): boolean {
   return tag === "Best Value" || tag === "Bundle";
 }
 
-// One unified, filterable catalog: frameworks (the DIY service methods) + ebooks
-// and bundles. Order here is the "Featured" sort — curate the highest-intent items first.
+// One unified, filterable catalog. Order here is the "Featured" sort, so the
+// book library leads and the DIY service frameworks follow.
 const BROWSE_ITEMS: BrowseItem[] = [
-  ...SERVICE_EBOOKS.map((e) => ({
-    slug: e.slug,
-    title: e.title,
-    price: e.price,
-    priceNum: priceToNum(e.price, e.free),
-    compareAt: "compareAt" in e ? (e as { compareAt?: string }).compareAt : undefined,
-    tag: e.tag,
-    desc: e.desc,
-    features: e.features,
-    free: e.free,
-    limitedFree: "limitedFree" in e ? (e as { limitedFree?: boolean }).limitedFree : false,
-    download: e.download,
-    stripe: "stripe" in e ? e.stripe : undefined,
-    href: e.href,
-    category: isBundle(e.tag) ? ("bundles" as const) : ("frameworks" as const),
-    featured: e.highlight || isBundle(e.tag),
-    comingSoon: COMING_SOON_SLUGS.has(e.slug),
-  })),
   ...EBOOKS.map((e) => ({
     slug: e.slug,
     title: e.title,
@@ -64,7 +46,37 @@ const BROWSE_ITEMS: BrowseItem[] = [
     featured: e.highlight || isBundle(e.tag),
     comingSoon: COMING_SOON_SLUGS.has(e.slug),
   })),
+  ...SERVICE_EBOOKS.map((e) => ({
+    slug: e.slug,
+    title: e.title,
+    price: e.price,
+    priceNum: priceToNum(e.price, e.free),
+    compareAt: "compareAt" in e ? (e as { compareAt?: string }).compareAt : undefined,
+    tag: e.tag,
+    desc: e.desc,
+    features: e.features,
+    free: e.free,
+    limitedFree: "limitedFree" in e ? (e as { limitedFree?: boolean }).limitedFree : false,
+    download: e.download,
+    stripe: "stripe" in e ? e.stripe : undefined,
+    href: e.href,
+    category: isBundle(e.tag) ? ("bundles" as const) : ("frameworks" as const),
+    featured: e.highlight || isBundle(e.tag),
+    comingSoon: COMING_SOON_SLUGS.has(e.slug),
+  })),
 ];
+
+const FEATURED_BOOK_SLUGS = [
+  "rebecoming",
+  "still-here-still-hers",
+  "street-smarts",
+  "make-my-own-light",
+  "the-vault",
+] as const;
+
+const FEATURED_BOOKS = FEATURED_BOOK_SLUGS
+  .map((slug) => BROWSE_ITEMS.find((item) => item.slug === slug))
+  .filter((item): item is BrowseItem => Boolean(item));
 
 function productActionHref(product: ShelfProduct) {
   return product.stripe && product.stripe.length > 0 ? product.stripe : product.href;
@@ -142,7 +154,7 @@ function PrintShopCard({ product }: { product: ShelfProduct }) {
 export default function ShopPage() {
   return (
     <>
-      <section className="relative flex min-h-[80vh] flex-col justify-end bg-void pb-16 pt-28 md:pb-24">
+      <section className="relative flex min-h-[64vh] flex-col justify-end bg-void pb-12 pt-28 md:min-h-[68vh] md:pb-16">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-0 h-[65vh] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.13),transparent_65%)]" />
         </div>
@@ -152,17 +164,17 @@ export default function ShopPage() {
             <H1>The Shop</H1>
           </div>
           <p className="mt-6 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500 }}>
-            Templates. Ebooks. Prints. Yours in one click.
+            Memoir, poetry, premium PDFs, and the frameworks that sell the work.
           </p>
           <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            Built from real client work — never recycled content. Buy on the page, download the moment you do. Or start free on The Free List.
+            Start with REBECOMING, the in-between essays, and the poetry books. Then pick the self-study framework or bundle that moves the next piece of your story into revenue.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <BtnPrimary href="#browse">Shop the Shelf</BtnPrimary>
+            <BtnPrimary href="#featured-books">Shop the Books</BtnPrimary>
             <BtnGhost href="#print-shop-studio">Shop the Print Shop</BtnGhost>
           </div>
           <div className="mt-8 flex flex-wrap gap-6">
-            {["Instant download", "Secure checkout", "Yours to keep"].map((t) => (
+            {["PDF + Kindle EPUB", "Stripe or direct checkout", "Lulu-ready paperbacks"].map((t) => (
               <div key={t} className="flex items-center gap-3">
                 <span className="h-1 w-1 bg-petal" />
                 <span className="font-body text-xs font-light text-smoke">{t}</span>
@@ -172,8 +184,63 @@ export default function ShopPage() {
         </div>
       </section>
 
+      <RevealSection id="featured-books" bg="obsidian" num="01">
+        <Eyebrow pink>Featured Books</Eyebrow>
+        <H2>Start with<br /><span className="text-petal">the books that burn.</span></H2>
+        <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "62ch" }}>
+          The memoir, the in-between essays, the father-loss book, the poetry, and the bundle. Premium PDF/EPUB files first; Lulu-ready paperbacks where the wrap files are already built.
+        </p>
+        <div className="mt-12 grid auto-rows-fr gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-5">
+          {FEATURED_BOOKS.map((book) => {
+            const actionHref = book.stripe && book.stripe.length > 0 ? book.stripe : book.href;
+            const requestCheckout = actionHref.startsWith("mailto:");
+            const external = actionHref.startsWith("http");
+            return (
+              <div key={book.slug} className="group/card relative flex h-full flex-col bg-carbon p-6 transition-all duration-300 hover:-translate-y-1">
+                <div className="absolute inset-x-0 top-0 h-px bg-petal" />
+                <Link href={`/shop/${book.slug}`} className="relative mb-5 block overflow-hidden">
+                  <span className="absolute left-3 top-3 z-10 bg-petal px-2.5 py-1 font-body text-[0.5rem] font-bold uppercase tracking-[0.18em] text-void">
+                    {book.tag}
+                  </span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={coverForSlug(book.slug)}
+                    alt={`${book.title} cover`}
+                    width={1600}
+                    height={2560}
+                    loading="eager"
+                    className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_12px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover/card:scale-[1.03]"
+                  />
+                </Link>
+                <h3 className="font-display text-xl uppercase leading-tight tracking-[0.02em] text-pearl">{book.title}</h3>
+                <p className="mt-2 flex items-baseline gap-2 font-display text-3xl text-white">
+                  {book.price}
+                  {book.compareAt && <span className="font-body text-sm font-light text-iron line-through">{book.compareAt}</span>}
+                </p>
+                <p className="mt-3 line-clamp-4 flex-1 font-body text-xs font-light leading-6 text-smoke">{book.desc}</p>
+                <div className="mt-6 space-y-2">
+                  <a
+                    href={actionHref}
+                    {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+                    className="btn-primary flex w-full items-center justify-center py-3 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-void"
+                  >
+                    {requestCheckout ? "Request Checkout" : `Buy — ${book.price}`}
+                  </a>
+                  <Link
+                    href={`/shop/${book.slug}`}
+                    className="flex w-full items-center justify-center py-2 font-body text-[0.6rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
+                  >
+                    View details →
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </RevealSection>
+
       {/* ── START HERE: the value ladder — read free, buy the method, or done-for-you ── */}
-      <RevealSection bg="obsidian" num="01">
+      <RevealSection bg="void" num="02">
         <Eyebrow pink>Start Here</Eyebrow>
         <H2>Three ways in,{" "}<span className="text-petal">one path up.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
@@ -207,7 +274,7 @@ export default function ShopPage() {
             <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-petal">Buy once · Own it</p>
             <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl">Frameworks &amp; Bundles</h3>
             <p className="mt-2 font-display text-4xl text-white">
-              <span className="mr-1.5 align-middle font-body text-sm font-light uppercase tracking-[0.1em] text-iron">From</span>$14
+              <span className="mr-1.5 align-middle font-body text-sm font-light uppercase tracking-[0.1em] text-iron">From</span>$9
             </p>
             <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">
               Every paid method, documented from real client work. Buy a single guide — or bundle the library and save.
@@ -249,11 +316,11 @@ export default function ShopPage() {
       </RevealSection>
 
       {/* ── BROWSE: all digital products, filterable + sortable ── */}
-      <RevealSection bg="void" num="02" id="browse">
+      <RevealSection bg="obsidian" num="03" id="browse">
         <Eyebrow>Frameworks, Ebooks &amp; Bundles</Eyebrow>
         <H2>Browse{" "}<span className="text-petal">The Shop.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
-          Every framework is the exact method behind a paid service; every ebook is built from real client work. Filter by what you need, sort by price, and start with a bundle to save.
+          Every book, framework, and bundle on the page. Filter by what you need, sort by price, and start with a bundle to save.
         </p>
         <div className="mt-10">
           <ShelfBrowser products={BROWSE_ITEMS} />
@@ -267,7 +334,7 @@ export default function ShopPage() {
       </RevealSection>
 
       {/* ── AUDIT BRIDGE — the step between a PDF and a full engagement ── */}
-      <RevealSection bg="obsidian">
+      <RevealSection bg="void">
         <div className="grid items-center gap-8 border border-petal/30 bg-carbon p-8 shadow-[0_0_60px_rgba(242,175,198,0.08)] md:grid-cols-[1fr_auto] md:p-12">
           <div>
             <Eyebrow pink>Want MK&apos;s eyes on it?</Eyebrow>
@@ -286,7 +353,7 @@ export default function ShopPage() {
       <QuoteDivider index={19} />
 
       {/* ── THE MARGINS — recurring membership revenue, surfaced above one-off prints ── */}
-      <RevealSection bg="void" num="03">
+      <RevealSection bg="void" num="04">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
             <Eyebrow>Membership</Eyebrow>
@@ -318,7 +385,7 @@ export default function ShopPage() {
 
       <QuoteDivider index={18} />
 
-      <RevealSection id="print-shop" bg="obsidian" num="04">
+      <RevealSection id="print-shop" bg="obsidian" num="05">
         <Eyebrow>The Print Shop</Eyebrow>
         <H2>The words,{" "}<span className="text-petal">on your wall.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "58ch" }}>
@@ -370,7 +437,7 @@ export default function ShopPage() {
         <div className="mt-12 grid gap-px bg-graphite sm:grid-cols-3">
           {[
             { num: "01", title: "Choose the work", desc: "Open any detail page to see exactly what is included, who it is for, the format, and the price before you buy." },
-            { num: "02", title: "Check out securely", desc: "Paid products open a secure Stripe checkout. Free downloads start directly, with no account or subscription required." },
+            { num: "02", title: "Check out clearly", desc: "Live products open secure Stripe checkout. Private-release books open a direct checkout request. Free downloads start immediately." },
             { num: "03", title: "Get the order", desc: "Digital products are available immediately. Physical prints are produced and shipped in a protective sleeve." },
           ].map((s) => (
             <div key={s.num} className="bg-void p-8">

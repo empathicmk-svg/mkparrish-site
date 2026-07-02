@@ -15,7 +15,7 @@ import {
 import {
   STRIPE_OUTBOUND,
   STRIPE_INBOUND_SYSTEM,
-  STRIPE_REVENUE_SYSTEMS,
+  BOOK_CALL_URL,
 } from "@/app/lib/config";
 
 export const metadata: Metadata = {
@@ -69,7 +69,7 @@ const tiers = [
       "Clean, project-by-project collaboration with your team",
     ],
     cta: "Partner With Me",
-    href: STRIPE_REVENUE_SYSTEMS,
+    href: BOOK_CALL_URL,
     highlight: false,
   },
 ];

@@ -20,7 +20,23 @@ This short guide is your map. It tells you what's inside, what each piece is *fo
 
 ## What's Inside
 
-Five complete works. Each stands alone; together they build on each other.
+Nine complete works. Each stands alone; together they build the whole arc: memoir, grief, the in-between, poetry, survival, reinvention, public voice, brand voice, and spiritual curiosity.
+
+### REBECOMING: From Fear to Faith
+
+The flagship memoir about losing your fear without losing yourself. Thirteen present-tense chapters on faith, prayer, fear, friendship, and the room you were sure was not for you. *Best for:* starting at the source of the whole shelf.
+
+### Still Here, Still Hers
+
+Essays on losing yourself, surviving the in-between, and learning to belong to your own life. This is the floor book, the not-healed-yet book, the recognition before the comeback. *Best for:* the woman still inside the unfinished season.
+
+### Street Smarts
+
+What my father taught me in 1,109 texts. A father-loss memoir about the eleven months that finally gave MK a father after twenty-five years of silence, and the lessons grief left behind. *Best for:* readers who keep the archive and read love backward.
+
+### Make My Own Light
+
+Poems from the dark, and the turning toward. A compact poetry collection on grief, fear, faith, father loss, and the stubborn decision to keep breathing. *Best for:* when prose is too much and a line is enough.
 
 ### The Reinvention Workbook
 
@@ -51,6 +67,8 @@ A grounded, non-woo framework for the spiritually curious who keep noticing patt
 Don't read front to back. Read by where you are.
 
 - **"I've outgrown my life but can't name the next one."** → Start with **The Reinvention Workbook.** Then **Write Yourself Into the Room** to take the new self public.
+- **"I am still in the middle, not the after."** → Start with **Still Here, Still Hers.** Then read **Make My Own Light** when you need the shorter, sharper version.
+- **"I am grieving someone I did not get enough time with."** → Start with **Street Smarts.** Then read **REBECOMING** for the faith and return underneath it.
 - **"The old story was written by someone who hurt me."** → Start with **The Invisible Bruise.** Be gentle with the pace. Come to the Workbook when you're ready to build forward.
 - **"I know who I am — I just sound generic when I say it."** → Start with **The Brand Voice Playbook**, then **Write Yourself Into the Room.**
 - **"I keep noticing signs and don't know what to do with them."** → Start with **Decoding Angel Numbers**, then let it point you back to the Workbook.

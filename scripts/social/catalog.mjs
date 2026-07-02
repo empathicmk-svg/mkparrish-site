@@ -47,7 +47,7 @@ export const POSTS = [
     slug: "write-yourself-into-the-room",
     n: "02",
     category: "Ebook · Best Seller",
-    kicker: "Best Seller · $28",
+    kicker: "Best Seller · $39",
     hook: "Stop sounding like\n*everyone else.*",
     sub: "The personal-brand writing guide.",
     bullets: [
@@ -55,9 +55,9 @@ export const POSTS = [
       "Bio templates + real before/after examples",
       "The LinkedIn audit checklist",
     ],
-    price: "$28",
+    price: "$39",
     cta: "Read the Guide",
-    link: "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
+    link: "https://buy.stripe.com/14AeVefax3XGdyY5CJ8AE0i",
     caption:
       "You're not boring. Your copy is.\n\nWrite Yourself Into the Room is the writing guide for people tired of sounding like a LinkedIn template. Learn the three-layer positioning framework, then write bios and profiles that actually sound like you — with real before/after examples.\n\nThe best seller on the Shelf. 👇",
     tags: ["personalbranding", "copywriting", "linkedintips", "writingtips", "solopreneur"],
@@ -68,7 +68,7 @@ export const POSTS = [
     slug: "reinvention-workbook",
     n: "03",
     category: "Ebook · Workbook",
-    kicker: "Workbook · $18",
+    kicker: "Workbook · $29",
     hook: "For the people in the\nmiddle of *becoming*\nsomeone new.",
     sub: "A guided writing workbook.",
     bullets: [
@@ -76,9 +76,9 @@ export const POSTS = [
       "The identity audit framework",
       "Voice and narrative prompts",
     ],
-    price: "$18",
+    price: "$29",
     cta: "Start the Work",
-    link: "https://mkparrish.com/shop/reinvention-workbook",
+    link: "https://buy.stripe.com/14A9AUe6t65O9iIe9f8AE0k",
     caption:
       "Reinvention isn't a vibe. It's a writing project.\n\nThe Reinvention Workbook: 20 guided exercises, an identity audit, and the voice prompts pulled from real reinvention — not theory. For anyone rewriting who they are on the page first.\n\nLink below. 👇",
     tags: ["journaling", "reinvention", "writingprompts", "selfdiscovery", "personalgrowth"],
@@ -89,7 +89,7 @@ export const POSTS = [
     slug: "brand-voice-playbook",
     n: "04",
     category: "Ebook · Playbook",
-    kicker: "Digital Download · $35",
+    kicker: "Digital Download · $45",
     hook: "Build a brand voice\nfrom *scratch.*",
     sub: "The exact process used with clients.",
     bullets: [
@@ -97,9 +97,9 @@ export const POSTS = [
       "Tone spectrum mapping",
       "Do / don't vocabulary lists + a client example",
     ],
-    price: "$35",
+    price: "$45",
     cta: "Get the Playbook",
-    link: "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
+    link: "https://buy.stripe.com/9B6bJ27I5bq8fH6aX38AE0j",
     caption:
       "\"Make it sound like us\" is not a brief.\n\nThe Brand Voice Playbook turns that vague feeling into a document: the full framework, tone spectrum mapping, do/don't vocabulary lists, and a complete client example — the exact process used with paying clients, handed to you.\n\nLink below. 👇",
     tags: ["brandvoice", "branding", "contentstrategy", "copywriting", "smallbusiness"],
@@ -179,7 +179,7 @@ export const POSTS = [
     ],
     price: "$38",
     cta: "Get the System",
-    link: "https://buy.stripe.com/8x26oz9gKd294HTcHq0oM0m",
+    link: "https://buy.stripe.com/eVq7sM7I53XG66wfdj8AE0B",
     caption:
       "If your posting depends on feeling inspired, you don't have a strategy — you have a mood.\n\nThe Social Strategy Playbook: a content pillar framework, brand voice calibration for IG/LinkedIn/TikTok, and a 30-day sprint template with caption structure. The repeatable system behind The Social Suite.\n\nLink below. 👇",
     tags: ["contentstrategy", "socialmediatips", "contentcreator", "marketingtips", "smallbusiness"],

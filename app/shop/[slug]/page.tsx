@@ -74,6 +74,81 @@ const extraContent: Record<string, { about: string[]; forWho: string[]; pullQuot
     ],
     pullQuote: "Certainty is just fear in a better coat. Faith is what you do while your hands are still shaking.",
   },
+  "still-here-still-hers": {
+    about: [
+      "Still Here, Still Hers is a collection of intimate personal essays about grief, heartbreak, mental health, emotional hunger, father loss, body shame, and the private work of rebuilding while your life still looks unfinished.",
+      "This is the in-between book: not the polished after, not the tidy lesson, not the version of healing that arrives already wise. It begins where many women actually are: still checking the phone, still grieving the father, still afraid of being late to their own lives, and still somehow waking up.",
+      "It is written for the woman who is not healed yet but is tired of abandoning herself while she waits. A book about belonging to your own life before it becomes beautiful enough to post.",
+    ],
+    forWho: [
+      "You are in the middle of a season that has not resolved itself yet",
+      "You want essays that offer recognition instead of a clinical plan",
+      "You are rebuilding after heartbreak, grief, shame, or emotional collapse",
+      "You need language for the floor, not just the comeback",
+      "You want a Kindle-ready ebook with cover assets for the next publishing step",
+    ],
+    pullQuote: "This is not a book about becoming unbreakable. It is a book about discovering there is still someone left inside you worth coming back for.",
+  },
+  "street-smarts": {
+    about: [
+      "Street Smarts is a father-loss memoir built from 1,109 text messages, a few phone calls, and the eleven months that finally gave MK a father after twenty-five years of silence.",
+      "It moves through grief, survival, the strange education love gives you after it is already too late, and the brutal curriculum of learning which loves are load-bearing. It is raw, direct, and full of the kind of lines that stay under the skin.",
+      "The ebook is ready as PDF and Kindle EPUB, with Lulu-ready 6 x 9 interior and wraparound cover files prepared for a direct paperback listing.",
+    ],
+    forWho: [
+      "You have loved someone harder after losing them than you knew how to love them while they were here",
+      "You keep old texts, voicemails, and fragments like a private archive",
+      "You want a grief memoir that is unsentimental but deeply tender",
+      "You are drawn to father stories, survival writing, and essays about coming back to life",
+      "You want a book that can become a premium direct paperback, not just a digital file",
+    ],
+    pullQuote: "I had to love you to lose you. And given the choice, knowing the cost, I would open that door again every single time.",
+  },
+  "make-my-own-light": {
+    about: [
+      "Make My Own Light is a compact poetry collection from the dark and the turning toward it: grief, fear, father loss, faith, and the stubborn decision to keep breathing.",
+      "The poems are confessional, direct, and made for readers who do not need pain dressed up to recognize it. They live in the same emotional world as REBECOMING and Street Smarts, but with the compression and force of poetry.",
+      "It is ready as a premium PDF/EPUB and has Lulu-ready 6 x 9 paperback files, making it a strong direct-sale chapbook and a natural companion to the memoir titles.",
+    ],
+    forWho: [
+      "You like poems that sound like someone finally stopped apologizing",
+      "You are drawn to grief, survival, faith, and self-rescue writing",
+      "You want a short collection you can read in one sitting and return to",
+      "You are buying the poetry companion to the memoir work",
+      "You want a paperback-ready poetry title with direct-store margin",
+    ],
+    pullQuote: "No. I will make my own light.",
+  },
+  "the-invisible-bruise": {
+    about: [
+      "The Invisible Bruise names emotional abuse without turning the reader into a case study. It is for the person who has been very good at being fine, and is only now beginning to understand what happened.",
+      "The book moves through gaslighting, silence, body memory, and the work of learning to trust your own reality again. It is tender but not vague, practical but not clinical, and grounded in the long process of taking your story back.",
+      "The product includes PDF and Kindle EPUB files, plus Lulu-ready 6 x 9 paperback files for a premium direct-sale edition.",
+    ],
+    forWho: [
+      "You are trying to name something that never left a visible mark",
+      "You want clear language for emotional abuse and gaslighting",
+      "You are rebuilding your voice after being misread, controlled, or diminished",
+      "You want a healing book that is direct without being cold",
+      "You want the digital edition now and a paperback-ready path later",
+    ],
+    pullQuote: "The bruise was invisible. Your recovery does not have to be.",
+  },
+  "decoding-angel-numbers": {
+    about: [
+      "Decoding Angel Numbers is a grounded guide for spiritually curious readers who notice patterns and want to engage them without surrendering their discernment.",
+      "It is not a magical glossary. It is a practice of attention: why certain numbers or moments catch you, how to read the thought underneath the noticing, and how to tell the difference between meaning and anxiety.",
+      "The ebook includes PDF and Kindle EPUB files, with Lulu-ready 6 x 9 paperback files for a premium print edition.",
+    ],
+    forWho: [
+      "You keep noticing repeated numbers and want a thoughtful framework",
+      "You are curious but do not want to be sold certainty",
+      "You like spiritual writing with common sense still intact",
+      "You want journal prompts and discernment instead of a lookup table",
+      "You want a digital ebook with a paperback-ready file set",
+    ],
+    pullQuote: "The number is not the message. Your attention is the message.",
+  },
   "reinvention-workbook": {
     about: [
       "Twenty writing exercises built from the actual reinvention process — not theory lifted from a business book. These exercises are what I used myself and refined with clients who were in the middle of becoming someone new.",
@@ -481,12 +556,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const showPaperback = Boolean(paperback?.href && paperback.href.length > 0 && !COMING_SOON_SLUGS.has(product.slug));
   const stripe = (product as { stripe?: string }).stripe;
   const buyTarget = isFree ? (dl as string) : (stripe && stripe.length > 0 ? stripe : product.href);
-  const buyLabel = isFree ? "Download Free" : "Buy Now";
+  const requestCheckout = !isFree && buyTarget.startsWith("mailto:");
+  const buyExternal = buyTarget.startsWith("http");
+  const paperbackExternal = Boolean(paperback?.href?.startsWith("http"));
+  const buyLabel = isFree ? "Download Free" : requestCheckout ? "Request Checkout" : "Buy Now";
   const priceLabel = productPriceLabel(product);
   const limitedFree = isLimitedFree(product);
   const accessLabel = limitedFree
     ? `Free for a limited time · normally ${product.price}`
-    : isFree ? "Direct download · Instant access" : "One-time purchase · Instant access";
+    : isFree ? "Direct download · Instant access" : requestCheckout ? "Direct checkout request · Files ready" : "One-time purchase · Instant access";
 
   return (
     <>
@@ -517,8 +595,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <a
                     href={buyTarget}
                     download={isFree ? "" : undefined}
-                    target="_blank"
-                    rel="noreferrer"
+                    {...(buyExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                     className="btn-primary inline-flex items-center justify-center px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
                     {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
@@ -527,8 +604,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 {showPaperback && (
                   <a
                     href={paperback!.href}
-                    target="_blank"
-                    rel="noreferrer"
+                    {...(paperbackExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                     className="inline-flex items-center justify-center border border-graphite px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
                   >
                     Paperback — {paperback!.price}
@@ -541,6 +617,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     ? `Free for a limited time — normally ${product.price}`
                     : isFree
                     ? "Free instant download · No signup"
+                    : requestCheckout
+                    ? "Checkout request opens email · Files ready"
                     : "Instant download · Secure checkout"}
                 </span>
               </div>
@@ -579,8 +657,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <a
                     href={buyTarget}
                     download={isFree ? "" : undefined}
-                    target="_blank"
-                    rel="noreferrer"
+                    {...(buyExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                     className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
                     {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
@@ -589,8 +666,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 {showPaperback && (
                   <a
                     href={paperback!.href}
-                    target="_blank"
-                    rel="noreferrer"
+                    {...(paperbackExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                     className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
                   >
                     Paperback — {paperback!.price}
@@ -603,6 +679,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     ? `Free for a limited time · normally ${product.price}`
                     : isFree
                     ? "Free · PDF format · No subscription"
+                    : requestCheckout
+                    ? "PDF + EPUB ready · Checkout request"
                     : "PDF format · Secure checkout · No subscription"}
                 </p>
               </div>
@@ -626,11 +704,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <a
                   href={buyTarget}
                   download={isFree ? "" : undefined}
-                  target="_blank"
-                  rel="noreferrer"
+                  {...(buyExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                   className="btn-primary inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                 >
-                  {isFree ? "Download Free →" : `Get It — ${priceLabel}`}
+                  {isFree ? "Download Free →" : requestCheckout ? `Request Checkout — ${priceLabel}` : `Get It — ${priceLabel}`}
                 </a>
               )}
             </div>
@@ -694,8 +771,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <a
                   href={buyTarget}
                   download={isFree ? "" : undefined}
-                  target="_blank"
-                  rel="noreferrer"
+                  {...(buyExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                   className="btn-primary inline-flex items-center justify-center px-10 py-5 font-body text-[0.85rem] font-bold uppercase tracking-[0.2em] text-void"
                 >
                   {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
@@ -708,6 +784,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 ? "Coming soon · PDF format · No subscription required"
                 : isFree
                 ? "Free · Instant download · No subscription required"
+                : requestCheckout
+                ? "Checkout request opens email · PDF and EPUB ready"
                 : "Secure checkout · Instant delivery · No subscription required"}
             </p>
           </div>

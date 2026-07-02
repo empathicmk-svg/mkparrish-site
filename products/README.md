@@ -30,11 +30,15 @@ Lives in [`products/course-scripture-and-strategy/`](./course-scripture-and-stra
 
 | Product | Price | Type | File |
 |---|---|---|---|
-| The Invisible Bruise | $22 | Ebook | [`ebooks/the-invisible-bruise.md`](./ebooks/the-invisible-bruise.md) |
-| The Reinvention Workbook | $18 | Ebook | [`ebooks/the-reinvention-workbook.md`](./ebooks/the-reinvention-workbook.md) |
-| Write Yourself Into the Room | $28 | Ebook | [`ebooks/write-yourself-into-the-room.md`](./ebooks/write-yourself-into-the-room.md) |
-| The Brand Voice Playbook | $35 | Ebook | [`ebooks/the-brand-voice-playbook.md`](./ebooks/the-brand-voice-playbook.md) |
-| Decoding Angel Numbers | $15 | Ebook | [`ebooks/decoding-angel-numbers.md`](./ebooks/decoding-angel-numbers.md) |
+| REBECOMING: From Fear to Faith | $39 | Memoir ebook | [`ebooks/rebecoming.md`](./ebooks/rebecoming.md) |
+| Still Here, Still Hers | $29 | Essay ebook | [`ebooks/still-here-still-hers.md`](./ebooks/still-here-still-hers.md) |
+| Street Smarts | $39 | Memoir ebook | [`ebooks/street-smarts.md`](./ebooks/street-smarts.md) |
+| Make My Own Light | $29 | Poetry ebook | [`ebooks/make-my-own-light.md`](./ebooks/make-my-own-light.md) |
+| The Invisible Bruise | $39 | Ebook | [`ebooks/the-invisible-bruise.md`](./ebooks/the-invisible-bruise.md) |
+| The Reinvention Workbook | $29 | Ebook | [`ebooks/reinvention-workbook.md`](./ebooks/reinvention-workbook.md) |
+| Write Yourself Into the Room | $39 | Ebook | [`ebooks/write-yourself-into-the-room.md`](./ebooks/write-yourself-into-the-room.md) |
+| The Brand Voice Playbook | $45 | Ebook | [`ebooks/brand-voice-playbook.md`](./ebooks/brand-voice-playbook.md) |
+| Decoding Angel Numbers | $29 | Ebook | [`ebooks/decoding-angel-numbers.md`](./ebooks/decoding-angel-numbers.md) |
 | The Vault | $97 | Bundle | [`ebooks/the-vault.md`](./ebooks/the-vault.md) |
 
 ### Scripture & Strategy Ebooks
@@ -93,7 +97,7 @@ Lives in [`products/course-scripture-and-strategy/`](./course-scripture-and-stra
 
 Three bundles, three ways to buy the whole thing instead of one piece.
 
-- **The Vault — $97.** Every general ebook in one purchase: The Invisible Bruise, The Reinvention Workbook, Write Yourself Into the Room, The Brand Voice Playbook, and Decoding Angel Numbers. The full library on identity, voice, and reinvention — bought once, owned for good, at less than the cost of buying them apart.
+- **The Vault — $97.** The premium writing-and-identity library in one purchase: memoir, healing, reinvention, personal brand writing, brand voice, and spiritual curiosity. Bought separately, the core shelf is $317. Bought together, it stays one high-value checkout.
 
 - **The Scripture & Strategy Bundle — $97.** The complete Scripture & Strategy ebook collection: The Study, Gospel & Grind, The Sermon Notes, The Calling Card, and Ministry Monetized. Faith and strategy, the whole conversation, in one stack. The reading companion to the flagship course.
 

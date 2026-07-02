@@ -32,6 +32,8 @@ const BOOKS = [
   { src: 'ebooks/write-yourself-into-the-room.md',    out: 'ebooks/write-yourself-into-the-room.epub' },
   { src: 'ebooks/brand-voice-playbook.md',            out: 'ebooks/brand-voice-playbook.epub' },
   { src: 'ebooks/rebecoming.md',                      out: 'ebooks/rebecoming.epub' },
+  { src: 'ebooks/still-here-still-hers.md',           out: 'ebooks/still-here-still-hers.epub',
+    subtitle: 'Essays on losing yourself, surviving the in-between, and learning to belong to your own life.' },
   { src: 'ebooks/the-sentence-that-sells.md',         out: 'ebooks/the-sentence-that-sells.epub' },
   { src: 'ebooks/evidence-not-vibes.md',              out: 'ebooks/evidence-not-vibes.epub' },
   { src: 'ebooks/the-quiet-launch.md',                out: 'ebooks/the-quiet-launch.epub' },

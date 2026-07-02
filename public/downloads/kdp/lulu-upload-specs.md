@@ -27,7 +27,8 @@ the exact page count below. If Lulu asks for the page count or spine width
 manually, use the numbers in each book's row.
 
 **Author:** MK Parrish · **Language:** English · **Category:** Memoir
-(REBECOMING) / Self-Help & Business (the guides).
+(REBECOMING, Still Here, Street Smarts) / Poetry (Make My Own Light) /
+Self-Help & Business (the guides).
 
 After upload: order **one proof copy** of each before making it public. Once it
 looks right, you can keep selling through the Stripe buttons on
@@ -41,6 +42,11 @@ address) or turn on Lulu's own distribution.
 | Book | Trim | Pages | Spine | Full cover (W x H) | Your retail price |
 | :--- | :--- | :---- | :---- | :----------------- | :---------------- |
 | REBECOMING: From Fear to Faith | 6 x 9 | 77 | 0.193 in | 12.443 x 9.25 in | $39 |
+| Still Here, Still Hers | 6 x 9 | 52 | 0.130 in | 12.380 x 9.25 in | $44 |
+| Street Smarts | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $54 |
+| Make My Own Light | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $44 |
+| The Invisible Bruise | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $54 |
+| Decoding Angel Numbers | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $44 |
 | Write Yourself Into the Room | 6 x 9 | 40 | 0.100 in | 12.350 x 9.25 in | $44 |
 | The Reinvention Workbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $34 |
 | The Brand Voice Playbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $49 |
@@ -56,6 +62,11 @@ address) or turn on Lulu's own distribution.
 ### File slugs (for the URLs above)
 
 - REBECOMING: From Fear to Faith → `rebecoming`
+- Still Here, Still Hers → `still-here-still-hers`
+- Street Smarts → `street-smarts`
+- Make My Own Light → `make-my-own-light`
+- The Invisible Bruise → `the-invisible-bruise`
+- Decoding Angel Numbers → `decoding-angel-numbers`
 - Write Yourself Into the Room → `write-yourself-into-the-room`
 - The Reinvention Workbook → `reinvention-workbook`
 - The Brand Voice Playbook → `brand-voice-playbook`
@@ -73,7 +84,7 @@ address) or turn on Lulu's own distribution.
 ## Cost & margin reminder
 
 Lulu prints these (6 x 9, B&W, perfect bound) for roughly **$2.80–$3.05** per
-copy. With ~$5 shipping, you net about **$17–$42** per book at the prices above
+copy. With ~$5 shipping, you net about **$17–$46** per book at the prices above
 (shipping is baked into your listed price, so the buyer isn't charged extra).
 Ordering author copies in bulk lowers the per-unit cost and lets you control
 shipping yourself.

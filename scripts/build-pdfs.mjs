@@ -18,6 +18,7 @@ const FILES = [
   ['public/downloads/ebooks/write-yourself-into-the-room.html',  'public/downloads/ebooks/write-yourself-into-the-room.pdf'],
   ['public/downloads/ebooks/brand-voice-playbook.html',          'public/downloads/ebooks/brand-voice-playbook.pdf'],
   ['public/downloads/ebooks/rebecoming.html',                    'public/downloads/ebooks/rebecoming.pdf'],
+  ['public/downloads/ebooks/still-here-still-hers.html',         'public/downloads/ebooks/still-here-still-hers.pdf'],
   ['public/downloads/ebooks/rebecoming-sample.html',             'public/downloads/ebooks/rebecoming-sample.pdf'],
   ['public/downloads/ebooks/the-sentence-that-sells.html',        'public/downloads/ebooks/the-sentence-that-sells.pdf'],
   ['public/downloads/ebooks/evidence-not-vibes.html',             'public/downloads/ebooks/evidence-not-vibes.pdf'],

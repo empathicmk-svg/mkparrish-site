@@ -58,6 +58,9 @@ function Card({ p }: { p: BrowseItem }) {
   const limitedFree = isFree && Boolean(p.limitedFree);
   const badge = badgeFor(p);
   const save = p.compareAt ? numFrom(p.compareAt) - p.priceNum : 0;
+  const checkoutHref = buyHref(p);
+  const requestCheckout = checkoutHref.startsWith("mailto:");
+  const external = checkoutHref.startsWith("http");
 
   return (
     <div
@@ -129,12 +132,11 @@ function Card({ p }: { p: BrowseItem }) {
           </a>
         ) : (
           <a
-            href={buyHref(p)}
-            target="_blank"
-            rel="noreferrer"
+            href={checkoutHref}
+            {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
             className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em] text-void"
           >
-            Buy — {p.price}
+            {requestCheckout ? "Request Checkout" : `Buy — ${p.price}`}
           </a>
         )}
         <Link
@@ -184,8 +186,10 @@ export default function ShelfBrowser({ products }: { products: BrowseItem[] }) {
     });
     if (sort === "price-asc") return [...filtered].sort((a, b) => a.priceNum - b.priceNum);
     if (sort === "price-desc") return [...filtered].sort((a, b) => b.priceNum - a.priceNum);
-    // Featured: lead with bundles + bestsellers (featured), keep curated order within.
-    return [...filtered].sort((a, b) => Number(b.featured) - Number(a.featured));
+    // Featured: lead with highlighted paid books/bundles, then keep curated order.
+    return [...filtered].sort(
+      (a, b) => Number(b.featured) - Number(a.featured) || Number(Boolean(a.free)) - Number(Boolean(b.free))
+    );
   }, [products, filter, sort, query]);
 
   const showUpsell = topBundle && filter !== "bundles";

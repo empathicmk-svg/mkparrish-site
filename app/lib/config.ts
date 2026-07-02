@@ -9,13 +9,12 @@ export const STRIPE_AUDIT       = "https://buy.stripe.com/9B64gA2nL51KamMaX38AE0
 
 // ── Growth / Revenue Systems ─────────────────────────────────────────────────
 export const STRIPE_OUTBOUND        = "https://buy.stripe.com/28E7sD0Ked295LX22M0oM0e"; // The Outbound Engine — $2,500/mo
-export const STRIPE_CONTENT_ENGINE  = "/book"; // (legacy) link to checkout when ready
+export const STRIPE_CONTENT_ENGINE  = STRIPE_BYLINE; // LinkedIn Content Engine now routes to The Byline checkout
 export const STRIPE_INBOUND_SYSTEM  = "https://buy.stripe.com/eVq5kvdx01jr1vHazi0oM0d"; // Full-Funnel Growth — $6,500/mo
-export const STRIPE_REVENUE_SYSTEMS = "/book"; // Fractional Growth Lead (custom)
+export const STRIPE_REVENUE_SYSTEMS = STRIPE_INBOUND_SYSTEM; // Legacy alias; custom growth work books a call
 
 // ── Production & Media (The Studio) ──────────────────────────────────────────
-// Replace with Stripe links when ready
-export const STRIPE_SITE     = "/book"; // (legacy) The Site — merged into The Build
+export const STRIPE_SITE     = STRIPE_BUILD; // The Site merged into The Build
 export const STRIPE_HOSTING  = "https://buy.stripe.com/9B614fgJc0fn5LXcHq0oM0j"; // The Upkeep — $300/mo
 export const STRIPE_SOCIAL   = "https://buy.stripe.com/5kQ28j3Wqd29cal0YI0oM0k"; // The Social Suite — $2,000/mo
 export const STRIPE_YOUTUBE  = "https://buy.stripe.com/9B6fZ9gJc2nveit36Q0oM0l"; // The Channel — $1,500/video
@@ -34,6 +33,7 @@ export const CALENDLY_URL       = "https://www.calendly.com/mkparrish";
 
 // ── Site ─────────────────────────────────────────────────────────────────────
 export const SITE_URL           = "https://www.mkparrish.com";
+export const BOOK_CALL_URL      = "/book";
 
 // ── Amazon author page (books on Kindle + paperback) ─────────────────────────
 export const AMAZON_AUTHOR_URL  = "https://www.amazon.com/author/mkparrish";
@@ -48,6 +48,9 @@ export const CONTACT = {
   linkedin: "https://www.linkedin.com/in/mkparrish",
   phone:    "347.853.4238",
 };
+
+const checkoutRequestHref = (title: string) =>
+  `mailto:${CONTACT.email}?subject=${encodeURIComponent(`${title} checkout`)}`;
 
 // ── Social links ─────────────────────────────────────────────────────────────
 // Rendered as petal-pink chips with black text in the footer.
@@ -155,6 +158,101 @@ export const EBOOKS = [
     desc: "MK Parrish's flagship memoir, now expanded to thirteen present-tense chapters and woven through with Scripture, the saints, and the Blessed Mother. A vivid story about fear, faith, prayer, friendship, and the eleven minutes it took to walk through a door she was sure was not for her, and about becoming the latest model of the person she always was.",
   },
   {
+    slug:      "still-here-still-hers",
+    title:     "Still Here, Still Hers",
+    subtitle:  "Essays on losing yourself, surviving the in-between, and learning to belong to your own life.",
+    price:     "$29",
+    tag:       "The In-Between",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/still-here-still-hers.pdf",
+    href:      checkoutRequestHref("Still Here, Still Hers"),
+    paperback: { price: "$44", href: checkoutRequestHref("Still Here, Still Hers paperback") },
+    features:  [
+      "Intimate personal essays from the in-between",
+      "On grief, heartbreak, father loss, body shame, and rebuilding",
+      "Complete PDF + Kindle-ready EPUB",
+      "Cover PDF/JPG included for KDP upload prep",
+    ],
+    desc: "For the woman who is not healed yet, but is tired of abandoning herself while she waits. A raw essay collection about surviving the in-between and still belonging to your own life.",
+  },
+  {
+    slug:      "street-smarts",
+    title:     "Street Smarts",
+    subtitle:  "What my father taught me in 1,109 texts.",
+    price:     "$39",
+    tag:       "Memoir",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/street-smarts.pdf",
+    href:      checkoutRequestHref("Street Smarts"),
+    paperback: { price: "$54", href: checkoutRequestHref("Street Smarts paperback") },
+    features:  [
+      "A father, a daughter, and an education that came too late",
+      "The 1,109 texts, read back like scripture",
+      "Complete PDF + Kindle-ready EPUB",
+      "Lulu-ready 6 x 9 paperback interior + wrap cover",
+    ],
+    desc: "A raw, luminous memoir about the eleven months that finally gave MK a father after twenty-five years of silence, the texts she now reads like scripture, and the long climb from merely existing back into a life.",
+  },
+  {
+    slug:      "make-my-own-light",
+    title:     "Make My Own Light",
+    subtitle:  "Poems from the dark, and the turning toward.",
+    price:     "$29",
+    tag:       "Poetry",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/make-my-own-light.pdf",
+    href:      checkoutRequestHref("Make My Own Light"),
+    paperback: { price: "$44", href: checkoutRequestHref("Make My Own Light paperback") },
+    features:  [
+      "Confessional poems on grief, fear, faith, and survival",
+      "From free-falling to making your own light",
+      "Complete PDF + Kindle-ready EPUB",
+      "Lulu-ready 6 x 9 paperback interior + wrap cover",
+    ],
+    desc: "A fierce poetry collection from the dark and the turning toward it. Poems on loss, survival, and the decision to stop waiting for someone else to light the way.",
+  },
+  {
+    slug:      "the-invisible-bruise",
+    title:     "The Invisible Bruise",
+    subtitle:  "Surviving emotional abuse, suffering in silence, and rewriting your life.",
+    price:     "$39",
+    tag:       "Survival & Healing",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/the-invisible-bruise.pdf",
+    href:      checkoutRequestHref("The Invisible Bruise"),
+    paperback: { price: "$54", href: checkoutRequestHref("The Invisible Bruise paperback") },
+    features:  [
+      "Emotional abuse named plainly and compassionately",
+      "Gaslighting, silence, and the theft of your reality",
+      "Complete PDF + Kindle-ready EPUB",
+      "Lulu-ready 6 x 9 paperback interior + wrap cover",
+    ],
+    desc: "A clear-eyed guide for anyone who has survived emotional abuse: naming what happened, understanding why you stayed quiet, and rewriting your life one true line forward.",
+  },
+  {
+    slug:      "decoding-angel-numbers",
+    title:     "Decoding Angel Numbers",
+    subtitle:  "A skeptic's guide to spiritual curiosity.",
+    price:     "$29",
+    tag:       "Spiritual Curiosity",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/decoding-angel-numbers.pdf",
+    href:      checkoutRequestHref("Decoding Angel Numbers"),
+    paperback: { price: "$44", href: checkoutRequestHref("Decoding Angel Numbers paperback") },
+    features:  [
+      "A grounded framework for the patterns you notice",
+      "Discernment without superstition or dismissal",
+      "Complete PDF + Kindle-ready EPUB",
+      "Lulu-ready 6 x 9 paperback interior + wrap cover",
+    ],
+    desc: "A grounded guide for spiritually curious readers who keep noticing patterns and want a better way to pay attention without handing over their common sense.",
+  },
+  {
     slug:      "the-linkedin-bio-fix-kit",
     title:     "The LinkedIn Bio Fix Kit",
     subtitle:  "Fix the first thing everyone reads about you — in fifteen minutes.",
@@ -238,19 +336,20 @@ export const EBOOKS = [
     title:     "The Vault",
     subtitle:  "Every digital product in one bundle — the complete self-study library.",
     price:     "$97",
+    compareAt: "$317",
     tag:       "Best Value",
-    highlight: false,
+    highlight: true,
     free:      false,
     download:  "/downloads/the-vault.pdf",
     stripe:    "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     href:      "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     features:  [
-      "All 3 writing-and-identity ebooks included",
+      "The complete writing-and-identity library in one purchase",
       "The Brand Voice Playbook + Write Yourself Into the Room",
-      "The Reinvention Workbook",
-      "Future library releases included",
+      "The Reinvention Workbook + healing and voice guides",
+      "ZIP bundle + future library releases included",
     ],
-    desc: "The full library. Every framework, every guide, every word. One price.",
+    desc: "The highest-leverage way to buy the Shelf: every writing, voice, identity, and healing framework in one library, bundled below the individual price.",
   },
 ] as const;
 
@@ -492,6 +591,9 @@ export const productDeliveryLinks = (product: ShopProduct) => {
   const links = [{ label: "PDF", href: primary }];
   if (primary.endsWith(".pdf")) {
     links.push({ label: "EPUB", href: primary.replace(/\.pdf$/, ".epub") });
+  }
+  if (product.slug === "the-vault" || product.slug === "the-services-vault") {
+    links.push({ label: "ZIP Bundle", href: primary.replace(/\.pdf$/, ".zip") });
   }
 
   return links;
