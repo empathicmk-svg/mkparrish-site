@@ -72,6 +72,7 @@ const mobileSections: { label: string; links: NavLinkItem[] }[] = [
   {
     label: "More",
     links: [
+      { label: "Shop", href: "/shop" },
       { label: "Resources", href: "/resources" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
@@ -279,6 +280,15 @@ export default function Nav() {
             </div>
 
             <Link
+              href="/shop"
+              className={`nav-link whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
+                isActive("/shop") ? "active text-pearl" : "text-ash"
+              }`}
+            >
+              Shop
+            </Link>
+
+            <Link
               href="/resources"
               className={`nav-link whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
                 isActive("/resources") ? "active text-pearl" : "text-ash"
@@ -307,6 +317,12 @@ export default function Nav() {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
+            <Link
+              href="/shop"
+              className="btn-ghost px-4 py-2 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em]"
+            >
+              Shop
+            </Link>
             <Link
               href="/book"
               className="btn-primary px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em] text-void"
@@ -386,13 +402,22 @@ export default function Nav() {
               </div>
             ))}
 
-            <Link
-              href="/book"
-              onClick={() => setMobileNav(false)}
-              className="btn-primary inline-flex w-full justify-center px-5 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
-            >
-              Book a Call
-            </Link>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/shop"
+                onClick={() => setMobileNav(false)}
+                className="btn-ghost inline-flex w-full justify-center px-5 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em]"
+              >
+                Shop
+              </Link>
+              <Link
+                href="/book"
+                onClick={() => setMobileNav(false)}
+                className="btn-primary inline-flex w-full justify-center px-5 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+              >
+                Book a Call
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -478,21 +503,27 @@ export default function Nav() {
           </svg>
           Services
         </button>
-        <Link href="/#offerings" className="mobile-bottom-nav-item">
+        <Link href="/shop" className={`mobile-bottom-nav-item${isActive("/shop") ? " active" : ""}`}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M4 6h16" />
-            <path d="M4 12h16" />
-            <path d="M4 18h10" />
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 01-8 0" />
           </svg>
-          Work
+          Shop
         </Link>
-        <Link href="/contact" className={`mobile-bottom-nav-item${isActive("/contact") ? " active" : ""}`}>
+        <button
+          onClick={() => setMobileNav(!mobileNav)}
+          className={`mobile-bottom-nav-item${mobileNav ? " active" : ""}`}
+          aria-label="Menu"
+          aria-expanded={mobileNav}
+        >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M4 4h16v16H4z" />
-            <path d="M4 7l8 6 8-6" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
-          Contact
-        </Link>
+          Menu
+        </button>
         <Link href="/book" className="mobile-bottom-nav-book">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <rect x="3" y="4" width="18" height="18" rx="2" />
