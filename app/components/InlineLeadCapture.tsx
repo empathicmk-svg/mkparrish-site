@@ -57,7 +57,7 @@ export default function InlineLeadCapture({
       setEmailed(Boolean(data.emailed));
       setSubmitted(true);
     } catch {
-      setError("That did not go through. Try again, or join The Margins directly.");
+      setError("That did not go through. Try again, or email me directly.");
     } finally {
       setLoading(false);
     }
@@ -66,14 +66,14 @@ export default function InlineLeadCapture({
   if (submitted) {
     return (
       <div className="border border-petal/30 bg-carbon p-7 md:p-9" aria-live="polite">
-        <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">You&apos;re in</p>
+        <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Ready</p>
         <h3 className="mt-3 font-display text-3xl uppercase tracking-[0.02em] text-pearl">
           {selected.shortTitle} is ready.
         </h3>
         <p className="mt-4 max-w-xl font-body text-sm font-light leading-7 text-smoke">
           {emailed
-            ? "It is also headed to your inbox. Start with the question that makes you slightly uncomfortable. That is usually the expensive one."
-            : "Grab it now. You are also on the free list for The Margins."}
+            ? "It is also headed to your inbox."
+            : "Grab the resource below."}
         </p>
         <a
           href={downloadUrl}
@@ -124,7 +124,7 @@ export default function InlineLeadCapture({
 
       {error && <p className="mt-3 font-body text-xs leading-5 text-petal" aria-live="polite">{error}</p>}
       <p className="mt-4 font-body text-[0.65rem] leading-5 text-iron">
-        You will also receive free posts from The Margins. No spam, no hostage situation, unsubscribe whenever you like.
+        You will receive the resource and occasional practical notes about messaging and growth. Unsubscribe any time.
       </p>
     </form>
   );
