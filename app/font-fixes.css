@@ -1,8 +1,8 @@
 /* Typography repair layer
-   Keeps bold text crisp and prevents display headings from fake-bold rendering. */
+   Softens heavy text and prevents fake-bold rendering. */
 
 :root {
-  --font-display: "Anton", "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --font-display: "Oswald", "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow", sans-serif;
 }
 
 .font-display,
@@ -15,15 +15,29 @@ h1.display,
 .step-number,
 .marquee-item {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 300 !important;
   font-synthesis-weight: none;
 }
 
 strong,
 b {
   font-family: var(--font-body);
-  font-weight: 700;
+  font-weight: 600 !important;
   color: var(--color-pearl);
+  font-synthesis-weight: none;
+}
+
+.font-bold,
+.font-semibold,
+.btn-primary,
+.btn-ghost,
+.btn-text,
+.nav-link,
+.mobile-bottom-nav-book,
+.eyebrow,
+.tag,
+label {
+  font-weight: 500 !important;
   font-synthesis-weight: none;
 }
 
@@ -32,7 +46,7 @@ b {
 em strong,
 em b {
   font-family: var(--font-serif);
-  font-weight: 700;
+  font-weight: 600 !important;
 }
 
 .font-display strong,
@@ -42,5 +56,5 @@ em b {
 .hero-title strong,
 .hero-title b {
   font-family: inherit;
-  font-weight: 400;
+  font-weight: 300 !important;
 }
