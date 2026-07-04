@@ -1,0 +1,46 @@
+/* Typography repair layer
+   Keeps bold text crisp and prevents display headings from fake-bold rendering. */
+
+:root {
+  --font-display: "Anton", "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+.font-display,
+h1.display,
+.display,
+.hero-title,
+.nav-logo,
+.footer-logo,
+.stat-number,
+.step-number,
+.marquee-item {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis-weight: none;
+}
+
+strong,
+b {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--color-pearl);
+  font-synthesis-weight: none;
+}
+
+.font-serif strong,
+.font-serif b,
+em strong,
+em b {
+  font-family: var(--font-serif);
+  font-weight: 700;
+}
+
+.font-display strong,
+.font-display b,
+.display strong,
+.display b,
+.hero-title strong,
+.hero-title b {
+  font-family: inherit;
+  font-weight: 400;
+}
