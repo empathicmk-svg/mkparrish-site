@@ -15,7 +15,8 @@ const footerGroups = [
     heading: "Company",
     links: [
       { label: "How I Work", href: "/how-i-work" },
-      { label: "Resources", href: "/resources" },
+      { label: "Rebecoming", href: "/rebecoming" },
+      { label: "Shop", href: "/shop" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
     ],
@@ -69,10 +70,10 @@ export default function Footer() {
               Book a Call
             </Link>
             <Link
-              href="/resources"
+              href="/shop"
               className="btn-ghost px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em]"
             >
-              Free Resources
+              Shop Books
             </Link>
           </div>
         </div>

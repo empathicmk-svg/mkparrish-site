@@ -17,8 +17,8 @@ type AffiliatePartner = {
 
 const utm = {
   source: "mkparrish",
-  medium: "resources",
-  campaign: "partner-stack",
+  medium: "partners",
+  campaign: "sponsorship-affiliates",
 };
 
 function envValue(key: string) {
@@ -57,7 +57,7 @@ export const AFFILIATE_PARTNERS: AffiliatePartner[] = [
     audience: "Writers, consultants, creators, coaches, and founders building an owned list.",
     bestFor: "Lead magnets, welcome sequences, paid recommendations, commerce, and launch emails.",
     reason:
-      "It fits the MK ecosystem because the offer path starts with a useful free PDF and needs a cleaner way to nurture people into audits, Shelf purchases, and retainers.",
+      "It fits the MK ecosystem because the offer path starts with a useful free chapter or PDF and needs a cleaner way to nurture people into books, audits, Shelf purchases, and retainers.",
     revenueNote:
       "Official program: 50% commission for the first 12 months, plus tiered recurring revenue after 12 months for qualified affiliates.",
     href: partnerHref("AFFILIATE_KIT_URL", "https://kit.com", "kit"),
@@ -73,7 +73,7 @@ export const AFFILIATE_PARTNERS: AffiliatePartner[] = [
     audience: "Newsletter operators, media-style creators, and businesses that want ads, boosts, and direct sponsorships.",
     bestFor: "Newsletter publishing, ad inventory, referral growth, paid subscriptions, and sponsorship operations.",
     reason:
-      "It belongs in the partner stack because The Margins can eventually sell sponsor slots and teach newsletter monetization as a practical revenue path.",
+      "It belongs in the partner stack because The Margins can sell sponsor slots, book-launch placements, and useful reader recommendations without turning the site into ad clutter.",
     revenueNote:
       "Official program: up to 60% monthly commission for paying customers referred through the partner program.",
     href: partnerHref("AFFILIATE_BEEHIIV_URL", "https://www.beehiiv.com", "beehiiv"),
@@ -141,8 +141,8 @@ export const AFFILIATE_PARTNERS: AffiliatePartner[] = [
     revenueNote:
       "Use as a practical tool recommendation now; add the affiliate URL once the creator or partner account is approved.",
     href: partnerHref("AFFILIATE_CANVA_URL", "https://www.canva.com", "canva"),
-    applyHref: "https://www.canva.com/affiliates/",
-    applyLabel: "Check Canva program",
+    applyHref: "https://www.canva.com/help/canva-affiliate-marketing-program/",
+    applyLabel: "Check Canvassador",
     envKey: "AFFILIATE_CANVA_URL",
     status: "apply",
   },
@@ -181,30 +181,31 @@ export const PARTNER_WATCHLIST = [
 
 export const SPONSORSHIP_INVENTORY = [
   {
-    name: "The Margins sponsor note",
-    price: "$250-$750",
-    fit: "One sponsor paragraph inside a useful essay or resource issue, capped at one per month.",
-  },
-  {
-    name: "Resource guide placement",
+    name: "Rebecoming launch sponsor",
     price: "$500-$1,500",
-    fit: "Sponsored inclusion in a tool guide only when the product is actually relevant to the page's reader.",
+    fit: "A focused sponsor placement beside the free chapter, book announcement, email mention, and social posts for the memoir audience.",
   },
   {
-    name: "Live teardown sponsor",
-    price: "$750-$2,500",
-    fit: "A tool-backed LinkedIn/profile/homepage teardown where the partner helps solve one visible leak.",
+    name: "Book note sponsor",
+    price: "$250-$750",
+    fit: "One clearly disclosed sponsor note inside a useful essay or The Margins issue, capped so the reader still trusts the room.",
   },
   {
-    name: "Workshop partner",
+    name: "Shop guide placement",
+    price: "$500-$1,500",
+    fit: "A sponsored inclusion beside books, guides, or tool recommendations only when the product naturally helps readers write, publish, heal, organize, or sell.",
+  },
+  {
+    name: "Workshop or book club partner",
     price: "$1,500-$5,000",
-    fit: "A co-marketed session for founders or creators, with the partner providing software value or audience distribution.",
+    fit: "A co-marketed session around Rebecoming, voice, reinvention, or the Rewrite Your Story framework with partner distribution or software value.",
   },
 ];
 
 export const PARTNER_APPLICATION_QUEUE = [
-  "Apply to Kit, beehiiv, HubSpot, Webflow, Semrush, Canva, and Amazon Associates.",
-  "Publish one useful tool guide per partner category before asking for higher tiers.",
+  "Create official affiliate accounts for Kit, beehiiv, HubSpot, Webflow, Semrush, Canva/Canvassador, and Amazon Associates.",
   "Replace each fallback URL with the approved affiliate link in Vercel environment variables.",
-  "Track clicks by partner slug, then double down only where traffic turns into leads, products, or calls.",
+  "Build one useful article, essay, or book-funnel mention per partner category before asking for higher tiers.",
+  "Attach Rebecoming only where it belongs: free chapter, full book, book club/workshop, and reader-recovery sponsorship angles.",
+  "Track clicks by partner slug, then double down only where traffic turns into book sales, leads, products, or calls.",
 ];

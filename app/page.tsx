@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import InlineLeadCapture from "@/app/components/InlineLeadCapture";
 import LegacyOfferingsRedirect from "@/app/components/LegacyOfferingsRedirect";
 
 export const metadata: Metadata = {
@@ -18,18 +17,18 @@ const cards = [
     cta: "See Services",
   },
   {
-    eyebrow: "Start here",
-    title: "Resources",
-    text: "Use practical audit tools to find unclear messaging, weak proof, and conversion gaps.",
-    href: "/resources",
-    cta: "Browse Resources",
+    eyebrow: "Books + guides",
+    title: "Shop",
+    text: "Buy the books, workbooks, and practical guides for rebuilding voice, clarity, and momentum.",
+    href: "/shop",
+    cta: "Shop the Shelf",
   },
   {
-    eyebrow: "Process",
-    title: "How I Work",
-    text: "Review the process, scope, and expectations before starting a project.",
-    href: "/how-i-work",
-    cta: "Review Process",
+    eyebrow: "The memoir",
+    title: "Rebecoming",
+    text: "Read the book at the center of the MK Parrish story: fear, faith, identity, and starting again without disappearing.",
+    href: "/rebecoming",
+    cta: "Enter Rebecoming",
   },
 ] as const;
 
@@ -53,11 +52,11 @@ export default function HomePage() {
             I help B2B companies clarify positioning, improve conversion, and build growth systems that connect the message to the pipeline.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link href="/book" className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
-              Book a Free Strategy Call →
+            <Link href="/shop" className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+              Shop Books & Guides →
             </Link>
-            <Link href="/services#offerings" className="inline-flex justify-center border border-graphite px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
-              See Services & Pricing
+            <Link href="/rebecoming" className="inline-flex justify-center border border-graphite px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
+              Read Rebecoming
             </Link>
           </div>
         </div>
@@ -91,18 +90,56 @@ export default function HomePage() {
       <section className="bg-void py-16 md:py-24">
         <div className="mx-auto grid max-w-[1400px] gap-10 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-10">
           <div>
-            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Free 12-point positioning audit</p>
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Rebecoming: From Fear To Faith</p>
             <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
-              Find the leak before you rewrite the page.
+              Buy the book. Start with Chapter One.
             </h2>
             <p className="mt-6 max-w-xl font-body text-base font-light leading-8 text-smoke">
-              Use the questions I run before client work to see where your message is vague, dated, or missing proof.
+              REBECOMING is the clearest entry point into the &quot;Rewrite Your Story&quot; work: a memoir for women rebuilding identity, voice, faith, work, and life after the thing that changed everything.
             </p>
-            <Link href="/resources" className="mt-7 inline-flex font-body text-[0.7rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:text-blush">
-              Browse all free resources →
-            </Link>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link href="/rebecoming" className="btn-primary inline-flex justify-center px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+                Enter Rebecoming →
+              </Link>
+              <Link href="/shop" className="inline-flex justify-center border border-graphite px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
+                Shop All Books
+              </Link>
+            </div>
           </div>
-          <InlineLeadCapture />
+          <div className="grid gap-px bg-graphite sm:grid-cols-3 lg:grid-cols-1">
+            {[
+              {
+                label: "Free sample",
+                title: "Chapter One",
+                text: "Read the opening chapter when you want the first page before the purchase.",
+                href: "/downloads/ebooks/rebecoming-sample.pdf",
+                cta: "Read Sample",
+              },
+              {
+                label: "Main offer",
+                title: "Rebecoming",
+                text: "Send book traffic to the dedicated microsite first so readers understand the story before checkout.",
+                href: "/rebecoming",
+                cta: "View Book",
+              },
+              {
+                label: "Shelf",
+                title: "Books + Guides",
+                text: "Keep every ebook, workbook, and practical guide easy to buy from one stronger commerce surface.",
+                href: "/shop",
+                cta: "Open Shop",
+              },
+            ].map((item) => (
+              <article key={item.title} className="bg-obsidian p-6 md:p-7">
+                <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.24em] text-petal">{item.label}</p>
+                <h3 className="mt-3 font-display text-3xl uppercase tracking-[0.02em] text-pearl">{item.title}</h3>
+                <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{item.text}</p>
+                <Link href={item.href} className="mt-5 inline-flex font-body text-[0.68rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:text-blush">
+                  {item.cta} →
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </>

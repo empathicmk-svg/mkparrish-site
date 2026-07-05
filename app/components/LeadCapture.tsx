@@ -14,7 +14,7 @@ function shouldSuppressPopup() {
   if (typeof window === "undefined") return true;
 
   const pathname = window.location.pathname;
-  const suppressedPaths = ["/rebecoming", "/contact", "/shop", "/services"];
+  const suppressedPaths = ["/rebecoming", "/contact", "/shop", "/services", "/book", "/portfolio", "/partners"];
   if (suppressedPaths.some((path) => pathname.startsWith(path))) return true;
 
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -51,6 +51,7 @@ export default function LeadCapture() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [emailed, setEmailed] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState(FREE_CHAPTER);
 
   const pageSource = useMemo(() => {
     if (typeof window === "undefined") return "popup";
@@ -132,11 +133,18 @@ export default function LeadCapture() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "failed");
 
+      if (typeof data.download === "string" && data.download) {
+        setDownloadUrl(data.download);
+      } else if (typeof data.checklist === "string" && data.checklist) {
+        setDownloadUrl(data.checklist);
+      }
       setEmailed(Boolean(data.emailed));
       setSubmitted(true);
       rememberPopup("submitted");
-    } catch {
-      setError("Something went wrong. You can still read the chapter below, then try your email again.");
+    } catch (err) {
+      setError(err instanceof Error && err.message !== "failed"
+        ? err.message
+        : "Something went wrong. You can still read the chapter below, then try your email again.");
     } finally {
       setLoading(false);
     }
@@ -205,8 +213,8 @@ export default function LeadCapture() {
               </p>
               <ul className="mt-5 space-y-2 font-body text-xs leading-5 text-smoke">
                 <li>• Immediate chapter access after signup.</li>
-                <li>• A direct inbox copy when email delivery is enabled.</li>
-                <li>• Occasional notes from The Margins. No spam circus.</li>
+                <li>• A direct inbox copy when email delivery is available.</li>
+                <li>• Occasional notes from The Margins. No spam.</li>
               </ul>
               <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
                 <label className="sr-only" htmlFor="lead-email">Email address</label>
@@ -231,7 +239,7 @@ export default function LeadCapture() {
               {error && <p className="mt-3 font-body text-[0.7rem] leading-5 text-petal" aria-live="polite">{error}</p>}
               {error && (
                 <a
-                  href={FREE_CHAPTER}
+                  href={downloadUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-3 inline-flex font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal underline underline-offset-4"
@@ -251,11 +259,11 @@ export default function LeadCapture() {
               <p className="mt-5 font-serif text-base italic leading-7 text-smoke">
                 {emailed
                   ? "It is on its way to your inbox, and you can start reading right now."
-                  : "Start reading right now. A copy will also send when email delivery is enabled."}
+                  : "Email delivery is not connected right now, but the chapter is ready below."}
               </p>
 
               <a
-                href={FREE_CHAPTER}
+                href={downloadUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-6 inline-flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.78rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"

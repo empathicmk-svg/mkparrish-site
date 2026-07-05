@@ -94,7 +94,7 @@ function checklistEmailHtml(): string {
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border:1px solid #e7e3df;">
         <tr><td style="height:4px;background:linear-gradient(90deg,#E0869F,#F2AFC6 55%,#FFD6E4);font-size:0;line-height:0;">&nbsp;</td></tr>
         <tr><td style="padding:40px 40px 8px;">
-          <p style="margin:0 0 18px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B23A59;">MK Parrish &middot; Free Resource</p>
+          <p style="margin:0 0 18px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B23A59;">MK Parrish &middot; Free Download</p>
           <h1 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.1;color:#0E0E0E;">The Positioning <span style="color:#B23A59;">Checklist</span></h1>
           <p style="margin:14px 0 0;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#7a7a7a;">The 12-point audit I run on every client before we rewrite a single line.</p>
         </td></tr>
@@ -155,7 +155,7 @@ function leadMagnetEmailHtml(magnet: LeadMagnet): string {
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border:1px solid #e7e3df;">
         <tr><td style="height:4px;background:linear-gradient(90deg,#E0869F,#F2AFC6 55%,#FFD6E4);font-size:0;line-height:0;">&nbsp;</td></tr>
         <tr><td style="padding:40px 40px 8px;">
-          <p style="margin:0 0 18px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B23A59;">MK Parrish &middot; Free Resource</p>
+          <p style="margin:0 0 18px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B23A59;">MK Parrish &middot; Free Download</p>
           <h1 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.1;color:#0E0E0E;">${title}</h1>
           <p style="margin:14px 0 0;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#7a7a7a;">${promise}</p>
         </td></tr>
@@ -309,14 +309,28 @@ export async function POST(req: NextRequest) {
   const offer = normalizeOffer(body.offer);
   const isDuplicate = checkDuplicate(email, offer);
   const checklist = offer === "rebecoming-sample" ? SAMPLE_PATH : CHECKLIST_PATH;
+  const book = offer === "rebecoming-sample" ? "/rebecoming" : null;
 
   if (isDuplicate) {
-    return NextResponse.json({ ok: true, emailed: false, duplicate: true, checklist });
+    return NextResponse.json({
+      ok: true,
+      emailed: false,
+      duplicate: true,
+      checklist,
+      download: checklist,
+      book,
+    });
   }
 
   const substackPromise = subscribeToSubstack(email);
   const emailed = await sendLeadEmail(email, offer, source);
   await substackPromise.catch(() => undefined);
 
-  return NextResponse.json({ ok: true, emailed, checklist });
+  return NextResponse.json({
+    ok: true,
+    emailed,
+    checklist,
+    download: checklist,
+    book,
+  });
 }
