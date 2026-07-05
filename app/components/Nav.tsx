@@ -72,6 +72,7 @@ const mobileSections: { label: string; links: NavLinkItem[] }[] = [
   {
     label: "More",
     links: [
+      { label: "Rebecoming", href: "/rebecoming" },
       { label: "Shop", href: "/shop" },
       { label: "Resources", href: "/resources" },
       { label: "About", href: "/about" },
@@ -278,6 +279,15 @@ export default function Nav() {
                 ))}
               </div>
             </div>
+
+            <Link
+              href="/rebecoming"
+              className={`nav-link whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
+                isActive("/rebecoming") ? "active text-pearl" : "text-ash"
+              }`}
+            >
+              Rebecoming
+            </Link>
 
             <Link
               href="/shop"
