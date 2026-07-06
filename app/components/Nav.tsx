@@ -89,6 +89,7 @@ export default function Nav() {
   const [progress, setProgress] = useState(0);
   const [workOpen, setWorkOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const showBackTopButton = showBackTop && pathname !== "/services";
 
   const workRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -539,9 +540,9 @@ export default function Nav() {
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className="fixed bottom-24 right-6 z-50 flex h-11 w-11 items-center justify-center border border-petal/30 bg-carbon/90 text-petal backdrop-blur-sm transition-all duration-500 hover:border-petal hover:shadow-[0_0_20px_rgba(242,175,198,0.2)] md:bottom-8 md:right-8"
         style={{
-          opacity: showBackTop ? 1 : 0,
-          transform: showBackTop ? "translateY(0)" : "translateY(10px)",
-          pointerEvents: showBackTop ? "auto" : "none",
+          opacity: showBackTopButton ? 1 : 0,
+          transform: showBackTopButton ? "translateY(0)" : "translateY(10px)",
+          pointerEvents: showBackTopButton ? "auto" : "none",
           transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
         }}
         aria-label="Back to top"

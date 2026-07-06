@@ -64,7 +64,13 @@ export function RevealSection({
     >
       <div className="mx-auto max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
         {num && (
-          <p className="mb-8 font-mono text-xs tracking-[0.2em] text-iron">{num}</p>
+          <p
+            className={`font-mono text-xs tracking-[0.2em] text-iron ${
+              spacing === "compact" ? "mb-5 md:mb-6" : "mb-8"
+            }`}
+          >
+            {num}
+          </p>
         )}
         {children}
       </div>

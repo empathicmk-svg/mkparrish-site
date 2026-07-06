@@ -395,7 +395,7 @@ export default function Home() {
         <p className="mt-4 mb-3 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
           Websites, outbound, growth, and messaging — one senior operator, clear pricing, no agency layers. Buy or book directly below. Pick one or stack them.
         </p>
-        <p className="mb-12 font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal/70">
+        <p className="mb-8 font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal/70 md:mb-10">
           All-in pricing. No retainer traps.
         </p>
 
