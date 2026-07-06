@@ -4,6 +4,8 @@ import "./font-fixes.css";
 import Nav from "@/app/components/Nav";
 import Footer from "@/app/components/Footer";
 import CursorGlow from "@/app/components/CursorGlow";
+import LeadCapture from "@/app/components/LeadCapture";
+import SiteQuoteRail from "@/app/components/SiteQuoteRail";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 
@@ -55,6 +57,8 @@ export default function RootLayout({
         <CursorGlow />
         <Nav />
         <main className="flex-1 pb-16 md:pb-0">{children}</main>
+        <SiteQuoteRail />
+        <LeadCapture />
         <Footer />
         <Analytics />
         <Script id="metricool-tracker" strategy="afterInteractive">

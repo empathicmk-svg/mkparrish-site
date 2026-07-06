@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { QuoteMosaic } from "@/app/components/QuoteMosaic";
 import { CONTACT } from "@/app/lib/config";
 import {
   AFFILIATE_DISCLOSURE,
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 const sponsorshipHref = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
   "MK Parrish sponsorship or affiliate partnership",
 )}`;
+const phoneHref = `tel:+1${CONTACT.phone.replace(/\D/g, "")}`;
 
 const advertisingPlan = [
   {
@@ -72,6 +74,12 @@ export default function PartnersPage() {
               >
                 Sponsor MK Parrish →
               </a>
+              <a
+                href={phoneHref}
+                className="inline-flex justify-center border border-petal/40 px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:border-petal hover:bg-petal hover:text-void"
+              >
+                Call / Text {CONTACT.phone}
+              </a>
               <Link
                 href="/rebecoming"
                 className="inline-flex justify-center border border-graphite px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal"
@@ -98,6 +106,16 @@ export default function PartnersPage() {
           </aside>
         </div>
       </section>
+
+      <QuoteMosaic
+        eyebrow="Why sponsors fit"
+        title="The reader is not passive. She is rebuilding."
+        description="The best partner placement helps the reader rewrite something real: money, voice, systems, book sales, home, health, work, or faith."
+        highlighted
+        primaryCta={{ href: sponsorshipHref, label: "Pitch a Sponsor Fit" }}
+        secondaryCta={{ href: "/shop", label: "See the Shelf" }}
+        slugs={["mk-rebecoming", "coco-style", "jayz-business", "mk-seen"]}
+      />
 
       <section className="bg-carbon py-12 md:py-16">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">

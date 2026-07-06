@@ -199,7 +199,7 @@ export default function LeadCapture() {
           {!submitted ? (
             <>
               <p className="mb-4 font-body text-[0.6rem] font-bold uppercase tracking-[0.35em] text-petal">
-                The Memoir · Free First Chapter
+                Rewrite Your Story · Free First Chapter
               </p>
               <h2
                 id="lead-capture-title"
@@ -209,12 +209,12 @@ export default function LeadCapture() {
                 Read the first<br /><span className="text-petal">chapter free.</span>
               </h2>
               <p className="mt-4 font-serif text-base italic leading-7 text-smoke">
-                <strong className="text-pearl not-italic">REBECOMING: From Fear to Faith</strong> is a memoir about losing your fear without losing yourself. Enter your email and I&apos;ll send the opening chapter. Then you decide.
+                <strong className="text-pearl not-italic">REBECOMING: From Fear to Faith</strong> is a memoir about losing your fear without losing yourself. You are not starting over. You are rebecoming. Enter your email and I&apos;ll send the opening chapter.
               </p>
               <ul className="mt-5 space-y-2 font-body text-xs leading-5 text-smoke">
                 <li>• Immediate chapter access after signup.</li>
                 <li>• A direct inbox copy when email delivery is available.</li>
-                <li>• Occasional notes from The Margins. No spam.</li>
+                <li>• Occasional field notes on voice, faith, work, and rebuilding. No spam.</li>
               </ul>
               <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
                 <label className="sr-only" htmlFor="lead-email">Email address</label>

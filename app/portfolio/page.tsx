@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { QuoteMosaic } from "@/app/components/QuoteMosaic";
+import { CONTACT } from "@/app/lib/config";
 
 const featuredDocs = [
   {
@@ -74,22 +76,25 @@ const writingSamples = [
 ];
 
 export const metadata: Metadata = {
-  title: "Portfolio Documents - MK Parrish",
-  description: "An unlinked MK Parrish portfolio document microsite for selected PDFs, writing samples, and portfolio files.",
+  title: "Portfolio Microsite - MK Parrish",
+  description: "A separate MK Parrish portfolio document microsite for PDFs, writing samples, one-sheets, and proof assets.",
   robots: {
     index: false,
     follow: false,
   },
 };
 
+const phoneHref = `tel:+1${CONTACT.phone.replace(/\D/g, "")}`;
+
 export default function PortfolioDocumentsPage() {
   return (
     <main className="bg-void text-pearl">
       <section className="relative overflow-hidden px-6 pb-16 pt-28 md:px-10 md:pt-36">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[55vh] bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.12),transparent_62%)]" />
-        <div className="relative mx-auto max-w-[1180px]">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[60vh] bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.20),transparent_62%)]" />
+        <div className="relative mx-auto grid max-w-[1180px] gap-10 lg:grid-cols-[1fr_360px]">
+          <div>
           <p className="font-body text-[0.68rem] font-bold uppercase tracking-[0.32em] text-petal">
-            Unlinked document microsite
+            Separate document microsite
           </p>
           <h1
             className="mt-5 max-w-4xl font-display text-6xl uppercase leading-[0.88] tracking-[0.02em] text-white md:text-8xl"
@@ -98,11 +103,35 @@ export default function PortfolioDocumentsPage() {
             Portfolio Documents
           </h1>
           <p className="mt-6 max-w-2xl font-body text-base font-light leading-8 text-smoke md:text-lg">
-            A quiet home for MK Parrish portfolio files, writing samples, one-sheets, and working documents. This page is not
-            linked from the main navigation.
+            A quiet home for MK Parrish portfolio files, writing samples, one-sheets, and working documents. It is deliberately
+            separate from the main navigation so the public site stays focused on books, services, Rebecoming, and the shop.
           </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="/downloads/portfolio/MK_Parrish_Portfolio.pdf" className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+              Open Portfolio PDF →
+            </a>
+            <a href={`mailto:${CONTACT.email}`} className="inline-flex justify-center border border-petal/40 px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:border-petal hover:bg-petal hover:text-void">
+              Request Context
+            </a>
+          </div>
+          </div>
+          <div className="border border-petal/30 bg-obsidian p-3 shadow-[0_0_70px_rgba(242,175,198,0.12)]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/downloads/portfolio/MK_Parrish_Portfolio.png"
+              alt="MK Parrish portfolio preview"
+              className="aspect-[4/5] w-full object-cover object-top"
+            />
+          </div>
         </div>
       </section>
+
+      <QuoteMosaic
+        eyebrow="Proof with a point of view"
+        title="The portfolio is a working shelf, not a brochure."
+        description="Use the documents by need: resume, one-sheet, writing sample, lead magnet proof, or full portfolio."
+        slugs={["mk-seen", "estee-worked", "jobs-hungry", "mk-underestimated"]}
+      />
 
       <section className="border-y border-graphite bg-obsidian px-6 py-14 md:px-10">
         <div className="mx-auto grid max-w-[1180px] gap-px overflow-hidden border border-graphite bg-graphite md:grid-cols-4">
@@ -172,6 +201,26 @@ export default function PortfolioDocumentsPage() {
                 </p>
               </a>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-void px-6 py-16 text-center md:px-10">
+        <div className="mx-auto max-w-[760px]">
+          <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Need the shortest path?</p>
+          <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl" style={{ fontWeight: 400 }}>
+            Send the one-sheet first.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl font-body text-sm font-light leading-7 text-smoke">
+            For hiring, sponsor, partnership, or client conversations, start with the one-sheet or full portfolio. Use email or phone for the context that does not belong in a PDF.
+          </p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <a href="/downloads/portfolio/public/mk-parrish-portfolio-one-sheet.pdf" className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+              Open One-Sheet →
+            </a>
+            <a href={phoneHref} className="inline-flex justify-center border border-graphite px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
+              {CONTACT.phone}
+            </a>
           </div>
         </div>
       </section>

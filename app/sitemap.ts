@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { EBOOKS, SERVICE_EBOOKS, SITE_URL } from "@/app/lib/config";
 
-const lastModified = new Date("2026-07-04");
+const lastModified = new Date("2026-07-06");
 
 const staticRoutes = [
   { path: "/", changeFrequency: "weekly", priority: 1 },

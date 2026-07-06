@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import LegacyOfferingsRedirect from "@/app/components/LegacyOfferingsRedirect";
+import { QuoteMosaic } from "@/app/components/QuoteMosaic";
 
 export const metadata: Metadata = {
   title: "MK Parrish — Growth Strategy, Websites & Messaging",
@@ -30,6 +31,13 @@ const cards = [
     href: "/rebecoming",
     cta: "Enter Rebecoming",
   },
+  {
+    eyebrow: "Sponsors",
+    title: "Partners",
+    text: "Sponsor Rebecoming, The Margins, the shop, or a useful reader resource without turning trust into clutter.",
+    href: "/partners",
+    cta: "Sponsor the Work",
+  },
 ] as const;
 
 export default function HomePage() {
@@ -49,7 +57,7 @@ export default function HomePage() {
             Turn how you&apos;re seen <span className="text-petal">into revenue.</span>
           </h1>
           <p className="mt-7 max-w-3xl font-serif text-xl italic leading-9 text-smoke md:text-2xl">
-            I help B2B companies clarify positioning, improve conversion, and build growth systems that connect the message to the pipeline.
+            I help B2B companies clarify positioning, improve conversion, and build growth systems that connect the message to the pipeline. Rewrite Your Story is the line underneath all of it.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link href="/shop" className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
@@ -70,7 +78,7 @@ export default function HomePage() {
               Keep the site focused on the work.
             </h2>
           </div>
-          <div className="grid gap-px bg-graphite lg:grid-cols-3">
+          <div className="grid gap-px bg-graphite sm:grid-cols-2 xl:grid-cols-4">
             {cards.map((card) => (
               <article key={card.title} className="flex h-full flex-col bg-void p-7 md:p-9">
                 <p className="font-body text-[0.62rem] font-bold uppercase tracking-[0.28em] text-petal">{card.eyebrow}</p>
@@ -86,6 +94,16 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <QuoteMosaic
+        eyebrow="The house voice"
+        title="A little philosophy, a little hustle, a little pink light."
+        description="The MK Parrish world sits between story and sales: thinkers, artists, founders, rappers, and original Rewrite Your Story language."
+        highlighted
+        primaryCta={{ href: "/rebecoming", label: "Enter Rebecoming" }}
+        secondaryCta={{ href: "/partners", label: "Sponsor the Work" }}
+        slugs={["mk-rebecoming", "marcus-mind", "jayz-business", "mk-seen"]}
+      />
 
       <section className="bg-void py-16 md:py-24">
         <div className="mx-auto grid max-w-[1400px] gap-10 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-10">

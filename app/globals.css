@@ -44,6 +44,7 @@
   --accent-primary:  var(--color-petal);
   --accent-hover:    var(--color-rose);
   --accent-dark:     var(--color-carmine);
+  --pink-glow:       0 0 26px rgba(242, 175, 198, 0.28), 0 0 80px rgba(199, 91, 120, 0.16);
 
   /* Spacing rhythm */
   --section-y:       clamp(5rem, 10vw, 9rem);
@@ -141,6 +142,11 @@ body::before {
   color: var(--color-void);
 }
 
+:focus-visible {
+  outline: 1px solid var(--color-petal);
+  outline-offset: 4px;
+}
+
 /* ── SCROLLBAR ─────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-void); }
@@ -196,6 +202,21 @@ p.lead {
 .text-accent,
 .accent {
   color: var(--color-petal);
+}
+
+.pink-glow {
+  text-shadow: var(--pink-glow);
+}
+
+.pink-frame {
+  box-shadow: 0 0 60px rgba(242,175,198,0.14), inset 0 0 0 1px rgba(242,175,198,0.14);
+}
+
+.pink-surface {
+  background:
+    radial-gradient(ellipse at top, rgba(242,175,198,0.15), transparent 62%),
+    linear-gradient(135deg, rgba(242,175,198,0.08), rgba(199,91,120,0.04));
+  border: 1px solid rgba(242,175,198,0.28);
 }
 
 em.luxury {
@@ -271,7 +292,7 @@ a:hover {
 .btn-primary > * { position: relative; z-index: 1; }
 .btn-primary:hover {
   color: var(--color-petal);
-  box-shadow: 0 0 40px rgba(242, 175, 198, 0.3);
+  box-shadow: 0 0 32px rgba(242, 175, 198, 0.34), 0 0 90px rgba(199, 91, 120, 0.18);
 }
 .btn-primary:hover::before { transform: translateX(0); }
 
@@ -438,6 +459,7 @@ a:hover {
 .nav-link:hover,
 .nav-link.active {
   color: var(--color-pearl);
+  text-shadow: 0 0 20px rgba(242,175,198,0.32);
 }
 .nav-link::after {
   content: '';
@@ -541,6 +563,20 @@ a:hover {
 .marquee-item .dot {
   color: var(--color-petal);
   margin-inline: 1rem;
+}
+
+.site-quote-rail {
+  position: relative;
+  overflow: hidden;
+}
+.site-quote-rail::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(242,175,198,0.12), transparent 38%),
+    radial-gradient(ellipse at 90% 100%, rgba(199,91,120,0.10), transparent 45%);
 }
 
 /* ── SECTION NUMBERS ───────────────────────────────────────────── */

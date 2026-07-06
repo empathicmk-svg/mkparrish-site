@@ -1,10 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { QuoteMosaic } from "@/app/components/QuoteMosaic";
 import { EBOOKS, SITE_URL } from "@/app/lib/config";
 
 const BOOK = EBOOKS.find((e) => e.slug === "rebecoming")!;
 const paperback = (BOOK as { paperback?: { price: string; href: string } }).paperback;
 const COVER = "/downloads/covers/rebecoming-cover.jpg";
+
+const audience = [
+  "Women rebuilding after divorce, grief, burnout, crisis, or a private before/after nobody else can see yet.",
+  "Writers, founders, mothers, daughters, and operators who are tired of sounding like the safest version of themselves.",
+  "Readers returning to faith, voice, work, friendship, body, creativity, or the life they abandoned to survive.",
+  "Anyone standing at the bottom of the steps, wanting a sign that the room can still be for them.",
+] as const;
+
+const method = [
+  {
+    title: "Remember",
+    text: "Name what happened without letting it become the only thing that is true about you.",
+  },
+  {
+    title: "Release",
+    text: "Put down the identities, performances, and survival habits that kept you alive but cannot take you forward.",
+  },
+  {
+    title: "Rewrite",
+    text: "Find the sentence, prayer, offer, page, ritual, or decision that makes the next version visible.",
+  },
+  {
+    title: "Return",
+    text: "Walk back into voice, work, friendship, faith, and ordinary life as the woman you are becoming again.",
+  },
+] as const;
 
 export const metadata: Metadata = {
   title: "REBECOMING: From Fear to Faith — A Memoir by MK Parrish",
@@ -52,6 +79,9 @@ export default function RebecomingMicrosite() {
             <p className="mt-6 max-w-xl font-serif text-xl italic leading-9 text-petal/85 md:text-2xl" style={{ fontWeight: 500 }}>
               A memoir about losing your fear without losing yourself.
             </p>
+            <p className="mt-4 max-w-xl font-display text-3xl uppercase leading-none tracking-[0.02em] text-pearl md:text-4xl">
+              You are not starting over. <span className="text-petal pink-glow">You are rebecoming.</span>
+            </p>
             <p className="mt-5 max-w-xl font-body text-base font-light leading-8 text-smoke">
               Thirteen present-tense chapters on fear, faith, prayer, and the eleven minutes it took to walk through a door I was sure
               was not for me. Woven through with Scripture, the saints, and the Blessed Mother, it is a book written to take apart
@@ -88,6 +118,67 @@ export default function RebecomingMicrosite() {
             <p className="mt-2 font-body text-xs font-light text-iron">
               Secure checkout by Stripe · No account required · Paperback orders collect your shipping address at checkout.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHAT IT IS ── */}
+      <section className="bg-carbon py-16 md:py-24">
+        <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[0.78fr_1.22fr]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
+          <div>
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">What Rebecoming is</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              A private editorial space for the woman after.
+            </h2>
+          </div>
+          <div className="space-y-5 font-body text-base font-light leading-8 text-smoke">
+            <p>
+              Rebecoming is the book, the method, and the private room for women rebuilding identity, voice, work, and life after the thing
+              that split the story into before and after.
+            </p>
+            <p>
+              It is not a performance of healing. It is an editorial and transformational space for crisis, reinvention, divorce, burnout,
+              grief, faith, creative recovery, and the brave, unglamorous work of coming back to yourself with receipts.
+            </p>
+            <p>
+              The brand language is simple because the work is not: <span className="text-petal">Rewrite Your Story</span>. Not because
+              the past did not happen, but because it does not get the last line.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHO IT IS FOR ── */}
+      <section className="bg-void py-16 md:py-24">
+        <div className="mx-auto max-w-[1200px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
+          <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Who it is for</p>
+          <div className="mt-8 grid gap-px bg-graphite md:grid-cols-2">
+            {audience.map((item) => (
+              <article key={item} className="bg-obsidian p-7 md:p-8">
+                <p className="font-serif text-xl italic leading-8 text-pearl">{item}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── METHOD ── */}
+      <section className="bg-obsidian py-16 md:py-24">
+        <div className="mx-auto max-w-[1200px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
+          <div className="mb-10 max-w-3xl">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">The Rebecoming Method</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              Remember. Release. Rewrite. Return.
+            </h2>
+          </div>
+          <div className="grid gap-px bg-petal/40 md:grid-cols-4">
+            {method.map((step, index) => (
+              <article key={step.title} className="bg-void p-7 md:p-8">
+                <p className="font-display text-5xl leading-none text-petal/50">{String(index + 1).padStart(2, "0")}</p>
+                <h3 className="mt-5 font-display text-3xl uppercase tracking-[0.02em] text-pearl">{step.title}</h3>
+                <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{step.text}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -130,6 +221,42 @@ export default function RebecomingMicrosite() {
         </div>
       </section>
 
+      <QuoteMosaic
+        eyebrow="Field notes"
+        title="A shelf of voices for the woman rebuilding."
+        description="Rebecoming holds the memoir, the essays, the private notes, and the community path together: literary, practical, spiritual, and alive."
+        primaryCta={{ href: "/downloads/ebooks/rebecoming-sample.pdf", label: "Read Chapter One" }}
+        secondaryCta={{ href: "/shop", label: "Shop the Shelf" }}
+        slugs={["mk-rebecoming", "seneca-difficulty", "nipsey-luck", "mk-first-draft"]}
+      />
+
+      {/* ── ESSAYS / FIELD NOTES / COMMUNITY ── */}
+      <section id="field-notes" className="bg-carbon py-16 md:py-24">
+        <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[0.85fr_1.15fr]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
+          <div>
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Essays / field notes / community</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              Enter quietly. Leave with language.
+            </h2>
+          </div>
+          <div className="grid gap-px bg-graphite sm:grid-cols-3">
+            {[
+              { title: "Essays", text: "Long-form notes on identity, faith, grief, ambition, and becoming visible again.", href: "/margins" },
+              { title: "Field Notes", text: "Practical dispatches for voice, work, money, writing, friendship, and rebuilding.", href: "/posts" },
+              { title: "Community", text: "A private-list entry point for readers, book clubs, sponsors, workshops, and the next circle.", href: "/contact" },
+            ].map((item) => (
+              <Link key={item.title} href={item.href} className="group bg-void p-7 transition hover:bg-obsidian">
+                <h3 className="font-display text-3xl uppercase tracking-[0.02em] text-pearl group-hover:text-petal">{item.title}</h3>
+                <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{item.text}</p>
+                <span className="mt-5 inline-flex font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-petal">
+                  Enter →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CLOSING CTA ── */}
       <section className="relative overflow-hidden bg-void py-20 text-center">
         <div className="pointer-events-none absolute inset-0">
@@ -158,6 +285,12 @@ export default function RebecomingMicrosite() {
                 Order the Paperback — {paperback.price}
               </a>
             )}
+            <Link
+              href="/book"
+              className="inline-flex items-center justify-center border border-petal/40 px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-petal transition-colors hover:border-petal hover:bg-petal hover:text-void"
+            >
+              Work with MK
+            </Link>
           </div>
           <p className="mt-10 font-body text-xs font-light text-iron">
             More from MK Parrish at{" "}

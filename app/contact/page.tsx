@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: "Book a call or send an email to discuss positioning, messaging, websites, and growth work.",
 };
 
+const phoneHref = `tel:+1${CONTACT.phone.replace(/\D/g, "")}`;
+
 export default function ContactPage() {
   return (
     <>
@@ -28,6 +30,14 @@ export default function ContactPage() {
           <p className="mt-6 max-w-2xl font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "56ch" }}>
             Share the business problem, the current bottleneck, and what you want the work to change.
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href={`mailto:${CONTACT.email}`} className="border border-petal/30 bg-petal/[0.06] px-4 py-2 font-body text-[0.7rem] font-bold uppercase tracking-[0.16em] text-petal transition hover:border-petal hover:bg-petal hover:text-void">
+              {CONTACT.email}
+            </a>
+            <a href={phoneHref} className="border border-petal/30 bg-petal/[0.06] px-4 py-2 font-body text-[0.7rem] font-bold uppercase tracking-[0.16em] text-petal transition hover:border-petal hover:bg-petal hover:text-void">
+              {CONTACT.phone}
+            </a>
+          </div>
         </div>
       </section>
 
@@ -46,13 +56,23 @@ export default function ContactPage() {
 
       <section className="bg-obsidian" style={{ padding: "clamp(4rem, 8vw, 7rem) 0" }}>
         <div className="mx-auto max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          <div className="grid gap-px bg-graphite md:grid-cols-2">
+          <div className="grid gap-px bg-graphite md:grid-cols-3">
             <a href={`mailto:${CONTACT.email}`} className="group bg-obsidian p-10 transition-colors hover:bg-carbon">
               <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-iron">Email</p>
               <h3 className="mt-4 font-display text-3xl uppercase tracking-[0.02em] text-pearl transition-colors group-hover:text-white">Send a Note</h3>
               <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">Include the project, timeline, and goal.</p>
               <span className="mt-6 inline-block font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors group-hover:text-blush">
                 {CONTACT.email}
+              </span>
+            </a>
+
+            <a href={phoneHref} className="group bg-obsidian p-10 transition-colors hover:bg-carbon">
+              <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-iron">Phone</p>
+              <h3 className="mt-4 font-display text-3xl uppercase tracking-[0.02em] text-pearl transition-colors group-hover:text-white">Call or Text</h3>
+              <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">Use this for a direct project inquiry or sponsor conversation.</p>
+              <span className="mt-6 inline-flex items-center gap-2 font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal transition-colors group-hover:text-blush">
+                {CONTACT.phone}
+                <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
               </span>
             </a>
 

@@ -17,6 +17,8 @@ const footerGroups = [
       { label: "How I Work", href: "/how-i-work" },
       { label: "Rebecoming", href: "/rebecoming" },
       { label: "Shop", href: "/shop" },
+      { label: "Sponsors", href: "/partners" },
+      { label: "Portfolio Docs", href: "/portfolio" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
     ],
@@ -36,6 +38,9 @@ export default function Footer() {
             <div className="mt-4 flex flex-col gap-1.5">
               <a href={`mailto:${CONTACT.email}`} className="font-body text-[0.7rem] tracking-[0.08em] text-iron transition hover:text-petal">
                 {CONTACT.email}
+              </a>
+              <a href={`tel:+1${CONTACT.phone.replace(/\D/g, "")}`} className="font-body text-[0.7rem] tracking-[0.08em] text-iron transition hover:text-petal">
+                {CONTACT.phone}
               </a>
               <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" className="font-body text-[0.7rem] tracking-[0.08em] text-iron transition hover:text-petal">
                 /in/mkparrish
