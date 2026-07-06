@@ -51,6 +51,12 @@ const BOOKS = [
   { src: 'templates/the-byline-method.md',            out: 'templates/the-byline-method.epub' },
   { src: 'templates/the-build-copy-guide.md',         out: 'templates/the-build-copy-guide.epub' },
   { src: 'templates/the-social-strategy-playbook.md', out: 'templates/the-social-strategy-playbook.epub' },
+  { src: 'templates/the-brand-deal-room.md',          out: 'templates/the-brand-deal-room.epub' },
+  { src: 'templates/the-ugc-brief-bank.md',           out: 'templates/the-ugc-brief-bank.epub' },
+  { src: 'templates/the-tiktok-shop-sprint.md',       out: 'templates/the-tiktok-shop-sprint.epub' },
+  { src: 'templates/the-repurposing-engine.md',       out: 'templates/the-repurposing-engine.epub' },
+  { src: 'templates/the-ai-content-twin.md',          out: 'templates/the-ai-content-twin.epub' },
+  { src: 'templates/the-creator-owned-funnel.md',     out: 'templates/the-creator-owned-funnel.epub' },
   { src: 'templates/the-prompt-vault.md',             out: 'templates/the-prompt-vault.epub' },
   { src: 'templates/the-linkedin-bio-fix-kit.md',     out: 'templates/the-linkedin-bio-fix-kit.epub' },
   // Course — assembled from its module files (no single source file).

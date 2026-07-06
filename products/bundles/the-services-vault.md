@@ -8,7 +8,7 @@
 
 ## Welcome to The Services Vault
 
-Every service in my studio has a method behind it. The Services Vault is all of them: the eight companion guides that turn what I do *for* clients into something you can run *yourself*, on your own timeline, without a retainer.
+Every service in my studio has a method behind it. The Services Vault is all of them: the fourteen companion guides that turn what I do *for* clients into something you can run *yourself*, on your own timeline, without a retainer.
 
 These are not summaries. Each one is the actual framework: the briefs, templates, worked examples, checklists, and decision points. The same thinking that powers client work is written out so you can do the work with your own hands.
 
@@ -20,7 +20,7 @@ This guide turns the bundle into a usable system. It tells you what each guide i
 
 ## What You Own
 
-The Services Vault includes eight complete guides.
+The Services Vault includes fourteen complete guides.
 
 1. **The Build Copy Guide** — website copy architecture, page by page.
 2. **The Rewrite Playbook** — professional story, messaging, LinkedIn, and positioning.
@@ -30,8 +30,14 @@ The Services Vault includes eight complete guides.
 6. **The New Chapter Workbook** — brand repositioning, website messaging, and relaunch clarity.
 7. **Before the Session** — strategy-session prep, identity audit, and goal-setting.
 8. **The Prompt Vault** — AI prompts for positioning, bios, pages, posts, emails, and voice.
+9. **The Brand Deal Room** — media kit, rate card, pitch scripts, usage questions, and partnership tracking.
+10. **The UGC Brief Bank** — paid content concepts, scripts, package menus, and brand intake questions.
+11. **The TikTok Shop Sprint** — a 14-day affiliate content sprint for creator commerce.
+12. **The Repurposing Engine** — one idea turned into videos, carousels, posts, stories, email, and CTAs.
+13. **The AI Content Twin** — creator-safe prompts and guardrails for drafting in your real voice.
+14. **The Creator-Owned Funnel** — the path from followers to email, low-ticket offers, paid community, and recurring revenue.
 
-Together, they cover the full consulting arc: find the truth, shape the message, write the pages, build the system, edit the language, and use AI without sounding like the internet.
+Together, they cover the full consulting and creator-monetization arc: find the truth, shape the message, write the pages, build the system, pitch the partnership, package the content, track the money, edit the language, and use AI without sounding like the internet.
 
 ---
 
@@ -56,6 +62,9 @@ Before you open a guide, answer this:
 - I need a website that says the right thing.
 - I need my professional story to match who I am now.
 - I need a content system I can keep.
+- I need influencer revenue without making every post an ad.
+- I need brand deals, UGC, or affiliate content to feel like a business.
+- I need followers to become email subscribers, buyers, and repeat customers.
 - I need to sound like myself when someone else writes for me.
 - I need to edit what I already wrote.
 - I need to reposition the brand before I write another page.
@@ -128,6 +137,8 @@ The Social Strategy Playbook helps you decide what you are known for, what you r
 
 Pair it with **The Byline Method** when the content needs to sound more like a principal. Pair it with **The Prompt Vault** when you want AI to help draft without turning the voice into oatmeal.
 
+If the audience already exists and you need the money path, add **The Brand Deal Room**, **The UGC Brief Bank**, **The TikTok Shop Sprint**, **The Repurposing Engine**, **The AI Content Twin**, and **The Creator-Owned Funnel**. Those six guides are the creator revenue layer: brand partnerships, paid content packages, affiliate sprints, repurposing, voice-safe AI, and owned audience.
+
 ---
 
 ## Content Project Path
@@ -141,6 +152,21 @@ Use this order for a 30-day content sprint.
 5. **The Rewrite Playbook** — revisit if the content keeps pointing to a bigger positioning problem.
 
 Content strategy is not a mood. It is a repeatable relationship between what you believe, what the audience needs, and what you can keep saying without resenting it.
+
+---
+
+## Creator Revenue Project Path
+
+Use this order when attention exists but the money path is unclear.
+
+1. **The Creator-Owned Funnel** — decide where attention should go after the post performs.
+2. **The Repurposing Engine** — turn one strong idea into a full campaign.
+3. **The AI Content Twin** — draft variants without flattening your voice.
+4. **The Brand Deal Room** — package your proof, rates, and pitch language.
+5. **The UGC Brief Bank** — productize paid creative for brands.
+6. **The TikTok Shop Sprint** — test affiliate products without burning trust.
+
+The mistake is treating monetization like a link-in-bio problem. It is an operating system: attention, capture, proof, offer, checkout, delivery, follow-up.
 
 ---
 
@@ -276,7 +302,7 @@ If the output sounds like everyone else, the prompt did not contain enough of yo
 
 ## The One-Guide Rule
 
-The fastest way to waste The Services Vault is to open eight files and finish none.
+The fastest way to waste The Services Vault is to open fourteen files and finish none.
 
 Pick one job. Pick one guide. Run the first framework all the way through. Then decide whether the next right guide is upstream or downstream.
 
@@ -324,6 +350,10 @@ By the time you have used the Vault well, you should have real assets, not just 
 - A services-page structure with proof and CTA.
 - A content pillar map.
 - A 30-day content sprint.
+- A creator-owned funnel with a clear next step after every post.
+- A media kit, rate card, and partnership tracker.
+- A UGC package menu with scripts and brand intake questions.
+- An affiliate sprint tracker with keep-or-cut decisions.
 - A copy edit checklist for your own drafts.
 - A reusable prompt bank customized to your voice.
 
@@ -337,11 +367,11 @@ Use this when you want to run the library like a sprint.
 
 **Week 1: Clarity.** Complete Before the Session and the first section of The New Chapter Workbook or The Rewrite Playbook.
 
-**Week 2: Architecture.** Use The Build Copy Guide or The Social Strategy Playbook to structure the asset you need most.
+**Week 2: Architecture.** Use The Build Copy Guide, The Social Strategy Playbook, or The Creator-Owned Funnel to structure the asset and money path you need most.
 
-**Week 3: Voice and Drafting.** Use The Byline Method and The Prompt Vault to generate draft material that sounds like you.
+**Week 3: Voice and Drafting.** Use The Byline Method, The Prompt Vault, The AI Content Twin, or The Repurposing Engine to generate draft material that sounds like you and can travel across platforms.
 
-**Week 4: Editing and Shipping.** Use The Edit to tighten, then publish, send, upload, or hand off the finished asset.
+**Week 4: Pitching and Shipping.** Use The Edit to tighten, then use The Brand Deal Room, The UGC Brief Bank, or The TikTok Shop Sprint to publish, pitch, upload, track, and follow up.
 
 Do not make the sprint private forever. The method is designed to ship.
 
@@ -364,6 +394,18 @@ Return to **The Byline Method** before anyone writes in your name.
 Return to **The Edit** before anything important goes live.
 
 Return to **The Prompt Vault** whenever AI starts sounding too smooth to be trusted.
+
+Return to **The Creator-Owned Funnel** when a post performs and you do not know where to send the attention.
+
+Return to **The Repurposing Engine** when one good idea needs to become a full campaign.
+
+Return to **The AI Content Twin** whenever speed starts flattening your voice.
+
+Return to **The Brand Deal Room** before quoting, pitching, renewing, or negotiating usage.
+
+Return to **The UGC Brief Bank** when a brand asks what you can make and you need a clean menu.
+
+Return to **The TikTok Shop Sprint** when you want to test a product without turning the whole feed into ads.
 
 ---
 

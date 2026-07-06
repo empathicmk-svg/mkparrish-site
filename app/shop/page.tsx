@@ -171,6 +171,7 @@ export default function ShopPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <BtnPrimary href="#featured-books">Shop the Books</BtnPrimary>
+            <BtnGhost href="/creator-revenue">Creator Revenue Stack</BtnGhost>
             <BtnGhost href="#print-shop-studio">Shop the Print Shop</BtnGhost>
           </div>
           <div className="mt-8 flex flex-wrap gap-6">

@@ -121,6 +121,36 @@ const PRODUCT_AUDIENCES: AudienceMap = {
     "You need content pillars tied to your actual authority and point of view",
     "You want a system that works even when inspiration is off-duty",
   ],
+  "the-brand-deal-room": [
+    "You want brand deals but your rates, proof, and pitch live in too many places",
+    "You need a media kit and partnership menu before the next inbound email lands",
+    "You are ready to quote usage, UGC, and bundles without freezing",
+  ],
+  "the-ugc-brief-bank": [
+    "You can make useful content but need cleaner paid UGC packages",
+    "You want scripts and brief types that brands can plug into paid or organic campaigns",
+    "You need a monthly retainer menu instead of inventing scope every time",
+  ],
+  "the-tiktok-shop-sprint": [
+    "You want affiliate revenue without turning your whole feed into a storefront",
+    "You need a 14-day product testing plan with content angles and tracking",
+    "You care about protecting audience trust while still selling clearly",
+  ],
+  "the-repurposing-engine": [
+    "You have strong ideas but only publish them once",
+    "You need one idea to become videos, carousels, posts, stories, email, and CTAs",
+    "You want more output without making every platform sound copy-pasted",
+  ],
+  "the-ai-content-twin": [
+    "You use AI but hate how generic the first draft sounds",
+    "You need a reusable voice guide, prompt stack, and de-slop edit pass",
+    "You want speed without inventing stories, claims, or fake urgency",
+  ],
+  "the-creator-owned-funnel": [
+    "Your social attention has nowhere useful to go after the post performs",
+    "You need a simple bridge from followers to email, low-ticket offers, and paid community",
+    "You want buyer behavior, not just another spike of likes",
+  ],
   "the-authority-carousel-kit": [
     "You need LinkedIn authority content but dread opening Canva",
     "You want every carousel to look like one person made it on purpose",

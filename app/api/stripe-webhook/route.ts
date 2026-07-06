@@ -271,6 +271,12 @@ export async function POST(req: NextRequest) {
 
   const session = sessionObject as Record<string, unknown>;
   const plink = (session.payment_link as string) || "";
+  const metadata = session.metadata && typeof session.metadata === "object"
+    ? (session.metadata as Record<string, unknown>)
+    : {};
+  const metadataSlug = stringValue(metadata.slug);
+  const metadataFormat = stringValue(metadata.format);
+  const metadataProduct = metadataSlug ? getShopProduct(metadataSlug) : undefined;
   const email = buyerEmailFromSession(session);
   const total = typeof session.amount_total === "number" ? `$${(session.amount_total / 100).toFixed(2)}` : "";
   const shipping =
@@ -278,8 +284,8 @@ export async function POST(req: NextRequest) {
     (session.shipping_details as Record<string, unknown>) ||
     undefined;
 
-  const ebookSlug = EBOOK_LINKS[plink];
-  const paperbackSlug = PAPERBACK_LINKS[plink];
+  const ebookSlug = EBOOK_LINKS[plink] || (metadataFormat === "ebook" && metadataProduct ? metadataSlug : "");
+  const paperbackSlug = PAPERBACK_LINKS[plink] || (metadataFormat === "paperback" && metadataProduct ? metadataSlug : "");
   const printSlug = PRINT_LINKS[plink];
 
   if (ebookSlug) {
