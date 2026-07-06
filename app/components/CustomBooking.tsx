@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { CONTACT } from "@/app/lib/config";
 
 const GOOGLE_BOOKING_URL = process.env.NEXT_PUBLIC_GOOGLE_BOOKING_URL?.trim() ?? "";
@@ -99,13 +99,20 @@ function GoogleBookingEmbed({ url }: { url: string }) {
 }
 
 function EmailBookingFallback() {
-  const days = useMemo(() => nextWeekdays(14), []);
-  const tz = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone, []);
-
+  const [days, setDays] = useState<Date[]>([]);
+  const [tz, setTz] = useState("your local timezone");
   const [date, setDate] = useState<Date | null>(null);
   const [slot, setSlot] = useState<(typeof SLOTS)[number] | null>(null);
   const [form, setForm] = useState({ name: "", email: "", company: "", format: "Video", details: "" });
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      setDays(nextWeekdays(14));
+      setTz(Intl.DateTimeFormat().resolvedOptions().timeZone);
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   const ready = date && slot && form.name.trim() && form.email.trim();
 
@@ -171,30 +178,34 @@ function EmailBookingFallback() {
         {/* Date picker */}
         <div className="bg-obsidian p-6 md:p-8">
           <p className="font-body text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-iron">Step 1 — Pick a day</p>
-          <div className="mt-5 grid grid-cols-3 gap-px bg-graphite sm:grid-cols-4">
-            {days.map((d) => {
-              const info = fmtDay(d);
-              const active = date && d.toDateString() === date.toDateString();
-              return (
-                <button
-                  type="button"
-                  key={d.toISOString()}
-                  onClick={() => { setDate(d); setSlot(null); }}
-                  className={`flex flex-col items-center gap-1 bg-void px-2 py-4 transition-colors ${
-                    active ? "bg-petal text-void" : "text-pearl hover:bg-carbon"
-                  }`}
-                >
-                  <span className={`font-body text-[0.6rem] font-semibold uppercase tracking-[0.15em] ${active ? "text-void/70" : "text-ash"}`}>
-                    {info.weekday}
-                  </span>
-                  <span className="font-display text-2xl leading-none">{info.day}</span>
-                  <span className={`font-body text-[0.6rem] uppercase tracking-[0.15em] ${active ? "text-void/70" : "text-iron"}`}>
-                    {info.month}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+          {days.length > 0 ? (
+            <div className="mt-5 grid grid-cols-3 gap-px bg-graphite sm:grid-cols-4">
+              {days.map((d) => {
+                const info = fmtDay(d);
+                const active = date && d.toDateString() === date.toDateString();
+                return (
+                  <button
+                    type="button"
+                    key={d.toISOString()}
+                    onClick={() => { setDate(d); setSlot(null); }}
+                    className={`flex flex-col items-center gap-1 bg-void px-2 py-4 transition-colors ${
+                      active ? "bg-petal text-void" : "text-pearl hover:bg-carbon"
+                    }`}
+                  >
+                    <span className={`font-body text-[0.6rem] font-semibold uppercase tracking-[0.15em] ${active ? "text-void/70" : "text-ash"}`}>
+                      {info.weekday}
+                    </span>
+                    <span className="font-display text-2xl leading-none">{info.day}</span>
+                    <span className={`font-body text-[0.6rem] uppercase tracking-[0.15em] ${active ? "text-void/70" : "text-iron"}`}>
+                      {info.month}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="mt-5 font-body text-sm font-light text-iron">Loading available days.</p>
+          )}
         </div>
 
         {/* Time picker */}
