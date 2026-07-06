@@ -386,7 +386,7 @@ export default function Home() {
       <Marquee />
 
       {/* ── OFFERINGS ─────────────────────────────────────────────────────────── */}
-      <RevealSection id="offerings" bg="obsidian" num="01">
+      <RevealSection id="offerings" bg="obsidian" num="01" spacing="compact">
         <Eyebrow>Work With Me</Eyebrow>
         <H2>
           Everything I build,{" "}

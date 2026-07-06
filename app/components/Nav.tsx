@@ -181,7 +181,7 @@ export default function Nav() {
             </Link>
           </div>
 
-          <nav className="ml-8 hidden min-w-0 flex-1 items-center justify-end gap-5 md:flex lg:gap-7">
+          <nav className="ml-8 hidden min-w-0 flex-1 items-center justify-end gap-5 xl:flex xl:gap-7">
             <div
               ref={servicesRef}
               className="mega-menu order-first"
@@ -316,7 +316,7 @@ export default function Nav() {
             </Link>
           </nav>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-3 xl:flex">
             <Link
               href="/shop"
               className="btn-ghost px-4 py-2 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em]"
@@ -333,7 +333,7 @@ export default function Nav() {
 
           <button
             onClick={() => setMobileNav(!mobileNav)}
-            className="flex flex-col gap-1.5 md:hidden"
+            className="flex flex-col gap-1.5 xl:hidden"
             aria-label={mobileNav ? "Close menu" : "Open menu"}
             aria-expanded={mobileNav}
           >
@@ -344,7 +344,7 @@ export default function Nav() {
         </div>
 
         <div
-          className={`fixed inset-0 z-40 flex flex-col bg-void/[0.98] backdrop-blur-xl transition-all duration-500 md:hidden ${
+          className={`fixed inset-0 z-40 flex flex-col bg-void/[0.98] backdrop-blur-xl transition-all duration-500 xl:hidden ${
             mobileNav ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-full opacity-0"
           }`}
           style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)", top: 0 }}
@@ -422,7 +422,7 @@ export default function Nav() {
         </div>
 
         <div
-          className={`fixed inset-0 z-40 flex flex-col bg-void/[0.98] backdrop-blur-xl transition-all duration-500 md:hidden ${
+          className={`fixed inset-0 z-40 flex flex-col bg-void/[0.98] backdrop-blur-xl transition-all duration-500 xl:hidden ${
             mobileServices ? "pointer-events-auto translate-x-0 opacity-100" : "pointer-events-none translate-x-full opacity-0"
           }`}
           style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)", top: 0 }}

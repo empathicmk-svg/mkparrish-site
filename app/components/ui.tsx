@@ -37,16 +37,20 @@ export function RevealSection({
   bg = "obsidian",
   num,
   className = "",
+  spacing = "normal",
 }: {
   children: ReactNode;
   id?: string;
   bg?: "void" | "obsidian" | "carbon";
   num?: string;
   className?: string;
+  spacing?: "normal" | "compact";
 }) {
   const { ref, cls } = useReveal();
   const bgColor =
     bg === "void" ? "#080808" : bg === "carbon" ? "#1A1A1A" : "#111111";
+  const sectionPadding =
+    spacing === "compact" ? "clamp(3.5rem, 6vw, 5.5rem) 0" : "clamp(5rem, 10vw, 9rem) 0";
   return (
     <section
       ref={ref}
@@ -54,7 +58,7 @@ export function RevealSection({
       className={`${cls} relative ${className}`}
       style={{
         background: bgColor,
-        padding: "clamp(5rem, 10vw, 9rem) 0",
+        padding: sectionPadding,
         scrollMarginTop: "4.5rem",
       }}
     >
@@ -260,17 +264,17 @@ export function ServiceCard({
   const external = href.startsWith("http");
   return (
     <div
-      className={`relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 ${
+      className={`relative flex flex-col p-6 transition-all duration-300 hover:-translate-y-1 md:p-7 ${
         highlight ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : "bg-obsidian"
       }`}
       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
       {highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
-      <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-iron">{tag}</p>
-      <h3 className="mt-3 font-display text-3xl uppercase tracking-[0.02em] text-pearl">{title}</h3>
-      <p className="mt-2 font-display text-4xl text-white">{price}</p>
-      <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{desc}</p>
-      <ul className="mt-6 flex-1 space-y-3">
+      <p className="font-body text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-iron">{tag}</p>
+      <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl md:text-3xl">{title}</h3>
+      <p className="mt-1.5 font-display text-3xl text-white md:text-4xl">{price}</p>
+      <p className="mt-4 font-body text-sm font-light leading-6 text-smoke">{desc}</p>
+      <ul className="mt-5 flex-1 space-y-2.5">
         {perks.map((p) => (
           <li key={p} className="flex gap-3 font-body text-sm font-light leading-6 text-smoke">
             <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
@@ -278,7 +282,7 @@ export function ServiceCard({
           </li>
         ))}
       </ul>
-      <div className="mt-8">
+      <div className="mt-7">
         <a
           href={href}
           target={external ? "_blank" : undefined}
