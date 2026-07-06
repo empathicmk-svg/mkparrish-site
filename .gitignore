@@ -25,6 +25,7 @@
 *.pem
 .codex/
 /tmp/
+/drafts/
 
 # debug
 npm-debug.log*

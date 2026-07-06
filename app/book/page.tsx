@@ -94,7 +94,7 @@ export default function BookPage() {
           <div className="grid gap-8 sm:grid-cols-3">
             {[
               { label: "Duration",  value: "30 minutes" },
-              { label: "Format",    value: "Video or phone, your call" },
+              { label: "Format",    value: "Google Meet" },
               { label: "Cost",      value: "No charge. No obligation." },
             ].map((item) => (
               <div key={item.label} className="border-t border-graphite pt-6">

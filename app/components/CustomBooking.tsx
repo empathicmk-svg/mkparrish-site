@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import { CONTACT } from "@/app/lib/config";
 
+const GOOGLE_BOOKING_URL = process.env.NEXT_PUBLIC_GOOGLE_BOOKING_URL?.trim() ?? "";
+
 // Offered slots (MK's local availability). 30-minute calls.
 const SLOTS: { label: string; h: number; m: number }[] = [
   { label: "9:00 AM", h: 9, m: 0 },
@@ -66,7 +68,37 @@ function gcalLink(date: Date, slot: { h: number; m: number; label: string }) {
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
-export default function CustomBooking() {
+function GoogleBookingEmbed({ url }: { url: string }) {
+  return (
+    <div className="relative border border-graphite bg-obsidian">
+      <div className="absolute inset-x-0 top-0 h-px bg-petal opacity-40" />
+      <div className="bg-void">
+        <iframe
+          title="Book a discovery call with MK Parrish"
+          src={url}
+          className="block h-[760px] w-full border-0 bg-white"
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
+      </div>
+      <div className="flex flex-col gap-4 border-t border-graphite bg-obsidian p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
+        <p className="font-body text-sm font-light leading-7 text-smoke">
+          Prefer a full-page calendar view?
+        </p>
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="btn-primary inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+        >
+          Open Booking Page →
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function EmailBookingFallback() {
   const days = useMemo(() => nextWeekdays(14), []);
   const tz = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone, []);
 
@@ -257,4 +289,10 @@ export default function CustomBooking() {
       </div>
     </form>
   );
+}
+
+export default function CustomBooking() {
+  if (GOOGLE_BOOKING_URL) return <GoogleBookingEmbed url={GOOGLE_BOOKING_URL} />;
+
+  return <EmailBookingFallback />;
 }
