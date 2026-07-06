@@ -1,4 +1,4 @@
-import { CONTACT, EBOOKS, PRINTS, SERVICE_EBOOKS } from "@/app/lib/config";
+import { EBOOKS, PRINTS, SERVICE_EBOOKS } from "@/app/lib/config";
 
 export type ShelfCollection = "ebooks" | "frameworks" | "prints";
 
@@ -249,23 +249,6 @@ export const DIGITAL_PRODUCTS: readonly ShelfProduct[] = [
   ...SERVICE_EBOOKS.map((product) => normalizeDigital(product, "frameworks")),
 ];
 
-function customPrintHref() {
-  const subject = "Custom Print Shop proof request";
-  const body = [
-    "Hi MK,",
-    "",
-    "I want a custom Print Shop proof.",
-    "",
-    "Phrase:",
-    "Size:",
-    "Style direction:",
-    "",
-    "Please send the next steps.",
-  ].join("\n");
-
-  return `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
-
 export const PRINT_PRODUCTS: readonly ShelfProduct[] = PRINTS.map((print) => {
   const copy = PRINT_COPY[print.title];
   return {
@@ -318,7 +301,8 @@ export const CUSTOM_PRINT_PRODUCT: ShelfProduct = {
   collection: "prints",
   kind: "print",
   highlight: true,
-  href: customPrintHref(),
+  href: "https://buy.stripe.com/6oUeVe3rPam4eD2aX38AE0M",
+  stripe: "https://buy.stripe.com/6oUeVe3rPam4eD2aX38AE0M",
   sizes: ["5×7", "8×10", "11×14", "16×20"],
   preview: "Your words here.",
   cover: coverForSlug("custom-quote-print"),

@@ -13,6 +13,9 @@ step, and how to fulfill a paperback on Lulu. Keep this handy.
 - **Paperbacks** → automatic *except* the printing. The buyer pays and gets a
   "ships in 5–7 days" confirmation; **you place the matching order on Lulu** and
   ship it (see below).
+- **Prints** → Stripe collects payment and shipping. Ready-made prints and the
+  custom quote print send a confirmation email; fulfill them manually or through
+  your preferred print vendor after reviewing the order details.
 - **Every purchase** emails the buyer and **CCs you (mkp414@icloud.com)** — once
   the Stripe webhook secret is in place (one-time setup, next section).
 
@@ -78,6 +81,9 @@ Files live at `https://www.mkparrish.com/downloads/print/<slug>-interior.pdf` an
 
 (Page counts/spines update if a book's text changes; the full spec sheet is at
 `/downloads/kdp/lulu-upload-specs.md`.)
+
+Lulu is not currently connected by API. Treat Stripe as the secure checkout and
+Lulu as the fulfillment step after the order is paid.
 
 ---
 

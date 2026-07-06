@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { getShopProduct, productDeliveryLinks } from "@/app/lib/config";
+import { findShelfProduct } from "@/app/lib/shelf-catalog";
 
 export const runtime = "nodejs";
 // Stripe sends the raw body; we must not let the framework parse/transform it.
@@ -13,6 +14,11 @@ const OWNER_EMAIL = "mkp414@icloud.com"; // CC'd on every purchase
 // Map each live payment link to the product it sells, so the email knows what
 // to deliver. Unknown links still trigger an order notification to the owner.
 const EBOOK_LINKS: Record<string, string> = {
+  plink_1Tq0o0JICEFzVEU9PHbP7s8I: "still-here-still-hers",
+  plink_1Tq0o2JICEFzVEU9J4mlFhqn: "street-smarts",
+  plink_1Tq0o3JICEFzVEU9oBKPjscB: "make-my-own-light",
+  plink_1Tq0o4JICEFzVEU94PK0Ild1: "the-invisible-bruise",
+  plink_1Tq0o5JICEFzVEU9qEeryjJX: "decoding-angel-numbers",
   plink_1Tn0zxJICEFzVEU9gncWmsAr: "rebecoming",
   plink_1TmgtDJICEFzVEU9oKhP76GL: "reinvention-workbook",
   plink_1Tmgt7JICEFzVEU9jlMVHqAC: "write-yourself-into-the-room",
@@ -28,6 +34,11 @@ const EBOOK_LINKS: Record<string, string> = {
   plink_1Tl8L3JICEFzVEU9XaRmKOuQ: "the-prompt-vault",
 };
 const PAPERBACK_LINKS: Record<string, string> = {
+  plink_1Tq0o1JICEFzVEU9QOEjF0RT: "still-here-still-hers",
+  plink_1Tq0o2JICEFzVEU9xDndgSzk: "street-smarts",
+  plink_1Tq0o3JICEFzVEU9uD35jmbb: "make-my-own-light",
+  plink_1Tq0o4JICEFzVEU9rKOB1rfY: "the-invisible-bruise",
+  plink_1Tq0o5JICEFzVEU9JU28fLmt: "decoding-angel-numbers",
   plink_1Tmgz6JICEFzVEU9j3eBWsqA: "rebecoming",
   plink_1TmgzEJICEFzVEU9SKjd8vUC: "reinvention-workbook",
   plink_1Tmgz8JICEFzVEU9JwRgrvmN: "write-yourself-into-the-room",
@@ -40,6 +51,15 @@ const PAPERBACK_LINKS: Record<string, string> = {
   plink_1Tn118JICEFzVEU9u4gJLLjo: "the-build-copy-guide",
   plink_1Tn11CJICEFzVEU96rsJK3LV: "the-social-strategy-playbook",
   plink_1Tn11FJICEFzVEU9DW2jsN3X: "the-prompt-vault",
+};
+const PRINT_LINKS: Record<string, string> = {
+  plink_1Td8xXJICEFzVEU9hmiCBkOY: "promise-me",
+  plink_1Td8y2JICEFzVEU9NxdCQ8p9: "the-rewrite-print",
+  plink_1Td8z3JICEFzVEU9qwlHV3dv: "selected-lines",
+  plink_1Tn0g3JICEFzVEU9XzVHfUan: "live-out-loud-print",
+  plink_1Tn0gbJICEFzVEU9B13LgsmX: "not-afraid-of-storms-print",
+  plink_1Tn0hJJICEFzVEU9dsa4dTuh: "never-too-late-print",
+  plink_1Tq0qvJICEFzVEU9x6UbPTXB: "custom-quote-print",
 };
 
 // Verify Stripe's signature without the SDK (HMAC-SHA256 over `${t}.${body}`).
@@ -63,6 +83,24 @@ function fmtAddress(s: Record<string, unknown> | undefined): string {
   if (!s) return "";
   const a = (s.address as Record<string, string>) || {};
   return [s.name as string, a.line1, a.line2, [a.city, a.state, a.postal_code].filter(Boolean).join(", "), a.country]
+    .filter(Boolean)
+    .join("<br>");
+}
+
+function fmtCustomFields(fields: unknown): string {
+  if (!Array.isArray(fields)) return "";
+
+  return fields
+    .map((field) => {
+      if (!field || typeof field !== "object") return "";
+      const entry = field as Record<string, unknown>;
+      const label = (entry.label as Record<string, unknown> | undefined)?.custom;
+      const text = (entry.text as Record<string, unknown> | undefined)?.value;
+      const dropdown = (entry.dropdown as Record<string, unknown> | undefined)?.value;
+      const value = text || dropdown;
+      if (typeof label !== "string" || typeof value !== "string" || !value.trim()) return "";
+      return `${label}: ${value}`;
+    })
     .filter(Boolean)
     .join("<br>");
 }
@@ -139,6 +177,7 @@ export async function POST(req: NextRequest) {
 
   const ebookSlug = EBOOK_LINKS[plink];
   const paperbackSlug = PAPERBACK_LINKS[plink];
+  const printSlug = PRINT_LINKS[plink];
 
   if (ebookSlug) {
     const product = getShopProduct(ebookSlug);
@@ -166,6 +205,21 @@ export async function POST(req: NextRequest) {
         `<p style="margin:0 0 14px;">Thank you so much for ordering the paperback of <strong>${title}</strong>. It is printed to order and ships in about 5 to 7 business days.</p>
          ${addr ? `<p style="margin:0 0 14px;">Shipping to:<br>${addr}</p>` : ""}
          <p style="margin:0;">A portion of every sale supports my local parish. Questions? Just reply here.</p>`,
+      ),
+    );
+  } else if (printSlug) {
+    const product = findShelfProduct(printSlug);
+    const title = product?.title || "your print";
+    const addr = fmtAddress(shipping);
+    const fields = fmtCustomFields(session.custom_fields);
+    await sendEmail(
+      email,
+      `Your print order: ${title}`,
+      shell(
+        `<p style="margin:0 0 14px;">Thank you so much for ordering <strong>${title}</strong>. Your print order is confirmed, and MK will follow up if a proof or extra detail is needed before printing.</p>
+         ${fields ? `<p style="margin:0 0 14px;">Order details:<br>${fields}</p>` : ""}
+         ${addr ? `<p style="margin:0 0 14px;">Shipping to:<br>${addr}</p>` : ""}
+         <p style="margin:0;">Physical orders are produced after checkout and shipped to the address collected in Stripe. Questions? Just reply here.</p>`,
       ),
     );
   } else {

@@ -49,9 +49,6 @@ export const CONTACT = {
   phone:    "347.853.4238",
 };
 
-const checkoutRequestHref = (title: string) =>
-  `mailto:${CONTACT.email}?subject=${encodeURIComponent(`${title} checkout`)}`;
-
 // ── Social links ─────────────────────────────────────────────────────────────
 // Rendered as petal-pink chips with black text in the footer.
 export const SOCIALS = [
@@ -166,8 +163,9 @@ export const EBOOKS = [
     highlight: true,
     free:      false,
     download:  "/downloads/ebooks/still-here-still-hers.pdf",
-    href:      checkoutRequestHref("Still Here, Still Hers"),
-    paperback: { price: "$44", href: checkoutRequestHref("Still Here, Still Hers paperback") },
+    stripe:    "https://buy.stripe.com/14A8wQ5zXfGo8eE6GN8AE0C",
+    href:      "https://buy.stripe.com/14A8wQ5zXfGo8eE6GN8AE0C",
+    paperback: { price: "$44", href: "https://buy.stripe.com/fZufZi4vTcucamM6GN8AE0D" },
     features:  [
       "Intimate personal essays from the in-between",
       "On grief, heartbreak, father loss, body shame, and rebuilding",
@@ -185,8 +183,9 @@ export const EBOOKS = [
     highlight: true,
     free:      false,
     download:  "/downloads/ebooks/street-smarts.pdf",
-    href:      checkoutRequestHref("Street Smarts"),
-    paperback: { price: "$54", href: checkoutRequestHref("Street Smarts paperback") },
+    stripe:    "https://buy.stripe.com/3cI00k4vT3XG52s2qx8AE0E",
+    href:      "https://buy.stripe.com/3cI00k4vT3XG52s2qx8AE0E",
+    paperback: { price: "$54", href: "https://buy.stripe.com/bJe28s9QddygdyYe9f8AE0F" },
     features:  [
       "A father, a daughter, and an education that came too late",
       "The 1,109 texts, read back like scripture",
@@ -204,8 +203,9 @@ export const EBOOKS = [
     highlight: true,
     free:      false,
     download:  "/downloads/ebooks/make-my-own-light.pdf",
-    href:      checkoutRequestHref("Make My Own Light"),
-    paperback: { price: "$44", href: checkoutRequestHref("Make My Own Light paperback") },
+    stripe:    "https://buy.stripe.com/cNieVee6t3XG0Mcc178AE0G",
+    href:      "https://buy.stripe.com/cNieVee6t3XG0Mcc178AE0G",
+    paperback: { price: "$44", href: "https://buy.stripe.com/fZu7sM0fD2TC9iI7KR8AE0H" },
     features:  [
       "Confessional poems on grief, fear, faith, and survival",
       "From free-falling to making your own light",
@@ -223,8 +223,9 @@ export const EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/the-invisible-bruise.pdf",
-    href:      checkoutRequestHref("The Invisible Bruise"),
-    paperback: { price: "$54", href: checkoutRequestHref("The Invisible Bruise paperback") },
+    stripe:    "https://buy.stripe.com/8x25kE7I5bq8dyYaX38AE0I",
+    href:      "https://buy.stripe.com/8x25kE7I5bq8dyYaX38AE0I",
+    paperback: { price: "$54", href: "https://buy.stripe.com/9B6cN62nL8dWgLad5b8AE0J" },
     features:  [
       "Emotional abuse named plainly and compassionately",
       "Gaslighting, silence, and the theft of your reality",
@@ -242,8 +243,9 @@ export const EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/decoding-angel-numbers.pdf",
-    href:      checkoutRequestHref("Decoding Angel Numbers"),
-    paperback: { price: "$44", href: checkoutRequestHref("Decoding Angel Numbers paperback") },
+    stripe:    "https://buy.stripe.com/fZu00k5zX51K2Ukghn8AE0K",
+    href:      "https://buy.stripe.com/fZu00k5zX51K2Ukghn8AE0K",
+    paperback: { price: "$44", href: "https://buy.stripe.com/bJe28s3rP9i00Mcfdj8AE0L" },
     features:  [
       "A grounded framework for the patterns you notice",
       "Discernment without superstition or dismissal",

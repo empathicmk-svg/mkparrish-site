@@ -45,8 +45,8 @@ const books = [
 
 const requiredEnvMessage = [
   "Missing STRIPE_SECRET_KEY.",
-  "Create or reveal a live restricted key in Stripe with write access to Products, Prices, and Payment Links, then run:",
-  "STRIPE_SECRET_KEY=sk_live_... npm run stripe:books",
+  "Create or reveal a live secret/restricted key in Stripe with write access to Products, Prices, and Payment Links, then run:",
+  "STRIPE_SECRET_KEY=rk_live_... npm run stripe:books",
 ].join("\n");
 
 if (!apiKey) {
@@ -54,8 +54,8 @@ if (!apiKey) {
   process.exit(1);
 }
 
-if (!apiKey.startsWith("sk_live_")) {
-  console.error("Refusing to create live shop links without a live Stripe secret key that starts with sk_live_.");
+if (!apiKey.startsWith("sk_live_") && !apiKey.startsWith("rk_live_")) {
+  console.error("Refusing to create live shop links without a live Stripe secret/restricted key that starts with sk_live_ or rk_live_.");
   process.exit(1);
 }
 
