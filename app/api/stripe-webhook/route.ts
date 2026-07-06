@@ -9,7 +9,8 @@ export const dynamic = "force-dynamic";
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.mkparrish.com").replace(/\/+$/, "");
 const FROM = process.env.LEAD_FROM_EMAIL || "MK Parrish <hello@mkparrish.com>";
-const OWNER_EMAIL = "mkp414@icloud.com"; // CC'd on every purchase
+const OWNER_EMAIL = process.env.LEAD_NOTIFY_EMAIL || "mkp414@icloud.com";
+const MAX_WEBHOOK_BYTES = 256 * 1024;
 
 // Map each live payment link to the product it sells, so the email knows what
 // to deliver. Unknown links still trigger an order notification to the owner.
@@ -65,18 +66,51 @@ const PRINT_LINKS: Record<string, string> = {
 // Verify Stripe's signature without the SDK (HMAC-SHA256 over `${t}.${body}`).
 function verify(rawBody: string, sigHeader: string | null, secret: string): boolean {
   if (!sigHeader) return false;
-  const parts = Object.fromEntries(sigHeader.split(",").map((kv) => kv.split("=")));
-  const t = parts["t"];
-  const v1 = parts["v1"];
-  if (!t || !v1) return false;
-  const expected = crypto.createHmac("sha256", secret).update(`${t}.${rawBody}`).digest("hex");
-  try {
-    if (!crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(v1))) return false;
-  } catch {
-    return false;
-  }
+  const parts = sigHeader.split(",").map((kv) => {
+    const index = kv.indexOf("=");
+    return index === -1 ? [kv, ""] : [kv.slice(0, index), kv.slice(index + 1)];
+  });
+  const t = parts.find(([key]) => key === "t")?.[1];
+  const signatures = parts.filter(([key]) => key === "v1").map(([, value]) => value);
+  const timestamp = Number(t);
+  if (!Number.isFinite(timestamp) || signatures.length === 0) return false;
   // Reject events older than 5 minutes (replay protection).
-  return Math.abs(Date.now() / 1000 - Number(t)) < 300;
+  if (Math.abs(Date.now() / 1000 - timestamp) >= 300) return false;
+
+  const expected = crypto.createHmac("sha256", secret).update(`${t}.${rawBody}`).digest("hex");
+  const expectedBuffer = Buffer.from(expected, "hex");
+  return signatures.some((signature) => {
+    if (!/^[a-f0-9]{64}$/i.test(signature)) return false;
+    try {
+      return crypto.timingSafeEqual(expectedBuffer, Buffer.from(signature, "hex"));
+    } catch {
+      return false;
+    }
+  });
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function cleanEmail(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const email = value.trim().toLowerCase();
+  if (email.length > 254) return null;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : null;
+}
+
+function stringValue(value: unknown): string {
+  return typeof value === "string" ? value : "";
+}
+
+function idempotencyKey(...parts: string[]) {
+  const hash = crypto.createHash("sha256").update(parts.join(":")).digest("hex");
+  return `mkp-${hash.slice(0, 48)}`;
 }
 
 function fmtAddress(s: Record<string, unknown> | undefined): string {
@@ -84,6 +118,7 @@ function fmtAddress(s: Record<string, unknown> | undefined): string {
   const a = (s.address as Record<string, string>) || {};
   return [s.name as string, a.line1, a.line2, [a.city, a.state, a.postal_code].filter(Boolean).join(", "), a.country]
     .filter(Boolean)
+    .map((value) => escapeHtml(String(value)))
     .join("<br>");
 }
 
@@ -99,36 +134,84 @@ function fmtCustomFields(fields: unknown): string {
       const dropdown = (entry.dropdown as Record<string, unknown> | undefined)?.value;
       const value = text || dropdown;
       if (typeof label !== "string" || typeof value !== "string" || !value.trim()) return "";
-      return `${label}: ${value}`;
+      return `${escapeHtml(label)}: ${escapeHtml(value)}`;
     })
     .filter(Boolean)
     .join("<br>");
 }
 
-async function sendEmail(to: string | null, subject: string, html: string) {
+function buyerEmailFromSession(session: Record<string, unknown>): string | null {
+  const customerDetails = session.customer_details as Record<string, unknown> | undefined;
+  const metadata = session.metadata as Record<string, unknown> | undefined;
+  const candidates = [
+    customerDetails?.email,
+    session.customer_email,
+    session.receipt_email,
+    metadata?.email,
+    metadata?.buyer_email,
+    metadata?.customer_email,
+    metadata?.guest_email,
+  ];
+
+  for (const candidate of candidates) {
+    const email = cleanEmail(candidate);
+    if (email) return email;
+  }
+
+  const customFields = session.custom_fields;
+  if (!Array.isArray(customFields)) return null;
+
+  for (const field of customFields) {
+    if (!field || typeof field !== "object") continue;
+    const entry = field as Record<string, unknown>;
+    const label = (entry.label as Record<string, unknown> | undefined)?.custom;
+    const hint = [entry.key, entry.type, label].map(stringValue).join(" ").toLowerCase();
+    const email = cleanEmail((entry.text as Record<string, unknown> | undefined)?.value);
+    if (email && (hint.includes("email") || hint.includes("contact"))) return email;
+  }
+
+  return null;
+}
+
+async function sendEmail(
+  to: string | null,
+  subject: string,
+  html: string,
+  options: { idempotencyKey: string; replyTo?: string | null },
+) {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
     console.warn("RESEND_API_KEY not set — purchase email skipped.");
-    return;
+    return false;
   }
   const payload: Record<string, unknown> = {
     from: FROM,
     subject,
     html,
-    cc: [OWNER_EMAIL],
   };
+  if (OWNER_EMAIL && to && to !== OWNER_EMAIL) payload.cc = [OWNER_EMAIL];
+  if (options.replyTo) payload.reply_to = options.replyTo;
   // If we have no buyer email, send straight to the owner so the sale is never silent.
   payload.to = to ? [to] : [OWNER_EMAIL];
-  if (!to) delete payload.cc;
+
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+        "Idempotency-Key": options.idempotencyKey,
+      },
       body: JSON.stringify(payload),
     });
-    if (!res.ok) console.error("Resend send error:", res.status, await res.text().catch(() => ""));
+    if (!res.ok) {
+      console.error("Resend send error:", res.status, await res.text().catch(() => ""));
+      return false;
+    }
+    return true;
   } catch (err) {
     console.error("Resend fetch error:", err);
+    return false;
   }
 }
 
@@ -146,10 +229,15 @@ function shell(inner: string): string {
 
 export async function POST(req: NextRequest) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  const length = Number(req.headers.get("content-length") || 0);
+  if (Number.isFinite(length) && length > MAX_WEBHOOK_BYTES) {
+    return NextResponse.json({ error: "payload too large" }, { status: 413 });
+  }
+
   const raw = await req.text();
   if (!secret) {
-    console.warn("STRIPE_WEBHOOK_SECRET not set — webhook ignored.");
-    return NextResponse.json({ received: true });
+    console.error("STRIPE_WEBHOOK_SECRET not set — webhook cannot be verified.");
+    return NextResponse.json({ error: "webhook misconfigured" }, { status: 503 });
   }
   if (!verify(raw, req.headers.get("stripe-signature"), secret)) {
     return NextResponse.json({ error: "invalid signature" }, { status: 400 });
@@ -166,9 +254,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ received: true });
   }
 
-  const session = (event.data as Record<string, Record<string, unknown>>).object as Record<string, unknown>;
+  const eventId = stringValue(event.id) || crypto.createHash("sha256").update(raw).digest("hex").slice(0, 24);
+  const data = event.data;
+  if (!data || typeof data !== "object") {
+    return NextResponse.json({ error: "missing event data" }, { status: 400 });
+  }
+  const sessionObject = (data as Record<string, unknown>).object;
+  if (!sessionObject || typeof sessionObject !== "object") {
+    return NextResponse.json({ error: "missing checkout session" }, { status: 400 });
+  }
+
+  const session = sessionObject as Record<string, unknown>;
   const plink = (session.payment_link as string) || "";
-  const email = ((session.customer_details as Record<string, unknown>)?.email as string) || null;
+  const email = buyerEmailFromSession(session);
   const total = typeof session.amount_total === "number" ? `$${(session.amount_total / 100).toFixed(2)}` : "";
   const shipping =
     ((session.collected_information as Record<string, unknown>)?.shipping_details as Record<string, unknown>) ||
@@ -182,45 +280,63 @@ export async function POST(req: NextRequest) {
   if (ebookSlug) {
     const product = getShopProduct(ebookSlug);
     const title = product?.title || "your book";
+    const safeTitle = escapeHtml(title);
     const links = (product ? productDeliveryLinks(product) : [])
-      .map((l) => `<a href="${SITE_URL}${l.href}" style="color:#B23A59;">Download ${l.label} &rarr;</a>`)
+      .map(
+        (l) =>
+          `<a href="${SITE_URL}${escapeHtml(l.href)}" style="color:#B23A59;">Download ${escapeHtml(l.label)} &rarr;</a>`,
+      )
       .join("<br>");
     await sendEmail(
       email,
       `Your copy of ${title}`,
       shell(
-        `<p style="margin:0 0 14px;">Thank you so much for buying <strong>${title}</strong>. Here are your files, yours to keep:</p>
+        `<p style="margin:0 0 14px;">Thank you so much for buying <strong>${safeTitle}</strong>. Here are your files, yours to keep:</p>
          <p style="margin:0 0 14px;">${links}</p>
          <p style="margin:0;">If a link ever gives you trouble, just reply to this email and I will send them directly.</p>`,
       ),
+      {
+        idempotencyKey: idempotencyKey("stripe", eventId, "ebook"),
+        replyTo: email,
+      },
     );
   } else if (paperbackSlug) {
     const product = getShopProduct(paperbackSlug);
     const title = product?.title || "your book";
+    const safeTitle = escapeHtml(title);
     const addr = fmtAddress(shipping);
     await sendEmail(
       email,
       `Your paperback of ${title} is on the way`,
       shell(
-        `<p style="margin:0 0 14px;">Thank you so much for ordering the paperback of <strong>${title}</strong>. It is printed to order and ships in about 5 to 7 business days.</p>
+        `<p style="margin:0 0 14px;">Thank you so much for ordering the paperback of <strong>${safeTitle}</strong>. It is printed to order and ships in about 5 to 7 business days.</p>
          ${addr ? `<p style="margin:0 0 14px;">Shipping to:<br>${addr}</p>` : ""}
          <p style="margin:0;">A portion of every sale supports my local parish. Questions? Just reply here.</p>`,
       ),
+      {
+        idempotencyKey: idempotencyKey("stripe", eventId, "paperback"),
+        replyTo: email,
+      },
     );
   } else if (printSlug) {
     const product = findShelfProduct(printSlug);
     const title = product?.title || "your print";
+    const safeTitle = escapeHtml(title);
     const addr = fmtAddress(shipping);
     const fields = fmtCustomFields(session.custom_fields);
     await sendEmail(
       email,
       `Your print order: ${title}`,
       shell(
-        `<p style="margin:0 0 14px;">Thank you so much for ordering <strong>${title}</strong>. Your print order is confirmed, and MK will follow up if a proof or extra detail is needed before printing.</p>
+        `<p style="margin:0 0 14px;">Thank you so much for ordering <strong>${safeTitle}</strong>. Your print order is confirmed, and MK will follow up if a proof or extra detail is needed before printing.</p>
          ${fields ? `<p style="margin:0 0 14px;">Order details:<br>${fields}</p>` : ""}
          ${addr ? `<p style="margin:0 0 14px;">Shipping to:<br>${addr}</p>` : ""}
          <p style="margin:0;">Physical orders are produced after checkout and shipped to the address collected in Stripe. Questions? Just reply here.</p>`,
       ),
+      {
+        idempotencyKey: idempotencyKey("stripe", eventId, "print"),
+        replyTo: email,
+      },
     );
   } else {
     // Unknown link (e.g. a print or audit) — still notify the owner of the sale.
@@ -229,9 +345,13 @@ export async function POST(req: NextRequest) {
       `New order${total ? ` — ${total}` : ""}`,
       shell(
         `<p style="margin:0 0 14px;">A new order just came through${total ? ` for <strong>${total}</strong>` : ""}.</p>
-         ${email ? `<p style="margin:0 0 14px;">Buyer: ${email}</p>` : ""}
+         ${email ? `<p style="margin:0 0 14px;">Buyer: <a href="mailto:${escapeHtml(email)}" style="color:#B23A59;">${escapeHtml(email)}</a></p>` : ""}
          ${fmtAddress(shipping) ? `<p style="margin:0;">Ship to:<br>${fmtAddress(shipping)}</p>` : "<p style=\"margin:0;\">Check your Stripe dashboard for details.</p>"}`,
       ),
+      {
+        idempotencyKey: idempotencyKey("stripe", eventId, "unknown"),
+        replyTo: email,
+      },
     );
   }
 

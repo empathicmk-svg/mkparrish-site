@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import crypto from "node:crypto";
 import { getLeadMagnet, type LeadMagnet } from "@/app/lib/lead-magnets";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const SUBSTACK_PUB = "mkparrishthemargins";
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.mkparrish.com").replace(/\/+$/, "");
@@ -9,20 +13,26 @@ const SAMPLE_PATH = "/downloads/ebooks/rebecoming-sample.pdf";
 const SAMPLE_URL = `${SITE_URL}${SAMPLE_PATH}`;
 const BOOK_URL = `${SITE_URL}/rebecoming`;
 const FROM = process.env.LEAD_FROM_EMAIL || "MK Parrish <hello@mkparrish.com>";
+const NOTIFY_EMAIL = process.env.LEAD_NOTIFY_EMAIL || "mkp414@icloud.com";
 
 type LeadOffer = "positioning-checklist" | "rebecoming-sample";
 
 type SubscribeBody = {
+  name?: unknown;
   email?: unknown;
   offer?: unknown;
   resource?: unknown;
   leadMagnet?: unknown;
   magnet?: unknown;
   source?: unknown;
+  website?: unknown;
 };
 
 const recentSubmissions = new Map<string, number>();
+const recentIpSubmissions = new Map<string, { count: number; expiresAt: number }>();
 const RATE_WINDOW_MS = 10 * 60 * 1000;
+const MAX_REQUESTS_PER_IP = 12;
+const MAX_BODY_BYTES = 12 * 1024;
 const MAX_EMAIL_LENGTH = 254;
 
 function cleanEmail(value: unknown) {
@@ -36,6 +46,73 @@ function isValidEmail(email: string) {
 function cleanText(value: unknown, fallback: string) {
   if (typeof value !== "string") return fallback;
   return value.trim().slice(0, 120) || fallback;
+}
+
+function json(data: Record<string, unknown>, init: ResponseInit = {}) {
+  const headers = new Headers(init.headers);
+  headers.set("Cache-Control", "no-store");
+  return NextResponse.json(data, { ...init, headers });
+}
+
+function isAllowedOrigin(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  if (!origin) return true;
+
+  try {
+    const originUrl = new URL(origin);
+    const host = req.headers.get("x-forwarded-host") || req.headers.get("host");
+    const allowed = new Set(["https://www.mkparrish.com", "https://mkparrish.com", SITE_URL]);
+    const vercelUrl = process.env.VERCEL_URL;
+    if (vercelUrl) allowed.add(`https://${vercelUrl}`);
+
+    return allowed.has(originUrl.origin) || Boolean(host && originUrl.host === host);
+  } catch {
+    return false;
+  }
+}
+
+function isJsonRequest(req: NextRequest) {
+  return req.headers.get("content-type")?.toLowerCase().includes("application/json") ?? false;
+}
+
+function isRequestTooLarge(req: NextRequest) {
+  const length = Number(req.headers.get("content-length") || 0);
+  return Number.isFinite(length) && length > MAX_BODY_BYTES;
+}
+
+function clientKey(req: NextRequest) {
+  return (
+    req.headers.get("cf-connecting-ip") ||
+    req.headers.get("x-real-ip") ||
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    "unknown"
+  );
+}
+
+function checkIpRateLimit(req: NextRequest) {
+  const now = Date.now();
+  const key = clientKey(req);
+  for (const [storedKey, status] of recentIpSubmissions.entries()) {
+    if (status.expiresAt <= now) recentIpSubmissions.delete(storedKey);
+  }
+
+  const status = recentIpSubmissions.get(key);
+  if (!status || status.expiresAt <= now) {
+    recentIpSubmissions.set(key, { count: 1, expiresAt: now + RATE_WINDOW_MS });
+    return { ok: true, retryAfter: 0 };
+  }
+
+  status.count += 1;
+  if (status.count > MAX_REQUESTS_PER_IP) {
+    return { ok: false, retryAfter: Math.ceil((status.expiresAt - now) / 1000) };
+  }
+
+  return { ok: true, retryAfter: 0 };
+}
+
+function idempotencyKey(...parts: string[]) {
+  const hash = crypto.createHash("sha256").update(parts.join(":")).digest("hex");
+  return `mkp-${hash.slice(0, 48)}`;
 }
 
 function normalizeOffer(value: unknown): LeadOffer {
@@ -62,12 +139,46 @@ function leadMagnetUrl(magnet: LeadMagnet) {
   return `${SITE_URL}${magnet.download}`;
 }
 
+function offerLabel(offer: LeadOffer) {
+  return offer === "rebecoming-sample" ? "REBECOMING sample" : "Positioning Checklist";
+}
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
+}
+
+async function sendResendEmail(payload: Record<string, unknown>, idempotencyParts: string[]): Promise<boolean> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.warn("RESEND_API_KEY not set. Email skipped; direct download link returned.");
+    return false;
+  }
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+        "Idempotency-Key": idempotencyKey(...idempotencyParts),
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      console.error("Resend send error:", res.status, await res.text().catch(() => ""));
+      return false;
+    }
+
+    return true;
+  } catch (err) {
+    console.error("Resend fetch error:", err);
+    return false;
+  }
 }
 
 async function subscribeToSubstack(email: string) {
@@ -177,56 +288,30 @@ function leadMagnetEmailHtml(magnet: LeadMagnet): string {
 }
 
 async function sendLeadMagnetEmail(email: string, magnet: LeadMagnet, source: string): Promise<boolean> {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    console.warn("RESEND_API_KEY not set. Lead magnet email skipped; direct download link returned.");
-    return false;
-  }
-
   const url = leadMagnetUrl(magnet);
 
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${key}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: FROM,
-        to: [email],
-        subject: magnet.emailSubject,
-        html: leadMagnetEmailHtml(magnet),
-        text:
-          `Here's ${magnet.title}.\n\n${magnet.emailTeaser}\n\n` +
-          `Download it: ${url}\n\n- MK Parrish\nmkparrish.com`,
-        tags: [
-          { name: "offer", value: magnet.slug },
-          { name: "source", value: source.replace(/[^a-zA-Z0-9:_-]/g, "_").slice(0, 60) },
-        ],
-      }),
-    });
+  const sent = await sendResendEmail(
+    {
+      from: FROM,
+      to: [email],
+      subject: magnet.emailSubject,
+      html: leadMagnetEmailHtml(magnet),
+      text:
+        `Here's ${magnet.title}.\n\n${magnet.emailTeaser}\n\n` +
+        `Download it: ${url}\n\n- MK Parrish\nmkparrish.com`,
+      tags: [
+        { name: "offer", value: magnet.slug },
+        { name: "source", value: source.replace(/[^a-zA-Z0-9:_-]/g, "_").slice(0, 60) },
+      ],
+    },
+    ["lead", email, magnet.slug],
+  );
 
-    if (!res.ok) {
-      console.error("Resend lead magnet send error:", res.status, await res.text().catch(() => ""));
-      return false;
-    }
-
-    console.log("Lead magnet email sent", { email, resource: magnet.slug, source });
-    return true;
-  } catch (err) {
-    console.error("Resend lead magnet fetch error:", err);
-    return false;
-  }
+  if (sent) console.log("Lead magnet email sent", { email, resource: magnet.slug, source });
+  return sent;
 }
 
 async function sendLeadEmail(email: string, offer: LeadOffer, source: string): Promise<boolean> {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    console.warn("RESEND_API_KEY not set. Lead email skipped; direct download link returned.");
-    return false;
-  }
-
   const isBook = offer === "rebecoming-sample";
   const subject = isBook ? "Your free first chapter of REBECOMING" : "Your Positioning Checklist";
   const html = isBook ? rebecomingEmailHtml() : checklistEmailHtml();
@@ -234,47 +319,108 @@ async function sendLeadEmail(email: string, offer: LeadOffer, source: string): P
     ? `Here is your free first chapter of REBECOMING: From Fear to Faith.\n\nRead chapter one: ${SAMPLE_URL}\n\nGet the full book: ${BOOK_URL}\n\n- MK Parrish\nmkparrish.com`
     : `Here's your Positioning Checklist - the 12-point audit I run before rewriting any client's copy.\n\nDownload it: ${CHECKLIST_URL}\n\n- MK Parrish\nmkparrish.com`;
 
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${key}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: FROM,
-        to: [email],
-        subject,
-        html,
-        text,
-        tags: [
-          { name: "offer", value: offer },
-          { name: "source", value: source.replace(/[^a-zA-Z0-9:_-]/g, "_").slice(0, 60) },
-        ],
-      }),
-    });
+  const sent = await sendResendEmail(
+    {
+      from: FROM,
+      to: [email],
+      subject,
+      html,
+      text,
+      tags: [
+        { name: "offer", value: offer },
+        { name: "source", value: source.replace(/[^a-zA-Z0-9:_-]/g, "_").slice(0, 60) },
+      ],
+    },
+    ["lead", email, offer],
+  );
 
-    if (!res.ok) {
-      console.error("Resend send error:", res.status, await res.text().catch(() => ""));
-      return false;
-    }
+  if (sent) console.log("Lead email sent", { email, offer, source });
+  return sent;
+}
 
-    console.log("Lead email sent", { email, offer, source });
-    return true;
-  } catch (err) {
-    console.error("Resend fetch error:", err);
-    return false;
-  }
+async function notifyOwner({
+  email,
+  name,
+  label,
+  download,
+  source,
+  emailed,
+}: {
+  email: string;
+  name: string;
+  label: string;
+  download: string;
+  source: string;
+  emailed: boolean;
+}) {
+  if (!NOTIFY_EMAIL) return false;
+
+  const safeName = escapeHtml(name || "Not provided");
+  const safeEmail = escapeHtml(email);
+  const safeLabel = escapeHtml(label);
+  const safeSource = escapeHtml(source);
+  const safeDownload = escapeHtml(`${SITE_URL}${download}`);
+
+  return sendResendEmail(
+    {
+      from: FROM,
+      to: [NOTIFY_EMAIL],
+      reply_to: email,
+      subject: `New MKP lead: ${label}`,
+      html: `<!doctype html><html><body>
+        <p><strong>New lead:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
+        <p><strong>Name:</strong> ${safeName}</p>
+        <p><strong>Requested:</strong> ${safeLabel}</p>
+        <p><strong>Source:</strong> ${safeSource}</p>
+        <p><strong>User email sent:</strong> ${emailed ? "yes" : "no"}</p>
+        <p><strong>Download:</strong> <a href="${safeDownload}">${safeDownload}</a></p>
+      </body></html>`,
+      text:
+        `New lead: ${email}\n` +
+        `Name: ${name || "Not provided"}\n` +
+        `Requested: ${label}\n` +
+        `Source: ${source}\n` +
+        `User email sent: ${emailed ? "yes" : "no"}\n` +
+        `Download: ${SITE_URL}${download}`,
+      tags: [
+        { name: "kind", value: "owner_notification" },
+        { name: "source", value: source.replace(/[^a-zA-Z0-9:_-]/g, "_").slice(0, 60) },
+      ],
+    },
+    ["owner-lead", email, label, source],
+  );
 }
 
 export async function POST(req: NextRequest) {
+  if (isRequestTooLarge(req)) {
+    return json({ error: "Request too large" }, { status: 413 });
+  }
+  if (!isAllowedOrigin(req)) {
+    return json({ error: "Request origin not allowed" }, { status: 403 });
+  }
+  if (!isJsonRequest(req)) {
+    return json({ error: "Content-Type must be application/json" }, { status: 415 });
+  }
+  const rate = checkIpRateLimit(req);
+  if (!rate.ok) {
+    return json(
+      { error: "Too many requests" },
+      { status: 429, headers: { "Retry-After": String(rate.retryAfter) } },
+    );
+  }
+
   const body = await req.json().catch(() => ({} as SubscribeBody));
   const email = cleanEmail(body.email);
 
-  if (!isValidEmail(email)) {
-    return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+  if (typeof body.website === "string" && body.website.trim()) {
+    return json({ ok: true, emailed: false });
   }
 
+  if (!isValidEmail(email)) {
+    return json({ error: "Invalid email" }, { status: 422 });
+  }
+
+  const name = cleanText(body.name, "");
   const source = cleanText(body.source, "unknown");
   const resource = body.resource ?? body.leadMagnet ?? body.magnet;
 
@@ -283,7 +429,7 @@ export async function POST(req: NextRequest) {
     const isDuplicate = checkDuplicate(email, `resource:${magnet.slug}`);
 
     if (isDuplicate) {
-      return NextResponse.json({
+      return json({
         ok: true,
         emailed: false,
         duplicate: true,
@@ -295,9 +441,17 @@ export async function POST(req: NextRequest) {
 
     const substackPromise = subscribeToSubstack(email);
     const emailed = await sendLeadMagnetEmail(email, magnet, source);
+    await notifyOwner({
+      email,
+      name,
+      label: magnet.title,
+      download: magnet.download,
+      source,
+      emailed,
+    });
     await substackPromise.catch(() => undefined);
 
-    return NextResponse.json({
+    return json({
       ok: true,
       emailed,
       checklist: magnet.download,
@@ -312,7 +466,7 @@ export async function POST(req: NextRequest) {
   const book = offer === "rebecoming-sample" ? "/rebecoming" : null;
 
   if (isDuplicate) {
-    return NextResponse.json({
+    return json({
       ok: true,
       emailed: false,
       duplicate: true,
@@ -324,9 +478,17 @@ export async function POST(req: NextRequest) {
 
   const substackPromise = subscribeToSubstack(email);
   const emailed = await sendLeadEmail(email, offer, source);
+  await notifyOwner({
+    email,
+    name,
+    label: offerLabel(offer),
+    download: checklist,
+    source,
+    emailed,
+  });
   await substackPromise.catch(() => undefined);
 
-  return NextResponse.json({
+  return json({
     ok: true,
     emailed,
     checklist,

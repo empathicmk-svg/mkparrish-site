@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MK Parrish GTM ABM Product Marketing Upload Pack</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600;1,800&display=swap');
+    :root {
+      --void: #080808;
+      --obsidian: #111111;
+      --carbon: #1a1a1a;
+      --graphite: #2c2c2c;
+      --iron: #666666;
+      --smoke: #b0b0b0;
+      --pearl: #f0f0ee;
+      --white: #fafaf8;
+      --petal: #f2afc6;
+      --blush: #ffd6e4;
+      --rose: #e0869f;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--void); color: var(--pearl); }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse 80% 48% at 50% 0%, rgba(242, 175, 198, 0.16), transparent 68%),
+        linear-gradient(180deg, var(--obsidian), var(--void) 44%);
+      color: var(--pearl);
+      font-family: "DM Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    a { color: var(--petal); text-decoration: none; }
+    .wrap { width: min(1080px, calc(100vw - 40px)); margin: 0 auto; padding: 64px 0 88px; }
+    .kicker {
+      color: var(--petal);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+    h1 { margin-top: 20px; max-width: 920px; color: var(--white); font-size: clamp(4rem, 10vw, 8rem); }
+    h2 { color: var(--petal); font-size: clamp(2.3rem, 6vw, 4.2rem); }
+    h3 { color: var(--pearl); font-size: 2rem; }
+    .deck {
+      max-width: 760px;
+      margin-top: 24px;
+      color: var(--smoke);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.45rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .pill {
+      border: 1px solid rgba(242, 175, 198, 0.35);
+      color: var(--petal);
+      padding: 8px 10px;
+      font-size: 0.64rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .section {
+      margin-top: 34px;
+      border-top: 1px solid var(--graphite);
+      padding-top: 28px;
+    }
+    p, li { color: var(--smoke); font-size: 0.98rem; }
+    p { margin: 14px 0 0; max-width: 78ch; }
+    ul { margin: 18px 0 0; padding: 0; list-style: none; }
+    li {
+      position: relative;
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.68em;
+      width: 6px;
+      height: 6px;
+      background: var(--petal);
+    }
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+      margin-top: 20px;
+      background: transparent;
+    }
+    .asset {
+      display: flex;
+      min-height: 160px;
+      flex-direction: column;
+      border: 1px solid var(--graphite);
+      background: rgba(8, 8, 8, 0.92);
+      padding: 20px;
+    }
+    .asset span {
+      color: var(--petal);
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .asset strong {
+      margin-top: 10px;
+      color: var(--pearl);
+      font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+    .asset p { margin-top: 10px; font-size: 0.88rem; line-height: 1.55; }
+    .footer-note {
+      margin-top: 48px;
+      border-top: 1px solid var(--graphite);
+      padding-top: 18px;
+      color: var(--iron);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      margin-top: 36px;
+      background: transparent;
+    }
+    .index-card {
+      min-height: 230px;
+      border: 1px solid var(--graphite);
+      background: rgba(17, 17, 17, 0.94);
+      padding: 24px;
+    }
+    .index-card p { font-size: 0.9rem; }
+    .button {
+      display: inline-flex;
+      margin-top: 18px;
+      border: 1px solid var(--petal);
+      background: var(--petal);
+      color: var(--void);
+      padding: 12px 14px;
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    
+    @media (max-width: 780px) {
+      .link-grid, .index-grid { grid-template-columns: 1fr; }
+      .wrap { width: min(100% - 32px, 1080px); padding-top: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="kicker">MK Parrish / Upload Pack</div>
+    <h1>GTM, ABM, and Product Marketing Proof</h1>
+    <p class="deck">A polished, pink, Bebas Neue portfolio packet with direct links to every proof asset and new documents built for GTM, ABM, product marketing, social, and Substack.</p>
+    <div class="meta-row">
+      <a class="pill" href="https://www.mkparrish.com/portfolio">Live microsite</a>
+      <a class="pill" href="https://www.mkparrish.com/downloads/portfolio/public/mk-parrish-writing-portfolio-pack.html">Static writing pack</a>
+      <a class="pill" href="./mk-parrish-gtm-abm-product-marketing-upload-pack.zip">ZIP</a>
+    </div>
+    <section class="section">
+      <h2>New documents</h2>
+      <div class="index-grid">
+        <article class="index-card">
+          <p class="kicker">Master proof packet</p>
+          <h3>GTM, ABM, and Product Marketing Portfolio Pack</h3>
+          <p>For CMOs, founders, hiring teams, and GTM leaders who need proof that the writing can move pipeline.</p>
+          <a class="button" href="./mk-parrish-gtm-abm-product-marketing-pack.pdf">Open PDF</a>
+          <a class="button" href="./mk-parrish-gtm-abm-product-marketing-pack.html" style="margin-left:8px;background:transparent;color:var(--petal);">Open HTML</a>
+        </article>
+        <article class="index-card">
+          <p class="kicker">Send this first</p>
+          <h3>GTM and ABM One-Sheet</h3>
+          <p>A one-page read on how MK thinks about pipeline, account motion, and copy that survives the handoff to sales.</p>
+          <a class="button" href="./mk-parrish-gtm-abm-one-sheet.pdf">Open PDF</a>
+          <a class="button" href="./mk-parrish-gtm-abm-one-sheet.html" style="margin-left:8px;background:transparent;color:var(--petal);">Open HTML</a>
+        </article>
+        <article class="index-card">
+          <p class="kicker">Strategic accounts</p>
+          <h3>ABM Campaign Room</h3>
+          <p>A sample campaign brief for turning target-account context into a proof-led account experience.</p>
+          <a class="button" href="./mk-parrish-abm-campaign-room.pdf">Open PDF</a>
+          <a class="button" href="./mk-parrish-abm-campaign-room.html" style="margin-left:8px;background:transparent;color:var(--petal);">Open HTML</a>
+        </article>
+        <article class="index-card">
+          <p class="kicker">PMM system</p>
+          <h3>Product Marketing Message House</h3>
+          <p>A product marketing framework that turns POV, pains, proof, claims, and objections into usable launch language.</p>
+          <a class="button" href="./mk-parrish-product-marketing-message-house.pdf">Open PDF</a>
+          <a class="button" href="./mk-parrish-product-marketing-message-house.html" style="margin-left:8px;background:transparent;color:var(--petal);">Open HTML</a>
+        </article>
+        <article class="index-card">
+          <p class="kicker">Ready-to-adapt content</p>
+          <h3>Social and Substack Content Kit</h3>
+          <p>Posts, hooks, carousel copy, and Substack angles built from the GTM/ABM/Product Marketing positioning.</p>
+          <a class="button" href="./mk-parrish-social-substack-content-kit.pdf">Open PDF</a>
+          <a class="button" href="./mk-parrish-social-substack-content-kit.html" style="margin-left:8px;background:transparent;color:var(--petal);">Open HTML</a>
+        </article></div>
+    </section>
+    <section class="section">
+      <h2>Copy-paste social posts</h2>
+      <div class="link-grid">
+        <a class="asset" href="./mk-parrish-social-posts.md">
+          <span>Markdown swipe file</span>
+          <strong>Social Posts Swipe File</strong>
+          <p>Ready-to-adapt social posts for the GTM, ABM, and product marketing portfolio push.</p>
+        </a>
+        <a class="asset" href="./mk-parrish-social-posts.txt">
+          <span>Plain-text swipe file</span>
+          <strong>Social Posts TXT</strong>
+          <p>Same post copy in plain text for quick platform drafting.</p>
+        </a>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Original proof links</h2>
+      <div class="link-grid">
+      <a class="asset" href="https://www.mkparrish.com/downloads/portfolio/public/writing-samples/mk-parrish-brand-voice-playbook.pdf">
+        <span>PDF writing sample</span>
+        <strong>Brand Voice Playbook</strong>
+        <p>A usable brand voice system: traits, borders, examples, tone map, and writing rules.</p>
+      </a>
+    
+      <a class="asset" href="https://www.mkparrish.com/downloads/portfolio/protected/writing-samples/mk-parrish-build-copy-guide.pdf">
+        <span>PDF conversion copy sample</span>
+        <strong>Build Copy Guide</strong>
+        <p>Website copy architecture that connects positioning, objections, proof, and CTA.</p>
+      </a>
+    
+      <a class="asset" href="https://www.mkparrish.com/downloads/portfolio/protected/writing-samples/mk-parrish-rewrite-playbook.pdf">
+        <span>PDF narrative strategy sample</span>
+        <strong>Rewrite Playbook</strong>
+        <p>A full narrative audit and rewrite system for professional positioning and executive presence.</p>
+      </a>
+    
+      <a class="asset" href="https://www.mkparrish.com/downloads/portfolio/protected/writing-samples/mk-parrish-rewrite-checklist.pdf">
+        <span>PDF lead magnet</span>
+        <strong>Rewrite Starter Checklist</strong>
+        <p>A short-form sample that turns a bigger method into a practical conversion asset.</p>
+      </a>
+    
+      <a class="asset" href="https://www.mkparrish.com/downloads/portfolio/protected/writing-samples/mk-parrish-ghostwriting-playbook.epub">
+        <span>EPUB executive content sample</span>
+        <strong>Ghostwriting Playbook</strong>
+        <p>Founder voice capture and point-of-view content built before the drafting starts.</p>
+      </a>
+    
+      <a class="asset" href="https://www.mkparrish.com/downloads/portfolio/protected/writing-samples/mk-parrish-margin-notes-vol-iii.pdf">
+        <span>PDF long-form editorial sample</span>
+        <strong>The Margin Notes Vol. III</strong>
+        <p>Long-form argument, research synthesis, and editorial voice over a complete collection.</p>
+      </a>
+    </div>
+    </section>
+    <p class="footer-note">MK Parrish / mkparrish.com / mkp414@icloud.com</p>
+  </main>
+</body>
+</html>

@@ -253,7 +253,7 @@ export default function AboutPage() {
       <RevealSection bg="obsidian" num="04">
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
           <div>
-            <Eyebrow>Let's talk</Eyebrow>
+            <Eyebrow>Let&apos;s talk</Eyebrow>
             <H2>
               Where to{" "}
               <span className="text-petal">find me.</span>

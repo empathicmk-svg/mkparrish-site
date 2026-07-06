@@ -57,7 +57,23 @@ export type LeadMagnet = (typeof LEAD_MAGNETS)[number];
 
 export const DEFAULT_LEAD_MAGNET = LEAD_MAGNETS[0];
 
+function normalizeLeadMagnetKey(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export function getLeadMagnet(slug: unknown): LeadMagnet {
   if (typeof slug !== "string") return DEFAULT_LEAD_MAGNET;
-  return LEAD_MAGNETS.find((magnet) => magnet.slug === slug) ?? DEFAULT_LEAD_MAGNET;
+  const key = normalizeLeadMagnetKey(slug);
+  return (
+    LEAD_MAGNETS.find((magnet) =>
+      [magnet.slug, magnet.label, magnet.title, magnet.shortTitle]
+        .map(normalizeLeadMagnetKey)
+        .includes(key),
+    ) ?? DEFAULT_LEAD_MAGNET
+  );
 }
