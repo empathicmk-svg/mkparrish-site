@@ -97,6 +97,11 @@ function escapeHtml(value: string): string {
     .replaceAll('"', "&quot;");
 }
 
+async function responseSnippet(res: Response) {
+  const text = await res.text().catch(() => "");
+  return text.replace(/\s+/g, " ").slice(0, 500);
+}
+
 function cleanEmail(value: unknown): string | null {
   if (typeof value !== "string") return null;
   const email = value.trim().toLowerCase();
@@ -179,9 +184,9 @@ async function sendEmail(
   html: string,
   options: { idempotencyKey: string; replyTo?: string | null },
 ) {
-  const key = process.env.RESEND_API_KEY;
+  const key = process.env.RESEND_API_KEY || process.env.resend;
   if (!key) {
-    console.warn("RESEND_API_KEY not set — purchase email skipped.");
+    console.warn("Resend API key not set. Purchase email skipped.");
     return false;
   }
   const payload: Record<string, unknown> = {
@@ -205,7 +210,7 @@ async function sendEmail(
       body: JSON.stringify(payload),
     });
     if (!res.ok) {
-      console.error("Resend send error:", res.status, await res.text().catch(() => ""));
+      console.error("Resend send error:", res.status, await responseSnippet(res));
       return false;
     }
     return true;

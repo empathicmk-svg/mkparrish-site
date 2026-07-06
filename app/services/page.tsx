@@ -66,7 +66,17 @@ function useCounter(target: number, duration = 1800, suffix = "") {
   return { ref, display: value + suffix };
 }
 
-function StatCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+function StatCounter({
+  value,
+  suffix,
+  label,
+  prefix = "",
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+  prefix?: string;
+}) {
   const { ref, display } = useCounter(value, 1600, suffix);
   return (
     <div className="flex flex-col gap-2">
@@ -75,6 +85,7 @@ function StatCounter({ value, suffix, label }: { value: number; suffix: string; 
         className="font-display text-petal"
         style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", lineHeight: 0.9, letterSpacing: "0.01em" }}
       >
+        {prefix}
         {display}
       </span>
       <span className="font-body text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-ash">{label}</span>
@@ -83,7 +94,7 @@ function StatCounter({ value, suffix, label }: { value: number; suffix: string; 
 }
 
 // ── Word cycling words ────────────────────────────────────────────────────────
-const CYCLE_WORDS = ["Pipeline"];
+const CYCLE_WORDS = ["Pipeline", "Positioning", "Website", "Demand", "Story"];
 
 // ── Services data ────────────────────────────────────────────────────────────
 const services = [
@@ -369,14 +380,13 @@ export default function Home() {
           {/* Proof stat band */}
           <div className="mt-12 grid grid-cols-2 gap-px border-t border-graphite bg-graphite pt-px sm:grid-cols-4">
             {[
-              { num: "$40M+", label: "Pipeline influenced" },
-              { num: "2 Decades", label: "Growth + marketing" },
-              { num: "32%", label: "Cold reply rates" },
-              { num: "1", label: "Operator, no layers" },
+              { value: 40, prefix: "$", suffix: "M+", label: "Pipeline influenced" },
+              { value: 2, prefix: "", suffix: " Decades", label: "Growth + marketing" },
+              { value: 32, prefix: "", suffix: "%", label: "Cold reply rates" },
+              { value: 1, prefix: "", suffix: "", label: "Operator, no layers" },
             ].map((s) => (
               <div key={s.label} className="bg-void px-5 pt-8 pb-2">
-                <p className="font-display text-3xl tracking-[0.02em] text-petal md:text-4xl">{s.num}</p>
-                <p className="mt-2 font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ash">{s.label}</p>
+                <StatCounter {...s} />
               </div>
             ))}
           </div>
@@ -399,7 +409,7 @@ export default function Home() {
           All-in pricing. No retainer traps.
         </p>
 
-        <div className="grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-3">
+        <div className="services-offerings-grid grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {[...services, ...growthServices, ...productionServices].map((s) => (
             <ServiceCard key={s.title} {...s} />
           ))}

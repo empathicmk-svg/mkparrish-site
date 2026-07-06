@@ -151,10 +151,15 @@ function escapeHtml(value: string) {
     .replaceAll('"', "&quot;");
 }
 
+async function responseSnippet(res: Response) {
+  const text = await res.text().catch(() => "");
+  return text.replace(/\s+/g, " ").slice(0, 500);
+}
+
 async function sendResendEmail(payload: Record<string, unknown>, idempotencyParts: string[]): Promise<boolean> {
-  const key = process.env.RESEND_API_KEY;
+  const key = process.env.RESEND_API_KEY || process.env.resend;
   if (!key) {
-    console.warn("RESEND_API_KEY not set. Email skipped; direct download link returned.");
+    console.warn("Resend API key not set. Email skipped; direct download link returned.");
     return false;
   }
 
@@ -170,7 +175,7 @@ async function sendResendEmail(payload: Record<string, unknown>, idempotencyPart
     });
 
     if (!res.ok) {
-      console.error("Resend send error:", res.status, await res.text().catch(() => ""));
+      console.error("Resend send error:", res.status, await responseSnippet(res));
       return false;
     }
 
@@ -192,7 +197,7 @@ async function subscribeToSubstack(email: string) {
       },
       body: JSON.stringify({ email, first_name: "", last_name: "" }),
     });
-    if (!res.ok) console.error("Substack subscribe error:", res.status, await res.text().catch(() => ""));
+    if (!res.ok) console.error("Substack subscribe error:", res.status, await responseSnippet(res));
   } catch (err) {
     console.error("Substack subscribe fetch error:", err);
   }

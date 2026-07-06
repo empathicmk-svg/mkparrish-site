@@ -269,13 +269,19 @@ export function ServiceCard({
 }) {
   const external = href.startsWith("http");
   return (
-    <div
-      className={`relative flex flex-col p-6 transition-all duration-300 hover:-translate-y-1 md:p-7 ${
-        highlight ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : "bg-obsidian"
+    <article
+      className={`service-card group/card relative isolate flex min-h-full flex-col overflow-visible border p-6 transition-all duration-300 md:p-7 ${
+        highlight
+          ? "border-petal/35 bg-carbon shadow-[0_0_70px_rgba(255,181,208,0.12)]"
+          : "border-graphite/80 bg-obsidian"
       }`}
       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
       {highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,181,208,0.09),transparent_65%)]" />
+      </div>
       <p className="font-body text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-iron">{tag}</p>
       <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl md:text-3xl">{title}</h3>
       <p className="mt-1.5 font-display text-3xl text-white md:text-4xl">{price}</p>
@@ -308,6 +314,6 @@ export function ServiceCard({
           </a>
         )}
       </div>
-    </div>
+    </article>
   );
 }

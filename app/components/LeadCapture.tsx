@@ -14,7 +14,7 @@ function shouldSuppressPopup() {
   if (typeof window === "undefined") return true;
 
   const pathname = window.location.pathname;
-  const suppressedPaths = ["/rebecoming", "/contact", "/shop", "/services", "/book", "/portfolio", "/partners", "/sponsors"];
+  const suppressedPaths = ["/rebecoming", "/services", "/contact", "/book"];
   if (suppressedPaths.some((path) => pathname.startsWith(path))) return true;
 
   const saved = localStorage.getItem(STORAGE_KEY);

@@ -5,6 +5,7 @@ import Nav from "@/app/components/Nav";
 import Footer from "@/app/components/Footer";
 import CursorGlow from "@/app/components/CursorGlow";
 import LeadCapture from "@/app/components/LeadCapture";
+import MonetizationDrawer from "@/app/components/MonetizationDrawer";
 import SiteQuoteRail from "@/app/components/SiteQuoteRail";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
@@ -53,11 +54,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="flex min-h-full flex-col overflow-x-hidden">
+      <body className="site-body flex min-h-full flex-col overflow-x-hidden">
         <CursorGlow />
         <Nav />
-        <main className="flex-1 pb-16 md:pb-0">{children}</main>
+        <main className="site-main flex-1 pb-20 md:pb-0">{children}</main>
         <SiteQuoteRail />
+        <MonetizationDrawer />
         <LeadCapture />
         <Footer />
         <Analytics />

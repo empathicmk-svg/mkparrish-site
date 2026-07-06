@@ -11,7 +11,7 @@ type NavLinkItem = {
 };
 
 const workLinks: NavLinkItem[] = [
-  { label: "All Offerings", href: "/#offerings" },
+  { label: "All Offerings", href: "/services#offerings" },
   { label: "Web Design & Build", href: "/studio" },
   { label: "Outbound & Growth", href: "/growth" },
   { label: "Messaging & Copy", href: "/brand" },
@@ -25,42 +25,42 @@ const megaServices = [
     title: "The Build",
     price: "From $6,000",
     desc: "Conversion website strategy, copy, design, and build handled together.",
-    href: "/#offerings",
+    href: "/services#offerings",
   },
   {
     tag: "Outbound",
     title: "The Outbound Engine",
     price: "From $2,500/mo",
     desc: "Cold email and LinkedIn systems built to book qualified calls.",
-    href: "/#offerings",
+    href: "/services#offerings",
   },
   {
     tag: "Growth",
     title: "Full-Funnel Growth",
     price: "From $6,500/mo",
     desc: "Demand, conversion, and activation run as one revenue motion.",
-    href: "/#offerings",
+    href: "/services#offerings",
   },
   {
     tag: "Messaging",
     title: "The Rewrite",
     price: "From $2,500",
     desc: "Core positioning and copy rebuilt so buyers understand the value faster.",
-    href: "/#offerings",
+    href: "/services#offerings",
   },
   {
     tag: "Thought Leadership",
     title: "The Byline",
     price: "From $2,500/mo",
     desc: "Founder and executive content shaped into a consistent point of view.",
-    href: "/#offerings",
+    href: "/services#offerings",
   },
   {
     tag: "Quick Fix",
     title: "The Edit",
     price: "From $250",
     desc: "One high-value piece of copy tightened, clarified, and improved.",
-    href: "/#offerings",
+    href: "/services#offerings",
   },
 ] as const;
 
@@ -106,6 +106,8 @@ export default function Nav() {
       setShowBackTop(y > 500);
       const total = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(total > 0 ? (y / total) * 100 : 0);
+      setWorkOpen(false);
+      setServicesOpen(false);
     };
 
     window.addEventListener("scroll", handler, { passive: true });
@@ -159,10 +161,10 @@ export default function Nav() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        className={`fixed inset-x-0 top-0 z-[900] border-b border-petal/15 transition-all duration-300 ${
           scrolled
-            ? "border-b border-graphite bg-void/[0.92] backdrop-blur-[12px]"
-            : "bg-void/75 backdrop-blur-[12px]"
+            ? "bg-void/[0.94] shadow-[0_12px_50px_rgba(0,0,0,0.4),0_0_28px_rgba(255,181,208,0.08)] backdrop-blur-[14px]"
+            : "bg-void/[0.82] backdrop-blur-[14px]"
         }`}
       >
         <div
@@ -170,7 +172,7 @@ export default function Nav() {
           style={{ width: `${progress}%`, opacity: progress > 0 ? 0.7 : 0 }}
         />
 
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 lg:px-10">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-5 py-4 lg:px-8 2xl:px-10">
           <div className="flex items-center gap-3">
             <AuthorGlow size={40} ring={2} className="hidden sm:inline-block" />
             <Link
@@ -182,7 +184,7 @@ export default function Nav() {
             </Link>
           </div>
 
-          <nav className="ml-8 hidden min-w-0 flex-1 items-center justify-end gap-5 xl:flex xl:gap-7">
+          <nav className="ml-5 hidden min-w-0 flex-1 items-center justify-end gap-3 lg:flex xl:gap-5 2xl:gap-7">
             <div
               ref={servicesRef}
               className="mega-menu order-first"
@@ -200,7 +202,7 @@ export default function Nav() {
                 }}
                 aria-expanded={servicesOpen}
                 aria-haspopup="true"
-                className={`nav-link flex items-center gap-1 whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
+                className={`nav-link flex items-center gap-1 whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
                   servicesOpen ? "text-pearl" : "text-ash"
                 }`}
               >
@@ -246,7 +248,7 @@ export default function Nav() {
                 }}
                 aria-expanded={workOpen}
                 aria-haspopup="true"
-                className={`nav-link flex items-center gap-1 whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
+                className={`nav-link flex items-center gap-1 whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
                   workOpen ? "text-pearl" : "text-ash"
                 }`}
               >
@@ -282,7 +284,7 @@ export default function Nav() {
 
             <Link
               href="/rebecoming"
-              className={`nav-link whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
+              className={`nav-link whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
                 isActive("/rebecoming") ? "active text-pearl" : "text-ash"
               }`}
             >
@@ -291,7 +293,7 @@ export default function Nav() {
 
             <Link
               href="/shop"
-              className={`nav-link whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
+              className={`nav-link whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
                 isActive("/shop") ? "active text-pearl" : "text-ash"
               }`}
             >
@@ -300,7 +302,7 @@ export default function Nav() {
 
             <Link
               href="/about"
-              className={`nav-link whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
+              className={`nav-link whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
                 isActive("/about") ? "active text-pearl" : "text-ash"
               }`}
             >
@@ -309,7 +311,7 @@ export default function Nav() {
 
             <Link
               href="/contact"
-              className={`nav-link whitespace-nowrap font-body text-[0.62rem] font-medium uppercase tracking-[0.12em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl ${
+              className={`nav-link whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
                 isActive("/contact") ? "active text-pearl" : "text-ash"
               }`}
             >
@@ -317,7 +319,7 @@ export default function Nav() {
             </Link>
           </nav>
 
-          <div className="hidden items-center gap-3 xl:flex">
+          <div className="hidden items-center gap-3 2xl:flex">
             <Link
               href="/shop"
               className="btn-ghost px-4 py-2 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em]"
@@ -334,7 +336,7 @@ export default function Nav() {
 
           <button
             onClick={() => setMobileNav(!mobileNav)}
-            className="flex flex-col gap-1.5 xl:hidden"
+            className="flex flex-col gap-1.5 lg:hidden"
             aria-label={mobileNav ? "Close menu" : "Open menu"}
             aria-expanded={mobileNav}
           >
@@ -345,7 +347,7 @@ export default function Nav() {
         </div>
 
         <div
-          className={`fixed inset-0 z-40 flex flex-col bg-void/[0.98] backdrop-blur-xl transition-all duration-500 xl:hidden ${
+          className={`fixed inset-0 z-40 flex flex-col bg-void/[0.98] backdrop-blur-xl transition-all duration-500 lg:hidden ${
             mobileNav ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-full opacity-0"
           }`}
           style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)", top: 0 }}
@@ -423,7 +425,7 @@ export default function Nav() {
         </div>
 
         <div
-          className={`fixed inset-0 z-40 flex flex-col bg-void/[0.98] backdrop-blur-xl transition-all duration-500 xl:hidden ${
+          className={`fixed inset-0 z-40 flex flex-col bg-void/[0.98] backdrop-blur-xl transition-all duration-500 lg:hidden ${
             mobileServices ? "pointer-events-auto translate-x-0 opacity-100" : "pointer-events-none translate-x-full opacity-0"
           }`}
           style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)", top: 0 }}
