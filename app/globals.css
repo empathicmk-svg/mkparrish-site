@@ -947,12 +947,15 @@ label {
   position: relative;
 }
 .mega-menu-panel {
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: 4.25rem;
   left: 50%;
   transform: translateX(-50%) translateY(-8px);
-  width: max-content;
-  min-width: 680px;
+  width: min(760px, calc(100vw - 2rem));
+  min-width: min(680px, calc(100vw - 2rem));
+  max-height: calc(100vh - 5.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: rgba(8, 8, 8, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -960,7 +963,7 @@ label {
   border-top: none;
   padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
   background-color: var(--color-graphite);
   opacity: 0;
