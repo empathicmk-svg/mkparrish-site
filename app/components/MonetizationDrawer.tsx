@@ -140,12 +140,6 @@ export default function MonetizationDrawer() {
               >
                 Compare Every Path →
               </Link>
-              <Link
-                href="/partners"
-                className="mt-3 inline-flex w-full justify-center border border-graphite px-5 py-3 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal"
-              >
-                Sponsorships & Partners
-              </Link>
               <button
                 type="button"
                 onClick={dismiss}

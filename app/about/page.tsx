@@ -296,7 +296,7 @@ export default function AboutPage() {
               { label: "Enter Rebecoming", href: "/rebecoming" },
               { label: "Design & Build Your Site", href: "/studio" },
               { label: "Rewrite Your Messaging", href: "/brand" },
-              { label: "Sponsor the Work", href: "/partners" },
+              { label: "Book a Call", href: "/book" },
             ].map((link) => (
               <Link key={link.href} href={link.href} className="group flex items-center justify-between bg-void px-6 py-5 transition-colors hover:bg-carbon">
                 <span className="font-body text-sm font-light text-smoke transition-colors group-hover:text-pearl">{link.label}</span>

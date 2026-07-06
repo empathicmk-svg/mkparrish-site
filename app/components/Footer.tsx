@@ -17,8 +17,6 @@ const footerGroups = [
       { label: "How I Work", href: "/how-i-work" },
       { label: "Rebecoming", href: "/rebecoming" },
       { label: "Shop", href: "/shop" },
-      { label: "Sponsors", href: "/partners" },
-      { label: "Portfolio Docs", href: "/portfolio" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
     ],

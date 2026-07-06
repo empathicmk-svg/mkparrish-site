@@ -17,7 +17,6 @@ const staticRoutes = [
   { path: "/margins", changeFrequency: "weekly", priority: 0.85 },
   { path: "/writing", changeFrequency: "monthly", priority: 0.75 },
   { path: "/posts", changeFrequency: "weekly", priority: 0.7 },
-  { path: "/partners", changeFrequency: "monthly", priority: 0.7 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
   { path: "/book", changeFrequency: "monthly", priority: 0.85 },

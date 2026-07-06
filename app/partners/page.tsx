@@ -10,9 +10,13 @@ import {
 } from "@/app/lib/affiliate-partners";
 
 export const metadata: Metadata = {
-  title: "Sponsorships & Affiliate Partners - MK Parrish",
+  title: "Sponsor Microsite - MK Parrish",
   description:
-    "Sponsor MK Parrish book, essay, and shop surfaces or apply for affiliate programs that fit the Rebecoming and Rewrite Your Story audience.",
+    "A hidden MK Parrish sponsorship and affiliate microsite for private sponsor conversations.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 const sponsorshipHref = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
@@ -59,7 +63,7 @@ export default function PartnersPage() {
         <div className="relative mx-auto grid max-w-[1400px] gap-10 px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-10">
           <div>
             <p className="font-body text-[0.68rem] font-bold uppercase tracking-[0.32em] text-petal">
-              Sponsorships + affiliates
+              Hidden sponsor microsite
             </p>
             <h1 className="mt-5 max-w-5xl font-display text-6xl uppercase leading-[0.88] tracking-[0.01em] text-pearl md:text-8xl lg:text-9xl">
               Sponsor the work readers <span className="text-petal">trust.</span>

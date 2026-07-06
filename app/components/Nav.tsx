@@ -17,7 +17,6 @@ const workLinks: NavLinkItem[] = [
   { label: "Messaging & Copy", href: "/brand" },
   { label: "Positioning Audit", href: "/audit" },
   { label: "How I Work", href: "/how-i-work" },
-  { label: "Sponsors", href: "/partners" },
 ];
 
 const megaServices = [
@@ -75,7 +74,6 @@ const mobileSections: { label: string; links: NavLinkItem[] }[] = [
     links: [
       { label: "Rebecoming", href: "/rebecoming" },
       { label: "Shop", href: "/shop" },
-      { label: "Sponsors", href: "/partners" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
     ],

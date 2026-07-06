@@ -31,13 +31,6 @@ const cards = [
     href: "/rebecoming",
     cta: "Enter Rebecoming",
   },
-  {
-    eyebrow: "Sponsors",
-    title: "Partners",
-    text: "Sponsor Rebecoming, The Margins, the shop, or a useful reader resource without turning trust into clutter.",
-    href: "/partners",
-    cta: "Sponsor the Work",
-  },
 ] as const;
 
 export default function HomePage() {
@@ -78,7 +71,7 @@ export default function HomePage() {
               Keep the site focused on the work.
             </h2>
           </div>
-          <div className="grid gap-px bg-graphite sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
             {cards.map((card) => (
               <article key={card.title} className="flex h-full flex-col bg-void p-7 md:p-9">
                 <p className="font-body text-[0.62rem] font-bold uppercase tracking-[0.28em] text-petal">{card.eyebrow}</p>
@@ -101,7 +94,7 @@ export default function HomePage() {
         description="The MK Parrish world sits between story and sales: thinkers, artists, founders, rappers, and original Rewrite Your Story language."
         highlighted
         primaryCta={{ href: "/rebecoming", label: "Enter Rebecoming" }}
-        secondaryCta={{ href: "/partners", label: "Sponsor the Work" }}
+        secondaryCta={{ href: "/shop", label: "Shop the Shelf" }}
         slugs={["mk-rebecoming", "marcus-mind", "jayz-business", "mk-seen"]}
       />
 
