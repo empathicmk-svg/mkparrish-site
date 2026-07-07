@@ -29,6 +29,16 @@ const creatorProducts = creatorSlugs
   .filter((product): product is Extract<ShopProduct, { slug: (typeof creatorSlugs)[number] }> => Boolean(product));
 
 const servicesVault = SERVICE_EBOOKS.find((product) => product.slug === "the-services-vault");
+const brandDealRoom = SERVICE_EBOOKS.find((product) => product.slug === "the-brand-deal-room");
+
+const influencerSignals = [
+  "Not ad inventory",
+  "Brand-safe, not bland",
+  "Rates with receipts",
+  "UGC that sells",
+  "AI without voice loss",
+  "Audience you own",
+] as const;
 
 const launchPath = [
   {
@@ -130,6 +140,50 @@ export default function CreatorRevenuePage() {
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             {servicesVault && <BtnPrimary href={productCheckoutHref(servicesVault)}>Buy the Vault — $127</BtnPrimary>}
             <BtnGhost href="#creator-offers">Shop the six guides</BtnGhost>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-petal py-8 text-void md:py-10">
+        <div className="mx-auto grid max-w-[1400px] gap-8 px-6 lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:px-10">
+          <div>
+            <p className="font-body text-[0.68rem] font-bold uppercase tracking-[0.28em] text-void/65">
+              For influencers who refuse to become ad inventory
+            </p>
+            <h2 className="mt-3 max-w-4xl font-display text-4xl uppercase leading-[0.95] tracking-[0.01em] md:text-6xl">
+              Be the creator brands can trust, quote, and buy from.
+            </h2>
+            <p className="mt-4 max-w-3xl font-body text-sm font-medium leading-7 text-void/80 md:text-base">
+              Most influencer advice tells you to post more. This gives you the creator proof stack: the media kit, offer menu, usage questions, content system, and owned funnel that make your audience look like a real business asset.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {influencerSignals.map((signal) => (
+                <span
+                  key={signal}
+                  className="border border-void/25 px-3 py-2 font-body text-[0.62rem] font-bold uppercase tracking-[0.16em] text-void"
+                >
+                  {signal}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 lg:items-stretch">
+            {servicesVault && (
+              <a
+                href={productCheckoutHref(servicesVault)}
+                className="inline-flex justify-center bg-void px-6 py-4 text-center font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-pearl transition hover:bg-carbon"
+              >
+                Build my creator proof stack — $127
+              </a>
+            )}
+            {brandDealRoom && (
+              <a
+                href={productCheckoutHref(brandDealRoom)}
+                className="inline-flex justify-center border border-void/35 px-6 py-4 text-center font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void transition hover:bg-void hover:text-pearl"
+              >
+                Make my next brand email easier — $47
+              </a>
+            )}
           </div>
         </div>
       </section>
