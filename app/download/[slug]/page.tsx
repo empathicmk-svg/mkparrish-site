@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import fs from "node:fs";
-import path from "node:path";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SHOP_PRODUCTS, getShopProduct, productDeliveryLinks, productDownload } from "@/app/lib/config";
@@ -16,24 +14,12 @@ export function generateStaticParams() {
   return SHOP_PRODUCTS.filter((p) => productDownload(p)).map((p) => ({ slug: p.slug }));
 }
 
-// Only offer files that actually exist on disk, so a missing EPUB never becomes
-// a broken button.
-function existingLinks(links: { label: string; href: string }[]) {
-  return links.filter((l) => {
-    try {
-      return fs.existsSync(path.join(process.cwd(), "public", l.href.replace(/^\//, "")));
-    } catch {
-      return true;
-    }
-  });
-}
-
 export default async function DownloadPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const product = getShopProduct(slug);
   if (!product) notFound();
 
-  const links = existingLinks(productDeliveryLinks(product));
+  const links = productDeliveryLinks(product);
   if (links.length === 0) notFound();
 
   return (
