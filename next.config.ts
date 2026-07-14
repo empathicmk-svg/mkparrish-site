@@ -70,6 +70,12 @@ const nextConfig: NextConfig = {
         destination: "/shop/:path*",
         permanent: true,
       },
+      // The booking page lives at /book. Redirect the common /booking typo.
+      {
+        source: "/booking",
+        destination: "/book",
+        permanent: true,
+      },
     ];
   },
 };
