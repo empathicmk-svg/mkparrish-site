@@ -17,7 +17,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://*.vercel-scripts.com https://tracker.metricool.com",
       "connect-src 'self' https://vitals.vercel-insights.com https://*.vercel-insights.com https://va.vercel-scripts.com https://*.vercel-scripts.com https://tracker.metricool.com https://*.metricool.com https://checkout.stripe.com",
-      "frame-src 'self' https://checkout.stripe.com",
+      "frame-src 'self' https://checkout.stripe.com https://calendar.google.com https://calendar.app.google",
       "object-src 'none'",
       "upgrade-insecure-requests",
     ].join("; "),
