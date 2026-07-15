@@ -68,14 +68,36 @@ function gcalLink(date: Date, slot: { h: number; m: number; label: string }) {
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
+// Google Calendar appointment scheduling pages only render inside an iframe
+// when the URL carries `gv=true`. The plain booking/share link (and the
+// calendar.app.google short link, which redirects to one) refuses to be
+// framed and shows Google's "The content is blocked" message instead. Add the
+// flag so whatever schedules URL is configured becomes embeddable.
+function toEmbeddableUrl(raw: string): string {
+  try {
+    const u = new URL(raw);
+    if (
+      u.hostname.endsWith("calendar.google.com") &&
+      u.pathname.includes("/appointments/schedules/")
+    ) {
+      u.searchParams.set("gv", "true");
+      return u.toString();
+    }
+  } catch {
+    // fall through and use the raw string as-is
+  }
+  return raw;
+}
+
 function GoogleBookingEmbed({ url }: { url: string }) {
+  const embedUrl = toEmbeddableUrl(url);
   return (
     <div className="relative border border-graphite bg-obsidian">
       <div className="absolute inset-x-0 top-0 h-px bg-petal opacity-40" />
       <div className="bg-void">
         <iframe
           title="Book a discovery call with MK Parrish"
-          src={url}
+          src={embedUrl}
           className="block h-[760px] w-full border-0 bg-white"
           loading="lazy"
           referrerPolicy="strict-origin-when-cross-origin"
