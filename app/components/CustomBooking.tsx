@@ -68,14 +68,39 @@ function gcalLink(date: Date, slot: { h: number; m: number; label: string }) {
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
+// Only Google Calendar appointment scheduling pages can be embedded in an
+// iframe, and only when the URL carries `gv=true`. Anything else — most
+// importantly the calendar.app.google short link, which is an opaque redirect
+// to one — refuses to be framed and shows Google's "The content is blocked"
+// message instead. Detect the framable shape and, for those, add the flag.
+function isEmbeddableBookingUrl(raw: string): boolean {
+  try {
+    const u = new URL(raw);
+    return (
+      u.hostname.endsWith("calendar.google.com") &&
+      u.pathname.includes("/appointments/schedules/")
+    );
+  } catch {
+    return false;
+  }
+}
+
+function toEmbeddableUrl(raw: string): string {
+  if (!isEmbeddableBookingUrl(raw)) return raw;
+  const u = new URL(raw);
+  u.searchParams.set("gv", "true");
+  return u.toString();
+}
+
 function GoogleBookingEmbed({ url }: { url: string }) {
+  const embedUrl = toEmbeddableUrl(url);
   return (
     <div className="relative border border-graphite bg-obsidian">
       <div className="absolute inset-x-0 top-0 h-px bg-petal opacity-40" />
       <div className="bg-void">
         <iframe
           title="Book a discovery call with MK Parrish"
-          src={url}
+          src={embedUrl}
           className="block h-[760px] w-full border-0 bg-white"
           loading="lazy"
           referrerPolicy="strict-origin-when-cross-origin"
@@ -302,8 +327,43 @@ function EmailBookingFallback() {
   );
 }
 
+// Booking URL that can't be framed (e.g. a calendar.app.google short link):
+// send people straight to the booking page in a new tab instead of rendering
+// an iframe Google will block.
+function GoogleBookingButton({ url }: { url: string }) {
+  return (
+    <div className="relative border border-graphite bg-obsidian p-8 md:p-12">
+      <div className="absolute inset-x-0 top-0 h-px bg-petal opacity-40" />
+      <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-petal">Book your call</p>
+      <h3 className="mt-4 font-display text-3xl uppercase tracking-[0.02em] text-white md:text-4xl">
+        Pick a time that works.
+      </h3>
+      <p className="mt-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "54ch" }}>
+        My live calendar opens in a new tab — choose any open slot and you&apos;ll get a
+        confirmation and a Google Meet link straight away.
+      </p>
+      <div className="mt-8">
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="btn-primary inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+        >
+          Open the Calendar →
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function CustomBooking() {
-  if (GOOGLE_BOOKING_URL) return <GoogleBookingEmbed url={GOOGLE_BOOKING_URL} />;
+  if (GOOGLE_BOOKING_URL) {
+    return isEmbeddableBookingUrl(GOOGLE_BOOKING_URL) ? (
+      <GoogleBookingEmbed url={GOOGLE_BOOKING_URL} />
+    ) : (
+      <GoogleBookingButton url={GOOGLE_BOOKING_URL} />
+    );
+  }
 
   return <EmailBookingFallback />;
 }
