@@ -70,6 +70,13 @@ const nextConfig: NextConfig = {
         destination: "/shop/:path*",
         permanent: true,
       },
+      // The booking page lives at /book; /booking is the more natural word
+      // people type/link, so keep it working.
+      {
+        source: "/booking",
+        destination: "/book",
+        permanent: true,
+      },
     ];
   },
 };
