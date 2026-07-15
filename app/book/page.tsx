@@ -78,10 +78,10 @@ export default function BookPage() {
         <div className="mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-              Pick a time
+              Book a Google Meet
             </p>
             <p className="font-body text-xs font-light text-iron">
-              Times shown in your local timezone.
+              Open calendar windows only. Meet link included.
             </p>
           </div>
           <CustomBooking />
