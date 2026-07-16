@@ -12,6 +12,7 @@ type NavLinkItem = {
 
 const workLinks: NavLinkItem[] = [
   { label: "All Offerings", href: "/services#offerings" },
+  { label: "Founding Redesign Offer", href: "/redesign" },
   { label: "Web Design & Build", href: "/studio" },
   { label: "Outbound & Growth", href: "/growth" },
   { label: "Messaging & Copy", href: "/brand" },
