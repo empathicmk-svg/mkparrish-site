@@ -208,8 +208,11 @@ export default function LeadCapture() {
               >
                 Read the first<br /><span className="text-petal">chapter free.</span>
               </h2>
-              <p className="mt-4 font-serif text-base italic leading-7 text-smoke">
-                <strong className="text-pearl not-italic">REBECOMING: From Fear to Faith</strong> is a memoir about losing your fear without losing yourself. You are not starting over. You are rebecoming. Enter your email and I&apos;ll send the opening chapter.
+              <p className="mt-4 font-display uppercase leading-none tracking-[0.03em] text-petal" style={{ fontSize: "1.5rem" }}>
+                REBECOMING: From Fear to Faith
+              </p>
+              <p className="mt-3 font-body text-base font-light leading-7 text-smoke">
+                A memoir about losing your fear without losing yourself. You are not starting over. You are rebecoming. Enter your email and I&apos;ll send the opening chapter.
               </p>
               <ul className="mt-5 space-y-2 font-body text-xs leading-5 text-smoke">
                 <li>• Immediate chapter access after signup.</li>

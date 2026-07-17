@@ -63,6 +63,39 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── FEATURED: Founding-client website redesigns ── */}
+      <section className="border-y border-petal/25 bg-carbon py-12 md:py-16">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-8 px-6 lg:grid-cols-[1.35fr_0.65fr] lg:px-10">
+          <div>
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">
+              Limited · A few founding clients · This quarter
+            </p>
+            <h2 className="mt-4 font-display text-4xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-5xl lg:text-6xl">
+              Your site, rebuilt to <span className="text-petal">earn its keep.</span>
+            </h2>
+            <p className="mt-5 max-w-2xl font-body text-base font-light leading-8 text-smoke">
+              Site slow, clunky on mobile, or no longer sounding like your business? I&apos;m taking on a small number of founding clients this quarter for full redesigns — audited, rebuilt fast and mobile-first, hands-on from start to finish — at a discounted rate in exchange for a testimonial.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-6">
+              {["Full site audit", "Fast, mobile-first rebuild", "Direct collaboration"].map((t) => (
+                <div key={t} className="flex items-center gap-3">
+                  <span className="h-1 w-1 bg-petal" />
+                  <span className="font-body text-xs font-light text-smoke">{t}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Link href="/redesign" className="btn-primary inline-flex w-full justify-center px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+              See the Offer →
+            </Link>
+            <Link href="/book" className="inline-flex w-full justify-center border border-graphite px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
+              Book a Fit Call
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section id="offerings" className="bg-obsidian py-16 md:py-24">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
           <div className="mb-10 max-w-3xl">
