@@ -58,6 +58,8 @@ address) or turn on Lulu's own distribution.
 | The Build Copy Guide | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
 | The Social Strategy Playbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $45 |
 | The Prompt Vault | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $41 |
+| The Meantime | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $44 |
+| The Redesign Playbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
 
 ### File slugs (for the URLs above)
 
@@ -78,6 +80,8 @@ address) or turn on Lulu's own distribution.
 - The Build Copy Guide → `the-build-copy-guide`
 - The Social Strategy Playbook → `the-social-strategy-playbook`
 - The Prompt Vault → `the-prompt-vault`
+- The Meantime → `the-meantime`
+- The Redesign Playbook → `the-redesign-playbook`
 
 ---
 
