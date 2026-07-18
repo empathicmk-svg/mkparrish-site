@@ -83,7 +83,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ slug
 
     const pb = new URLSearchParams();
     pb.set("mode", "payment");
-    pb.set("success_url", `${SITE_URL}/order-confirmed?slug=${product.slug}&session_id={CHECKOUT_SESSION_ID}`);
+    pb.set("success_url", `${SITE_URL}/order-confirmed?slug=${product.slug}&format=paperback&session_id={CHECKOUT_SESSION_ID}`);
     pb.set("cancel_url", `${SITE_URL}/shop/${product.slug}`);
     pb.set("allow_promotion_codes", "true");
     pb.set("billing_address_collection", "auto");
@@ -131,7 +131,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ slug
 
   const body = new URLSearchParams();
   body.set("mode", "payment");
-  body.set("success_url", `${SITE_URL}/download/${product.slug}?session_id={CHECKOUT_SESSION_ID}`);
+  body.set("success_url", `${SITE_URL}/order-confirmed?slug=${product.slug}&format=ebook&session_id={CHECKOUT_SESSION_ID}`);
   body.set("cancel_url", `${SITE_URL}/shop/${product.slug}`);
   body.set("allow_promotion_codes", "true");
   body.set("billing_address_collection", "auto");
