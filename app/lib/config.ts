@@ -224,6 +224,7 @@ export const EBOOKS = [
     free:      false,
     download:  "/downloads/ebooks/the-meantime.pdf",
     href:      "/checkout/the-meantime",
+    paperback: { price: "$44", href: "/checkout/the-meantime?format=paperback" },
     features:  [
       "A reflective memoir on feeling behind and finding peace",
       "Stoicism, Kierkegaard, Nietzsche, Frankl & Rilke woven throughout",
@@ -446,6 +447,7 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/templates/the-redesign-playbook.pdf",
     href:      "/checkout/the-redesign-playbook",
+    paperback: { price: "$52", href: "/checkout/the-redesign-playbook?format=paperback" },
     features:  [
       "The four-part site audit: performance, clarity, mobile & conversion",
       "Message-first rebuild framework + page-by-page architecture",

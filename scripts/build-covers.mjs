@@ -28,6 +28,8 @@ const PRODUCTS = [
   { src: 'ebooks/write-yourself-into-the-room.md',    slug: 'write-yourself-into-the-room' },
   { src: 'ebooks/brand-voice-playbook.md',            slug: 'brand-voice-playbook' },
   { src: 'ebooks/rebecoming.md',                      slug: 'rebecoming' },
+  { src: 'ebooks/still-here-still-hers.md',           slug: 'still-here-still-hers',
+    subtitle: 'Essays on losing yourself, surviving the in-between, and learning to belong to your own life.' },
   { src: 'ebooks/the-sentence-that-sells.md',         slug: 'the-sentence-that-sells' },
   { src: 'ebooks/evidence-not-vibes.md',              slug: 'evidence-not-vibes' },
   { src: 'ebooks/the-quiet-launch.md',                slug: 'the-quiet-launch' },
