@@ -140,14 +140,13 @@ const createPaymentLink = async (book, format) => {
     Object.assign(linkParams, {
       "shipping_address_collection[allowed_countries][0]": "US",
       "phone_number_collection[enabled]": "true",
-      "after_completion[type]": "hosted_confirmation",
-      "after_completion[hosted_confirmation][custom_message]":
-        "Thank you. Your paperback order is confirmed, and MK will follow up with shipping details.",
+      "after_completion[type]": "redirect",
+      "after_completion[redirect][url]": `${SITE_URL}/order-confirmed?slug=${book.slug}&format=paperback`,
     });
   } else {
     Object.assign(linkParams, {
       "after_completion[type]": "redirect",
-      "after_completion[redirect][url]": `${SITE_URL}/download/${book.slug}`,
+      "after_completion[redirect][url]": `${SITE_URL}/order-confirmed?slug=${book.slug}&format=ebook`,
     });
   }
 
