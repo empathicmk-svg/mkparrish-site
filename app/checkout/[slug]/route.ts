@@ -83,7 +83,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ slug
 
     const pb = new URLSearchParams();
     pb.set("mode", "payment");
-    pb.set("success_url", `${SITE_URL}/shop/${product.slug}?ordered=paperback`);
+    pb.set("success_url", `${SITE_URL}/order-confirmed?slug=${product.slug}&session_id={CHECKOUT_SESSION_ID}`);
     pb.set("cancel_url", `${SITE_URL}/shop/${product.slug}`);
     pb.set("allow_promotion_codes", "true");
     pb.set("billing_address_collection", "auto");
