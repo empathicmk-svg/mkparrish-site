@@ -41,6 +41,18 @@ const books = [
     ebookAmount: 2900,
     paperbackAmount: 4400,
   },
+  {
+    slug: "the-meantime",
+    title: "The Meantime",
+    ebookAmount: 2900,
+    paperbackAmount: 4400,
+  },
+  {
+    slug: "the-redesign-playbook",
+    title: "The Redesign Playbook",
+    ebookAmount: 4500,
+    paperbackAmount: 5200,
+  },
 ];
 
 const requiredEnvMessage = [
