@@ -713,6 +713,7 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/ebooks/the-study.pdf",
     href:      "/checkout/the-study",
+    paperback: { price: "$26", href: "/checkout/the-study?format=paperback" },
     features:  [
       "A simple, repeatable study rhythm you'll actually keep",
       "How to read for formation, not just information",
@@ -731,6 +732,7 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/ebooks/the-sermon-notes.pdf",
     href:      "/checkout/the-sermon-notes",
+    paperback: { price: "$32", href: "/checkout/the-sermon-notes?format=paperback" },
     features:  [
       "Turn study notes into shareable, useful content",
       "A repeatable framework from insight to post",
@@ -749,6 +751,7 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/ebooks/gospel-and-grind.pdf",
     href:      "/checkout/gospel-and-grind",
+    paperback: { price: "$38", href: "/checkout/gospel-and-grind?format=paperback" },
     features:  [
       "Reconcile faith and money without the guilt",
       "Position and price work you believe in",
@@ -767,6 +770,7 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/ebooks/the-calling-card.pdf",
     href:      "/checkout/the-calling-card",
+    paperback: { price: "$42", href: "/checkout/the-calling-card?format=paperback" },
     features:  [
       "A voice framework rooted in your convictions",
       "Language that connects and converts, honestly",
@@ -785,6 +789,7 @@ export const SERVICE_EBOOKS = [
     free:      false,
     download:  "/downloads/ebooks/ministry-monetized.pdf",
     href:      "/checkout/ministry-monetized",
+    paperback: { price: "$52", href: "/checkout/ministry-monetized?format=paperback" },
     features:  [
       "A full launch and revenue playbook, step by step",
       "Offers, pricing, and a pipeline that fits your calling",

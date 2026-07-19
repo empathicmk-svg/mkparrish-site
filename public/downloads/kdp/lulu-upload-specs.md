@@ -60,6 +60,11 @@ address) or turn on Lulu's own distribution.
 | The Prompt Vault | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $41 |
 | The Meantime | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $44 |
 | The Redesign Playbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
+| The Study | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $26 |
+| The Sermon Notes | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $32 |
+| Gospel & Grind | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $38 |
+| The Calling Card | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $42 |
+| Ministry, Monetized | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
 
 ### File slugs (for the URLs above)
 
@@ -82,6 +87,11 @@ address) or turn on Lulu's own distribution.
 - The Prompt Vault → `the-prompt-vault`
 - The Meantime → `the-meantime`
 - The Redesign Playbook → `the-redesign-playbook`
+- The Study → `the-study`
+- The Sermon Notes → `the-sermon-notes`
+- Gospel & Grind → `gospel-and-grind`
+- The Calling Card → `the-calling-card`
+- Ministry, Monetized → `ministry-monetized`
 
 ---
 

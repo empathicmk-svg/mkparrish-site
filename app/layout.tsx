@@ -8,6 +8,7 @@ import LeadCapture from "@/app/components/LeadCapture";
 import MonetizationDrawer from "@/app/components/MonetizationDrawer";
 import SiteQuoteRail from "@/app/components/SiteQuoteRail";
 import { Analytics } from "@vercel/analytics/next";
+import ConversionTracking from "@/app/components/ConversionTracking";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -26,12 +27,14 @@ export const metadata: Metadata = {
     url: "https://www.mkparrish.com",
     siteName: "MK Parrish",
     type: "website",
+    images: [{ url: "/og/default.png", width: 1200, height: 630, alt: "MK Parrish — Turn how you're seen into revenue." }],
   },
   twitter: {
     card: "summary_large_image",
     title: "MK Parrish — Growth Strategy, Websites & Messaging",
     description:
       "Websites, outbound, and messaging that turn how you're seen into revenue. Senior growth strategy for B2B SaaS, agencies, and growth-stage teams.",
+    images: ["/og/default.png"],
   },
   appleWebApp: {
     title: "MK Parrish",
@@ -63,6 +66,7 @@ export default function RootLayout({
         <LeadCapture />
         <Footer />
         <Analytics />
+        <ConversionTracking />
         <Script id="metricool-tracker" strategy="afterInteractive">
           {`function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"9cdfb02654dbeaea53c4119175b6e129"})});`}
         </Script>

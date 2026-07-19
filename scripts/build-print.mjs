@@ -73,6 +73,16 @@ const BOOKS = [
     blurb: 'Build a content strategy you will actually use. A content-pillar framework tied to real authority, brand-voice calibration for each platform, a thirty-day sprint template, and a posting system that does not depend on inspiration, the method behind The Social Suite.' },
   { slug: 'the-prompt-vault', src: 'templates/the-prompt-vault.md',
     blurb: 'Stop shipping the average of the internet. Forty-plus copy-paste prompts for positioning, bios, website copy, content, and email, the voice-capture prompt that makes AI sound like you, and edit prompts that kill the dead giveaways of AI, engineered so the machine drafts in your voice.' },
+  { slug: 'the-study', src: 'ebooks/scripture/the-study.md',
+    blurb: 'A modern guide to building a Bible study practice that actually sticks, on your own terms. A simple, repeatable rhythm; how to read for formation, not just information; and note-taking and reflection systems that compound. The grounded front door to a faith-and-work life that holds together.' },
+  { slug: 'the-sermon-notes', src: 'ebooks/scripture/the-sermon-notes.md',
+    blurb: 'Turn your personal Bible study into content your audience wants, and that you can charge for. A repeatable framework from private insight to public post, with guardrails for being generous online without giving everything away. The bridge between study and audience.' },
+  { slug: 'gospel-and-grind', src: 'ebooks/scripture/gospel-and-grind.md',
+    blurb: 'Build a profitable practice grounded in what you believe, without feeling like you are selling your faith. Reconcile calling and commerce, price and position work you believe in, and sell with integrity, clear and calm, no hype. For the faith-driven founder caught between mission and money.' },
+  { slug: 'the-calling-card', src: 'ebooks/scripture/the-calling-card.md',
+    blurb: 'Build a faith-informed brand voice that connects, converts, and stays true to who you are. A voice framework rooted in your convictions, language that lands honestly, and a way to name a mission plainly, no coyness, no apology. For people whose work is inseparable from their faith.' },
+  { slug: 'ministry-monetized', src: 'ebooks/scripture/ministry-monetized.md',
+    blurb: 'The launch and revenue playbook for faith-based creators. Offers, pricing, and a pipeline that fit your calling, step by step, toward sustainable income without burning out or selling out. The deepest guide in the faith line, for people who refuse to choose between calling and paying the bills.' },
 ];
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

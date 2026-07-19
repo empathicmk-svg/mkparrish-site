@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   title: "Shop — MK Parrish",
   description:
     "Ebooks, guides, frameworks, prints, and custom quote pieces from MK Parrish. Buy directly on the page, or grab the free downloads.",
+  openGraph: { images: ["/og/shop.png"] },
+  twitter: { card: "summary_large_image", images: ["/og/shop.png"] },
 };
 
 function priceToNum(price: string, free?: boolean): number {
@@ -68,10 +70,11 @@ const BROWSE_ITEMS: BrowseItem[] = [
 
 const FEATURED_BOOK_SLUGS = [
   "rebecoming",
+  "the-meantime",
   "still-here-still-hers",
   "street-smarts",
+  "the-invisible-bruise",
   "make-my-own-light",
-  "the-vault",
 ] as const;
 
 const FEATURED_BOOKS = FEATURED_BOOK_SLUGS
@@ -189,9 +192,9 @@ export default function ShopPage() {
         <Eyebrow pink>Featured Books</Eyebrow>
         <H2>Start with<br /><span className="text-petal">the books that burn.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "62ch" }}>
-          The memoir, the in-between essays, the father-loss book, the poetry, and the bundle. Premium PDF/EPUB files first; Lulu-ready paperbacks where the wrap files are already built.
+          The memoirs, the in-between essays, the meantime, the father-loss book, the survival guide, and the poetry. Premium PDF/EPUB files first; Lulu-ready paperbacks where the wrap files are already built.
         </p>
-        <div className="mt-12 grid auto-rows-fr gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-12 grid auto-rows-fr gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
           {FEATURED_BOOKS.map((book) => {
             const actionHref = book.stripe && book.stripe.length > 0 ? book.stripe : book.href;
             const requestCheckout = actionHref.startsWith("mailto:");
