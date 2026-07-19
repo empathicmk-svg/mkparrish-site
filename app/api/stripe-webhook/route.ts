@@ -255,7 +255,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "bad payload" }, { status: 400 });
   }
 
-  if (event.type !== "checkout.session.completed") {
+  const isCompleted = event.type === "checkout.session.completed";
+  const isExpired = event.type === "checkout.session.expired";
+  if (!isCompleted && !isExpired) {
     return NextResponse.json({ received: true });
   }
 
@@ -283,6 +285,26 @@ export async function POST(req: NextRequest) {
     ((session.collected_information as Record<string, unknown>)?.shipping_details as Record<string, unknown>) ||
     (session.shipping_details as Record<string, unknown>) ||
     undefined;
+
+  // ── Abandoned checkout: a nudge if Stripe captured an email before they left ──
+  if (isExpired) {
+    if (email) {
+      const title = metadataProduct?.title;
+      const backHref = metadataSlug ? `${SITE_URL}/shop/${escapeHtml(metadataSlug)}` : `${SITE_URL}/shop`;
+      await sendEmail(
+        email,
+        title ? `Still thinking about ${title}?` : "You left something in your cart",
+        shell(
+          `<p style="margin:0 0 14px;">Looks like your checkout${title ? ` for <strong>${escapeHtml(title)}</strong>` : ""} didn&rsquo;t finish — no worries, it happens.</p>
+           <p style="margin:0 0 14px;">If you still want it, you can pick up right where you left off:</p>
+           <p style="margin:0 0 14px;"><a href="${backHref}" style="color:#B23A59;">Finish your order &rarr;</a></p>
+           <p style="margin:0;">And if something got in the way — a question, the price, the timing — just reply to this email and tell me. I read every one.</p>`,
+        ),
+        { idempotencyKey: idempotencyKey("stripe", eventId, "abandoned"), replyTo: null },
+      );
+    }
+    return NextResponse.json({ received: true });
+  }
 
   const ebookSlug = EBOOK_LINKS[plink] || (metadataFormat === "ebook" && metadataProduct ? metadataSlug : "");
   const paperbackSlug = PAPERBACK_LINKS[plink] || (metadataFormat === "paperback" && metadataProduct ? metadataSlug : "");

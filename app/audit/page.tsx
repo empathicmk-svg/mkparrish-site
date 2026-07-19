@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   title: "The Positioning Audit — MK Parrish",
   description:
     "Send your website, LinkedIn, and one offer page. In 48 hours, get a Loom teardown, a written scorecard, 3 rewritten headlines, and your 3 highest-priority fixes — $97, async, no call required.",
+  openGraph: { images: ["/og/audit.png"] },
+  twitter: { card: "summary_large_image", images: ["/og/audit.png"] },
 };
 
 const SENDS = [

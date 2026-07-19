@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   title: "The First Conversation — MK Parrish",
   description:
     "Thirty minutes. Tell me what is not working. I will tell you what I see, whether I can help, and what makes sense next.",
+  openGraph: { images: ["/og/book.png"] },
+  twitter: { card: "summary_large_image", images: ["/og/book.png"] },
 };
 
 const what = [
