@@ -870,6 +870,60 @@ label {
   100% { background-position: 200% 0; }
 }
 
+/* ── ANIMATED PINK / GREY GRADIENT ─────────────────────────────── */
+@keyframes gradient-drift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+.gradient-pink-grey {
+  background: linear-gradient(
+    120deg,
+    #0E0E0E 0%,
+    #1A1A1A 22%,
+    #2C2C2C 40%,
+    rgba(242, 175, 198, 0.20) 50%,
+    #2C2C2C 60%,
+    #1A1A1A 78%,
+    #0E0E0E 100%
+  );
+  background-size: 300% 300%;
+  animation: gradient-drift 16s ease infinite;
+}
+.gradient-pink-grey-soft {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% -10%, rgba(242, 175, 198, 0.12), transparent 60%),
+    linear-gradient(160deg, #1A1A1A 0%, #141414 45%, #0E0E0E 100%);
+  background-size: 100% 100%, 200% 200%;
+  animation: gradient-drift 18s ease infinite;
+}
+/* Animated gradient hairline (top-of-card / section accents) */
+.gradient-rule {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-iron), var(--color-petal) 50%, var(--color-blush), var(--color-petal), var(--color-iron), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 6s linear infinite;
+}
+/* Money-card: pink/grey gradient surface with a lift + glow on hover */
+.money-card {
+  position: relative;
+  background:
+    radial-gradient(ellipse at top, rgba(242,175,198,0.06), transparent 60%),
+    linear-gradient(160deg, #1A1A1A, #131313);
+  border: 1px solid var(--color-graphite);
+  transition:
+    transform var(--duration-base) var(--ease-luxury),
+    border-color var(--duration-base) ease,
+    box-shadow var(--duration-slow) ease;
+}
+.money-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(242, 175, 198, 0.45);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 46px rgba(242,175,198,0.16);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gradient-pink-grey, .gradient-pink-grey-soft, .gradient-rule { animation: none; }
+}
+
 /* ── MEDIA QUERIES ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .hero-title {
