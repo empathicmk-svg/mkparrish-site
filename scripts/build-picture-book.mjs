@@ -100,7 +100,7 @@ const grayLoveSpreads = [
      <line x1="500" y1="90" x2="500" y2="770" stroke="${C.slate}" stroke-width="6" stroke-dasharray="2 18" stroke-linecap="round"/>
      <text x="260" y="450" font-family="'Bebas Neue'" font-size="120" fill="${C.white}" text-anchor="middle">YES</text>
      <text x="740" y="450" font-family="'Bebas Neue'" font-size="120" fill="${C.ink}" text-anchor="middle">NO</text>`),
-    text: 'They will tell you the world comes in two colors. Black, and white. Yes or no. Good or bad. Pick a side, they say — <em>quickly.</em>' },
+    text: 'The world, they told her, comes in two colors.\nBlack. And white.\nYes or no. Good or bad.\nPick a side, they said.\n<em>Quick.</em>' },
 
   // 3 — the tight line
   { art: svg(
@@ -111,7 +111,7 @@ const grayLoveSpreads = [
      <line x1="500" y1="620" x2="500" y2="1000" stroke="${C.slate}" stroke-width="4" stroke-dasharray="2 16"/>
      ${girl({ x: 500, y: 470, s: 1.5, dress: C.rose })}
      <path d="M470 470 q30 -60 -6 -120" stroke="${C.steel}" stroke-width="4" fill="none" opacity="0.5" stroke-dasharray="3 10"/>`),
-    text: 'Marlowe tried. She really did. But standing on the hard white line, with the hard black line beside it, something in her felt tight, and small, and not quite true.' },
+    text: 'Marlowe tried. She truly did.\nBut on the hard white line,\nwith the hard black line beside it,\nsomething in her pulled tight and small —\nlike a shoe on the wrong foot.' },
 
   // 4 — the fog comes
   { art: svg(
@@ -121,7 +121,7 @@ const grayLoveSpreads = [
      ${[0.15,0.35,0.55,0.75].map((o,i)=>`<ellipse cx="${180+i*230}" cy="${520+ (i%2)*80}" rx="360" ry="90" fill="${C.white}" opacity="${o}"/>`).join('')}
      ${girl({ x: 500, y: 560, s: 1.4, dress: C.petal })}
      <ellipse cx="500" cy="560" rx="340" ry="120" fill="${C.white}" opacity="0.35"/>`),
-    text: 'Then, one gray morning, the fog came. It rolled down the hills like a slow, soft breath and swallowed the sharp edges of everything. Marlowe stepped in, and the fog held her like a secret.' },
+    text: 'Then, one gray morning, the fog came.\nIt rolled down the hills like a slow, soft breath\nand swallowed every sharp edge in the world.\nMarlowe stepped inside it.\nThe fog held her like a secret.' },
 
   // 5 — hundreds of grays / doves
   { art: svg(
@@ -131,7 +131,7 @@ const grayLoveSpreads = [
      ${dove(230,300,1.5,C.silver)}${dove(430,318,1.3,C.ash)}${dove(620,332,1.6,C.mist)}${dove(800,348,1.2,C.steel)}
      ${dove(150,690,1.7,C.ash)}${dove(760,720,1.5,C.silver)}
      ${girl({ x: 470, y: 700, s: 1.5, dress: C.rose })}`),
-    text: 'In the fog she found gray. Not one gray — <em>hundreds.</em> Dove gray and smoke gray, the gray of old silver, the gray of a pigeon\'s wing catching the light.' },
+    text: 'And there, in the fog, she found gray.\nNot one gray.\n<em>Hundreds.</em>\nDove gray. Smoke gray. Old-spoon silver.\nThe hush of gray inside a pigeon\'s wing.' },
 
   // 6 — rain on glass
   { art: svg(
@@ -143,7 +143,7 @@ const grayLoveSpreads = [
      ${Array.from({length:26}).map((_,i)=>`<line x1="${140+i*30}" y1="${120+ (i%5)*20}" x2="${120+i*30}" y2="${880}" stroke="${C.cloud}" stroke-width="2.5" opacity="0.5"/>`).join('')}
      ${Array.from({length:16}).map((_,i)=>`<circle cx="${180+ (i*47)%680}" cy="${180+ (i*90)%660}" r="${5+ (i%3)*3}" fill="${C.cloud}" opacity="0.55"/>`).join('')}
      ${girl({ x: 300, y: 720, s: 1.1, dress: C.petal, face:true })}`),
-    text: 'Rain came next, tapping its gray fingers on the glass. The whole street went soft and shining and pewter. She pressed her nose to the window and breathed the cool, wet gray of it.' },
+    text: 'Then came the rain,\ntapping gray fingers on the glass.\nThe whole street went soft and shining,\nthe color of a warm, wet nickel.\nMarlowe breathed it in.' },
 
   // 7 — the storm
   { art: svg(
@@ -153,7 +153,7 @@ const grayLoveSpreads = [
      ${[[250,300,150],[480,250,190],[700,320,150]].map(([cx,cy,r])=>`<circle cx="${cx-40}" cy="${cy-30}" r="${r*0.7}" fill="${C.ash}" opacity="0.5"/>`).join('')}
      <path d="M520 430 l-40 120 55 -20 -30 120 90 -160 -55 20 30 -100 Z" fill="${C.blush}" opacity="0.9"/>
      ${girl({ x: 500, y: 800, s: 1.2, dress: C.rose })}`),
-    text: 'A storm stacked its clouds like slate. Not scary — <em>enormous.</em> Alive. Thunder rolled somewhere far and gentle, and the sky was every gray at once.' },
+    text: 'A storm stacked its clouds like gray stone plates.\nNot scary.\n<em>Enormous.</em> Alive.\nThunder turned over, far away and gentle —\nand the sky was every gray at once.' },
 
   // 8 — twilight
   { art: svg(
@@ -165,7 +165,7 @@ const grayLoveSpreads = [
      <circle cx="742" cy="222" r="46" fill="url(#g8)" opacity="0.5"/>
      <path d="M0 760 Q250 720 500 760 T1000 760 V1000 H0 Z" fill="${C.ink}" opacity="0.85"/>
      ${girl({ x: 500, y: 770, s: 1.15, dress: C.petal, face:false })}`),
-    text: 'And at the end of the day she found the best gray of all — twilight. The hour that is neither day nor night, when the world holds its breath between two things and is lovely in both.' },
+    text: 'And at the very end of the day,\nshe found the best gray of all.\n<em>Twilight.</em>\nNot day. Not night.\nThe hour the whole world holds its breath\nand is lovely in the holding.' },
 
   // 9 — creatures: stones, moths, elephant
   { art: svg(
@@ -176,7 +176,7 @@ const grayLoveSpreads = [
        <circle cx="820" cy="600" r="6" fill="${C.ink}"/><path d="M900 620 q40 20 20 60" stroke="${C.steel}" stroke-width="14" fill="none" stroke-linecap="round"/></g>
      ${[[180,860,26],[250,900,20],[360,880,30],[700,890,24],[790,910,18]].map(([x,y,r])=>`<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r*0.7}" fill="${['#8a9099','#aeb6bf','#6b7178','#c3c9cf'][ (x+r)%4 ]}"/>`).join('')}
      ${moth(250,330,1.1,C.silver)}${moth(470,270,0.9,C.mist)}`),
-    text: 'She started finding grays everywhere. Wet river stones. Moth wings. Warm ash. The soft velvet of a rabbit\'s ear. The great slow gray of an elephant, blinking in the sun.' },
+    text: 'After that, she found grays everywhere.\nRiver stones. Moth wings. Warm ash.\nThe velvet inside a rabbit\'s ear.\nThe great, slow gray of an elephant,\nblinking in the sun.' },
 
   // 10 — grandmother's hair
   { art: svg(
@@ -191,7 +191,7 @@ const grayLoveSpreads = [
        <circle cx="-46" cy="22" r="10" fill="${C.petal}" opacity="0.5"/><circle cx="46" cy="22" r="10" fill="${C.petal}" opacity="0.5"/>
      </g>
      ${girl({ x: 470, y: 760, s: 1.0, dress: C.rose })}`),
-    text: 'And her grandmother\'s hair — silver and smoke and moonlight, a whole life of grays. Every strand a story that was neither all happy nor all sad.' },
+    text: 'And her grandmother\'s hair —\nsilver and smoke and moonlight,\na whole long life of grays.\nEvery strand a story\nthat was never all happy,\nand never all sad.' },
 
   // 11 — the ribbon revelation
   { art: svg(
@@ -203,7 +203,7 @@ const grayLoveSpreads = [
      <text x="70" y="470" font-family="'Bebas Neue'" font-size="52" fill="${C.ink}">BLACK</text>
      <text x="820" y="470" font-family="'Bebas Neue'" font-size="52" fill="${C.slate}">WHITE</text>
      ${girl({ x: 500, y: 800, s: 1.2, dress: C.petal })}`),
-    text: 'That was when Marlowe understood. Black and white are only the two far ends of a long, soft ribbon — and everything that matters lives in the gray in between.' },
+    text: 'And that was when Marlowe understood.\nBlack and white\nare only the two far ends\nof one long, soft ribbon.\nEverything that matters\nlives in the gray in between.' },
 
   // 12 — she stops picking sides
   { art: svg(
@@ -212,7 +212,7 @@ const grayLoveSpreads = [
      <path d="M320 300 a180 180 0 1 1 40 300 l0 90" stroke="${C.steel}" stroke-width="46" fill="none" stroke-linecap="round"/>
      <circle cx="360" cy="760" r="30" fill="${C.steel}"/>
      ${girl({ x: 620, y: 720, s: 1.5, dress: C.rose })}`),
-    text: 'So she stopped picking sides so quickly. She learned to say, "I\'m not sure yet," and mean it like a door opening — not closing. She learned to love the questions that don\'t have fast answers.' },
+    text: 'So she stopped picking sides so fast.\nShe learned to say, "I\'m not sure yet,"\nand mean it like a door swinging open.\nShe learned to love the questions\nthat don\'t have quick answers.' },
 
   // 13 — closing / go and love it
   { art: svg(
@@ -221,7 +221,7 @@ const grayLoveSpreads = [
      ${[C.ink,C.slate,C.steel,C.ash,C.silver,C.mist].map((c,i)=>`<circle cx="500" cy="520" r="${300-i*46}" fill="none" stroke="${c}" stroke-width="6" opacity="0.5"/>`).join('')}
      ${dove(230,260,1.2,C.ash)}${dove(760,300,1.1,C.silver)}${moth(300,760,0.9,C.mist)}${moth(720,720,0.8,C.silver)}
      ${girl({ x: 500, y: 640, s: 1.9, dress: C.petal })}`),
-    text: 'The world is not black and white, little one — no matter who tells you it is. It is dove and pewter, smoke and silver, storm and twilight. It is gray. And gray is where the whole beautiful truth lives. <em>Go and love it.</em>' },
+    text: 'The world is not black and white, little one,\nno matter who says it is.\nIt is dove and pewter,\nsmoke and silver,\nstorm and twilight.\nIt is gray —\nand gray is where the whole true world lives.\n<em>Go on. Go love it.</em>' },
 ];
 
 // ── "The Princess Who Rescued Herself" — witty fairytale palette ──────────────
@@ -1237,7 +1237,8 @@ const BOOKS = [
 const esc = (s) => s.replace(/&(?!\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const story = (t) => esc(t)
   .replace(/&lt;em&gt;/g, '<em>').replace(/&lt;\/em&gt;/g, '</em>')
-  .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+  .replace(/\n/g, '<br>'); // deliberate picture-book line breaks
 
 function interiorHtml(book) {
   const pages = book.spreads.map((sp) => {

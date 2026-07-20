@@ -18,31 +18,33 @@ We hand children a black-and-white world early: right and wrong, smart and dumb,
 
 ## The Girl Who Loved Gray
 
-They will tell you the world comes in two colors. Black, and white. Yes or no. Good or bad. Win or lose. Pick a side, they say — quickly.
+The world, they told her, comes in two colors.
 
-Marlowe tried. She really did. But standing on the hard white line, with the hard black line beside it, something in her felt tight, and small, and not quite true.
+Black. And white. Yes or no. Good or bad. Win or lose. Pick a side, they said. Quick.
 
-Then, one gray morning, the fog came. It rolled down the hills like a slow, soft breath and swallowed the sharp edges of everything. Marlowe stepped into it, and the fog held her like a secret.
+Marlowe tried. She truly did. But on the hard white line, with the hard black line beside it, something in her pulled tight and small — like a shoe on the wrong foot.
 
-In the fog she found gray. Not one gray — hundreds. Dove gray and smoke gray, the gray of old silver, the gray of a pigeon's wing catching the light.
+Then, one gray morning, the fog came. It rolled down the hills like a slow, soft breath and swallowed every sharp edge in the world. Marlowe stepped inside it. The fog held her like a secret.
 
-Rain came next, tapping its gray fingers on the glass. The whole street went soft and shining and pewter. Marlowe pressed her nose to the window and breathed the cool, wet gray of it.
+And there, in the fog, she found gray. Not one gray. Hundreds. Dove gray. Smoke gray. Old-spoon silver. The hush of gray inside a pigeon's wing.
 
-A storm stacked its clouds like slate. Not scary — enormous. Alive. Thunder rolled somewhere far and gentle, and the sky was every gray at once.
+Then came the rain, tapping gray fingers on the glass. The whole street went soft and shining, the color of a warm, wet nickel. Marlowe breathed it in.
 
-And at the very end of the day, she found the best gray of all — twilight. The hour that is neither day nor night, when the world holds its breath between two things and is lovely in both.
+A storm stacked its clouds like gray stone plates. Not scary. Enormous. Alive. Thunder turned over, far away and gentle — and the sky was every gray at once.
 
-She started finding grays everywhere. Wet river stones. Moth wings. Warm ash. The soft velvet of a rabbit's ear. The great slow gray of an elephant, blinking in the sun.
+And at the very end of the day, she found the best gray of all. Twilight. Not day. Not night. The hour the whole world holds its breath and is lovely in the holding.
 
-And her grandmother's hair — silver and smoke and moonlight, a whole life of grays. Every strand a story that was neither all happy nor all sad.
+After that, she found grays everywhere. River stones. Moth wings. Warm ash. The velvet inside a rabbit's ear. The great, slow gray of an elephant, blinking in the sun.
 
-That was when Marlowe understood. Black and white are only the two far ends of a long, soft ribbon — and everything that matters lives in the gray in between.
+And her grandmother's hair — silver and smoke and moonlight, a whole long life of grays. Every strand a story that was never all happy, and never all sad.
 
-So she stopped picking sides so quickly. She learned to say, "I'm not sure yet," and mean it like a door opening, not closing. She learned to love the questions that don't have fast answers.
+And that was when Marlowe understood. Black and white are only the two far ends of one long, soft ribbon. Everything that matters lives in the gray in between.
 
-The world is not black and white, little one — no matter who tells you it is. It is dove and pewter, smoke and silver, storm and twilight. It is gray. And gray is where the whole beautiful truth lives.
+So she stopped picking sides so fast. She learned to say, "I'm not sure yet," and mean it like a door swinging open. She learned to love the questions that don't have quick answers.
 
-Go and love it.
+The world is not black and white, little one, no matter who says it is. It is dove and pewter, smoke and silver, storm and twilight. It is gray — and gray is where the whole true world lives.
+
+Go on. Go love it.
 
 ---
 
