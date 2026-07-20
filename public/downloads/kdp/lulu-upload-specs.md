@@ -67,7 +67,7 @@ address) or turn on Lulu's own distribution.
 | Gospel & Grind | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $38 |
 | The Calling Card | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $42 |
 | Ministry, Monetized | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
-| Her Story, Rewritten | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $32 |
+| Her Story, Rewritten | 6 x 9 | 38 | 0.095 in | 12.345 x 9.25 in | $32 |
 | Her Story, Rewritten: Volume Two | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $32 |
 | The Princess Who Rescued Herself | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
 | The Boy Who Talked to the Stars | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
