@@ -83,6 +83,24 @@ const books = [
     ebookAmount: 1400,
     paperbackAmount: 1900,
   },
+  {
+    slug: "her-story-rewritten-volume-two",
+    title: "Her Story, Rewritten: Volume Two",
+    ebookAmount: 2400,
+    paperbackAmount: 3200,
+  },
+  {
+    slug: "the-girl-who-found-her-words",
+    title: "The Girl Who Found Her Words",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
+  {
+    slug: "the-kid-with-two-homes",
+    title: "The Kid with Two Homes",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
 ];
 
 const requiredEnvMessage = [
