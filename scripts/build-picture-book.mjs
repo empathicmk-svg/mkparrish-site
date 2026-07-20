@@ -719,7 +719,178 @@ const quietSpreads = [
     text: 'From that day on, when something important went wrong, the loudest kingdom in the world learned to do a brand-new thing: it got quiet, and it went and found Posy. Because you cannot hear anything true while you are shouting. If you are a Posy, hold on to this: your quiet is not empty. It is *full.* You are listening — and one day it will matter more than all their noise combined.' },
 ];
 
+// ── "The One Who Sat Alone" — warm contemporary schoolyard ──────────────────
+const Y = {
+  sky:'#AEC9D8', skyDeep:'#84A8BE', cloud:'#EAF1F4', grass:'#8AA86A', grassDark:'#65814d',
+  wall:'#B4AE9F', wallDark:'#948d7c', stone:'#a39d8f', warm:'#F3EAD6', brick:'#C08457',
+  coral:'#E58B6B', marigold:'#E0A94A', leaf:'#6f9a55', bark:'#8a6a4e',
+};
+const bench = (x, y, s = 1, occupied = 0) => `<g transform="translate(${x},${y}) scale(${s})">
+  <rect x="-60" y="-6" width="120" height="14" rx="4" fill="${Y.bark}"/>
+  <rect x="-60" y="-26" width="120" height="12" rx="4" fill="${Y.bark}"/>
+  <rect x="-52" y="8" width="10" height="26" fill="${Y.bark}"/><rect x="42" y="8" width="10" height="26" fill="${Y.bark}"/>
+  ${Array.from({length:occupied}).map((_,i)=>`<g transform="translate(${-36+i*36},-46)"><path d="M-16 26 Q-18 -8 0 -10 Q18 -8 16 26 Z" fill="${['#7f9a6a','#c98f5a','#9a7fae','#6f8fae'][i%4]}"/><circle cx="0" cy="-22" r="13" fill="#e8d7cf"/></g>`).join('')}
+</g>`;
+const wall = (x, y, w, s = 1) => `<g transform="translate(${x},${y}) scale(${s})">
+  <rect x="0" y="0" width="${w}" height="70" fill="${Y.wall}"/>
+  <rect x="0" y="0" width="${w}" height="16" fill="${Y.cloud}" opacity="0.4"/>
+  ${Array.from({length:Math.ceil(w/70)}).map((_,r)=>Array.from({length:2}).map((_,c)=>`<rect x="${(r*70)+ (c?35:0)+ (c&&r%2?0:0)}" y="${16+c*27}" width="68" height="26" fill="none" stroke="${Y.wallDark}" stroke-width="2.5"/>`).join('')).join('')}
+</g>`;
+const tree = (x, y, s = 1) => `<g transform="translate(${x},${y}) scale(${s})">
+  <rect x="-14" y="-40" width="28" height="120" rx="6" fill="${Y.bark}"/>
+  <circle cx="0" cy="-90" r="90" fill="${Y.leaf}"/><circle cx="-60" cy="-60" r="56" fill="${Y.leaf}"/><circle cx="60" cy="-64" r="60" fill="${Y.leaf}"/>
+  <circle cx="0" cy="-90" r="90" fill="${Y.grassDark}" opacity="0.2"/></g>`;
+
+const aloneSpreads = [
+  // 1 TITLE
+  { title: true, art: svg(
+    `<linearGradient id="y1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.sky}"/><stop offset="1" stop-color="${Y.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y1)"/>
+     <ellipse cx="240" cy="200" rx="90" ry="40" fill="#fff" opacity="0.7"/><ellipse cx="760" cy="150" rx="70" ry="32" fill="#fff" opacity="0.6"/>
+     <path d="M0 760 Q500 720 1000 760 V1000 H0 Z" fill="${Y.grass}"/>
+     ${tree(150, 760, 0.9)}
+     ${wall(300, 620, 400, 1)}
+     ${girl({ x: 500, y: 560, s: 1.0, dress: Y.coral, hair: '#3a2f28' })}`),
+    text: '' },
+
+  // 2 everything had its place
+  { art: svg(
+    `<linearGradient id="y2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.sky}"/><stop offset="1" stop-color="${Y.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y2)"/>
+     <path d="M0 780 Q500 750 1000 780 V1000 H0 Z" fill="${Y.grass}"/>
+     ${tree(780, 780, 1.0)}
+     <line x1="120" y1="300" x2="360" y2="330" stroke="${Y.bark}" stroke-width="4"/>
+     ${dove(180,300,0.9,Y.stone)}${dove(300,318,0.8,Y.wallDark)}
+     ${[160,300,440].map((bx,i)=>`<g transform="translate(${bx},560)"><rect x="-34" y="0" width="68" height="120" fill="${Y.brick}"/><path d="M-44 0 L0 -36 L44 0 Z" fill="${Y.wallDark}"/></g>`).join('')}`),
+    text: 'When Juniper moved to the town of Elmsworth, everything there already had its place. The birds had their branches. The shopkeepers had their corners. And the children had their spots in the schoolyard — the same spots they\'d had since they were small, sorted and settled and sure, like books on a well-loved shelf.' },
+
+  // 3 Juniper had no spot
+  { art: svg(
+    `<linearGradient id="y3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.sky}"/><stop offset="1" stop-color="${Y.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y3)"/>
+     <path d="M0 800 Q500 770 1000 800 V1000 H0 Z" fill="${Y.grass}"/>
+     ${bench(230, 760, 1.0, 3)}${bench(760, 760, 1.0, 3)}
+     ${girl({ x: 500, y: 640, s: 0.95, dress: Y.coral, hair: '#3a2f28' })}`),
+    text: 'Juniper had no spot. She was brand new. Her clothes were a little different. She said some words in a way that made the other children\'s heads tilt. And on her first morning, she walked into the schoolyard holding her lunch, and looked for somewhere to sit — and every bench was already full of children who had known each other their whole lives.' },
+
+  // 4 sits alone on the wall
+  { art: svg(
+    `<linearGradient id="y4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.skyDeep}"/><stop offset="1" stop-color="${Y.sky}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y4)"/>
+     <path d="M0 720 Q500 690 1000 720 V1000 H0 Z" fill="${Y.grass}"/>
+     ${bench(760, 700, 0.8, 3)}
+     ${tree(880, 720, 0.7)}
+     ${wall(120, 640, 320, 1.05)}
+     ${girl({ x: 250, y: 590, s: 0.9, dress: Y.coral, hair: '#3a2f28', face:true })}`),
+    text: 'So Juniper sat alone, on the low stone wall at the very edge of the yard, and ate her lunch, and looked like she didn\'t mind. She minded terribly.' },
+
+  // 5 they weren't cruel
+  { art: svg(
+    `<linearGradient id="y5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.sky}"/><stop offset="1" stop-color="${Y.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y5)"/>
+     <path d="M0 790 Q500 760 1000 790 V1000 H0 Z" fill="${Y.grass}"/>
+     ${bench(500, 740, 1.1, 4)}
+     ${wall(760, 700, 200, 0.7)}
+     ${girl({ x: 830, y: 675, s: 0.5, dress: Y.coral, hair: '#3a2f28', face:false })}`),
+    text: 'The children of Elmsworth were not cruel. They didn\'t say mean things or push her. They just... didn\'t make room. It\'s easier not to. When your shelf is already full and settled, it\'s easier to leave the new book on the floor than to shift everything over to fit it in.' },
+
+  // 6 the story she believes
+  { art: svg(
+    `<radialGradient id="y6" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="${Y.skyDeep}"/><stop offset="1" stop-color="${Y.wallDark}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y6)"/>
+     ${wall(340, 560, 320, 1.05)}
+     ${girl({ x: 500, y: 510, s: 1.1, dress: Y.coral, hair: '#3a2f28', face:false })}
+     <text x="250" y="820" font-family="'Playfair Display'" font-style="italic" font-size="30" fill="${Y.cloud}">maybe I'm the kind of person who sits alone…</text>`),
+    text: 'And slowly, the story Juniper told about herself began to change shape, the way sad thoughts do, until it became: *maybe there is something wrong with me. Maybe I am the kind of person who sits alone.* That is the most dangerous part of sitting alone. It isn\'t the empty seat. It\'s the story you start to believe about why it\'s empty.' },
+
+  // 7 Cass noticed
+  { art: svg(
+    `<linearGradient id="y7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.sky}"/><stop offset="1" stop-color="${Y.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y7)"/>
+     <path d="M0 790 Q500 760 1000 790 V1000 H0 Z" fill="${Y.grass}"/>
+     ${bench(700, 740, 1.0, 3)}
+     ${boy({ x: 320, y: 660, s: 0.95, shirt: Y.leaf, hair:'#3a2f28' })}
+     ${wall(760, 700, 220, 0.7)}
+     ${girl({ x: 850, y: 675, s: 0.5, dress: Y.coral, hair: '#3a2f28', face:false })}
+     <path d="M360 600 q120 -20 420 40" stroke="${Y.grassDark}" stroke-width="2.5" fill="none" stroke-dasharray="3 10" opacity="0.5"/>`),
+    text: 'Among the children there was a boy named Cass. He was not the bravest or the most popular. But Cass had noticed the new girl on the wall — the first day, and the second, and the third. Because Cass had a secret the others had forgotten: he had been the new kid once, too. And he remembered exactly what the low stone wall felt like.' },
+
+  // 8 one grey Thursday
+  { art: svg(
+    `<linearGradient id="y8" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.wallDark}"/><stop offset="1" stop-color="${Y.stone}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y8)"/>
+     <ellipse cx="500" cy="220" rx="200" ry="70" fill="${Y.cloud}" opacity="0.5"/>
+     <path d="M0 790 Q500 760 1000 790 V1000 H0 Z" fill="${Y.grassDark}"/>
+     ${boy({ x: 500, y: 660, s: 1.1, shirt: Y.leaf, hair:'#3a2f28' })}
+     ${[3,6].map(i=>`<line x1="${420+i*20}" y1="120" x2="${400+i*20}" y2="300" stroke="${Y.cloud}" stroke-width="2" opacity="0.4"/>`).join('')}`),
+    text: 'For a whole week, Cass did nothing, because doing something felt enormous and scary. What if he walked over and she didn\'t want him there? The wall was only a few steps away, but it might as well have been across the sea. And then one grey Thursday, Cass decided that being a little scared was a much smaller thing than letting someone believe they were the kind of person who sits alone.' },
+
+  // 9 he crosses the yard
+  { art: svg(
+    `<linearGradient id="y9" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.sky}"/><stop offset="1" stop-color="${Y.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y9)"/>
+     <path d="M0 730 Q500 700 1000 730 V1000 H0 Z" fill="${Y.grass}"/>
+     ${wall(150, 650, 360, 1.05)}
+     ${girl({ x: 270, y: 600, s: 0.85, dress: Y.coral, hair: '#3a2f28' })}
+     ${boy({ x: 460, y: 600, s: 0.85, shirt: Y.leaf, hair:'#3a2f28' })}
+     <path d="M700 700 q-120 -60 -220 -70" stroke="${Y.grassDark}" stroke-width="3" fill="none" stroke-dasharray="4 10" opacity="0.5"/>`),
+    text: 'So Cass picked up his lunch. He walked across the yard — the whole long, terrifying, ordinary way across the yard — and he sat down on the low stone wall next to Juniper. "This wall\'s better than the benches, honestly," said Cass. "You can see the whole sky from here." "You can," said Juniper, hardly daring to believe it. "I noticed that too."' },
+
+  // 10 the whole magic
+  { art: svg(
+    `<linearGradient id="y10" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.skyDeep}"/><stop offset="0.6" stop-color="${Y.sky}"/><stop offset="1" stop-color="${Y.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y10)"/>
+     ${[240,760].map((cx,i)=>`<ellipse cx="${cx}" cy="${180+i*40}" rx="90" ry="38" fill="#fff" opacity="0.6"/>`).join('')}
+     <path d="M0 760 Q500 730 1000 760 V1000 H0 Z" fill="${Y.grass}"/>
+     ${wall(300, 660, 400, 1.05)}
+     ${girl({ x: 430, y: 610, s: 0.8, dress: Y.coral, hair: '#3a2f28' })}
+     ${boy({ x: 590, y: 610, s: 0.8, shirt: Y.leaf, hair:'#3a2f28' })}`),
+    text: 'And that was all it took. That was the whole magic. One kid, a little scared, choosing to scoot over. They talked about the sky, and then about the strange, interesting words Juniper knew, from a place Cass had never seen. It turns out that once one person decides the lonely kid is worth sitting with, everybody else suddenly wonders why they hadn\'t thought of it first.' },
+
+  // 11 the best spot
+  { art: svg(
+    `<linearGradient id="y11" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.sky}"/><stop offset="1" stop-color="${Y.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y11)"/>
+     <path d="M0 760 Q500 730 1000 760 V1000 H0 Z" fill="${Y.grass}"/>
+     ${wall(120, 660, 760, 1.05)}
+     ${girl({ x: 250, y: 610, s: 0.75, dress: Y.coral, hair: '#3a2f28' })}
+     ${boy({ x: 400, y: 610, s: 0.75, shirt: Y.leaf, hair:'#3a2f28' })}
+     ${girl({ x: 560, y: 610, s: 0.75, dress: Y.marigold, hair: '#2c2f3a' })}
+     ${boy({ x: 720, y: 610, s: 0.75, shirt: Y.skyDeep, hair:'#3a2f28' })}`),
+    text: 'Within a month, the low stone wall at the edge of the yard — the loneliest spot in all of Elmsworth — had somehow become the *best* spot. The spot where the most interesting talk happened. And it had happened not because Juniper changed to fit the town, but because one ordinary boy changed the town to fit *her.*' },
+
+  // 12 next year, a new child
+  { art: svg(
+    `<linearGradient id="y12" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.sky}"/><stop offset="1" stop-color="${Y.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y12)"/>
+     <path d="M0 740 Q500 710 1000 740 V1000 H0 Z" fill="${Y.grass}"/>
+     ${wall(600, 660, 320, 0.9)}
+     ${girl({ x: 720, y: 620, s: 0.6, dress: '#9a7fae', hair: '#2c2f3a', face:true })}
+     ${girl({ x: 340, y: 620, s: 0.95, dress: Y.coral, hair: '#3a2f28' })}
+     <path d="M400 590 q160 -30 300 20" stroke="${Y.grassDark}" stroke-width="3" fill="none" stroke-dasharray="4 10" opacity="0.5"/>`),
+    text: 'The next year, another new child arrived — small, unsure, clutching a lunch, heading for the low stone wall. And Juniper did not wait a whole week. She did not wait a single day. She picked up her lunch, walked across the yard, and sat right down. "This wall\'s the best spot in the whole school," Juniper said. "You can see the entire sky from here. Want me to show you?"' },
+
+  // 13 closing
+  { art: svg(
+    `<linearGradient id="y13" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Y.skyDeep}"/><stop offset="0.6" stop-color="${Y.sky}"/><stop offset="1" stop-color="${Y.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#y13)"/>
+     ${[220,500,780].map((cx,i)=>`<ellipse cx="${cx}" cy="${160+ (i%2)*50}" rx="86" ry="34" fill="#fff" opacity="0.6"/>`).join('')}
+     <path d="M0 770 Q500 740 1000 770 V1000 H0 Z" fill="${Y.grass}"/>
+     ${wall(300, 670, 400, 1.05)}
+     ${girl({ x: 430, y: 620, s: 0.8, dress: Y.coral, hair: '#3a2f28' })}
+     ${girl({ x: 590, y: 620, s: 0.8, dress: '#9a7fae', hair: '#2c2f3a' })}`),
+    text: 'Everyone is the new kid sometimes. If that\'s you right now — the empty seat beside you is not proof of anything true about you. It only means the right person hasn\'t scooted over *yet.* And if you\'re the one with a spot, watching someone sit alone: you can end a whole loneliness in about ten steps and one sentence. When you see someone sitting alone, you get to decide who you are. Pick up your lunch. Walk across the yard. Go show them the sky.' },
+];
+
 const BOOKS = [
+  {
+    slug: 'the-one-who-sat-alone',
+    title: 'The One Who Sat Alone',
+    subtitle: 'A story about the new kid, the empty seat, and who we get to become.',
+    spreads: aloneSpreads,
+    coverArt: aloneSpreads[0].art,
+    grownup: `Almost every child, at some point, is the one who sits alone — the new kid, the one who looks or sounds different, the one at the edge of the playground trying to look like they don't mind. This story is for that child, and just as much for the ones who get to decide what happens next. When you finish, ask the child beside you the question the whole book is really about: when you see someone sitting alone, who do you want to be?`,
+  },
   {
     slug: 'the-quietest-kid-in-the-kingdom',
     title: 'The Quietest Kid in the Kingdom',

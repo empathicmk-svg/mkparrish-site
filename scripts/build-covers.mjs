@@ -40,8 +40,6 @@ const PRODUCTS = [
     subtitle: 'Eight women of the Bible, the moment everything turned, and what their stories are still saying to yours.' },
   { src: 'ebooks/scripture/her-story-rewritten-volume-two.md', slug: 'her-story-rewritten-volume-two',
     subtitle: 'Eight more women of the Bible, the moment everything turned, and what their courage is still saying to yours.' },
-  { src: 'ebooks/kids/the-one-who-sat-alone.md', slug: 'the-one-who-sat-alone',
-    subtitle: 'A bedtime story about the new kid, the empty seat, and who we get to become.' },
   { src: 'ebooks/kids/the-girl-who-found-her-words.md', slug: 'the-girl-who-found-her-words',
     subtitle: 'A bedtime story about a voice that takes its time — and the day everyone finally listened.' },
   { src: 'ebooks/kids/the-kid-with-two-homes.md', slug: 'the-kid-with-two-homes',
