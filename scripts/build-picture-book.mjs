@@ -578,7 +578,156 @@ const starSpreads = [
     text: 'Theo still sat at the edge, most days, lining up his stones. That did not change, and it did not need to. But now, a few of the braver children came to sit beside him — not to pull him into their game, but to learn his. To go quiet. To look up. If you are a Theo, hold on to this: your mind is not broken. It is tuned to something the world got too busy to hear.' },
 ];
 
+// ── "The Quietest Kid in the Kingdom" — loud brass vs cool quiet ─────────────
+const Q = {
+  brass:'#C9922E', amber:'#E0A94A', gold:'#F2CE73', red:'#B5462F', rust:'#8f3a26',
+  warm:'#F3E2C0', warmDeep:'#E7C98C', teal:'#3E7C8C', tealDeep:'#2b5c69', cool:'#cfe0e4',
+  ink:'#2c2417', stone:'#8a8170',
+};
+const bell = (x, y, s = 1, { ring = false } = {}) => `<g transform="translate(${x},${y}) scale(${s})">
+  <rect x="-8" y="-70" width="16" height="20" rx="4" fill="${Q.rust}"/>
+  <path d="M-70 40 Q-70 -50 0 -52 Q70 -50 70 40 Q70 52 56 52 L-56 52 Q-70 52 -70 40 Z" fill="${Q.brass}"/>
+  <path d="M-70 40 Q-70 -30 -20 -48 L-24 46 Q-60 46 -70 40 Z" fill="${Q.amber}" opacity="0.6"/>
+  <ellipse cx="0" cy="52" rx="70" ry="12" fill="${Q.rust}"/>
+  <circle cx="0" cy="60" r="12" fill="${Q.rust}"/>
+  ${ring ? `${[90,130,170].map((r,i)=>`<path d="M${-r} 0 A ${r} ${r} 0 0 1 ${-r*0.4} ${-r*0.9}" stroke="${Q.gold}" stroke-width="5" fill="none" opacity="${0.6-i*0.15}"/><path d="M${r} 0 A ${r} ${r} 0 0 0 ${r*0.4} ${-r*0.9}" stroke="${Q.gold}" stroke-width="5" fill="none" opacity="${0.6-i*0.15}"/>`).join('')}` : ''}
+</g>`;
+const noise = (x, y, txt, size = 50, fill = Q.red) => `<text x="${x}" y="${y}" font-family="'Bebas Neue'" font-size="${size}" fill="${fill}" opacity="0.75" transform="rotate(${(x % 13) - 6} ${x} ${y})">${txt}</text>`;
+
+const quietSpreads = [
+  // 1 TITLE
+  { title: true, art: svg(
+    `<radialGradient id="q1" cx="0.5" cy="0.45" r="0.75"><stop offset="0" stop-color="${Q.warm}"/><stop offset="1" stop-color="${Q.warmDeep}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q1)"/>
+     ${noise(120,180,'CLANG!',54)}${noise(720,160,'BOOM!',60)}${noise(150,760,'HOORAY!',50)}${noise(700,780,'TA-DA!',52)}${noise(430,120,'DRUMS!',40,Q.brass)}
+     ${[120,300,700,860].map((bx,i)=>boyBlob(bx,560+ (i%2)*30,'#c9a86e',1)).join('')}
+     ${girl({ x: 500, y: 560, s: 1.2, dress: Q.teal, hair: '#2c2f3a' })}
+     ${[60,150,240].map((r,i)=>`<circle cx="500" cy="470" r="${r}" fill="none" stroke="${Q.teal}" stroke-width="3" opacity="${0.4-i*0.1}"/>`).join('')}`),
+    text: '' },
+
+  // 2 the quietest kid
+  { art: svg(
+    `<linearGradient id="q2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Q.warm}"/><stop offset="1" stop-color="${Q.warmDeep}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q2)"/>
+     <path d="M0 780 Q500 750 1000 780 V1000 H0 Z" fill="${Q.brass}" opacity="0.5"/>
+     ${girl({ x: 500, y: 560, s: 1.3, dress: Q.teal, hair: '#2c2f3a' })}`),
+    text: 'In a kingdom that loved to be loud, there lived a girl named Posy — and Posy was the quietest kid anyone had ever met.' },
+
+  // 3 the loud kingdom
+  { art: svg(
+    `<radialGradient id="q3" cx="0.5" cy="0.4" r="0.85"><stop offset="0" stop-color="${Q.gold}"/><stop offset="1" stop-color="${Q.amber}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q3)"/>
+     ${noise(90,200,'TRUMPETS!',52)}${noise(600,170,'BANG!',64)}${noise(140,420,'LOUDER!',46)}${noise(680,430,'CHEER!',50)}${noise(340,300,'BOOM!',56,Q.brass)}${noise(760,620,'HOORAY!',44)}
+     ${[160,340,540,720,880].map((bx,i)=>boyBlob(bx,720+ (i%2)*20,'#c9a25e',1.2)).join('')}
+     ${[220,420,620,820].map((bx,i)=>`<path d="M${bx} 640 q10 -40 40 -30" stroke="${Q.red}" stroke-width="4" fill="none" opacity="0.5"/>`).join('')}`),
+    text: 'It was a kingdom of noise, and it was proud of it. There were trumpets at breakfast and drums at lunch, and at every festival a great contest to see who could cheer the very loudest. And Posy — Posy sat at the back, and watched, and said almost nothing at all.' },
+
+  // 4 she listened
+  { art: svg(
+    `<linearGradient id="q4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Q.cool}"/><stop offset="1" stop-color="${Q.warm}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q4)"/>
+     ${[120,260,760,880].map((bx,i)=>boyBlob(bx,500+ (i%2)*30,'#d8c290',0.9)).join('')}
+     ${girl({ x: 500, y: 600, s: 1.15, dress: Q.teal, hair: '#2c2f3a' })}
+     ${[50,110,170,230].map((r,i)=>`<circle cx="500" cy="510" r="${r}" fill="none" stroke="${Q.tealDeep}" stroke-width="2.5" opacity="${0.5-i*0.1}"/>`).join('')}`),
+    text: 'While the other children filled the air with words, Posy filled herself with something else. She *listened.* She *noticed.* She collected the quiet things the loud kingdom rushed right past — the way some children collect shells.' },
+
+  // 5 what she noticed
+  { art: svg(
+    `<linearGradient id="q5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Q.cool}"/><stop offset="1" stop-color="${Q.warm}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q5)"/>
+     <line x1="-20" y1="240" x2="1020" y2="290" stroke="${Q.stone}" stroke-width="3"/>
+     ${dove(300,240,1.0,Q.stone)}
+     <path d="M120 780 Q300 730 480 770" stroke="${Q.teal}" stroke-width="4" fill="none" opacity="0.4"/>
+     ${girl({ x: 500, y: 640, s: 1.0, dress: Q.teal, hair: '#2c2f3a' })}
+     <text x="120" y="440" font-family="'Playfair Display'" font-style="italic" font-size="30" fill="${Q.tealDeep}">a sparrow, half a beat behind…</text>
+     <text x="560" y="520" font-family="'Playfair Display'" font-style="italic" font-size="30" fill="${Q.tealDeep}">the wind, before the rain.</text>`),
+    text: 'She heard the sparrow that sang a half-beat behind all the others. She saw which children were laughing and which were only pretending. She knew the sound the wind made just before the rain — and the exact look on her mother\'s face that meant *tired, but don\'t you worry.*' },
+
+  // 6 you never know what she's thinking
+  { art: svg(
+    `<linearGradient id="q6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Q.warm}"/><stop offset="1" stop-color="${Q.warmDeep}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q6)"/>
+     ${[200,340].map((bx,i)=>boyBlob(bx,460,'#c9a25e',1.1)).join('')}
+     <text x="150" y="300" font-family="'Playfair Display'" font-style="italic" font-size="30" fill="${Q.rust}">so quiet… you never know…</text>
+     ${girl({ x: 640, y: 600, s: 1.1, dress: Q.teal, hair: '#2c2f3a' })}`),
+    text: '"She\'s so quiet," the townspeople would say, a little worried. "You never know what she\'s thinking." That was true. They never did. It simply never occurred to them to sit down beside her and find out.' },
+
+  // 7 the Great Bell
+  { art: svg(
+    `<linearGradient id="q7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Q.gold}"/><stop offset="1" stop-color="${Q.amber}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q7)"/>
+     <rect x="380" y="360" width="240" height="560" fill="${Q.warmDeep}"/>
+     <path d="M360 360 L500 250 L640 360 Z" fill="${Q.rust}"/>
+     <rect x="410" y="400" width="180" height="280" rx="12" fill="${Q.ink}" opacity="0.35"/>
+     ${bell(500, 470, 1.4, { ring: true })}`),
+    text: 'Now, the loudest thing in all the kingdom was the Great Bell. It hung in the tower at the center of town, and its ring was so enormous, so magnificent, it could be heard in every corner of the land. The whole kingdom loved it. The whole kingdom was, in a way, built around it.' },
+
+  // 8 the bell cracks
+  { art: svg(
+    `<linearGradient id="q8" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Q.warmDeep}"/><stop offset="1" stop-color="${Q.stone}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q8)"/>
+     ${bell(500, 380, 2.0)}
+     <path d="M430 300 l30 40 -20 30 34 44" stroke="${Q.ink}" stroke-width="4" fill="none"/>
+     <text x="250" y="720" font-family="'Bebas Neue'" font-size="80" fill="${Q.ink}" opacity="0.5">THUNK.</text>`),
+    text: 'And one grey morning, the Great Bell went silent. The bell-ringer pulled the rope, and instead of the magnificent ring there came only a dull, cracked *thunk.* The bell was broken somewhere deep inside — and no one could tell where. "The crack could be *anywhere,*" said the finest craftsmen. "It would take a year to find."' },
+
+  // 9 the shouting square
+  { art: svg(
+    `<radialGradient id="q9" cx="0.5" cy="0.4" r="0.85"><stop offset="0" stop-color="${Q.gold}"/><stop offset="1" stop-color="${Q.amber}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q9)"/>
+     ${noise(120,220,'MELT IT!',46)}${noise(640,190,'START OVER!',44)}${noise(300,300,'LOUDER!',52,Q.brass)}${noise(720,340,'NO, YOU!',40)}
+     ${[160,340,660,840].map((bx,i)=>boyBlob(bx,600+ (i%2)*20,'#c9a25e',1.15)).join('')}
+     ${girl({ x: 500, y: 720, s: 0.7, dress: Q.teal, hair: '#2c2f3a', face:false })}
+     <text x="330" y="800" font-family="'Playfair Display'" font-style="italic" font-size="26" fill="${Q.tealDeep}">"I know where the crack is."</text>`),
+    text: 'The whole kingdom crowded into the square, everyone shouting suggestions over everyone else — certain, as always, that the answer was *more noise.* And at the very back, a small quiet voice said, "I know where the crack is." Nobody heard it. It was, after all, a very loud square.' },
+
+  // 10 she walks to the front
+  { art: svg(
+    `<radialGradient id="q10" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="${Q.warm}"/><stop offset="1" stop-color="${Q.warmDeep}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q10)"/>
+     ${boyBlob(700,520,'#b98f4e',1.6)}
+     ${girl({ x: 420, y: 600, s: 1.0, dress: Q.teal, hair: '#2c2f3a' })}
+     <path d="M470 560 q90 -20 160 -10" stroke="${Q.tealDeep}" stroke-width="3" fill="none" stroke-dasharray="3 9" opacity="0.6"/>`),
+    text: 'So Posy did the bravest thing she had ever done. She walked to the front. She tugged the mayor\'s sleeve. And when he bent down, she said it again, just to him: "I know where the crack is. Because they were all talking," said Posy. "And I was *listening.*"' },
+
+  // 11 the tiny hiss
+  { art: svg(
+    `<linearGradient id="q11" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Q.gold}"/><stop offset="1" stop-color="${Q.warmDeep}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q11)"/>
+     ${bell(500, 400, 2.0)}
+     <circle cx="430" cy="300" r="16" fill="none" stroke="${Q.red}" stroke-width="4"/>
+     <path d="M446 290 q40 -6 70 -30" stroke="${Q.tealDeep}" stroke-width="3" fill="none" stroke-dasharray="3 9"/>
+     <circle cx="560" cy="230" r="60" fill="${Q.gold}" opacity="0.4"/>
+     <text x="540" y="150" font-family="'Playfair Display'" font-style="italic" font-size="28" fill="${Q.rust}">a little hiss, like a whisper…</text>`),
+    text: '"There\'s a tiny sound first — a little hiss, like a whisper — up near the top, on the left side, where the sun hits in the morning. I\'ve heard it for weeks. It\'s been getting louder. That\'s where it\'s breaking. You don\'t have to take the whole bell apart. You just have to look *there.*"' },
+
+  // 12 the bell rings
+  { art: svg(
+    `<radialGradient id="q12" cx="0.5" cy="0.4" r="0.8"><stop offset="0" stop-color="${Q.gold}"/><stop offset="1" stop-color="${Q.amber}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q12)"/>
+     ${bell(500, 330, 1.5, { ring: true })}
+     ${boyBlob(300,720,'#b98f4e',1.3)}
+     ${girl({ x: 560, y: 700, s: 0.85, dress: Q.teal, hair: '#2c2f3a' })}`),
+    text: 'They climbed the tower, went to the top on the left side where the sun hits — and there, so fine you could barely see it, was a hairline crack, exactly where the quietest kid in the kingdom said it would be. They mended it in a single afternoon. And the mayor crouched down beside Posy. "We kept telling you to be *louder,*" he said. "But the kingdom didn\'t need another loud voice. It needed someone who was finally *listening.*"' },
+
+  // 13 closing
+  { art: svg(
+    `<radialGradient id="q13" cx="0.5" cy="0.5" r="0.75"><stop offset="0" stop-color="${Q.cool}"/><stop offset="0.6" stop-color="${Q.warm}"/><stop offset="1" stop-color="${Q.warmDeep}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#q13)"/>
+     ${[40,100,160,220].map((r,i)=>`<circle cx="500" cy="480" r="${r}" fill="none" stroke="${Q.tealDeep}" stroke-width="2.5" opacity="${0.5-i*0.1}"/>`).join('')}
+     ${girl({ x: 500, y: 620, s: 1.4, dress: Q.teal, hair: '#2c2f3a' })}`),
+    text: 'From that day on, when something important went wrong, the loudest kingdom in the world learned to do a brand-new thing: it got quiet, and it went and found Posy. Because you cannot hear anything true while you are shouting. If you are a Posy, hold on to this: your quiet is not empty. It is *full.* You are listening — and one day it will matter more than all their noise combined.' },
+];
+
 const BOOKS = [
+  {
+    slug: 'the-quietest-kid-in-the-kingdom',
+    title: 'The Quietest Kid in the Kingdom',
+    subtitle: 'A story about the loud, brave magic of a quiet heart.',
+    spreads: quietSpreads,
+    coverArt: quietSpreads[0].art,
+    grownup: `The world spends a lot of a child's early years telling them to speak up. Sometimes that's good advice. But the quiet ones aren't empty — they're often the ones noticing what everyone else is too loud to hear. This is a story for shy, introverted, and quiet children, and a gentle correction to the idea that quiet means less. When you finish, tell the quiet child beside you: your quiet is a kind of listening the loud world forgot how to do — and it's a strength, not a problem to fix.`,
+  },
   {
     slug: 'the-boy-who-talked-to-the-stars',
     title: 'The Boy Who Talked to the Stars',
