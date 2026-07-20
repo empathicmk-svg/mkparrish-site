@@ -65,6 +65,24 @@ const books = [
     ebookAmount: 1400,
     paperbackAmount: 1900,
   },
+  {
+    slug: "the-boy-who-talked-to-the-stars",
+    title: "The Boy Who Talked to the Stars",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
+  {
+    slug: "the-quietest-kid-in-the-kingdom",
+    title: "The Quietest Kid in the Kingdom",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
+  {
+    slug: "the-one-who-sat-alone",
+    title: "The One Who Sat Alone",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
 ];
 
 const requiredEnvMessage = [

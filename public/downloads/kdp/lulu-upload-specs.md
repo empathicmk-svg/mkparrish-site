@@ -69,6 +69,9 @@ address) or turn on Lulu's own distribution.
 | Ministry, Monetized | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
 | Her Story, Rewritten | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $32 |
 | The Princess Who Rescued Herself | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
+| The Boy Who Talked to the Stars | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
+| The Quietest Kid in the Kingdom | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
+| The One Who Sat Alone | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
 
 ### File slugs (for the URLs above)
 
@@ -98,6 +101,9 @@ address) or turn on Lulu's own distribution.
 - Ministry, Monetized → `ministry-monetized`
 - Her Story, Rewritten → `her-story-rewritten`
 - The Princess Who Rescued Herself → `the-princess-who-rescued-herself`
+- The Boy Who Talked to the Stars → `the-boy-who-talked-to-the-stars`
+- The Quietest Kid in the Kingdom → `the-quietest-kid-in-the-kingdom`
+- The One Who Sat Alone → `the-one-who-sat-alone`
 
 ---
 
