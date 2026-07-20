@@ -461,7 +461,7 @@ const starSpreads = [
      <path d="M0 720 Q500 690 1000 720 V1000 H0 Z" fill="${N.sea}"/>
      ${[130,300,470,640,810].map((bx,i)=>`<g transform="translate(${bx},${560+ (i%2)*20})"><rect x="-40" y="0" width="80" height="150" fill="${N.roof}"/><path d="M-50 0 L0 -46 L50 0 Z" fill="${N.blue}"/><rect x="-14" y="60" width="28" height="40" fill="${N.star}" opacity="0.7"/></g>`).join('')}
      ${boy({ x: 500, y: 640, s: 0.9 })}`),
-    text: 'In a kingdom at the edge of the sea lived a boy named Theo, who did not do things the way the other children did.' },
+    text: 'In a kingdom at the edge of the sea\nlived a boy named Theo,\nwho did not do things\nthe way the other children did.' },
 
   // 3 the loud square
   { art: svg(
@@ -473,7 +473,7 @@ const starSpreads = [
      <text x="640" y="300" font-family="'Bebas Neue'" font-size="48" fill="#fff" opacity="0.45">BUY! SELL!</text>
      <g transform="translate(510,720)">${Array.from({length:5}).map((_,i)=>`<ellipse cx="${-40+i*20}" cy="${i*2}" rx="12" ry="9" fill="${['#4c5568','#5c6578','#6c7588','#7c8598','#8c95a8'][i]}"/>`).join('')}</g>
      ${boy({ x: 500, y: 640, s: 0.85, hands: true, shirt: C.rose })}`),
-    text: 'When the square grew loud and clanging, Theo pressed his hands over his ears and squeezed his eyes shut until the noise stopped climbing up his skin. And at the edge of it all, he lined up his stones — smallest to largest, dark to light, in a row as straight as a ruler.' },
+    text: 'When the market went loud and clanging,\nTheo pressed his hands over his ears\nuntil the noise stopped climbing up his skin.\nAnd off at the edge, he lined up his stones —\nsmallest to largest, dark to light,\nin a row as straight as a ruler.' },
 
   // 4 his own world
   { art: svg(
@@ -482,7 +482,7 @@ const starSpreads = [
      <circle cx="500" cy="440" r="250" fill="none" stroke="${N.star}" stroke-width="2" opacity="0.3" stroke-dasharray="4 10"/>
      ${constellation([[360,340],[440,300],[520,360],[600,320],[640,420]])}
      ${boy({ x: 500, y: 620, s: 1.05 })}`),
-    text: 'The townspeople said he was off in his own world. They were right about one thing. Theo *did* have a world. It was only that nobody had ever thought to ask him what was in it.' },
+    text: 'Off in his own world, the townspeople said.\nAnd they were right about one thing.\nTheo *did* have a world.\nIt was only that nobody\nhad ever thought to ask him\nwhat was in it.' },
 
   // 5 the stars talk
   { art: svg(
@@ -492,7 +492,7 @@ const starSpreads = [
      <path d="M0 780 L280 700 L520 760 L760 690 L1000 770 V1000 H0 Z" fill="${N.blue}"/>
      ${boy({ x: 500, y: 690, s: 0.95, hands: true })}
      <path d="M540 560 Q640 480 700 300" stroke="${N.star}" stroke-width="2" fill="none" stroke-dasharray="2 12" opacity="0.6"/>`),
-    text: 'But every night, when the kingdom went dark and quiet and the terrible noise finally stopped, Theo climbed the hill behind his house and looked up. And the stars — the stars *talked* to him. Not in words. In patterns. In the slow, exact turning of the sky.' },
+    text: 'But every night,\nwhen the town went dark and the noise went quiet,\nTheo climbed the hill behind his house\nand looked up.\nAnd the stars —\nthe stars *talked* to him.\nNot in words. In patterns.\nIn the slow, sure turning of the sky.' },
 
   // 6 he knew them all
   { art: svg(
@@ -502,7 +502,7 @@ const starSpreads = [
      ${constellation([[560,140],[660,180],[760,140],[820,240],[700,300],[600,240],[560,140]],N.starW)}
      ${bigstar(430,340,1.6)}
      ${boy({ x: 500, y: 720, s: 0.8, hands: true })}`),
-    text: 'He knew them all — every point of light, where it rose, where it set, which ones traveled together and which stood alone. He knew the sky the way the other children knew each other\'s faces. It never got too loud. It never asked him to hurry. And there, Theo felt the thing he almost never felt in town: he felt like he *fit.*' },
+    text: 'He knew them all.\nWhere each one rose. Where it set.\nWhich ones traveled together,\nand which stood alone.\nThe sky never got too loud.\nIt never asked him to hurry.\nAnd up there, Theo felt the thing\nhe almost never felt in town.\nHe felt like he *fit.*' },
 
   // 7 the fog trouble
   { art: svg(
@@ -512,7 +512,7 @@ const starSpreads = [
      ${[0.6,0.4,0.28].map((o,i)=>`<ellipse cx="${300+i*220}" cy="${500+i*40}" rx="420" ry="110" fill="${C.silver}" opacity="${o}"/>`).join('')}
      ${boat(240,660,0.9,C.mist)}${boat(720,690,0.8,C.mist)}
      <ellipse cx="500" cy="560" rx="500" ry="150" fill="${C.mist}" opacity="0.4"/>`),
-    text: 'Then one autumn, a trouble came. The fishing boats went out and did not come back on time. A fog rolled in off the sea — thick and grey and sudden — and the fishermen, who steered by the coastline, lost the shore entirely and drifted, frightened, in the white.' },
+    text: 'Then, one autumn, a trouble came.\nThe fishing boats went out\nand did not come home.\nA fog rolled in off the sea —\nthick and gray and sudden —\nand the boats, which steered by the shore,\nlost the shore,\nand drifted, frightened, in the white.' },
 
   // 8 the arguing square
   { art: svg(
@@ -522,7 +522,7 @@ const starSpreads = [
      <text x="250" y="250" font-family="'Bebas Neue'" font-size="52" fill="#fff" opacity="0.5">BIGGER BELLS!</text>
      <text x="600" y="320" font-family="'Bebas Neue'" font-size="48" fill="#fff" opacity="0.45">LOUDER!</text>
      ${boy({ x: 510, y: 700, s: 0.8, hands: true, shirt: C.rose })}`),
-    text: 'The whole town gathered, and the clever grown-ups argued. Bigger lanterns! Louder bells! Longer ropes! None of it would work in a fog you could not see or hear through. The square got louder and louder — and at the edge, hands over his ears, Theo was listening. Theo was always listening, even when it looked like he was somewhere else.' },
+    text: 'The whole town gathered, and the grown-ups argued.\nBigger lanterns! Louder bells! Longer ropes!\nBut none of it works\nin a fog you cannot see or hear through.\nThe square got louder and louder —\nand at the edge, hands over his ears,\nTheo was listening.\nTheo was always listening,\neven when it looked like he was somewhere else.' },
 
   // 9 Theo stands
   { art: svg(
@@ -532,7 +532,7 @@ const starSpreads = [
      ${[[180,460],[300,440],[700,450],[820,440]].map(([bx,by])=>boyBlob(bx,by,'#5a6480',0.9)).join('')}
      ${boy({ x: 500, y: 620, s: 1.25, hands: true })}
      ${bigstar(500,250,1.4)}`),
-    text: 'And when there was the smallest gap in the noise, Theo stood up. His heart was pounding. The words wanted to stick behind his teeth. But this was too important — so he pushed them out, one at a time, the way he pushed his stones into a line. "The stars," said Theo. And the whole square turned to look at him.' },
+    text: 'And when a small gap opened in the noise,\nTheo stood up.\nHis heart pounded. The words wanted to stick.\nBut this was too important.\nSo he pushed them out, one at a time,\nthe way he pushed his stones into a line.\n"The stars," said Theo.\nAnd the whole square turned to look at him.' },
 
   // 10 the plan
   { art: svg(
@@ -542,7 +542,7 @@ const starSpreads = [
      <path d="M500 210 L500 640" stroke="${N.star}" stroke-width="2" stroke-dasharray="3 12" opacity="0.7"/>
      <path d="M0 720 Q500 690 1000 720 V1000 H0 Z" fill="${N.sea}"/>
      ${boat(500,700,0.9,N.starW)}`),
-    text: '"The fog is low. It sits on the water. But it is thin at the top — if you look straight up, the stars come through. And the stars don\'t move like the land moves. They come back to the same place every night, exactly. When you can\'t see the shore," said Theo, "look up. The sky will bring you home."' },
+    text: '"The fog is low. It sits on the water.\nBut it is thin at the top.\nLook straight up, and the stars come through.\nAnd the stars don\'t move like the land moves.\nThey come back to the same place\nevery night, exactly.\nWhen you can\'t see the shore," said Theo,\n"look up. The sky will bring you home."' },
 
   // 11 teaching
   { art: svg(
@@ -553,7 +553,7 @@ const starSpreads = [
      ${boy({ x: 340, y: 680, s: 0.9, hands: true })}
      ${[560,660,760].map((bx,i)=>boyBlob(bx,700+ (i%2)*10,'#4a5678',0.75)).join('')}
      <path d="M380 640 q120 -40 240 -20" stroke="${N.star}" stroke-width="2" fill="none" stroke-dasharray="3 10" opacity="0.6"/>`),
-    text: 'All that winter, Theo stood on the hill with the fishermen gathered around him, and he taught them the sky. He was patient in a way none of them expected — because the sky had taught him patience first. He never got flustered. He never rushed. And for the first time, the whole town was grateful for exactly the way Theo\'s mind worked.' },
+    text: 'All winter, Theo stood on the hill\nand taught the fishermen the sky.\nHe was patient in a way that surprised them —\nbecause the sky had taught him patience first.\nHe never rushed. He never flustered.\nAnd for the first time,\nthe whole town was grateful\nfor exactly the way Theo\'s mind worked.' },
 
   // 12 boats come home
   { art: svg(
@@ -564,7 +564,7 @@ const starSpreads = [
      <path d="M0 700 Q500 670 1000 700 V1000 H0 Z" fill="${N.sea}"/>
      ${boat(250,690,0.75,N.starW)}${boat(500,715,0.85,N.starW)}${boat(760,690,0.7,N.starW)}
      ${[250,500,760].map(bx=>`<path d="M${bx} 660 L500 170" stroke="${N.star}" stroke-width="1.4" stroke-dasharray="2 12" opacity="0.5"/>`).join('')}`),
-    text: 'When the fog came now, the fishermen tipped their heads back and found Theo\'s stars — and the sky brought every last boat home.' },
+    text: 'So when the fog came now,\nthe fishermen tipped their heads back,\nfound Theo\'s stars,\nand the sky brought every last boat home.' },
 
   // 13 closing
   { art: svg(
@@ -575,7 +575,7 @@ const starSpreads = [
      ${boy({ x: 430, y: 660, s: 0.95, hands: true })}
      ${boyBlob(650,700,'#4a5678',0.7)}
      <g transform="translate(600,720)">${Array.from({length:4}).map((_,i)=>`<ellipse cx="${i*18}" cy="0" rx="10" ry="7" fill="${['#5c6578','#6c7588','#7c8598','#8c95a8'][i]}"/>`).join('')}</g>`),
-    text: 'Theo still sat at the edge, most days, lining up his stones. That did not change, and it did not need to. But now, a few of the braver children came to sit beside him — not to pull him into their game, but to learn his. To go quiet. To look up. If you are a Theo, hold on to this: your mind is not broken. It is tuned to something the world got too busy to hear.' },
+    text: 'Theo still sat at the edge, most days,\nlining up his stones.\nThat did not change. It did not need to.\nBut now a few of the braver children\ncame to sit beside him —\nnot to pull him into their game,\nbut to learn his.\nTo go quiet. To look up.\nIf you are a Theo:\nyour mind is not broken.\nIt is tuned to something\nthe world got too busy to hear.' },
 ];
 
 // ── "The Quietest Kid in the Kingdom" — loud brass vs cool quiet ─────────────
