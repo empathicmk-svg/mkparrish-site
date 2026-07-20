@@ -882,7 +882,151 @@ const aloneSpreads = [
     text: 'Everyone is the new kid sometimes. If that\'s you right now — the empty seat beside you is not proof of anything true about you. It only means the right person hasn\'t scooted over *yet.* And if you\'re the one with a spot, watching someone sit alone: you can end a whole loneliness in about ten steps and one sentence. When you see someone sitting alone, you get to decide who you are. Pick up your lunch. Walk across the yard. Go show them the sky.' },
 ];
 
+// ── "The Girl Who Found Her Words" — warm parchment storytelling kingdom ─────
+const Wl = {
+  parch:'#EDE0C4', parchDeep:'#DCC79A', amber:'#D9B26A', gold:'#F0D385',
+  plum:'#6E4A6B', plumDeep:'#4d3149', ink:'#3a3040', sage:'#7f9a72', rose:'#c98aa6',
+  lantern:'#F2CE73',
+};
+const bubble = (x, y, s = 1, { caught = false, fill = '#fff' } = {}) => `<g transform="translate(${x},${y}) scale(${s})">
+  <path d="M-54 -30 Q-54 -46 -38 -46 L38 -46 Q54 -46 54 -30 L54 14 Q54 30 38 30 L-12 30 L-26 50 L-24 30 L-38 30 Q-54 30 -54 14 Z" fill="${fill}" stroke="${Wl.plum}" stroke-width="2"/>
+  ${caught ? `<circle cx="-22" cy="-8" r="5" fill="${Wl.plum}"/><circle cx="-6" cy="-8" r="5" fill="${Wl.plum}"/><circle cx="10" cy="-8" r="5" fill="${Wl.plum}"/><path d="M-22 -8 Q-14 4 -6 -8 Q2 4 10 -8" stroke="${Wl.rose}" stroke-width="2.5" fill="none"/>` : `<circle cx="-18" cy="-8" r="4" fill="${Wl.amber}"/><circle cx="0" cy="-8" r="4" fill="${Wl.amber}"/><circle cx="18" cy="-8" r="4" fill="${Wl.amber}"/>`}
+</g>`;
+const lantern = (x, y, s = 1) => `<g transform="translate(${x},${y}) scale(${s})"><line x1="0" y1="-40" x2="0" y2="-14" stroke="${Wl.plumDeep}" stroke-width="2"/><path d="M-16 -14 Q-16 24 0 26 Q16 24 16 -14 Z" fill="${Wl.lantern}"/><circle cx="0" cy="6" r="26" fill="${Wl.lantern}" opacity="0.3"/></g>`;
+
+const wordsSpreads = [
+  // 1 TITLE
+  { title: true, art: svg(
+    `<radialGradient id="w1" cx="0.5" cy="0.4" r="0.8"><stop offset="0" stop-color="${Wl.parch}"/><stop offset="1" stop-color="${Wl.parchDeep}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w1)"/>
+     ${lantern(180,150,1.4)}${lantern(820,180,1.2)}${lantern(360,120,1)}${lantern(660,130,1.1)}
+     ${bubble(720,430,1.0,{caught:true})}${bubble(230,470,0.9)}
+     ${girl({ x: 500, y: 560, s: 1.2, dress: Wl.plum, hair: '#3a2f28' })}`),
+    text: '' },
+
+  // 2 words took their time
+  { art: svg(
+    `<linearGradient id="w2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Wl.parch}"/><stop offset="1" stop-color="${Wl.parchDeep}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w2)"/>
+     ${lantern(200,160,1.2)}${lantern(800,150,1.2)}
+     ${girl({ x: 500, y: 560, s: 1.3, dress: Wl.plum, hair: '#3a2f28' })}
+     ${bubble(720,430,1.0,{caught:true})}`),
+    text: 'In a kingdom that loved a good story, there lived a girl named Willa, whose words took their time.' },
+
+  // 3 the Great Telling
+  { art: svg(
+    `<radialGradient id="w3" cx="0.5" cy="0.4" r="0.85"><stop offset="0" stop-color="${Wl.gold}"/><stop offset="1" stop-color="${Wl.amber}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w3)"/>
+     ${[160,300,700,840].map((bx,i)=>lantern(bx,140+ (i%2)*30,1.1)).join('')}
+     <rect x="380" y="360" width="240" height="60" rx="8" fill="${Wl.plumDeep}"/>
+     ${girl({ x: 500, y: 320, s: 0.7, dress: Wl.rose, hair: '#2c2f3a' })}
+     ${bubble(680,300,0.9,{})}
+     ${[160,300,540,700,860].map((bx,i)=>boyBlob(bx,720+ (i%2)*20,'#b98f4e',1.2)).join('')}`),
+    text: 'It was a kingdom built on stories. Every year it held the Great Telling — a festival where, one by one, the people stood in the square and told a story, and the whole kingdom listened. To stand up and tell your story well was the proudest thing a person could do.' },
+
+  // 4 words catch
+  { art: svg(
+    `<linearGradient id="w4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Wl.parch}"/><stop offset="1" stop-color="${Wl.parchDeep}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w4)"/>
+     ${girl({ x: 380, y: 560, s: 1.15, dress: Wl.plum, hair: '#3a2f28' })}
+     ${bubble(650,400,1.3,{caught:true})}
+     <path d="M430 460 q80 -20 140 -40" stroke="${Wl.plum}" stroke-width="3" fill="none" stroke-dasharray="3 9" opacity="0.5"/>`),
+    text: 'Willa loved stories more than anyone. Her head was full of them. But when she tried to say them out loud, her words took their time. The first sound would catch, and c-c-catch, and get stuck somewhere behind her teeth, and she would have to wait, and try again, gently, until it came loose.' },
+
+  // 5 the kingdom rushes
+  { art: svg(
+    `<linearGradient id="w5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Wl.parchDeep}"/><stop offset="1" stop-color="${Wl.amber}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w5)"/>
+     ${girl({ x: 360, y: 600, s: 1.0, dress: Wl.plum, hair: '#3a2f28', face:false })}
+     ${[600,720,840].map((bx,i)=>boyBlob(bx,540+ (i%2)*20,'#b98f4e',1.0)).join('')}
+     ${bubble(660,360,1.0,{})}
+     <text x="560" y="300" font-family="'Playfair Display'" font-style="italic" font-size="28" fill="${Wl.plumDeep}">…hurry up…</text>`),
+    text: 'And the kingdom, which loved a good story, was not very good at waiting. People finished her sentences for her. They looked away. Some got a pained, hurrying look, as if her slowness were a splinter they wished someone would pull out.' },
+
+  // 6 she stops talking
+  { art: svg(
+    `<radialGradient id="w6" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="${Wl.plum}"/><stop offset="1" stop-color="${Wl.plumDeep}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w6)"/>
+     ${girl({ x: 500, y: 560, s: 1.2, dress: Wl.rose, hair: '#3a2f28', face:false })}
+     ${[bubble(230,300,0.8,{}),bubble(760,320,0.8,{caught:true}),bubble(300,720,0.7,{}),bubble(720,700,0.7,{})].join('')}`),
+    text: 'So Willa did the saddest thing a girl full of stories can do. She stopped talking. She kept all her stories inside, where they were safe, where nobody could rush them. And everyone decided Willa simply had nothing to say. They were so wrong. Willa had *everything* to say. She just needed a kingdom patient enough to hear it.' },
+
+  // 7 the grey forgetting
+  { art: svg(
+    `<linearGradient id="w7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Wl.parchDeep}"/><stop offset="1" stop-color="${Wl.plumDeep}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w7)"/>
+     <rect x="380" y="360" width="240" height="60" rx="8" fill="${Wl.plumDeep}"/>
+     ${girl({ x: 500, y: 320, s: 0.7, dress: Wl.sage, hair: '#2c2f3a', face:false })}
+     ${bubble(660,300,1.0,{fill:'#d8d2c4'})}
+     <text x="600" y="300" font-family="'Playfair Display'" font-style="italic" font-size="40" fill="${Wl.plumDeep}">…?</text>
+     ${[200,340,660,820].map((bx,i)=>boyBlob(bx,720,'#8a7f6a',1.1)).join('')}`),
+    text: 'Then a strange trouble came. At the Great Telling, the first teller stood to begin — and could not remember her story. Neither could the next, or the one after. A grey forgetting had settled over the kingdom. All the fast talkers had told their tales so quickly, so carelessly, for so many years, that they had never really *held* them. And now the stories had slipped right through their rushing fingers.' },
+
+  // 8 despair
+  { art: svg(
+    `<linearGradient id="w8" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Wl.plumDeep}"/><stop offset="1" stop-color="${Wl.plum}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w8)"/>
+     ${[160,320,500,680,840].map((bx,i)=>boyBlob(bx,560+ (i%2)*20,'#5a4a58',1.1)).join('')}
+     ${lantern(220,180,1.0)}${lantern(780,190,1.0)}`),
+    text: 'The kingdom was in despair. A Great Telling with nothing to tell! The wonderful day, ruined.' },
+
+  // 9 I remember one
+  { art: svg(
+    `<radialGradient id="w9" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="${Wl.gold}" stop-opacity="0.4"/><stop offset="1" stop-color="${Wl.plum}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="${Wl.plum}"/>
+     <circle cx="500" cy="520" r="330" fill="url(#w9)"/>
+     ${boy({ x: 360, y: 520, s: 0.9, shirt: Wl.sage, hair:'#3a2f28', hands:true })}
+     ${girl({ x: 600, y: 620, s: 1.0, dress: Wl.rose, hair: '#3a2f28' })}
+     <text x="250" y="300" font-family="'Playfair Display'" font-style="italic" font-size="30" fill="${Wl.gold}">"…let her tell it. However long it takes."</text>`),
+    text: 'And at the very back, a quiet voice said, "I remember one." Willa\'s older brother heard. He stood on a bench and shouted, "My sister remembers a story! But you have to *let her tell it.* All the way. However long it takes." The square went quiet. Every face turned to Willa.' },
+
+  // 10 the first word catches
+  { art: svg(
+    `<radialGradient id="w10" cx="0.5" cy="0.45" r="0.7"><stop offset="0" stop-color="${Wl.gold}"/><stop offset="1" stop-color="${Wl.amber}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w10)"/>
+     ${[140,280,720,860].map((bx,i)=>boyBlob(bx,460+ (i%2)*20,'#b98f4e',0.95)).join('')}
+     ${girl({ x: 500, y: 580, s: 1.25, dress: Wl.plum, hair: '#3a2f28' })}
+     ${bubble(700,360,1.2,{caught:true})}`),
+    text: 'So Willa stood up. And she began. The first word caught, and c-c-caught, and got stuck behind her teeth. And here is the thing that had never happened before in all of Willa\'s life: *nobody rushed her.* Nobody finished it for her. The whole kingdom simply waited — patient and still and leaning in — and let the word come loose in its own time. And it did.' },
+
+  // 11 the most beautiful story
+  { art: svg(
+    `<radialGradient id="w11" cx="0.5" cy="0.45" r="0.8"><stop offset="0" stop-color="${Wl.gold}"/><stop offset="1" stop-color="${Wl.amber}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w11)"/>
+     ${[bubble(200,220,1.0,{}),bubble(780,240,1.1,{}),bubble(320,360,0.8,{}),bubble(680,380,0.9,{})].join('')}
+     ${girl({ x: 500, y: 620, s: 1.2, dress: Wl.plum, hair: '#3a2f28' })}
+     ${[140,860].map(bx=>boyBlob(bx,720,'#b98f4e',1.0)).join('')}`),
+    text: 'And then the next word. And Willa began to tell the most beautiful story the kingdom had ever heard. Because that was the secret nobody had guessed: all those years she wasn\'t talking, she had been *keeping.* Her words took their time — and so every single one of them had been chosen, and polished, and *meant.* She did not have less to say than the others. She had more. She had been saving it.' },
+
+  // 12 the kingdom roars
+  { art: svg(
+    `<radialGradient id="w12" cx="0.5" cy="0.4" r="0.85"><stop offset="0" stop-color="${Wl.gold}"/><stop offset="1" stop-color="${Wl.amber}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w12)"/>
+     ${[120,300,700,880].map((bx,i)=>lantern(bx,150+ (i%2)*30,1.2)).join('')}
+     ${girl({ x: 500, y: 560, s: 1.2, dress: Wl.plum, hair: '#3a2f28' })}
+     ${[60,140,220].map((r,i)=>`<circle cx="500" cy="470" r="${r}" fill="none" stroke="${Wl.rose}" stroke-width="3" opacity="${0.5-i*0.13}"/>`).join('')}
+     ${[180,820].map(bx=>boyBlob(bx,720,'#b98f4e',1.1)).join('')}`),
+    text: 'When she finished, the square was so quiet you could hear the wind. And then the whole kingdom rose to its feet and roared — the loudest, longest cheer in the history of the Great Telling — for the girl whose words took their time. And every year after, the most honored teller of all, the one the whole kingdom leaned in to hear, was Willa — who was never, ever rushed again.' },
+
+  // 13 closing
+  { art: svg(
+    `<radialGradient id="w13" cx="0.5" cy="0.5" r="0.75"><stop offset="0" stop-color="${Wl.gold}" stop-opacity="0.5"/><stop offset="0.6" stop-color="${Wl.parch}"/><stop offset="1" stop-color="${Wl.parchDeep}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#w13)"/>
+     ${lantern(220,170,1.2)}${lantern(780,180,1.2)}
+     ${bubble(720,420,1.1,{caught:false})}
+     ${girl({ x: 500, y: 600, s: 1.35, dress: Wl.plum, hair: '#3a2f28' })}`),
+    text: 'The world is in a terrible hurry. But if your words take their time — if they catch, and stick, and have to be coaxed out one careful piece at a time — hear this: your voice is not too slow. It is careful. It is chosen. It is worth waiting for. So take all the time you need. The right people will lean in and wait. Take your time. We\'re listening.' },
+];
+
 const BOOKS = [
+  {
+    slug: 'the-girl-who-found-her-words',
+    title: 'The Girl Who Found Her Words',
+    subtitle: 'A story about a voice that takes its time — and the day everyone finally listened.',
+    spreads: wordsSpreads,
+    coverArt: wordsSpreads[0].art,
+    grownup: `The world is in a hurry, and it will try to finish a child's sentences for them — especially a child whose words catch, and stick, and take their time. This is a story for children who stutter or are shy of speaking, and for everyone who loves one. When you finish, read it again unhurried — the way you'd want someone to wait for Willa — and tell the child beside you the truest thing in it: your words are worth waiting for. Take all the time you need.`,
+  },
   {
     slug: 'the-one-who-sat-alone',
     title: 'The One Who Sat Alone',
