@@ -48,6 +48,7 @@ const BOOKS = [
   { src: 'ebooks/kids/the-one-who-sat-alone.md',    out: 'ebooks/the-one-who-sat-alone.epub' },
   { src: 'ebooks/kids/the-girl-who-found-her-words.md', out: 'ebooks/the-girl-who-found-her-words.epub' },
   { src: 'ebooks/kids/the-kid-with-two-homes.md',   out: 'ebooks/the-kid-with-two-homes.epub' },
+  { src: 'ebooks/kids/the-girl-who-loved-gray.md',  out: 'ebooks/the-girl-who-loved-gray.epub' },
   { src: 'ebooks/scripture/the-study.md',             out: 'ebooks/the-study.epub' },
   { src: 'ebooks/scripture/gospel-and-grind.md',      out: 'ebooks/gospel-and-grind.epub' },
   { src: 'ebooks/scripture/the-sermon-notes.md',      out: 'ebooks/the-sermon-notes.epub' },

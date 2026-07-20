@@ -973,6 +973,24 @@ export const KIDS_BOOKS = [
     ],
     desc: "For the child who packs a bag on Fridays. Sam has two homes and a small heavy question — which one is real, and did he cause the one house to become two? A gentle, honest bedtime story that doesn't pretend the family changes back, but tells a truer, kinder thing: home was never the house, it's the love you carry with you, none of it was your fault, and a heart is big enough for two homes.",
   },
+  {
+    slug:      "the-girl-who-loved-gray",
+    title:     "The Girl Who Loved Gray",
+    subtitle:  "A picture book about all the colors between yes and no.",
+    price:     "$12",
+    tag:       "Kids · Picture Book",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-girl-who-loved-gray.pdf",
+    href:      "/checkout/the-girl-who-loved-gray",
+    features:  [
+      "A fully illustrated picture book — original art on every spread",
+      "For kids taught the world is black-and-white — a love letter to nuance",
+      "Sensory, lyrical, and different in voice from every other Little Rewrite",
+      "Illustrated PDF picture book + reflowable EPUB edition",
+    ],
+    desc: "The first fully illustrated picture book in The Little Rewrites — and a gentle rebellion against the black-and-white world we teach children to live in. Marlowe is told to pick a side, quickly, until a gray morning of fog, rain, storm, and twilight teaches her that black and white are only the two ends of a long soft ribbon, and everything that matters lives in the gray in between. Sensory, lyrical, and illustrated on every spread.",
+  },
 ] as const;
 
 export const SHOP_PRODUCTS = [...EBOOKS, ...SERVICE_EBOOKS, ...KIDS_BOOKS] as const;
