@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { EBOOKS, SERVICE_EBOOKS, SUBSTACK_URL, MARGINS_TIERS, COMING_SOON_SLUGS } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, KIDS_BOOKS, SUBSTACK_URL, MARGINS_TIERS, COMING_SOON_SLUGS } from "@/app/lib/config";
 import {
   PRINT_SHOP_PRODUCTS,
   findShelfProduct,
@@ -13,7 +13,7 @@ import {
   BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
 
-const ALL_SHOP_EBOOKS = [...EBOOKS, ...SERVICE_EBOOKS] as const;
+const ALL_SHOP_EBOOKS = [...EBOOKS, ...SERVICE_EBOOKS, ...KIDS_BOOKS] as const;
 type ShopProduct = (typeof ALL_SHOP_EBOOKS)[number];
 
 const productDownload = (product: ShopProduct) =>

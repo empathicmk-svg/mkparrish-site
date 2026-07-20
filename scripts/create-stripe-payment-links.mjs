@@ -53,6 +53,54 @@ const books = [
     ebookAmount: 4500,
     paperbackAmount: 5200,
   },
+  {
+    slug: "her-story-rewritten",
+    title: "Her Story, Rewritten",
+    ebookAmount: 2400,
+    paperbackAmount: 3200,
+  },
+  {
+    slug: "the-princess-who-rescued-herself",
+    title: "The Princess Who Rescued Herself",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
+  {
+    slug: "the-boy-who-talked-to-the-stars",
+    title: "The Boy Who Talked to the Stars",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
+  {
+    slug: "the-quietest-kid-in-the-kingdom",
+    title: "The Quietest Kid in the Kingdom",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
+  {
+    slug: "the-one-who-sat-alone",
+    title: "The One Who Sat Alone",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
+  {
+    slug: "her-story-rewritten-volume-two",
+    title: "Her Story, Rewritten: Volume Two",
+    ebookAmount: 2400,
+    paperbackAmount: 3200,
+  },
+  {
+    slug: "the-girl-who-found-her-words",
+    title: "The Girl Who Found Her Words",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
+  {
+    slug: "the-kid-with-two-homes",
+    title: "The Kid with Two Homes",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
 ];
 
 const requiredEnvMessage = [

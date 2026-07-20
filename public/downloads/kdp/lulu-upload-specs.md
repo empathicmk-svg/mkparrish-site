@@ -28,6 +28,8 @@ manually, use the numbers in each book's row.
 
 **Author:** MK Parrish · **Language:** English · **Category:** Memoir
 (REBECOMING, Still Here, Street Smarts) / Poetry (Make My Own Light) /
+Religion & Christian Living (Her Story, Rewritten + the faith line) /
+Juvenile Fiction — Fairy Tales (The Princess Who Rescued Herself) /
 Self-Help & Business (the guides).
 
 After upload: order **one proof copy** of each before making it public. Once it
@@ -65,6 +67,8 @@ address) or turn on Lulu's own distribution.
 | Gospel & Grind | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $38 |
 | The Calling Card | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $42 |
 | Ministry, Monetized | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
+| Her Story, Rewritten | 6 x 9 | 38 | 0.095 in | 12.345 x 9.25 in | $32 |
+| Her Story, Rewritten: Volume Two | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $32 |
 
 ### File slugs (for the URLs above)
 
@@ -92,6 +96,8 @@ address) or turn on Lulu's own distribution.
 - Gospel & Grind → `gospel-and-grind`
 - The Calling Card → `the-calling-card`
 - Ministry, Monetized → `ministry-monetized`
+- Her Story, Rewritten → `her-story-rewritten`
+- Her Story, Rewritten: Volume Two → `her-story-rewritten-volume-two`
 
 ---
 
