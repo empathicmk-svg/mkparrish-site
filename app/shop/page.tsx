@@ -4,7 +4,7 @@ import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, BtnGhost, ArrowLink,
 } from "@/app/components/ui";
-import { EBOOKS, SERVICE_EBOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, STRIPE_AUDIT, COMING_SOON_SLUGS, CONTACT } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, KIDS_BOOKS, MARGINS_TIERS, SUBSTACK_URL, AMAZON_AUTHOR_URL, STRIPE_AUDIT, COMING_SOON_SLUGS, CONTACT } from "@/app/lib/config";
 import { PRINT_SHOP_PRODUCTS, coverForSlug, type ShelfProduct } from "@/app/lib/shelf-catalog";
 import ShelfBrowser, { type BrowseItem } from "@/app/components/ShelfBrowser";
 import { PrintShopCustomizer } from "../shelf/PrintShopCustomizer";
@@ -64,6 +64,24 @@ const BROWSE_ITEMS: BrowseItem[] = [
     href: e.href,
     category: isBundle(e.tag) ? ("bundles" as const) : ("frameworks" as const),
     featured: e.highlight || isBundle(e.tag),
+    comingSoon: COMING_SOON_SLUGS.has(e.slug),
+  })),
+  ...KIDS_BOOKS.map((e) => ({
+    slug: e.slug,
+    title: e.title,
+    price: e.price,
+    priceNum: priceToNum(e.price, e.free),
+    compareAt: "compareAt" in e ? (e as { compareAt?: string }).compareAt : undefined,
+    tag: e.tag,
+    desc: e.desc,
+    features: e.features,
+    free: e.free,
+    limitedFree: "limitedFree" in e ? (e as { limitedFree?: boolean }).limitedFree : false,
+    download: e.download,
+    stripe: "stripe" in e ? (e as { stripe?: string }).stripe : undefined,
+    href: e.href,
+    category: "kids" as const,
+    featured: e.highlight,
     comingSoon: COMING_SOON_SLUGS.has(e.slug),
   })),
 ];

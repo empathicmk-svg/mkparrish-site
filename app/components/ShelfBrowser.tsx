@@ -18,18 +18,19 @@ export type BrowseItem = {
   download?: string;
   stripe?: string;
   href: string;
-  category: "frameworks" | "ebooks" | "bundles";
+  category: "frameworks" | "ebooks" | "bundles" | "kids";
   featured: boolean;
   comingSoon?: boolean;
 };
 
-type FilterKey = "all" | "frameworks" | "ebooks" | "bundles" | "free";
+type FilterKey = "all" | "frameworks" | "ebooks" | "bundles" | "kids" | "free";
 type SortKey = "featured" | "price-asc" | "price-desc";
 
 const FILTERS: { key: FilterKey; label: string }[] = [
   { key: "all", label: "All" },
   { key: "frameworks", label: "Frameworks" },
   { key: "ebooks", label: "Ebooks" },
+  { key: "kids", label: "Kids" },
   { key: "bundles", label: "Bundles" },
   { key: "free", label: "Free" },
 ];
@@ -160,6 +161,7 @@ export default function ShelfBrowser({ products }: { products: BrowseItem[] }) {
       all: products.length,
       frameworks: products.filter((p) => p.category === "frameworks").length,
       ebooks: products.filter((p) => p.category === "ebooks").length,
+      kids: products.filter((p) => p.category === "kids").length,
       bundles: products.filter((p) => p.category === "bundles").length,
       free: products.filter((p) => p.free).length,
     } as Record<FilterKey, number>;

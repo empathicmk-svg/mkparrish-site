@@ -1,4 +1,4 @@
-import { EBOOKS, PRINTS, SERVICE_EBOOKS } from "@/app/lib/config";
+import { EBOOKS, PRINTS, SERVICE_EBOOKS, KIDS_BOOKS } from "@/app/lib/config";
 
 export type ShelfCollection = "ebooks" | "frameworks" | "prints";
 
@@ -61,7 +61,7 @@ export function assetLinksForSlug(slug: string, download?: string): readonly She
   ];
 }
 
-type DigitalSource = (typeof EBOOKS)[number] | (typeof SERVICE_EBOOKS)[number];
+type DigitalSource = (typeof EBOOKS)[number] | (typeof SERVICE_EBOOKS)[number] | (typeof KIDS_BOOKS)[number];
 
 type AudienceMap = Record<string, readonly string[]>;
 
@@ -277,6 +277,7 @@ const PRINT_COPY: Record<PrintTitle, {
 export const DIGITAL_PRODUCTS: readonly ShelfProduct[] = [
   ...EBOOKS.map((product) => normalizeDigital(product, "ebooks")),
   ...SERVICE_EBOOKS.map((product) => normalizeDigital(product, "frameworks")),
+  ...KIDS_BOOKS.map((product) => normalizeDigital(product, "ebooks")),
 ];
 
 export const PRINT_PRODUCTS: readonly ShelfProduct[] = PRINTS.map((print) => {

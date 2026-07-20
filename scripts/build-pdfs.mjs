@@ -26,6 +26,8 @@ const FILES = [
   ['public/downloads/ebooks/the-meantime.html',                   'public/downloads/ebooks/the-meantime.pdf'],
   ['public/downloads/ebooks/the-invisible-bruise.html',          'public/downloads/ebooks/the-invisible-bruise.pdf'],
   ['public/downloads/ebooks/decoding-angel-numbers.html',        'public/downloads/ebooks/decoding-angel-numbers.pdf'],
+  ['public/downloads/ebooks/her-story-rewritten.html',           'public/downloads/ebooks/her-story-rewritten.pdf'],
+  ['public/downloads/ebooks/the-princess-who-rescued-herself.html', 'public/downloads/ebooks/the-princess-who-rescued-herself.pdf'],
   ['public/downloads/ebooks/the-study.html',                     'public/downloads/ebooks/the-study.pdf'],
   ['public/downloads/ebooks/gospel-and-grind.html',              'public/downloads/ebooks/gospel-and-grind.pdf'],
   ['public/downloads/ebooks/the-sermon-notes.html',              'public/downloads/ebooks/the-sermon-notes.pdf'],

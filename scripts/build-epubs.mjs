@@ -40,6 +40,8 @@ const BOOKS = [
   { src: 'ebooks/the-meantime.md',                    out: 'ebooks/the-meantime.epub' },
   { src: 'ebooks/the-invisible-bruise.md',            out: 'ebooks/the-invisible-bruise.epub' },
   { src: 'ebooks/decoding-angel-numbers.md',          out: 'ebooks/decoding-angel-numbers.epub' },
+  { src: 'ebooks/scripture/her-story-rewritten.md',   out: 'ebooks/her-story-rewritten.epub' },
+  { src: 'ebooks/kids/the-princess-who-rescued-herself.md', out: 'ebooks/the-princess-who-rescued-herself.epub' },
   { src: 'ebooks/scripture/the-study.md',             out: 'ebooks/the-study.epub' },
   { src: 'ebooks/scripture/gospel-and-grind.md',      out: 'ebooks/gospel-and-grind.epub' },
   { src: 'ebooks/scripture/the-sermon-notes.md',      out: 'ebooks/the-sermon-notes.epub' },

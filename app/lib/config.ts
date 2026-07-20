@@ -704,6 +704,25 @@ export const SERVICE_EBOOKS = [
     desc: "The fastest monetization buy on the Shelf: every consulting method plus the new creator revenue stack. Buy one bundle, get the full library for far less than buying each guide one by one.",
   },
   {
+    slug:      "her-story-rewritten",
+    title:     "Her Story, Rewritten",
+    subtitle:  "Eight women of the Bible, the moment everything turned, and what their stories are still saying to yours.",
+    price:     "$24",
+    tag:       "Faith · The Flagship",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/her-story-rewritten.pdf",
+    href:      "/checkout/her-story-rewritten",
+    paperback: { price: "$32", href: "/checkout/her-story-rewritten?format=paperback" },
+    features:  [
+      "Eve, Hagar, Hannah, Ruth, Esther & three more — told like stories, not sermons",
+      "For women of any age, any stage of faith — no Bible knowledge required",
+      "Each chapter turns on the same thing: being seen, and rewritten",
+      "Complete PDF + Kindle EPUB, plus Lulu-ready 6 x 9 paperback files",
+    ],
+    desc: "The new front door to the faith line, and a book you can hand any woman in your life. Eight women of the Bible — Eve, Hagar, Hannah, Ruth, Esther, the woman at the well, Mary Magdalene, and Martha — told as real, unsentimental stories about being seen at the bottom of the page and having everything rewritten from there. Scripture for the woman who suspects her own story isn't finished.",
+  },
+  {
     slug:      "the-study",
     title:     "The Study",
     subtitle:  "A modern guide to building a Bible study practice that actually sticks — on your own terms.",
@@ -818,7 +837,31 @@ export const SERVICE_EBOOKS = [
   },
 ] as const;
 
-export const SHOP_PRODUCTS = [...EBOOKS, ...SERVICE_EBOOKS] as const;
+// ── The Little Rewrites — children's book line ───────────────────────────────
+// Bedtime stories about children writing their own happily ever after.
+export const KIDS_BOOKS = [
+  {
+    slug:      "the-princess-who-rescued-herself",
+    title:     "The Princess Who Rescued Herself",
+    subtitle:  "A bedtime fairytale about writing your own happily ever after.",
+    price:     "$14",
+    tag:       "Kids · The Little Rewrites",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-princess-who-rescued-herself.pdf",
+    href:      "/checkout/the-princess-who-rescued-herself",
+    paperback: { price: "$19", href: "/checkout/the-princess-who-rescued-herself?format=paperback" },
+    features:  [
+      "A modern fairytale: the princess doesn't wait for a prince — she notices the hinges",
+      "A read-aloud bedtime story with a grown-up's note built in",
+      "The gentle first lesson in agency: you can write your own door",
+      "Complete PDF + Kindle EPUB, plus Lulu-ready 6 x 9 paperback files",
+    ],
+    desc: "The flagship of The Little Rewrites — a warm, funny, quietly radical bedtime fairytale for the child who is learning that they get to write their own happily ever after. Princess Wren is locked in a tower waiting for a rescue that keeps not coming, until she stops waiting and starts paying attention. The first in a children's line about kids who rewrite their own stories.",
+  },
+] as const;
+
+export const SHOP_PRODUCTS = [...EBOOKS, ...SERVICE_EBOOKS, ...KIDS_BOOKS] as const;
 
 export type ShopProduct = (typeof SHOP_PRODUCTS)[number];
 

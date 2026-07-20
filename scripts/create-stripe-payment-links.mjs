@@ -53,6 +53,18 @@ const books = [
     ebookAmount: 4500,
     paperbackAmount: 5200,
   },
+  {
+    slug: "her-story-rewritten",
+    title: "Her Story, Rewritten",
+    ebookAmount: 2400,
+    paperbackAmount: 3200,
+  },
+  {
+    slug: "the-princess-who-rescued-herself",
+    title: "The Princess Who Rescued Herself",
+    ebookAmount: 1400,
+    paperbackAmount: 1900,
+  },
 ];
 
 const requiredEnvMessage = [
