@@ -20,17 +20,17 @@ When a family changes shape, the children feel it first and deepest — the pack
 
 There was once a boy named Sam who had two homes. And for a long time, he thought that meant something was wrong with him.
 
-It hadn't always been two. Once there had been one house, with both his parents in it, and Sam hadn't thought about "home" at all — the way you don't think about the floor until it moves. But the floor had moved. His parents had come to love each other differently than they used to, and now his mom lived in one house and his dad lived in another. And Sam lived in both.
+It hadn't always been two. Once there was one house, with both his parents in it, and Sam never thought about "home" at all — the way you don't think about the floor until it moves. But the floor had moved. Now his mom lived in one house, and his dad lived in another. And Sam lived in both.
 
-On Fridays, Sam packed a bag. He got very good at packing that bag, which is a thing no kid should have to be good at. Toothbrush. The soft shirt. And Biscuit — the one stuffed rabbit, who went everywhere, because Biscuit was the only thing that lived in both houses full-time. Like Sam.
+On Fridays, Sam packed a bag. He got very good at packing that bag — which is a thing no kid should have to be good at. Toothbrush. The soft shirt. And Biscuit, the one stuffed rabbit, who went everywhere — because Biscuit was the only thing that lived in both houses full-time. Like Sam.
 
-And every Friday, zipping up that bag, Sam felt the small heavy question press on his chest. *Which one is my real home? Where do I actually belong? And — did I do something, to make the one house turn into two?* He didn't say it out loud. Kids often don't. But he carried it everywhere, tucked next to Biscuit.
+And every Friday, zipping up that bag, Sam felt a small heavy question press on his chest. *Which one is my real home? Where do I actually belong? And — did I do something, to make one house turn into two?* He didn't say it out loud. Kids often don't. But he carried it everywhere, tucked next to Biscuit.
 
-One night at his dad's house, lying in the bed that was his but in the room that was only half his life, Sam finally let a little of the question leak out. "I don't know where home is anymore," he said, very quietly, mostly to Biscuit.
+One night at his dad's house, in the bed that was his but the room that was only half his life, Sam let a little of the question leak out. "I don't know where home is anymore," he said, very quietly, mostly to Biscuit.
 
 But his dad was in the doorway. And his dad heard.
 
-His dad came and sat on the edge of the bed, and he didn't rush to fix it — which was the right thing, because some things can't be fixed, only understood. For a while he just sat. Then he said, "Can I tell you a secret about homes?"
+His dad came and sat on the edge of the bed. He didn't rush to fix it — which was the right thing, because some things can't be fixed, only understood. For a while he just sat. Then he said, "Can I tell you a secret about homes?"
 
 Sam nodded.
 
@@ -38,13 +38,13 @@ Sam nodded.
 
 Sam thought about that. "But which house is my *real* home?"
 
-And his dad said the thing Sam would remember for the rest of his life. "Here's the secret. Home was never the house." He tapped Sam gently, right on the chest, over his heart. "Home is *this.* And you carry it with you, back and forth, every Friday, in that bag with Biscuit. That's why both houses feel like home when you're in them — because *you* brought the home. You're not a kid who lost his home, Sam. You're a kid who's big enough to make home in two places. Most people only know how to do it in one."
+And his dad said the thing Sam would remember for the rest of his life. "Here's the secret. Home was never the house." He tapped Sam gently, right on the chest, over his heart. "Home is *this.* And you carry it with you, back and forth, every Friday, in that bag with Biscuit. You're not a kid who lost his home, Sam. You're a kid who's big enough to make home in two places. Most people only know how to do it in one."
 
-"And Sam," his dad added, quieter now, because this part mattered most of all, "the thing that changed between your mom and me — that was grown-up stuff. It was never, ever about you. You didn't do it, and you couldn't have stopped it, and if you'd been the best kid in the entire world it would have happened just the same — and you *were* the best kid in the entire world. Two homes doesn't mean you were too much. It means you were, and are, completely loved. Twice over."
+"And Sam," his dad added, quieter now, because this part mattered most of all, "the thing that changed between your mom and me — that was grown-up stuff. It was never, ever about you. You didn't do it. You couldn't have stopped it. Two homes doesn't mean you were too much. It means you were, and are, completely loved. Twice over."
 
-And Sam felt the small heavy question lift off his chest and float away into the dark — and it did not come back to sit on him the same way ever again.
+And Sam felt the small heavy question lift off his chest and float away into the dark — and it never came back to sit on him quite the same way again.
 
-He still packed his bag on Fridays. That part didn't change. Some things in a story don't get to change back, and this one didn't. But packing the bag felt different now. He wasn't leaving home to go somewhere else. He was *carrying* his home — the one in his chest, next to Biscuit — from people who loved him, to people who loved him.
+He still packed his bag on Fridays. That part didn't change. But packing it felt different now. He wasn't leaving home to go somewhere else. He was *carrying* his home — the one in his chest, next to Biscuit — from people who loved him, to people who loved him.
 
 And that, it turned out, was a fine way to grow up. Not the way he would have chosen. But fine. More than fine. Full.
 

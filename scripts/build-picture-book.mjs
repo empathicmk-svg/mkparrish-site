@@ -1065,7 +1065,7 @@ const homesSpreads = [
      ${house(250, 440, 1.05, true)}${house(760, 440, 1.05, false)}
      ${boy({ x: 500, y: 640, s: 1.05, shirt: HM.sam, hair:'#3a2f28' })}
      ${rabbit(600, 690, 0.9)}`),
-    text: 'There was once a boy named Sam who had two homes. And for a long time, he thought that meant something was wrong with him.' },
+    text: 'There was once a boy named Sam\nwho had two homes.\nAnd for a long time,\nhe thought that meant\nsomething was wrong with him.' },
 
   // 3 the floor moved
   { art: svg(
@@ -1075,7 +1075,7 @@ const homesSpreads = [
      <path d="M500 520 L250 720 M500 520 L760 720" stroke="${HM.terra}" stroke-width="3" stroke-dasharray="4 12" opacity="0.5"/>
      ${house(250, 620, 0.7, true)}${house(760, 620, 0.7, false)}
      ${boy({ x: 500, y: 760, s: 0.7, shirt: HM.sam, hair:'#3a2f28', face:false })}`),
-    text: 'It hadn\'t always been two. Once there had been one house, with both his parents in it, and Sam hadn\'t thought about "home" at all — the way you don\'t think about the floor until it moves. But the floor had moved. Now his mom lived in one house and his dad lived in another. And Sam lived in both.' },
+    text: 'It hadn\'t always been two.\nOnce there was one house,\nwith both his parents in it,\nand Sam never thought about "home" at all —\nthe way you don\'t think about the floor\nuntil it moves.\nBut the floor had moved.\nNow his mom lived in one house,\nand his dad lived in another.\nAnd Sam lived in both.' },
 
   // 4 packing the bag
   { art: svg(
@@ -1085,7 +1085,7 @@ const homesSpreads = [
      ${bag(560, 640, 1.6)}
      ${boy({ x: 380, y: 640, s: 1.0, shirt: HM.sam, hair:'#3a2f28' })}
      ${rabbit(660, 600, 0.9)}`),
-    text: 'On Fridays, Sam packed a bag. He got very good at packing that bag, which is a thing no kid should have to be good at. Toothbrush. The soft shirt. And Biscuit — the one stuffed rabbit, who went everywhere, because Biscuit was the only thing that lived in both houses full-time. Like Sam.' },
+    text: 'On Fridays, Sam packed a bag.\nHe got very good at packing that bag —\nwhich is a thing no kid\nshould have to be good at.\nToothbrush. The soft shirt.\nAnd Biscuit, the one stuffed rabbit,\nwho went everywhere —\nbecause Biscuit was the only thing\nthat lived in both houses full-time.\nLike Sam.' },
 
   // 5 the heavy question
   { art: svg(
@@ -1094,7 +1094,7 @@ const homesSpreads = [
      ${boy({ x: 500, y: 600, s: 1.2, shirt: HM.sam, hair:'#3a2f28', face:false })}
      <g opacity="0.7">${heart(500, 470, 2.2, HM.coolDeep)}</g>
      <text x="250" y="300" font-family="'Playfair Display'" font-style="italic" font-size="28" fill="${HM.coolDeep}">which one is my real home? …did I do it?</text>`),
-    text: 'And every Friday, zipping up that bag, Sam felt the small heavy question press on his chest. *Which one is my real home? Where do I actually belong? And — did I do something, to make the one house turn into two?* He didn\'t say it out loud. Kids often don\'t. But he carried it everywhere, tucked next to Biscuit.' },
+    text: 'And every Friday, zipping up that bag,\nSam felt a small heavy question\npress on his chest.\n*Which one is my real home?*\n*Where do I actually belong?*\n*And — did I do something,*\n*to make one house turn into two?*\nHe didn\'t say it out loud.\nKids often don\'t.\nBut he carried it everywhere,\ntucked next to Biscuit.' },
 
   // 6 the night, the whisper
   { art: svg(
@@ -1106,7 +1106,7 @@ const homesSpreads = [
      ${boy({ x: 470, y: 500, s: 0.85, shirt: HM.cool, hair:'#3a2f28', face:false })}
      ${rabbit(600, 520, 0.8)}
      <rect x="120" y="120" width="140" height="200" rx="6" fill="${HM.warm}" opacity="0.25"/>`),
-    text: 'One night at his dad\'s house, lying in the bed that was his but in the room that was only half his life, Sam finally let a little of the question leak out. "I don\'t know where home is anymore," he said, very quietly, mostly to Biscuit. But his dad was in the doorway. And his dad heard.' },
+    text: 'One night at his dad\'s house,\nin the bed that was his\nbut the room that was only half his life,\nSam let a little of the question leak out.\n"I don\'t know where home is anymore,"\nhe said, very quietly,\nmostly to Biscuit.\nBut his dad was in the doorway.\nAnd his dad heard.' },
 
   // 7 dad sits
   { art: svg(
@@ -1116,7 +1116,7 @@ const homesSpreads = [
      ${boyBlob(650,560,'#3f5f70',1.6)}
      ${boy({ x: 380, y: 560, s: 0.8, shirt: HM.cool, hair:'#3a2f28' })}
      ${heart(760, 360, 1.6, HM.heartLt)}`),
-    text: 'His dad came and sat on the edge of the bed, and he didn\'t rush to fix it — which was the right thing, because some things can\'t be fixed, only understood. For a while he just sat. Then he said, "Can I tell you a secret about homes?"' },
+    text: 'His dad came and sat on the edge of the bed.\nHe didn\'t rush to fix it —\nwhich was the right thing,\nbecause some things can\'t be fixed,\nonly understood.\nFor a while he just sat.\nThen he said,\n"Can I tell you a secret about homes?"' },
 
   // 8 you got all of both
   { art: svg(
@@ -1125,7 +1125,7 @@ const homesSpreads = [
      ${heart(320, 420, 2.6, HM.warm)}${heart(680, 420, 2.6, HM.cool)}
      ${heart(500, 470, 3.4, HM.heart)}
      ${boy({ x: 500, y: 660, s: 0.85, shirt: HM.cool, hair:'#3a2f28' })}`),
-    text: '"When you were born," his dad said, "your mom and I looked at you, and both of us felt the exact same enormous thing. That never split in two, Sam. It didn\'t divide up when we did. You didn\'t get half of each. You got *all* of both. That\'s not less than other kids have. That\'s *more.*"' },
+    text: '"When you were born," his dad said,\n"your mom and I looked at you,\nand both of us felt\nthe exact same enormous thing.\nThat never split in two, Sam.\nIt didn\'t divide up when we did.\nYou didn\'t get half of each.\nYou got *all* of both.\nThat\'s not less than other kids have.\nThat\'s *more.*"' },
 
   // 9 home was never the house
   { art: svg(
@@ -1134,7 +1134,7 @@ const homesSpreads = [
      ${boy({ x: 500, y: 600, s: 1.5, shirt: HM.cool, hair:'#3a2f28' })}
      ${heart(500, 500, 2.0, HM.heart)}
      <circle cx="500" cy="490" r="70" fill="none" stroke="${HM.heartLt}" stroke-width="3" opacity="0.5"/>`),
-    text: '"Here\'s the secret. Home was never the house." He tapped Sam gently, right on the chest, over his heart. "Home is *this.* And you carry it with you, back and forth, every Friday, in that bag with Biscuit. You\'re not a kid who lost his home, Sam. You\'re a kid who\'s big enough to make home in two places. Most people only know how to do it in one."' },
+    text: '"Here\'s the secret.\nHome was never the house."\nHe tapped Sam gently, right on the chest,\nover his heart.\n"Home is *this.*\nAnd you carry it with you, back and forth,\nevery Friday, in that bag with Biscuit.\nYou\'re not a kid who lost his home, Sam.\nYou\'re a kid who\'s big enough\nto make home in two places.\nMost people only know how to do it in one."' },
 
   // 10 it was never about you
   { art: svg(
@@ -1143,7 +1143,7 @@ const homesSpreads = [
      ${boyBlob(360,540,'#3f5f70',1.5)}
      ${boy({ x: 620, y: 580, s: 0.9, shirt: HM.cool, hair:'#3a2f28' })}
      ${heart(500, 300, 1.6, HM.heartLt)}${heart(760, 380, 1.1, HM.heartLt)}`),
-    text: '"And Sam," his dad added, quieter now, because this part mattered most of all, "the thing that changed between your mom and me — that was grown-up stuff. It was never, ever about you. You didn\'t do it, and you couldn\'t have stopped it. Two homes doesn\'t mean you were too much. It means you were, and are, completely loved. Twice over."' },
+    text: '"And Sam," his dad added, quieter now,\nbecause this part mattered most of all,\n"the thing that changed\nbetween your mom and me —\nthat was grown-up stuff.\nIt was never, ever about you.\nYou didn\'t do it.\nYou couldn\'t have stopped it.\nTwo homes doesn\'t mean you were too much.\nIt means you were, and are,\ncompletely loved. Twice over."' },
 
   // 11 the question floats away
   { art: svg(
@@ -1152,7 +1152,7 @@ const homesSpreads = [
      ${[[500,300,1],[600,220,0.7],[680,150,0.5]].map(([x,y,o])=>`<g opacity="${o}">${heart(x,y,1.4,HM.coolDeep)}</g>`).join('')}
      ${boy({ x: 460, y: 600, s: 1.0, shirt: HM.cool, hair:'#3a2f28' })}
      ${rabbit(580, 620, 0.85)}`),
-    text: 'And Sam felt the small heavy question lift off his chest and float away into the dark — and it did not come back to sit on him the same way ever again.' },
+    text: 'And Sam felt the small heavy question\nlift off his chest\nand float away into the dark —\nand it never came back to sit on him\nquite the same way again.' },
 
   // 12 carrying his home
   { art: svg(
@@ -1162,7 +1162,7 @@ const homesSpreads = [
      ${boy({ x: 500, y: 620, s: 1.05, shirt: HM.sam, hair:'#3a2f28' })}
      ${bag(600, 660, 1.0)}${heart(500, 520, 1.6, HM.heart)}
      <path d="M300 720 Q500 690 700 720" stroke="${HM.terra}" stroke-width="3" fill="none" stroke-dasharray="4 12" opacity="0.5"/>`),
-    text: 'He still packed his bag on Fridays. That part didn\'t change. But packing it felt different now. He wasn\'t leaving home to go somewhere else. He was *carrying* his home — the one in his chest, next to Biscuit — from people who loved him, to people who loved him. And that, it turned out, was a fine way to grow up. More than fine. Full.' },
+    text: 'He still packed his bag on Fridays.\nThat part didn\'t change.\nBut packing it felt different now.\nHe wasn\'t leaving home\nto go somewhere else.\nHe was *carrying* his home —\nthe one in his chest, next to Biscuit —\nfrom people who loved him,\nto people who loved him.\nAnd that, it turned out,\nwas a fine way to grow up.\nMore than fine.\nFull.' },
 
   // 13 closing
   { art: svg(
@@ -1172,7 +1172,7 @@ const homesSpreads = [
      ${heart(500, 470, 4.0)}
      ${boy({ x: 500, y: 660, s: 1.0, shirt: HM.sam, hair:'#3a2f28' })}
      ${rabbit(600, 700, 0.85)}`),
-    text: 'A heart is not a house. It doesn\'t crack down the middle when a family changes shape. It stretches. It makes room. It learns to hold two of everything — and that is not a wound. It\'s a superpower. If your family has changed shape: home was never the house. It\'s the love you carry with you. None of it was your fault. And your heart is big enough for all of it. You always were. You always will be.' },
+    text: 'A heart is not a house.\nIt doesn\'t crack down the middle\nwhen a family changes shape.\nIt stretches. It makes room.\nIt learns to hold two of everything —\nand that is not a wound.\nIt\'s a superpower.\nIf your family has changed shape:\nhome was never the house.\nIt\'s the love you carry with you.\nNone of it was your fault.\nAnd your heart is big enough for all of it.\nYou always were.\nYou always will be.' },
 ];
 
 const BOOKS = [
