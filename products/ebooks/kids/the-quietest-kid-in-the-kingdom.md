@@ -18,31 +18,31 @@ The world spends a lot of a child's early years telling them to speak up. Someti
 
 ## The Quietest Kid in the Kingdom
 
-In a kingdom that loved to be loud, there lived a girl named Posy, and Posy was the quietest kid anyone had ever met.
+In a kingdom that loved to be loud there lived a girl named Posy. And Posy was the quietest kid anyone had ever met.
 
-It was a kingdom of noise, and it was proud of it. There were trumpets at breakfast and drums at lunch, and at every festival a great contest to see who could cheer the very loudest. And Posy — Posy sat at the back, and watched, and said almost nothing at all.
+It was a kingdom of noise, and proud of it. Trumpets at breakfast. Drums at lunch. And at every festival, a great contest to see who could cheer the loudest. And Posy? Posy sat at the back, and watched, and said almost nothing at all.
 
-While the other children filled the air with words, Posy filled herself with something else. She *listened.* She *noticed.* She collected the quiet things the loud kingdom rushed right past — the way some children collect shells.
+While the other children filled the air with words, Posy filled herself with something else. She *listened.* She *noticed.* She gathered the quiet things the loud kingdom rushed right past — the way some children gather shells.
 
-She heard the sparrow that sang a half-beat behind all the others. She saw which children were laughing and which were only pretending. She knew the sound the wind made just before the rain — and the exact look on her mother's face that meant *tired, but don't you worry.*
+She heard the sparrow that sang a half-beat behind all the others. She saw which children were laughing, and which were only pretending. She knew the sound the wind made just before the rain — and the look on her mother's face that meant *tired, but don't you worry.*
 
-"She's so quiet," the townspeople would say, a little worried. "You never know what she's thinking." That was true. They never did. It simply never occurred to them to sit down beside her and find out.
+"She's so quiet," the grown-ups would say, a little worried. "You never know what she's thinking." And that was true. They never did. It simply never occurred to them to sit down beside her and find out.
 
 Now, the loudest thing in all the kingdom was the Great Bell. It hung in the tower at the center of town, and its ring was so enormous, so magnificent, it could be heard in every corner of the land. The whole kingdom loved it. The whole kingdom was, in a way, built around it.
 
-And one grey morning, the Great Bell went silent. The bell-ringer pulled the rope, and instead of the magnificent ring there came only a dull, cracked *thunk.* The bell was broken somewhere deep inside — and no one could tell where. "The crack could be *anywhere,*" said the finest craftsmen. "It would take a year to find."
+And one gray morning, the Great Bell went silent. The bell-ringer pulled the rope, and instead of the magnificent ring there came only a dull, cracked *thunk.* The bell was broken, somewhere deep inside — and no one could tell where. "The crack could be *anywhere,*" said the craftsmen. "It would take a year to find."
 
-The whole kingdom crowded into the square, everyone shouting suggestions over everyone else — certain, as always, that the answer was *more noise.* And at the very back, a small quiet voice said, "I know where the crack is."
+The whole kingdom crowded into the square, everyone shouting over everyone else, certain, as always, that the answer was *more noise.* And at the very back, a small quiet voice said, "I know where the crack is."
 
 Nobody heard it. It was, after all, a very loud square.
 
-So Posy did the bravest thing she had ever done. She walked to the front. She tugged the mayor's sleeve. And when he bent down, she said it again, just to him: "I know where the crack is. Because they were all talking," said Posy. "And I was *listening.* There's a tiny sound first — a little hiss, like a whisper — up near the top, on the left side, where the sun hits in the morning. I've heard it for weeks. It's been getting louder. That's where it's breaking. You don't have to take the whole bell apart. You just have to look *there.*"
+So Posy did the bravest thing she had ever done. She walked to the front. She tugged the mayor's sleeve. And when he bent down, she said it again, just to him: "I know where the crack is. Because they were all talking. And I was *listening.* There's a tiny sound first — a little hiss, like a whisper — up near the top, on the left side, where the sun hits in the morning. I've heard it for weeks. It's been getting louder. That's where it's breaking. You don't have to take the whole bell apart. You just have to look *there.*"
 
-They climbed the tower, went to the top on the left side where the sun hits — and there, so fine you could barely see it, was a hairline crack, exactly where the quietest kid in the kingdom said it would be. They mended it in a single afternoon.
+They climbed the tower, to the top, on the left side, where the sun hits — and there, so fine you could barely see it, was a hairline crack, exactly where the quietest kid in the kingdom said it would be. They mended it in a single afternoon.
 
 That evening the Great Bell rang out enormous and magnificent over the whole land. And the mayor crouched down beside Posy. "We kept telling you to be *louder,*" he said gently. "But the kingdom didn't need another loud voice. It needed someone who was finally *listening.*"
 
-From that day on, when something important went wrong, the loudest kingdom in the world learned to do a brand-new thing: it got quiet, and it went and found Posy.
+From that day on, when something went wrong, the loudest kingdom in the world learned to do a brand-new thing. It got quiet. And it went and found Posy.
 
 ---
 
