@@ -1018,7 +1018,172 @@ const wordsSpreads = [
     text: 'The world is in a terrible hurry. But if your words take their time — if they catch, and stick, and have to be coaxed out one careful piece at a time — hear this: your voice is not too slow. It is careful. It is chosen. It is worth waiting for. So take all the time you need. The right people will lean in and wait. Take your time. We\'re listening.' },
 ];
 
+// ── "The Kid with Two Homes" — warm home vs cool home, one heart ─────────────
+const HM = {
+  warmBg:'#F3DEB0', warm:'#E0A94A', terra:'#C97B54', roofW:'#a85b3e',
+  coolBg:'#CBDEE6', cool:'#6A92A8', coolDeep:'#4c7387', roofC:'#3f5f70',
+  night:'#2a3350', nightDeep:'#1c2340', sam:'#5f9e7a', rabbit:'#EDE6D8', rabbitDk:'#d6cdb8',
+  heart:'#E0869F', heartLt:'#F2AFC6', ink:'#2c2a33',
+};
+const house = (x, y, s = 1, warm = true) => {
+  const wall = warm ? HM.warm : HM.cool, roof = warm ? HM.roofW : HM.roofC, bg = warm ? HM.terra : HM.coolDeep;
+  return `<g transform="translate(${x},${y}) scale(${s})">
+    <rect x="-90" y="0" width="180" height="150" fill="${wall}"/>
+    <path d="M-108 0 L0 -96 L108 0 Z" fill="${roof}"/>
+    <rect x="-30" y="60" width="60" height="90" rx="4" fill="${bg}"/>
+    <rect x="-70" y="30" width="40" height="40" rx="4" fill="${HM.warmBg}" opacity="${warm?0.9:0}"/><rect x="-70" y="30" width="40" height="40" rx="4" fill="${HM.coolBg}" opacity="${warm?0:0.9}"/>
+    <rect x="34" y="30" width="40" height="40" rx="4" fill="${warm?HM.warmBg:HM.coolBg}" opacity="0.9"/>
+    <circle cx="16" cy="108" r="4" fill="${HM.warmBg}"/></g>`;
+};
+const rabbit = (x, y, s = 1) => `<g transform="translate(${x},${y}) scale(${s})">
+  <ellipse cx="0" cy="0" rx="20" ry="24" fill="${HM.rabbit}"/>
+  <ellipse cx="-8" cy="-30" rx="6" ry="20" fill="${HM.rabbit}"/><ellipse cx="8" cy="-30" rx="6" ry="20" fill="${HM.rabbit}"/>
+  <ellipse cx="-8" cy="-30" rx="3" ry="12" fill="${HM.rabbitDk}"/><ellipse cx="8" cy="-30" rx="3" ry="12" fill="${HM.rabbitDk}"/>
+  <circle cx="-6" cy="-4" r="2.4" fill="${HM.ink}"/><circle cx="6" cy="-4" r="2.4" fill="${HM.ink}"/>
+  <path d="M-4 4 Q0 8 4 4" stroke="${HM.ink}" stroke-width="1.6" fill="none"/></g>`;
+const bag = (x, y, s = 1) => `<g transform="translate(${x},${y}) scale(${s})">
+  <rect x="-30" y="-16" width="60" height="50" rx="10" fill="${HM.terra}"/>
+  <path d="M-18 -16 Q0 -40 18 -16" stroke="${HM.roofW}" stroke-width="6" fill="none"/>
+  <rect x="-30" y="-4" width="60" height="8" fill="${HM.roofW}" opacity="0.5"/></g>`;
+const heart = (x, y, s = 1, fill = HM.heart) => `<g transform="translate(${x},${y}) scale(${s})"><path d="M0 14 C-16 0 -22 -12 -12 -20 C-5 -25 0 -18 0 -14 C0 -18 5 -25 12 -20 C22 -12 16 0 0 14 Z" fill="${fill}"/></g>`;
+
+const homesSpreads = [
+  // 1 TITLE
+  { title: true, art: svg(
+    `<linearGradient id="h1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${HM.warmBg}"/><stop offset="0.5" stop-color="${HM.warmBg}"/><stop offset="0.5" stop-color="${HM.coolBg}"/><stop offset="1" stop-color="${HM.coolBg}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h1)"/>
+     ${house(250, 380, 1.0, true)}${house(760, 380, 1.0, false)}
+     ${heart(500, 470, 3.2)}
+     ${boy({ x: 500, y: 620, s: 1.0, shirt: HM.sam, hair:'#3a2f28' })}
+     ${rabbit(600, 660, 1.0)}`),
+    text: '' },
+
+  // 2 two homes
+  { art: svg(
+    `<linearGradient id="h2" x1="0" y1="0" x2="1" y2="0"><stop offset="0.5" stop-color="${HM.warmBg}"/><stop offset="0.5" stop-color="${HM.coolBg}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h2)"/>
+     ${house(250, 440, 1.05, true)}${house(760, 440, 1.05, false)}
+     ${boy({ x: 500, y: 640, s: 1.05, shirt: HM.sam, hair:'#3a2f28' })}
+     ${rabbit(600, 690, 0.9)}`),
+    text: 'There was once a boy named Sam who had two homes. And for a long time, he thought that meant something was wrong with him.' },
+
+  // 3 the floor moved
+  { art: svg(
+    `<linearGradient id="h3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${HM.warmBg}"/><stop offset="1" stop-color="${HM.coolBg}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h3)"/>
+     ${house(500, 360, 1.1, true)}
+     <path d="M500 520 L250 720 M500 520 L760 720" stroke="${HM.terra}" stroke-width="3" stroke-dasharray="4 12" opacity="0.5"/>
+     ${house(250, 620, 0.7, true)}${house(760, 620, 0.7, false)}
+     ${boy({ x: 500, y: 760, s: 0.7, shirt: HM.sam, hair:'#3a2f28', face:false })}`),
+    text: 'It hadn\'t always been two. Once there had been one house, with both his parents in it, and Sam hadn\'t thought about "home" at all — the way you don\'t think about the floor until it moves. But the floor had moved. Now his mom lived in one house and his dad lived in another. And Sam lived in both.' },
+
+  // 4 packing the bag
+  { art: svg(
+    `<linearGradient id="h4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${HM.warmBg}"/><stop offset="1" stop-color="${HM.warm}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h4)"/>
+     <rect x="0" y="760" width="1000" height="240" fill="${HM.terra}" opacity="0.3"/>
+     ${bag(560, 640, 1.6)}
+     ${boy({ x: 380, y: 640, s: 1.0, shirt: HM.sam, hair:'#3a2f28' })}
+     ${rabbit(660, 600, 0.9)}`),
+    text: 'On Fridays, Sam packed a bag. He got very good at packing that bag, which is a thing no kid should have to be good at. Toothbrush. The soft shirt. And Biscuit — the one stuffed rabbit, who went everywhere, because Biscuit was the only thing that lived in both houses full-time. Like Sam.' },
+
+  // 5 the heavy question
+  { art: svg(
+    `<radialGradient id="h5" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="${HM.coolBg}"/><stop offset="1" stop-color="${HM.cool}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h5)"/>
+     ${boy({ x: 500, y: 600, s: 1.2, shirt: HM.sam, hair:'#3a2f28', face:false })}
+     <g opacity="0.7">${heart(500, 470, 2.2, HM.coolDeep)}</g>
+     <text x="250" y="300" font-family="'Playfair Display'" font-style="italic" font-size="28" fill="${HM.coolDeep}">which one is my real home? …did I do it?</text>`),
+    text: 'And every Friday, zipping up that bag, Sam felt the small heavy question press on his chest. *Which one is my real home? Where do I actually belong? And — did I do something, to make the one house turn into two?* He didn\'t say it out loud. Kids often don\'t. But he carried it everywhere, tucked next to Biscuit.' },
+
+  // 6 the night, the whisper
+  { art: svg(
+    `<linearGradient id="h6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${HM.night}"/><stop offset="1" stop-color="${HM.nightDeep}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h6)"/>
+     <circle cx="800" cy="180" r="44" fill="${HM.warmBg}" opacity="0.8"/>
+     <rect x="150" y="560" width="700" height="40" rx="10" fill="${HM.roofC}"/>
+     <ellipse cx="500" cy="540" rx="220" ry="40" fill="${HM.cool}" opacity="0.4"/>
+     ${boy({ x: 470, y: 500, s: 0.85, shirt: HM.cool, hair:'#3a2f28', face:false })}
+     ${rabbit(600, 520, 0.8)}
+     <rect x="120" y="120" width="140" height="200" rx="6" fill="${HM.warm}" opacity="0.25"/>`),
+    text: 'One night at his dad\'s house, lying in the bed that was his but in the room that was only half his life, Sam finally let a little of the question leak out. "I don\'t know where home is anymore," he said, very quietly, mostly to Biscuit. But his dad was in the doorway. And his dad heard.' },
+
+  // 7 dad sits
+  { art: svg(
+    `<linearGradient id="h7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${HM.nightDeep}"/><stop offset="1" stop-color="${HM.night}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h7)"/>
+     <rect x="120" y="600" width="760" height="40" rx="10" fill="${HM.roofC}"/>
+     ${boyBlob(650,560,'#3f5f70',1.6)}
+     ${boy({ x: 380, y: 560, s: 0.8, shirt: HM.cool, hair:'#3a2f28' })}
+     ${heart(760, 360, 1.6, HM.heartLt)}`),
+    text: 'His dad came and sat on the edge of the bed, and he didn\'t rush to fix it — which was the right thing, because some things can\'t be fixed, only understood. For a while he just sat. Then he said, "Can I tell you a secret about homes?"' },
+
+  // 8 you got all of both
+  { art: svg(
+    `<radialGradient id="h8" cx="0.5" cy="0.45" r="0.75"><stop offset="0" stop-color="${HM.heartLt}" stop-opacity="0.35"/><stop offset="1" stop-color="${HM.night}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="${HM.night}"/><circle cx="500" cy="460" r="320" fill="url(#h8)"/>
+     ${heart(320, 420, 2.6, HM.warm)}${heart(680, 420, 2.6, HM.cool)}
+     ${heart(500, 470, 3.4, HM.heart)}
+     ${boy({ x: 500, y: 660, s: 0.85, shirt: HM.cool, hair:'#3a2f28' })}`),
+    text: '"When you were born," his dad said, "your mom and I looked at you, and both of us felt the exact same enormous thing. That never split in two, Sam. It didn\'t divide up when we did. You didn\'t get half of each. You got *all* of both. That\'s not less than other kids have. That\'s *more.*"' },
+
+  // 9 home was never the house
+  { art: svg(
+    `<radialGradient id="h9" cx="0.5" cy="0.4" r="0.7"><stop offset="0" stop-color="${HM.heartLt}" stop-opacity="0.4"/><stop offset="1" stop-color="${HM.night}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="${HM.nightDeep}"/><circle cx="500" cy="440" r="300" fill="url(#h9)"/>
+     ${boy({ x: 500, y: 600, s: 1.5, shirt: HM.cool, hair:'#3a2f28' })}
+     ${heart(500, 500, 2.0, HM.heart)}
+     <circle cx="500" cy="490" r="70" fill="none" stroke="${HM.heartLt}" stroke-width="3" opacity="0.5"/>`),
+    text: '"Here\'s the secret. Home was never the house." He tapped Sam gently, right on the chest, over his heart. "Home is *this.* And you carry it with you, back and forth, every Friday, in that bag with Biscuit. You\'re not a kid who lost his home, Sam. You\'re a kid who\'s big enough to make home in two places. Most people only know how to do it in one."' },
+
+  // 10 it was never about you
+  { art: svg(
+    `<linearGradient id="h10" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${HM.night}"/><stop offset="1" stop-color="${HM.nightDeep}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h10)"/>
+     ${boyBlob(360,540,'#3f5f70',1.5)}
+     ${boy({ x: 620, y: 580, s: 0.9, shirt: HM.cool, hair:'#3a2f28' })}
+     ${heart(500, 300, 1.6, HM.heartLt)}${heart(760, 380, 1.1, HM.heartLt)}`),
+    text: '"And Sam," his dad added, quieter now, because this part mattered most of all, "the thing that changed between your mom and me — that was grown-up stuff. It was never, ever about you. You didn\'t do it, and you couldn\'t have stopped it. Two homes doesn\'t mean you were too much. It means you were, and are, completely loved. Twice over."' },
+
+  // 11 the question floats away
+  { art: svg(
+    `<linearGradient id="h11" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${HM.nightDeep}"/><stop offset="1" stop-color="${HM.night}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h11)"/>
+     ${[[500,300,1],[600,220,0.7],[680,150,0.5]].map(([x,y,o])=>`<g opacity="${o}">${heart(x,y,1.4,HM.coolDeep)}</g>`).join('')}
+     ${boy({ x: 460, y: 600, s: 1.0, shirt: HM.cool, hair:'#3a2f28' })}
+     ${rabbit(580, 620, 0.85)}`),
+    text: 'And Sam felt the small heavy question lift off his chest and float away into the dark — and it did not come back to sit on him the same way ever again.' },
+
+  // 12 carrying his home
+  { art: svg(
+    `<linearGradient id="h12" x1="0" y1="0" x2="1" y2="0"><stop offset="0.5" stop-color="${HM.warmBg}"/><stop offset="0.5" stop-color="${HM.coolBg}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h12)"/>
+     ${house(220, 400, 0.9, true)}${house(790, 400, 0.9, false)}
+     ${boy({ x: 500, y: 620, s: 1.05, shirt: HM.sam, hair:'#3a2f28' })}
+     ${bag(600, 660, 1.0)}${heart(500, 520, 1.6, HM.heart)}
+     <path d="M300 720 Q500 690 700 720" stroke="${HM.terra}" stroke-width="3" fill="none" stroke-dasharray="4 12" opacity="0.5"/>`),
+    text: 'He still packed his bag on Fridays. That part didn\'t change. But packing it felt different now. He wasn\'t leaving home to go somewhere else. He was *carrying* his home — the one in his chest, next to Biscuit — from people who loved him, to people who loved him. And that, it turned out, was a fine way to grow up. More than fine. Full.' },
+
+  // 13 closing
+  { art: svg(
+    `<radialGradient id="h13" cx="0.5" cy="0.5" r="0.75"><stop offset="0" stop-color="${HM.heartLt}" stop-opacity="0.45"/><stop offset="0.5" stop-color="${HM.warmBg}"/><stop offset="1" stop-color="${HM.coolBg}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#h13)"/>
+     ${house(210, 380, 0.7, true)}${house(800, 380, 0.7, false)}
+     ${heart(500, 470, 4.0)}
+     ${boy({ x: 500, y: 660, s: 1.0, shirt: HM.sam, hair:'#3a2f28' })}
+     ${rabbit(600, 700, 0.85)}`),
+    text: 'A heart is not a house. It doesn\'t crack down the middle when a family changes shape. It stretches. It makes room. It learns to hold two of everything — and that is not a wound. It\'s a superpower. If your family has changed shape: home was never the house. It\'s the love you carry with you. None of it was your fault. And your heart is big enough for all of it. You always were. You always will be.' },
+];
+
 const BOOKS = [
+  {
+    slug: 'the-kid-with-two-homes',
+    title: 'The Kid with Two Homes',
+    subtitle: 'A story about a heart that\'s big enough for two houses.',
+    spreads: homesSpreads,
+    coverArt: homesSpreads[0].art,
+    grownup: `When a family changes shape, the children feel it first and deepest — the packed bag, the two toothbrushes, and a small heavy question they don't always say out loud: which house is home, and was it my fault? This story is gentle on purpose. It doesn't pretend the two houses become one again, because children can tell when a story is lying to them. It tells a truer, kinder thing instead. When you finish, tell the child beside you: none of this was your fault, you are loved in both homes, and your heart is big enough for all of it.`,
+  },
   {
     slug: 'the-girl-who-found-her-words',
     title: 'The Girl Who Found Her Words',

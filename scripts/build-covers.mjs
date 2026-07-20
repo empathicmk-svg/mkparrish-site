@@ -40,8 +40,6 @@ const PRODUCTS = [
     subtitle: 'Eight women of the Bible, the moment everything turned, and what their stories are still saying to yours.' },
   { src: 'ebooks/scripture/her-story-rewritten-volume-two.md', slug: 'her-story-rewritten-volume-two',
     subtitle: 'Eight more women of the Bible, the moment everything turned, and what their courage is still saying to yours.' },
-  { src: 'ebooks/kids/the-kid-with-two-homes.md', slug: 'the-kid-with-two-homes',
-    subtitle: 'A bedtime story about a heart that\'s big enough for two houses.' },
   { src: 'ebooks/scripture/the-study.md',             slug: 'the-study' },
   { src: 'ebooks/scripture/gospel-and-grind.md',      slug: 'gospel-and-grind' },
   { src: 'ebooks/scripture/the-sermon-notes.md',      slug: 'the-sermon-notes' },

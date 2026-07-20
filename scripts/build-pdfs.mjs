@@ -28,7 +28,6 @@ const FILES = [
   ['public/downloads/ebooks/decoding-angel-numbers.html',        'public/downloads/ebooks/decoding-angel-numbers.pdf'],
   ['public/downloads/ebooks/her-story-rewritten.html',           'public/downloads/ebooks/her-story-rewritten.pdf'],
   ['public/downloads/ebooks/her-story-rewritten-volume-two.html', 'public/downloads/ebooks/her-story-rewritten-volume-two.pdf'],
-  ['public/downloads/ebooks/the-kid-with-two-homes.html',        'public/downloads/ebooks/the-kid-with-two-homes.pdf'],
   ['public/downloads/ebooks/the-study.html',                     'public/downloads/ebooks/the-study.pdf'],
   ['public/downloads/ebooks/gospel-and-grind.html',              'public/downloads/ebooks/gospel-and-grind.pdf'],
   ['public/downloads/ebooks/the-sermon-notes.html',              'public/downloads/ebooks/the-sermon-notes.pdf'],

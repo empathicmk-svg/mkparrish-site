@@ -833,7 +833,6 @@ const EBOOKS = [
   ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
   ['ebooks/scripture/her-story-rewritten.md', 'ebooks/her-story-rewritten.html'],
   ['ebooks/scripture/her-story-rewritten-volume-two.md', 'ebooks/her-story-rewritten-volume-two.html'],
-  ['ebooks/kids/the-kid-with-two-homes.md',   'ebooks/the-kid-with-two-homes.html'],
   ['ebooks/scripture/the-study.md',           'ebooks/the-study.html'],
   ['ebooks/scripture/gospel-and-grind.md',    'ebooks/gospel-and-grind.html'],
   ['ebooks/scripture/the-sermon-notes.md',    'ebooks/the-sermon-notes.html'],
