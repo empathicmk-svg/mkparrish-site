@@ -762,7 +762,7 @@ const aloneSpreads = [
      <line x1="120" y1="300" x2="360" y2="330" stroke="${Y.bark}" stroke-width="4"/>
      ${dove(180,300,0.9,Y.stone)}${dove(300,318,0.8,Y.wallDark)}
      ${[160,300,440].map((bx,i)=>`<g transform="translate(${bx},560)"><rect x="-34" y="0" width="68" height="120" fill="${Y.brick}"/><path d="M-44 0 L0 -36 L44 0 Z" fill="${Y.wallDark}"/></g>`).join('')}`),
-    text: 'When Juniper moved to the town of Elmsworth, everything there already had its place. The birds had their branches. The shopkeepers had their corners. And the children had their spots in the schoolyard — the same spots they\'d had since they were small, sorted and settled and sure, like books on a well-loved shelf.' },
+    text: 'When Juniper moved to the town of Elmsworth,\neverything there already had its place.\nThe birds had their branches.\nThe shopkeepers had their corners.\nAnd the children had their spots in the schoolyard —\nthe same spots they\'d had since they were small,\nsorted and settled and sure,\nlike books on a well-loved shelf.' },
 
   // 3 Juniper had no spot
   { art: svg(
@@ -771,7 +771,7 @@ const aloneSpreads = [
      <path d="M0 800 Q500 770 1000 800 V1000 H0 Z" fill="${Y.grass}"/>
      ${bench(230, 760, 1.0, 3)}${bench(760, 760, 1.0, 3)}
      ${girl({ x: 500, y: 640, s: 0.95, dress: Y.coral, hair: '#3a2f28' })}`),
-    text: 'Juniper had no spot. She was brand new. Her clothes were a little different. She said some words in a way that made the other children\'s heads tilt. And on her first morning, she walked into the schoolyard holding her lunch, and looked for somewhere to sit — and every bench was already full of children who had known each other their whole lives.' },
+    text: 'Juniper had no spot.\nShe was brand new.\nHer clothes were a little different.\nShe said some words in a way\nthat made the other children\'s heads tilt.\nAnd on her first morning,\nshe walked in holding her lunch,\nlooking for somewhere to sit —\nand every bench was already full\nof children who had known each other\ntheir whole lives.' },
 
   // 4 sits alone on the wall
   { art: svg(
@@ -782,7 +782,7 @@ const aloneSpreads = [
      ${tree(880, 720, 0.7)}
      ${wall(120, 640, 320, 1.05)}
      ${girl({ x: 250, y: 590, s: 0.9, dress: Y.coral, hair: '#3a2f28', face:true })}`),
-    text: 'So Juniper sat alone, on the low stone wall at the very edge of the yard, and ate her lunch, and looked like she didn\'t mind. She minded terribly.' },
+    text: 'So Juniper sat alone,\non the low stone wall\nat the very edge of the yard,\nand ate her lunch,\nand looked like she didn\'t mind.\nShe minded terribly.' },
 
   // 5 they weren't cruel
   { art: svg(
@@ -792,7 +792,7 @@ const aloneSpreads = [
      ${bench(500, 740, 1.1, 4)}
      ${wall(760, 700, 200, 0.7)}
      ${girl({ x: 830, y: 675, s: 0.5, dress: Y.coral, hair: '#3a2f28', face:false })}`),
-    text: 'The children of Elmsworth were not cruel. They didn\'t say mean things or push her. They just... didn\'t make room. It\'s easier not to. When your shelf is already full and settled, it\'s easier to leave the new book on the floor than to shift everything over to fit it in.' },
+    text: 'The children of Elmsworth were not cruel.\nThey didn\'t say mean things. They didn\'t push.\nThey just... didn\'t make room.\nIt\'s easier not to.\nWhen your shelf is already full and settled,\nit\'s easier to leave the new book on the floor\nthan to shift everything over to fit it in.' },
 
   // 6 the story she believes
   { art: svg(
@@ -801,7 +801,7 @@ const aloneSpreads = [
      ${wall(340, 560, 320, 1.05)}
      ${girl({ x: 500, y: 510, s: 1.1, dress: Y.coral, hair: '#3a2f28', face:false })}
      <text x="250" y="820" font-family="'Playfair Display'" font-style="italic" font-size="30" fill="${Y.cloud}">maybe I'm the kind of person who sits alone…</text>`),
-    text: 'And slowly, the story Juniper told about herself began to change shape, the way sad thoughts do, until it became: *maybe there is something wrong with me. Maybe I am the kind of person who sits alone.* That is the most dangerous part of sitting alone. It isn\'t the empty seat. It\'s the story you start to believe about why it\'s empty.' },
+    text: 'And slowly, the story Juniper told herself\nbegan to change shape,\nthe way sad thoughts do,\nuntil it became:\n*maybe there is something wrong with me.*\n*Maybe I am the kind of person who sits alone.*\nAnd that is the most dangerous part.\nIt isn\'t the empty seat.\nIt\'s the story you start to believe\nabout why it\'s empty.' },
 
   // 7 Cass noticed
   { art: svg(
@@ -813,7 +813,7 @@ const aloneSpreads = [
      ${wall(760, 700, 220, 0.7)}
      ${girl({ x: 850, y: 675, s: 0.5, dress: Y.coral, hair: '#3a2f28', face:false })}
      <path d="M360 600 q120 -20 420 40" stroke="${Y.grassDark}" stroke-width="2.5" fill="none" stroke-dasharray="3 10" opacity="0.5"/>`),
-    text: 'Among the children there was a boy named Cass. He was not the bravest or the most popular. But Cass had noticed the new girl on the wall — the first day, and the second, and the third. Because Cass had a secret the others had forgotten: he had been the new kid once, too. And he remembered exactly what the low stone wall felt like.' },
+    text: 'Among the children there was a boy named Cass.\nNot the bravest. Not the most popular.\nBut Cass had noticed the new girl on the wall —\nthe first day, and the second, and the third.\nBecause Cass had a secret\nthe others had forgotten:\nhe had been the new kid once, too.\nAnd he remembered exactly\nwhat the low stone wall felt like.' },
 
   // 8 one grey Thursday
   { art: svg(
@@ -823,7 +823,7 @@ const aloneSpreads = [
      <path d="M0 790 Q500 760 1000 790 V1000 H0 Z" fill="${Y.grassDark}"/>
      ${boy({ x: 500, y: 660, s: 1.1, shirt: Y.leaf, hair:'#3a2f28' })}
      ${[3,6].map(i=>`<line x1="${420+i*20}" y1="120" x2="${400+i*20}" y2="300" stroke="${Y.cloud}" stroke-width="2" opacity="0.4"/>`).join('')}`),
-    text: 'For a whole week, Cass did nothing, because doing something felt enormous and scary. What if he walked over and she didn\'t want him there? The wall was only a few steps away, but it might as well have been across the sea. And then one grey Thursday, Cass decided that being a little scared was a much smaller thing than letting someone believe they were the kind of person who sits alone.' },
+    text: 'For a whole week, Cass did nothing,\nbecause doing something felt enormous.\nWhat if he walked over\nand she didn\'t want him there?\nThe wall was only a few steps away.\nIt might as well have been across the sea.\nAnd then, one gray Thursday,\nCass decided that being a little scared\nwas a much smaller thing\nthan letting someone believe\nthey were the kind of person who sits alone.' },
 
   // 9 he crosses the yard
   { art: svg(
@@ -834,7 +834,7 @@ const aloneSpreads = [
      ${girl({ x: 270, y: 600, s: 0.85, dress: Y.coral, hair: '#3a2f28' })}
      ${boy({ x: 460, y: 600, s: 0.85, shirt: Y.leaf, hair:'#3a2f28' })}
      <path d="M700 700 q-120 -60 -220 -70" stroke="${Y.grassDark}" stroke-width="3" fill="none" stroke-dasharray="4 10" opacity="0.5"/>`),
-    text: 'So Cass picked up his lunch. He walked across the yard — the whole long, terrifying, ordinary way across the yard — and he sat down on the low stone wall next to Juniper. "This wall\'s better than the benches, honestly," said Cass. "You can see the whole sky from here." "You can," said Juniper, hardly daring to believe it. "I noticed that too."' },
+    text: 'So Cass picked up his lunch.\nHe walked across the yard —\nthe whole long, terrifying, ordinary way —\nand sat down on the low stone wall\nnext to Juniper.\n"This wall\'s better than the benches, honestly,"\nsaid Cass. "You can see the whole sky from here."\n"You can," said Juniper,\nhardly daring to believe it.\n"I noticed that too."' },
 
   // 10 the whole magic
   { art: svg(
@@ -845,7 +845,7 @@ const aloneSpreads = [
      ${wall(300, 660, 400, 1.05)}
      ${girl({ x: 430, y: 610, s: 0.8, dress: Y.coral, hair: '#3a2f28' })}
      ${boy({ x: 590, y: 610, s: 0.8, shirt: Y.leaf, hair:'#3a2f28' })}`),
-    text: 'And that was all it took. That was the whole magic. One kid, a little scared, choosing to scoot over. They talked about the sky, and then about the strange, interesting words Juniper knew, from a place Cass had never seen. It turns out that once one person decides the lonely kid is worth sitting with, everybody else suddenly wonders why they hadn\'t thought of it first.' },
+    text: 'And that was all it took.\nThat was the whole magic.\nOne kid, a little scared,\nchoosing to scoot over.\nThey talked about the sky,\nand then about the strange, interesting words\nJuniper knew, from a place Cass had never seen.\nBecause once one person decides\nthe lonely kid is worth sitting with,\neverybody else suddenly wonders\nwhy they hadn\'t thought of it first.' },
 
   // 11 the best spot
   { art: svg(
@@ -857,7 +857,7 @@ const aloneSpreads = [
      ${boy({ x: 400, y: 610, s: 0.75, shirt: Y.leaf, hair:'#3a2f28' })}
      ${girl({ x: 560, y: 610, s: 0.75, dress: Y.marigold, hair: '#2c2f3a' })}
      ${boy({ x: 720, y: 610, s: 0.75, shirt: Y.skyDeep, hair:'#3a2f28' })}`),
-    text: 'Within a month, the low stone wall at the edge of the yard — the loneliest spot in all of Elmsworth — had somehow become the *best* spot. The spot where the most interesting talk happened. And it had happened not because Juniper changed to fit the town, but because one ordinary boy changed the town to fit *her.*' },
+    text: 'Within a month, the low stone wall —\nthe loneliest spot in all of Elmsworth —\nhad somehow become the *best* spot.\nThe spot where the most interesting talk happened.\nAnd it happened\nnot because Juniper changed to fit the town,\nbut because one ordinary boy\nchanged the town to fit *her.*' },
 
   // 12 next year, a new child
   { art: svg(
@@ -868,7 +868,7 @@ const aloneSpreads = [
      ${girl({ x: 720, y: 620, s: 0.6, dress: '#9a7fae', hair: '#2c2f3a', face:true })}
      ${girl({ x: 340, y: 620, s: 0.95, dress: Y.coral, hair: '#3a2f28' })}
      <path d="M400 590 q160 -30 300 20" stroke="${Y.grassDark}" stroke-width="3" fill="none" stroke-dasharray="4 10" opacity="0.5"/>`),
-    text: 'The next year, another new child arrived — small, unsure, clutching a lunch, heading for the low stone wall. And Juniper did not wait a whole week. She did not wait a single day. She picked up her lunch, walked across the yard, and sat right down. "This wall\'s the best spot in the whole school," Juniper said. "You can see the entire sky from here. Want me to show you?"' },
+    text: 'The next year, another new child arrived —\nsmall, unsure, clutching a lunch,\nheading for the low stone wall.\nAnd Juniper did not wait a whole week.\nShe did not wait a single day.\nShe picked up her lunch,\nwalked across the yard,\nand sat right down.\n"This wall\'s the best spot in the whole school,"\nJuniper said. "You can see the entire sky from here.\nWant me to show you?"' },
 
   // 13 closing
   { art: svg(
@@ -879,7 +879,7 @@ const aloneSpreads = [
      ${wall(300, 670, 400, 1.05)}
      ${girl({ x: 430, y: 620, s: 0.8, dress: Y.coral, hair: '#3a2f28' })}
      ${girl({ x: 590, y: 620, s: 0.8, dress: '#9a7fae', hair: '#2c2f3a' })}`),
-    text: 'Everyone is the new kid sometimes. If that\'s you right now — the empty seat beside you is not proof of anything true about you. It only means the right person hasn\'t scooted over *yet.* And if you\'re the one with a spot, watching someone sit alone: you can end a whole loneliness in about ten steps and one sentence. When you see someone sitting alone, you get to decide who you are. Pick up your lunch. Walk across the yard. Go show them the sky.' },
+    text: 'Everyone is the new kid sometimes.\nIf that\'s you right now —\nthe empty seat beside you\nis not proof of anything true about you.\nIt only means the right person\nhasn\'t scooted over *yet.*\nAnd if you\'re the one with a spot,\nwatching someone sit alone:\nyou can end a whole loneliness\nin about ten steps and one sentence.\nSo pick up your lunch.\nWalk across the yard.\nGo show them the sky.' },
 ];
 
 // ── "The Girl Who Found Her Words" — warm parchment storytelling kingdom ─────

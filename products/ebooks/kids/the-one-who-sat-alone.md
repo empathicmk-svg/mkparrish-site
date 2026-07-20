@@ -20,27 +20,27 @@ Almost every child, at some point, is the one who sits alone — the new kid, th
 
 When Juniper moved to the town of Elmsworth, everything there already had its place. The birds had their branches. The shopkeepers had their corners. And the children had their spots in the schoolyard — the same spots they'd had since they were small, sorted and settled and sure, like books on a well-loved shelf.
 
-Juniper had no spot. She was brand new. Her clothes were a little different. She said some words in a way that made the other children's heads tilt. And on her first morning, she walked into the schoolyard holding her lunch, and looked for somewhere to sit — and every bench was already full of children who had known each other their whole lives.
+Juniper had no spot. She was brand new. Her clothes were a little different. She said some words in a way that made the other children's heads tilt. And on her first morning, she walked in holding her lunch, looking for somewhere to sit — and every bench was already full of children who had known each other their whole lives.
 
 So Juniper sat alone, on the low stone wall at the very edge of the yard, and ate her lunch, and looked like she didn't mind. She minded terribly.
 
-The children of Elmsworth were not cruel. They didn't say mean things or push her. They just... didn't make room. It's easier not to. When your shelf is already full and settled, it's easier to leave the new book on the floor than to shift everything over to fit it in.
+The children of Elmsworth were not cruel. They didn't say mean things. They didn't push. They just... didn't make room. It's easier not to. When your shelf is already full and settled, it's easier to leave the new book on the floor than to shift everything over to fit it in.
 
-And slowly, the story Juniper told about herself began to change shape, the way sad thoughts do, until it became: *maybe there is something wrong with me. Maybe I am the kind of person who sits alone.* That is the most dangerous part of sitting alone. It isn't the empty seat. It's the story you start to believe about why it's empty.
+And slowly, the story Juniper told herself began to change shape, the way sad thoughts do, until it became: *maybe there is something wrong with me. Maybe I am the kind of person who sits alone.* And that is the most dangerous part. It isn't the empty seat. It's the story you start to believe about why it's empty.
 
-Among the children there was a boy named Cass. He was not the bravest or the most popular. But Cass had noticed the new girl on the wall — the first day, and the second, and the third. Because Cass had a secret the others had forgotten: he had been the new kid once, too. And he remembered exactly what the low stone wall felt like.
+Among the children there was a boy named Cass. Not the bravest. Not the most popular. But Cass had noticed the new girl on the wall — the first day, and the second, and the third. Because Cass had a secret the others had forgotten: he had been the new kid once, too. And he remembered exactly what the low stone wall felt like.
 
-For a whole week, Cass did nothing, because doing something felt enormous and scary. What if he walked over and she didn't want him there? The wall was only a few steps away, but it might as well have been across the sea. And then one grey Thursday, Cass decided that being a little scared was a much smaller thing than letting someone believe they were the kind of person who sits alone.
+For a whole week, Cass did nothing, because doing something felt enormous. What if he walked over and she didn't want him there? The wall was only a few steps away. It might as well have been across the sea. And then, one gray Thursday, Cass decided that being a little scared was a much smaller thing than letting someone believe they were the kind of person who sits alone.
 
-So Cass picked up his lunch. He walked across the yard — the whole long, terrifying, ordinary way across the yard — and he sat down on the low stone wall next to Juniper.
+So Cass picked up his lunch. He walked across the yard — the whole long, terrifying, ordinary way — and sat down on the low stone wall next to Juniper.
 
 "This wall's better than the benches, honestly," said Cass. "You can see the whole sky from here."
 
 "You can," said Juniper, hardly daring to believe it. "I noticed that too."
 
-And that was all it took. That was the whole magic. One kid, a little scared, choosing to scoot over. They talked about the sky, and then about the strange, interesting words Juniper knew, from a place Cass had never seen. It turns out that once one person decides the lonely kid is worth sitting with, everybody else suddenly wonders why they hadn't thought of it first.
+And that was all it took. That was the whole magic. One kid, a little scared, choosing to scoot over. They talked about the sky, and then about the strange, interesting words Juniper knew, from a place Cass had never seen. Because once one person decides the lonely kid is worth sitting with, everybody else suddenly wonders why they hadn't thought of it first.
 
-Within a month, the low stone wall at the edge of the yard — the loneliest spot in all of Elmsworth — had somehow become the *best* spot. And it had happened not because Juniper changed to fit the town, but because one ordinary boy changed the town to fit *her.*
+Within a month, the low stone wall — the loneliest spot in all of Elmsworth — had somehow become the *best* spot. And it happened not because Juniper changed to fit the town, but because one ordinary boy changed the town to fit *her.*
 
 The next year, another new child arrived — small, unsure, clutching a lunch, heading for the low stone wall. And Juniper did not wait a whole week. She did not wait a single day. She picked up her lunch, walked across the yard, and sat right down.
 
