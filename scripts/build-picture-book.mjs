@@ -281,7 +281,7 @@ const princessSpreads = [
      <path d="M0 820 Q500 780 1000 820 V1000 H0 Z" fill="${P.grass}"/>
      ${tower(500, 220, 1.05, { lit: true })}
      ${princess({ x: 500, y: 470, s: 0.6, dress: C.rose })}`),
-    text: 'At the top of a tall grey tower lived a princess named Wren. The tower had one round window, one very heavy door, and exactly one rule for a princess: <em>wait.</em>' },
+    text: 'At the top of a tall gray tower\nlived a princess named Wren.\nOne round window. One heavy door.\nAnd one rule, for a princess:\n<em>wait.</em>' },
 
   // 3 the old story
   { art: svg(
@@ -292,7 +292,7 @@ const princessSpreads = [
      ${tower(210, 300, 0.8, { lit: true })}
      ${horse(820, 760, 0.9, C.silver)}
      <path d="M300 500 Q560 470 780 700" stroke="${P.stone}" stroke-width="4" stroke-dasharray="4 14" fill="none" opacity="0.6"/>`),
-    text: 'Everyone in the kingdom knew the story, and everyone told it the same way: one day a brave prince will climb the tower, open the door, and set the princess free. So Wren waited. That was, everyone agreed, the whole point of her.' },
+    text: 'The kingdom told her story the same way every time.\nOne day, a prince will climb the tower.\nHe will open the door.\nHe will set the princess free.\nSo Wren waited.\nThat, everyone agreed, was the whole point of her.' },
 
   // 4 prince #1
   { art: svg(
@@ -304,7 +304,7 @@ const princessSpreads = [
      ${girl({ x: 640, y: 610, s: 0.7, dress: P.stoneDark, hair: P.gold })}
      <path d="M700 560 q80 -20 150 20" stroke="${P.stoneDark}" stroke-width="4" fill="none" stroke-dasharray="3 12"/>
      <text x="835" y="560" font-family="'Bebas Neue'" font-size="46" fill="${P.stoneDark}">HMM.</text>`),
-    text: 'The first prince rode up on a fine white horse, looked at the heavy locked door, said, "This looks rather <em>difficult</em>," and rode off to find an easier tower.' },
+    text: 'The first prince rode up on a fine white horse.\nHe looked at the heavy locked door.\n"This looks rather <em>difficult,</em>" he said —\nand rode off to find an easier tower.' },
 
   // 5 prince #2
   { art: svg(
@@ -315,7 +315,7 @@ const princessSpreads = [
      <ellipse cx="640" cy="815" rx="120" ry="30" fill="${P.stone}"/>
      ${girl({ x: 620, y: 770, s: 0.66, dress: P.dusk, hair: P.stoneDark, face:false })}
      <text x="700" y="690" font-family="'Bebas Neue'" font-size="54" fill="${P.stoneDark}">ZZZ…</text>`),
-    text: 'The second prince stood at the bottom and shouted, "Do not worry — I am here to rescue you!" Then he sat on a rock to rest from all that shouting, fell fast asleep, and by morning had forgotten which tower it was.' },
+    text: 'The second prince stood at the bottom and shouted,\n"Do not worry! I am here to rescue you!"\nThen he sat on a rock to rest from all that shouting,\nfell fast asleep,\nand by morning had forgotten which tower it was.' },
 
   // 6 prince #3 never came
   { art: svg(
@@ -325,7 +325,7 @@ const princessSpreads = [
      <circle cx="200" cy="180" r="40" fill="${P.gold}" opacity="0.85"/>
      ${tower(500, 120, 1.15, { lit: true })}
      ${girl({ x: 500, y: 300, s: 0.5, dress: C.petal, face:false })}`),
-    text: 'The third prince did not come at all. He had heard the tower was very tall. And Wren sat by the round window with her chin in her hands, and something in her that had been quiet a long time finally cleared its throat.' },
+    text: 'The third prince did not come at all.\nHe had heard the tower was very tall.\nAnd Wren sat by her window, chin in her hands,\nwhile something in her that had been quiet a long, long time\nfinally cleared its throat.' },
 
   // 7 the thought
   { art: svg(
@@ -335,7 +335,7 @@ const princessSpreads = [
      ${princess({ x: 500, y: 560, s: 1.9, dress: C.rose })}
      <path d="M640 300 q60 -6 100 30" stroke="${P.goldDeep}" stroke-width="3" fill="none" stroke-dasharray="3 10"/>
      <text x="620" y="270" font-family="'Playfair Display'" font-style="italic" font-size="40" fill="${P.stoneDark}">why wait?</text>`),
-    text: '"Why," thought Wren, "am I waiting for someone who keeps <em>not coming?</em>" It was a small thought. But small thoughts, in towers, echo.' },
+    text: '<em>Why,</em> thought Wren,\n<em>am I waiting for someone\nwho keeps not coming?</em>\nIt was a small thought.\nBut small thoughts, in towers, echo.' },
 
   // 8 the hinges
   { art: svg(
@@ -348,7 +348,7 @@ const princessSpreads = [
      ${[220,500,780].map(hy=>`<g transform="translate(360,${hy})"><rect x="-6" y="-34" width="34" height="68" rx="6" fill="${P.gold}"/><circle cx="11" cy="0" r="8" fill="${P.goldDeep}"/></g>`).join('')}
      ${princess({ x: 720, y: 620, s: 0.9, dress: C.petal })}
      <path d="M690 560 q-90 -30 -300 -50" stroke="${P.gold}" stroke-width="3" fill="none" stroke-dasharray="3 10" opacity="0.8"/>`),
-    text: 'She walked to the door and looked at it properly — the way you look at something you have decided is <em>yours to solve.</em> The lock was on the outside. But the hinges — the hinges were on the <em>inside.</em> Nobody had ever mentioned the hinges.' },
+    text: 'She looked at the door properly this time —\nthe way you look at something\nyou have decided is <em>yours to solve.</em>\nThe lock was on the outside.\nBut the hinges —\nthe hinges were on the <em>inside.</em>\nNobody had ever mentioned the hinges.' },
 
   // 9 tools by moonlight
   { art: svg(
@@ -360,7 +360,7 @@ const princessSpreads = [
      ${princess({ x: 620, y: 640, s: 1.0, dress: C.rose })}
      <rect x="120" y="840" width="60" height="14" rx="4" fill="${P.gold}"/>
      <rect x="220" y="820" width="14" height="40" fill="${P.stoneLight}"/><circle cx="227" cy="812" r="12" fill="${P.gold}"/>`),
-    text: 'She had no sword. She had a hairpin, a candlestick, and a great deal of time she had planned to spend waiting. She worked at the bottom hinge until her fingers ached, and rested, and worked again. And she found she did not mind the quiet. In the quiet, she could hear herself <em>think.</em>' },
+    text: 'She had no sword.\nShe had a hairpin, a candlestick,\nand a great deal of time\nshe had meant to spend waiting.\nShe worked, and rested, and worked again.\nAnd she found she did not mind the quiet.\nIn the quiet, she could hear herself <em>think.</em>' },
 
   // 10 the door groans loose
   { art: svg(
@@ -370,7 +370,7 @@ const princessSpreads = [
      <path d="M520 200 L720 260 L700 840 L500 880 Z" fill="url(#p10)" opacity="0.4"/>
      ${princess({ x: 420, y: 660, s: 1.0, dress: C.petal })}
      <text x="150" y="300" font-family="'Bebas Neue'" font-size="60" fill="${P.gold}" opacity="0.8">GROAN…</text>`),
-    text: 'By the time the moon was high, the bottom hinge came loose with a groan. By the time the birds woke, the top one did too. And Wren pushed — not at the silly lock, she left that exactly where it was — she pushed at the <em>hinged</em> side.' },
+    text: 'By the time the moon was high,\nthe bottom hinge came loose with a groan.\nBy the time the birds woke,\nso did the top.\nThen Wren pushed —\nnot at the silly lock (she left that just where it was),\nbut at the <em>hinged</em> side.' },
 
   // 11 the door falls open into morning
   { art: svg(
@@ -380,7 +380,7 @@ const princessSpreads = [
      <path d="M0 760 Q300 700 620 760 T1000 740 V1000 H0 Z" fill="${P.grass}"/>
      <path d="M120 820 Q500 760 900 820" stroke="${P.grassDark}" stroke-width="10" fill="none" opacity="0.6"/>
      ${princess({ x: 500, y: 560, s: 1.5, dress: C.rose })}`),
-    text: 'And the great heavy door swung the wrong way entirely — the way nobody ever expected a door to swing — and fell open into the morning. Wren stood at the top of her tower with the wind in her hair and the whole green kingdom spread gold below her. She had not been rescued. She had been <em>paying attention.</em>' },
+    text: 'And the great heavy door swung the wrong way entirely —\nthe way no door is ever supposed to swing —\nand fell open into the morning.\nThe wind caught her hair.\nThe whole green kingdom lay gold below.\nShe had not been rescued.\nShe had been <em>paying attention.</em>' },
 
   // 12 meets the prince
   { art: svg(
@@ -392,7 +392,7 @@ const princessSpreads = [
      ${girl({ x: 770, y: 650, s: 0.6, dress: P.stoneDark, hair: P.gold, face:true })}
      ${princess({ x: 300, y: 700, s: 1.0, dress: C.petal })}
      <text x="560" y="560" font-family="'Playfair Display'" font-style="italic" font-size="34" fill="${P.stoneDark}">but… who rescued you?</text>`),
-    text: 'On the road she met the first prince, very startled to see her walking freely about. "But — who <em>rescued</em> you?" he asked. Wren thought about it. Then she smiled, and told him the truest thing in this whole book.' },
+    text: 'On the road, she met the first prince,\nquite startled to see her walking about.\n"But — who <em>rescued</em> you?" he asked.\nWren thought about it.\nThen she smiled,\nand told him the truest thing in this whole book.' },
 
   // 13 "I did." closing
   { art: svg(
@@ -401,7 +401,7 @@ const princessSpreads = [
      ${sun(500, 300, 62)}
      <path d="M0 820 Q500 770 1000 820 V1000 H0 Z" fill="${P.grass}"/>
      ${princess({ x: 500, y: 620, s: 2.0, dress: C.rose })}`),
-    text: '"I did," said Wren. And she walked on into her own morning, in no particular hurry, because it was hers now — all of it. The road, the kingdom, the story. Especially the story. She had picked up the pen, and written herself a door.' },
+    text: '"I did."\nAnd she walked on into her own morning,\nin no particular hurry,\nbecause it was hers now. All of it.\nThe road. The kingdom. The story —\nespecially the story.\nShe had picked up the pen\nand written herself a door.' },
 ];
 
 // ── "The Boy Who Talked to the Stars" — celestial night palette ──────────────

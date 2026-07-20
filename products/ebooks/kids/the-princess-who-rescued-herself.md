@@ -18,43 +18,43 @@ We give little girls a story early: something is wrong, and a prince will come a
 
 ## The Princess Who Rescued Herself
 
-At the top of a tall grey tower lived a princess named Wren. The tower had one round window, one very heavy door, and exactly one rule for a princess: wait.
+At the top of a tall gray tower lived a princess named Wren. One round window. One heavy door. And one rule, for a princess: wait.
 
-Everyone in the kingdom knew the story, and everyone told it the same way. One day a brave prince will climb the tower, open the door, and set the princess free. So Wren waited. That was, everyone agreed, the whole point of her.
+The kingdom told her story the same way every time. One day, a prince will climb the tower. He will open the door. He will set the princess free. So Wren waited. That, everyone agreed, was the whole point of her.
 
-The first prince rode up on a fine white horse, looked at the heavy locked door, said, "This looks rather *difficult*," and rode off to find an easier tower.
+The first prince rode up on a fine white horse. He looked at the heavy locked door. "This looks rather *difficult,*" he said — and rode off to find an easier tower.
 
-The second prince stood at the bottom and shouted, "Do not worry — I am here to rescue you!" Then he sat on a rock to rest from all that shouting, fell fast asleep, and by morning had forgotten which tower it was.
+The second prince stood at the bottom and shouted, "Do not worry! I am here to rescue you!" Then he sat on a rock to rest from all that shouting, fell fast asleep, and by morning had forgotten which tower it was.
 
 The third prince did not come at all. He had heard the tower was very tall.
 
-And Wren sat by the round window with her chin in her hands, and something in her that had been quiet a long time finally cleared its throat.
+And Wren sat by her window, chin in her hands, while something in her that had been quiet a long, long time finally cleared its throat.
 
-"Why," thought Wren, "am I waiting for someone who keeps *not coming?*"
+*Why,* thought Wren, *am I waiting for someone who keeps not coming?*
 
 It was a small thought. But small thoughts, in towers, echo.
 
-She got up. She walked to the heavy door and looked at it properly for the first time — really looked, the way you look at something you have decided is *yours to solve* and not somebody else's. The lock was on the outside. But the hinges — the hinges were on the *inside.*
+She looked at the door properly this time — the way you look at something you have decided is *yours to solve.* The lock was on the outside. But the hinges — the hinges were on the *inside.*
 
 Nobody had ever mentioned the hinges.
 
 "Well," said Wren, out loud, to no prince at all. "Isn't that interesting."
 
-She did not have a sword. She had a hairpin, and a candlestick, and a very great deal of time she had planned to spend waiting. She worked at the bottom hinge until her fingers ached, and then she rested, and then she worked at it some more. The tower was quiet. No horse came up the road. And Wren discovered something that surprised her more than any prince ever had: she did not mind the quiet. In the quiet, she could hear herself think. And her own thoughts, it turned out, were good company — cleverer than she had been told, braver than she had believed.
+She had no sword. She had a hairpin, a candlestick, and a great deal of time she had meant to spend waiting. She worked, and rested, and worked again. And she found she did not mind the quiet. In the quiet, she could hear herself think — and her own thoughts, it turned out, were good company. Cleverer than she'd been told. Braver than she'd believed.
 
-By the time the moon was high, the bottom hinge came loose with a groan. By the time the birds woke up, the top one did too.
+By the time the moon was high, the bottom hinge came loose with a groan. By the time the birds woke, so did the top.
 
-And Wren pushed — not at the silly lock, she left that exactly where it was — she pushed at the *hinged* side, and the great heavy door swung the wrong way entirely, the way nobody had ever expected a door to swing, and fell open into the morning.
+Then Wren pushed — not at the silly lock (she left that just where it was), but at the *hinged* side. And the great heavy door swung the wrong way entirely, the way no door is ever supposed to swing, and fell open into the morning.
 
-Wren stood at the top of her tower with the wind in her hair and the whole green kingdom spread out gold below her. She had not been rescued. She had been *paying attention.*
+The wind caught her hair. The whole green kingdom lay gold below. She had not been rescued. She had been *paying attention.*
 
-On the road she met the first prince, very startled to see her walking freely about. "But — who *rescued* you?" he asked.
+On the road, she met the first prince, quite startled to see her walking about. "But — who *rescued* you?" he asked.
 
 Wren thought about it. Then she smiled, and told him the truest thing in this whole book.
 
 "I did."
 
-And she walked on into her own morning, in no particular hurry, because it was hers now — all of it. The road, the kingdom, the story. Especially the story.
+And she walked on into her own morning, in no particular hurry, because it was hers now. All of it. The road. The kingdom. The story — especially the story.
 
 She had picked up the pen, and written herself a door.
 
