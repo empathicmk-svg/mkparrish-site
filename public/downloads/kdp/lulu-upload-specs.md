@@ -69,7 +69,6 @@ address) or turn on Lulu's own distribution.
 | Ministry, Monetized | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
 | Her Story, Rewritten | 6 x 9 | 38 | 0.095 in | 12.345 x 9.25 in | $32 |
 | Her Story, Rewritten: Volume Two | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $32 |
-| The Boy Who Talked to the Stars | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
 | The Quietest Kid in the Kingdom | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
 | The One Who Sat Alone | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
 | The Girl Who Found Her Words | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $19 |
@@ -103,7 +102,6 @@ address) or turn on Lulu's own distribution.
 - Ministry, Monetized → `ministry-monetized`
 - Her Story, Rewritten → `her-story-rewritten`
 - Her Story, Rewritten: Volume Two → `her-story-rewritten-volume-two`
-- The Boy Who Talked to the Stars → `the-boy-who-talked-to-the-stars`
 - The Quietest Kid in the Kingdom → `the-quietest-kid-in-the-kingdom`
 - The One Who Sat Alone → `the-one-who-sat-alone`
 - The Girl Who Found Her Words → `the-girl-who-found-her-words`

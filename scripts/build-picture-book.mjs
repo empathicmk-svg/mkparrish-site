@@ -404,7 +404,189 @@ const princessSpreads = [
     text: '"I did," said Wren. And she walked on into her own morning, in no particular hurry, because it was hers now — all of it. The road, the kingdom, the story. Especially the story. She had picked up the pen, and written herself a door.' },
 ];
 
+// ── "The Boy Who Talked to the Stars" — celestial night palette ──────────────
+const N = {
+  ink:'#0d1020', indigo:'#161d3a', blue:'#243158', mid:'#3a4a7a', haze:'#5566a0',
+  star:'#F2D06B', starDeep:'#d8b24e', starW:'#e6ecfa', sea:'#1a2740', seafoam:'#3d5878',
+  sand:'#c9b79a', shirt:'#4bb5b0', roof:'#2a3357',
+};
+const boy = (o = {}) => {
+  const { x = 0, y = 0, s = 1, shirt = N.shirt, hair = '#2a2f45', hands = false } = o;
+  return `<g transform="translate(${x},${y}) scale(${s})">
+    <ellipse cx="0" cy="168" rx="60" ry="14" fill="#000" opacity="0.14"/>
+    <rect x="-30" y="96" width="24" height="72" rx="8" fill="${N.blue}"/><rect x="6" y="96" width="24" height="72" rx="8" fill="${N.blue}"/>
+    <path d="M-42 58 Q-46 116 -40 118 L40 118 Q46 116 42 58 Q0 44 -42 58 Z" fill="${shirt}"/>
+    ${hands ? `<path d="M-40 60 Q-64 20 -50 -6" stroke="${shirt}" stroke-width="20" fill="none" stroke-linecap="round"/><path d="M40 60 Q64 20 50 -6" stroke="${shirt}" stroke-width="20" fill="none" stroke-linecap="round"/><circle cx="-52" cy="-10" r="12" fill="#e8d7cf"/><circle cx="52" cy="-10" r="12" fill="#e8d7cf"/>` : `<rect x="-52" y="60" width="16" height="52" rx="8" fill="${shirt}"/><rect x="36" y="60" width="16" height="52" rx="8" fill="${shirt}"/>`}
+    <circle cx="0" cy="6" r="40" fill="#e8d7cf"/>
+    <path d="M-40 0 Q-44 -42 0 -46 Q44 -42 40 0 Q30 -20 0 -22 Q-30 -20 -40 0 Z" fill="${hair}"/>
+    <path d="M-40 0 q-2 -20 14 -30 q-6 14 -2 26 Z" fill="${hair}"/>
+    <circle cx="-14" cy="4" r="4" fill="${N.ink}"/><circle cx="14" cy="4" r="4" fill="${N.ink}"/>
+    <path d="M-12 22 Q0 29 12 22" stroke="${N.ink}" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    <circle cx="-23" cy="15" r="6" fill="${C.petal}" opacity="0.5"/><circle cx="23" cy="15" r="6" fill="${C.petal}" opacity="0.5"/>
+  </g>`;
+};
+// a simple background townsperson silhouette
+const boyBlob = (x, y, fill = '#5a6480', s = 1) => `<g transform="translate(${x},${y}) scale(${s})">
+  <path d="M-34 40 Q-40 -30 0 -34 Q40 -30 34 40 Z" fill="${fill}"/>
+  <circle cx="0" cy="-52" r="24" fill="${fill}"/></g>`;
+const starfield = (n, seedy = 1) => Array.from({ length: n }).map((_, i) => {
+  const x = (i * 137 * seedy) % 1000, y = (i * 89 * seedy) % 620, r = 1 + (i % 3) * 0.9, o = 0.4 + (i % 5) * 0.12;
+  return `<circle cx="${x}" cy="${y}" r="${r}" fill="${N.starW}" opacity="${o}"/>`;
+}).join('');
+const bigstar = (x, y, s = 1, fill = N.star) => `<g transform="translate(${x},${y}) scale(${s})"><path d="M0 -16 L4 -4 16 0 4 4 0 16 -4 4 -16 0 -4 -4 Z" fill="${fill}"/><circle cx="0" cy="0" r="18" fill="${fill}" opacity="0.18"/></g>`;
+const constellation = (pts, fill = N.star) => {
+  let lines = ''; for (let i = 1; i < pts.length; i++) lines += `<line x1="${pts[i-1][0]}" y1="${pts[i-1][1]}" x2="${pts[i][0]}" y2="${pts[i][1]}" stroke="${N.star}" stroke-width="1.6" opacity="0.5"/>`;
+  return lines + pts.map(p => bigstar(p[0], p[1], 0.7, fill)).join('');
+};
+const boat = (x, y, s = 1, sail = N.starW) => `<g transform="translate(${x},${y}) scale(${s})">
+  <path d="M-46 0 Q0 26 46 0 L34 24 Q0 34 -34 24 Z" fill="${N.roof}"/>
+  <rect x="-2" y="-56" width="5" height="56" fill="${N.sand}"/>
+  <path d="M3 -54 L40 -8 L3 -8 Z" fill="${sail}"/><path d="M-2 -48 L-32 -8 L-2 -8 Z" fill="${sail}" opacity="0.85"/></g>`;
+
+const starSpreads = [
+  // 1 TITLE
+  { title: true, art: svg(
+    `<linearGradient id="s1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${N.ink}"/><stop offset="1" stop-color="${N.indigo}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s1)"/>${starfield(70)}
+     ${constellation([[150,150],[230,210],[330,180],[420,260],[520,220]])}
+     ${bigstar(760,180,2.2)}${bigstar(840,300,1.2)}${bigstar(680,120,1)}
+     <path d="M0 820 Q500 790 1000 820 V1000 H0 Z" fill="${N.blue}"/>
+     ${boy({ x: 500, y: 560, s: 1.15, hands: true })}`),
+    text: '' },
+
+  // 2 the boy
+  { art: svg(
+    `<linearGradient id="s2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${N.haze}"/><stop offset="1" stop-color="${N.mid}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s2)"/>
+     <path d="M0 720 Q500 690 1000 720 V1000 H0 Z" fill="${N.sea}"/>
+     ${[130,300,470,640,810].map((bx,i)=>`<g transform="translate(${bx},${560+ (i%2)*20})"><rect x="-40" y="0" width="80" height="150" fill="${N.roof}"/><path d="M-50 0 L0 -46 L50 0 Z" fill="${N.blue}"/><rect x="-14" y="60" width="28" height="40" fill="${N.star}" opacity="0.7"/></g>`).join('')}
+     ${boy({ x: 500, y: 640, s: 0.9 })}`),
+    text: 'In a kingdom at the edge of the sea lived a boy named Theo, who did not do things the way the other children did.' },
+
+  // 3 the loud square
+  { art: svg(
+    `<radialGradient id="s3" cx="0.5" cy="0.4" r="0.8"><stop offset="0" stop-color="${N.haze}"/><stop offset="1" stop-color="${N.blue}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s3)"/>
+     ${[[260,420,'#7a6f8f'],[380,400,'#8a7f9f'],[720,420,'#6a7f9a'],[820,400,'#7f8fae']].map(([bx,by,c])=>boyBlob(bx,by,c)).join('')}
+     ${Array.from({length:8}).map((_,i)=>`<path d="M${200+i*80} 260 q10 -30 40 -20" stroke="#fff" stroke-width="3" fill="none" opacity="0.4"/>`).join('')}
+     <text x="300" y="240" font-family="'Bebas Neue'" font-size="60" fill="#fff" opacity="0.5">CLANG!</text>
+     <text x="640" y="300" font-family="'Bebas Neue'" font-size="48" fill="#fff" opacity="0.45">BUY! SELL!</text>
+     <g transform="translate(510,720)">${Array.from({length:5}).map((_,i)=>`<ellipse cx="${-40+i*20}" cy="${i*2}" rx="12" ry="9" fill="${['#4c5568','#5c6578','#6c7588','#7c8598','#8c95a8'][i]}"/>`).join('')}</g>
+     ${boy({ x: 500, y: 640, s: 0.85, hands: true, shirt: C.rose })}`),
+    text: 'When the square grew loud and clanging, Theo pressed his hands over his ears and squeezed his eyes shut until the noise stopped climbing up his skin. And at the edge of it all, he lined up his stones — smallest to largest, dark to light, in a row as straight as a ruler.' },
+
+  // 4 his own world
+  { art: svg(
+    `<linearGradient id="s4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${N.indigo}"/><stop offset="1" stop-color="${N.blue}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s4)"/>${starfield(40,2)}
+     <circle cx="500" cy="440" r="250" fill="none" stroke="${N.star}" stroke-width="2" opacity="0.3" stroke-dasharray="4 10"/>
+     ${constellation([[360,340],[440,300],[520,360],[600,320],[640,420]])}
+     ${boy({ x: 500, y: 620, s: 1.05 })}`),
+    text: 'The townspeople said he was off in his own world. They were right about one thing. Theo *did* have a world. It was only that nobody had ever thought to ask him what was in it.' },
+
+  // 5 the stars talk
+  { art: svg(
+    `<linearGradient id="s5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${N.ink}"/><stop offset="0.7" stop-color="${N.indigo}"/><stop offset="1" stop-color="${N.blue}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s5)"/>${starfield(90)}
+     ${bigstar(300,180,1.8)}${bigstar(700,150,2.4)}${bigstar(520,260,1.3)}${bigstar(180,300,1.1)}${bigstar(820,320,1.4)}
+     <path d="M0 780 L280 700 L520 760 L760 690 L1000 770 V1000 H0 Z" fill="${N.blue}"/>
+     ${boy({ x: 500, y: 690, s: 0.95, hands: true })}
+     <path d="M540 560 Q640 480 700 300" stroke="${N.star}" stroke-width="2" fill="none" stroke-dasharray="2 12" opacity="0.6"/>`),
+    text: 'But every night, when the kingdom went dark and quiet and the terrible noise finally stopped, Theo climbed the hill behind his house and looked up. And the stars — the stars *talked* to him. Not in words. In patterns. In the slow, exact turning of the sky.' },
+
+  // 6 he knew them all
+  { art: svg(
+    `<linearGradient id="s6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${N.ink}"/><stop offset="1" stop-color="${N.indigo}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s6)"/>${starfield(80)}
+     ${constellation([[120,160],[210,120],[300,190],[210,260],[120,160]])}
+     ${constellation([[560,140],[660,180],[760,140],[820,240],[700,300],[600,240],[560,140]],N.starW)}
+     ${bigstar(430,340,1.6)}
+     ${boy({ x: 500, y: 720, s: 0.8, hands: true })}`),
+    text: 'He knew them all — every point of light, where it rose, where it set, which ones traveled together and which stood alone. He knew the sky the way the other children knew each other\'s faces. It never got too loud. It never asked him to hurry. And there, Theo felt the thing he almost never felt in town: he felt like he *fit.*' },
+
+  // 7 the fog trouble
+  { art: svg(
+    `<linearGradient id="s7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${N.mid}"/><stop offset="1" stop-color="${N.sea}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s7)"/>
+     <path d="M0 620 Q500 660 1000 620 V1000 H0 Z" fill="${N.sea}"/>
+     ${[0.6,0.4,0.28].map((o,i)=>`<ellipse cx="${300+i*220}" cy="${500+i*40}" rx="420" ry="110" fill="${C.silver}" opacity="${o}"/>`).join('')}
+     ${boat(240,660,0.9,C.mist)}${boat(720,690,0.8,C.mist)}
+     <ellipse cx="500" cy="560" rx="500" ry="150" fill="${C.mist}" opacity="0.4"/>`),
+    text: 'Then one autumn, a trouble came. The fishing boats went out and did not come back on time. A fog rolled in off the sea — thick and grey and sudden — and the fishermen, who steered by the coastline, lost the shore entirely and drifted, frightened, in the white.' },
+
+  // 8 the arguing square
+  { art: svg(
+    `<radialGradient id="s8" cx="0.5" cy="0.45" r="0.8"><stop offset="0" stop-color="${N.haze}"/><stop offset="1" stop-color="${N.blue}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s8)"/>
+     ${[[220,440,'#7a6f8f'],[360,420,'#6a7f9a'],[660,430,'#8a7f9f'],[790,415,'#6f7f9e']].map(([bx,by,c])=>boyBlob(bx,by,c,1.1)).join('')}
+     <text x="250" y="250" font-family="'Bebas Neue'" font-size="52" fill="#fff" opacity="0.5">BIGGER BELLS!</text>
+     <text x="600" y="320" font-family="'Bebas Neue'" font-size="48" fill="#fff" opacity="0.45">LOUDER!</text>
+     ${boy({ x: 510, y: 700, s: 0.8, hands: true, shirt: C.rose })}`),
+    text: 'The whole town gathered, and the clever grown-ups argued. Bigger lanterns! Louder bells! Longer ropes! None of it would work in a fog you could not see or hear through. The square got louder and louder — and at the edge, hands over his ears, Theo was listening. Theo was always listening, even when it looked like he was somewhere else.' },
+
+  // 9 Theo stands
+  { art: svg(
+    `<radialGradient id="s9" cx="0.5" cy="0.55" r="0.7"><stop offset="0" stop-color="${N.star}" stop-opacity="0.25"/><stop offset="1" stop-color="${N.blue}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="${N.blue}"/>
+     <circle cx="500" cy="560" r="340" fill="url(#s9)"/>
+     ${[[180,460],[300,440],[700,450],[820,440]].map(([bx,by])=>boyBlob(bx,by,'#5a6480',0.9)).join('')}
+     ${boy({ x: 500, y: 620, s: 1.25, hands: true })}
+     ${bigstar(500,250,1.4)}`),
+    text: 'And when there was the smallest gap in the noise, Theo stood up. His heart was pounding. The words wanted to stick behind his teeth. But this was too important — so he pushed them out, one at a time, the way he pushed his stones into a line. "The stars," said Theo. And the whole square turned to look at him.' },
+
+  // 10 the plan
+  { art: svg(
+    `<linearGradient id="s10" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${N.indigo}"/><stop offset="1" stop-color="${N.sea}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s10)"/>${starfield(60)}
+     ${bigstar(500,180,2.6)}
+     <path d="M500 210 L500 640" stroke="${N.star}" stroke-width="2" stroke-dasharray="3 12" opacity="0.7"/>
+     <path d="M0 720 Q500 690 1000 720 V1000 H0 Z" fill="${N.sea}"/>
+     ${boat(500,700,0.9,N.starW)}`),
+    text: '"The fog is low. It sits on the water. But it is thin at the top — if you look straight up, the stars come through. And the stars don\'t move like the land moves. They come back to the same place every night, exactly. When you can\'t see the shore," said Theo, "look up. The sky will bring you home."' },
+
+  // 11 teaching
+  { art: svg(
+    `<linearGradient id="s11" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${N.ink}"/><stop offset="1" stop-color="${N.blue}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s11)"/>${starfield(70)}
+     ${constellation([[340,180],[440,150],[540,200],[640,160]])}
+     <path d="M0 760 Q500 730 1000 760 V1000 H0 Z" fill="${N.indigo}"/>
+     ${boy({ x: 340, y: 680, s: 0.9, hands: true })}
+     ${[560,660,760].map((bx,i)=>boyBlob(bx,700+ (i%2)*10,'#4a5678',0.75)).join('')}
+     <path d="M380 640 q120 -40 240 -20" stroke="${N.star}" stroke-width="2" fill="none" stroke-dasharray="3 10" opacity="0.6"/>`),
+    text: 'All that winter, Theo stood on the hill with the fishermen gathered around him, and he taught them the sky. He was patient in a way none of them expected — because the sky had taught him patience first. He never got flustered. He never rushed. And for the first time, the whole town was grateful for exactly the way Theo\'s mind worked.' },
+
+  // 12 boats come home
+  { art: svg(
+    `<linearGradient id="s12" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${N.indigo}"/><stop offset="0.6" stop-color="${N.mid}"/><stop offset="1" stop-color="${N.sea}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s12)"/>${starfield(50)}
+     ${bigstar(500,150,2.4)}${bigstar(360,220,1)}${bigstar(660,210,1.1)}
+     ${[0.3,0.2].map((o,i)=>`<ellipse cx="${350+i*260}" cy="${560}" rx="380" ry="80" fill="${C.silver}" opacity="${o}"/>`).join('')}
+     <path d="M0 700 Q500 670 1000 700 V1000 H0 Z" fill="${N.sea}"/>
+     ${boat(250,690,0.75,N.starW)}${boat(500,715,0.85,N.starW)}${boat(760,690,0.7,N.starW)}
+     ${[250,500,760].map(bx=>`<path d="M${bx} 660 L500 170" stroke="${N.star}" stroke-width="1.4" stroke-dasharray="2 12" opacity="0.5"/>`).join('')}`),
+    text: 'When the fog came now, the fishermen tipped their heads back and found Theo\'s stars — and the sky brought every last boat home.' },
+
+  // 13 closing
+  { art: svg(
+    `<radialGradient id="s13" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="${N.star}" stop-opacity="0.28"/><stop offset="0.5" stop-color="${N.indigo}"/><stop offset="1" stop-color="${N.ink}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#s13)"/>${starfield(80)}
+     ${bigstar(300,220,1.4)}${bigstar(720,200,1.6)}${bigstar(500,120,2)}
+     <path d="M0 800 Q500 770 1000 800 V1000 H0 Z" fill="${N.blue}"/>
+     ${boy({ x: 430, y: 660, s: 0.95, hands: true })}
+     ${boyBlob(650,700,'#4a5678',0.7)}
+     <g transform="translate(600,720)">${Array.from({length:4}).map((_,i)=>`<ellipse cx="${i*18}" cy="0" rx="10" ry="7" fill="${['#5c6578','#6c7588','#7c8598','#8c95a8'][i]}"/>`).join('')}</g>`),
+    text: 'Theo still sat at the edge, most days, lining up his stones. That did not change, and it did not need to. But now, a few of the braver children came to sit beside him — not to pull him into their game, but to learn his. To go quiet. To look up. If you are a Theo, hold on to this: your mind is not broken. It is tuned to something the world got too busy to hear.' },
+];
+
 const BOOKS = [
+  {
+    slug: 'the-boy-who-talked-to-the-stars',
+    title: 'The Boy Who Talked to the Stars',
+    subtitle: 'A story about a mind that works a little differently — and a world that needs it.',
+    spreads: starSpreads,
+    coverArt: starSpreads[0].art,
+    grownup: `Some children experience the world turned up too loud — the lights, the noise, the rush of it climbing up their skin. They line things up. They know everything about one enormous thing. And they light up like a whole city when they find the one place, or person, that finally makes sense. This is a story for autistic and neurodivergent children, and for everyone who loves one. When you finish, don't ask your Theo to come down off the hill. Climb up. Ask them what the stars are saying. They have been waiting for someone to ask.`,
+  },
   {
     slug: 'the-girl-who-loved-gray',
     title: 'The Girl Who Loved Gray',
@@ -424,7 +606,9 @@ const BOOKS = [
 
 // ── HTML assembly ────────────────────────────────────────────────────────────
 const esc = (s) => s.replace(/&(?!\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const story = (t) => esc(t).replace(/&lt;em&gt;/g, '<em>').replace(/&lt;\/em&gt;/g, '</em>');
+const story = (t) => esc(t)
+  .replace(/&lt;em&gt;/g, '<em>').replace(/&lt;\/em&gt;/g, '</em>')
+  .replace(/\*([^*]+)\*/g, '<em>$1</em>');
 
 function interiorHtml(book) {
   const pages = book.spreads.map((sp) => {
