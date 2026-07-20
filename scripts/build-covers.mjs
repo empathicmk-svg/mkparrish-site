@@ -40,8 +40,6 @@ const PRODUCTS = [
     subtitle: 'Eight women of the Bible, the moment everything turned, and what their stories are still saying to yours.' },
   { src: 'ebooks/scripture/her-story-rewritten-volume-two.md', slug: 'her-story-rewritten-volume-two',
     subtitle: 'Eight more women of the Bible, the moment everything turned, and what their courage is still saying to yours.' },
-  { src: 'ebooks/kids/the-princess-who-rescued-herself.md', slug: 'the-princess-who-rescued-herself',
-    subtitle: 'A bedtime fairytale about writing your own happily ever after.' },
   { src: 'ebooks/kids/the-boy-who-talked-to-the-stars.md', slug: 'the-boy-who-talked-to-the-stars',
     subtitle: 'A bedtime story about a mind that works a little differently — and a world that needs exactly that.' },
   { src: 'ebooks/kids/the-quietest-kid-in-the-kingdom.md', slug: 'the-quietest-kid-in-the-kingdom',

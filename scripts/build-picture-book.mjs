@@ -224,6 +224,186 @@ const grayLoveSpreads = [
     text: 'The world is not black and white, little one — no matter who tells you it is. It is dove and pewter, smoke and silver, storm and twilight. It is gray. And gray is where the whole beautiful truth lives. <em>Go and love it.</em>' },
 ];
 
+// ── "The Princess Who Rescued Herself" — witty fairytale palette ──────────────
+const P = {
+  stone:'#6d7178', stoneDark:'#4c5057', stoneLight:'#9aa0a8', mortar:'#3c3f45',
+  gold:'#E8C86E', goldDeep:'#C9A24B', night:'#20232b', dusk:'#4a4258',
+  grass:'#7d8a6a', grassDark:'#5f6a50', sky:'#bcc6d0', crown:'#E8C86E',
+};
+const crown = (cx, cy, s = 1, fill = P.gold) => `
+  <g transform="translate(${cx},${cy}) scale(${s})">
+    <path d="M-34 8 L-34 -18 L-17 -2 L0 -24 L17 -2 L34 -18 L34 8 Z" fill="${fill}" stroke="${P.goldDeep}" stroke-width="2"/>
+    <circle cx="-34" cy="-18" r="4" fill="${fill}"/><circle cx="0" cy="-24" r="4" fill="${fill}"/><circle cx="34" cy="-18" r="4" fill="${fill}"/>
+    <circle cx="0" cy="0" r="3.4" fill="${P.rose||'#E0869F'}"/>
+  </g>`;
+const princess = (o = {}) => {
+  const { x = 0, y = 0, s = 1, dress = C.rose, face = true } = o;
+  return `<g transform="translate(${x},${y}) scale(${s})">${girl({ dress, face })}${crown(0, -46, 1)}</g>`;
+};
+const tower = (x, y, s = 1, { lit = false } = {}) => `
+  <g transform="translate(${x},${y}) scale(${s})">
+    <rect x="-90" y="-40" width="180" height="640" fill="${P.stone}"/>
+    <rect x="-90" y="-40" width="60" height="640" fill="${P.stoneDark}" opacity="0.5"/>
+    ${Array.from({length:7}).map((_,r)=>Array.from({length:3}).map((_,c)=>`<rect x="${-84+c*58+ (r%2?14:0)}" y="${-24+r*90}" width="46" height="70" fill="none" stroke="${P.mortar}" stroke-width="3"/>`).join('')).join('')}
+    <rect x="-104" y="-70" width="208" height="34" fill="${P.stoneDark}"/>
+    ${[-104,-64,-24,16,56,84].map(bx=>`<rect x="${bx}" y="-104" width="24" height="40" fill="${P.stoneDark}"/>`).join('')}
+    <rect x="-34" y="150" width="68" height="96" rx="34" fill="${lit?P.gold:P.night}"/>
+    ${lit?`<rect x="-34" y="150" width="68" height="96" rx="34" fill="${P.gold}" opacity="0.5"/><circle cx="0" cy="205" r="40" fill="${P.gold}" opacity="0.25"/>`:''}
+  </g>`;
+const horse = (x, y, s = 1, fill = C.silver) => `
+  <g transform="translate(${x},${y}) scale(${s})">
+    <ellipse cx="0" cy="60" rx="52" ry="10" fill="#000" opacity="0.12"/>
+    <path d="M-60 0 Q-64 -30 -40 -34 L40 -34 Q64 -30 60 6 Q40 -6 30 -8 L-30 -8 Q-52 -6 -60 0 Z" fill="${fill}"/>
+    <rect x="-52" y="-6" width="12" height="52" rx="5" fill="${fill}"/><rect x="-20" y="-6" width="12" height="52" rx="5" fill="${fill}"/>
+    <rect x="12" y="-6" width="12" height="52" rx="5" fill="${fill}"/><rect x="44" y="-6" width="12" height="52" rx="5" fill="${fill}"/>
+    <path d="M46 -30 Q78 -40 78 -70 Q90 -50 84 -24 Q92 -18 84 -8 L58 -12 Z" fill="${fill}"/>
+    <path d="M74 -64 Q86 -66 88 -74" stroke="${fill}" stroke-width="6" fill="none"/>
+    <circle cx="80" cy="-40" r="2.6" fill="${C.ink}"/>
+    <path d="M-58 -30 Q-70 -50 -58 -60 Q-52 -44 -40 -36 Z" fill="${P.gold}" opacity="0.8"/>
+  </g>`;
+const sun = (cx, cy, r, fill = P.gold) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${fill}"/>${Array.from({length:12}).map((_,i)=>{const a=i*Math.PI/6;return `<line x1="${cx+Math.cos(a)*(r+10)}" y1="${cy+Math.sin(a)*(r+10)}" x2="${cx+Math.cos(a)*(r+40)}" y2="${cy+Math.sin(a)*(r+40)}" stroke="${fill}" stroke-width="7" stroke-linecap="round" opacity="0.8"/>`}).join('')}`;
+
+const princessSpreads = [
+  // 1 TITLE
+  { title: true, art: svg(
+    `<linearGradient id="pt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.dusk}"/><stop offset="1" stop-color="${P.night}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#pt)"/>
+     ${Array.from({length:16}).map((_,i)=>`<circle cx="${60+ (i*93)%900}" cy="${70+ (i*61)%300}" r="${1.4+ (i%3)}" fill="#fff" opacity="0.7"/>`).join('')}
+     <circle cx="800" cy="180" r="52" fill="${P.gold}" opacity="0.9"/>
+     ${tower(500, 300, 0.9, { lit: true })}
+     ${princess({ x: 500, y: 505, s: 1.15, dress: C.petal })}`),
+    text: '' },
+
+  // 2 tower + the rule
+  { art: svg(
+    `<linearGradient id="p2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.sky}"/><stop offset="1" stop-color="${C.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#p2)"/>
+     <path d="M0 820 Q500 780 1000 820 V1000 H0 Z" fill="${P.grass}"/>
+     ${tower(500, 220, 1.05, { lit: true })}
+     ${princess({ x: 500, y: 470, s: 0.6, dress: C.rose })}`),
+    text: 'At the top of a tall grey tower lived a princess named Wren. The tower had one round window, one very heavy door, and exactly one rule for a princess: <em>wait.</em>' },
+
+  // 3 the old story
+  { art: svg(
+    `<linearGradient id="p3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.cloud}"/><stop offset="1" stop-color="${P.sky}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#p3)"/>
+     <path d="M0 780 Q500 740 1000 780 V1000 H0 Z" fill="${P.grassDark}"/>
+     <path d="M-20 800 Q400 760 1020 800" stroke="${C.paper}" stroke-width="12" fill="none" opacity="0.7"/>
+     ${tower(210, 300, 0.8, { lit: true })}
+     ${horse(820, 760, 0.9, C.silver)}
+     <path d="M300 500 Q560 470 780 700" stroke="${P.stone}" stroke-width="4" stroke-dasharray="4 14" fill="none" opacity="0.6"/>`),
+    text: 'Everyone in the kingdom knew the story, and everyone told it the same way: one day a brave prince will climb the tower, open the door, and set the princess free. So Wren waited. That was, everyone agreed, the whole point of her.' },
+
+  // 4 prince #1
+  { art: svg(
+    `<linearGradient id="p4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.sky}"/><stop offset="1" stop-color="${C.mist}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#p4)"/>
+     <path d="M0 800 Q500 770 1000 800 V1000 H0 Z" fill="${P.grass}"/>
+     ${tower(180, 360, 0.72, { lit: true })}
+     ${horse(640, 720, 1.1, C.paper)}
+     ${girl({ x: 640, y: 610, s: 0.7, dress: P.stoneDark, hair: P.gold })}
+     <path d="M700 560 q80 -20 150 20" stroke="${P.stoneDark}" stroke-width="4" fill="none" stroke-dasharray="3 12"/>
+     <text x="835" y="560" font-family="'Bebas Neue'" font-size="46" fill="${P.stoneDark}">HMM.</text>`),
+    text: 'The first prince rode up on a fine white horse, looked at the heavy locked door, said, "This looks rather <em>difficult</em>," and rode off to find an easier tower.' },
+
+  // 5 prince #2
+  { art: svg(
+    `<linearGradient id="p5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.mist}"/><stop offset="1" stop-color="${P.sky}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#p5)"/>
+     <path d="M0 810 Q500 785 1000 810 V1000 H0 Z" fill="${P.grassDark}"/>
+     ${tower(200, 380, 0.66, { lit: true })}
+     <ellipse cx="640" cy="815" rx="120" ry="30" fill="${P.stone}"/>
+     ${girl({ x: 620, y: 770, s: 0.66, dress: P.dusk, hair: P.stoneDark, face:false })}
+     <text x="700" y="690" font-family="'Bebas Neue'" font-size="54" fill="${P.stoneDark}">ZZZ…</text>`),
+    text: 'The second prince stood at the bottom and shouted, "Do not worry — I am here to rescue you!" Then he sat on a rock to rest from all that shouting, fell fast asleep, and by morning had forgotten which tower it was.' },
+
+  // 6 prince #3 never came
+  { art: svg(
+    `<linearGradient id="p6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.dusk}"/><stop offset="1" stop-color="${C.steel}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#p6)"/>
+     ${Array.from({length:10}).map((_,i)=>`<circle cx="${80+ (i*140)%860}" cy="${90+ (i*70)%240}" r="1.6" fill="#fff" opacity="0.6"/>`).join('')}
+     <circle cx="200" cy="180" r="40" fill="${P.gold}" opacity="0.85"/>
+     ${tower(500, 120, 1.15, { lit: true })}
+     ${girl({ x: 500, y: 300, s: 0.5, dress: C.petal, face:false })}`),
+    text: 'The third prince did not come at all. He had heard the tower was very tall. And Wren sat by the round window with her chin in her hands, and something in her that had been quiet a long time finally cleared its throat.' },
+
+  // 7 the thought
+  { art: svg(
+    `<radialGradient id="p7" cx="0.5" cy="0.4" r="0.7"><stop offset="0" stop-color="${P.gold}" stop-opacity="0.35"/><stop offset="1" stop-color="${C.cloud}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="${C.cloud}"/>
+     <circle cx="500" cy="420" r="360" fill="url(#p7)"/>
+     ${princess({ x: 500, y: 560, s: 1.9, dress: C.rose })}
+     <path d="M640 300 q60 -6 100 30" stroke="${P.goldDeep}" stroke-width="3" fill="none" stroke-dasharray="3 10"/>
+     <text x="620" y="270" font-family="'Playfair Display'" font-style="italic" font-size="40" fill="${P.stoneDark}">why wait?</text>`),
+    text: '"Why," thought Wren, "am I waiting for someone who keeps <em>not coming?</em>" It was a small thought. But small thoughts, in towers, echo.' },
+
+  // 8 the hinges
+  { art: svg(
+    `<linearGradient id="p8" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.stoneLight}"/><stop offset="1" stop-color="${P.stone}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#p8)"/>
+     <rect x="330" y="140" width="340" height="720" rx="16" fill="${P.mortar}"/>
+     <rect x="350" y="160" width="300" height="680" rx="10" fill="${P.stoneDark}"/>
+     ${[0,1,2].map(i=>`<rect x="365" y="200" width="80" height="60" y="${200+i*220}" fill="none"/>`).join('')}
+     <circle cx="612" cy="500" r="20" fill="${P.gold}"/>
+     ${[220,500,780].map(hy=>`<g transform="translate(360,${hy})"><rect x="-6" y="-34" width="34" height="68" rx="6" fill="${P.gold}"/><circle cx="11" cy="0" r="8" fill="${P.goldDeep}"/></g>`).join('')}
+     ${princess({ x: 720, y: 620, s: 0.9, dress: C.petal })}
+     <path d="M690 560 q-90 -30 -300 -50" stroke="${P.gold}" stroke-width="3" fill="none" stroke-dasharray="3 10" opacity="0.8"/>`),
+    text: 'She walked to the door and looked at it properly — the way you look at something you have decided is <em>yours to solve.</em> The lock was on the outside. But the hinges — the hinges were on the <em>inside.</em> Nobody had ever mentioned the hinges.' },
+
+  // 9 tools by moonlight
+  { art: svg(
+    `<linearGradient id="p9" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.night}"/><stop offset="1" stop-color="${P.dusk}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#p9)"/>
+     <circle cx="770" cy="200" r="60" fill="${P.gold}" opacity="0.9"/><circle cx="748" cy="188" r="60" fill="url(#p9)" opacity="0.5"/>
+     <rect x="240" y="120" width="300" height="760" rx="14" fill="${P.stoneDark}"/>
+     ${[240,470,700].map(hy=>`<rect x="234" y="${hy-30}" width="30" height="60" rx="6" fill="${P.gold}"/>`).join('')}
+     ${princess({ x: 620, y: 640, s: 1.0, dress: C.rose })}
+     <rect x="120" y="840" width="60" height="14" rx="4" fill="${P.gold}"/>
+     <rect x="220" y="820" width="14" height="40" fill="${P.stoneLight}"/><circle cx="227" cy="812" r="12" fill="${P.gold}"/>`),
+    text: 'She had no sword. She had a hairpin, a candlestick, and a great deal of time she had planned to spend waiting. She worked at the bottom hinge until her fingers ached, and rested, and worked again. And she found she did not mind the quiet. In the quiet, she could hear herself <em>think.</em>' },
+
+  // 10 the door groans loose
+  { art: svg(
+    `<linearGradient id="p10" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${P.dusk}"/><stop offset="1" stop-color="${P.gold}" stop-opacity="0.5"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="${P.night}"/>
+     <rect x="200" y="120" width="320" height="760" rx="14" fill="${P.stoneDark}" transform="rotate(-7 360 500)"/>
+     <path d="M520 200 L720 260 L700 840 L500 880 Z" fill="url(#p10)" opacity="0.4"/>
+     ${princess({ x: 420, y: 660, s: 1.0, dress: C.petal })}
+     <text x="150" y="300" font-family="'Bebas Neue'" font-size="60" fill="${P.gold}" opacity="0.8">GROAN…</text>`),
+    text: 'By the time the moon was high, the bottom hinge came loose with a groan. By the time the birds woke, the top one did too. And Wren pushed — not at the silly lock, she left that exactly where it was — she pushed at the <em>hinged</em> side.' },
+
+  // 11 the door falls open into morning
+  { art: svg(
+    `<linearGradient id="p11" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.gold}"/><stop offset="0.5" stop-color="${C.blush}"/><stop offset="1" stop-color="${P.sky}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#p11)"/>
+     ${sun(500, 250, 70)}
+     <path d="M0 760 Q300 700 620 760 T1000 740 V1000 H0 Z" fill="${P.grass}"/>
+     <path d="M120 820 Q500 760 900 820" stroke="${P.grassDark}" stroke-width="10" fill="none" opacity="0.6"/>
+     ${princess({ x: 500, y: 560, s: 1.5, dress: C.rose })}`),
+    text: 'And the great heavy door swung the wrong way entirely — the way nobody ever expected a door to swing — and fell open into the morning. Wren stood at the top of her tower with the wind in her hair and the whole green kingdom spread gold below her. She had not been rescued. She had been <em>paying attention.</em>' },
+
+  // 12 meets the prince
+  { art: svg(
+    `<linearGradient id="p12" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.sky}"/><stop offset="1" stop-color="${C.cloud}"/></linearGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#p12)"/>
+     <path d="M0 800 Q500 770 1000 800 V1000 H0 Z" fill="${P.grass}"/>
+     <path d="M-20 830 Q500 790 1020 830" stroke="${P.paper||'#f5f7f8'}" stroke-width="12" fill="none" opacity="0.7"/>
+     ${horse(770, 730, 0.8, C.paper)}
+     ${girl({ x: 770, y: 650, s: 0.6, dress: P.stoneDark, hair: P.gold, face:true })}
+     ${princess({ x: 300, y: 700, s: 1.0, dress: C.petal })}
+     <text x="560" y="560" font-family="'Playfair Display'" font-style="italic" font-size="34" fill="${P.stoneDark}">but… who rescued you?</text>`),
+    text: 'On the road she met the first prince, very startled to see her walking freely about. "But — who <em>rescued</em> you?" he asked. Wren thought about it. Then she smiled, and told him the truest thing in this whole book.' },
+
+  // 13 "I did." closing
+  { art: svg(
+    `<radialGradient id="p13" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="${P.gold}" stop-opacity="0.4"/><stop offset="0.5" stop-color="${C.blush}"/><stop offset="1" stop-color="${P.sky}"/></radialGradient>`,
+    `<rect width="${W}" height="${H}" fill="url(#p13)"/>
+     ${sun(500, 300, 62)}
+     <path d="M0 820 Q500 770 1000 820 V1000 H0 Z" fill="${P.grass}"/>
+     ${princess({ x: 500, y: 620, s: 2.0, dress: C.rose })}`),
+    text: '"I did," said Wren. And she walked on into her own morning, in no particular hurry, because it was hers now — all of it. The road, the kingdom, the story. Especially the story. She had picked up the pen, and written herself a door.' },
+];
+
 const BOOKS = [
   {
     slug: 'the-girl-who-loved-gray',
@@ -231,6 +411,14 @@ const BOOKS = [
     subtitle: 'A picture book about all the colors between yes and no.',
     spreads: grayLoveSpreads,
     coverArt: grayLoveSpreads[0].art,
+  },
+  {
+    slug: 'the-princess-who-rescued-herself',
+    title: 'The Princess Who Rescued Herself',
+    subtitle: 'A fairytale about writing your own happily ever after.',
+    spreads: princessSpreads,
+    coverArt: princessSpreads[0].art,
+    grownup: `We give little girls a story early: something is wrong, and a prince will come and fix it. It is a lovely story and a terrible plan. This one keeps the tower and the prince and the happily-ever-after — and quietly hands the pen to the girl. When you finish, ask the small person listening the question the whole book is really about: <em>"What would you do, if the door was locked and nobody was coming?"</em> You may be surprised by how quickly they look for the hinges.`,
   },
 ];
 
@@ -257,11 +445,11 @@ function interiorHtml(book) {
     </section>`;
   }).join('\n');
 
+  const defaultNote = `We hand children a black-and-white world early: right and wrong, smart and dumb, winner and loser, us and them. It is faster to think that way, and lonelier, and mostly untrue. This book is a small argument for the gray — for nuance, for "it depends," for holding two true things at once, for the patience to stay in a question a little longer.</p><p>When you finish, look for a gray together. A pigeon. A rain cloud. The soft middle of an argument that isn't all one person's fault. Then say the sentence that undoes a lifetime of hard lines: <em>"Two things can be true at the same time."</em>`;
   const grownup = `<section class="pg pg--note">
     <div class="notewrap">
       <p class="kicker">For the grown-up reading along</p>
-      <p>We hand children a black-and-white world early: right and wrong, smart and dumb, winner and loser, us and them. It is faster to think that way, and lonelier, and mostly untrue. This book is a small argument for the gray — for nuance, for "it depends," for holding two true things at once, for the patience to stay in a question a little longer.</p>
-      <p>When you finish, look for a gray together. A pigeon. A rain cloud. The soft middle of an argument that isn't all one person's fault. Then say the sentence that undoes a lifetime of hard lines: <em>"Two things can be true at the same time."</em></p>
+      <p>${book.grownup ?? defaultNote}</p>
       <p class="foot">The Little Rewrites · MK Parrish · <span>mkparrish.com</span></p>
     </div>
   </section>`;

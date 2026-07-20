@@ -833,7 +833,6 @@ const EBOOKS = [
   ['ebooks/decoding-angel-numbers.md',        'ebooks/decoding-angel-numbers.html'],
   ['ebooks/scripture/her-story-rewritten.md', 'ebooks/her-story-rewritten.html'],
   ['ebooks/scripture/her-story-rewritten-volume-two.md', 'ebooks/her-story-rewritten-volume-two.html'],
-  ['ebooks/kids/the-princess-who-rescued-herself.md', 'ebooks/the-princess-who-rescued-herself.html'],
   ['ebooks/kids/the-boy-who-talked-to-the-stars.md', 'ebooks/the-boy-who-talked-to-the-stars.html'],
   ['ebooks/kids/the-quietest-kid-in-the-kingdom.md', 'ebooks/the-quietest-kid-in-the-kingdom.html'],
   ['ebooks/kids/the-one-who-sat-alone.md',    'ebooks/the-one-who-sat-alone.html'],

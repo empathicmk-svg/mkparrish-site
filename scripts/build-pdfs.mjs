@@ -28,7 +28,6 @@ const FILES = [
   ['public/downloads/ebooks/decoding-angel-numbers.html',        'public/downloads/ebooks/decoding-angel-numbers.pdf'],
   ['public/downloads/ebooks/her-story-rewritten.html',           'public/downloads/ebooks/her-story-rewritten.pdf'],
   ['public/downloads/ebooks/her-story-rewritten-volume-two.html', 'public/downloads/ebooks/her-story-rewritten-volume-two.pdf'],
-  ['public/downloads/ebooks/the-princess-who-rescued-herself.html', 'public/downloads/ebooks/the-princess-who-rescued-herself.pdf'],
   ['public/downloads/ebooks/the-boy-who-talked-to-the-stars.html', 'public/downloads/ebooks/the-boy-who-talked-to-the-stars.pdf'],
   ['public/downloads/ebooks/the-quietest-kid-in-the-kingdom.html', 'public/downloads/ebooks/the-quietest-kid-in-the-kingdom.pdf'],
   ['public/downloads/ebooks/the-one-who-sat-alone.html',         'public/downloads/ebooks/the-one-who-sat-alone.pdf'],
