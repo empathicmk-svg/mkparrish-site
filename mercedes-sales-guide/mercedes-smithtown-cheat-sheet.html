@@ -1,0 +1,690 @@
+<title>MB Smithtown — Salesperson Cheat Sheet</title>
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --paper: #f4f5f6;
+    --surface: #ffffff;
+    --surface-2: #eceef0;
+    --ink: #14181c;
+    --ink-soft: #4a525a;
+    --silver: #6f777e;      /* cool-biased neutral */
+    --hairline: #d6dade;
+    --accent: #0e7c86;      /* petrol teal — wayfinding */
+    --accent-ink: #0a5960;
+    --amg: #b0122b;         /* semantic: performance / urgency ONLY */
+    --amg-soft: #f7e4e7;
+    --gold: #8a6d3b;        /* Maybach / ultra-lux marker */
+    --good: #1f7a4d;
+    --shadow: 0 1px 2px rgba(20,24,28,.06), 0 8px 24px rgba(20,24,28,.06);
+    --radius: 10px;
+    --maxw: 1120px;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
+    --grotesk: "Helvetica Neue", Helvetica, "Arial Nova", Arial, system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0e1113;
+      --surface: #161b1f;
+      --surface-2: #1e252a;
+      --ink: #eef1f3;
+      --ink-soft: #aab2b9;
+      --silver: #8b939b;
+      --hairline: #2a3238;
+      --accent: #35b7c2;
+      --accent-ink: #7fd6de;
+      --amg: #ff5d73;
+      --amg-soft: #34161c;
+      --gold: #c8a86a;
+      --good: #56c98d;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --paper:#f4f5f6; --surface:#fff; --surface-2:#eceef0; --ink:#14181c; --ink-soft:#4a525a;
+    --silver:#6f777e; --hairline:#d6dade; --accent:#0e7c86; --accent-ink:#0a5960;
+    --amg:#b0122b; --amg-soft:#f7e4e7; --gold:#8a6d3b; --good:#1f7a4d;
+    --shadow:0 1px 2px rgba(20,24,28,.06),0 8px 24px rgba(20,24,28,.06);
+  }
+  :root[data-theme="dark"] {
+    --paper:#0e1113; --surface:#161b1f; --surface-2:#1e252a; --ink:#eef1f3; --ink-soft:#aab2b9;
+    --silver:#8b939b; --hairline:#2a3238; --accent:#35b7c2; --accent-ink:#7fd6de;
+    --amg:#ff5d73; --amg-soft:#34161c; --gold:#c8a86a; --good:#56c98d;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--grotesk);
+    font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+  h1,h2,h3,h4 { text-wrap: balance; line-height: 1.15; margin: 0; font-weight: 700; letter-spacing: -.01em; }
+  p { margin: 0; }
+  a { color: var(--accent-ink); }
+
+  .eyebrow {
+    font-size: 11.5px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--silver); font-weight: 700;
+  }
+  .mono { font-family: var(--mono); }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ============ HERO ============ */
+  header.hero {
+    background:
+      radial-gradient(120% 140% at 85% -10%, rgba(53,183,194,.14), transparent 55%),
+      linear-gradient(180deg, #0b0e10 0%, #121619 100%);
+    color: #eef1f3;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .hero .wrap { padding-top: 46px; padding-bottom: 40px; }
+  .star {
+    width: 34px; height: 34px; display:inline-block; vertical-align: middle;
+  }
+  .hero-brand { display:flex; align-items:center; gap: 12px; color:#cfd4d8; }
+  .hero-brand .divider { width:1px; height:20px; background: rgba(255,255,255,.22); }
+  .hero h1 { font-size: clamp(30px, 5.5vw, 52px); margin: 22px 0 14px; color:#fff; letter-spacing:-.02em; }
+  .hero h1 .thin { font-weight: 300; color:#aeb6bd; }
+  .hero-sub { font-size: clamp(15px,2.2vw,18px); color:#c3cacf; max-width: 60ch; }
+  .hero-stats { display:flex; flex-wrap:wrap; gap: 14px; margin-top: 26px; }
+  .hero-stat {
+    border:1px solid rgba(255,255,255,.14); border-radius: var(--radius);
+    padding: 12px 16px; min-width: 130px; background: rgba(255,255,255,.03);
+  }
+  .hero-stat b { display:block; font-size: 24px; color:#fff; font-variant-numeric: tabular-nums; }
+  .hero-stat span { font-size: 12px; color:#9aa1a8; letter-spacing:.04em; }
+
+  /* ============ STICKY NAV ============ */
+  nav.jump {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: saturate(160%) blur(10px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  nav.jump .wrap { display:flex; gap: 4px; overflow-x: auto; padding-top: 9px; padding-bottom: 9px; scrollbar-width: thin; }
+  nav.jump a {
+    white-space: nowrap; text-decoration: none; color: var(--ink-soft);
+    font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px;
+    letter-spacing:.01em;
+  }
+  nav.jump a:hover { background: var(--surface-2); color: var(--ink); }
+
+  /* ============ SECTIONS ============ */
+  section { padding: 44px 0 8px; scroll-margin-top: 60px; }
+  .sec-head { display:flex; align-items:baseline; gap: 14px; margin-bottom: 22px; flex-wrap:wrap; }
+  .sec-num { font-family: var(--mono); font-size: 13px; color: var(--accent); font-weight: 700; }
+  .sec-head h2 { font-size: clamp(22px, 3.4vw, 30px); }
+  .sec-head p.lede { color: var(--ink-soft); font-size: 15px; width:100%; max-width: 72ch; margin-top: 2px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+  }
+  .grid { display: grid; gap: 14px; }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 860px) { .g3,.g4 { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px) { .g2,.g3,.g4 { grid-template-columns: 1fr; } }
+
+  /* model cards */
+  .model { padding: 15px 16px; display:flex; flex-direction:column; gap: 7px; }
+  .model .top { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+  .model .name { font-size: 17px; font-weight: 700; letter-spacing:-.01em; }
+  .model .price { font-family: var(--mono); font-size: 13px; color: var(--accent-ink); font-weight:700; white-space:nowrap; }
+  .model .body { font-size: 13.5px; color: var(--ink-soft); }
+  .model .who { font-size: 12.5px; color: var(--ink); margin-top: 2px; }
+  .model .who b { color: var(--accent-ink); }
+  .tag {
+    display:inline-block; font-size: 10.5px; letter-spacing:.08em; text-transform:uppercase;
+    font-weight:700; padding: 2px 8px; border-radius: 999px; border:1px solid var(--hairline);
+    color: var(--silver);
+  }
+  .tag.ev { color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent) 40%, var(--hairline)); }
+  .tag.amg { color: var(--amg); border-color: color-mix(in srgb, var(--amg) 40%, var(--hairline)); }
+  .tag.may { color: var(--gold); border-color: color-mix(in srgb, var(--gold) 45%, var(--hairline)); }
+
+  .seg-title { display:flex; align-items:center; gap:10px; margin: 24px 0 12px; }
+  .seg-title h3 { font-size: 15px; letter-spacing:.03em; text-transform:uppercase; color: var(--ink); }
+  .seg-title .rule { flex:1; height:1px; background: var(--hairline); }
+
+  /* definition rows */
+  .deflist { display:grid; gap:0; border:1px solid var(--hairline); border-radius: var(--radius); overflow:hidden; }
+  .defrow { display:grid; grid-template-columns: 180px 1fr; gap: 16px; padding: 12px 16px; background: var(--surface); }
+  .defrow + .defrow { border-top: 1px solid var(--hairline); }
+  .defrow dt { font-family: var(--mono); font-size: 13.5px; font-weight: 700; color: var(--ink); }
+  .defrow dd { margin:0; font-size: 14px; color: var(--ink-soft); }
+  .defrow dd b { color: var(--ink); }
+  @media (max-width: 560px) { .defrow { grid-template-columns: 1fr; gap: 3px; } }
+
+  /* callouts */
+  .callout { border-radius: var(--radius); padding: 16px 18px; border:1px solid var(--hairline); background: var(--surface); }
+  .callout.script { border-left: 3px solid var(--accent); }
+  .callout.warn { border-left: 3px solid var(--amg); background: var(--surface); }
+  .callout .label { font-size:11px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; color: var(--silver); margin-bottom:6px; }
+  .callout.script .label { color: var(--accent-ink); }
+  .callout.warn .label { color: var(--amg); }
+  .quote { font-size: 15px; line-height:1.55; }
+  .quote em { color: var(--accent-ink); font-style: normal; font-weight:600; }
+
+  /* steps */
+  .step { padding: 15px 16px; display:flex; gap: 14px; }
+  .step .n {
+    font-family: var(--mono); font-weight:700; font-size: 15px; color:#fff;
+    background: var(--accent); border-radius: 8px; width: 30px; height: 30px;
+    display:grid; place-items:center; flex:none;
+  }
+  .step h4 { font-size: 15.5px; margin-bottom: 3px; }
+  .step p { font-size: 13.5px; color: var(--ink-soft); }
+  .step .say { font-size:13px; margin-top:6px; color: var(--ink); }
+  .step .say b { color: var(--accent-ink); font-weight:600; }
+
+  /* objection table */
+  table.obj { width:100%; border-collapse: collapse; font-size: 14px; }
+  table.obj th, table.obj td { text-align:left; padding: 11px 14px; vertical-align: top; border-bottom:1px solid var(--hairline); }
+  table.obj thead th { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color: var(--silver); }
+  table.obj td:first-child { font-weight:600; width: 34%; }
+  table.obj td.resp { color: var(--ink-soft); }
+  .tablewrap { overflow-x:auto; border:1px solid var(--hairline); border-radius: var(--radius); background: var(--surface); }
+
+  /* compare cards */
+  .vs { padding: 15px 16px; }
+  .vs h4 { font-size: 15px; margin-bottom: 8px; display:flex; justify-content:space-between; align-items:baseline; }
+  .vs h4 .badge { font-size:11px; color: var(--silver); font-weight:600; }
+  .vs ul { margin: 0; padding-left: 18px; }
+  .vs li { font-size: 13.5px; color: var(--ink-soft); margin: 4px 0; }
+  .vs li b { color: var(--ink); }
+
+  /* plan math */
+  .math { display:grid; gap: 12px; }
+  .math .row { display:flex; justify-content:space-between; align-items:center; padding: 13px 16px; background: var(--surface); border:1px solid var(--hairline); border-radius: var(--radius); }
+  .math .row .k { font-size: 14px; }
+  .math .row .v { font-family: var(--mono); font-weight:700; font-size: 17px; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+
+  ul.clean { margin: 0; padding-left: 20px; }
+  ul.clean li { margin: 5px 0; font-size: 14px; color: var(--ink-soft); }
+  ul.clean li b { color: var(--ink); }
+
+  .chips { display:flex; flex-wrap:wrap; gap: 8px; }
+  .chip { font-family:var(--mono); font-size:12.5px; background: var(--surface-2); border:1px solid var(--hairline); border-radius:6px; padding:4px 9px; color: var(--ink); }
+
+  footer { margin-top: 48px; border-top: 1px solid var(--hairline); }
+  footer .wrap { padding: 26px 20px 40px; color: var(--silver); font-size: 12.5px; }
+  footer b { color: var(--ink-soft); }
+
+  .disclaimer { background: var(--surface-2); border-radius: var(--radius); padding: 12px 16px; font-size: 12.5px; color: var(--ink-soft); border:1px solid var(--hairline); }
+
+  a.top { text-decoration:none; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  @media print {
+    nav.jump { display:none; }
+    header.hero { background:#fff; color:#000; }
+    .hero h1, .hero-brand, .hero-sub { color:#000 !important; }
+    body { font-size: 11px; }
+    section { padding: 12px 0; }
+    .card, .callout, .defrow { box-shadow:none; }
+  }
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-brand">
+      <svg class="star" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#cfd4d8" stroke-width="4"/>
+        <g stroke="#fff" stroke-width="5" stroke-linecap="round">
+          <line x1="50" y1="50" x2="50" y2="8"/>
+          <line x1="50" y1="50" x2="14" y2="70"/>
+          <line x1="50" y1="50" x2="86" y2="70"/>
+        </g>
+      </svg>
+      <span style="font-weight:700; letter-spacing:.02em;">Mercedes-Benz of Smithtown</span>
+      <span class="divider"></span>
+      <span class="eyebrow" style="color:#9aa1a8;">Competition Auto Group · Long Island</span>
+    </div>
+
+    <h1>The New Salesperson's <span class="thin">Ultimate Cheat Sheet</span></h1>
+    <p class="hero-sub">Everything you need to walk the showroom floor like a veteran — the lineup, the badge language, the packages, the industry slang, the leasing math, and the exact playbook to close <b style="color:#fff;">12 units your first month.</b></p>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><b class="num">12</b><span>UNITS / GOAL MONTH 1</span></div>
+      <div class="hero-stat"><b class="num">~15</b><span>CORE MODEL LINES</span></div>
+      <div class="hero-stat"><b class="num">3</b><span>UPS/DAY MINIMUM</span></div>
+      <div class="hero-stat"><b class="num">100+</b><span>TERMS DECODED</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="jump" aria-label="Section navigation">
+  <div class="wrap">
+    <a href="#lineup">Lineup</a>
+    <a href="#badge">Decode the Badge</a>
+    <a href="#packages">Trims &amp; Packages</a>
+    <a href="#tech">Tech Glossary</a>
+    <a href="#slang">Floor Slang</a>
+    <a href="#lease">Leasing 101</a>
+    <a href="#road">Road to the Sale</a>
+    <a href="#objections">Objections</a>
+    <a href="#compare">Cross-Shop</a>
+    <a href="#plan">The 12-Car Plan</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ============ LINEUP ============ -->
+  <section id="lineup">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>The Lineup at a Glance</h2>
+      <p class="lede">Learn the ladder: as the letter climbs the alphabet and the number climbs, the car gets bigger, more expensive, and more powerful. Prices are <b>approximate US starting MSRP</b> — always confirm live in the system. Know the <b>who-buys-it</b> for each; that's what actually sells cars.</p>
+    </div>
+
+    <!-- Sedans -->
+    <div class="seg-title"><h3>Sedans &amp; Saloons</h3><span class="rule"></span></div>
+    <div class="grid g4">
+      <div class="card model">
+        <div class="top"><span class="name">CLA</span><span class="price num">~$45K</span></div>
+        <div class="body">Compact 4-door "coupe." The gateway Benz.</div>
+        <div class="who"><b>Who:</b> First-time luxury buyer, young professional, aspirational lease.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">C-Class</span><span class="price num">~$48K</span></div>
+        <div class="body">The best-seller sedan. C 300 is your bread &amp; butter.</div>
+        <div class="who"><b>Who:</b> The volume lease customer. Move-up from Honda/Toyota.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">E-Class</span><span class="price num">~$62K</span></div>
+        <div class="body">The heart of the brand. E 350 / E 450 4MATIC.</div>
+        <div class="who"><b>Who:</b> Established professional, the "real" Mercedes buyer.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">S-Class</span><span class="price num">~$118K</span></div>
+        <div class="body">The flagship. Rolling tech showcase, rear-seat luxury.</div>
+        <div class="who"><b>Who:</b> Executive, business owner, "I've arrived" buyer.</div>
+      </div>
+    </div>
+    <div class="grid g4" style="margin-top:14px;">
+      <div class="card model">
+        <div class="top"><span class="name">Maybach S-Class</span><span class="price num">~$195K</span><span class="tag may">Maybach</span></div>
+        <div class="body">Ultra-luxury S 580 / S 680. Two-tone paint, reclining rear.</div>
+        <div class="who"><b>Who:</b> Chauffeured, ultra-high-net-worth. Sell the <b>back seat.</b></div>
+      </div>
+    </div>
+
+    <!-- SUVs -->
+    <div class="seg-title"><h3>SUVs — the volume &amp; profit engine</h3><span class="rule"></span></div>
+    <div class="grid g4">
+      <div class="card model">
+        <div class="top"><span class="name">GLA</span><span class="price num">~$42K</span></div>
+        <div class="body">Subcompact SUV. Highest riding gateway model.</div>
+        <div class="who"><b>Who:</b> Young buyer wanting an SUV badge on a budget.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">GLB</span><span class="price num">~$45K</span></div>
+        <div class="body">Boxy, optional 3rd row (7 seats). Space champ of the small ones.</div>
+        <div class="who"><b>Who:</b> Small family who needs seats but wants the star.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">GLC</span><span class="price num">~$49K</span></div>
+        <div class="body">The #1 seller in the whole brand. GLC 300 4MATIC.</div>
+        <div class="who"><b>Who:</b> Everyone. The default Long Island driveway SUV.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">GLE</span><span class="price num">~$63K</span></div>
+        <div class="body">Midsize. Optional 3rd row. The "grown-up" family SUV.</div>
+        <div class="who"><b>Who:</b> Established family, trading up from GLC or an import.</div>
+      </div>
+    </div>
+    <div class="grid g4" style="margin-top:14px;">
+      <div class="card model">
+        <div class="top"><span class="name">GLS</span><span class="price num">~$88K</span></div>
+        <div class="body">Full-size 3-row. "The S-Class of SUVs." 7 seats.</div>
+        <div class="who"><b>Who:</b> Big family, wants the biggest Benz badge. High gross.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">Maybach GLS 600</span><span class="price num">~$175K</span><span class="tag may">Maybach</span></div>
+        <div class="body">Ultra-lux SUV. 4-seat "First-Class" rear option.</div>
+        <div class="who"><b>Who:</b> The buyer who wants a Bentley but likes the star.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">G-Class (G-Wagen)</span><span class="price num">~$150K</span></div>
+        <div class="body">Iconic boxy off-roader. G 550 (I6) &amp; the electric G 580. Status on wheels.</div>
+        <div class="who"><b>Who:</b> Cash buyer, celebrity energy. It sells itself — don't oversell.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">AMG G 63</span><span class="price num">~$185K</span><span class="tag amg">AMG</span></div>
+        <div class="body">Twin-turbo V8 G-Wagen. The most-wanted, hardest-to-get unit on the lot.</div>
+        <div class="who"><b>Who:</b> Allocation/waitlist buyer. Build the relationship for the next one.</div>
+      </div>
+    </div>
+
+    <!-- EV -->
+    <div class="seg-title"><h3>EQ — All-Electric</h3><span class="rule"></span></div>
+    <div class="grid g4">
+      <div class="card model">
+        <div class="top"><span class="name">EQB</span><span class="price num">~$54K</span><span class="tag ev">EV</span></div>
+        <div class="body">Electric GLB. Optional 3rd row. Practical EV entry.</div>
+        <div class="who"><b>Who:</b> Eco-minded family, HOV/tax-credit shopper.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">EQE Sedan / SUV</span><span class="price num">~$76K</span><span class="tag ev">EV</span></div>
+        <div class="body">Electric E-Class equivalent. Big range, Hyperscreen option.</div>
+        <div class="who"><b>Who:</b> Tech-forward professional cross-shopping Tesla/BMW i.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">EQS Sedan / SUV</span><span class="price num">~$105K</span><span class="tag ev">EV</span></div>
+        <div class="body">Electric flagship. Longest range, MBUX Hyperscreen.</div>
+        <div class="who"><b>Who:</b> S-Class buyer going electric; loves gadgets.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">G 580 w/ EQ</span><span class="price num">~$165K</span><span class="tag ev">EV</span></div>
+        <div class="body">Electric G-Wagen. Tank-turn "G-Turn" party trick.</div>
+        <div class="who"><b>Who:</b> G-Wagen faithful who wants the newest toy.</div>
+      </div>
+    </div>
+
+    <!-- Coupes / roadsters -->
+    <div class="seg-title"><h3>Coupes, Cabriolets &amp; Roadsters</h3><span class="rule"></span></div>
+    <div class="grid g4">
+      <div class="card model">
+        <div class="top"><span class="name">CLE</span><span class="price num">~$56K</span></div>
+        <div class="body">Coupe + Cabriolet that replaced C/E two-doors. 300 &amp; 450.</div>
+        <div class="who"><b>Who:</b> Empty-nester, second car, top-down Hamptons cruiser.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">AMG SL</span><span class="price num">~$103K</span><span class="tag amg">AMG</span></div>
+        <div class="body">The legendary roadster, now AMG-built. SL 43 / 55 / 63.</div>
+        <div class="who"><b>Who:</b> Enthusiast, weekend car, brand-loyal collector.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">AMG GT</span><span class="price num">~$137K</span><span class="tag amg">AMG</span></div>
+        <div class="body">Front-engine supercar-adjacent 2+2 coupe. The halo.</div>
+        <div class="who"><b>Who:</b> The dream. Use it to draw traffic, then right-size.</div>
+      </div>
+      <div class="card model">
+        <div class="top"><span class="name">Sprinter / Metris</span><span class="price num">~$50K+</span></div>
+        <div class="body">Commercial vans. Cargo, passenger, upfit. Fleet play.</div>
+        <div class="who"><b>Who:</b> Business owner, contractor, camper-van converter.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;" class="disclaimer">
+      <b>Reality check on pricing:</b> These are ballpark starting figures to build your mental map — trims, 4MATIC, and packages move them fast. Never quote a customer from memory. Pull the live number from the DMS / window sticker and let the desk structure payments.
+    </div>
+  </section>
+
+  <!-- ============ BADGE ============ -->
+  <section id="badge">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>Decode the Badge</h2>
+      <p class="lede">A customer will test you: "What's the difference between a C 300 and a C 43?" Read the trunk lid like a sentence — <b>Class letter · number · powertrain · driveline</b> — and you'll always have the answer.</p>
+    </div>
+
+    <dl class="deflist">
+      <div class="defrow"><dt>The Number</dt><dd>Historically engine displacement; today it's a <b>position on the ladder.</b> Higher number = more power/output within that class. A GLE 450 sits above a GLE 350.</dd></div>
+      <div class="defrow"><dt>4MATIC</dt><dd>Mercedes' <b>all-wheel drive.</b> On Long Island this is the default expectation for snow. "4MATIC+" is the performance AWD on AMG cars that can shift power fully to the rear.</dd></div>
+      <div class="defrow"><dt>AMG</dt><dd>The <b>performance division</b> (Affalterbach, Germany — "one man, one engine"). AMG 35/43/45/53/63 = increasing performance. A <b>63</b> is the top dog. AMG is a mindset sale: sound, launch, exclusivity.</dd></div>
+      <div class="defrow"><dt>Maybach</dt><dd>The <b>ultra-luxury sub-brand</b> above the S-Class and GLS. Sell the rear seat, the ride, the two-tone paint, the champagne flutes — not the horsepower.</dd></div>
+      <div class="defrow"><dt>EQ</dt><dd>The <b>electric</b> family (EQB, EQE, EQS). "EQ Technology" now also brands the newest electric models like the G 580. "EQ Boost" was the older 48-volt mild-hybrid.</dd></div>
+      <div class="defrow"><dt>Body Letters</dt><dd><b>GL_</b> = SUV (GLA, GLC, GLE, GLS). <b>CL_</b> = 4-door coupe/coupe styling (CLA, CLE). <b>SL</b> = roadster. Add the class letter after GL to place its size.</dd></div>
+      <div class="defrow"><dt>4/6/8/PHEV</dt><dd>Know what's under the hood: turbo <b>4-cyl</b> (C/E 300-class, GLC), inline <b>6</b> (the 450s, silky-smooth, mild-hybrid), <b>V8</b> (580s &amp; big AMGs), and <b>plug-in hybrids</b> (the new C 63 &amp; E 53 are electrified performance).</dd></div>
+      <div class="defrow"><dt>The "S" suffix</dt><dd>On AMG (e.g., <b>GLE 63 S</b>) it means the hotter, higher-output version. Don't confuse with S-Class.</dd></div>
+    </dl>
+
+    <div class="callout warn" style="margin-top:16px;">
+      <div class="label">⚑ Know this objection cold</div>
+      <p class="quote">"The new AMG C 63 is <em>only a 4-cylinder</em>?" — Yes, and it makes <b>671 hp</b> as an F1-derived plug-in hybrid, more than the old V8. Frame it as <em>Formula 1 technology on the street</em>, not "a downgrade." Same script for the E 53 Hybrid.</p>
+    </div>
+  </section>
+
+  <!-- ============ PACKAGES ============ -->
+  <section id="packages">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>Trims &amp; Packages</h2>
+      <p class="lede">Packages are where gross lives and where you differentiate two cars that "look the same." Mercedes bundles most modern models into three trim tiers, then layers optional packages on top.</p>
+    </div>
+
+    <div class="seg-title"><h3>The three trim tiers (C, E &amp; most new models)</h3><span class="rule"></span></div>
+    <div class="grid g3">
+      <div class="card vs">
+        <h4>Premium <span class="badge">base equipped</span></h4>
+        <ul><li><b>KEYLESS-GO</b> push-button start</li><li>Blind-spot assist, heated front seats</li><li>The volume lease build</li></ul>
+      </div>
+      <div class="card vs">
+        <h4>Exclusive <span class="badge">mid</span></h4>
+        <ul><li>Everything in Premium <b>plus</b></li><li>Burmester audio, 360° camera</li><li>Ventilated seats, memory, ambient upgrade</li></ul>
+      </div>
+      <div class="card vs">
+        <h4>Pinnacle <span class="badge">top</span></h4>
+        <ul><li>Everything in Exclusive <b>plus</b></li><li><b>Head-Up Display</b>, augmented-reality nav</li><li>MBUX rear tablet / full tech</li></ul>
+      </div>
+    </div>
+
+    <div class="seg-title"><h3>The packages that actually sell</h3><span class="rule"></span></div>
+    <dl class="deflist">
+      <div class="defrow"><dt>AMG Line</dt><dd>The <b>look</b> without the AMG engine — sportier bumpers, wheels, flat-bottom wheel. Huge on leases; customers want the aggressive face.</dd></div>
+      <div class="defrow"><dt>Night Package</dt><dd><b>Blacked-out</b> exterior trim, mirrors, badges. Pairs with AMG Line. The single most-requested style add.</dd></div>
+      <div class="defrow"><dt>Driver Assistance Pkg</dt><dd>The big safety upgrade: <b>DISTRONIC</b> adaptive cruise, Active Steering Assist, active lane change, PRE-SAFE. The "it almost drives itself" package.</dd></div>
+      <div class="defrow"><dt>Parking Assistance Pkg</dt><dd>360° surround camera + active park assist. Essential talking point for tight LI garages and parallel parking.</dd></div>
+      <div class="defrow"><dt>Warmth &amp; Comfort</dt><dd>Heated steering wheel, heated armrests, rapid heat. An easy winter close on Long Island.</dd></div>
+      <div class="defrow"><dt>Acoustic Comfort</dt><dd>Thicker laminated glass — quieter cabin. Demo it: roll the windows up on the test drive and let them hear the silence.</dd></div>
+      <div class="defrow"><dt>Burmester® Sound</dt><dd>Premium (and 3D High-End on flagships) audio. Always cue up <b>their</b> music on the demo, not yours.</dd></div>
+      <div class="defrow"><dt>Panorama Roof</dt><dd>Fixed or opening glass roof. Opens up the cabin; walk them to it before they sit down.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ============ TECH GLOSSARY ============ -->
+  <section id="tech">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Tech &amp; Feature Glossary</h2>
+      <p class="lede">These are the trademarked names customers hear in ads and from friends. Say them fluently and you sound like an expert; fumble them and you sound like a green pea.</p>
+    </div>
+    <dl class="deflist">
+      <div class="defrow"><dt>MBUX</dt><dd>Mercedes-Benz User Experience — the infotainment brain. Wake it with <b>"Hey Mercedes."</b> Demo the voice command every single time.</dd></div>
+      <div class="defrow"><dt>Hyperscreen</dt><dd>The giant single glass panel spanning the dash (EQS, S-Class option). The showroom "wow." Superscreen is the passenger-display version.</dd></div>
+      <div class="defrow"><dt>DISTRONIC</dt><dd>Adaptive cruise control that keeps distance and can stop/go in traffic. The core of Driver Assistance.</dd></div>
+      <div class="defrow"><dt>AIRMATIC</dt><dd>Air suspension — adjustable ride height &amp; comfort. Standard on flagships, optional up-sell elsewhere.</dd></div>
+      <div class="defrow"><dt>E-ACTIVE BODY CONTROL</dt><dd>Predictive suspension that scans the road and leans into curves. S/GLE flagship party trick.</dd></div>
+      <div class="defrow"><dt>PRE-SAFE®</dt><dd>Pre-crash system — tightens belts, closes windows, plays a sound to protect hearing. A safety-buyer's dream feature.</dd></div>
+      <div class="defrow"><dt>MULTIBEAM / DIGITAL LIGHT</dt><dd>Adaptive LED headlights; DIGITAL LIGHT can project symbols onto the road. Great night-drive demo.</dd></div>
+      <div class="defrow"><dt>DYNAMIC SELECT</dt><dd>Drive modes — Comfort, Sport, Sport+, Eco, Individual. Let them feel Sport vs Comfort on the test drive.</dd></div>
+      <div class="defrow"><dt>4MATIC / 4MATIC+</dt><dd>AWD / performance AWD (see the badge section). LI snow answer.</dd></div>
+      <div class="defrow"><dt>Mercedes me</dt><dd>The connected-car app — remote start, lock, vehicle status. Set it up at delivery; it drives CSI and retention.</dd></div>
+      <div class="defrow"><dt>ENERGIZING Comfort</dt><dd>Wellness program syncing lighting, climate, massage, scent. Demo it on a stressed shopper — it's magic.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ============ SLANG ============ -->
+  <section id="slang">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>Sales-Floor Slang</h2>
+      <p class="lede">The language the desk, your manager, and the vets speak. Nod along on day one; use it correctly by week two.</p>
+    </div>
+    <div class="grid g2">
+      <dl class="deflist">
+        <div class="defrow"><dt>Up / Ups</dt><dd>A prospect who walks in. "It's your up" = your turn with the next customer.</dd></div>
+        <div class="defrow"><dt>Be-back</dt><dd>Customer who leaves promising to "come back." The industry joke: <b>be-backs rarely come back</b> — so close today.</dd></div>
+        <div class="defrow"><dt>Green pea</dt><dd>A brand-new salesperson. That's you — wear it with hustle, not shame.</dd></div>
+        <div class="defrow"><dt>The Desk</dt><dd>The sales manager who structures/approves deals. You "go to the desk" for numbers.</dd></div>
+        <div class="defrow"><dt>T.O. (Turn Over)</dt><dd>Handing the customer to a manager/closer when you're stuck. Not failure — it's a tool.</dd></div>
+        <div class="defrow"><dt>Four-square</dt><dd>The worksheet: trade, price, down payment, monthly. The classic negotiation grid.</dd></div>
+        <div class="defrow"><dt>F&amp;I</dt><dd>Finance &amp; Insurance office — where the deal is finalized and back-end products are sold.</dd></div>
+        <div class="defrow"><dt>Front / Back gross</dt><dd>Profit on the car itself (front) vs. financing &amp; products (back). Your pay lives in both.</dd></div>
+      </dl>
+      <dl class="deflist">
+        <div class="defrow"><dt>Mini</dt><dd>A minimum-commission deal (little/no gross). Better than a lost sale — it counts toward your 12.</dd></div>
+        <div class="defrow"><dt>Spiff</dt><dd>A bonus for moving a specific unit (aged inventory, a slow model). Ask what's spiffed.</dd></div>
+        <div class="defrow"><dt>Demo</dt><dd>A dealer car you drive; also the act of demonstrating a vehicle to a customer.</dd></div>
+        <div class="defrow"><dt>Lot rot / Aged</dt><dd>Units sitting too long. Move these — managers love it and they're often spiffed.</dd></div>
+        <div class="defrow"><dt>ACV</dt><dd>Actual Cash Value — what the dealer really values a trade at (vs. the "allowance" the customer sees).</dd></div>
+        <div class="defrow"><dt>Upside down</dt><dd>Customer owes more than the trade is worth (negative equity). Roll it or restructure.</dd></div>
+        <div class="defrow"><dt>Skate</dt><dd>Stealing another salesperson's customer. <b>Never do this.</b> Fastest way to lose the floor's trust.</dd></div>
+        <div class="defrow"><dt>CSI</dt><dd>Customer Satisfaction Index — the survey score. Mercedes lives and dies by it; your bonuses may too.</dd></div>
+        <div class="defrow"><dt>PDI</dt><dd>Pre-Delivery Inspection — prepping the car before delivery. Confirm it's done before you promise a time.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ LEASING ============ -->
+  <section id="lease">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>Leasing 101 — Your #1 Skill</h2>
+      <p class="lede">The majority of luxury Mercedes move on <b>lease.</b> Master this and you'll out-sell veterans who only think in purchase price. You don't set the numbers — the desk does — but you must <b>speak</b> them.</p>
+    </div>
+    <dl class="deflist">
+      <div class="defrow"><dt>Cap Cost</dt><dd>The "selling price" of the car for the lease. Lower it and the payment drops. <b>Capitalized Cost Reduction</b> = money down.</dd></div>
+      <div class="defrow"><dt>Residual Value</dt><dd>What the car is projected to be worth at lease-end (set by MB Financial). <b>Higher residual = lower payment.</b> Mercedes residuals are strong — a selling point.</dd></div>
+      <div class="defrow"><dt>Money Factor (MF)</dt><dd>The lease "interest rate." Multiply by <b>2,400</b> to get the rough APR. A .00125 MF ≈ 3% APR.</dd></div>
+      <div class="defrow"><dt>Depreciation</dt><dd>Cap cost − residual. You're financing the <b>drop in value</b>, not the whole car — why leases are cheaper monthly.</dd></div>
+      <div class="defrow"><dt>Acquisition Fee</dt><dd>Bank fee to start the lease (rolled in or paid up front). Know it's coming so it doesn't surprise the customer.</dd></div>
+      <div class="defrow"><dt>Disposition Fee</dt><dd>Fee at lease-end if they walk away/don't re-lease. Waived when they get another Benz — a retention hook.</dd></div>
+      <div class="defrow"><dt>Mileage Allowance</dt><dd>Usually 7,500 / 10,000 / 12,000 mi/yr. Overage is billed per mile. <b>Qualify their commute early.</b></dd></div>
+      <div class="defrow"><dt>MSD</dt><dd>Multiple Security Deposits — an MB program where refundable deposits <b>lower the money factor.</b> Advanced move; ask the desk.</dd></div>
+    </dl>
+    <div class="callout script" style="margin-top:16px;">
+      <div class="label">Why lease — the script</div>
+      <p class="quote">"With a lease you're only paying for the years you actually drive it, so you stay in a <em>newer, safer, fully-covered</em> Mercedes for a lower monthly payment — and you get a brand-new one every three years instead of worrying about what a six-year-old car is worth."</p>
+    </div>
+  </section>
+
+  <!-- ============ ROAD TO THE SALE ============ -->
+  <section id="road">
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <h2>The Road to the Sale</h2>
+      <p class="lede">Every deal follows the same steps. Skip a step and you lose control. Follow the road and the close is just the natural last stop.</p>
+    </div>
+    <div class="grid g2">
+      <div class="card step"><div class="n">1</div><div><h4>Meet &amp; Greet</h4><p>Warm, low-pressure, hand out a card. Get the name and use it.</p><p class="say"><b>Say:</b> "Welcome to Mercedes-Benz of Smithtown — are you here to look at anything specific, or just enjoying some new cars today?"</p></div></div>
+      <div class="card step"><div class="n">2</div><div><h4>Qualify / Interview</h4><p>Needs before numbers. Budget, commute (miles!), who drives it, own vs. lease, timeline, trade.</p><p class="say"><b>Say:</b> "So I put you in exactly the right one — what's this car mainly going to do for you?"</p></div></div>
+      <div class="card step"><div class="n">3</div><div><h4>Select the Vehicle</h4><p>Pick two: one that fits the budget, one aspirational. Never overwhelm with the whole lot.</p></div></div>
+      <div class="card step"><div class="n">4</div><div><h4>Walkaround / Present</h4><p>Feature → <b>benefit</b> → <b>them.</b> "This is the 360 camera <em>(feature)</em>, so you'll never curb a wheel <em>(benefit)</em>, which matters with your tight garage <em>(them)</em>."</p></div></div>
+      <div class="card step"><div class="n">5</div><div><h4>Test Drive</h4><p>The car sells itself here. Their music on, phone paired, Sport mode once. Let silence do the work.</p></div></div>
+      <div class="card step"><div class="n">6</div><div><h4>Trial Close</h4><p>Temperature check before numbers. "Can you see yourself in this one?" / "What color would you want?"</p></div></div>
+      <div class="card step"><div class="n">7</div><div><h4>Write-Up / Desk</h4><p>Get commitment to sit down. Present payments (lease + finance + cash lanes). Go to the desk with a real customer, not a tire-kicker.</p></div></div>
+      <div class="card step"><div class="n">8</div><div><h4>Close &amp; Handle Objections</h4><p>Isolate the one real objection, answer it, ask for the sale. Silence after you ask — <b>whoever speaks first loses.</b></p></div></div>
+      <div class="card step"><div class="n">9</div><div><h4>F&amp;I Hand-Off</h4><p>Walk them in warm, set up the finance manager to win. Never bad-mouth the back-end products.</p></div></div>
+      <div class="card step"><div class="n">10</div><div><h4>Delivery &amp; Follow-Up</h4><p>Set up Mercedes me, pair the phone, take the photo. Then follow up day 1, day 7, day 30 — <b>this is where referrals &amp; your 12s next month come from.</b></p></div></div>
+    </div>
+  </section>
+
+  <!-- ============ OBJECTIONS ============ -->
+  <section id="objections">
+    <div class="sec-head">
+      <span class="sec-num">08</span>
+      <h2>Objection Handling</h2>
+      <p class="lede">An objection is a <b>request for more information</b>, not a "no." Acknowledge, answer, ask again. Keep these responses in your back pocket.</p>
+    </div>
+    <div class="tablewrap">
+      <table class="obj">
+        <thead><tr><th>They say</th><th>You say</th></tr></thead>
+        <tbody>
+          <tr><td>"I need to think about it."</td><td class="resp">"Totally fair — usually when someone says that, it's the money, the car, or the timing. Which one is it, so I can actually help?"</td></tr>
+          <tr><td>"The payment's too high."</td><td class="resp">Isolate: term, money down, or the car? Re-work the structure (lease, term, mileage) — don't just drop price. "If we could get you comfortable on the monthly, is this the car?"</td></tr>
+          <tr><td>"I want to shop around."</td><td class="resp">"Smart — most people do. What matters is you get the right car at the right number today; let me make it easy so there's nothing left to shop for."</td></tr>
+          <tr><td>"I can get it cheaper elsewhere."</td><td class="resp">Don't panic or trash them. "I believe you — let's make sure it's the same car, same term, same miles. Apples to apples, I'll earn your business."</td></tr>
+          <tr><td>"I need to talk to my spouse."</td><td class="resp">Should've been qualified in step 2. "Absolutely — let's get them on the phone / when can you both come in? What do you think they'll want to know?"</td></tr>
+          <tr><td>"Just give me your best price."</td><td class="resp">"You'll get a great number — first let me make sure this is even the right car for you, or a great price on the wrong car helps no one."</td></tr>
+          <tr><td>"It's only a 4-cylinder."</td><td class="resp">"F1-derived turbo — the AMG C 63 makes 671 hp, more than the old V8, and it's a plug-in hybrid so you get silent EV around town. It's an upgrade, not a compromise."</td></tr>
+          <tr><td>"I'll wait for the new model."</td><td class="resp">"The current one is fully available today with strong residuals — the moment the redesign lands, your lease-end timing lets you jump right into it. Let's start the clock now."</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn" style="margin-top:16px;">
+      <div class="label">⚑ The three closes to master first</div>
+      <p class="quote"><b>Assumptive:</b> "I'll get the paperwork started" (act as if it's done). &nbsp; <b>Trial:</b> "If I could do X, would you take delivery today?" &nbsp; <b>Alternative:</b> "Do you prefer the black or the silver?" — either answer is a yes.</p>
+    </div>
+  </section>
+
+  <!-- ============ CROSS-SHOP ============ -->
+  <section id="compare">
+    <div class="sec-head">
+      <span class="sec-num">09</span>
+      <h2>Cross-Shop — Know the Competition</h2>
+      <p class="lede">On Long Island your customer is also visiting BMW, Audi, Lexus, Genesis, and Tesla. Never trash a rival — <b>reframe.</b> Sell the Mercedes difference: presence, comfort, safety heritage, resale.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card vs"><h4>vs. BMW <span class="badge">Competition BMW down the road</span></h4><ul><li>BMW = "sport." <b>We = presence + comfort + luxury.</b></li><li>Sell the quieter cabin, the ride, the badge status.</li><li>"BMW is a great driver's car — Mercedes is the car you want to <b>live in</b> every day."</li></ul></div>
+      <div class="card vs"><h4>vs. Audi <span class="badge">tech-forward</span></h4><ul><li>Audi = clean tech. <b>We = MBUX + heritage + resale.</b></li><li>Lean on brand prestige and stronger lease residuals.</li></ul></div>
+      <div class="card vs"><h4>vs. Lexus <span class="badge">reliability play</span></h4><ul><li>Lexus = reliable/quiet. <b>We = the same refinement with real status.</b></li><li>"You'll get the comfort you love and a badge that says more."</li></ul></div>
+      <div class="card vs"><h4>vs. Genesis <span class="badge">value challenger</span></h4><ul><li>Genesis = value + warranty. <b>We = the star, resale, dealer network.</b></li><li>Acknowledge the value, sell the brand equity &amp; lease math.</li></ul></div>
+      <div class="card vs"><h4>vs. Tesla <span class="badge">EV shopper</span></h4><ul><li>Point them to <b>EQE / EQS.</b> Sell fit-and-finish, service, real interior luxury.</li><li>"Same electric thrill, wrapped in a Mercedes — and a dealership that takes care of you."</li></ul></div>
+      <div class="card vs"><h4>Universal reframe <span class="badge">use always</span></h4><ul><li>"They all make a nice car. The question is which one is <b>right for you</b> — let's find that, not just the cheapest."</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ THE PLAN ============ -->
+  <section id="plan">
+    <div class="sec-head">
+      <span class="sec-num">10</span>
+      <h2>The 12-Car Month Game Plan</h2>
+      <p class="lede">12 units in month one is aggressive but absolutely doable — it's <b>math and activity</b>, not luck. Work backward from the goal and control the inputs.</p>
+    </div>
+
+    <div class="math">
+      <div class="row"><span class="k">Goal</span><span class="v num">12 units</span></div>
+      <div class="row"><span class="k">Typical new-hire close rate</span><span class="v num">~20%</span></div>
+      <div class="row"><span class="k">→ Ups needed to hit 12</span><span class="v num">~60</span></div>
+      <div class="row"><span class="k">Over ~24 working days</span><span class="v num">2–3 / day</span></div>
+      <div class="row"><span class="k">Prospecting calls/texts daily</span><span class="v num">20+</span></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px;">
+      <div class="card" style="padding:16px 18px;">
+        <div class="eyebrow" style="color:var(--accent-ink);">Daily non-negotiables</div>
+        <ul class="clean" style="margin-top:10px;">
+          <li><b>Be first, leave last.</b> More floor time = more ups.</li>
+          <li>Take <b>every</b> up — greenies win on hustle, not skill.</li>
+          <li>Work your <b>sphere</b>: 20 calls/texts to friends, family, past contacts. Everyone knows you sell Benz now.</li>
+          <li>Follow up <b>every</b> be-back and internet lead within minutes.</li>
+          <li>Know 3 aged/spiffed units cold — easy grosses &amp; manager love.</li>
+          <li>Log everything in the CRM. No lead falls through.</li>
+        </ul>
+      </div>
+      <div class="card" style="padding:16px 18px;">
+        <div class="eyebrow" style="color:var(--accent-ink);">Where your 12 will come from</div>
+        <ul class="clean" style="margin-top:10px;">
+          <li><b>Floor ups</b> — walk-in traffic (your bread &amp; butter).</li>
+          <li><b>Internet / BDC leads</b> — speed wins; call in seconds.</li>
+          <li><b>Lease renewals / equity mining</b> — the desk can pull lists of customers you can put in a new car cheaper.</li>
+          <li><b>Sphere of influence</b> — your first 2–3 deals are often people who know you.</li>
+          <li><b>Referrals</b> — deliver an amazing experience, ask for two names every time.</li>
+          <li><b>Service drive</b> — customers getting service are shopping. Walk it daily.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout script" style="margin-top:18px;">
+      <div class="label">The green-pea mindset</div>
+      <p class="quote">You will not out-knowledge the 20-year vet in month one — so <b>out-work, out-follow-up, and out-care</b> them. Product knowledge (this sheet) makes you credible. Activity makes you money. Do the reps, take the T.O. when stuck, protect your CSI, and ask for the sale <em>every single time.</em></p>
+    </div>
+
+    <div class="chips" style="margin-top:20px;">
+      <span class="chip">ABC — Always Be Closing</span>
+      <span class="chip">Feature → Benefit → Them</span>
+      <span class="chip">Whoever speaks first loses</span>
+      <span class="chip">Sell the test drive</span>
+      <span class="chip">Qualify before you present</span>
+      <span class="chip">Be-backs don't come back — close today</span>
+      <span class="chip">Protect your CSI</span>
+      <span class="chip">Ask for the referral</span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Mercedes-Benz of Smithtown — New Salesperson Cheat Sheet.</b> A study &amp; floor reference for product knowledge, terminology, and sales process.</p>
+    <p style="margin-top:8px;">Model availability, trim names, package contents, and pricing change by model year and region — <b>always verify live</b> in the DMS, on the window sticker (Monroney), and with your sales desk before quoting any customer. Figures here are approximate learning aids, not offers. Not an official Mercedes-Benz USA or dealership document.</p>
+  </div>
+</footer>
