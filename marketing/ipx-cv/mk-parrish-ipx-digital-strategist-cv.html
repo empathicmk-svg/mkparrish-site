@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mary Kate Parrish — Digital Strategist · IPX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --void:#080808; --obsidian:#111111; --carbon:#1A1A1A; --graphite:#2C2C2C;
+    --iron:#4A4A4A; --ash:#7A7A7A; --smoke:#B0B0B0; --pearl:#F0F0EE; --white:#FAFAF8;
+    --blush:#FFE0EC; --petal:#FFB5D0; --rose:#F58CAD; --carmine:#D94F7C; --lipstick:#B43259;
+    --font-display:"Bebas Neue",Impact,sans-serif;
+    --font-serif:"Playfair Display",Georgia,serif;
+    --font-body:"DM Sans","Inter",system-ui,sans-serif;
+    --font-mono:"JetBrains Mono",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  @page{ size:A4; margin:0; }
+  html,body{ background:var(--void); }
+  .page{
+    width:794px; min-height:1123px; margin:0 auto; position:relative;
+    background:
+      radial-gradient(ellipse 90% 44% at 50% -8%, rgba(255,181,208,0.11), transparent 60%),
+      radial-gradient(ellipse 46% 40% at 96% 104%, rgba(217,79,124,0.09), transparent 62%),
+      var(--obsidian);
+    color:var(--pearl); font-family:var(--font-body); overflow:hidden;
+  }
+  .page::after{ /* subtle grain */
+    content:''; position:absolute; inset:0; pointer-events:none; opacity:.03; mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:220px 220px;
+  }
+
+  /* ── HEADER ─────────────────────────────── */
+  header{ padding:34px 46px 22px; border-bottom:1px solid var(--graphite); position:relative; }
+  header::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--iron), var(--petal) 50%, var(--blush), var(--petal), var(--iron), transparent); }
+  .eyebrow{ font-family:var(--font-body); font-size:8.5px; font-weight:600; letter-spacing:.34em;
+    text-transform:uppercase; color:var(--petal); margin-bottom:9px; }
+  h1{ font-family:var(--font-display); font-weight:400; font-size:60px; line-height:.9;
+    letter-spacing:.03em; text-transform:uppercase; color:var(--white); }
+  .role{ font-family:var(--font-serif); font-style:italic; font-weight:500; font-size:16.5px;
+    color:var(--smoke); margin-top:8px; }
+  .role b{ color:var(--petal); font-weight:600; font-style:italic; }
+  .contact{ display:flex; flex-wrap:wrap; gap:5px 20px; margin-top:16px;
+    font-family:var(--font-mono); font-size:9.5px; letter-spacing:.02em; color:var(--smoke); }
+  .contact span{ display:inline-flex; align-items:center; gap:6px; }
+  .contact .dot{ color:var(--petal); }
+
+  /* ── BODY GRID ──────────────────────────── */
+  .grid{ display:grid; grid-template-columns:224px 1fr; }
+  .rail{ padding:24px 24px 30px 46px; border-right:1px solid var(--graphite); }
+  .main{ padding:24px 46px 30px 26px; }
+
+  .sect{ margin-bottom:22px; }
+  .sect:last-child{ margin-bottom:0; }
+  .sect-h{ font-family:var(--font-display); font-weight:400; font-size:16px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--pearl); display:flex; align-items:center; gap:10px; margin-bottom:13px; }
+  .sect-h::after{ content:''; flex:1; height:1px; background:linear-gradient(90deg, rgba(255,181,208,.5), transparent); }
+
+  /* summary */
+  .summary{ font-size:11px; line-height:1.62; color:var(--smoke); max-width:none; }
+  .summary b{ color:var(--pearl); font-weight:600; }
+  .summary em{ font-family:var(--font-serif); font-style:italic; color:var(--petal); }
+
+  /* stat row */
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--graphite);
+    border:1px solid var(--graphite); margin:16px 0 4px; }
+  .stat{ background:var(--obsidian); padding:11px 10px 10px; text-align:center; }
+  .stat .n{ font-family:var(--font-display); font-size:26px; line-height:.9; color:var(--white); }
+  .stat .n small{ font-size:15px; color:var(--petal); }
+  .stat .l{ font-family:var(--font-body); font-size:7px; font-weight:600; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--ash); margin-top:6px; }
+
+  /* rail expertise */
+  .exp-list{ list-style:none; }
+  .exp-list li{ font-size:9.7px; line-height:1.32; color:var(--smoke); padding:5.5px 0 5.5px 14px;
+    position:relative; border-bottom:1px solid rgba(44,44,44,.7); }
+  .exp-list li:last-child{ border-bottom:none; }
+  .exp-list li::before{ content:''; position:absolute; left:0; top:10px; width:5px; height:5px;
+    background:var(--petal); }
+
+  .rail-lead{ font-family:var(--font-mono); font-size:8px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--iron); margin:2px 0 12px; }
+
+  /* education / tools blocks */
+  .edu{ margin-bottom:13px; }
+  .edu .school{ font-size:9.6px; font-weight:700; color:var(--pearl); line-height:1.25; letter-spacing:.01em; }
+  .edu .deg{ font-size:9px; color:var(--smoke); margin-top:2px; line-height:1.4; }
+  .edu .yr{ font-family:var(--font-mono); font-size:8px; color:var(--petal); margin-top:3px; letter-spacing:.06em; }
+
+  .tags{ display:flex; flex-wrap:wrap; gap:5px; }
+  .tag{ font-family:var(--font-body); font-size:7.5px; font-weight:700; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--petal); border:1px solid rgba(255,181,208,.32);
+    background:rgba(255,181,208,.05); padding:3px 7px; }
+
+  /* experience */
+  .job{ padding:0 0 13px; margin-bottom:13px; border-bottom:1px solid var(--graphite); }
+  .job:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .job-top{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .job-title{ font-size:11px; font-weight:700; letter-spacing:.02em; color:var(--pearl); text-transform:uppercase; }
+  .job-yr{ font-family:var(--font-mono); font-size:8.5px; color:var(--petal); white-space:nowrap; letter-spacing:.04em; }
+  .job-co{ font-family:var(--font-serif); font-style:italic; font-size:10.5px; color:var(--rose); margin-top:2px; }
+  .job ul{ list-style:none; margin-top:7px; }
+  .job li{ font-size:9.6px; line-height:1.44; color:var(--smoke); padding-left:13px; position:relative; margin-bottom:3.5px; }
+  .job li:last-child{ margin-bottom:0; }
+  .job li::before{ content:''; position:absolute; left:0; top:6px; width:4px; height:4px; background:rgba(255,181,208,.55); }
+  .job li b{ color:var(--pearl); font-weight:600; }
+
+  footer{ position:absolute; bottom:0; left:0; right:0; padding:9px 46px;
+    border-top:1px solid var(--graphite); display:flex; justify-content:space-between; align-items:center;
+    background:var(--void); }
+  .foot-name{ font-family:var(--font-display); font-size:14px; letter-spacing:.08em; color:var(--white); }
+  .foot-tag{ font-family:var(--font-mono); font-size:7.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--iron); }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="eyebrow">Curriculum Vitae · Contract Engagement</div>
+    <h1>Mary Kate Parrish</h1>
+    <div class="role">Digital Strategist — <b>Paid Media, Creator &amp; Launch Growth</b></div>
+    <div class="contact">
+      <span><span class="dot">◆</span> New York, NY</span>
+      <span><span class="dot">◆</span> (347) 853-4238</span>
+      <span><span class="dot">◆</span> mkp414@icloud.com</span>
+      <span><span class="dot">◆</span> mkparrish.com</span>
+      <span><span class="dot">◆</span> linkedin.com/in/mkparrish</span>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- ── RAIL ── -->
+    <aside class="rail">
+      <div class="sect">
+        <div class="sect-h">Expertise</div>
+        <div class="rail-lead">Full-funnel digital</div>
+        <ul class="exp-list">
+          <li>Paid Media &amp; Media Buying — Meta, TikTok, YouTube, Programmatic</li>
+          <li>Creator &amp; Influencer Marketing</li>
+          <li>Pre-Launch &amp; Waitlist Growth</li>
+          <li>Demand Gen &amp; Funnel Strategy</li>
+          <li>Audience Segmentation &amp; Retargeting</li>
+          <li>Brand Positioning &amp; GTM Messaging</li>
+          <li>Conversion Web &amp; Landing Pages</li>
+          <li>KPI Reporting, ROAS &amp; Analytics</li>
+          <li>A/B Testing &amp; Optimization</li>
+          <li>AI-Powered Campaign Strategy</li>
+        </ul>
+      </div>
+
+      <div class="sect">
+        <div class="sect-h">Toolkit</div>
+        <div class="tags">
+          <span class="tag">Meta Ads</span><span class="tag">TikTok</span><span class="tag">YouTube</span>
+          <span class="tag">Programmatic</span><span class="tag">GA4</span><span class="tag">HubSpot</span>
+          <span class="tag">Salesforce</span><span class="tag">Figma</span><span class="tag">Web3 / Base</span>
+        </div>
+      </div>
+
+      <div class="sect">
+        <div class="sect-h">Education</div>
+        <div class="edu">
+          <div class="school">The George Washington University — School of Business</div>
+          <div class="deg">B.B.A., Concentration in Marketing</div>
+          <div class="yr">2009</div>
+        </div>
+        <div class="edu">
+          <div class="school">The Marymount School of New York</div>
+          <div class="deg">Full Butler Scholarship</div>
+          <div class="yr">2005</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── MAIN ── -->
+    <main class="main">
+      <div class="sect">
+        <div class="sect-h">Profile</div>
+        <p class="summary">
+          Senior growth operator with <b>20+ years</b> building demand at the intersection of
+          <em>entertainment IP, creator economies, and performance media.</em> I turn how a company is
+          seen into revenue it can prove — <b>$40M+ in influenced pipeline</b>, cold-reply rates as high as
+          <b>32%</b>, and a publisher network scaled to <b>80M+ monthly viewers</b>. Built for pre-launch:
+          I stand up segmented paid campaigns, read signal fast, and hand founders a repeatable acquisition
+          engine ready to scale. <b>One senior operator, no layers.</b>
+        </p>
+        <div class="stats">
+          <div class="stat"><div class="n">$40M<small>+</small></div><div class="l">Influenced Pipeline</div></div>
+          <div class="stat"><div class="n">80M<small>+</small></div><div class="l">Monthly Viewers Scaled</div></div>
+          <div class="stat"><div class="n">32<small>%</small></div><div class="l">Peak Cold-Reply Rate</div></div>
+        </div>
+      </div>
+
+      <div class="sect">
+        <div class="sect-h">Selected Experience</div>
+
+        <div class="job">
+          <div class="job-top">
+            <div class="job-title">Founder &amp; Digital Strategy Consultant</div>
+            <div class="job-yr">2024 — Present</div>
+          </div>
+          <div class="job-co">MK Parrish · New York, NY</div>
+          <ul>
+            <li>Design and run <b>multi-channel paid media and demand programs</b> — Meta, TikTok, YouTube, programmatic, and retargeting — optimizing spend against segment-level engagement and pipeline.</li>
+            <li>Build <b>brand positioning, launch narratives, and conversion websites</b> that move the market's perception before the first call.</li>
+            <li>Deploy <b>AI-powered campaign strategy and A/B testing</b> to compress creative cycles and scale winners fast.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <div class="job-title">Senior Partner Account Manager · Creator &amp; Brand</div>
+            <div class="job-yr">2012 — 2018</div>
+          </div>
+          <div class="job-co">DEFY Media · New York, NY</div>
+          <ul>
+            <li>Scaled a creator publisher network to <b>150+ partners, 80M+ monthly viewers and 600M+ views</b> at the peak of youth-focused digital entertainment.</li>
+            <li>Led monetization and marketing for <b>Smosh</b> (then the #1 YouTube channel), ClevverTV, and flagship creator brands.</li>
+            <li>Closed multimillion-dollar <b>branded-content deals with Sony, Warner Bros., and Google</b>, aligning creative to cross-platform growth.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <div class="job-title">Marketing Manager · Growth &amp; Paid Media</div>
+            <div class="job-yr">2024 — 2026</div>
+          </div>
+          <div class="job-co">Atlantic Ultraviolet Corporation · Long Island, NY</div>
+          <ul>
+            <li>Owned <b>paid media and ROI-driven account-based programs</b>, optimizing spend against engagement, penetration, and marketing-influenced revenue.</li>
+            <li>Partnered with sales leadership in recurring pipeline reviews to align messaging to deal stage and accelerate revenue.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <div class="job-title">Senior Channel Marketing Manager</div>
+            <div class="job-yr">2019 — 2023</div>
+          </div>
+          <div class="job-co">Vonage (acquired by Ericsson) · Remote</div>
+          <ul>
+            <li>Scaled partner marketing from launch to <b>$200M+ in influenced revenue</b>; localized campaigns lifted engagement <b>45%</b>.</li>
+            <li>Launched <em>Dollars for Demos</em> — shortened sales cycles <b>30%</b> and lifted enterprise win rates <b>15%</b>.</li>
+          </ul>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <div class="foot-name">MK Parrish</div>
+    <div class="foot-tag">Digital Strategist · Growth · Creator Media</div>
+  </footer>
+</div>
+</body>
+</html>
