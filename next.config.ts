@@ -59,6 +59,12 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
+      {
+        // Static files in public/ are served as octet-stream by default;
+        // browsers need the manifest MIME type to honour start_url.
+        source: "/desk.webmanifest",
+        headers: [{ key: "Content-Type", value: "application/manifest+json" }],
+      },
     ];
   },
   async redirects() {

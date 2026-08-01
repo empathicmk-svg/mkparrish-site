@@ -3,6 +3,10 @@ import DeskApp from "./DeskApp";
 
 export const metadata: Metadata = {
   title: "Deal Desk",
+  // Override the site-wide manifest. Its start_url is "/", which iOS and
+  // Android use for "Add to Home Screen" — so without this the shortcut points
+  // at the marketing homepage instead of this tool.
+  manifest: "/desk.webmanifest",
   // Private working tool, not part of the public site.
   robots: { index: false, follow: false, nocache: true },
   // Makes "Add to Home Screen" produce a real app icon that opens fullscreen
