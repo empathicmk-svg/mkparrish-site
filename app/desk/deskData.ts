@@ -12,6 +12,7 @@
 export type ModelSpec = {
   name: string;
   mib: number;
+  group?: string;   // dropdown grouping, e.g. "GLE", "Sprinter / Vans"
   van?: boolean;
   r: Record<string, number>;  // residual % of MSRP, keyed by term
   mf: Record<string, number>; // money factor, keyed by term

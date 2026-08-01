@@ -263,7 +263,20 @@ function Quote({ cfg }: { cfg: DeskConfig | null }) {
         <div className="row one"><div>
           <label htmlFor="dk-m">Model</label>
           <select id="dk-m" value={mk || keys[0]} onChange={(e) => setMk(e.target.value)}>
-            {keys.map((k) => <option key={k} value={k}>{cfg.models[k].name}</option>)}
+            {(() => {
+              // Group the list so a full lineup stays navigable on a phone.
+              const groups = new Map<string, string[]>();
+              for (const k of keys) {
+                const g = cfg.models[k].group || 'Models';
+                if (!groups.has(g)) groups.set(g, []);
+                groups.get(g)!.push(k);
+              }
+              return [...groups.entries()].map(([g, ks]) => (
+                <optgroup key={g} label={g}>
+                  {ks.map((k) => <option key={k} value={k}>{cfg.models[k].name}</option>)}
+                </optgroup>
+              ));
+            })()}
           </select>
         </div></div>
         <div className="row">
