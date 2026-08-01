@@ -6,7 +6,7 @@
  *   node sales/daily.mjs            # today
  *   node sales/daily.mjs --day sat  # preview another shift
  */
-import { config, loadJson, today, daysBetween, shiftsLeft, c, heading, rule, args } from './lib/util.mjs';
+import { config, loadJson, today, daysBetween, shiftsLeft, shiftsInMonth, c, heading, rule, args } from './lib/util.mjs';
 
 const PLAYS = {
   evening: {
@@ -82,10 +82,17 @@ const perShift = left > 0 ? (remaining / left) : remaining;
 
 console.log(rule());
 console.log(c.bold('PACE'));
-const bar = '█'.repeat(Math.round((sold / goal) * 24)).padEnd(24, '·');
-const onPace = sold >= goal * (1 - left / Math.max(1, shiftsLeft(iso.slice(0, 8) + '01')));
+const totalShifts = shiftsInMonth(iso);
+const worked = totalShifts - left;
+const expected = goal * (worked / totalShifts);   // where you should be by now
+const filled = Math.min(24, Math.round((sold / goal) * 24));
+const bar = '█'.repeat(filled).padEnd(24, '·');
+const onPace = sold >= expected;
 console.log(`  ${(onPace ? c.green : c.yellow)(bar)}  ${c.bold(sold + '/' + goal)} units`);
 console.log(`  ${left} shifts left · need ${c.bold(remaining)} more · ${perShift.toFixed(1)}/shift`);
+console.log(onPace
+  ? c.green(`  On pace (expected ~${expected.toFixed(1)} by now)`)
+  : c.yellow(`  Behind by ${(expected - sold).toFixed(1)} — expected ~${expected.toFixed(1)} by now`));
 
 // ---- due follow-ups ----
 const due = db.prospects.filter((p) => {

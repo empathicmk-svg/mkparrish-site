@@ -14,6 +14,7 @@ node sales/daily.mjs        # ← run this when you clock in
 | `node sales/pipeline.mjs due` | Exactly who to call right now |
 | `node sales/quote.mjs` | Ballpark a lease/finance payment on the phone |
 | `node sales/targets.mjs` | Sprinter prospecting — qualified CBSP brands |
+| `node sales/earnings.mjs` | What a deal pays you + where the bonus cliffs are |
 
 ---
 
@@ -90,6 +91,22 @@ node sales/targets.mjs --worked mr-rooter
 brand's official locator URL — you pull the real local franchisee, with a real
 phone number, from the source. Made-up prospects waste shifts.
 
+### earnings.mjs
+
+Reads `sales/data/payplan.json` — **gitignored**, because your plan carries an
+NDA clause. Never commit it.
+
+```bash
+node sales/earnings.mjs cliffs                          # the bonus ladder
+node sales/earnings.mjs deal --front 2200 --back 900 --spot
+node sales/earnings.mjs deal --front 600 --loaner       # shows the minimum kicking in
+node sales/earnings.mjs month --units 14 --gross 30000
+```
+
+`cliffs` is the one to internalize. Unit 12 switches the bonus on, and **unit 15
+more than doubles the cash bonus** ($350 → $750). Units 20 and 25 are the next
+two jumps.
+
 ---
 
 ## Daily rhythm
@@ -110,6 +127,9 @@ node sales/quote.mjs --model gle350 --msrp 68000 --term 24 --target 699
 
 # closing out
 node sales/pipeline.mjs appt 3 --when "Sat 11a"
+
+# should I fight for this last deal on the 31st?
+node sales/earnings.mjs month --units 14 --gross 30000
 ```
 
 See `AI-PLAYBOOK.md` for prompt templates that plug into these.

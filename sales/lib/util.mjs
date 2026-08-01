@@ -44,7 +44,7 @@ export function addDays(iso, n) {
   return today(d);
 }
 
-/** Working days remaining in the month, honoring the day off. */
+/** Working days from `fromIso` through the end of that month, honoring the day off. */
 export function shiftsLeft(fromIso) {
   const d = parseDate(fromIso);
   const month = d.getMonth();
@@ -54,6 +54,27 @@ export function shiftsLeft(fromIso) {
     d.setDate(d.getDate() + 1);
   }
   return count;
+}
+
+/** Total working days in the month containing `iso`. */
+export function shiftsInMonth(iso) {
+  return shiftsLeft(iso.slice(0, 8) + '01');
+}
+
+/**
+ * Numeric flag parsing that fails loudly.
+ * `--down` with no value used to become NaN and silently poison every
+ * downstream figure, which on a quote is worse than crashing.
+ */
+export function num(value, name, fallback = null) {
+  if (value === undefined) {
+    if (fallback !== null) return fallback;
+    throw new Error(`Missing --${name}`);
+  }
+  if (value === true) throw new Error(`--${name} needs a number (got a bare flag)`);
+  const n = Number(value);
+  if (!Number.isFinite(n)) throw new Error(`--${name} must be a number, got "${value}"`);
+  return n;
 }
 
 // ---- tiny terminal styling (no deps) ----

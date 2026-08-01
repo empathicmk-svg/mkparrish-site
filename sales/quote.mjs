@@ -14,7 +14,7 @@
  *
  * Data: August 2026 MBFS Sales Program Guide + Van Program Guide, tiers A1-T2.
  */
-import { c, heading, rule, args, money } from './lib/util.mjs';
+import { c, heading, rule, args, money, num } from './lib/util.mjs';
 
 // residual = % of MSRP by term; mf = money factor by term
 const MODELS = {
@@ -49,19 +49,24 @@ const key = String(a.model).toLowerCase();
 const m = MODELS[key];
 if (!m) { console.error(c.red(`Unknown model "${a.model}". Run --list.`)); process.exit(1); }
 
-const msrp = Number(a.msrp);
-if (!msrp) { console.error(c.red('Need --msrp (e.g. --msrp 52000)')); process.exit(1); }
-
-const term = Number(a.term || 36);
-const down = Number(a.down || 0);
-const sell = Number(a.sell || msrp);          // selling price before incentives
-const rebate = a.rebate !== undefined ? Number(a.rebate) : m.mib;
+let msrp, term, down, sell, rebate;
+try {
+  msrp = num(a.msrp, 'msrp');
+  if (msrp <= 0) throw new Error('--msrp must be greater than 0');
+  term = num(a.term, 'term', 36);
+  down = num(a.down, 'down', 0);
+  sell = num(a.sell, 'sell', msrp);
+  rebate = num(a.rebate, 'rebate', m.mib);
+} catch (err) {
+  console.error(c.red('✗ ') + err.message);
+  process.exit(1);
+}
 
 console.log(heading(`${m.name} — ${money(msrp)} MSRP`));
 
 if (a.finance) {
   // ---- finance ----
-  const apr = Number(a.finance);
+  const apr = num(a.finance, 'finance');
   const principal = sell - down - rebate;
   const r = apr / 100 / 12;
   const pmt = r === 0 ? principal / term : (principal * r) / (1 - Math.pow(1 + r, -term));
@@ -100,7 +105,7 @@ if (a.finance) {
 
   // Work backward: what selling price lands a target payment?
   if (a.target) {
-    const target = Number(a.target);
+    const target = num(a.target, 'target');
     const neededCap = (target - residual * (mf - 1 / term)) / (1 / term + mf);
     const neededSell = neededCap + down + rebate;
     const discount = sell - neededSell;
