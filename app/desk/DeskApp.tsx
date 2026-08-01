@@ -96,6 +96,38 @@ const CSS = `
 .dk .chev{color:var(--ink3);font-size:1.1rem;flex:none}
 .dk .scripttext{font-size:.86rem;color:var(--ink2);background:var(--sf2);padding:11px;border-radius:9px;margin:0 0 8px;line-height:1.5}
 .dk a.sm{text-decoration:none;display:inline-block}
+.dk .ctr-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.dk .ctr{position:relative;text-align:center}
+.dk .ctr-btn{width:100%;padding:9px 2px 7px;border:1px solid var(--line);border-radius:11px;
+ background:var(--sf2);font-family:inherit;cursor:pointer;display:flex;flex-direction:column;
+ align-items:center;gap:1px;color:var(--ink);-webkit-tap-highlight-color:transparent}
+.dk .ctr-btn:active{background:var(--acc);border-color:var(--acc);transform:scale(.96)}
+.dk .ctr-btn:active .ctr-n,.dk .ctr-btn:active .ctr-ic{color:#fff}
+.dk .ctr-ic{font-size:1rem;line-height:1}
+.dk .ctr-n{font-size:1.25rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.15}
+.dk .ctr-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink3);font-weight:700;margin-top:3px}
+.dk .ctr-minus{position:absolute;top:-5px;right:-3px;width:21px;height:21px;border-radius:50%;
+ border:1px solid var(--line);background:var(--sf);color:var(--ink3);font-size:.85rem;line-height:1;
+ font-family:inherit;cursor:pointer;padding:0}
+.dk .barrow{margin-bottom:9px}
+.dk .barlab{display:flex;justify-content:space-between;font-size:.78rem;color:var(--ink2);margin-bottom:3px}
+.dk .barlab b{font-variant-numeric:tabular-nums}
+.dk .bartrack{height:7px;background:var(--sf2);border-radius:99px;overflow:hidden}
+.dk .barfill{height:100%;border-radius:99px;transition:width .25s ease}
+.dk .week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:12px}
+.dk .wk{text-align:center}
+.dk .wk-bar{height:34px;background:var(--sf2);border-radius:5px;display:flex;align-items:flex-end;overflow:hidden}
+.dk .wk-fill{width:100%;border-radius:5px;transition:height .25s ease}
+.dk .wk-d{font-size:.6rem;color:var(--ink3);font-weight:700;margin-top:3px}
+.dk .wk-d.on{color:var(--acc)}
+.dk ul.checks{list-style:none;margin:6px 0 0;padding:0}
+.dk ul.checks li{margin:0}
+.dk .chk{display:flex;gap:9px;align-items:flex-start;width:100%;background:none;border:0;
+ padding:7px 0;font-family:inherit;font-size:.86rem;color:var(--ink2);text-align:left;cursor:pointer}
+.dk .chk .box{flex:none;width:19px;height:19px;border:2px solid var(--line-strong,var(--ink3));border-radius:5px;
+ display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#fff;margin-top:1px}
+.dk .chk.on .box{background:var(--good);border-color:var(--good)}
+.dk .chk.on .txt{text-decoration:line-through;color:var(--ink3)}
 `;
 
 type Tab = 'today' | 'quote' | 'pay' | 'cliffs' | 'pipe' | 'setup';

@@ -7,6 +7,30 @@ import {
   type Shift,
 } from './deskPlan';
 import { CADENCE, type Prospect, todayISO, daysBetween, nextDue } from './deskData';
+import {
+  COUNTERS, TARGETS, type Activity, type CounterKey,
+  loadActivity, saveActivity, dayOf, touchesOf, dayScore, hitTargets, streak, recentDays,
+} from './deskActivity';
+
+function Bar({ label, value, target, emphasise }: {
+  label: string; value: number; target: number; emphasise?: boolean;
+}) {
+  const pct = Math.min(100, (value / target) * 100);
+  const hit = value >= target;
+  return (
+    <div className="barrow">
+      <div className="barlab">
+        <span>{label}</span>
+        <b style={{ color: hit ? 'var(--good)' : emphasise ? 'var(--acc)' : 'var(--ink)' }}>
+          {value}<span style={{ color: 'var(--ink3)', fontWeight: 400 }}>/{target}</span>
+        </b>
+      </div>
+      <div className="bartrack">
+        <div className="barfill" style={{ width: `${pct}%`, background: hit ? 'var(--good)' : 'var(--acc)' }} />
+      </div>
+    </div>
+  );
+}
 
 type Props = {
   pipe: Prospect[];
@@ -21,6 +45,7 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
   const [copied, setCopied] = useState('');
   const [openScript, setOpenScript] = useState<string | null>(null);
   const [showBrands, setShowBrands] = useState(false);
+  const [act, setAct] = useState<Activity>({});
 
   // Set on the client only — rendering a clock during SSR causes a hydration
   // mismatch, and the server's timezone is not the user's anyway.
@@ -28,6 +53,7 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
     setNow(new Date());
     const t = setInterval(() => setNow(new Date()), 60_000);
     try { setName(localStorage.getItem(NAME_KEY) || ''); } catch { /* private mode */ }
+    setAct(loadActivity());
     return () => clearInterval(t);
   }, []);
 
@@ -51,6 +77,24 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
   const block = shift ? currentBlock(shift, now) : null;
   const isCommercialDay = now.getDay() === 4 || now.getDay() === 5;
   const hello = name ? `${greeting(now)}, ${name}` : greeting(now);
+
+  const log = dayOf(act, iso);
+  const isWorkDay = (d: Date) => !!SHIFTS[d.getDay()];
+  const run = streak(act, iso, isWorkDay);
+  const week = recentDays(act, iso, isWorkDay);
+  const score = dayScore(log);
+
+  const bump = (key: CounterKey, delta: number) => {
+    const next: Activity = { ...act, [iso]: { ...log, [key]: Math.max(0, log[key] + delta) } };
+    setAct(next); saveActivity(next);
+  };
+  const toggleDone = (id: string) => {
+    const done = log.done.includes(id) ? log.done.filter((x) => x !== id) : [...log.done, id];
+    const next: Activity = { ...act, [iso]: { ...log, done } };
+    setAct(next); saveActivity(next);
+  };
+  const totalTodos = shift ? shift.blocks.reduce((n, b) => n + b.todo.length, 0) : 0;
+  const doneCount = log.done.length;
 
   const copy = async (id: string, text: string) => {
     try {
@@ -87,6 +131,69 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
           <div className="mini">per shift</div>
         </div>
       </div>
+
+      {/* ── TODAY'S ACTIVITY — the part you actually control ── */}
+      {shift && (
+        <div className="card">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
+            <h3 className="h3" style={{ margin: 0 }}>Today&rsquo;s work</h3>
+            {run > 0 && <span className="badge today">🔥 {run}-shift streak</span>}
+          </div>
+          <p className="body" style={{ fontSize: '.8rem', marginBottom: 10 }}>
+            Tap as you go. These are the numbers you control — units follow them.
+          </p>
+
+          <div className="ctr-grid">
+            {COUNTERS.map((c) => (
+              <div className="ctr" key={c.key}>
+                <button className="ctr-btn" onClick={() => bump(c.key, 1)} aria-label={`Add one ${c.label}`}>
+                  <span className="ctr-ic">{c.icon}</span>
+                  <span className="ctr-n">{log[c.key]}</span>
+                </button>
+                <div className="ctr-lbl">{c.label}</div>
+                <button className="ctr-minus" onClick={() => bump(c.key, -1)} aria-label={`Remove one ${c.label}`}>−</button>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 12 }}>
+            <Bar label="Touches" value={touchesOf(log)} target={TARGETS.touches} />
+            <Bar label="Conversations" value={log.convos} target={TARGETS.convos} />
+            <Bar label="Appointments set" value={log.appts} target={TARGETS.appts} emphasise />
+          </div>
+
+          {hitTargets(log) ? (
+            <p className="note" style={{ color: 'var(--good)', fontWeight: 700 }}>
+              ✓ All three targets hit. That is a day that produces units.
+            </p>
+          ) : (
+            <p className="note">
+              {TARGETS.appts - log.appts > 0
+                ? `${TARGETS.appts - log.appts} more appointment${TARGETS.appts - log.appts === 1 ? '' : 's'} to hit today's number.`
+                : `Appointments done. ${Math.max(0, TARGETS.touches - touchesOf(log))} touches to go.`}
+            </p>
+          )}
+
+          {/* week strip */}
+          <div className="week">
+            {week.map((d) => {
+              const h = d.off ? 0 : Math.round(dayScore(d.log) * 100);
+              return (
+                <div className="wk" key={d.iso} title={d.iso}>
+                  <div className="wk-bar">
+                    <div className="wk-fill" style={{
+                      height: `${d.off ? 0 : Math.max(4, h)}%`,
+                      background: hitTargets(d.log) ? 'var(--good)' : 'var(--acc)',
+                    }} />
+                  </div>
+                  <div className={'wk-d' + (d.iso === iso ? ' on' : '')}>{d.off ? '·' : d.label}</div>
+                </div>
+              );
+            })}
+          </div>
+          <p className="note" style={{ marginTop: 4 }}>Last 7 days · green = all targets hit</p>
+        </div>
+      )}
 
       {/* ── day off ── */}
       {!shift && (
@@ -149,7 +256,10 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
 
           {/* ── the shift ── */}
           <div className="card">
-            <h3 className="h3">{shift.day} — {shift.headline}</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
+              <h3 className="h3">{shift.day} — {shift.headline}</h3>
+              <span className="mini" style={{ whiteSpace: 'nowrap' }}>{doneCount}/{totalTodos} done</span>
+            </div>
             <p className="body">{shift.why}</p>
             <div style={{ marginTop: 10 }}>
               {shift.blocks.map((b, i) => {
@@ -161,7 +271,20 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
                       <span className={'blklabel' + (b.power ? ' power' : '')}>{b.label}</span>
                       {isNow && <span className="badge today">NOW</span>}
                     </div>
-                    <ul className="todo">{b.todo.map((t, j) => <li key={j}>{t}</li>)}</ul>
+                    <ul className="checks">
+                      {b.todo.map((t, j) => {
+                        const id = `${i}-${j}`;
+                        const isDone = log.done.includes(id);
+                        return (
+                          <li key={j}>
+                            <button className={'chk' + (isDone ? ' on' : '')} onClick={() => toggleDone(id)}>
+                              <span className="box">{isDone ? '✓' : ''}</span>
+                              <span className="txt">{t}</span>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
                 );
               })}
