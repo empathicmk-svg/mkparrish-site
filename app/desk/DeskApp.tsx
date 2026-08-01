@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import Today from './Today';
 import {
   CADENCE, CFG_KEY, PIPE_KEY, SOURCES,
   type DeskConfig, type Prospect,
@@ -64,20 +65,46 @@ const CSS = `
 .dk .badge.today{background:var(--goods);color:var(--good)}
 .dk .empty{text-align:center;color:var(--ink3);font-size:.87rem;padding:22px 8px}
 .dk nav{position:fixed;left:0;right:0;bottom:0;height:calc(var(--tabh) + env(safe-area-inset-bottom));
- padding-bottom:env(safe-area-inset-bottom);display:grid;grid-template-columns:repeat(5,1fr);
+ padding-bottom:env(safe-area-inset-bottom);display:grid;grid-template-columns:repeat(6,1fr);
  background:var(--sf);border-top:1px solid var(--line);z-index:30}
-.dk nav button{border:0;background:none;color:var(--ink3);font-family:inherit;font-size:.66rem;font-weight:700;
+.dk nav button{border:0;background:none;color:var(--ink3);font-family:inherit;font-size:.6rem;font-weight:700;
  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;padding:0}
 .dk nav button .ic{font-size:1.1rem;line-height:1}
 .dk nav button[aria-selected="true"]{color:var(--acc)}
+
+.dk .big2{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.dk .mini{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:700;margin-top:2px}
+.dk .h3{font-size:1rem;font-weight:750;margin:0 0 6px;color:var(--ink);background:none;-webkit-text-fill-color:currentColor}
+.dk .body{font-size:.88rem;color:var(--ink2);margin:0}
+.dk .card.accent{border-color:var(--acc);background:linear-gradient(180deg,var(--accs),var(--sf) 65%)}
+.dk ul.todo{margin:6px 0 0;padding-left:17px;font-size:.86rem;color:var(--ink2)}
+.dk ul.todo li{margin:4px 0}
+.dk ol.steps{margin:6px 0 0;padding-left:19px;font-size:.88rem;color:var(--ink2)}
+.dk ol.steps li{margin:6px 0}
+.dk .blk{padding:9px 0;border-top:1px solid var(--line)}
+.dk .blk:first-child{border-top:0}
+.dk .blk.now{background:var(--accs);margin:0 -14px;padding:9px 14px;border-radius:8px}
+.dk .blkhead{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.dk .blktime{font-size:.72rem;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dk .blklabel{font-size:.88rem;font-weight:700}
+.dk .blklabel.power{color:var(--acc);text-transform:uppercase;letter-spacing:.02em;font-size:.8rem}
+.dk .scriptrow{border-top:1px solid var(--line);padding:2px 0}
+.dk .scriptrow:first-of-type{border-top:0}
+.dk .scripthead{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;
+ background:none;border:0;padding:11px 0;font-family:inherit;font-size:.88rem;font-weight:650;
+ color:var(--ink);text-align:left;cursor:pointer}
+.dk .chev{color:var(--ink3);font-size:1.1rem;flex:none}
+.dk .scripttext{font-size:.86rem;color:var(--ink2);background:var(--sf2);padding:11px;border-radius:9px;margin:0 0 8px;line-height:1.5}
+.dk a.sm{text-decoration:none;display:inline-block}
 `;
 
-type Tab = 'quote' | 'pay' | 'cliffs' | 'pipe' | 'setup';
+type Tab = 'today' | 'quote' | 'pay' | 'cliffs' | 'pipe' | 'setup';
 
 export default function DeskApp() {
   const [cfg, setCfg] = useState<DeskConfig | null>(null);
   const [pipe, setPipe] = useState<Prospect[]>([]);
-  const [tab, setTab] = useState<Tab>('quote');
+  const [tab, setTab] = useState<Tab>('today');
+  const [autoImport, setAutoImport] = useState(false);
   const [ready, setReady] = useState(false);
   const [locked, setLocked] = useState(false);
 
@@ -112,15 +139,23 @@ export default function DeskApp() {
   return (
     <div className="dk">
       <style>{CSS}</style>
+      {tab === 'today' && (
+        <Today
+          pipe={pipe}
+          goal={cfg?.goal ?? 15}
+          onGoImport={() => { setAutoImport(true); setTab('pipe'); window.scrollTo(0, 0); }}
+          onGoFollowUp={() => { setTab('pipe'); window.scrollTo(0, 0); }}
+        />
+      )}
       {tab === 'quote' && <Quote cfg={cfg} />}
       {tab === 'pay' && <Pay cfg={cfg} />}
       {tab === 'cliffs' && <Cliffs cfg={cfg} />}
-      {tab === 'pipe' && <Pipe pipe={pipe} save={savePipe} />}
+      {tab === 'pipe' && <Pipe pipe={pipe} save={savePipe} autoImport={autoImport} clearAutoImport={() => setAutoImport(false)} />}
       {tab === 'setup' && <Setup cfg={cfg} onSave={setCfg} />}
       <nav role="tablist">
         {([
-          ['quote', '🧮', 'Quote'], ['pay', '💵', 'Pays me'], ['cliffs', '📈', 'Cliffs'],
-          ['pipe', '📞', 'Follow-up'], ['setup', '⚙️', 'Setup'],
+          ['today', '📋', 'Today'], ['quote', '🧮', 'Quote'], ['pay', '💵', 'Pays me'],
+          ['cliffs', '📈', 'Cliffs'], ['pipe', '📞', 'Calls'], ['setup', '⚙️', 'Setup'],
         ] as [Tab, string, string][]).map(([k, ic, lbl]) => (
           <button key={k} role="tab" aria-selected={tab === k} onClick={() => { setTab(k); window.scrollTo(0, 0); }}>
             <span className="ic">{ic}</span>{lbl}
@@ -371,12 +406,20 @@ function Cliffs({ cfg }: { cfg: DeskConfig | null }) {
 }
 
 /* ─────────── Follow-up ─────────── */
-function Pipe({ pipe, save }: { pipe: Prospect[]; save: (p: Prospect[]) => void }) {
+function Pipe({ pipe, save, autoImport, clearAutoImport }: {
+  pipe: Prospect[]; save: (p: Prospect[]) => void;
+  autoImport?: boolean; clearAutoImport?: () => void;
+}) {
   const [name, setName] = useState('');
   const [src, setSrc] = useState(SOURCES[0]);
   const [veh, setVeh] = useState('');
   const [paste, setPaste] = useState('');
   const [showImport, setShowImport] = useState(false);
+
+  // Opened from the Today tab's "Paste AutoAlert list" button.
+  useEffect(() => {
+    if (autoImport) { setShowImport(true); clearAutoImport?.(); }
+  }, [autoImport, clearAutoImport]);
   const now = todayISO();
 
   const active = pipe.filter((p) => p.status === 'active');

@@ -109,25 +109,38 @@ export function dealPayout(t: DealType, front: number, back: number, days: numbe
  * not in browser storage.
  */
 export function parsePastedList(text: string, source: string): Prospect[] {
-  const PHONE = /(\+?\d[\d\s().-]{7,}\d)/g;
-  const EMAIL = /\S+@\S+\.\S+/g;
+  /**
+   * Drop contact fields *after* splitting into columns rather than running a
+   * phone regex across the whole line. Stripping first chewed the trailing
+   * digits off vehicle names — "2023 GLE 350" came through as "2023 GLE",
+   * because the match ran straight from the model number into the phone.
+   */
+  const isEmail = (s: string) => /\S+@\S+\.\S+/.test(s);
+  const isPhone = (s: string) => {
+    const digits = s.replace(/\D/g, '');
+    // 7+ digits and essentially nothing but phone punctuation
+    return digits.length >= 7 && /^[\d\s()+.\-x]+$/i.test(s);
+  };
+  const HEADER = /^(name|customer|client|contact|owner|vehicle|phone|email|model)$/i;
+
   const out: Prospect[] = [];
   const seen = new Set<string>();
   for (const rawLine of text.split(/\r?\n/)) {
-    const line = rawLine.replace(PHONE, '').replace(EMAIL, '').trim();
-    if (!line) continue;
-    const parts = line.split(/\t|\||,/).map((s) => s.trim()).filter(Boolean);
-    if (!parts.length) continue;
-    const name = parts[0].slice(0, 60);
-    if (!name || /^(name|customer|client)$/i.test(name)) continue; // header row
+    const fields = rawLine.split(/\t|\||,|\s{2,}/).map((s) => s.trim()).filter(Boolean);
+    const kept = fields.filter((f) => !isPhone(f) && !isEmail(f));
+    if (!kept.length) continue;
+
+    const name = kept[0].slice(0, 60);
+    if (!name || HEADER.test(name)) continue;
     const key = name.toLowerCase();
     if (seen.has(key)) continue;
     seen.add(key);
+
     out.push({
       id: Date.now() + out.length,
       name,
       src: source,
-      veh: (parts[1] || '').slice(0, 40),
+      veh: (kept[1] || '').slice(0, 40),
       first: todayISO(),
       touches: 0,
       status: 'active',
