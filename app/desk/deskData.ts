@@ -148,6 +148,87 @@ export function loadConfig(): DeskConfig | null {
   }
 }
 
+/* ─────────── PIN lock ───────────
+ * The PIN genuinely encrypts the stored config (AES-GCM, key derived with
+ * PBKDF2) rather than just hiding the UI, so a coworker who opens your
+ * bookmark on a shared computer cannot read the figures out of devtools.
+ *
+ * Honest limit: a short PIN is brute-forceable by someone determined who has
+ * the device and knows what they are doing. This defends against casual
+ * access, which is the actual risk on a showroom floor — it is not a
+ * substitute for locking your workstation.
+ */
+const PBKDF2_ITERATIONS = 250_000;
+
+export type Envelope = { v: 1; salt: string; iv: string; ct: string };
+
+export const isEnvelope = (x: unknown): x is Envelope =>
+  !!x && typeof x === 'object' && (x as Envelope).v === 1 &&
+  typeof (x as Envelope).ct === 'string' && typeof (x as Envelope).salt === 'string';
+
+const b64 = (buf: ArrayBuffer | Uint8Array) =>
+  btoa(String.fromCharCode(...new Uint8Array(buf as ArrayBuffer)));
+const unb64 = (s: string) => Uint8Array.from(atob(s), (ch) => ch.charCodeAt(0));
+
+async function deriveKey(pin: string, salt: Uint8Array) {
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt: salt as BufferSource, iterations: PBKDF2_ITERATIONS, hash: 'SHA-256' },
+    base,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt'],
+  );
+}
+
+export async function encryptConfig(cfg: DeskConfig, pin: string): Promise<Envelope> {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveKey(pin, salt);
+  const ct = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv: iv as BufferSource },
+    key,
+    new TextEncoder().encode(JSON.stringify(cfg)),
+  );
+  return { v: 1, salt: b64(salt), iv: b64(iv), ct: b64(ct) };
+}
+
+/** Throws if the PIN is wrong — AES-GCM authentication fails on bad keys. */
+export async function decryptConfig(env: Envelope, pin: string): Promise<DeskConfig> {
+  const key = await deriveKey(pin, unb64(env.salt));
+  const plain = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: unb64(env.iv) as BufferSource },
+    key,
+    unb64(env.ct) as BufferSource,
+  );
+  const cfg = JSON.parse(new TextDecoder().decode(plain));
+  if (!cfg?.models || !cfg?.dealTypes) throw new Error('Decrypted data is not a valid config.');
+  return cfg as DeskConfig;
+}
+
+/** What is sitting in storage right now: nothing, plaintext, or PIN-locked. */
+export function storedState(): 'none' | 'plain' | 'locked' {
+  if (typeof window === 'undefined') return 'none';
+  try {
+    const raw = window.localStorage.getItem(CFG_KEY);
+    if (!raw) return 'none';
+    return isEnvelope(JSON.parse(raw)) ? 'locked' : 'plain';
+  } catch {
+    return 'none';
+  }
+}
+
+export function readEnvelope(): Envelope | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.localStorage.getItem(CFG_KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    return isEnvelope(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
 export function loadPipeline(): Prospect[] {
   if (typeof window === 'undefined') return [];
   try {

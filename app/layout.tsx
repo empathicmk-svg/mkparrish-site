@@ -5,6 +5,7 @@ import Nav from "@/app/components/Nav";
 import Footer from "@/app/components/Footer";
 import CursorGlow from "@/app/components/CursorGlow";
 import LeadCapture from "@/app/components/LeadCapture";
+import SiteChrome from "@/app/components/SiteChrome";
 import MonetizationDrawer from "@/app/components/MonetizationDrawer";
 import SiteQuoteRail from "@/app/components/SiteQuoteRail";
 import { Analytics } from "@vercel/analytics/next";
@@ -58,13 +59,17 @@ export default function RootLayout({
         />
       </head>
       <body className="site-body flex min-h-full flex-col overflow-x-hidden">
-        <CursorGlow />
-        <Nav />
+        <SiteChrome>
+          <CursorGlow />
+          <Nav />
+        </SiteChrome>
         <main className="site-main flex-1 pb-20 md:pb-0">{children}</main>
-        <SiteQuoteRail />
-        <MonetizationDrawer />
-        <LeadCapture />
-        <Footer />
+        <SiteChrome>
+          <SiteQuoteRail />
+          <MonetizationDrawer />
+          <LeadCapture />
+          <Footer />
+        </SiteChrome>
         <Analytics />
         <ConversionTracking />
         <Script id="metricool-tracker" strategy="afterInteractive">

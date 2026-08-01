@@ -7,6 +7,7 @@ import {
   todayISO, daysBetween, nextDue, money,
   leasePayment, sellPriceForPayment, dealPayout, parsePastedList,
   loadConfig, loadPipeline,
+  encryptConfig, decryptConfig, storedState, readEnvelope,
 } from './deskData';
 
 const CSS = `
@@ -78,12 +79,18 @@ export default function DeskApp() {
   const [pipe, setPipe] = useState<Prospect[]>([]);
   const [tab, setTab] = useState<Tab>('quote');
   const [ready, setReady] = useState(false);
+  const [locked, setLocked] = useState(false);
 
   useEffect(() => {
-    const c = loadConfig();
-    setCfg(c);
+    const state = storedState();
+    if (state === 'locked') {
+      setLocked(true);
+    } else {
+      const c = loadConfig();
+      setCfg(c);
+      if (!c) setTab('setup');
+    }
     setPipe(loadPipeline());
-    if (!c) setTab('setup');
     setReady(true);
   }, []);
 
@@ -93,6 +100,14 @@ export default function DeskApp() {
   };
 
   if (!ready) return <div className="dk"><style>{CSS}</style><div className="pane"><p className="sub">Loading…</p></div></div>;
+
+  if (locked && !cfg) {
+    return (
+      <div className="dk"><style>{CSS}</style>
+        <Lock onUnlock={(c) => { setCfg(c); setLocked(false); }} />
+      </div>
+    );
+  }
 
   return (
     <div className="dk">
@@ -112,6 +127,50 @@ export default function DeskApp() {
           </button>
         ))}
       </nav>
+    </div>
+  );
+}
+
+/* ─────────── Lock screen ─────────── */
+function Lock({ onUnlock }: { onUnlock: (c: DeskConfig) => void }) {
+  const [pin, setPin] = useState('');
+  const [err, setErr] = useState('');
+  const [busy, setBusy] = useState(false);
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const env = readEnvelope();
+    if (!env) { setErr('Nothing stored on this device.'); return; }
+    setBusy(true); setErr('');
+    try {
+      onUnlock(await decryptConfig(env, pin));
+    } catch {
+      setErr('Wrong PIN.');
+      setPin('');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="pane" style={{ paddingTop: 60 }}>
+      <h1>Locked</h1>
+      <p className="sub">Enter your PIN to unlock this device&rsquo;s data.</p>
+      <form className="card" onSubmit={submit}>
+        <label htmlFor="dk-pin">PIN</label>
+        <input id="dk-pin" type="password" inputMode="numeric" autoComplete="off"
+          autoFocus value={pin} onChange={(e) => setPin(e.target.value)} placeholder="••••••" />
+        <button className="act" style={{ marginTop: 10 }} type="submit" disabled={busy || !pin}>
+          {busy ? 'Unlocking…' : 'Unlock'}
+        </button>
+        {err && <p className="note" style={{ color: 'var(--hot)' }}>{err}</p>}
+      </form>
+      <div className="card">
+        <p className="note" style={{ margin: 0 }}>
+          Forgot it? There is no recovery — the data is encrypted with the PIN. Clear this
+          site&rsquo;s storage in your browser settings and load your config file again.
+        </p>
+      </div>
     </div>
   );
 }
@@ -419,17 +478,44 @@ function Pipe({ pipe, save }: { pipe: Prospect[]; save: (p: Prospect[]) => void 
 function Setup({ cfg, onSave }: { cfg: DeskConfig | null; onSave: (c: DeskConfig) => void }) {
   const [text, setText] = useState('');
   const [msg, setMsg] = useState('');
+  const [pin, setPin] = useState('');
+  const [busy, setBusy] = useState(false);
+  const locked = storedState() === 'locked';
 
-  const apply = (raw: string) => {
+  const apply = async (raw: string) => {
+    setBusy(true);
     try {
       const parsed = JSON.parse(raw);
       if (!parsed.models || !parsed.dealTypes) throw new Error('Missing "models" or "dealTypes".');
-      window.localStorage.setItem(CFG_KEY, JSON.stringify(parsed));
+      if (pin && pin.length < 4) throw new Error('Use at least 4 digits, or leave the PIN blank.');
+      const payload = pin ? await encryptConfig(parsed, pin) : parsed;
+      window.localStorage.setItem(CFG_KEY, JSON.stringify(payload));
       onSave(parsed);
-      setMsg('✓ Loaded. Your data is saved in this browser.');
-      setText('');
+      setMsg(pin
+        ? '✓ Loaded and encrypted. You will need this PIN next time.'
+        : '✓ Loaded. Saved unencrypted in this browser.');
+      setText(''); setPin('');
     } catch (e) {
       setMsg('✗ ' + (e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  /** Add, change, or remove the PIN on data already loaded in this session. */
+  const reprotect = async (newPin: string) => {
+    if (!cfg) return;
+    setBusy(true);
+    try {
+      if (newPin && newPin.length < 4) throw new Error('Use at least 4 digits.');
+      const payload = newPin ? await encryptConfig(cfg, newPin) : cfg;
+      window.localStorage.setItem(CFG_KEY, JSON.stringify(payload));
+      setMsg(newPin ? '✓ PIN set on this device.' : '✓ PIN removed on this device.');
+      setPin('');
+    } catch (e) {
+      setMsg('✗ ' + (e as Error).message);
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -446,7 +532,12 @@ function Setup({ cfg, onSave }: { cfg: DeskConfig | null; onSave: (c: DeskConfig
         </p>
         <label htmlFor="dk-cfg">Paste desk-config.json</label>
         <textarea id="dk-cfg" value={text} onChange={(e) => setText(e.target.value)} placeholder='{ "models": { … }, "dealTypes": { … } }' />
-        <button className="act" style={{ marginTop: 10 }} onClick={() => apply(text)}>Load data</button>
+        <label htmlFor="dk-setpin" style={{ marginTop: 12 }}>PIN (optional — encrypts the data)</label>
+        <input id="dk-setpin" type="password" inputMode="numeric" autoComplete="off"
+          value={pin} onChange={(e) => setPin(e.target.value)} placeholder="4+ digits, blank for none" />
+        <button className="act" style={{ marginTop: 10 }} disabled={busy} onClick={() => apply(text)}>
+          {busy ? 'Working…' : 'Load data'}
+        </button>
         <label style={{ marginTop: 14 }}>…or choose the file</label>
         <input type="file" accept="application/json,.json" onChange={(e) => {
           const f = e.target.files?.[0]; if (!f) return;
@@ -461,6 +552,24 @@ function Setup({ cfg, onSave }: { cfg: DeskConfig | null; onSave: (c: DeskConfig
           <div className="ln"><span>Models</span><b>{Object.keys(cfg.models).length}</b></div>
           <div className="ln"><span>Deal types</span><b>{Object.keys(cfg.dealTypes).length}</b></div>
           <div className="ln"><span>Bonus tiers</span><b>{Object.keys(cfg.unitsCash || {}).length}</b></div>
+          <div className="ln"><span>PIN lock</span><b>{locked ? 'On' : 'Off'}</b></div>
+
+          <label style={{ marginTop: 14 }} htmlFor="dk-newpin">
+            {locked ? 'Change PIN' : 'Set a PIN'}
+          </label>
+          <input id="dk-newpin" type="password" inputMode="numeric" autoComplete="off"
+            value={pin} onChange={(e) => setPin(e.target.value)} placeholder="4+ digits" />
+          <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+            <button className="sm" style={{ flex: 1 }} disabled={busy || !pin} onClick={() => reprotect(pin)}>
+              {locked ? 'Change PIN' : 'Set PIN'}
+            </button>
+            {locked && (
+              <button className="sm" style={{ flex: 1 }} disabled={busy} onClick={() => {
+                if (confirm('Remove the PIN? The data will be stored unencrypted on this device.')) reprotect('');
+              }}>Remove PIN</button>
+            )}
+          </div>
+
           <button className="sm" style={{ width: '100%', marginTop: 12 }} onClick={() => {
             if (!confirm('Remove your saved program and pay data from this browser?')) return;
             window.localStorage.removeItem(CFG_KEY);
