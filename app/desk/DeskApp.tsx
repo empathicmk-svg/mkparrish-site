@@ -182,6 +182,7 @@ export default function DeskApp() {
   const [tab, setTab] = useState<Tab>('today');
   const [autoImport, setAutoImport] = useState<string | null>(null);
   const [quoteFor, setQuoteFor] = useState<string | null>(null);
+  const [quotePrice, setQuotePrice] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
   const [locked, setLocked] = useState(false);
 
@@ -226,9 +227,12 @@ export default function DeskApp() {
         />
       )}
       {tab === 'cars' && (
-        <Cars cfg={cfg} onQuote={(k) => { setQuoteFor(k); setTab('quote'); window.scrollTo(0, 0); }} />
+        <Cars cfg={cfg} onQuote={(k, price) => {
+          setQuoteFor(k); setQuotePrice(price ?? null); setTab('quote'); window.scrollTo(0, 0);
+        }} />
       )}
-      {tab === 'quote' && <Quote cfg={cfg} preselect={quoteFor} clearPreselect={() => setQuoteFor(null)} />}
+      {tab === 'quote' && <Quote cfg={cfg} preselect={quoteFor} presetPrice={quotePrice}
+          clearPreselect={() => { setQuoteFor(null); setQuotePrice(null); }} />}
       {tab === 'pay' && <Pay cfg={cfg} />}
       {tab === 'pipe' && <Pipe pipe={pipe} save={savePipe} autoImport={autoImport} clearAutoImport={() => setAutoImport(null)} />}
       {tab === 'setup' && <Setup cfg={cfg} onSave={setCfg} />}
@@ -306,8 +310,9 @@ function NeedsSetup() {
 }
 
 /* ─────────── Quote ─────────── */
-function Quote({ cfg, preselect, clearPreselect }: {
-  cfg: DeskConfig | null; preselect?: string | null; clearPreselect?: () => void;
+function Quote({ cfg, preselect, presetPrice, clearPreselect }: {
+  cfg: DeskConfig | null; preselect?: string | null;
+  presetPrice?: number | null; clearPreselect?: () => void;
 }) {
   const keys = cfg ? Object.keys(cfg.models) : [];
   const [mk, setMk] = useState('');
@@ -330,12 +335,20 @@ function Quote({ cfg, preselect, clearPreselect }: {
     if (!preselect) return;
     setMk(preselect);
     setSell(''); setTarget('');
+    // A price carried in from the stock list is the real listed figure — it
+    // beats both the remembered value and the approximate one.
+    if (presetPrice && presetPrice > 0) {
+      setMsrp(String(presetPrice)); setRecalled(true); setApprox(false);
+      saveMsrp(preselect, presetPrice);
+      clearPreselect?.();
+      return;
+    }
     const saved = loadMsrps()[preselect];
     if (saved) { setMsrp(String(saved)); setRecalled(true); setApprox(false); }
     else if (APPROX_MSRP[preselect]) { setMsrp(String(APPROX_MSRP[preselect])); setRecalled(false); setApprox(true); }
     else { setMsrp(''); setRecalled(false); setApprox(false); }
     clearPreselect?.();
-  }, [preselect, clearPreselect]);
+  }, [preselect, presetPrice, clearPreselect]);
 
   /** Switching models swaps in that model's remembered MSRP. */
   const pickModel = (key: string) => {

@@ -3,15 +3,17 @@
 import { useState } from 'react';
 import { CLASSES, APPROX_MSRP, MB_ALL_VEHICLES } from './deskProduct';
 import { money, type DeskConfig } from './deskData';
+import Inventory from './Inventory';
 
 type Props = {
   cfg: DeskConfig | null;
-  onQuote: (modelKey: string) => void;
+  onQuote: (modelKey: string, price?: number) => void;
 };
 
 export default function Cars({ cfg, onQuote }: Props) {
   const [open, setOpen] = useState<string | null>(null);
   const [q, setQ] = useState('');
+  const [tab, setTab] = useState<'lot' | 'product'>('lot');
 
   if (!cfg) {
     return (
@@ -40,10 +42,33 @@ export default function Cars({ cfg, onQuote }: Props) {
     .map(([g, keys]) => [g, keys.filter(matches)] as [string, string[]])
     .filter(([g, keys]) => keys.length > 0 || (needle && g.toLowerCase().includes(needle)));
 
+  const toggle = (
+    <div className="chips" style={{ marginBottom: 12 }}>
+      <button type="button" className="chip" aria-pressed={tab === 'lot'} onClick={() => setTab('lot')}>
+        On the lot
+      </button>
+      <button type="button" className="chip" aria-pressed={tab === 'product'} onClick={() => setTab('product')}>
+        Product info
+      </button>
+    </div>
+  );
+
+  if (tab === 'lot') {
+    return (
+      <div className="pane">
+        <h1>On the lot</h1>
+        <p className="sub">Your actual stock, ranked by what it pays you</p>
+        {toggle}
+        <Inventory cfg={cfg} onQuote={onQuote} />
+      </div>
+    );
+  }
+
   return (
     <div className="pane">
       <h1>Know the product</h1>
       <p className="sub">Every model you can sell · tap a class to open it</p>
+      {toggle}
 
       <div className="card" style={{ padding: 10 }}>
         <input
