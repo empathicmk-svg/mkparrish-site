@@ -49,6 +49,37 @@ export type Prospect = {
 export const CADENCE = [1, 2, 4, 7, 14, 21, 30];
 export const CFG_KEY = 'mk-desk-config-v1';
 export const PIPE_KEY = 'mk-desk-pipeline-v1';
+export const MSRP_KEY = 'mk-desk-msrp-v1';
+
+/**
+ * Remembered MSRP per model.
+ *
+ * The program guides publish money factors and residuals but not MSRP, and
+ * MSRP is per-VIN anyway — the car on the lot carries packages the base price
+ * does not. Pre-filling a base figure would quote the wrong car, so instead the
+ * app remembers whatever you last typed for that model off the window sticker.
+ */
+export type MsrpMemory = Record<string, number>;
+
+export function loadMsrps(): MsrpMemory {
+  if (typeof window === 'undefined') return {};
+  try {
+    const raw = window.localStorage.getItem(MSRP_KEY);
+    const parsed = raw ? JSON.parse(raw) : {};
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+export function saveMsrp(model: string, value: number) {
+  if (typeof window === 'undefined' || !model || !(value > 0)) return;
+  try {
+    const all = loadMsrps();
+    all[model] = value;
+    window.localStorage.setItem(MSRP_KEY, JSON.stringify(all));
+  } catch { /* quota / private mode */ }
+}
 
 export const SOURCES = ['equity', 'lease-end', 'conquest', 'floor', 'internet', 'service', 'referral', 'sprinter'];
 

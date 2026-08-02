@@ -7,7 +7,7 @@ import {
   type DeskConfig, type Prospect,
   todayISO, daysBetween, nextDue, money,
   leasePayment, sellPriceForPayment, dealPayout, parsePastedList,
-  loadConfig, loadPipeline,
+  loadConfig, loadPipeline, loadMsrps, saveMsrp,
   encryptConfig, decryptConfig, storedState, readEnvelope,
 } from './deskData';
 
@@ -261,12 +261,38 @@ function NeedsSetup() {
 function Quote({ cfg }: { cfg: DeskConfig | null }) {
   const keys = cfg ? Object.keys(cfg.models) : [];
   const [mk, setMk] = useState('');
-  const [msrp, setMsrp] = useState('52000');
+  const [msrp, setMsrp] = useState('');
   const [sell, setSell] = useState('');
   const [down, setDown] = useState('0');
   const [reb, setReb] = useState('');
   const [term, setTerm] = useState('');
   const [target, setTarget] = useState('');
+  const [msrps, setMsrps] = useState<Record<string, number>>({});
+  const [recalled, setRecalled] = useState(false);
+
+  const active = mk || keys[0] || '';
+
+  useEffect(() => { setMsrps(loadMsrps()); }, []);
+
+  /** Switching models swaps in that model's remembered MSRP. */
+  const pickModel = (key: string) => {
+    setMk(key);
+    setSell('');
+    setTarget('');
+    const saved = msrps[key];
+    setMsrp(saved ? String(saved) : '');
+    setRecalled(!!saved);
+  };
+
+  const onMsrp = (v: string) => {
+    setMsrp(v);
+    setRecalled(false);
+    const n = parseFloat(v);
+    if (n > 0 && active) {
+      saveMsrp(active, n);
+      setMsrps((m) => ({ ...m, [active]: n }));
+    }
+  };
 
   const model = cfg && (cfg.models[mk] ?? cfg.models[keys[0]]);
   const terms = model ? Object.keys(model.r) : [];
@@ -294,7 +320,7 @@ function Quote({ cfg }: { cfg: DeskConfig | null }) {
       <div className="card">
         <div className="row one"><div>
           <label htmlFor="dk-m">Model</label>
-          <select id="dk-m" value={mk || keys[0]} onChange={(e) => setMk(e.target.value)}>
+          <select id="dk-m" value={active} onChange={(e) => pickModel(e.target.value)}>
             {(() => {
               // Group the list so a full lineup stays navigable on a phone.
               const groups = new Map<string, string[]>();
@@ -312,7 +338,11 @@ function Quote({ cfg }: { cfg: DeskConfig | null }) {
           </select>
         </div></div>
         <div className="row">
-          <div><label htmlFor="dk-msrp">MSRP</label><input id="dk-msrp" inputMode="numeric" value={msrp} onChange={(e) => setMsrp(e.target.value)} /></div>
+          <div>
+            <label htmlFor="dk-msrp">MSRP {recalled && <span style={{ color: 'var(--good)', fontWeight: 700 }}>· saved</span>}</label>
+            <input id="dk-msrp" inputMode="numeric" placeholder="window sticker" value={msrp}
+              onChange={(e) => onMsrp(e.target.value)} />
+          </div>
           <div><label htmlFor="dk-sell">Selling price</label><input id="dk-sell" inputMode="numeric" placeholder="= MSRP" value={sell} onChange={(e) => setSell(e.target.value)} /></div>
         </div>
         <div className="row">
@@ -326,6 +356,17 @@ function Quote({ cfg }: { cfg: DeskConfig | null }) {
           ))}
         </div>
       </div>
+
+      {!(nMsrp > 0) && (
+        <div className="card" style={{ borderColor: 'var(--acc)' }}>
+          <h3 className="h3">Enter the MSRP for this car</h3>
+          <p className="body">
+            Type it off the window sticker or your inventory listing. MSRP is per-VIN — the unit on
+            your lot carries packages a base price would miss — so this app never guesses it.
+            Whatever you type is remembered for <b>{model.name}</b> next time.
+          </p>
+        </div>
+      )}
 
       <div className="out">
         <div className="cap">{nTerm}-month lease</div>
