@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Today from './Today';
+import Cars from './Cars';
+import { APPROX_MSRP } from './deskProduct';
 import {
   CADENCE, CFG_KEY, PIPE_KEY, SOURCES,
   type DeskConfig, type Prospect,
@@ -128,15 +130,29 @@ const CSS = `
  display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#fff;margin-top:1px}
 .dk .chk.on .box{background:var(--good);border-color:var(--good)}
 .dk .chk.on .txt{text-decoration:line-through;color:var(--ink3)}
+.dk .clsHead{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;
+ background:none;border:0;padding:14px;font-family:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.dk .clsName{display:block;font-size:1rem;font-weight:750}
+.dk .clsBody{display:block;font-size:.74rem;color:var(--ink3);margin-top:1px}
+.dk .clsPrice{font-size:.8rem;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dk .h4{font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);
+ font-weight:700;margin:14px 0 4px}
+.dk .tt{background:var(--accs);border-left:3px solid var(--acc);border-radius:0 9px 9px 0;padding:10px 12px;margin-top:12px}
+.dk .ttlab{font-size:.65rem;text-transform:uppercase;letter-spacing:.09em;color:var(--acc);font-weight:800;margin-bottom:3px}
+.dk .tt p{margin:0;font-size:.86rem;color:var(--ink)}
+.dk .tag{font-size:.74rem;background:var(--sf2);border:1px solid var(--line);border-radius:6px;
+ padding:4px 9px;color:var(--ink2)}
+.dk input[type=search]{-webkit-appearance:none}
 `;
 
-type Tab = 'today' | 'quote' | 'pay' | 'cliffs' | 'pipe' | 'setup';
+type Tab = 'today' | 'cars' | 'quote' | 'pay' | 'pipe' | 'setup';
 
 export default function DeskApp() {
   const [cfg, setCfg] = useState<DeskConfig | null>(null);
   const [pipe, setPipe] = useState<Prospect[]>([]);
   const [tab, setTab] = useState<Tab>('today');
   const [autoImport, setAutoImport] = useState(false);
+  const [quoteFor, setQuoteFor] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
   const [locked, setLocked] = useState(false);
 
@@ -179,15 +195,17 @@ export default function DeskApp() {
           onGoFollowUp={() => { setTab('pipe'); window.scrollTo(0, 0); }}
         />
       )}
-      {tab === 'quote' && <Quote cfg={cfg} />}
+      {tab === 'cars' && (
+        <Cars cfg={cfg} onQuote={(k) => { setQuoteFor(k); setTab('quote'); window.scrollTo(0, 0); }} />
+      )}
+      {tab === 'quote' && <Quote cfg={cfg} preselect={quoteFor} clearPreselect={() => setQuoteFor(null)} />}
       {tab === 'pay' && <Pay cfg={cfg} />}
-      {tab === 'cliffs' && <Cliffs cfg={cfg} />}
       {tab === 'pipe' && <Pipe pipe={pipe} save={savePipe} autoImport={autoImport} clearAutoImport={() => setAutoImport(false)} />}
       {tab === 'setup' && <Setup cfg={cfg} onSave={setCfg} />}
       <nav role="tablist">
         {([
-          ['today', '📋', 'Today'], ['quote', '🧮', 'Quote'], ['pay', '💵', 'Pays me'],
-          ['cliffs', '📈', 'Cliffs'], ['pipe', '📞', 'Calls'], ['setup', '⚙️', 'Setup'],
+          ['today', '📋', 'Today'], ['cars', '🚘', 'Cars'], ['quote', '🧮', 'Quote'],
+          ['pay', '💵', 'Pays me'], ['pipe', '📞', 'Calls'], ['setup', '⚙️', 'Setup'],
         ] as [Tab, string, string][]).map(([k, ic, lbl]) => (
           <button key={k} role="tab" aria-selected={tab === k} onClick={() => { setTab(k); window.scrollTo(0, 0); }}>
             <span className="ic">{ic}</span>{lbl}
@@ -258,7 +276,9 @@ function NeedsSetup() {
 }
 
 /* ─────────── Quote ─────────── */
-function Quote({ cfg }: { cfg: DeskConfig | null }) {
+function Quote({ cfg, preselect, clearPreselect }: {
+  cfg: DeskConfig | null; preselect?: string | null; clearPreselect?: () => void;
+}) {
   const keys = cfg ? Object.keys(cfg.models) : [];
   const [mk, setMk] = useState('');
   const [msrp, setMsrp] = useState('');
@@ -269,10 +289,23 @@ function Quote({ cfg }: { cfg: DeskConfig | null }) {
   const [target, setTarget] = useState('');
   const [msrps, setMsrps] = useState<Record<string, number>>({});
   const [recalled, setRecalled] = useState(false);
+  const [approx, setApprox] = useState(false);
 
   const active = mk || keys[0] || '';
 
   useEffect(() => { setMsrps(loadMsrps()); }, []);
+
+  // Arriving from the Cars tab with a model chosen.
+  useEffect(() => {
+    if (!preselect) return;
+    setMk(preselect);
+    setSell(''); setTarget('');
+    const saved = loadMsrps()[preselect];
+    if (saved) { setMsrp(String(saved)); setRecalled(true); setApprox(false); }
+    else if (APPROX_MSRP[preselect]) { setMsrp(String(APPROX_MSRP[preselect])); setRecalled(false); setApprox(true); }
+    else { setMsrp(''); setRecalled(false); setApprox(false); }
+    clearPreselect?.();
+  }, [preselect, clearPreselect]);
 
   /** Switching models swaps in that model's remembered MSRP. */
   const pickModel = (key: string) => {
@@ -280,13 +313,20 @@ function Quote({ cfg }: { cfg: DeskConfig | null }) {
     setSell('');
     setTarget('');
     const saved = msrps[key];
-    setMsrp(saved ? String(saved) : '');
-    setRecalled(!!saved);
+    if (saved) {
+      setMsrp(String(saved)); setRecalled(true); setApprox(false);
+    } else if (APPROX_MSRP[key]) {
+      // Orientation figure so the tab is never blank; flagged until confirmed.
+      setMsrp(String(APPROX_MSRP[key])); setRecalled(false); setApprox(true);
+    } else {
+      setMsrp(''); setRecalled(false); setApprox(false);
+    }
   };
 
   const onMsrp = (v: string) => {
     setMsrp(v);
     setRecalled(false);
+    setApprox(false);
     const n = parseFloat(v);
     if (n > 0 && active) {
       saveMsrp(active, n);
@@ -339,7 +379,11 @@ function Quote({ cfg }: { cfg: DeskConfig | null }) {
         </div></div>
         <div className="row">
           <div>
-            <label htmlFor="dk-msrp">MSRP {recalled && <span style={{ color: 'var(--good)', fontWeight: 700 }}>· saved</span>}</label>
+            <label htmlFor="dk-msrp">
+              MSRP{' '}
+              {recalled && <span style={{ color: 'var(--good)', fontWeight: 700 }}>· saved</span>}
+              {approx && <span style={{ color: 'var(--hot)', fontWeight: 700 }}>· approx</span>}
+            </label>
             <input id="dk-msrp" inputMode="numeric" placeholder="window sticker" value={msrp}
               onChange={(e) => onMsrp(e.target.value)} />
           </div>
@@ -356,6 +400,16 @@ function Quote({ cfg }: { cfg: DeskConfig | null }) {
           ))}
         </div>
       </div>
+
+      {approx && nMsrp > 0 && (
+        <div className="card" style={{ borderColor: 'var(--hot)', background: 'var(--hots)' }}>
+          <p className="body" style={{ color: 'var(--ink)', margin: 0, fontSize: '.85rem' }}>
+            <b>That MSRP is a rough starting price, not this car.</b> Options routinely move it
+            $5,000–$20,000. Type the window-sticker figure before you say a payment out loud — it
+            will be saved for {model.name} from then on.
+          </p>
+        </div>
+      )}
 
       {!(nMsrp > 0) && (
         <div className="card" style={{ borderColor: 'var(--acc)' }}>
@@ -401,6 +455,7 @@ function Quote({ cfg }: { cfg: DeskConfig | null }) {
 
 /* ─────────── Pays me ─────────── */
 function Pay({ cfg }: { cfg: DeskConfig | null }) {
+  const [view, setView] = useState<'deal' | 'cliffs'>('deal');
   const [tk, setTk] = useState('');
   const [front, setFront] = useState('2200');
   const [back, setBack] = useState('900');
@@ -412,10 +467,26 @@ function Pay({ cfg }: { cfg: DeskConfig | null }) {
   const type = cfg.dealTypes[tk] ?? cfg.dealTypes[keys[0]];
   const r = dealPayout(type, parseFloat(front) || 0, parseFloat(back) || 0, parseFloat(days) || 0, spot, cfg.spotBonus);
 
+  if (view === 'cliffs') {
+    return (
+      <div className="pane">
+        <div className="chips" style={{ marginBottom: 12 }}>
+          <button type="button" className="chip" aria-pressed={false} onClick={() => setView('deal')}>This deal</button>
+          <button type="button" className="chip" aria-pressed={true}>Bonus cliffs</button>
+        </div>
+        <Cliffs cfg={cfg} />
+      </div>
+    );
+  }
+
   return (
     <div className="pane">
       <h1>What this deal pays me</h1>
       <p className="sub">From your saved pay plan</p>
+      <div className="chips" style={{ marginBottom: 12 }}>
+        <button type="button" className="chip" aria-pressed={true}>This deal</button>
+        <button type="button" className="chip" aria-pressed={false} onClick={() => setView('cliffs')}>Bonus cliffs</button>
+      </div>
       <div className="card">
         <label>Vehicle type</label>
         <div className="chips" style={{ marginBottom: 11 }}>
@@ -463,7 +534,7 @@ function Cliffs({ cfg }: { cfg: DeskConfig | null }) {
   const max = Math.max(...rows.map((x) => x.j), 0);
 
   return (
-    <div className="pane">
+    <>
       <h1>Bonus cliffs</h1>
       <p className="sub">Where one more car pays outsized</p>
       <div className="card"><div className="row">
@@ -487,7 +558,7 @@ function Cliffs({ cfg }: { cfg: DeskConfig | null }) {
             </tr>))}</tbody></table>
       </div>
       <p className="note">Sprinters count as units. Quarterly certification is required or the whole ladder switches off.</p>
-    </div>
+    </>
   );
 }
 
