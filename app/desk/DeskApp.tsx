@@ -27,7 +27,10 @@ const CSS = `
 .dk .pane{padding:14px 14px 30px;max-width:640px;margin:0 auto}
 .dk h1{font-size:1.15rem;font-weight:800;letter-spacing:-.01em;margin:6px 0 2px}
 .dk .sub{color:var(--ink3);font-size:.82rem;margin:0 0 14px}
-.dk .card{background:var(--sf);border:1px solid var(--line);border-radius:13px;box-shadow:var(--sh);padding:14px;margin-bottom:12px}
+.dk .card{background:var(--sf);border:1px solid var(--line);border-radius:13px;box-shadow:var(--sh);padding:14px;margin-bottom:12px;position:relative;overflow:visible;transition:none}
+/* The site defines its own .card and .hero; neutralise what leaks in here. */
+.dk .card::before{display:none}
+.dk .card:hover{transform:none;box-shadow:var(--sh);border-color:var(--line)}
 .dk label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:700;margin:0 0 5px}
 .dk input,.dk select,.dk textarea{width:100%;font-size:17px;padding:11px 12px;border:1px solid var(--line);
  border-radius:9px;background:var(--sf2);color:var(--ink);font-family:inherit;font-variant-numeric:tabular-nums;-webkit-appearance:none;appearance:none}
@@ -140,9 +143,28 @@ const CSS = `
 .dk .tt{background:var(--accs);border-left:3px solid var(--acc);border-radius:0 9px 9px 0;padding:10px 12px;margin-top:12px}
 .dk .ttlab{font-size:.65rem;text-transform:uppercase;letter-spacing:.09em;color:var(--acc);font-weight:800;margin-bottom:3px}
 .dk .tt p{margin:0;font-size:.86rem;color:var(--ink)}
-.dk .tag{font-size:.74rem;background:var(--sf2);border:1px solid var(--line);border-radius:6px;
+.dk .xshop{font-size:.74rem;background:var(--sf2);border:1px solid var(--line);border-radius:6px;
  padding:4px 9px;color:var(--ink2)}
 .dk input[type=search]{-webkit-appearance:none}
+.dk .queuebar{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;
+ background:var(--acc);color:#fff;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em}
+.dk .queuebar.quiet{background:var(--sf2);color:var(--ink3)}
+.dk .queuebar b{font-size:.95rem;font-variant-numeric:tabular-nums}
+.dk .callcard{padding:13px 14px;border-top:1px solid var(--line)}
+.dk .callcard:first-of-type{border-top:0}
+.dk .callcard.qhero{background:var(--accs)}
+.dk .callhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.dk .callname{font-size:1.05rem;font-weight:780;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dk .callcard.qhero .callname{font-size:1.3rem}
+.dk .callmeta{font-size:.74rem;color:var(--ink3);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dk .callwhy{font-size:.85rem;color:var(--ink2);margin-top:7px;line-height:1.4}
+.dk .opener{background:none;border:0;padding:7px 0 0;font-family:inherit;font-size:.78rem;
+ font-weight:700;color:var(--acc);cursor:pointer}
+.dk .openertext{font-size:.86rem;color:var(--ink);background:var(--sf);border-left:3px solid var(--acc);
+ border-radius:0 8px 8px 0;padding:10px 12px;margin:7px 0 0;line-height:1.5}
+.dk .callacts{display:flex;gap:7px;margin-top:11px}
+.dk .callacts .act{padding:11px 8px;font-size:.9rem}
+.dk .callacts .sm{padding:11px 8px}
 `;
 
 type Tab = 'today' | 'cars' | 'quote' | 'pay' | 'pipe' | 'setup';
@@ -191,6 +213,7 @@ export default function DeskApp() {
         <Today
           pipe={pipe}
           goal={cfg?.goal ?? 15}
+          savePipe={savePipe}
           onGoImport={() => { setAutoImport(true); setTab('pipe'); window.scrollTo(0, 0); }}
           onGoFollowUp={() => { setTab('pipe'); window.scrollTo(0, 0); }}
         />
@@ -647,7 +670,7 @@ function Pipe({ pipe, save, autoImport, clearAutoImport }: {
               </div>
               <div>
                 <span className={'badge ' + (late > 0 ? 'late' : 'today')}>{late > 0 ? late + 'd late' : 'today'}</span>
-                <button className="sm" onClick={() => upd(p.id, (x) => ({ ...x, touches: x.touches + 1 }))}>Done</button>
+                <button className="sm" onClick={() => upd(p.id, (x) => ({ ...x, touches: x.touches + 1, lastTouch: now }))}>Done</button>
               </div>
             </div>
           );

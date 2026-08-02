@@ -44,6 +44,7 @@ export type Prospect = {
   first: string;   // YYYY-MM-DD
   touches: number;
   status: 'active' | 'sold' | 'lost';
+  lastTouch?: string;   // YYYY-MM-DD — keeps someone worked today out of today's queue
 };
 
 export const CADENCE = [1, 2, 4, 7, 14, 21, 30];

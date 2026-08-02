@@ -101,7 +101,7 @@ export default function Cars({ cfg, onQuote }: Props) {
 
                     <h4 className="h4">They&rsquo;re also looking at</h4>
                     <div className="chips" style={{ gap: 5 }}>
-                      {info.crossShop.map((c) => <span className="tag" key={c}>{c}</span>)}
+                      {info.crossShop.map((c) => <span className="xshop" key={c}>{c}</span>)}
                     </div>
 
                     <a className="act" style={{ display: 'block', textAlign: 'center', textDecoration: 'none', marginTop: 12 }}

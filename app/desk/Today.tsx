@@ -7,6 +7,7 @@ import {
   type Shift,
 } from './deskPlan';
 import { CADENCE, type Prospect, todayISO, daysBetween, nextDue } from './deskData';
+import CallQueue from './CallQueue';
 import {
   COUNTERS, TARGETS, type Activity, type CounterKey,
   loadActivity, saveActivity, dayOf, touchesOf, dayScore, hitTargets, streak, recentDays,
@@ -35,17 +36,20 @@ function Bar({ label, value, target, emphasise }: {
 type Props = {
   pipe: Prospect[];
   goal: number;
+  savePipe: (p: Prospect[]) => void;
   onGoImport: () => void;
   onGoFollowUp: () => void;
 };
 
-export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
+export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }: Props) {
   const [now, setNow] = useState<Date | null>(null);
   const [name, setName] = useState('');
   const [copied, setCopied] = useState('');
   const [openScript, setOpenScript] = useState<string | null>(null);
   const [showBrands, setShowBrands] = useState(false);
   const [act, setAct] = useState<Activity>({});
+  const [skipped, setSkipped] = useState<number[]>([]);
+  const [showPlan, setShowPlan] = useState(false);
 
   // Set on the client only — rendering a clock during SSR causes a hydration
   // mismatch, and the server's timezone is not the user's anyway.
@@ -84,10 +88,26 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
   const week = recentDays(act, iso, isWorkDay);
   const score = dayScore(log);
 
-  const bump = (key: CounterKey, delta: number) => {
-    const next: Activity = { ...act, [iso]: { ...log, [key]: Math.max(0, log[key] + delta) } };
-    setAct(next); saveActivity(next);
+  /**
+   * Apply every counter change in one update. Calling a single-key bump three
+   * times in a row read the same stale `log` each time, so only the last one
+   * survived — logging an appointment silently dropped the call and the
+   * conversation.
+   */
+  const bumpMany = (deltas: Partial<Record<CounterKey, number>>) => {
+    setAct((prev) => {
+      const cur = dayOf(prev, iso);
+      const day = { ...cur };
+      for (const [k, d] of Object.entries(deltas)) {
+        const key = k as CounterKey;
+        day[key] = Math.max(0, day[key] + (d ?? 0));
+      }
+      const next: Activity = { ...prev, [iso]: day };
+      saveActivity(next);
+      return next;
+    });
   };
+  const bump = (key: CounterKey, delta: number) => bumpMany({ [key]: delta });
   const toggleDone = (id: string) => {
     const done = log.done.includes(id) ? log.done.filter((x) => x !== id) : [...log.done, id];
     const next: Activity = { ...act, [iso]: { ...log, done } };
@@ -95,6 +115,22 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
   };
   const totalTodos = shift ? shift.blocks.reduce((n, b) => n + b.todo.length, 0) : 0;
   const doneCount = log.done.length;
+
+  /* ── the call queue: who to work, most overdue first ── */
+  const queue = pipe
+    // Anyone already worked today drops off — the cadence brings them back
+    // tomorrow. Without this, calling someone left them at the top of the list.
+    .filter((p) => p.status === 'active' && !skipped.includes(p.id) && p.lastTouch !== iso)
+    .map((p) => ({ p, due: nextDue(p) }))
+    .filter((x): x is { p: Prospect; due: string } => !!x.due && x.due <= iso)
+    .sort((a, b) => a.due.localeCompare(b.due));
+
+  const touch = (p: Prospect) =>
+    savePipe(pipe.map((x) => (x.id === p.id ? { ...x, touches: x.touches + 1, lastTouch: iso } : x)));
+
+  const onCalled = (p: Prospect) => { touch(p); bumpMany({ calls: 1 }); };
+  const onAppt = (p: Prospect) => { touch(p); bumpMany({ calls: 1, convos: 1, appts: 1 }); };
+  const onSkip = (p: Prospect) => setSkipped((s) => [...s, p.id]);
 
   const copy = async (id: string, text: string) => {
     try {
@@ -114,8 +150,19 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
         {shift ? ` · ${shift.hours}` : ' · Day off'}
       </p>
 
+      {/* ── THE CALL QUEUE — the reason this screen exists ── */}
+      <CallQueue
+        queue={queue}
+        today={iso}
+        onCalled={onCalled}
+        onAppt={onAppt}
+        onSkip={onSkip}
+        onGoImport={onGoImport}
+        onGoSprinter={() => { setShowBrands(true); setShowPlan(true); }}
+      />
+
       {/* ── pace ── */}
-      <div className="card" style={{ display: 'flex', gap: 10, textAlign: 'center', padding: '13px 10px' }}>
+      <div className="card" style={{ display: 'flex', gap: 10, textAlign: 'center', padding: '11px 10px' }}>
         <div style={{ flex: 1 }}>
           <div className="big2">{sold}<span style={{ fontSize: '.9rem', color: 'var(--ink3)' }}>/{goal}</span></div>
           <div className="mini">units</div>
@@ -219,24 +266,6 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
             )}
           </div>
 
-          {/* ── first 3 things ── */}
-          <div className="card">
-            <h3 className="h3">Do these first, every shift</h3>
-            <ol className="steps">
-              <li>
-                <b>Clear your red follow-ups.</b>{' '}
-                {overdue > 0
-                  ? <span style={{ color: 'var(--hot)', fontWeight: 700 }}>{overdue} overdue right now</span>
-                  : due.length > 0
-                    ? <span style={{ color: 'var(--good)' }}>{due.length} due today</span>
-                    : <span style={{ color: 'var(--ink3)' }}>nothing waiting</span>}
-                <button className="sm" style={{ marginLeft: 8 }} onClick={onGoFollowUp}>Open</button>
-              </li>
-              <li><b>Pull your AutoAlert lists</b> — equity, and lease maturity 90–120 days out. Paste them in below.</li>
-              <li><b>Clear overdue tasks in Momentum.</b></li>
-            </ol>
-          </div>
-
           {/* ── AUTOALERT PASTE ── */}
           <div className="card accent">
             <h3 className="h3">📋 Load today&rsquo;s call list from AutoAlert</h3>
@@ -255,6 +284,11 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
           </div>
 
           {/* ── the shift ── */}
+          <button className="sm" style={{ width: '100%', marginBottom: 12 }} onClick={() => setShowPlan((v) => !v)}>
+            {showPlan ? 'Hide' : 'Show'} the {shift.day} plan, scripts &amp; Sprinter list
+          </button>
+
+          {showPlan && (<>
           <div className="card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
               <h3 className="h3">{shift.day} — {shift.headline}</h3>
@@ -368,6 +402,7 @@ export default function Today({ pipe, goal, onGoImport, onGoFollowUp }: Props) {
               <li><b>Ask your GM this week</b> what the monthly CSI and supplemental bonus criteria are. They&rsquo;re emailed monthly and most people never read them.</li>
             </ul>
           </div>
+          </>)}
         </>
       )}
 
