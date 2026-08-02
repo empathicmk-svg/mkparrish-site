@@ -165,6 +165,13 @@ const CSS = `
 .dk .callacts{display:flex;gap:7px;margin-top:11px}
 .dk .callacts .act{padding:11px 8px;font-size:.9rem}
 .dk .callacts .sm{padding:11px 8px}
+.dk .pull{border-top:1px solid var(--line);padding:11px 0}
+.dk .pull:first-of-type{border-top:0;padding-top:2px}
+.dk .pullhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.dk .pullname{font-size:.92rem;font-weight:750;color:var(--ink)}
+.dk .pulltarget{font-size:.78rem;font-weight:800;color:var(--acc);font-variant-numeric:tabular-nums;flex:none}
+.dk .pullfilter{font-size:.79rem;color:var(--ink2);margin-top:4px;line-height:1.45}
+.dk .pullwhy{font-size:.79rem;color:var(--acc);margin-top:3px;font-weight:600}
 `;
 
 type Tab = 'today' | 'cars' | 'quote' | 'pay' | 'pipe' | 'setup';
@@ -173,7 +180,7 @@ export default function DeskApp() {
   const [cfg, setCfg] = useState<DeskConfig | null>(null);
   const [pipe, setPipe] = useState<Prospect[]>([]);
   const [tab, setTab] = useState<Tab>('today');
-  const [autoImport, setAutoImport] = useState(false);
+  const [autoImport, setAutoImport] = useState<string | null>(null);
   const [quoteFor, setQuoteFor] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
   const [locked, setLocked] = useState(false);
@@ -214,7 +221,7 @@ export default function DeskApp() {
           pipe={pipe}
           goal={cfg?.goal ?? 15}
           savePipe={savePipe}
-          onGoImport={() => { setAutoImport(true); setTab('pipe'); window.scrollTo(0, 0); }}
+          onGoImport={(src) => { setAutoImport(src ?? 'equity'); setTab('pipe'); window.scrollTo(0, 0); }}
           onGoFollowUp={() => { setTab('pipe'); window.scrollTo(0, 0); }}
         />
       )}
@@ -223,7 +230,7 @@ export default function DeskApp() {
       )}
       {tab === 'quote' && <Quote cfg={cfg} preselect={quoteFor} clearPreselect={() => setQuoteFor(null)} />}
       {tab === 'pay' && <Pay cfg={cfg} />}
-      {tab === 'pipe' && <Pipe pipe={pipe} save={savePipe} autoImport={autoImport} clearAutoImport={() => setAutoImport(false)} />}
+      {tab === 'pipe' && <Pipe pipe={pipe} save={savePipe} autoImport={autoImport} clearAutoImport={() => setAutoImport(null)} />}
       {tab === 'setup' && <Setup cfg={cfg} onSave={setCfg} />}
       <nav role="tablist">
         {([
@@ -588,7 +595,7 @@ function Cliffs({ cfg }: { cfg: DeskConfig | null }) {
 /* ─────────── Follow-up ─────────── */
 function Pipe({ pipe, save, autoImport, clearAutoImport }: {
   pipe: Prospect[]; save: (p: Prospect[]) => void;
-  autoImport?: boolean; clearAutoImport?: () => void;
+  autoImport?: string | null; clearAutoImport?: () => void;
 }) {
   const [name, setName] = useState('');
   const [src, setSrc] = useState(SOURCES[0]);
@@ -598,7 +605,10 @@ function Pipe({ pipe, save, autoImport, clearAutoImport }: {
 
   // Opened from the Today tab's "Paste AutoAlert list" button.
   useEffect(() => {
-    if (autoImport) { setShowImport(true); clearAutoImport?.(); }
+    if (!autoImport) return;
+    setShowImport(true);
+    if (SOURCES.includes(autoImport)) setSrc(autoImport);   // preselect the list's source
+    clearAutoImport?.();
   }, [autoImport, clearAutoImport]);
   const now = todayISO();
 

@@ -15,6 +15,7 @@ export type Block = {
 
 export type Shift = {
   day: string;
+  mode: string;      // which PULLS set applies
   hours: string;
   headline: string;
   why: string;
@@ -28,7 +29,7 @@ export const NAME_KEY = 'mk-desk-name-v1';
 export const SHIFTS: Record<number, Shift | null> = {
   // Sunday
   0: {
-    day: 'Sunday', hours: '11:00 – 4:00',
+    day: 'Sunday', mode: 'family', hours: '11:00 – 4:00',
     headline: 'Families are shopping',
     why: 'Couples come in together on Sundays, so both decision-makers are in the room. That is a closing advantage — do not let one of them leave to "talk about it."',
     blocks: [
@@ -49,7 +50,7 @@ export const SHIFTS: Record<number, Shift | null> = {
   },
   // Monday
   1: {
-    day: 'Monday', hours: '12:00 – 8:00',
+    day: 'Monday', mode: 'evening', hours: '12:00 – 8:00',
     headline: 'Your best closing night',
     why: 'You are on the floor exactly when customers are off work. Book people for tonight — 6:00 or 6:30 — not "sometime this week."',
     blocks: [
@@ -86,7 +87,7 @@ export const SHIFTS: Record<number, Shift | null> = {
   3: null,
   // Thursday
   4: {
-    day: 'Thursday', hours: '9:00 – 5:00',
+    day: 'Thursday', mode: 'daytime', hours: '9:00 – 5:00',
     headline: 'Prospecting day — you SET, you do not close',
     why: 'You leave at 5, so you cannot catch after-work traffic. Do not fight it. Today you fill Saturday and work the phone while businesses are open.',
     blocks: [
@@ -115,7 +116,7 @@ export const SHIFTS: Record<number, Shift | null> = {
   5: null, // Friday — same as Thursday
   // Saturday
   6: {
-    day: 'Saturday', hours: '8:30 – 6:00',
+    day: 'Saturday', mode: 'floor', hours: '8:30 – 6:00',
     headline: 'Floor peak — be up all day',
     why: 'Highest walk-in traffic of your week. Phone down. Every minute on the phone today is a minute someone else takes your up.',
     blocks: [
@@ -139,6 +140,108 @@ export const SHIFTS: Record<number, Shift | null> = {
 // Tuesday mirrors Monday; Friday mirrors Thursday.
 SHIFTS[2] = SHIFTS[1] ? { ...SHIFTS[1], day: 'Tuesday' } : null;
 SHIFTS[5] = SHIFTS[4] ? { ...SHIFTS[4], day: 'Friday' } : null;
+
+/* ─────────── AutoAlert pull lists ───────────
+ * Alert names vary by store configuration, so each entry says what the list
+ * *does* as well as what it is usually called — ask your AutoAlert admin to
+ * match them up once, then these become saved lists you reuse every shift.
+ */
+export type Pull = {
+  id: string;
+  list: string;
+  filter: string;
+  produces: string;
+  target: number;
+  source: string;   // maps to a pipeline source
+};
+
+/** Standing lists worth building once and saving in AutoAlert. */
+export const STANDING_LISTS: { name: string; how: string; why: string }[] = [
+  {
+    name: 'Equity / Flex — payment neutral',
+    how: 'Positive-equity customers whose payment on a newer unit lands within about $50 of today.',
+    why: 'Your highest-converting call. The pitch is "newer car, same money" — nobody argues with that.',
+  },
+  {
+    name: 'Lease maturity — 90 to 120 days',
+    how: 'Leases ending in the next 90–120 days, sorted soonest first.',
+    why: 'Catch them before the mail and before the other store. Pair with the LAP payment waiver.',
+  },
+  {
+    name: 'Service today — with equity',
+    how: 'Customers with an RO open today who also carry positive equity.',
+    why: 'They are physically on the property. Walk the drive with this list on your phone.',
+  },
+  {
+    name: 'Big repair estimate',
+    how: 'Open ROs above roughly $1,500, or any declined major service.',
+    why: '"Do not put $3,000 into a car worth $18,000" writes itself. Highest-urgency list you have.',
+  },
+  {
+    name: 'Over-mileage leases',
+    how: 'Active leases pacing over their contracted mileage.',
+    why: 'They owe money at turn-in and usually do not know yet. Pull-ahead solves their problem.',
+  },
+  {
+    name: 'Contract end / near payoff',
+    how: 'Finance contracts within 6 payments of payoff, or already paid off.',
+    why: 'Payment-free and used to a payment. Easiest re-entry into a new lease.',
+  },
+  {
+    name: 'Warranty expiring',
+    how: 'Factory warranty ending in the next 90 days.',
+    why: 'Fear of out-of-warranty repair bills is a real motivator. Trade before it expires.',
+  },
+  {
+    name: 'Conquest / in-market',
+    how: 'Non-Mercedes owners in your database showing shopping behaviour.',
+    why: 'The $1,500 Upgrade Certificate applies to any brand — free money you can lead with.',
+  },
+  {
+    name: 'Orphan owners',
+    how: 'Customers with no active salesperson assigned.',
+    why: 'Nobody is working them. As the new person, ask your manager to assign you these.',
+  },
+  {
+    name: 'Commercial / Sprinter owners',
+    how: 'Filter your owner base to Sprinter and commercially titled vehicles.',
+    why: 'Businesses replace on a cycle and buy in multiples. Confirm Sprinters are in your AutoAlert feed.',
+  },
+];
+
+/** What to pull for a given shift type. */
+export const PULLS: Record<string, Pull[]> = {
+  evening: [
+    { id: 'eq', list: 'Equity / Flex — payment neutral', filter: 'Positive equity · payment within ~$50 of current',
+      produces: 'Appointments for 6:00–7:30 tonight', target: 25, source: 'equity' },
+    { id: 'lm', list: 'Lease maturity — 90 to 120 days', filter: 'Maturity 90–120 days · soonest first',
+      produces: 'Pull-ahead appointments using the LAP waiver', target: 15, source: 'lease-end' },
+    { id: 'rep', list: 'Big repair estimate', filter: 'Open RO over ~$1,500 or declined major service',
+      produces: 'Urgent trade conversations', target: 10, source: 'service' },
+  ],
+  daytime: [
+    { id: 'com', list: 'Commercial / Sprinter owners', filter: 'Sprinter + commercially titled, plus your local franchise targets',
+      produces: 'Fleet conversations while businesses are open', target: 20, source: 'sprinter' },
+    { id: 'day', list: 'Equity — daytime reachable', filter: 'Positive equity · retirees and self-employed',
+      produces: 'Appointments you can actually work before 5', target: 20, source: 'equity' },
+    { id: 'ce', list: 'Contract end / near payoff', filter: 'Within 6 payments of payoff, or paid off',
+      produces: 'Saturday appointments', target: 15, source: 'equity' },
+    { id: 'cq', list: 'Conquest / in-market', filter: 'Non-Mercedes owners showing shopping behaviour',
+      produces: 'Upgrade Certificate conversations', target: 10, source: 'conquest' },
+  ],
+  floor: [
+    { id: 'svc', list: 'Service today — with equity', filter: 'Open RO today · positive equity',
+      produces: 'Face-to-face on the drive, no phone needed', target: 15, source: 'service' },
+    { id: 'bb', list: 'Unsold from the last 7 days', filter: 'Your own be-backs from the week',
+      produces: 'Second bites while traffic is heavy', target: 10, source: 'floor' },
+  ],
+  family: [
+    { id: 'bb2', list: 'Unsold from the last 14 days', filter: 'Couples and families who came in without both decision-makers',
+      produces: 'Sunday visits with everyone present', target: 10, source: 'floor' },
+    { id: 'om', list: 'Over-mileage leases', filter: 'Active leases pacing over contracted miles',
+      produces: 'Pull-ahead conversations', target: 10, source: 'lease-end' },
+  ],
+};
 
 export type Script = { id: string; when: string; text: string };
 

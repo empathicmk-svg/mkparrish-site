@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import {
-  SHIFTS, SCRIPTS, SPRINTER_BRANDS, NAME_KEY,
+  SHIFTS, SCRIPTS, SPRINTER_BRANDS, NAME_KEY, PULLS, STANDING_LISTS,
   shiftsLeftInMonth, currentBlock, fmtTime, greeting,
   type Shift,
 } from './deskPlan';
@@ -37,7 +37,7 @@ type Props = {
   pipe: Prospect[];
   goal: number;
   savePipe: (p: Prospect[]) => void;
-  onGoImport: () => void;
+  onGoImport: (source?: string) => void;
   onGoFollowUp: () => void;
 };
 
@@ -50,6 +50,7 @@ export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }
   const [act, setAct] = useState<Activity>({});
   const [skipped, setSkipped] = useState<number[]>([]);
   const [showPlan, setShowPlan] = useState(false);
+  const [showLists, setShowLists] = useState(false);
 
   // Set on the client only — rendering a clock during SSR causes a hydration
   // mismatch, and the server's timezone is not the user's anyway.
@@ -266,21 +267,52 @@ export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }
             )}
           </div>
 
-          {/* ── AUTOALERT PASTE ── */}
+          {/* ── WHICH LISTS TO PULL TODAY ── */}
           <div className="card accent">
-            <h3 className="h3">📋 Load today&rsquo;s call list from AutoAlert</h3>
-            <ol className="steps">
-              <li>Open <b>AutoAlert</b> in another tab. Pick your <b>Equity</b> or <b>Lease Maturity</b> list.</li>
-              <li>Select the rows and <b>copy</b> them.</li>
-              <li>Come back, tap the button, <b>paste</b>, choose the source, tap Import.</li>
-            </ol>
-            <button className="act" style={{ marginTop: 10 }} onClick={onGoImport}>
-              Paste AutoAlert list →
-            </button>
-            <p className="note" style={{ marginBottom: 0 }}>
-              Phone numbers and emails are stripped automatically — those stay in Momentum.
-              Only names and vehicles are saved here, so this stays clean if anyone picks up your phone.
+            <h3 className="h3">📋 Pull these from AutoAlert today</h3>
+            <p className="body" style={{ fontSize: '.83rem', marginBottom: 10 }}>
+              Built for a {shift.day.toLowerCase()} shift. Open AutoAlert, filter as shown, copy the
+              rows, then tap <b>Paste</b> — the source is set for you.
             </p>
+
+            {(PULLS[shift.mode] || []).map((pull) => (
+              <div className="pull" key={pull.id}>
+                <div className="pullhead">
+                  <span className="pullname">{pull.list}</span>
+                  <span className="pulltarget">{pull.target}</span>
+                </div>
+                <div className="pullfilter"><b>Filter:</b> {pull.filter}</div>
+                <div className="pullwhy">→ {pull.produces}</div>
+                <button className="sm" style={{ width: '100%', marginTop: 7 }}
+                  onClick={() => onGoImport(pull.source)}>
+                  Paste this list →
+                </button>
+              </div>
+            ))}
+
+            <p className="note">
+              Phone numbers and emails are stripped on import — those stay in Momentum. Only names
+              and vehicles are saved here.
+            </p>
+
+            <button className="sm" style={{ width: '100%', marginTop: 4 }} onClick={() => setShowLists((v) => !v)}>
+              {showLists ? 'Hide' : 'Show'} the {STANDING_LISTS.length} lists to build once in AutoAlert
+            </button>
+            {showLists && (
+              <div style={{ marginTop: 10 }}>
+                <p className="note" style={{ marginTop: 0 }}>
+                  Build and save these once. Alert names differ between stores — ask your AutoAlert
+                  admin to match them up, then you reuse them every shift.
+                </p>
+                {STANDING_LISTS.map((l) => (
+                  <div className="pull" key={l.name}>
+                    <div className="pullname">{l.name}</div>
+                    <div className="pullfilter"><b>How:</b> {l.how}</div>
+                    <div className="pullwhy">{l.why}</div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* ── the shift ── */}
