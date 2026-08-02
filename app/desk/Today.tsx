@@ -316,14 +316,26 @@ export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }
           </div>
 
           {/* ── SPRINTER ── */}
-          {isCommercialDay && (
-            <div className="card accent">
-              <h3 className="h3">🚐 Sprinter hour — 9:45 to 11:00</h3>
+          {/*
+            Always rendered. Gating this to Thursday and Friday left the
+            "work the Sprinter franchise list" button doing nothing on the
+            other five days, since the list it opens was not on the page.
+          */}
+          <div className="card accent">
+              <h3 className="h3">
+                {isCommercialDay ? '🚐 Sprinter hour — 9:45 to 11:00' : '🚐 Sprinter & commercial'}
+              </h3>
               <p className="body">
                 The one question that pays: <b>&ldquo;Who is your parent company?&rdquo;</b> If the answer is
                 one of these, that business gets <b>fleet-level cash on a single van</b> —
                 roughly <b>$11,000</b> instead of $8,000 on a MY25 Cargo. Almost nobody asks.
               </p>
+              {!isCommercialDay && (
+                <p className="note" style={{ marginTop: 0 }}>
+                  Your commercial block runs <b>Thursday and Friday, 9:45–11:00</b>, when businesses
+                  answer the phone. Use today to build the target list.
+                </p>
+              )}
               <h4 className="h4">The call, start to finish</h4>
               {COMMERCIAL_SCRIPTS.map((s2) => (
                 <div key={s2.id} className="scriptrow">
@@ -364,8 +376,7 @@ export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }
                   </p>
                 </div>
               )}
-            </div>
-          )}
+          </div>
 
           {/* ── the shift ── */}
           <button className="sm" style={{ width: '100%', marginBottom: 12 }} onClick={() => setShowPlan((v) => !v)}>
