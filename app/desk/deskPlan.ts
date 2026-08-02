@@ -276,6 +276,46 @@ export const SCRIPTS: Script[] = [
   },
 ];
 
+/** The commercial call, start to finish. Shown on the Sprinter card. */
+export const COMMERCIAL_SCRIPTS: { id: string; when: string; text: string }[] = [
+  {
+    id: 'gate', when: '1 · Getting past whoever answers',
+    text: 'Hi — I am trying to reach whoever handles the vans. Is that the owner, or do you have a fleet manager? … Great, is he/she around? I will only need about two minutes.',
+  },
+  {
+    id: 'qualify', when: '2 · The question that pays — ask it early',
+    text: 'Before I take your time — are you an independent shop, or do you franchise under a national brand? … The reason I ask is that franchisees qualify for fleet-level pricing on a single van, not just big fleets. It is thousands more than retail and most owners have no idea it exists.',
+  },
+  {
+    id: 'open', when: '3 · The opener once you have the owner',
+    text: 'I am MK at Mercedes-Benz of Smithtown. Two quick reasons to talk: we are carrying real inventory on Sprinter cargo right now, so no ordering and no waiting. And a Sprinter is over 6,000 pounds, so Section 179 may let you write off a large part of it this tax year. Worth fifteen minutes to see if the numbers work?',
+  },
+  {
+    id: '179', when: '4 · Section 179 — the urgency, said honestly',
+    text: 'I am not your accountant and I would never pretend to be. What I can tell you is the van qualifies by weight, and business owners who buy before year-end often deduct a significant portion in the same year. Ask your CPA what that is worth to you — if the answer is what it usually is, buying in August instead of January is real money.',
+  },
+  {
+    id: 'ford', when: '5 · "We run Transits / ProMasters"',
+    text: 'Most of the shops I talk to do. The two things owners tell me they notice are uptime and how long the van lasts before it starts costing them. What does downtime actually cost you on a working day? … That is the number worth comparing, not the sticker.',
+  },
+  {
+    id: 'notnow', when: '6 · "Not right now"',
+    text: 'Understood, and I am not going to push. When does your replacement cycle usually come up? … Then let me do this: I will check in a few weeks before that, and if anything changes on incentives I will let you know rather than let you miss it. Fair?',
+  },
+  {
+    id: 'upfit', when: '7 · Sizing the deal — ask these',
+    text: 'How many vans are you running? · How long do you keep one? · What is on the inside — shelving, partition, ladder rack, refrigeration? · Does the crew need to stand up in it? · Roughly how many miles a year? · Do you buy, finance, or lease them?',
+  },
+  {
+    id: 'vm', when: '8 · Voicemail — you will leave a lot',
+    text: 'Hi, this is MK at Mercedes-Benz of Smithtown, 631-... . Calling about Sprinter cargo vans — we have inventory on the ground and there is a Section 179 angle worth knowing before year-end. If you franchise under a national brand there is also fleet pricing available on a single van. Two minutes is all I need. Thanks.',
+  },
+  {
+    id: 'close', when: '9 · Closing for the appointment',
+    text: 'Here is what I would suggest — come see one. Ten minutes, no numbers, just stand in it and see if the size works for your crew. I am here Thursday and Friday until five, or Saturday. Which is easier?',
+  },
+];
+
 /** Franchise brands whose local owners qualify for fleet-level cash on ONE van. */
 export const SPRINTER_BRANDS = [
   { name: 'Mr. Rooter Plumbing', parent: 'Neighborly', url: 'https://www.mrrooter.com/locations/' },

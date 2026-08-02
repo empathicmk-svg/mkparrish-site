@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import {
-  SHIFTS, SCRIPTS, SPRINTER_BRANDS, NAME_KEY, PULLS, STANDING_LISTS,
+  SHIFTS, SCRIPTS, SPRINTER_BRANDS, COMMERCIAL_SCRIPTS, NAME_KEY, PULLS, STANDING_LISTS,
   shiftsLeftInMonth, currentBlock, fmtTime, greeting,
   type Shift,
 } from './deskPlan';
@@ -315,6 +315,58 @@ export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }
             )}
           </div>
 
+          {/* ── SPRINTER ── */}
+          {isCommercialDay && (
+            <div className="card accent">
+              <h3 className="h3">🚐 Sprinter hour — 9:45 to 11:00</h3>
+              <p className="body">
+                The one question that pays: <b>&ldquo;Who is your parent company?&rdquo;</b> If the answer is
+                one of these, that business gets <b>fleet-level cash on a single van</b> —
+                roughly <b>$11,000</b> instead of $8,000 on a MY25 Cargo. Almost nobody asks.
+              </p>
+              <h4 className="h4">The call, start to finish</h4>
+              {COMMERCIAL_SCRIPTS.map((s2) => (
+                <div key={s2.id} className="scriptrow">
+                  <button className="scripthead" onClick={() => setOpenScript(openScript === s2.id ? null : s2.id)}>
+                    <span>{s2.when}</span>
+                    <span className="chev">{openScript === s2.id ? '−' : '+'}</span>
+                  </button>
+                  {openScript === s2.id && (
+                    <>
+                      <p className="scripttext">{s2.text}</p>
+                      <button className="sm" onClick={() => copy(s2.id, s2.text)}>
+                        {copied === s2.id ? '✓ Copied' : 'Copy'}
+                      </button>
+                    </>
+                  )}
+                </div>
+              ))}
+
+              <button className="sm" style={{ width: '100%', marginTop: 12 }} onClick={() => setShowBrands((v) => !v)}>
+                {showBrands ? 'Hide' : 'Show'} the {SPRINTER_BRANDS.length} qualifying brands
+              </button>
+              {showBrands && (
+                <div style={{ marginTop: 10 }}>
+                  {SPRINTER_BRANDS.map((b) => (
+                    <div className="p" key={b.name}>
+                      <div>
+                        <div className="nm">{b.name}</div>
+                        <div className="meta">{b.parent}</div>
+                      </div>
+                      <div>
+                        <a className="sm" href={b.url} target="_blank" rel="noopener noreferrer">Find local</a>
+                      </div>
+                    </div>
+                  ))}
+                  <p className="note">
+                    Open a locator, set it to <b>Smithtown / Suffolk County NY</b>, and call the local owner
+                    or fleet manager. Loop in your Commercial/Fleet manager to process the CAN.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* ── the shift ── */}
           <button className="sm" style={{ width: '100%', marginBottom: 12 }} onClick={() => setShowPlan((v) => !v)}>
             {showPlan ? 'Hide' : 'Show'} the {shift.day} plan, scripts &amp; Sprinter list
@@ -356,40 +408,6 @@ export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }
               })}
             </div>
           </div>
-
-          {/* ── SPRINTER ── */}
-          {isCommercialDay && (
-            <div className="card accent">
-              <h3 className="h3">🚐 Sprinter hour — 9:45 to 11:00</h3>
-              <p className="body">
-                The one question that pays: <b>&ldquo;Who is your parent company?&rdquo;</b> If the answer is
-                one of these, that business gets <b>fleet-level cash on a single van</b> —
-                roughly <b>$11,000</b> instead of $8,000 on a MY25 Cargo. Almost nobody asks.
-              </p>
-              <button className="sm" style={{ width: '100%', marginTop: 8 }} onClick={() => setShowBrands((v) => !v)}>
-                {showBrands ? 'Hide' : 'Show'} the {SPRINTER_BRANDS.length} qualifying brands
-              </button>
-              {showBrands && (
-                <div style={{ marginTop: 10 }}>
-                  {SPRINTER_BRANDS.map((b) => (
-                    <div className="p" key={b.name}>
-                      <div>
-                        <div className="nm">{b.name}</div>
-                        <div className="meta">{b.parent}</div>
-                      </div>
-                      <div>
-                        <a className="sm" href={b.url} target="_blank" rel="noopener noreferrer">Find local</a>
-                      </div>
-                    </div>
-                  ))}
-                  <p className="note">
-                    Open a locator, set it to <b>Smithtown / Suffolk County NY</b>, and call the local owner
-                    or fleet manager. Loop in your Commercial/Fleet manager to process the CAN.
-                  </p>
-                </div>
-              )}
-            </div>
-          )}
 
           {/* ── scripts ── */}
           <div className="card">
