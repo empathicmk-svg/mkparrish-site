@@ -58,13 +58,20 @@ export default function Inventory({ cfg, onQuote }: Props) {
     return [...list].sort((a, b) => b.days - a.days);
   }, [units, view, q, afterDays]);
 
-  const doImport = () => {
-    const parsed = parseInventory(paste);
-    if (!parsed.length) return;
+  const [err, setErr] = useState('');
+
+  const applyText = (text: string) => {
+    const parsed = parseInventory(text);
+    if (!parsed.length) {
+      setErr('Could not find any vehicles in that. Make sure the rows include the VIN column.');
+      return;
+    }
     setUnits(parsed);
     saveInventory(parsed);
     setPaste('');
+    setErr('');
   };
+  const doImport = () => applyText(paste);
 
   const quote = (u: Unit) => {
     if (!cfg || !u.price) return;
@@ -90,6 +97,16 @@ export default function Inventory({ cfg, onQuote }: Props) {
           <button className="act" style={{ marginTop: 10 }} disabled={!paste.trim()} onClick={doImport}>
             Import stock list
           </button>
+
+          <label htmlFor="inv-file" style={{ marginTop: 14 }}>…or choose a file</label>
+          <input id="inv-file" type="file" accept=".txt,.csv,.tsv,text/plain,text/csv"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (!f) return;
+              f.text().then(applyText).catch(() => setErr('Could not read that file.'));
+            }} />
+          {err && <p className="note" style={{ color: 'var(--hot)' }}>{err}</p>}
+
           <p className="note" style={{ marginBottom: 0 }}>
             Reads whatever shape the export comes in — tabs, commas, or one run-on block from a PDF.
             Stays on this device.
