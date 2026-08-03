@@ -267,6 +267,10 @@ export const SCRIPTS: Script[] = [
     text: '[Name], while your [model] is in for service — did you know it is worth more than most people expect right now? Give me ten minutes and I will show you a newer one for about the same payment. No pressure, just the numbers.',
   },
   {
+    id: 'oldcar', when: 'Calling ahead — older car booked for service',
+    text: 'Hi [Name], this is MK on the sales side at Mercedes-Benz of Smithtown — nothing wrong, your appointment is all set for [day]. I called because your [year model] is one of the older ones we still take care of, and before you spend money on it I wanted you to know what it is worth and what your options are. Two questions while I have you: is anything else bothering you on it besides what you booked for? … And is it paid off? … Perfect. When you come in [day], ask the advisor for the estimate first, then text me the number — I will have it priced out both ways so you can just look at the two and pick. Fair enough?',
+  },
+  {
     id: 'confirm', when: 'Confirming an appointment, night before',
     text: 'Looking forward to seeing you at [time] tomorrow, [Name]. I will have the [model] pulled up front and ready to drive. Reply YES and I will have everything set. — MK, Mercedes-Benz of Smithtown',
   },
