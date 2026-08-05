@@ -1,0 +1,490 @@
+<title>5-Minute Interview Prep — MK Parrish</title>
+<style>
+  :root {
+    --ground: #f4f5f6;
+    --card: #ffffff;
+    --ink: #191c1f;
+    --ink-soft: #565d64;
+    --ink-faint: #868d94;
+    --line: #e0e3e6;
+    --line-strong: #cfd4d9;
+    --steel: #2f74b3;
+    --steel-soft: #eaf1f8;
+    --brass: #a9741f;
+    --brass-soft: #f6efe0;
+    --readout-bg: #1b1f24;
+    --readout-ink: #cdd6df;
+    --readout-key: #8ab7e3;
+    --readout-val: #e6b866;
+    --shadow: 0 1px 2px rgba(20,25,30,.05), 0 8px 24px -12px rgba(20,25,30,.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #131518;
+      --card: #1b1e22;
+      --ink: #e9ecef;
+      --ink-soft: #a3abb2;
+      --ink-faint: #727a81;
+      --line: #2a2e33;
+      --line-strong: #3a3f45;
+      --steel: #6ba7de;
+      --steel-soft: #1d2937;
+      --brass: #d9a54e;
+      --brass-soft: #2a2417;
+      --readout-bg: #0e1013;
+      --readout-ink: #cdd6df;
+      --readout-key: #8ab7e3;
+      --readout-val: #e6b866;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #f4f5f6; --card: #ffffff; --ink: #191c1f; --ink-soft: #565d64;
+    --ink-faint: #868d94; --line: #e0e3e6; --line-strong: #cfd4d9;
+    --steel: #2f74b3; --steel-soft: #eaf1f8; --brass: #a9741f; --brass-soft: #f6efe0;
+    --readout-bg: #1b1f24; --readout-ink: #cdd6df; --readout-key: #8ab7e3; --readout-val: #e6b866;
+    --shadow: 0 1px 2px rgba(20,25,30,.05), 0 8px 24px -12px rgba(20,25,30,.18);
+  }
+  :root[data-theme="dark"] {
+    --ground: #131518; --card: #1b1e22; --ink: #e9ecef; --ink-soft: #a3abb2;
+    --ink-faint: #727a81; --line: #2a2e33; --line-strong: #3a3f45;
+    --steel: #6ba7de; --steel-soft: #1d2937; --brass: #d9a54e; --brass-soft: #2a2417;
+    --readout-bg: #0e1013; --readout-ink: #cdd6df; --readout-key: #8ab7e3; --readout-val: #e6b866;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    font-size: 17px;
+    letter-spacing: -0.005em;
+  }
+  .mono {
+    font-family: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+  .wrap {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 0 20px 72px;
+  }
+
+  /* ---- Pocket-card header ---- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--ground) 88%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    margin: 0 -20px 28px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .clock {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    color: var(--card);
+    background: var(--steel);
+    padding: 3px 9px;
+    border-radius: 6px;
+    flex: none;
+  }
+  header .htxt {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    line-height: 1.3;
+  }
+
+  .hero { padding: 8px 0 4px; }
+  .hero .kicker {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-size: clamp(28px, 8vw, 40px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+  .hero p.lede {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 16px;
+    max-width: 34ch;
+  }
+  .hero .rule {
+    height: 3px;
+    width: 52px;
+    background: var(--brass);
+    border-radius: 2px;
+    margin: 20px 0 4px;
+  }
+
+  section { margin-top: 40px; }
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+  }
+  .eyebrow::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  h2 {
+    font-size: 21px;
+    letter-spacing: -0.02em;
+    font-weight: 650;
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+  }
+
+  /* say-this block */
+  .say {
+    border-left: 3px solid var(--steel);
+    background: var(--steel-soft);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 18px;
+    margin: 0;
+    font-size: 16.5px;
+    color: var(--ink);
+  }
+  .say .lbl {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .aside {
+    margin: 14px 2px 0;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+  .aside b { color: var(--ink); }
+
+  /* Q list */
+  ol.qs { list-style: none; counter-reset: q; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  ol.qs > li {
+    counter-increment: q;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    padding: 16px 18px 18px 52px;
+    position: relative;
+    box-shadow: var(--shadow);
+  }
+  ol.qs > li::before {
+    content: counter(q);
+    position: absolute;
+    left: 16px; top: 16px;
+    width: 26px; height: 26px;
+    display: grid; place-items: center;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px; font-weight: 600;
+    color: var(--steel);
+    border: 1.5px solid var(--steel);
+    border-radius: 50%;
+  }
+  ol.qs .q {
+    font-weight: 650;
+    font-size: 16px;
+    margin: 0 0 7px;
+    letter-spacing: -0.01em;
+  }
+  ol.qs .a { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
+  ol.qs .a strong, .say strong { color: var(--ink); }
+
+  /* readout */
+  .readout {
+    background: var(--readout-bg);
+    border-radius: 13px;
+    padding: 18px 20px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--readout-ink);
+    overflow-x: auto;
+    box-shadow: var(--shadow);
+  }
+  .readout .row { display: block; white-space: nowrap; }
+  .readout .k { color: var(--readout-key); }
+  .readout .v { color: var(--readout-val); font-weight: 600; }
+  .readout .c { color: #6b757e; }
+  .readout .note {
+    white-space: normal;
+    display: block;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #2c333b;
+    color: #93a0ab;
+    font-size: 12.5px;
+    line-height: 1.6;
+  }
+
+  /* differentiator */
+  ul.diff { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  ul.diff li {
+    display: flex; gap: 13px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  ul.diff .tag {
+    flex: none;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--brass);
+    background: var(--brass-soft);
+    border-radius: 6px;
+    padding: 4px 8px;
+    height: fit-content;
+    white-space: nowrap;
+  }
+  ul.diff .d { font-size: 15px; margin: 0; }
+  ul.diff .d b { color: var(--ink); }
+  ul.diff .d span { color: var(--ink-soft); }
+
+  /* ask-them chips */
+  ul.ask { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  ul.ask li {
+    padding: 13px 16px 13px 30px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    position: relative;
+    font-size: 15.5px;
+  }
+  ul.ask li::before {
+    content: "";
+    position: absolute; left: 15px; top: 21px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--steel);
+  }
+
+  /* close callout */
+  .close {
+    background: var(--brass-soft);
+    border: 1px solid color-mix(in srgb, var(--brass) 35%, var(--line));
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .close .lbl {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--brass); margin: 0 0 10px;
+  }
+  .close blockquote {
+    margin: 0 0 12px;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 550;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .close .then { margin: 0; color: var(--ink-soft); font-size: 15px; }
+
+  /* don'ts */
+  ul.donts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+  ul.donts li {
+    padding-left: 26px; position: relative;
+    font-size: 15.5px; color: var(--ink-soft);
+  }
+  ul.donts li::before {
+    content: "×";
+    position: absolute; left: 6px; top: -1px;
+    color: #c0392b; font-weight: 700; font-size: 17px;
+  }
+  @media (prefers-color-scheme: dark) { ul.donts li::before { color: #e0705f; } }
+  :root[data-theme="dark"] ul.donts li::before { color: #e0705f; }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+  }
+
+  a { color: var(--steel); }
+  :focus-visible { outline: 2px solid var(--steel); outline-offset: 3px; border-radius: 4px; }
+  @media (max-width: 420px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 16px 64px; }
+    header { margin: 0 -16px 24px; padding: 10px 16px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <span class="clock">5:00</span>
+    <span class="htxt">Pre-interview prep · read before you walk in</span>
+  </header>
+
+  <div class="hero">
+    <p class="kicker">Mercedes-Benz · Sales Floor</p>
+    <h1>Load it in. Then go run the play.</h1>
+    <p class="lede">Numbers first. Story second. Ask for the job before you leave the room.</p>
+    <div class="rule"></div>
+  </div>
+
+  <section>
+    <p class="eyebrow">The opener</p>
+    <h2>&ldquo;Tell me about yourself&rdquo; — 30 seconds</h2>
+    <p class="say">
+      <span class="lbl">Say something like</span>
+      &ldquo;I come from brand and communications — years spent making a message land so it
+      can&rsquo;t be misread, and following up until it converts. I bring that same discipline to
+      the floor. I don&rsquo;t wing it: a unit goal, a source mix, a follow-up cadence that never
+      lets a prospect go cold, and every tool available to send <strong>eight thoughtful touches
+      in the time most people send one.</strong> I&rsquo;m here because Mercedes is a product I can
+      sell with conviction — and this is a numbers game I already know how to win.&rdquo;
+    </p>
+    <p class="aside">The point to land: <b>systematic, disciplined, hungry</b> — not a floor-up gambler.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">The six questions</p>
+    <h2>Your spine for each</h2>
+    <ol class="qs">
+      <li>
+        <p class="q">Why cars? Why sales?</p>
+        <p class="a">Sales rewards what I&rsquo;m good at: preparation, follow-up, reading a person. I&rsquo;d rather be paid on what I produce than on showing up. Cars because the product is real, the customer is emotional in a good way, and one relationship becomes a <strong>referral tree.</strong></p>
+      </li>
+      <li>
+        <p class="q">Why Mercedes-Benz? Why this store?</p>
+        <p class="a">The product sells itself on quality — my job is to remove friction, not oversell. And Mercedes has the <strong>Sprinter commercial line</strong>: a whole B2B pipeline next to the retail floor that most salespeople never touch. I want a store that lets me work both.</p>
+      </li>
+      <li>
+        <p class="q">How would you hit your number?</p>
+        <p class="a">By not treating every month as a coin flip. A unit goal, backed into with a <strong>source mix</strong> — equity/lease-end, floor ups, internet/CRM, repeat &amp; referral, service drive — so I&rsquo;m never dependent on walk-in luck. Then a daily activity floor. Activity I control; the units follow.</p>
+      </li>
+      <li>
+        <p class="q">Walk me through how you follow up.</p>
+        <p class="a">Most deals die in follow-up, not on the floor. A <strong>fixed cadence — day 1, 2, 4, 7, 14, 21, 30</strong> — and every touch carries a payload: a specific alternative structure, a different trim, a reason to act this month. Never &ldquo;just checking in.&rdquo; If I haven&rsquo;t reached someone, they go red instead of aging out.</p>
+      </li>
+      <li>
+        <p class="q">A tough close or objection you handled.</p>
+        <p class="a">STAR, 45 seconds. Hook: a <strong>payment objection</strong> — loved the car, said the payment was ~$80/mo too high. Instead of caving on price, I re-structured — same money on a different term, trim, or unit — and could tell them fast, on the phone, what a target payment actually required <strong>before</strong> walking to the desk. Value, not desperation.</p>
+      </li>
+      <li>
+        <p class="q">Your weakness / where you need to grow.</p>
+        <p class="a">Honest and forward-looking: still learning the product line and finance programs cold — and I close that gap by drilling residuals, money factors, and current programs. <strong>AI drafts, I verify. I never quote a number I haven&rsquo;t checked against the desk.</strong></p>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <p class="eyebrow">Own these cold · no notes</p>
+    <h2>The numbers</h2>
+    <div class="readout" role="img" aria-label="Key numbers to memorize: goal 15 units per month; daily floor 40 outbound touches, 10 live conversations, 2 appointments set; follow-up cadence 1, 2, 4, 7, 14, 21, 30 days; Sprinter fleet cash is thousands per single-van deal; quoting solves backward from a target payment.">
+      <span class="row"><span class="c"># the plan</span></span>
+      <span class="row"><span class="k">goal</span> ............. <span class="v">15 units / month</span> <span class="c">(from a real source mix, not hope)</span></span>
+      <span class="row"><span class="k">daily floor</span> ...... <span class="v">40</span> touches &middot; <span class="v">10</span> live convos &middot; <span class="v">2</span> appts set</span>
+      <span class="row"><span class="k">cadence</span> .......... <span class="v">1 · 2 · 4 · 7 · 14 · 21 · 30</span> <span class="c">days</span></span>
+      <span class="row">&nbsp;</span>
+      <span class="row"><span class="c"># the edge</span></span>
+      <span class="row"><span class="k">sprinter</span> ......... <span class="v">fleet cash</span> on a single van <span class="c">— thousands / deal</span></span>
+      <span class="row"><span class="k">the question</span> ..... <span class="v">&ldquo;who&rsquo;s your parent company?&rdquo;</span> <span class="c">— few reps ask</span></span>
+      <span class="row"><span class="k">quoting</span> .......... solve <span class="v">backward</span> from a target payment</span>
+      <span class="note">If they hand you a scenario, reason out loud: MSRP → term → residual + money factor → payment. You don&rsquo;t need the exact figure — you need to sound like someone who knows <b>how</b> the number is built. Estimate only; the desk is the source of truth.</span>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Plant it on purpose</p>
+    <h2>Your one differentiator</h2>
+    <p class="aside" style="margin-top:0;margin-bottom:16px">You&rsquo;re not another floor-up gambler. Land at least one of these — it&rsquo;s the reason to hire <b>you.</b></p>
+    <ul class="diff">
+      <li>
+        <span class="tag">Commercial</span>
+        <p class="d"><b>You prospect business.</b> <span>The Sprinter / franchise angle is a B2B pipeline running next to retail. Fleet cash closes deals nobody else is even calling on.</span></p>
+      </li>
+      <li>
+        <span class="tag">System</span>
+        <p class="d"><b>No lead dies.</b> <span>A written cadence and a real follow-up engine — not sticky notes.</span></p>
+      </li>
+      <li>
+        <span class="tag">AI edge</span>
+        <p class="d"><b>Leverage, ethically.</b> <span>Faster, more personal follow-up — drafts I verify, PII stays in the CRM, no fake urgency. Speed and preparation, not deception.</span></p>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="eyebrow">Turn it around · pick two</p>
+    <h2>Ask them</h2>
+    <ul class="ask">
+      <li>What separates your top producer from the middle of the board here?</li>
+      <li>How does the store handle commercial / Sprinter leads — mine to prospect, or funneled?</li>
+      <li>What does great onboarding look like in the first 90 days?</li>
+      <li>How are internet leads distributed, and what&rsquo;s the expected response time?</li>
+    </ul>
+    <p class="aside">Asking <b>how leads flow</b> signals you already think like a producer.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Do not skip this</p>
+    <h2>The close</h2>
+    <div class="close">
+      <p class="lbl">Before you stand up</p>
+      <blockquote>&ldquo;This is the job I want. I run a plan, I follow up harder than anyone, and I&rsquo;ll prospect business nobody else is calling. What are the next steps — and is there anything giving you hesitation I can address right now?&rdquo;</blockquote>
+      <p class="then">Then be quiet. Let them answer.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Keep it clean</p>
+    <h2>Don&rsquo;ts</h2>
+    <ul class="donts">
+      <li>Don&rsquo;t bad-mouth other brands or other stores.</li>
+      <li>Don&rsquo;t promise a payment or a rate — &ldquo;I&rsquo;d confirm that with the desk first.&rdquo;</li>
+      <li>Don&rsquo;t oversell past the truth. Systematic + hungry beats a highlight reel.</li>
+      <li>Don&rsquo;t leave without asking for the job.</li>
+    </ul>
+  </section>
+
+  <footer>YOU BUILT THE SYSTEM · NOW GO RUN THE PLAY</footer>
+
+</div>
