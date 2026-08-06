@@ -155,57 +155,112 @@ export type Pull = {
   source: string;   // maps to a pipeline source
 };
 
-/** Standing lists worth building once and saving in AutoAlert. */
-export const STANDING_LISTS: { name: string; how: string; why: string }[] = [
-  {
-    name: 'Equity / Flex — payment neutral',
-    how: 'Positive-equity customers whose payment on a newer unit lands within about $50 of today.',
-    why: 'Your highest-converting call. The pitch is "newer car, same money" — nobody argues with that.',
-  },
-  {
-    name: 'Lease maturity — 90 to 120 days',
-    how: 'Leases ending in the next 90–120 days, sorted soonest first.',
-    why: 'Catch them before the mail and before the other store. Pair with the LAP payment waiver.',
-  },
+/**
+ * Standing lists worth building once and saving in AutoAlert.
+ *
+ * Ordered by tier, not by yield. Tier 1 lists convert best, but every
+ * salesperson on the floor skims them each morning, so a new rep calling
+ * them is often the second or third call that customer has had. Tier 3
+ * converts worse per dial and is uncontested — which is why it is where a
+ * new rep actually builds a book.
+ */
+export type StandingList = {
+  name: string;
+  tier: 1 | 2 | 3;
+  how: string;      // the filter parameters
+  why: string;
+  target?: number;  // rough list size worth pulling
+};
+
+export const TIERS: Record<number, { label: string; note: string }> = {
+  1: { label: 'Every shift', note: 'These produce appointments today. Everyone else pulls them too — call early.' },
+  2: { label: 'Once a week', note: 'These fill next week and next month. Build the list Monday, work it all week.' },
+  3: { label: 'Ask your manager once', note: 'Lower hit rate per dial, but nobody else is working them. This is where a new rep builds a book.' },
+};
+
+export const STANDING_LISTS: StandingList[] = [
+  // ── Tier 1 — every shift ─────────────────────────────────────────────
   {
     name: 'Service today — with equity',
-    how: 'Customers with an RO open today who also carry positive equity.',
-    why: 'They are physically on the property. Walk the drive with this list on your phone.',
+    tier: 1, target: 15,
+    how: 'Open RO dated today · equity at or above $0 · exclude Do Not Contact · sort by RO write-up time.',
+    why: 'They are already standing on the property. No dial, no gatekeeper, no voicemail. Most veterans will not walk the drive — that is your opening.',
   },
   {
     name: 'Big repair estimate',
-    how: 'Open ROs above roughly $1,500, or any declined major service.',
-    why: '"Do not put $3,000 into a car worth $18,000" writes itself. Highest-urgency list you have.',
+    tier: 1, target: 10,
+    how: 'Open RO at or above $1,500, or a declined recommended service in the last 90 days · vehicle 5+ model years old.',
+    why: 'Urgency is already in the customer\'s head — you are not creating it. Highest-intent list in the system. Always check the estimate before you pitch.',
   },
   {
-    name: 'Over-mileage leases',
-    how: 'Active leases pacing over their contracted mileage.',
-    why: 'They owe money at turn-in and usually do not know yet. Pull-ahead solves their problem.',
+    name: 'Flex / equity — payment neutral',
+    tier: 1, target: 25,
+    how: 'Equity at or above $2,000 · payment on a comparable newer unit within about $50 of today · not contacted in the last 30 days.',
+    why: '"Newer car, same money" is the one pitch nobody argues with. Filter out recent contacts or you will be the third rep to call this week.',
+  },
+
+  // ── Tier 2 — weekly, builds the pipeline ─────────────────────────────
+  {
+    name: 'Lease maturity — 90 to 120 days',
+    tier: 2, target: 15,
+    how: 'Lease maturity 90–120 days out · sort soonest first · exclude already grounded or turned in.',
+    why: 'Catch them before the factory mailer and before another store does. Pair with the payment waiver.',
+  },
+  {
+    name: '24 to 48 months in service',
+    tier: 2, target: 20,
+    how: 'Months in service between 24 and 48 · equity at or above $1,500 · any contract type.',
+    why: 'The band where depreciation has slowed but the car still appraises well. Reliably the deepest source of trade equity.',
   },
   {
     name: 'Contract end / near payoff',
-    how: 'Finance contracts within 6 payments of payoff, or already paid off.',
-    why: 'Payment-free and used to a payment. Easiest re-entry into a new lease.',
+    tier: 2, target: 15,
+    how: 'Retail finance · 6 or fewer payments remaining, or payoff already $0 · 36+ months in service.',
+    why: 'Used to a payment, about to lose it. Easiest re-entry there is — and they rarely realise the equity is theirs to spend.',
+  },
+  {
+    name: 'Over-mileage leases',
+    tier: 2, target: 10,
+    how: 'Active lease · projected miles at maturity exceeding contracted miles by 2,000+ · sort by overage descending.',
+    why: 'They owe real money at turn-in and almost never know yet. A pull-ahead genuinely solves the problem — this call helps them.',
   },
   {
     name: 'Warranty expiring',
-    how: 'Factory warranty ending in the next 90 days.',
-    why: 'Fear of out-of-warranty repair bills is a real motivator. Trade before it expires.',
+    tier: 2, target: 10,
+    how: 'Factory warranty ending within 90 days, or within 3,000 miles of the mileage limit.',
+    why: 'The next repair bill stops being covered. Concrete, dated, and true — no manufactured urgency needed.',
+  },
+
+  // ── Tier 3 — uncontested; ask once, then they are yours ──────────────
+  {
+    name: 'Orphan owners',
+    tier: 3, target: 40,
+    how: 'Assigned salesperson blank or none · still owns the vehicle · exclude Do Not Contact.',
+    why: 'Nobody is working them, which is exactly why you should. Ask your manager to assign these to you — this is the single best ask a new rep can make.',
+  },
+  {
+    name: 'Departed rep\'s book',
+    tier: 3, target: 40,
+    how: 'Assigned salesperson equals anyone no longer employed at the store · sorted by equity.',
+    why: 'A full book of Mercedes owners with nobody calling them. Ask which names to use — managers usually want them re-covered and have not gotten to it.',
+  },
+  {
+    name: 'Commercial & Sprinter owners',
+    tier: 3, target: 20,
+    how: 'Body style van, cargo, chassis or Metris · OR customer name contains LLC, Inc, Corp, Contracting, Plumbing, Heating, Electric, Landscap, Construction.',
+    why: 'Businesses replace on a cycle and buy in multiples. Confirm with your admin that Sprinters actually flow into your AutoAlert feed — at some stores they do not.',
+  },
+  {
+    name: 'Cold file — 12 months untouched',
+    tier: 3, target: 30,
+    how: 'No logged contact in 12+ months, or never contacted · still owns the vehicle · exclude Do Not Contact.',
+    why: 'Low hit rate per dial and zero competition. Worked consistently, this is how you fill a pipeline nobody can take from you.',
   },
   {
     name: 'Conquest / in-market',
-    how: 'Non-Mercedes owners in your database showing shopping behaviour.',
-    why: 'The $1,500 Upgrade Certificate applies to any brand — free money you can lead with.',
-  },
-  {
-    name: 'Orphan owners',
-    how: 'Customers with no active salesperson assigned.',
-    why: 'Nobody is working them. As the new person, ask your manager to assign you these.',
-  },
-  {
-    name: 'Commercial / Sprinter owners',
-    how: 'Filter your owner base to Sprinter and commercially titled vehicles.',
-    why: 'Businesses replace on a cycle and buy in multiples. Confirm Sprinters are in your AutoAlert feed.',
+    tier: 3, target: 10,
+    how: 'Non-Mercedes vehicles in the service file · plus any in-market shopping flags your store subscribes to.',
+    why: 'The Upgrade Certificate applies to any brand — money you can lead with before you talk product.',
   },
 ];
 

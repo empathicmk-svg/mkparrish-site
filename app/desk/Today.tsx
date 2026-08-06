@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import {
-  SHIFTS, SCRIPTS, SPRINTER_BRANDS, COMMERCIAL_SCRIPTS, NAME_KEY, PULLS, STANDING_LISTS,
+  SHIFTS, SCRIPTS, SPRINTER_BRANDS, COMMERCIAL_SCRIPTS, NAME_KEY, PULLS, STANDING_LISTS, TIERS,
   shiftsLeftInMonth, currentBlock, fmtTime, greeting,
   type Shift,
 } from './deskPlan';
@@ -302,13 +302,25 @@ export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }
               <div style={{ marginTop: 10 }}>
                 <p className="note" style={{ marginTop: 0 }}>
                   Build and save these once. Alert names differ between stores — ask your AutoAlert
-                  admin to match them up, then you reuse them every shift.
+                  admin to match them up, then you reuse them every shift. Honour Do Not Contact
+                  flags and keep dials inside 8am–9pm.
                 </p>
-                {STANDING_LISTS.map((l) => (
-                  <div className="pull" key={l.name}>
-                    <div className="pullname">{l.name}</div>
-                    <div className="pullfilter"><b>How:</b> {l.how}</div>
-                    <div className="pullwhy">{l.why}</div>
+                {([1, 2, 3] as const).map((tier) => (
+                  <div key={tier} style={{ marginTop: 14 }}>
+                    <h4 className="h4" style={{ marginBottom: 2 }}>
+                      {tier}. {TIERS[tier].label}
+                    </h4>
+                    <p className="note" style={{ marginTop: 0 }}>{TIERS[tier].note}</p>
+                    {STANDING_LISTS.filter((l) => l.tier === tier).map((l) => (
+                      <div className="pull" key={l.name}>
+                        <div className="pullname">
+                          {l.name}
+                          {l.target ? <span className="xshop" style={{ marginLeft: 6, fontSize: '.66rem' }}>~{l.target}</span> : null}
+                        </div>
+                        <div className="pullfilter"><b>Filter:</b> {l.how}</div>
+                        <div className="pullwhy">{l.why}</div>
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
