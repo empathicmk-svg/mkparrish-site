@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
  * site's mobile nav overlaps it and the lead-capture modal covers it, so the
  * page is unusable on a phone with the chrome rendered.
  */
-const BARE_ROUTES = ["/desk"];
+const BARE_ROUTES = ["/desk", "/ideals"];
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
