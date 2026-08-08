@@ -49,7 +49,8 @@ const MARQUEE_ITEMS = [
   "Website Redesigns",
   "The Margins · $9/mo",
   "Paperbacks",
-  "Scripture & Strategy",
+  "The Manifestation Vault",
+  "The Cosmos Starter Kit · Free",
 ];
 
 const BUNDLES = [

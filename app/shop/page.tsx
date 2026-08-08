@@ -48,7 +48,7 @@ const BROWSE_ITEMS: BrowseItem[] = [
     featured: e.highlight || isBundle(e.tag),
     comingSoon: COMING_SOON_SLUGS.has(e.slug),
   })),
-  ...SERVICE_EBOOKS.map((e) => ({
+  ...SERVICE_EBOOKS.filter((e) => e.slug !== "scripture-and-strategy").map((e) => ({
     slug: e.slug,
     title: e.title,
     price: e.price,

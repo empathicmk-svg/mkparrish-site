@@ -51,6 +51,19 @@ export const LEAD_MAGNETS = [
     emailTeaser:
       "A practical map for choosing partner tools, placing affiliate links, pitching sponsors, and keeping the paid offer path intact.",
   },
+  {
+    slug: "the-cosmos-starter-kit",
+    label: "Cosmos",
+    title: "The Cosmos Starter Kit",
+    shortTitle: "Cosmos Starter Kit",
+    promise:
+      "A free field guide to numerology & astrology — your life-path number, your Big Three, angel numbers, and personal-year timing.",
+    proof: "Best for anyone curious about numerology or astrology who wants a grounded read — a mirror, not a fortune.",
+    download: "/downloads/ebooks/the-cosmos-starter-kit.pdf",
+    emailSubject: "Your free Cosmos Starter Kit",
+    emailTeaser:
+      "Calculate your life-path number, meet your Big Three, decode angel numbers, and read your personal year — no woo, no handing over your common sense.",
+  },
 ] as const;
 
 export type LeadMagnet = (typeof LEAD_MAGNETS)[number];
