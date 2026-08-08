@@ -4,6 +4,9 @@ import LegacyOfferingsRedirect from "@/app/components/LegacyOfferingsRedirect";
 import { QuoteMosaic } from "@/app/components/QuoteMosaic";
 import { Marquee, QuoteDivider } from "@/app/components/ui";
 import { SERVICES, MARGINS_TIERS, STRIPE_AUDIT, SUBSTACK_SUBSCRIBE_URL } from "@/app/lib/config";
+import { featuredTestimonials } from "@/app/lib/testimonials";
+
+const HOME_TESTIMONIALS = featuredTestimonials();
 
 export const metadata: Metadata = {
   title: "MK Parrish — Growth Strategy, Websites & Messaging",
@@ -151,6 +154,40 @@ export default function HomePage() {
             <Link href="/book" className="inline-flex w-full justify-center border border-graphite px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
               Book a Fit Call
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROOF / CLIENT TESTIMONIALS ── */}
+      <section className="relative overflow-hidden bg-void py-16 md:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.06),transparent_55%)]" />
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+            <div className="max-w-3xl">
+              <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">In their words</p>
+              <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+                Founders on <span className="text-petal">the work.</span>
+              </h2>
+            </div>
+            <Link href="/testimonials" className="font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:text-blush">
+              Read all client results →
+            </Link>
+          </div>
+          <div className="grid gap-px bg-graphite lg:grid-cols-2">
+            {HOME_TESTIMONIALS.map((t) => (
+              <figure key={t.name} className="relative flex flex-col justify-between bg-obsidian p-8 md:p-10">
+                <div className="absolute inset-x-0 top-0 h-px bg-petal" />
+                <span className="select-none font-serif text-6xl leading-none text-petal/25">&ldquo;</span>
+                <blockquote className="mt-2 font-serif text-lg italic leading-8 text-pearl md:text-xl">
+                  {t.quote}
+                </blockquote>
+                <figcaption className="mt-8 border-t border-graphite pt-6">
+                  <p className="font-display text-2xl uppercase tracking-[0.02em] text-white">{t.name}</p>
+                  <p className="mt-1 font-body text-sm font-light text-petal">{t.role}, {t.company}</p>
+                  <p className="mt-2 font-body text-[0.62rem] font-bold uppercase tracking-[0.22em] text-iron">{t.service}</p>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>

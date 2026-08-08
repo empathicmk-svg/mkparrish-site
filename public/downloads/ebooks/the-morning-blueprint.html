@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --white: #FAFAF8;
+    --blush: #FFD6E4;
+    --petal: #F2AFC6;
+    --rose: #E0869F;
+    --carmine: #C75B78;
+    --font-display: 'Bebas Neue', Impact, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    /* Reusable gray → pink gradients */
+    --grad-pink: linear-gradient(120deg, var(--rose), var(--petal) 55%, var(--blush));
+    --grad-rule: linear-gradient(90deg, transparent, var(--petal), transparent);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(242,175,198,0.06), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, rgba(199,91,120,0.05), transparent 55%),
+      linear-gradient(180deg, var(--obsidian) 0%, var(--void) 38%);
+    background-attachment: fixed;
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.78;
+    position: relative;
+  }
+  /* Grain overlay — the site's signature texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9998;
+    mix-blend-mode: screen;
+  }
+  ::selection { background: var(--petal); color: var(--void); }
+
+  /* ── COVER ─────────────────────────────────────────── */
+  .cover {
+    position: relative;
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 104px 48px 84px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% -10%, rgba(242,175,198,0.20) 0%, transparent 62%),
+      radial-gradient(ellipse 50% 50% at 88% 108%, rgba(199,91,120,0.12) 0%, transparent 60%),
+      linear-gradient(160deg, rgba(176,176,176,0.06), transparent 45%);
+    pointer-events: none;
+  }
+  /* Thin gray→pink gradient hairline across the very top */
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--iron), var(--petal) 50%, var(--blush));
+    opacity: 0.7;
+  }
+  .cover > * { position: relative; z-index: 1; }
+  .cover-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7.5vw, 4.6rem);
+    letter-spacing: 0.04em;
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    color: var(--white);
+  }
+  /* Soft gray→white→pink gradient fill on the lead words */
+  .cover h1 .grad {
+    background: linear-gradient(135deg, var(--pearl) 0%, var(--pearl) 50%, var(--blush) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--pearl);
+    filter: drop-shadow(0 0 16px rgba(242,175,198,0.14));
+  }
+  .cover h1 .outline {
+    -webkit-text-stroke: 1px rgba(242,175,198,0.5);
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  /* Subtitle — matches the live site tagline: Playfair italic, petal */
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+    color: rgba(242, 175, 198, 0.8);
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.5;
+  }
+  .cover-rule {
+    width: 90px;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, var(--rose), var(--petal), var(--blush), transparent);
+  }
+  .cover-meta {
+    margin-top: 30px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+
+  /* ── CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    counter-reset: section;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    letter-spacing: 0.03em;
+    line-height: 1.04;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  /* Section headings get an editorial mono counter, like the site's section numbers */
+  h2 {
+    counter-increment: section;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.3vw, 1.95rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--pearl);
+    margin: 68px 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--graphite);
+    position: relative;
+  }
+  h2::before {
+    content: counter(section, decimal-leading-zero);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--rose), var(--petal));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--petal);
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 88px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--petal), rgba(242,175,198,0));
+  }
+  /* Sub-section labels — live-site accent: Playfair italic, petal */
+  h3 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--petal);
+    margin: 40px 0 12px;
+  }
+  p { margin: 0 0 1.25em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  /* Emphasis — live-site accent: Playfair italic, petal */
+  em { font-family: var(--font-serif); font-style: italic; color: var(--petal); }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { color: var(--blush); text-decoration: underline; }
+
+  ul, ol { padding-left: 1.4em; margin: 0 0 1.6em; color: var(--smoke); }
+  li { margin-bottom: 0.55em; padding-left: 0.35em; }
+  ul li::marker { color: var(--petal); }
+  ol li::marker { color: var(--petal); font-family: var(--font-mono); font-size: 0.85em; }
+
+  blockquote {
+    position: relative;
+    border-left: 2px solid var(--petal);
+    margin: 40px 0;
+    padding: 26px 30px 26px 40px;
+    background: linear-gradient(110deg, rgba(242,175,198,0.10), rgba(176,176,176,0.04) 55%, transparent 90%);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.08rem;
+    color: rgba(242, 175, 198, 0.9);
+    line-height: 1.6;
+  }
+  blockquote::before {
+    content: '\201C';
+    position: absolute;
+    top: 0.08em;
+    left: 0.14em;
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(242,175,198,0.22);
+    pointer-events: none;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code { font-family: var(--font-mono); font-size: 0.86rem; color: var(--petal); white-space: pre; }
+  p > code, li > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    font-size: 0.82em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.9rem; }
+  thead tr { background: linear-gradient(90deg, rgba(242,175,198,0.12), rgba(176,176,176,0.04) 70%, transparent); }
+  th {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--graphite); color: var(--smoke); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--iron) 25%, var(--petal) 50%, var(--iron) 75%, transparent);
+    opacity: 0.6;
+    margin: 52px 0;
+  }
+
+  /* ── FOOTER ────────────────────────────────────────── */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 48px 24px;
+    text-align: center;
+    background: var(--obsidian);
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .footer-legal {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+  .footer-legal a { color: var(--ash); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PRINT EDITION — light, publisher-style layout for the PDF.
+     The screen stays dark; the printed book inverts to a white page
+     with black header boxes and pink/white titles.
+     ═══════════════════════════════════════════════════════════════ */
+  @media print {
+    @page { margin: 0; }
+
+    html, body {
+      background: #ffffff !important;
+      color: #232323 !important;
+    }
+    body::before { display: none !important; }   /* no grain in print */
+
+    /* ── COVER: a full-page black panel on a white sheet ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      background: #ffffff !important;
+      border-bottom: none;
+      padding: 0;
+      break-after: page;
+    }
+    .cover::before, .cover::after { display: none !important; }
+    /* The panel fills the printable page and centres the title block,
+       instead of floating as a thin band in the middle of the sheet. */
+    .cover-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 52px;
+      background: #0E0E0E;
+      border: 1px solid rgba(242, 175, 198, 0.45);
+    }
+    .cover-kicker { color: var(--petal); }
+    .cover h1 { color: #ffffff; font-size: clamp(3rem, 8vw, 4rem); }
+    /* Solid fills only. background-clip:text and text-stroke rasterise as
+       opaque boxes / vanish entirely in print — that is what turned the old
+       title into a white rectangle. Keep the white + pink two-tone with
+       plain fills so it renders identically everywhere. */
+    .cover h1 .grad {
+      background: none;
+      -webkit-background-clip: border-box; background-clip: border-box;
+      -webkit-text-fill-color: #ffffff; color: #ffffff;
+      filter: none;
+    }
+    .cover h1 .outline {
+      -webkit-text-stroke: 0;
+      -webkit-text-fill-color: var(--petal); color: var(--petal);
+    }
+    .cover .subtitle { color: var(--petal); }
+    .cover-meta { color: #B0B0B0; }
+
+    /* ── BODY: black text on white ── */
+    .content { padding-top: 64px; color: #232323; }
+    p { color: #2b2b2b; }
+    /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
+    strong {
+      background: #0E0E0E;
+      color: #FAFAF8;
+      font-weight: 600;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    a { color: #B23A59; }
+    ul li::marker, ol li::marker { color: #B23A59; }
+
+    /* ── SECTION HEADERS: black boxes, pink number + white title ── */
+    h2 {
+      background: #0E0E0E;
+      color: #ffffff;
+      padding: 24px 30px;
+      margin: 40px 0 42px;
+      border: none;
+      break-before: page;          /* every Part / section starts a fresh page */
+    }
+    /* …except the first section, which follows the cover (and any intro/metadata
+       block) on page 2 instead of forcing a near-empty page before it. */
+    .content h2:first-of-type { break-before: auto; }
+    h2::before {
+      background: none;
+      -webkit-text-fill-color: var(--petal);
+      color: var(--petal);
+      margin-bottom: 10px;
+    }
+    h2::after { display: none; }
+
+    /* Exercise titles — pink, with extra breathing room above each */
+    h3 { color: #B23A59; margin: 58px 0 18px; }
+    /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
+    em {
+      background: var(--petal);
+      color: #1A1008;
+      font-style: italic;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    /* ── PULL QUOTES: soft panel, pink rule + mark, dark text ── */
+    blockquote {
+      background: #F5F2F0;
+      border-left: 3px solid #B23A59;
+      color: #232323;
+    }
+    blockquote::before { color: rgba(178, 58, 89, 0.3); }
+
+    /* ── TABLES: black header band ── */
+    thead tr { background: #0E0E0E; }
+    th { color: #ffffff; border-bottom: 1px solid #0E0E0E; }
+    td { color: #2b2b2b; border-bottom: 1px solid #e3e3e3; }
+
+    /* ── CODE: light chip ── */
+    pre { background: #f3f3f1; border: 1px solid #e3e3e3; }
+    pre code { color: #A8344F; }
+    p > code, li > code { background: #f0eeec; color: #A8344F; }
+
+    hr {
+      background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
+      opacity: 1;
+    }
+    /* The markdown "---" separators always sit just before a section heading,
+       and every section already starts a fresh page — so a rule landing right
+       before a heading is redundant and can strand alone on a near-empty page.
+       Hide those; keep any genuine in-content rule (one not followed by H2). */
+    hr:has(+ h2) { display: none; }
+
+    /* ── FOOTER: white page, black signature ── */
+    .footer { background: #ffffff; border-top: 1px solid #dddddd; }
+    .footer-logo { color: #0A0A0A; }
+    .footer-legal { color: #8a8a8a; }
+    .footer-legal a { color: #B23A59; }
+
+    /* ── PAGINATION — natural flow; just avoid bad breaks ── */
+    h1, h2, h3 { break-after: avoid-page; break-inside: avoid; }
+    p, li { orphans: 3; widows: 3; }
+    h2, h3, li, tr, blockquote, pre, table, figure, img { break-inside: avoid; }
+    ul, ol { break-before: avoid-page; }
+    .footer { break-before: avoid-page; }
+  }
+  *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+</style>
+
+<title>The Morning Blueprint — MK Parrish</title>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">The Morning</span> <span class="outline">Blueprint</span></h1>
+    <p class="subtitle">Build a morning routine that survives real life — no 5am cold plunge required. The flexible, evidence-based system for starting the day on purpose instead of on your phone.</p>
+    <div class="cover-rule"></div>
+    <div class="cover-meta">By MK Parrish · $18</div>
+  </div>
+</div>
+
+<div class="content">
+<h2>Start Here</h2>
+<p>You've read about the miracle morning. The 5am wakeup, the cold plunge, the two hours of journaling and meditation and green juice before the sun is fully up. And you've quietly concluded that successful people are just built different, because there is no universe in which your Tuesday accommodates any of that.</p>
+<p>Good news: almost none of that is the point. The point of a morning routine is not to perform wellness. It's to win the first decision of the day so the rest of them get easier — to start the morning <em>on purpose</em> instead of reacting to whatever your phone hands you at 6:47am.</p>
+<p>This book gives you a blueprint, not a script. A blueprint flexes to the life you actually have — the kids, the commute, the job, the bad night's sleep. You'll build a morning that takes as little as ten minutes, survives your worst days, and still moves you toward the person you're trying to become. No martyrdom, no 5am unless you want it.</p>
+<blockquote>You don't need a perfect morning. You need a repeatable one — the version that still happens on the day everything goes wrong.</blockquote>
+<p>Let's design yours.</p>
+<hr>
+<h2>Why Mornings Decide the Day</h2>
+<p>The first hour sets the terms for the rest. Not because of magic, but because of momentum and willpower economics.</p>
+<p>You wake with a full tank of decision-making energy, and it drains all day. Spend the first hour reacting — email, notifications, other people's priorities — and you hand that fresh energy to whoever texted first. Spend it on purpose and you bank a win before the world gets a vote. That early win compounds: one intentional choice makes the next one easier, and by mid-morning you're operating from momentum instead of catch-up.</p>
+<p>There's also the phone problem. Reaching for your phone before your feet hit the floor floods a rested brain with everyone else's urgency, comparison, and noise. It's the single most common way people lose the morning, and it's the first thing this blueprint fixes.</p>
+<hr>
+<h2>The Four Blocks</h2>
+<p>Every effective morning routine, stripped of its branding, is some combination of four blocks. You don't need all four every day. You need to know what each one does so you can build the version that fits.</p>
+<h3>Block 1 — Move</h3>
+<p>Anything that gets the body going: a stretch, a walk, ten squats, a real workout if you have time. Movement raises alertness and mood far faster than caffeine. The two-minute version is 'stand up and stretch.' It counts.</p>
+<h3>Block 2 — Mind</h3>
+<p>Anything that settles or focuses attention: a few slow breaths, a short meditation, sitting with your coffee without a screen. The goal is to start the day from your own head instead of the feed's. The two-minute version is 'three deep breaths before the phone.'</p>
+<h3>Block 3 — Plan</h3>
+<p>Deciding what matters today before the day decides for you. Write the one to three things that would make today a win. This single habit outperforms most productivity systems, because it turns a vague day into a directed one. The two-minute version is 'write the one thing.'</p>
+<h3>Block 4 — Grow</h3>
+<p>A small daily deposit into your future self: read a page, write a sentence, study, practice. This is where the morning becomes a compounding asset instead of just a nice ritual. The two-minute version is 'one page.'</p>
+<h3>Exercise: pick your blocks</h3>
+<p>You're going to build a ten-minute version and a thirty-minute version. Choose which blocks go in each. On good days you run the long one; on hard days you run the short one — and the short one always counts.</p>
+<hr>
+<h2>Protect It From Your Phone</h2>
+<p>The most important rule in the book is also the simplest: do not touch your phone until you've done your morning blocks. This single boundary protects everything else.</p>
+<p>The phone is the routine-killer because it replaces your agenda with everyone else's before you've had a chance to set your own. So we design the mornings around keeping it out of reach for the first stretch.</p>
+<ul><li>Charge the phone in another room, or at least across the bedroom — not on the nightstand.</li><li>Use an actual alarm clock so the phone isn't your first reach.</li><li>Keep the morning blocks screen-free; the news and the inbox will still be there in twenty minutes, and they'll land on a brain you've already put in charge.</li><li>If you use your phone for meditation or a workout, use one app in one mode and don't open anything else first.</li></ul>
+<hr>
+<h2>Make It Survive Real Life</h2>
+<p>A routine that only works on perfect days isn't a routine — it's a fantasy. We build for the bad days, because the bad days are the ones that decide whether the habit lives.</p>
+<h3>The minimum viable morning</h3>
+<p>Define the smallest version you'll do no matter what: three breaths, one line of planning, one stretch. Ninety seconds, total. On the day you slept terribly, you're sick, the kids are chaos, and everything's on fire — you still do the ninety-second version. Not for the benefit; for the identity. You are protecting the streak of being someone who starts the day on purpose.</p>
+<h3>Anchor it to what you already do</h3>
+<p>Attach the routine to an existing morning habit so you don't rely on memory or motivation: 'After I start the coffee, I write my one thing.' 'After I brush my teeth, I do three breaths.' The existing habit becomes the trigger.</p>
+<h3>Never miss twice</h3>
+<p>You'll skip a morning. Fine. The only rule is that you don't skip the next one. One missed morning is an accident; two in a row is how a routine quietly dies. Bounce back at the minimum version and the streak survives.</p>
+<blockquote>The routine that saves you isn't the two-hour one you do on vacation. It's the ninety-second one you refuse to skip on the worst Tuesday of the year.</blockquote>
+<hr>
+<h2>The Science of the First Hour</h2>
+<p>You don't need to understand the biology to benefit from a good morning, but a little of it makes the whole thing click — and helps you stop fighting your own body.</p>
+<p>In the first hour after waking, your body runs a natural surge of cortisol — not the stress kind you should fear, but an alertness signal designed to get you up and moving. This is the cortisol awakening response, and it's a gift: for a window after you wake, you're primed for activity and focus. Hijack that window with a phone full of other people's emergencies and you spend a biological head start on doom-scrolling. Use it — with light, movement, and a clear intention — and you ride a wave your body handed you for free.</p>
+<p>Willpower matters here too. Self-control appears to draw on a reservoir that's fullest in the morning and drains across the day as you make decisions. That's why temptations win at night and why the important, effortful work goes best early. Front-load the day with what matters most while the tank is full, and stop scheduling your hardest intentions for the exhausted end of the day where they're guaranteed to lose.</p>
+<blockquote>Your body hands you a wave of alertness in the first hour and a full tank of willpower in the morning. Most people spend both on their phones.</blockquote>
+<hr>
+<h2>Light, Movement, Water</h2>
+<p>Three simple, physical things wake the body faster and more reliably than caffeine, and all three are nearly free. Master these before you buy a single supplement or app.</p>
+<h3>Light</h3>
+<p>Getting bright light — ideally sunlight — soon after waking is one of the most powerful signals you can send your body. It tells your internal clock the day has started, which sharpens morning alertness and, hours later, helps you fall asleep on time. Step outside, sit by a window, or at minimum turn on strong lights. A few minutes of morning light does more for your energy and your sleep than most of what people spend money on.</p>
+<h3>Movement</h3>
+<p>Even small movement raises heart rate, circulation, and mood, pulling you out of grogginess faster than sitting still. It doesn't have to be a workout — a short walk, a stretch, a few squats while the coffee brews. The point is to signal to the body that it's time to be awake and active. Motion creates energy; waiting to 'feel ready' just extends the fog.</p>
+<h3>Water</h3>
+<p>You wake mildly dehydrated after hours without fluids, and dehydration reads to the brain as fatigue. A glass of water first thing is the cheapest energy boost available. Have it before the coffee — hydrate first, then caffeinate, and notice how much steadier the morning feels.</p>
+<p>Stack these three and you've built a physiological wake-up that beats most elaborate routines. Light, movement, water: boring, free, and remarkably effective.</p>
+<hr>
+<h2>Planning: Win the Day Before It Starts</h2>
+<p>Of the four blocks, planning is the one that most reliably changes outcomes, because it's the difference between a day that happens to you and a day you direct. Five minutes of deciding what matters beats an hour of reacting to what's loudest.</p>
+<p>The most useful version is also the simplest: before the inputs start, name the one to three things that would make today a win. Not a to-do list of thirty items — a short, honest list of what actually matters, so that when the day inevitably fills with noise, you have a compass. When someone else's urgency lands at 11am, you can weigh it against your own priorities instead of just obeying whatever shouts.</p>
+<p>A step further is to decide when the most important thing will happen. Vague intentions ('I'll write today') lose to specific ones ('I'll write from 9 to 10, before email'). Attaching the priority to a time and a place makes it far more likely to survive contact with the day. This single habit — name the wins, schedule the top one — will do more for your results than almost anything else in this book.</p>
+<h3>Exercise: the two-minute plan</h3>
+<ol><li>Write the one thing that would make today a win. Just one, first.</li><li>Add a second and third only if they're genuinely important.</li><li>Decide when and where the top one will happen.</li><li>Do it before you open email or messages, while the willpower tank is full.</li></ol>
+<hr>
+<h2>Gratitude and Mindset in the Morning</h2>
+<p>The mind you wake up in tends to be the mind you carry through the day. Left alone, most minds default to threat-scanning — the worry, the to-do list, the thing that went wrong yesterday. A brief, deliberate mindset practice at the start resets the lens, and it takes about a minute.</p>
+<p>Gratitude is the simplest version and the most tested. Naming a few specific things you're genuinely glad about shifts attention from what's missing to what's present, and it's hard to be anxious and grateful in the same breath. Keep it concrete — not 'I'm grateful for my life' but 'I'm grateful for the quiet before everyone's up, the coffee, and the message my friend sent.' Specific gratitude lands; generic gratitude bounces off.</p>
+<p>Pair it, if you like, with a single intention for who you want to be today — patient, focused, kind, bold. You're not scripting the day's events, which you can't control. You're setting the posture you'll meet them with, which you can. A minute of gratitude and intention is a small hinge that swings a large door: same day, entirely different stance toward it.</p>
+<h3>The one-minute reset</h3>
+<ul><li>Name three specific things you're glad about right now.</li><li>Set one word for who you want to be today.</li><li>Take three slow breaths before you touch the phone.</li></ul>
+<hr>
+<h2>Meditation Without the Woo</h2>
+<p>'Meditation' scares people off, so let's strip it down. It is simply the practice of resting your attention somewhere — usually your breath — and gently bringing it back each time it wanders. That's it. You are not trying to empty your mind or reach a special state. The bringing-it-back is the entire exercise, and every wander you notice is a rep, not a failure.</p>
+<p>Done for even a few minutes in the morning, this trains the exact skill the rest of your day needs: noticing when your attention has drifted and choosing where to put it. In a world engineered to hijack your focus, that's not a spiritual luxury — it's a practical edge. The person who can catch their own drifting mind and redirect it is the person who can actually do deep work, resist the reactive scroll, and stay present in a conversation.</p>
+<p>Start absurdly small. One minute of following your breath counts. Sit, breathe, and when you notice you've wandered off into planning or worry, come back — kindly, without the self-criticism that just creates more noise. Build from there only if you want to. Like every habit in the MK Parrish world, the two-minute version that you actually do beats the twenty-minute version you keep meaning to start.</p>
+<hr>
+<h2>The Weekend and the Reset</h2>
+<p>Two questions come up constantly: do I do this on weekends, and what happens when the whole routine falls apart for a week? Both have the same underlying answer — flexibility inside consistency.</p>
+<p>On weekends, keep the spine and loosen the rest. You might sleep a little later (though a wildly different weekend wake time makes Monday harder — the body prefers rhythm), but still protect the phone-free first stretch and the one-minute reset. A gentler weekend version keeps the identity intact without turning your days off into a second job. The goal is a life you start on purpose, not a streak you're enslaved to.</p>
+<p>And when it all collapses — the sick week, the travel, the season of chaos that flattens every good habit — don't stage a dramatic fresh start. Just do the ninety-second minimum tomorrow. One breath, one line of planning, one stretch. Resets don't require Mondays or motivation; they require the next small rep. The people who keep a morning practice for years are not the ones who never fall off. They're the ones who climb back on within a day, quietly, without the guilt spiral that turns a bad week into a lost month.</p>
+<blockquote>You will fall off the routine. Everyone does. Keeping it forever isn't about never missing — it's about the ninety-second version you do the very next day.</blockquote>
+<hr>
+<h2>Sleep Is the Real Morning Routine</h2>
+<p>Here is the plot twist no morning-routine influencer wants to lead with: your morning is decided the night before. A great routine built on four hours of sleep is a great way to be miserable and efficient at the same time. If you want to fix your mornings, start by fixing your nights.</p>
+<p>The single highest-leverage change most people can make is not a fancier morning — it's a consistent, sufficient bedtime. Sleep is when the body and brain repair, when memory consolidates, when tomorrow's willpower gets refilled. Skimp on it and no amount of cold plunging will save the day; you're trying to drive on an empty tank and calling it discipline. Protect the sleep and the morning practically builds itself, because you wake up with the energy the routine actually requires.</p>
+<h3>The evening anchor</h3>
+<p>Just as your morning needs an anchor, so does your night. Pick a consistent wind-down cue and stack a short routine onto it: lower the lights, put the phone on its charger in another room, lay out tomorrow's clothes and your morning cue (book on the pillow, shoes by the door), and give yourself a fixed lights-out time you defend like an appointment.</p>
+<h3>Wind-down moves that work</h3>
+<ul><li>A consistent bedtime — the body loves rhythm more than it loves any single 'perfect' night.</li><li>Phone out of the bedroom; it's the number-one thief of both sleep and mornings.</li><li>Dim the lights an hour before bed to let melatonin do its job.</li><li>Prep the morning tonight — remove every ounce of friction from your future self's first move.</li></ul>
+<blockquote>You can't out-routine a bad night's sleep. The most powerful thing in your morning is what time you went to bed.</blockquote>
+<hr>
+<h2>You Might Not Be a Morning Person</h2>
+<p>The 5am cult has convinced a lot of naturally-late people that they're broken. They're not. Humans have real, largely genetic differences in when their body wants to sleep and wake — chronotypes. Some people genuinely peak early. Others don't hit their stride until later and are fighting biology when they force a pre-dawn start.</p>
+<p>This matters because the point was never the specific hour. The point is starting your day — whenever it begins — on purpose. A 'morning' routine is really a 'first hour awake' routine. If your best hours are 10am to 2pm, protect those for your most important work and build your intentional first hour around your actual wake time, not around someone else's highlight reel.</p>
+<p>So drop the guilt about the hour. A night owl who runs a consistent, intentional first hour at 8am will beat an exhausted person forcing 5am and hating every second of it. Work with your wiring. The blueprint flexes to when you actually wake, not to when the internet says you should.</p>
+<h3>Find your real rhythm</h3>
+<ul><li>Notice when you naturally feel most alert and most creative — that's prime time; guard it.</li><li>Set your wake time for enough sleep given when you actually fall asleep, not an aspirational hour.</li><li>Run the first-hour routine from your real wake time, whenever that is.</li><li>Stop measuring your discipline by the clock on the wall.</li></ul>
+<hr>
+<h2>Mornings When Life Is Loud</h2>
+<p>Most morning-routine advice quietly assumes you're a childless person with a flexible schedule and total control over your first hour. Real mornings have kids, commutes, shift work, caregiving, and chaos. The blueprint has to survive those, or it's just another thing to feel bad about.</p>
+<p>The principle that saves you is this: the routine can be shorter, split up, or moved — it just has to be intentional and repeatable. Intention doesn't require solitude or an hour. It requires a small, protected pocket of the day that belongs to you, wherever you can find it.</p>
+<h3>For parents of young kids</h3>
+<p>Wake fifteen minutes before the house if you can — even ten. If you can't, claim your pocket elsewhere: three breaths and your one-thing planning while the coffee brews, a single page while they eat breakfast. The minimum viable morning was built for exactly your life. Ninety seconds still counts, and it still tells your brain you started the day on purpose.</p>
+<h3>For commuters and shift workers</h3>
+<p>Your 'morning' is the first stretch after you wake, regardless of what the clock says. Commuters can move the Mind and Grow blocks to the train or the drive (audio counts). Shift workers can anchor the routine to waking, not to sunrise, and lean hard on the evening anchor and consistent sleep, which matter even more when your hours are irregular.</p>
+<h3>For the genuinely time-poor</h3>
+<p>Collapse the whole thing into ninety seconds: three breaths (Mind), write the one thing (Plan), one stretch (Move). That's a complete, legitimate morning routine. Do it every day and it will out-perform the elaborate two-hour version you do twice and quit.</p>
+<hr>
+<h2>Common Mistakes That Kill Mornings</h2>
+<p>Most failed morning routines die from the same handful of predictable errors. Name them and you can dodge them.</p>
+<ol><li><strong>Starting too big.</strong> The two-hour routine you can't sustain past Thursday. Start with ten minutes — or ninety seconds — and earn the right to grow it.</li><li><strong>Touching the phone first.</strong> One glance at the feed and the morning belongs to everyone but you. Keep it out of reach until the blocks are done.</li><li><strong>Relying on motivation.</strong> Anchoring to willpower instead of to an existing habit. The anchor is what makes it automatic.</li><li><strong>No minimum version.</strong> With nothing to fall back on, one hard day breaks the streak entirely. Always have the ninety-second floor.</li><li><strong>Copying someone else's routine.</strong> Their blocks, their hour, their life. Build yours from your rhythm and your constraints.</li><li><strong>Quitting after one miss.</strong> A skipped morning is an accident; a second in a row is a pattern. Never miss twice.</li></ol>
+<blockquote>The morning routine that fails is almost never too small. It fails because it was too big, too rigid, or borrowed from someone else's life.</blockquote>
+<hr>
+<h2>Build Your Blueprint</h2>
+<p>Now we assemble it. Two versions, both anchored, both protected from the phone.</p>
+<h3>Your ten-minute morning</h3>
+<ol><li>Wake without the phone (alarm clock across the room).</li><li>Move: 2 minutes (stretch or walk to the kitchen and back).</li><li>Mind: 2 minutes (breaths or quiet coffee, no screen).</li><li>Plan: 3 minutes (write today's one-to-three wins).</li><li>Grow: 3 minutes (one page, one sentence, one small study rep).</li></ol>
+<h3>Your thirty-minute morning</h3>
+<ol><li>Wake without the phone.</li><li>Move: 10 minutes (workout, yoga, or a real walk).</li><li>Mind: 5 minutes (meditation or journaling).</li><li>Plan: 5 minutes (the day's priorities + one thing you're grateful for).</li><li>Grow: 10 minutes (reading, writing, or skill practice).</li></ol>
+<h3>Your minimum viable morning</h3>
+<p>Three breaths. One line of planning. One stretch. Ninety seconds. Non-negotiable on the hard days.</p>
+<hr>
+<h2>The 21-Day Build</h2>
+<p>Three weeks to make it automatic. One version at a time.</p>
+<h3>Week One — Protect</h3>
+<ol><li>Move the phone out of reach; get an alarm clock.</li><li>Run the ten-minute morning. Mark each day.</li><li>When you skip, apply 'never miss twice.'</li></ol>
+<h3>Week Two — Anchor</h3>
+<ol><li>Attach each block to an existing habit.</li><li>Notice the anchors firing without reminders.</li><li>Use the minimum version on any hard day — it still counts.</li></ol>
+<h3>Week Three — Grow</h3>
+<ol><li>Add or lengthen the Grow block; this is where mornings compound.</li><li>Run the thirty-minute version on the days you can.</li><li>Review the tracker; decide what to keep, cut, or extend.</li></ol>
+<table><thead><tr><th>Week</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th><th>S</th></tr></thead><tbody><tr><td>1</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td></tr><tr><td>2</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td></tr><tr><td>3</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td><td>▢</td></tr></tbody></table>
+<hr>
+<h2>Caffeine, Timing, and Steady Energy</h2>
+<p>Coffee is not the enemy, but how most people use it works against the very mornings they're trying to build. A few small adjustments turn caffeine from a jittery crutch into a clean tool.</p>
+<p>First, water before coffee. You wake dehydrated, and caffeine is a mild diuretic, so leading with coffee on an empty, dry system is part of why the mid-morning crash hits so hard. A glass of water first steadies the whole curve. Second, consider waiting a bit after waking before the first cup. Your body's natural alertness surge is already working in that first stretch; stacking caffeine on top of it can blunt the benefit and leave you more dependent. Let the natural wake-up do its job, then add the coffee to extend it.</p>
+<p>Third, mind the back end of the day. Caffeine lingers in the system for many hours, so an afternoon cup you barely notice can quietly wreck the sleep that determines tomorrow's morning. Since sleep is the real morning routine, protecting it by cutting off caffeine earlier than feels necessary is one of the highest-return changes you can make. Steady energy is not about more stimulation. It's about hydration, light, movement, and sleep — with caffeine as a helper, not the whole strategy.</p>
+<hr>
+<h2>Building the Grow Block</h2>
+<p>Of the four blocks, Grow is the one that turns a nice morning into a compounding one. Move, Mind, and Plan set up your day; Grow builds your future. It's the daily deposit into the person you're becoming, and over a year it's the difference between mornings that felt good and mornings that changed your life.</p>
+<p>The Grow block is where you put the one thing you want to build steadily but never seem to find time for: the writing, the reading, the language, the skill, the side project, the study. The morning protects it from the day, which will otherwise consume every unguarded minute. Ten minutes of Grow before the world wakes up, done daily, quietly produces a book, a skill, a body of work — not through heroic effort but through the compound curve applied to your own development.</p>
+<p>Keep it small and specific, like every habit in this world. Not 'work on my business' but 'write one paragraph of the newsletter.' Not 'learn Spanish' but 'one lesson.' Not 'get in shape' but tie it to the Move block. The two-minute version always counts, and on the mornings you have more, you'll naturally do more. Protect this block above the others when time is tight — it's the one with the longest reach into your future.</p>
+<h3>Exercise: choose your Grow</h3>
+<ul><li>Name the one thing you want to build steadily this year.</li><li>Shrink it to a daily two-minute version.</li><li>Put it last in the routine, so the rest of the morning warms you up for it.</li></ul>
+<hr>
+<h2>The Evening Blueprint</h2>
+<p>Because your morning is decided the night before, you need an evening blueprint as much as a morning one. This is the routine that sets up tomorrow's win while today winds down.</p>
+<p>The evening blueprint has three jobs: protect your sleep, prepare your morning, and close the day cleanly so your mind isn't still working at midnight. Protecting sleep means a consistent wind-down and getting the phone out of the bedroom. Preparing the morning means removing tomorrow's friction tonight — clothes out, morning cue placed, the one thing for tomorrow already written so you wake with a plan instead of a blank. Closing the day means a brief moment to acknowledge what got done and set down what didn't, so you're not carrying an open loop into the dark.</p>
+<p>A simple version: an hour before bed, dim the lights and put the phone on its charger in another room. Lay out tomorrow's clothes and your morning cue. Write tomorrow's one priority. Note one thing that went well today. Then read a few pages of something calming and let yourself sleep. That's it — a fifteen-minute evening blueprint that makes the morning blueprint almost automatic, because you did the hard preparation while you still had energy to spare.</p>
+<h3>Your evening blueprint</h3>
+<ol><li>Wind-down cue (dim lights, phone to its charger in another room).</li><li>Prep tomorrow: clothes out, morning cue placed, one priority written.</li><li>Close the day: name one thing that went well.</li><li>Read a few pages; consistent lights-out.</li></ol>
+<blockquote>A good morning is built the night before. The most powerful line in your morning routine is written into your evening one.</blockquote>
+<hr>
+<h2>Track It, Then Loosen It</h2>
+<p>Like any habit, a morning routine sticks better when you can see it stacking up, so track it — at least at first. A simple row of boxes, one per day, marked when you do your routine (even the ninety-second version). The visible chain becomes its own motivation, and the tracker makes 'never miss twice' concrete: when you see one gap, you make sure the next box is filled.</p>
+<p>But hold the tracking lightly, and know when to let it go. In the early weeks, the tracker installs the habit; once the routine is automatic — once you'd feel strange not doing it — the tracker has done its job and can fade into the background. The goal was never to serve a streak forever. It was to become a person who starts the day on purpose, and once that's simply who you are, you no longer need the scoreboard to prove it.</p>
+<p>Watch for the trap of streak-worship, where protecting an unbroken chain becomes more important than the life the routine was meant to serve. If keeping the streak ever pushes you toward rigidity or guilt, loosen your grip. The routine is a tool for a better life, not a master you answer to. Track to build it; loosen once it's built; keep the identity either way.</p>
+<hr>
+<h2>The Compounding Morning</h2>
+<p>One good morning is pleasant. A thousand good mornings is a different life — and that's the real promise here, the one worth staying for.</p>
+<p>Think about what a single ten-minute morning actually contains: a few minutes of movement, a moment of calm, a clear plan, a small deposit into something you're building. Trivial in isolation. Now run it for a year. That's roughly sixty hours of movement, sixty hours of building your Grow project, and three hundred and sixty-five days begun on your terms instead of your phone's. The morning is small; the compounding is not. This is the same curve from every habit worth keeping — flat and unremarkable day to day, then suddenly a person you wouldn't recognize a year ago.</p>
+<p>And it spreads. A morning that starts calm and intentional tends to make the whole day calmer and more intentional; a day begun in reaction tends to stay reactive. So the morning isn't just ten minutes of benefit — it sets the temperature for the sixteen hours after it. Multiply that ripple across a year and the leverage of the first hour becomes almost absurd. There is no other ten minutes in your day that pays back like this one.</p>
+<p>So protect it. Not perfectly, not rigidly, but consistently — the ninety-second version on the hard days, the fuller version when you can, the identity intact either way. Give it a year and let the compounding do what it does. You will look back and find that the smallest, most private part of your day quietly rebuilt the rest of it.</p>
+<blockquote>There is no better-paying ten minutes in your day than the first one. Protect it for a year and it will hand you back a different life.</blockquote>
+<hr>
+<h2>The Routine Is the Person</h2>
+<p>Underneath all the blocks and anchors and trackers, the morning routine is doing one deeper thing: it's building an identity. Every intentional morning is a vote for a specific kind of person — someone who starts the day on their own terms, who invests in themselves before the world makes its demands, who follows through on a promise to themselves when no one is watching.</p>
+<p>That last part matters more than it looks. The morning is the one part of the day almost entirely private — no boss, no clients, no audience. What you do with it is a pure signal of who you are when nobody's grading you. Keep a promise to yourself first thing, and you walk into the day already having proven you're someone who does what they said they would. That quiet self-trust compounds; it changes how you show up in everything downstream, because you've already demonstrated, before 8am, that your word to yourself means something.</p>
+<p>This is why the routine outlasts motivation. You're not doing it to check a box or optimize a metric. You're doing it because it's who you are now — the kind of person who has a morning practice. And once the identity is in place, the behavior generates itself; you no longer have to talk yourself into it any more than you talk yourself into brushing your teeth. The blocks were never really the point. The person the blocks build is the point.</p>
+<h3>The identity behind your morning</h3>
+<ul><li>Name it: 'I am the kind of person who starts the day on purpose.'</li><li>Notice that every morning — even the ninety-second one — is a vote for that identity.</li><li>Keep the promise to yourself first, and carry that self-trust into the rest of the day.</li></ul>
+<blockquote>Win the morning and you don't just win the day — you cast one more vote for the person you're becoming. The routine was always about the identity.</blockquote>
+<hr>
+<h2>Mornings and Your Mind</h2>
+<p>For a lot of people, mornings are not just groggy — they're the hardest part of the day emotionally. Anxiety tends to be highest on waking; the mind comes online already scanning for threats, replaying yesterday, dreading today. If that's you, the morning routine is not a productivity hack. It's a mental health tool, and it should be built with that in mind.</p>
+<p>The blocks do quiet, real work on a struggling morning mind. Light and movement lift mood measurably. The one-minute gratitude reset interrupts the threat-scanning before it gains momentum. Planning replaces the vague dread of an unshaped day with a concrete, smaller list of what actually matters. Keeping the phone out of the first stretch spares an already-anxious mind the flood of comparison and other people's crises before it's had a chance to steady. None of this cures anything, but all of it tilts the morning toward calm instead of spiral.</p>
+<p>Be gentle with the design here. On a hard mental-health morning, the ninety-second version is not a failure — it's a victory, and it may be the most important rep you do all month, because it tells a struggling mind 'we still showed up.' Lower the bar as far as you need to on the worst mornings, and let simply getting up, drinking water, and taking three breaths count fully. The routine is there to serve you, especially on the mornings it's hardest to begin.</p>
+<blockquote>On the hardest mornings, the ninety-second routine isn't the bare minimum. It's the whole win — proof to a struggling mind that you still showed up.</blockquote>
+<hr>
+<h2>Field Notes &amp; Worksheets</h2>
+<p>Your blueprint as fill-in pages. Work them by hand.</p>
+<h3>1. My blocks</h3>
+<p>Move: ____________. Mind: ____________. Plan: ____________. Grow: ____________.</p>
+<h3>2. My three versions</h3>
+<p>Ten-minute morning: ____________________. Thirty-minute morning: ____________________. Minimum viable (90 sec): ____________________.</p>
+<h3>3. My anchors</h3>
+<p>After I ____ [existing habit], I will ____ [first block]. Phone stays: ____________ until the blocks are done.</p>
+<h3>4. My evening blueprint</h3>
+<p>Wind-down cue: ____________. Prep for tomorrow: ____________. Lights-out time: ________.</p>
+<h3>5. My Grow focus</h3>
+<p>The one thing I'm building this year: ____________. Daily two-minute version: ____________.</p>
+<h3>6. Never miss twice</h3>
+<p>When I skip, my bounce-back is the ninety-second version, the very next morning. No fresh starts required.</p>
+<hr>
+<h2>The Close</h2>
+<p>The best morning routine is not the most impressive one. It's the one you'll still be doing in a year. So build it small, protect it from your phone, anchor it to what you already do, and design it to survive the days that try to take it from you.</p>
+<p>Win the first decision. Bank the early momentum. Start the day as the author instead of the reader. Everything downstream gets easier when the first hour belongs to you.</p>
+<blockquote>How you start the morning is a rehearsal for how you meet the day. Rehearse being in charge.</blockquote>
+<p>Rewrite your story — starting tomorrow morning. ♡</p>
+<p>— MK</p>
+</div>
+
+<div class="footer">
+  <div class="footer-logo">MK Parrish</div>
+  <div class="footer-legal">© MK Parrish · Rewrite Your Story · <a href="https://www.mkparrish.com">mkparrish.com</a></div>
+</div>
+
+</body>
+</html>

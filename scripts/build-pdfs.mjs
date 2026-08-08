@@ -26,6 +26,11 @@ const FILES = [
   ['public/downloads/ebooks/the-meantime.html',                   'public/downloads/ebooks/the-meantime.pdf'],
   ['public/downloads/ebooks/the-invisible-bruise.html',          'public/downloads/ebooks/the-invisible-bruise.pdf'],
   ['public/downloads/ebooks/decoding-angel-numbers.html',        'public/downloads/ebooks/decoding-angel-numbers.pdf'],
+  // Manifestation / self-mastery line (source: scripts/build-spiritual-ebooks.mjs)
+  ['public/downloads/ebooks/the-manifest.html',                  'public/downloads/ebooks/the-manifest.pdf'],
+  ['public/downloads/ebooks/the-compound.html',                  'public/downloads/ebooks/the-compound.pdf'],
+  ['public/downloads/ebooks/manifest-the-money.html',            'public/downloads/ebooks/manifest-the-money.pdf'],
+  ['public/downloads/ebooks/the-morning-blueprint.html',         'public/downloads/ebooks/the-morning-blueprint.pdf'],
   ['public/downloads/ebooks/her-story-rewritten.html',           'public/downloads/ebooks/her-story-rewritten.pdf'],
   ['public/downloads/ebooks/her-story-rewritten-volume-two.html', 'public/downloads/ebooks/her-story-rewritten-volume-two.pdf'],
   ['public/downloads/ebooks/the-study.html',                     'public/downloads/ebooks/the-study.pdf'],
