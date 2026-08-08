@@ -18,6 +18,7 @@ const workLinks: NavLinkItem[] = [
   { label: "Messaging & Copy", href: "/brand" },
   { label: "Positioning Audit", href: "/audit" },
   { label: "How I Work", href: "/how-i-work" },
+  { label: "Client Results", href: "/testimonials" },
 ];
 
 const megaServices = [
@@ -75,6 +76,8 @@ const mobileSections: { label: string; links: NavLinkItem[] }[] = [
     links: [
       { label: "Rebecoming", href: "/rebecoming" },
       { label: "Shop", href: "/shop" },
+      { label: "Cosmos", href: "/cosmos" },
+      { label: "Client Results", href: "/testimonials" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
     ],
@@ -299,6 +302,15 @@ export default function Nav() {
               }`}
             >
               Shop
+            </Link>
+
+            <Link
+              href="/cosmos"
+              className={`nav-link whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
+                isActive("/cosmos") ? "active text-pearl" : "text-ash"
+              }`}
+            >
+              Cosmos
             </Link>
 
             <Link
