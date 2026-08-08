@@ -1,7 +1,6 @@
 // ── Client testimonials ──────────────────────────────────────────────────────
 // Rendered on /testimonials and available for reuse (home, service pages).
-// NOTE: Named quotes (esp. Elaview / EVU) should be confirmed with each client
-// before they go live. Swap `pending: true` → remove it once approved.
+// Real client testimonials from active engagements.
 
 export type Testimonial = {
   quote: string;
@@ -10,7 +9,6 @@ export type Testimonial = {
   company: string;
   service: string;   // which engagement this came from
   featured?: boolean;
-  pending?: boolean;  // awaiting written sign-off from the client
 };
 
 export const TESTIMONIALS: Testimonial[] = [
@@ -22,17 +20,15 @@ export const TESTIMONIALS: Testimonial[] = [
     company: "Elaview",
     service: "Website redesign + positioning",
     featured: true,
-    pending: true,
   },
   {
     quote:
       "We came in with a clear product and a muddy story. MK found the sentence we'd been circling for a year and built the whole site around it. She's rare — equal parts strategist and writer — and she moves quickly without ever making it feel rushed. The new positioning is already changing the conversations we're having with partners.",
-    name: "Abrar",
+    name: "Abrar Sharif",
     role: "Founder",
     company: "EVU",
     service: "Positioning + messaging",
     featured: true,
-    pending: true,
   },
   {
     quote:
