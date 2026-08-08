@@ -98,6 +98,40 @@ ${body}
 </html>`;
 }
 
+// ── Markdown emitter — feeds the EPUB pipeline (scripts/build-epubs.mjs) ───────
+// Produces a source file whose conventions match that build's markdown parser:
+// `# Title`, `## Section` per chapter, `### sub`, `> quote`, `-`/`1.` lists,
+// pipe tables, `**bold**`, `*italic*`, `[text](href)`, and `---` rules.
+function blockToMarkdown(b) {
+  if (b === "---") return "---";
+  if (typeof b === "string") return b;
+  if (b.h2) return `## ${b.h2}`;
+  if (b.h3) return `### ${b.h3}`;
+  if (b.quote) return `> ${b.quote}`;
+  if (b.ul) return b.ul.map((li) => `- ${li}`).join("\n");
+  if (b.ol) return b.ol.map((li, i) => `${i + 1}. ${li}`).join("\n");
+  if (b.table) {
+    const head = `| ${b.table.head.join(" | ")} |`;
+    const sep = `| ${b.table.head.map(() => "---").join(" | ")} |`;
+    const rows = b.table.rows.map((r) => `| ${r.join(" | ")} |`).join("\n");
+    return `${head}\n${sep}\n${rows}`;
+  }
+  return "";
+}
+
+export function renderMarkdown(book) {
+  const body = book.blocks.map(blockToMarkdown).join("\n\n");
+  return `# ${book.titleLead} ${book.titleRest}\n\n${body}\n`;
+}
+
+export function writeMarkdownSource(book) {
+  const outDir = path.join(ROOT, "products", "ebooks");
+  fs.mkdirSync(outDir, { recursive: true });
+  const out = path.join(outDir, `${book.slug}.md`);
+  fs.writeFileSync(out, renderMarkdown(book), "utf8");
+  return out;
+}
+
 export function writeBook(book) {
   const outDir = path.join(ROOT, "public", "downloads", "ebooks");
   fs.mkdirSync(outDir, { recursive: true });
