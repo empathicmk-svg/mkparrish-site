@@ -36,6 +36,11 @@ const PRODUCTS = [
   { src: 'ebooks/the-meantime.md',                    slug: 'the-meantime' },
   { src: 'ebooks/the-invisible-bruise.md',            slug: 'the-invisible-bruise' },
   { src: 'ebooks/decoding-angel-numbers.md',          slug: 'decoding-angel-numbers' },
+  // Manifestation / self-mastery line (no markdown source; explicit cover copy)
+  { raw: '# The Manifest\n', slug: 'the-manifest', title: 'The Manifest', subtitle: 'Manifesting for business, minus the magical thinking.' },
+  { raw: '# The Compound\n', slug: 'the-compound', title: 'The Compound', subtitle: 'A guide to micro habits — the smallest change that rebuilds everything.' },
+  { raw: '# Manifest the Money\n', slug: 'manifest-the-money', title: 'Manifest the Money', subtitle: 'Manifesting money, where mindset ends and math begins.' },
+  { raw: '# The Morning Blueprint\n', slug: 'the-morning-blueprint', title: 'The Morning Blueprint', subtitle: 'A morning routine that survives real life.' },
   { src: 'ebooks/scripture/her-story-rewritten.md',   slug: 'her-story-rewritten',
     subtitle: 'Eight women of the Bible, the moment everything turned, and what their stories are still saying to yours.' },
   { src: 'ebooks/scripture/her-story-rewritten-volume-two.md', slug: 'her-story-rewritten-volume-two',

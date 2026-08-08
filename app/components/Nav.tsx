@@ -314,6 +314,15 @@ export default function Nav() {
             </Link>
 
             <Link
+              href="/testimonials"
+              className={`nav-link whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
+                isActive("/testimonials") ? "active text-pearl" : "text-ash"
+              }`}
+            >
+              Clients
+            </Link>
+
+            <Link
               href="/about"
               className={`nav-link whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
                 isActive("/about") ? "active text-pearl" : "text-ash"
