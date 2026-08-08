@@ -99,6 +99,19 @@ const FEATURED_BOOKS = FEATURED_BOOK_SLUGS
   .map((slug) => BROWSE_ITEMS.find((item) => item.slug === slug))
   .filter((item): item is BrowseItem => Boolean(item));
 
+// The Cosmos / manifestation line — bundle first, then the four books.
+const COSMOS_COLLECTION_SLUGS = [
+  "the-manifestation-vault",
+  "the-manifest",
+  "manifest-the-money",
+  "the-compound",
+  "the-morning-blueprint",
+] as const;
+
+const COSMOS_COLLECTION = COSMOS_COLLECTION_SLUGS
+  .map((slug) => BROWSE_ITEMS.find((item) => item.slug === slug))
+  .filter((item): item is BrowseItem => Boolean(item));
+
 function productActionHref(product: ShelfProduct) {
   return product.stripe && product.stripe.length > 0 ? product.stripe : product.href;
 }
@@ -261,8 +274,74 @@ export default function ShopPage() {
         </div>
       </RevealSection>
 
+      {/* ── THE COSMOS COLLECTION — manifestation & self-mastery line ── */}
+      <RevealSection bg="void" id="cosmos-collection">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="max-w-3xl">
+            <Eyebrow pink>The Cosmos Collection</Eyebrow>
+            <H2>Manifest it,{" "}<span className="text-petal">then do the work.</span></H2>
+            <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "62ch" }}>
+              The grounded, no-woo companion to the <Link href="/cosmos" className="text-petal transition hover:text-blush">Cosmos</Link> line: manifesting for business, money, micro habits, and mornings. Four 50+ page guides — or take the Vault and get all four for less.
+            </p>
+          </div>
+          <Link href="/cosmos" className="font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:text-blush">
+            Explore Cosmos →
+          </Link>
+        </div>
+        <div className="mt-12 grid auto-rows-fr gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
+          {COSMOS_COLLECTION.map((book) => {
+            const actionHref = book.stripe && book.stripe.length > 0 ? book.stripe : book.href;
+            const external = actionHref.startsWith("http");
+            const isBundleCard = book.slug === "the-manifestation-vault";
+            return (
+              <div
+                key={book.slug}
+                className={`group/card relative flex h-full flex-col p-6 transition-all duration-300 hover:-translate-y-1 ${isBundleCard ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.10)]" : "bg-obsidian"}`}
+              >
+                {isBundleCard && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
+                <Link href={`/shop/${book.slug}`} className="relative mb-5 block overflow-hidden">
+                  <span className="absolute left-3 top-3 z-10 bg-petal px-2.5 py-1 font-body text-[0.5rem] font-bold uppercase tracking-[0.18em] text-void">
+                    {book.tag}
+                  </span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={coverForSlug(book.slug)}
+                    alt={`${book.title} cover`}
+                    width={1600}
+                    height={2560}
+                    loading="lazy"
+                    className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_12px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover/card:scale-[1.03]"
+                  />
+                </Link>
+                <h3 className="font-display text-xl uppercase leading-tight tracking-[0.02em] text-pearl">{book.title}</h3>
+                <p className="mt-2 flex items-baseline gap-2 font-display text-3xl text-white">
+                  {book.price}
+                  {book.compareAt && <span className="font-body text-sm font-light text-iron line-through">{book.compareAt}</span>}
+                </p>
+                <p className="mt-3 line-clamp-4 flex-1 font-body text-xs font-light leading-6 text-smoke">{book.desc}</p>
+                <div className="mt-6 space-y-2">
+                  <a
+                    href={actionHref}
+                    {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+                    className="btn-primary flex w-full items-center justify-center py-3 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-void"
+                  >
+                    {isBundleCard ? `Get the Vault — ${book.price}` : `Buy — ${book.price}`}
+                  </a>
+                  <Link
+                    href={`/shop/${book.slug}`}
+                    className="flex w-full items-center justify-center py-2 font-body text-[0.6rem] font-light uppercase tracking-[0.15em] text-ash transition hover:text-pearl"
+                  >
+                    View details →
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </RevealSection>
+
       {/* ── START HERE: the value ladder — read free, buy the method, or done-for-you ── */}
-      <RevealSection bg="void" num="02">
+      <RevealSection bg="obsidian" num="02">
         <Eyebrow pink>Start Here</Eyebrow>
         <H2>Three ways in,{" "}<span className="text-petal">one path up.</span></H2>
         <p className="mt-4 font-body text-sm font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>

@@ -350,6 +350,25 @@ export const EBOOKS = [
     desc: "You don't need a perfect morning. You need a repeatable one — the version that still happens on the day everything goes wrong. A flexible, evidence-based blueprint for starting the day on purpose instead of on your phone: protect it from the phone, anchor it to what you already do, and let the first hour compound into a different life.",
   },
   {
+    slug:      "the-manifestation-vault",
+    title:     "The Manifestation Vault",
+    subtitle:  "All four manifestation & self-mastery books in one bundle — manifesting, money, micro habits, and mornings.",
+    price:     "$67",
+    compareAt: "$95",
+    tag:       "Best Value",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/the-manifestation-vault.zip",
+    href:      "/checkout/the-manifestation-vault",
+    features:  [
+      "The Manifest + Manifest the Money + The Compound + The Morning Blueprint",
+      "Four complete 50+ page guides — the whole manifestation & self-mastery line",
+      "Every book as PDF and Kindle-ready EPUB, in one ZIP",
+      "Buy the bundle for far less than the four books separately",
+    ],
+    desc: "The complete manifestation and self-mastery library in one purchase: The Manifest (manifesting for business), Manifest the Money, The Compound (micro habits), and The Morning Blueprint. Four full-length guides — PDF and EPUB — bundled well below the individual price. The grounded, no-woo companion to the Cosmos line.",
+  },
+  {
     slug:      "the-linkedin-bio-fix-kit",
     title:     "The LinkedIn Bio Fix Kit",
     subtitle:  "Fix the first thing everyone reads about you — in fifteen minutes.",
@@ -1093,6 +1112,11 @@ export const productCheckoutHref = (product: ShopProduct) => {
 export const productDeliveryLinks = (product: ShopProduct) => {
   const primary = productDownload(product);
   if (!primary) return [];
+
+  // Bundles delivered as a single ZIP (e.g. The Manifestation Vault).
+  if (primary.endsWith(".zip")) {
+    return [{ label: "ZIP Bundle", href: primary }];
+  }
 
   const links = [{ label: "PDF", href: primary }];
   if (primary.endsWith(".pdf")) {
