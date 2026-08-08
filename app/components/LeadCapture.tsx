@@ -3,8 +3,95 @@
 import { useEffect, useMemo, useState } from "react";
 
 const FREE_CHAPTER = "/downloads/ebooks/rebecoming-sample.pdf";
+const COSMOS_KIT = "/downloads/ebooks/the-cosmos-starter-kit.pdf";
 const STORAGE_KEY = "mkp_lead_capture_status";
 const DISMISS_DAYS = 7;
+
+type Variant = "rebecoming" | "cosmos";
+
+// The popup adapts to the page: the Cosmos free guide on /cosmos, the REBECOMING
+// first chapter everywhere else.
+const VARIANTS: Record<Variant, {
+  cover: string;
+  coverAlt: string;
+  eyebrow: string;
+  titleTop: string;
+  titleAccent: string;
+  productLine: string;
+  blurb: string;
+  bullets: string[];
+  submitLabel: string;
+  footnote: string;
+  download: string;
+  successTitle: [string, string];
+  successSub: { emailed: string; fallback: string };
+  successRead: string;
+  crossEyebrow: string;
+  crossText: string;
+  crossHref: string;
+  crossCta: string;
+  requestBody: (email: string, source: string) => Record<string, string>;
+}> = {
+  rebecoming: {
+    cover: "/downloads/covers/rebecoming-cover.jpg",
+    coverAlt: "REBECOMING: From Fear to Faith book cover",
+    eyebrow: "Rewrite Your Story · Free First Chapter",
+    titleTop: "Read the first",
+    titleAccent: "chapter free.",
+    productLine: "REBECOMING: From Fear to Faith",
+    blurb:
+      "A memoir about losing your fear without losing yourself. You are not starting over. You are rebecoming. Enter your email and I'll send the opening chapter.",
+    bullets: [
+      "Immediate chapter access after signup.",
+      "A direct inbox copy when email delivery is available.",
+      "Occasional field notes on voice, faith, work, and rebuilding. No spam.",
+    ],
+    submitLabel: "Send Me Chapter One →",
+    footnote:
+      "One email with your free chapter. A portion of every book sale is donated to my local parish. Unsubscribe any time.",
+    download: FREE_CHAPTER,
+    successTitle: ["Chapter one", "is yours."],
+    successSub: {
+      emailed: "It is on its way to your inbox, and you can start reading right now.",
+      fallback: "Email delivery is not connected right now, but the chapter is ready below.",
+    },
+    successRead: "Read Chapter One →",
+    crossEyebrow: "Don't want to wait?",
+    crossText: "Read the whole story now - instant ebook or a paperback shipped to your door.",
+    crossHref: "/rebecoming",
+    crossCta: "Get the Full Book →",
+    requestBody: (email, source) => ({ email, offer: "rebecoming-sample", source }),
+  },
+  cosmos: {
+    cover: "/downloads/covers/the-cosmos-starter-kit-cover.jpg",
+    coverAlt: "The Cosmos Starter Kit cover",
+    eyebrow: "Cosmos · Free Field Guide",
+    titleTop: "Read your",
+    titleAccent: "chart free.",
+    productLine: "The Cosmos Starter Kit",
+    blurb:
+      "Numerology & astrology, read like a mirror: your life-path number, your Big Three, angel numbers, and personal-year timing. Enter your email and I'll send the free guide.",
+    bullets: [
+      "Instant download after signup — PDF + EPUB.",
+      "A direct inbox copy when email delivery is available.",
+      "Occasional field notes on the Cosmos line and the work. No spam.",
+    ],
+    submitLabel: "Send Me the Kit →",
+    footnote: "One email with your free guide. Read like a mirror, not a fortune. Unsubscribe any time.",
+    download: COSMOS_KIT,
+    successTitle: ["Your kit", "is ready."],
+    successSub: {
+      emailed: "It is on its way to your inbox, and you can start reading right now.",
+      fallback: "Email delivery is not connected right now, but the guide is ready below.",
+    },
+    successRead: "Read the Kit →",
+    crossEyebrow: "Want the full method?",
+    crossText: "Turn insight into action — the whole manifestation line in one bundle.",
+    crossHref: "/shop/the-manifestation-vault",
+    crossCta: "Get the Vault →",
+    requestBody: (email, source) => ({ email, magnet: "the-cosmos-starter-kit", source }),
+  },
+};
 
 function getDaysFromNow(days: number) {
   return Date.now() + days * 24 * 60 * 60 * 1000;
@@ -51,7 +138,17 @@ export default function LeadCapture() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [emailed, setEmailed] = useState(false);
+  const [variant, setVariant] = useState<Variant>("rebecoming");
+  const v = VARIANTS[variant];
   const [downloadUrl, setDownloadUrl] = useState(FREE_CHAPTER);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.location.pathname.startsWith("/cosmos")) {
+      setVariant("cosmos");
+      setDownloadUrl(COSMOS_KIT);
+    }
+  }, []);
 
   const pageSource = useMemo(() => {
     if (typeof window === "undefined") return "popup";
@@ -124,11 +221,7 @@ export default function LeadCapture() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: cleanEmail,
-          offer: "rebecoming-sample",
-          source: pageSource,
-        }),
+        body: JSON.stringify(v.requestBody(cleanEmail, pageSource)),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "failed");
@@ -187,8 +280,8 @@ export default function LeadCapture() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(242,175,198,0.18),transparent_70%)]" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/downloads/covers/rebecoming-cover.jpg"
-            alt="REBECOMING: From Fear to Faith book cover"
+            src={v.cover}
+            alt={v.coverAlt}
             width={1600}
             height={2560}
             className="relative aspect-[5/8] w-full max-w-[240px] border border-graphite/70 object-cover shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
@@ -199,25 +292,25 @@ export default function LeadCapture() {
           {!submitted ? (
             <>
               <p className="mb-4 font-body text-[0.6rem] font-bold uppercase tracking-[0.35em] text-petal">
-                Rewrite Your Story · Free First Chapter
+                {v.eyebrow}
               </p>
               <h2
                 id="lead-capture-title"
                 className="font-display uppercase leading-[0.9] tracking-[0.02em] text-white"
                 style={{ fontSize: "clamp(1.9rem, 5vw, 2.8rem)" }}
               >
-                Read the first<br /><span className="text-petal">chapter free.</span>
+                {v.titleTop}<br /><span className="text-petal">{v.titleAccent}</span>
               </h2>
               <p className="mt-4 font-display uppercase leading-none tracking-[0.03em] text-petal" style={{ fontSize: "1.5rem" }}>
-                REBECOMING: From Fear to Faith
+                {v.productLine}
               </p>
               <p className="mt-3 font-body text-base font-light leading-7 text-smoke">
-                A memoir about losing your fear without losing yourself. You are not starting over. You are rebecoming. Enter your email and I&apos;ll send the opening chapter.
+                {v.blurb}
               </p>
               <ul className="mt-5 space-y-2 font-body text-xs leading-5 text-smoke">
-                <li>• Immediate chapter access after signup.</li>
-                <li>• A direct inbox copy when email delivery is available.</li>
-                <li>• Occasional field notes on voice, faith, work, and rebuilding. No spam.</li>
+                {v.bullets.map((b) => (
+                  <li key={b}>• {b}</li>
+                ))}
               </ul>
               <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
                 <label className="sr-only" htmlFor="lead-email">Email address</label>
@@ -236,7 +329,7 @@ export default function LeadCapture() {
                   disabled={loading}
                   className="btn-primary w-full py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {loading ? "Sending…" : "Send Me Chapter One →"}
+                  {loading ? "Sending…" : v.submitLabel}
                 </button>
               </form>
               {error && <p className="mt-3 font-body text-[0.7rem] leading-5 text-petal" aria-live="polite">{error}</p>}
@@ -251,18 +344,16 @@ export default function LeadCapture() {
                 </a>
               )}
               <p className="mt-4 font-body text-[0.65rem] leading-5 text-iron">
-                One email with your free chapter. A portion of every book sale is donated to my local parish. Unsubscribe any time.
+                {v.footnote}
               </p>
             </>
           ) : (
             <div className="py-2" aria-live="polite">
               <p className="font-display text-4xl uppercase leading-none tracking-[0.02em] text-petal">
-                Chapter one<br />is yours.
+                {v.successTitle[0]}<br />{v.successTitle[1]}
               </p>
               <p className="mt-5 font-serif text-base italic leading-7 text-smoke">
-                {emailed
-                  ? "It is on its way to your inbox, and you can start reading right now."
-                  : "Email delivery is not connected right now, but the chapter is ready below."}
+                {emailed ? v.successSub.emailed : v.successSub.fallback}
               </p>
 
               <a
@@ -271,22 +362,22 @@ export default function LeadCapture() {
                 rel="noreferrer"
                 className="mt-6 inline-flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.78rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
               >
-                Read Chapter One →
+                {v.successRead}
               </a>
 
               <div className="mt-6 border-t border-graphite pt-6">
                 <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-petal">
-                  Don&apos;t want to wait?
+                  {v.crossEyebrow}
                 </p>
                 <p className="mt-2 font-body text-sm font-light leading-6 text-smoke">
-                  Read the whole story now - instant ebook or a paperback shipped to your door.
+                  {v.crossText}
                 </p>
                 <a
-                  href="/rebecoming"
+                  href={v.crossHref}
                   onClick={() => setTimeout(dismiss, 300)}
                   className="btn-primary mt-4 inline-flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                 >
-                  Get the Full Book →
+                  {v.crossCta}
                 </a>
               </div>
             </div>
