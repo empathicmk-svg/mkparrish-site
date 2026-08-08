@@ -70,12 +70,12 @@ const BUNDLES = [
     href: "/shop/the-services-vault",
   },
   {
-    tag: "Complete Curriculum",
-    title: "Scripture & Strategy",
-    price: "$497",
-    compareAt: undefined,
-    text: "A full faith-based business curriculum — from a real study practice to sustainable income, in eight guided modules.",
-    href: "/shop/scripture-and-strategy",
+    tag: "New · Manifestation",
+    title: "The Manifestation Vault",
+    price: "$67",
+    compareAt: "$95",
+    text: "Four books on manifesting, money, micro habits, and mornings — the whole self-mastery line in one bundle.",
+    href: "/shop/the-manifestation-vault",
   },
 ] as const;
 

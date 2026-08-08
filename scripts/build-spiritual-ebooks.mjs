@@ -13,8 +13,9 @@ import { theManifest } from "./ebooks/the-manifest.mjs";
 import { theCompound } from "./ebooks/the-compound.mjs";
 import { manifestingMoney } from "./ebooks/manifesting-money.mjs";
 import { theMorningBlueprint } from "./ebooks/the-morning-blueprint.mjs";
+import { theCosmosStarterKit } from "./ebooks/the-cosmos-starter-kit.mjs";
 
-const BOOKS = [theManifest, theCompound, manifestingMoney, theMorningBlueprint];
+const BOOKS = [theManifest, theCompound, manifestingMoney, theMorningBlueprint, theCosmosStarterKit];
 
 let total = 0;
 for (const book of BOOKS) {

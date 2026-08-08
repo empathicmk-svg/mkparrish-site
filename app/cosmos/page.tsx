@@ -204,6 +204,36 @@ export default function CosmosPage() {
         </div>
       </RevealSection>
 
+      {/* ── FREE STARTER KIT ── */}
+      <section className="relative overflow-hidden border-y border-petal/25 py-14 md:py-20 gradient-pink-grey">
+        <div className="relative mx-auto grid max-w-[1400px] items-center gap-8 px-6 lg:grid-cols-[1.4fr_0.6fr] lg:px-10">
+          <div>
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Free · No signup</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.92] tracking-[0.02em] text-white md:text-6xl">
+              The Cosmos <span className="text-petal text-glow">Starter Kit.</span>
+            </h2>
+            <p className="mt-5 max-w-2xl font-body text-base font-light leading-8 text-smoke">
+              A short, grounded field guide to numerology &amp; astrology — calculate your life-path number, meet your Big Three, decode angel numbers, and read your personal-year timing. Free PDF + EPUB, read like a mirror, not a fortune.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <a
+              href="/downloads/ebooks/the-cosmos-starter-kit.pdf"
+              download
+              className="btn-primary inline-flex w-full justify-center px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void"
+            >
+              Download Free →
+            </a>
+            <Link
+              href="/shop/the-cosmos-starter-kit"
+              className="inline-flex w-full justify-center border border-graphite bg-void/40 px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-pearl transition hover:border-petal hover:text-petal"
+            >
+              View details
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <QuoteDivider index={2} />
 
       {/* ── PHILOSOPHY / FAQ ── */}

@@ -101,6 +101,7 @@ const FEATURED_BOOKS = FEATURED_BOOK_SLUGS
 
 // The Cosmos / manifestation line — bundle first, then the four books.
 const COSMOS_COLLECTION_SLUGS = [
+  "the-cosmos-starter-kit",
   "the-manifestation-vault",
   "the-manifest",
   "manifest-the-money",
@@ -290,9 +291,16 @@ export default function ShopPage() {
         </div>
         <div className="mt-12 grid auto-rows-fr gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
           {COSMOS_COLLECTION.map((book) => {
-            const actionHref = book.stripe && book.stripe.length > 0 ? book.stripe : book.href;
-            const external = actionHref.startsWith("http");
             const isBundleCard = book.slug === "the-manifestation-vault";
+            const actionHref = book.free && book.download
+              ? book.download
+              : book.stripe && book.stripe.length > 0 ? book.stripe : book.href;
+            const external = actionHref.startsWith("http");
+            const ctaLabel = book.free
+              ? "Download Free →"
+              : isBundleCard
+              ? `Get the Vault — ${book.price}`
+              : `Buy — ${book.price}`;
             return (
               <div
                 key={book.slug}
@@ -322,10 +330,11 @@ export default function ShopPage() {
                 <div className="mt-6 space-y-2">
                   <a
                     href={actionHref}
+                    {...(book.free ? { download: "" } : {})}
                     {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
                     className="btn-primary flex w-full items-center justify-center py-3 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-void"
                   >
-                    {isBundleCard ? `Get the Vault — ${book.price}` : `Buy — ${book.price}`}
+                    {ctaLabel}
                   </a>
                   <Link
                     href={`/shop/${book.slug}`}
