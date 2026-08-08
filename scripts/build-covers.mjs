@@ -42,6 +42,7 @@ const PRODUCTS = [
   { raw: '# Manifest the Money\n', slug: 'manifest-the-money', title: 'Manifest the Money', subtitle: 'Manifesting money, where mindset ends and math begins.' },
   { raw: '# The Morning Blueprint\n', slug: 'the-morning-blueprint', title: 'The Morning Blueprint', subtitle: 'A morning routine that survives real life.' },
   { raw: '# The Manifestation Vault\n', slug: 'the-manifestation-vault', title: 'The Manifestation Vault', subtitle: 'Four books: manifesting, money, micro habits & mornings.' },
+  { raw: '# The Cosmos Starter Kit\n', slug: 'the-cosmos-starter-kit', title: 'The Cosmos Starter Kit', subtitle: 'Your free field guide to numerology & astrology.' },
   { src: 'ebooks/scripture/her-story-rewritten.md',   slug: 'her-story-rewritten',
     subtitle: 'Eight women of the Bible, the moment everything turned, and what their stories are still saying to yours.' },
   { src: 'ebooks/scripture/her-story-rewritten-volume-two.md', slug: 'her-story-rewritten-volume-two',

@@ -31,6 +31,7 @@ const FILES = [
   ['public/downloads/ebooks/the-compound.html',                  'public/downloads/ebooks/the-compound.pdf'],
   ['public/downloads/ebooks/manifest-the-money.html',            'public/downloads/ebooks/manifest-the-money.pdf'],
   ['public/downloads/ebooks/the-morning-blueprint.html',         'public/downloads/ebooks/the-morning-blueprint.pdf'],
+  ['public/downloads/ebooks/the-cosmos-starter-kit.html',        'public/downloads/ebooks/the-cosmos-starter-kit.pdf'],
   ['public/downloads/ebooks/her-story-rewritten.html',           'public/downloads/ebooks/her-story-rewritten.pdf'],
   ['public/downloads/ebooks/her-story-rewritten-volume-two.html', 'public/downloads/ebooks/her-story-rewritten-volume-two.pdf'],
   ['public/downloads/ebooks/the-study.html',                     'public/downloads/ebooks/the-study.pdf'],

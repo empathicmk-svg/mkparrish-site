@@ -48,6 +48,8 @@ const BOOKS = [
     title: 'Manifest the Money', subtitle: 'Manifesting money, where mindset ends and math begins.' },
   { src: 'ebooks/the-morning-blueprint.md',           out: 'ebooks/the-morning-blueprint.epub',
     title: 'The Morning Blueprint', subtitle: 'A morning routine that survives real life.' },
+  { src: 'ebooks/the-cosmos-starter-kit.md',          out: 'ebooks/the-cosmos-starter-kit.epub',
+    title: 'The Cosmos Starter Kit', subtitle: 'Your free field guide to numerology & astrology.' },
   { src: 'ebooks/scripture/her-story-rewritten.md',   out: 'ebooks/her-story-rewritten.epub' },
   { src: 'ebooks/scripture/her-story-rewritten-volume-two.md', out: 'ebooks/her-story-rewritten-volume-two.epub' },
   { src: 'ebooks/kids/the-princess-who-rescued-herself.md', out: 'ebooks/the-princess-who-rescued-herself.epub' },
