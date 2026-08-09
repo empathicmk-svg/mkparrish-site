@@ -187,13 +187,13 @@ export default function Microsite() {
           <Reveal delay={240}>
             <div className="mt-9 flex flex-wrap gap-4">
               <a href="#case-01" className="id-btn-accent">
-                See the campaigns ↓
+                Walk the pipeline with me ↓
               </a>
               <button onClick={() => window.print()} className="id-btn-outline">
                 Save as PDF
               </button>
               <button onClick={() => setContactOpen(true)} className="id-btn-outline">
-                Contact MK
+                Book a working session →
               </button>
             </div>
           </Reveal>
@@ -226,9 +226,9 @@ export default function Microsite() {
       {/* ─────────────────────── THE BRIEF ─────────────────────── */}
       <Section id="brief" eyebrow="What was asked → where it lives" title="The brief, answered line by line">
         <p className="id-body max-w-2xl">
-          {AUDIENCE.recruiter}&rsquo;s note asked for concrete recent work — not high-level summaries. Below, every
-          request is mapped to the exact part of this portfolio that answers it. Nothing confidential; figures are
-          directional and structured for the conversation.
+          {AUDIENCE.recruiter} asked for concrete, recent work — not high-level summaries. So I&rsquo;ve mapped every
+          line of the brief to the exact proof point that answers it. Nothing confidential; the figures are directional
+          and structured to drive a commercial conversation, not to disclose.
         </p>
         <div className="mt-10 grid gap-px overflow-hidden border md:grid-cols-2" style={{ borderColor: "var(--id-line)", background: "var(--id-line)" }}>
           {REQUIREMENTS.map((r, i) => (
@@ -251,8 +251,9 @@ export default function Microsite() {
       {/* ─────────────────────── METRICS BAND ─────────────────────── */}
       <Section id="metrics" eyebrow="At a glance" title="The numbers, before the story" tint>
         <p className="id-body max-w-2xl">
-          The outcomes these campaigns were built to move. Each one ties back to a commercial objective in the case
-          studies below — not reach, not impressions.
+          These are the commercial outcomes I built the programs to move — win rate, marketing-sourced and influenced
+          pipeline, ROI, ACV, and cycle time. Every number ladders back to a revenue objective in the case studies
+          below — not reach, not impressions.
         </p>
         <div className="id-bigstats mt-12">
           {[...CASE_01.results.slice(0, 3), ...CASE_02.metrics.slice(3, 4), ...CASE_03.metrics.slice(2, 4)].map((k) => (
@@ -282,7 +283,7 @@ export default function Microsite() {
             <p className="id-body mt-3 max-w-3xl">{CASE_01.escalation}</p>
           </div>
           <button onClick={() => setMemoOpen(true)} className="id-btn-accent mt-6 shrink-0">
-            Read the escalation memo →
+            Read the memo I escalated →
           </button>
         </div>
 
@@ -472,8 +473,8 @@ export default function Microsite() {
 
         <SubHead n="·" t="One global campaign, adapted region by region" />
         <p className="id-body mt-4 max-w-2xl">
-          Select a market to see how the message, channels, events, and localized details changed — the same product
-          story, rebuilt for what each region actually rewards.
+          Select a market to see how I rebuilt the message, channels, events, and localized details region by region —
+          the same product story, re-architected for what each market actually rewards.
         </p>
         <div className="mt-8">
           <RegionSwitcher regions={CASE_03.regions} />
@@ -542,10 +543,10 @@ export default function Microsite() {
             <p className="id-lede mx-auto mt-6 max-w-2xl">{CONTACT_CTA.body}</p>
             <div className="mt-9 flex flex-wrap justify-center gap-4">
               <button onClick={() => setContactOpen(true)} className="id-btn-accent">
-                Start the conversation →
+                Let&rsquo;s scope your first play →
               </button>
               <a href={BOOK_CALL_URL} className="id-btn-outline">
-                Book a call
+                Book a working session
               </a>
               <button onClick={() => window.print()} className="id-btn-outline">
                 Save this as PDF
@@ -612,11 +613,11 @@ export default function Microsite() {
       </Modal>
 
       {/* Contact modal */}
-      <Modal open={contactOpen} onClose={() => setContactOpen(false)} title="Start the conversation">
+      <Modal open={contactOpen} onClose={() => setContactOpen(false)} title="Let’s build your first play">
         <p className="font-body text-base font-light leading-7 text-smoke">
-          The best next step is a working conversation about what {AUDIENCE.company}&rsquo;s first integrated play
-          should be. Reach me directly, or book a time — I&rsquo;m happy to walk {AUDIENCE.hiringManager} through any
-          case study live.
+          The most useful next step is a working session — I&rsquo;ll map how I&rsquo;d compress {AUDIENCE.company}&rsquo;s
+          funnel and build the first integrated motion against your pipeline targets. Reach me directly or book a time,
+          and I&rsquo;m glad to walk {AUDIENCE.hiringManager} through any case study live.
         </p>
         <div className="mt-6 grid gap-3">
           <a href={`mailto:${CONTACT.email}?subject=iDeals%20Integrated%20Campaign%20Manager%20—%20MK%20Parrish`} className="id-btn-accent w-full justify-center">
@@ -626,7 +627,7 @@ export default function Microsite() {
             Call {CONTACT.phone}
           </a>
           <a href={BOOK_CALL_URL} className="id-btn-outline w-full justify-center">
-            Book a call →
+            Book a working session →
           </a>
         </div>
       </Modal>
