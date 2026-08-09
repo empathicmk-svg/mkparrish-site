@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Microsite from "./Microsite";
 
 export const metadata: Metadata = {
-  title: "Integrated Campaign Manager — Portfolio for iDeals · MK Parrish",
+  title: "MK Parrish — Integrated Campaign Manager Portfolio for iDeals",
   description:
-    "A working portfolio prepared for iDeals: three campaigns owned end-to-end — an integrated Vonage × Salesforce bundle play, EMEA executive roundtables, and a localized EMEA go-to-market — with the context, trade-offs, stakeholders, and KPIs behind each.",
+    "An iDeals-styled working portfolio for the Integrated Campaign Manager role: an Atlantic Ultraviolet distributor build, an enterprise Vonage channel program, a US localization, and a plan to own the iDeals MCP launch across North America — with coded infographics and KPIs.",
   // Private, invite-shared portfolio — kept out of search + the public sitemap.
   robots: {
     index: false,
