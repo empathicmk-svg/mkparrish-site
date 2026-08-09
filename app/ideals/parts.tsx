@@ -461,7 +461,7 @@ export function FloatingCTA({
         Reviewing for iDeals?
       </p>
       <p className="mt-2 font-serif text-lg italic leading-snug text-pearl" style={{ fontWeight: 700 }}>
-        Happy to walk Esther through any of these live.
+        I&rsquo;d welcome the chance to walk Esther through the funnel economics live.
       </p>
       <div className="mt-4 flex flex-col gap-2">
         <button
@@ -471,7 +471,7 @@ export function FloatingCTA({
           }}
           className="id-btn-accent w-full justify-center"
         >
-          Start the conversation →
+          Let&rsquo;s scope your first play →
         </button>
         <a
           href={`mailto:${email}`}
