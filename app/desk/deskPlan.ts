@@ -339,7 +339,7 @@ export const SCRIPTS: Script[] = [
 export const COMMERCIAL_SCRIPTS: { id: string; when: string; text: string }[] = [
   {
     id: 'gate', when: '1 · Getting past whoever answers',
-    text: 'Hi — I am trying to reach whoever handles the vans. Is that the owner, or do you have a fleet manager? … Great, is he/she around? I will only need about two minutes.',
+    text: 'Hi — I am trying to reach whoever handles the vans. Is that the owner, or do you have a fleet manager? … Great, are they around? I will only need about two minutes.',
   },
   {
     id: 'qualify', when: '2 · The question that pays — ask it early',
@@ -372,6 +372,65 @@ export const COMMERCIAL_SCRIPTS: { id: string; when: string; text: string }[] = 
   {
     id: 'close', when: '9 · Closing for the appointment',
     text: 'Here is what I would suggest — come see one. Ten minutes, no numbers, just stand in it and see if the size works for your crew. I am here Thursday and Friday until five, or Saturday. Which is easier?',
+  },
+];
+
+/**
+ * The cold commercial call when you have a business and a number but no
+ * contact name — which is every name off a franchise locator, a county
+ * licence list, or a map search.
+ *
+ * All of these open by saying who you are and why you are calling. Pretexting
+ * ("calling about your account") gets you past one gatekeeper and burns the
+ * shop permanently, and local trades all know each other.
+ *
+ * The through-line: you are not trying to sell on this call. You are trying to
+ * leave with a NAME. A name turns every future dial into a warm call.
+ */
+export const NONAME_SCRIPTS: { id: string; when: string; text: string }[] = [
+  {
+    id: 'nn-open', when: '1 · The opener — admit you have no name',
+    text: 'Hi — I am hoping you can point me in the right direction. I do not have a name to ask for, so I am calling a little blind here. Who handles the vans over there — is that the owner, or do you have someone who runs the fleet?',
+  },
+  {
+    id: 'nn-gk', when: '2 · Get the gatekeeper\'s name FIRST — the highest-value 10 seconds',
+    text: 'Before I go any further — what was your name? … Thanks, [Name]. Do me a favour and I will stop calling blind: who should I be asking for? … Perfect. Next time I call I will just ask for [Owner] and say you pointed me there.',
+  },
+  {
+    id: 'nn-perm', when: '3 · You have the decision-maker — ask permission',
+    text: 'Did I catch you in the middle of something? … I will be quick — give me thirty seconds and you can tell me to go away.',
+  },
+  {
+    id: 'nn-why', when: '4 · Why you are calling — say it straight',
+    text: 'I am MK at Mercedes-Benz of Smithtown. You did not fill anything out, I am calling you cold — I will be honest about that. The reason is we have Sprinter cargo vans physically on the ground right now, and most shops out here are still being told there is a wait. Two questions and I will know in a minute whether this is worth any more of your time.',
+  },
+  {
+    id: 'nn-qual', when: '5 · The qualifier that pays',
+    text: 'Are you independent, or do you run under a national brand? … The reason I ask is that franchisees qualify for fleet-level pricing on a single van, not just on big fleets. It is thousands off retail and most owners have never been told it exists.',
+  },
+  {
+    id: 'nn-notin', when: '6 · "He is not in" — pin down a time',
+    text: 'No problem at all. When is he usually easiest to catch — early morning before the crews roll, or end of day? … Then I will try Thursday around 7:30. And what is his name, so I am not the guy asking for "the owner" again?',
+  },
+  {
+    id: 'nn-email', when: '7 · "Just send me an email"',
+    text: 'Happy to — what is the best address? … And so it is not just one more email in the pile, what would actually be useful in it: pricing, what we have in stock, or the Section 179 side? … Got it. I will send it today and give you a call Thursday to make sure it landed.',
+  },
+  {
+    id: 'nn-no', when: '8 · "We are not interested" — one honest turn, then out',
+    text: 'Fair enough, and I am not going to push you. One thing before I let you go — when does your replacement cycle usually come around? … Then I will check back a few weeks ahead of that instead of bothering you now. Fair?',
+  },
+  {
+    id: 'nn-vm', when: '9 · Voicemail with no name — you will leave a lot of these',
+    text: 'Hi, this is MK at Mercedes-Benz of Smithtown, [your number]. I do not have a name to ask for, so I am leaving this for whoever handles the vans. Two things worth knowing: we have Sprinter cargo on the ground right now — no ordering, no waiting — and if you run under a national brand there is fleet pricing available on a single van. If that is not you, I would genuinely appreciate a call back just to tell me who it is. Thanks for the time.',
+  },
+  {
+    id: 'nn-walk', when: '10 · The walk-in — for shops that never answer the phone',
+    text: 'Hi — I am MK from Mercedes-Benz of Smithtown, right down the road. I am not here to sell you anything today. I kept missing whoever handles your vans on the phone, so I figured I would just stop in. Is that you? … Can I leave you a card and grab your name?',
+  },
+  {
+    id: 'nn-back', when: '11 · The second call — now you have a name',
+    text: 'Hi [Owner], MK at Mercedes-Benz of Smithtown. [Gatekeeper] told me you are the one to talk to about the vans, and that early morning was the way to catch you — so here I am. Two minutes?',
   },
 ];
 

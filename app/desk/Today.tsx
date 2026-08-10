@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import {
-  SHIFTS, SCRIPTS, SPRINTER_BRANDS, COMMERCIAL_SCRIPTS, NAME_KEY, PULLS, STANDING_LISTS, TIERS,
+  SHIFTS, SCRIPTS, SPRINTER_BRANDS, COMMERCIAL_SCRIPTS, NONAME_SCRIPTS, NAME_KEY, PULLS, STANDING_LISTS, TIERS,
   shiftsLeftInMonth, currentBlock, fmtTime, greeting,
   type Shift,
 } from './deskPlan';
@@ -348,6 +348,28 @@ export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }
                   answer the phone. Use today to build the target list.
                 </p>
               )}
+              <h4 className="h4">Cold call, no contact name</h4>
+              <p className="note" style={{ marginTop: 0 }}>
+                Every name off a franchise locator or a licence list comes without a person attached.
+                You are not selling on this call — you are leaving with a <b>name</b>.
+              </p>
+              {NONAME_SCRIPTS.map((s2) => (
+                <div key={s2.id} className="scriptrow">
+                  <button className="scripthead" onClick={() => setOpenScript(openScript === s2.id ? null : s2.id)}>
+                    <span>{s2.when}</span>
+                    <span className="chev">{openScript === s2.id ? '−' : '+'}</span>
+                  </button>
+                  {openScript === s2.id && (
+                    <>
+                      <p className="scripttext">{s2.text}</p>
+                      <button className="sm" onClick={() => copy(s2.id, s2.text)}>
+                        {copied === s2.id ? '✓ Copied' : 'Copy'}
+                      </button>
+                    </>
+                  )}
+                </div>
+              ))}
+
               <h4 className="h4">The call, start to finish</h4>
               {COMMERCIAL_SCRIPTS.map((s2) => (
                 <div key={s2.id} className="scriptrow">
