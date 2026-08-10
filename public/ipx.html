@@ -401,6 +401,8 @@ footer b{color:var(--muted)}
 .op-warn b{color:#1B1D27}
 
 </style>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <nav aria-label="Sections">
@@ -1305,6 +1307,25 @@ document.addEventListener('mousemove',e=>{
 const io=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ========== ANALYTICS ==========
+   This page is a static file in public/, so the app's <Analytics/> never runs
+   here. The script in <head> covers pageviews; the rest is reported by hand. */
+const track=(name,data)=>{try{window.va&&window.va('event',data?{name,data}:{name})}catch(e){}};
+
+document.querySelector('.dlbar a')?.addEventListener('click',()=>track('ipx_pdf_download'));
+
+/* A skim and a full read are the same pageview, so record how far down the
+   reader actually got. Each section reports once per visit. Triggering off the
+   middle band of the viewport rather than a visible-ratio threshold: sections
+   here run taller than the screen, and a ratio like 0.35 can never be met by
+   one that is three viewports tall. */
+const depth=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  track('ipx_section_view',{section:e.target.id});
+  depth.unobserve(e.target);
+}),{threshold:0,rootMargin:'-25% 0px -25% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>depth.observe(s));
 </script>
 </body>
 </html>
