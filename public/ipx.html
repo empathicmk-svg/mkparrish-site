@@ -1,0 +1,1310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="A six-week pre-launch demand build for IPX: bid model, countdown calendar, zero-based budgets, creator roster and war-room playbooks. Prepared by Mary Kate Parrish.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IPX Pre-Launch Control — 6-Week Demand Build to Sep 18">
+<meta property="og:description" content="A six-week pre-launch demand build for IPX. Prepared by Mary Kate Parrish.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IPX Pre-Launch Control — 6-Week Demand Build to Sep 18</title>
+<style>
+/* ============ IPX PRE-LAUNCH CONTROL ============ */
+:root{
+  --bg:#0B0D14; --surface:#12151F; --surface2:#181C2A; --line:#232838; --line2:#2E3448;
+  --ink:#EDEEF4; --ink2:#C3C7D6; --muted:#8A90A6; --faint:#5C6278;
+  --violet:#8B7CFF; --violet-deep:#6C5CE7; --gold:#F0B429; --gold-deep:#B87A0E;
+  --teal:#1F9678; --teal-bright:#2DD4A7; --blue:#3479D0; --red:#F16063;
+  --c1:#8B7CFF; --c2:#B87A0E; --c3:#1F9678; --c4:#3479D0;
+  --mono:'SF Mono',ui-monospace,'Cascadia Code',Consolas,Menlo,monospace;
+  --sans:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--violet);text-decoration:none}
+::selection{background:var(--violet-deep);color:#fff}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(11,13,20,.88);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:4px;
+  padding:10px 20px;overflow-x:auto;white-space:nowrap}
+nav .mark{font-weight:800;letter-spacing:.5px;font-size:15px;margin-right:14px;color:var(--ink)}
+nav .mark b{color:var(--gold)}
+nav a{color:var(--muted);font-size:12.5px;font-weight:600;padding:6px 11px;border-radius:99px;
+  letter-spacing:.2px;transition:color .15s,background .15s}
+nav a:hover,nav a:focus-visible{color:var(--ink);background:var(--surface2);outline:none}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+  background:radial-gradient(1000px 480px at 78% -12%,rgba(108,92,231,.28),transparent 62%),
+             radial-gradient(680px 340px at 12% 110%,rgba(184,122,14,.16),transparent 60%),var(--bg)}
+.hero .wrap{padding:60px 22px 42px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:2.4px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--gold)}
+h1{font-size:clamp(32px,5.2vw,56px);line-height:1.02;font-weight:800;letter-spacing:-1.5px;
+  text-wrap:balance;max-width:840px}
+h1 .g{background:linear-gradient(92deg,var(--violet) 0%,#B9AEFF 55%,var(--gold) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{margin-top:16px;max-width:660px;color:var(--ink2);font-size:16.5px}
+.hero .sub b{color:var(--ink)}
+.byline{margin-top:14px;font-size:13px;color:var(--muted)}
+.byline b{color:var(--ink)}
+
+.count{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;align-items:stretch}
+.cd{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:14px 18px;min-width:96px;text-align:center;position:relative;overflow:hidden}
+.cd::after{content:"";position:absolute;inset:0 0 auto;height:2px;
+  background:linear-gradient(90deg,var(--violet),transparent)}
+.cd .n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:34px;font-weight:700;color:var(--ink)}
+.cd .l{font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.cd-label{align-self:center;font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:1px;
+  padding:0 6px;max-width:230px;line-height:1.6}
+.cd-label b{color:var(--ink)}
+
+.ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface);
+  overflow:hidden;position:relative}
+.ticker .tape{display:flex;gap:44px;padding:9px 0;white-space:nowrap;width:max-content;
+  animation:tick 46s linear infinite}
+.ticker:hover .tape{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(-50%)}}
+.tk{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.tk b{color:var(--ink);font-weight:600}
+.tk .up{color:var(--teal-bright)} .tk .au{color:var(--gold)}
+@media (prefers-reduced-motion:reduce){
+  .ticker .tape{animation:none;flex-wrap:wrap;white-space:normal;width:auto;padding:9px 16px}
+  .reveal{opacity:1 !important;transform:none !important}
+}
+
+/* ---- the one-pager: a literal "page" inset into the dark OS ---- */
+.onepager-wrap{padding:52px 0 34px}
+.onepager-card{background:#F2F1F7;color:#1B1D27;border-radius:18px;overflow:hidden;
+  border:1px solid #D8D6E8;box-shadow:0 30px 60px -20px rgba(0,0,0,.55),0 0 0 1px rgba(139,124,255,.15)}
+.op-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;
+  padding:24px 28px 18px;border-bottom:2px solid #1B1D27;background:linear-gradient(180deg,#F7F6FB,#F2F1F7)}
+.op-brand{display:flex;align-items:center;gap:12px;min-width:0}
+.op-logo{width:34px;height:34px;border-radius:9px;background:#1B1D27;color:#fff;display:flex;align-items:center;
+  justify-content:center;font-weight:800;font-size:14px;letter-spacing:.5px;flex:0 0 auto}
+.op-logo span{color:#B87A0E}
+.op-head h3{font-size:18px;font-weight:800;letter-spacing:-.3px;color:#1B1D27;line-height:1.15}
+.op-head .op-sub{font-size:11.5px;color:#5B5D6E;margin-top:2px}
+.op-byline{text-align:right;font-size:11.5px;color:#5B5D6E;white-space:nowrap}
+.op-byline b{color:#1B1D27}
+.op-badges{display:flex;gap:6px;margin-top:6px;justify-content:flex-end;flex-wrap:wrap}
+@media(max-width:520px){
+  .op-head{flex-direction:column}
+  .op-byline{text-align:left;white-space:normal}
+  .op-badges{justify-content:flex-start}
+}
+.op-badge{background:#1B1D27;color:#fff;border-radius:5px;padding:3px 8px;font-size:10.5px;font-weight:700;white-space:nowrap}
+.op-badge.alt{background:#6C5CE7}
+.op-body{padding:24px 28px 26px;display:grid;grid-template-columns:1.35fr 1fr;gap:26px}
+@media(max-width:820px){.op-body{grid-template-columns:1fr}}
+.op-kicker{font-family:var(--mono);font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#6C5CE7;
+  margin-bottom:6px;font-weight:700}
+.op-lead{font-size:12.5px;color:#3B3D4D;margin-bottom:14px;line-height:1.5}
+.op-lead b{color:#1B1D27}
+.op-facts{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;margin-bottom:18px}
+.op-facts li{font-size:11.5px;color:#3B3D4D;padding-left:10px;position:relative}
+.op-facts li::before{content:"";position:absolute;left:0;top:5px;width:3px;height:3px;border-radius:50%;background:#B87A0E}
+.op-facts b{color:#1B1D27}
+.op-table{width:100%;border-collapse:collapse;margin-top:4px}
+.op-table th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:#6B6D80;
+  font-weight:700;padding:0 6px 5px;border-bottom:1px solid #D8D6E8}
+.op-table td{padding:8px 6px;border-bottom:1px solid #E4E3EE;font-size:11.5px;color:#3B3D4D;vertical-align:middle}
+.op-table tr:last-child td{border-bottom:none}
+.op-ch b{display:block;color:#1B1D27;font-size:12px}
+.op-ch small{color:#6B6D80;font-size:10.5px}
+.op-amt{font-family:var(--mono);font-weight:800;color:#1B1D27;white-space:nowrap;text-align:right}
+.op-bar{height:7px;border-radius:4px;background:#E4E3EE;overflow:hidden;margin-bottom:3px}
+.op-bar i{display:block;height:100%;border-radius:4px}
+.op-north{background:#1B1D27;color:#fff;border-radius:10px;padding:12px 14px;margin-bottom:14px}
+.op-north .lab{font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;color:#B9BCD0}
+.op-north .val{font-size:19px;font-weight:800;margin-top:2px}
+.op-north .val small{font-size:11px;font-weight:600;color:#F0B429}
+.op-kpi{width:100%;border-collapse:collapse}
+.op-kpi td{padding:5px 4px;font-size:11.5px;border-bottom:1px solid #E4E3EE}
+.op-kpi tr:last-child td{border-bottom:none}
+.op-kpi .t{font-size:9px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#8B8DA0;padding-top:8px}
+.op-kpi .metric{color:#1B1D27;font-weight:600}
+.op-kpi .tgt{text-align:right;color:#3B3D4D;font-weight:700;white-space:nowrap;font-family:var(--mono)}
+.op-note{background:#FBF3DC;border-left:2px solid #B87A0E;padding:8px 10px;border-radius:0 8px 8px 0;
+  font-size:11px;color:#3B3D4D;margin-top:12px;line-height:1.45}
+.op-note b{color:#1B1D27}
+.op-foot{grid-column:1/-1;border-top:2px solid #1B1D27;margin-top:4px;padding-top:12px;
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.op-foot .q{font-size:12px;color:#1B1D27;font-style:italic;line-height:1.5;flex:1;min-width:260px}
+.op-foot .q b{font-style:normal;color:#6C5CE7}
+.op-stamp{font-size:10px;color:#8B8DA0;letter-spacing:.3px;white-space:nowrap;text-align:right}
+
+section{padding:56px 0 28px}
+.k{font-family:var(--mono);font-size:11px;letter-spacing:2.4px;text-transform:uppercase;
+  color:var(--violet);display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.k::before{content:attr(data-n);color:var(--faint)}
+h2{font-size:clamp(24px,3.2vw,34px);font-weight:800;letter-spacing:-.8px;text-wrap:balance;margin-bottom:10px}
+.lede{color:var(--ink2);max-width:72ch;margin-bottom:26px}
+.lede b{color:var(--ink)}
+h3{font-size:17px;font-weight:700;letter-spacing:-.2px;margin-bottom:8px}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card.pad-s{padding:16px}
+.card h3 .tag{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--gold);
+  border:1px solid var(--gold-deep);border-radius:99px;padding:2px 8px;vertical-align:2px;margin-left:8px}
+.mut{color:var(--muted);font-size:13.5px}
+.small{font-size:13px;color:var(--ink2)}
+ul.dash{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:8px}
+ul.dash li{padding-left:16px;position:relative;font-size:13.5px;color:var(--ink2)}
+ul.dash li::before{content:"—";position:absolute;left:0;color:var(--violet)}
+ul.dash b{color:var(--ink)}
+.jargon{border-bottom:1px dotted var(--faint);cursor:help}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat .v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:23px;font-weight:700;color:var(--ink)}
+.stat .v small{font-size:13px;color:var(--muted);font-weight:400}
+.stat .t{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.stat.hi{border-color:var(--violet-deep)}
+.stat.hi .v{color:var(--violet)}
+
+.formula{background:linear-gradient(180deg,var(--surface2),var(--surface));border:1px solid var(--line2);
+  border-radius:16px;padding:26px;margin-bottom:18px}
+.fx{font-family:var(--mono);font-size:clamp(12px,1.8vw,16px);color:var(--ink);text-align:center;
+  padding:14px;background:var(--bg);border-radius:10px;border:1px solid var(--line);overflow-x:auto}
+.fx b{color:var(--gold)} .fx i{color:var(--violet);font-style:normal}
+.calc{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;margin-top:20px}
+@media(max-width:900px){.calc{grid-template-columns:1fr}}
+.slider{margin-bottom:14px}
+.slider label{display:flex;justify-content:space-between;font-size:13px;color:var(--ink2);margin-bottom:5px;gap:10px}
+.slider label output{font-family:var(--mono);color:var(--gold);font-weight:600;white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--violet);height:22px;cursor:pointer}
+input[type=range]:focus-visible{outline:2px solid var(--violet);outline-offset:2px;border-radius:4px}
+.out{display:flex;flex-direction:column;gap:10px}
+.out .row{display:flex;justify-content:space-between;align-items:baseline;background:var(--bg);
+  border:1px solid var(--line);border-radius:10px;padding:11px 15px;gap:12px}
+.out .row span{font-size:13px;color:var(--muted)}
+.out .row b{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:19px;color:var(--ink);white-space:nowrap}
+.out .row.hero-row{border-color:var(--violet-deep);background:rgba(108,92,231,.10)}
+.out .row.hero-row b{color:var(--violet);font-size:22px}
+
+/* grade ladder */
+.ladder{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.gr{display:grid;grid-template-columns:96px 1fr 84px;align-items:center;gap:12px;
+  background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 13px}
+.gr .gl{font-family:var(--mono);font-size:12px;font-weight:700}
+.gr .gl small{display:block;font-weight:400;font-size:10.5px;color:var(--muted);letter-spacing:.3px}
+.gr .gd{font-size:12.5px;color:var(--ink2)}
+.gr .gv{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:15px;font-weight:700;
+  text-align:right;white-space:nowrap}
+.gr.a{border-left:3px solid var(--teal-bright)} .gr.a .gl,.gr.a .gv{color:var(--teal-bright)}
+.gr.b{border-left:3px solid var(--violet)} .gr.b .gl,.gr.b .gv{color:var(--violet)}
+.gr.c{border-left:3px solid var(--gold)} .gr.c .gl,.gr.c .gv{color:var(--gold)}
+.gr.d{border-left:3px solid var(--faint)} .gr.d .gl,.gr.d .gv{color:var(--muted)}
+
+/* weeks */
+.week{border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-bottom:12px;overflow:hidden}
+.week.current{border-color:var(--gold-deep);box-shadow:0 0 0 1px rgba(184,122,14,.25)}
+.week>button{all:unset;display:flex;align-items:center;gap:14px;width:100%;padding:16px 20px;cursor:pointer}
+.week>button:hover{background:var(--surface2)}
+.week>button:focus-visible{outline:2px solid var(--violet);outline-offset:-2px}
+.wnum{font-family:var(--mono);font-size:15px;color:var(--gold);letter-spacing:1px;min-width:52px;font-weight:700}
+.week.past .wnum{color:var(--faint)}
+.wname{font-weight:700;font-size:16px;flex:1}
+.wname small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.wbudget{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;color:var(--gold);white-space:nowrap}
+.chev{color:var(--muted);transition:transform .25s;font-size:12px}
+.week.open .chev{transform:rotate(90deg)}
+.wbody{display:none;padding:4px 20px 20px;border-top:1px solid var(--line)}
+.week.open .wbody{display:block}
+.wobj{background:var(--bg);border-left:2px solid var(--violet);border-radius:0 8px 8px 0;
+  padding:9px 13px;margin:14px 0 4px;font-size:13.5px;color:var(--ink2)}
+.wobj b{color:var(--violet);font-family:var(--mono);font-size:11px;letter-spacing:1.2px;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.wgrid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:18px;margin-top:14px}
+@media(max-width:900px){.wgrid{grid-template-columns:1fr}}
+.wcol h4{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--violet);margin-bottom:7px}
+.wcol ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.wcol li{font-size:13px;color:var(--ink2);padding-left:14px;position:relative}
+.wcol li::before{content:"▸";position:absolute;left:0;color:var(--faint);font-size:10px;top:3px}
+.wcol li b{color:var(--ink)}
+.kpi-chip{display:inline-block;font-family:var(--mono);font-size:11.5px;background:var(--bg);
+  border:1px solid var(--line);border-radius:6px;padding:3px 8px;margin:2px 3px 2px 0;color:var(--ink2)}
+.kpi-chip b{color:var(--teal-bright)}
+.meet{font-size:12.5px;color:var(--ink2);border-left:2px solid var(--gold-deep);padding:2px 0 2px 10px;margin-bottom:7px}
+.meet b{color:var(--gold)}
+.now-flag{font-family:var(--mono);font-size:10px;color:var(--gold);border:1px solid var(--gold-deep);
+  border-radius:99px;padding:2px 8px;letter-spacing:1px}
+
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tabs button{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--muted);
+  padding:9px 18px;border-radius:99px;border:1px solid var(--line);transition:all .15s}
+.tabs button:hover{color:var(--ink);border-color:var(--line2)}
+.tabs button:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+.tabs button.on{background:var(--violet-deep);border-color:var(--violet-deep);color:#fff}
+.tabs button .p{font-family:var(--mono);font-size:11px;opacity:.75;margin-left:6px}
+.pane{display:none}.pane.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.chart{margin-top:14px}
+.brow{display:grid;grid-template-columns:150px 1fr 104px;align-items:center;gap:12px;margin-bottom:9px}
+.brow .bl{font-size:12.5px;color:var(--ink2);text-align:right}
+.brow .bv{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--ink);white-space:nowrap}
+.btrack{height:18px;background:var(--bg);border-radius:5px;overflow:hidden}
+.bfill{height:100%;border-radius:4px;width:0;transition:width .8s cubic-bezier(.2,.7,.3,1)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+.legend span{font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.ldot{width:9px;height:9px;border-radius:3px;display:inline-block}
+
+/* pacing curve */
+.curve{display:flex;align-items:flex-end;gap:6px;margin-top:14px;
+  padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px}
+.cbar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}
+.cbar .cf{width:100%;background:linear-gradient(180deg,var(--violet),var(--violet-deep));
+  border-radius:4px 4px 0 0;height:0;transition:height .9s cubic-bezier(.2,.7,.3,1)}
+.cbar .cl{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.cbar .cp{font-family:var(--mono);font-size:11px;color:var(--gold);font-weight:700}
+
+.tt{position:fixed;z-index:99;pointer-events:none;background:var(--surface2);border:1px solid var(--line2);
+  border-radius:8px;padding:7px 11px;font-family:var(--mono);font-size:12px;color:var(--ink);
+  opacity:0;transition:opacity .12s;max-width:250px}
+.tt b{color:var(--gold)}
+
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+th{font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);text-align:left;
+  padding:8px 10px;border-bottom:1px solid var(--line2)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td b{color:var(--ink)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl-scroll{overflow-x:auto}
+
+.crisis{border:1px solid var(--line);border-left:3px solid var(--red);border-radius:12px;
+  background:var(--surface);padding:20px;margin-bottom:14px}
+.crisis h3{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sev{font-family:var(--mono);font-size:10px;letter-spacing:1px;border-radius:99px;padding:2px 9px}
+.sev.high{background:rgba(241,96,99,.15);color:var(--red);border:1px solid rgba(241,96,99,.4)}
+.sev.med{background:rgba(240,180,41,.12);color:var(--gold);border:1px solid var(--gold-deep)}
+.play{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
+@media(max-width:900px){.play{grid-template-columns:1fr}}
+
+/* roster */
+.tier0{border:1px solid var(--gold-deep);border-radius:16px;padding:24px;margin-bottom:22px;
+  background:linear-gradient(135deg,rgba(184,122,14,.13),rgba(108,92,231,.07) 60%,transparent)}
+.tier0 .t0tag{font-family:var(--mono);font-size:10.5px;letter-spacing:1.6px;color:var(--gold);
+  border:1px solid var(--gold-deep);border-radius:99px;padding:3px 10px;display:inline-block;margin-bottom:12px}
+.tier0 h3{font-size:21px;letter-spacing:-.4px;margin-bottom:8px}
+.tier0 p{color:var(--ink2);max-width:74ch}
+.tier0 p b{color:var(--ink)}
+.t0math{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+@media(max-width:900px){.t0math{grid-template-columns:1fr}}
+.t0math div{background:rgba(11,13,20,.55);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.t0math .mv{font-family:var(--mono);font-size:18px;color:var(--gold);font-weight:700}
+.t0math .mt{font-size:12px;color:var(--ink2);margin-top:3px}
+
+.rost{display:flex;flex-direction:column;gap:12px}
+.rcard{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:18px 20px;
+  border-left:3px solid var(--violet-deep)}
+.rcard.mid{border-left-color:var(--c3)}
+.rhead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.rname{font-size:18px;font-weight:800;letter-spacing:-.3px}
+.rhandle{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.rscore{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--teal-bright);
+  border:1px solid rgba(45,212,167,.35);border-radius:99px;padding:3px 10px;white-space:nowrap}
+.rscore.warn{color:var(--gold);border-color:var(--gold-deep)}
+.rreach{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin-bottom:10px}
+.rreach .vf{color:var(--faint);font-size:11px}
+.rsplit{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px}
+@media(max-width:900px){.rsplit{grid-template-columns:1fr}}
+.rsplit h5{font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:5px}
+.rsplit .w h5{color:var(--teal-bright)}
+.rsplit .r h5{color:var(--red)}
+.rsplit p{font-size:13px;color:var(--ink2)}
+.rask{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-size:13px;color:var(--ink2)}
+.rask b{color:var(--gold);font-family:var(--mono);font-size:11.5px;letter-spacing:1px;
+  text-transform:uppercase;margin-right:6px}
+
+.dq{border:1px solid rgba(241,96,99,.35);border-radius:14px;background:rgba(241,96,99,.05);padding:20px}
+.dq h3{color:var(--red)}
+.dq ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.dq li{font-size:13.5px;color:var(--ink2);padding-left:18px;position:relative}
+.dq li::before{content:"✕";position:absolute;left:0;color:var(--red);font-size:11px}
+.dq li b{color:var(--ink)}
+
+.funnel{display:flex;align-items:stretch;gap:8px;margin-top:14px;flex-wrap:wrap}
+.fstep{flex:1;min-width:132px;background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  padding:12px 14px}
+.fstep .fv{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--ink)}
+.fstep .ft{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.fstep .fn{font-size:12px;color:var(--ink2);margin-top:6px}
+.fstep.end{border-color:var(--violet-deep)}
+.fstep.end .fv{color:var(--violet)}
+
+.prov{font-size:12.5px;color:var(--faint);border-left:2px solid var(--line2);padding-left:12px;margin-top:18px}
+.prov b{color:var(--muted)}
+
+.agent{display:flex;gap:14px;align-items:flex-start;padding:14px;border:1px solid var(--line);
+  border-radius:12px;background:var(--surface)}
+.agent .ic{font-family:var(--mono);font-size:10px;color:var(--violet);border:1px solid var(--violet-deep);
+  border-radius:8px;padding:6px 8px;letter-spacing:1px;white-space:nowrap;margin-top:2px}
+.agent p{font-size:13px;color:var(--ink2)}
+.agent b{color:var(--ink)} .agent .m{color:var(--teal-bright);font-family:var(--mono);font-size:12px}
+
+.glos{display:grid;grid-template-columns:repeat(2,1fr);gap:0 22px;margin-top:12px}
+@media(max-width:900px){.glos{grid-template-columns:1fr}}
+.glos div{border-bottom:1px solid var(--line);padding:8px 0;font-size:12.5px;color:var(--ink2)}
+.glos b{color:var(--gold);font-family:var(--mono);font-size:11.5px;letter-spacing:.5px}
+
+footer{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 60px;color:var(--faint);font-size:12.5px}
+footer b{color:var(--muted)}
+
+/* ---- one-pager download bar (site build only) ---- */
+.dlbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 20px;
+  background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--gold);
+  border-radius:12px;padding:16px 20px}
+.dlbar .dt{flex:1;min-width:240px;font-size:13.5px;color:var(--ink2)}
+.dlbar .dt b{color:var(--ink);display:block;font-size:14.5px;margin-bottom:2px}
+.dlbar a{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#1B1D27;
+  font-weight:700;font-size:13px;letter-spacing:.2px;padding:10px 18px;border-radius:9px;
+  white-space:nowrap;transition:filter .15s}
+.dlbar a:hover{filter:brightness(1.08)}
+.dlbar a:focus-visible{outline:2px solid var(--violet);outline-offset:3px}
+@media print{.dlbar{display:none}}
+
+/* ---- one-pager: audience rows + measurement list, to match the PDF ---- */
+.op-aud{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.op-aud-row{display:flex;gap:8px;align-items:flex-start}
+.op-num{flex:0 0 auto;width:17px;height:17px;border-radius:50%;background:#EFEDFD;color:#6C5CE7;
+  font-weight:800;font-size:9.5px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.op-aud-row p{font-size:11.5px;color:#3B3D4D;line-height:1.45}
+.op-aud-row b{color:#1B1D27}
+.op-posit{background:#FBF3DC;border-left:2px solid #B87A0E;padding:7px 10px;border-radius:0 8px 8px 0;
+  font-size:11px;color:#3B3D4D;margin-bottom:16px;line-height:1.45}
+.op-posit b{color:#1B1D27}
+.op-tick{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.op-tick li{font-size:11px;color:#3B3D4D;padding-left:13px;position:relative;line-height:1.45}
+.op-tick li::before{content:"\2192";position:absolute;left:0;color:#6C5CE7;font-weight:800}
+.op-tick b{color:#1B1D27}
+.op-warn{border:1px solid #F0D48A;background:#FBF3DC;border-radius:8px;padding:10px 12px}
+.op-warn ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.op-warn li{font-size:10.8px;color:#3B3D4D;padding-left:12px;position:relative;line-height:1.45}
+.op-warn li::before{content:"!";position:absolute;left:2px;color:#B87A0E;font-weight:900}
+.op-warn b{color:#1B1D27}
+
+</style>
+</head>
+<body>
+<nav aria-label="Sections">
+  <span class="mark">IP<b>X</b> · PRE-LAUNCH CONTROL</span>
+  <a href="#onepager">The One-Pager</a>
+  <a href="#formula">Bid Model</a><a href="#calendar">T-6 → T-1</a><a href="#budgets">Budgets</a>
+  <a href="#inventory">Native &amp; Sponsorship</a><a href="#roster">Creator Roster</a>
+  <a href="#agents">Agents</a><a href="#crisis">War Room</a><a href="#cfo">CFO Lens</a>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Pre-Launch Demand Build · 6-Week Flight to Public Marketplace</div>
+    <h1>You don't launch an exchange.<br>You open it with <span class="g">an order book already full.</span></h1>
+    <p class="sub">A marketplace that opens with no bids is dead on arrival — liquidity <i>is</i> the product. So these
+      six weeks don't buy customers, because there's nothing to buy yet. They buy a <b>book of committed capital that
+      converts in the first 72 hours of trading</b>, priced and paced like any other capital-raising process.</p>
+    <div class="byline">Prepared by <b>Mary Kate Parrish</b> · Senior Digital Media Strategy · Pre-Launch Flight v2 · Aug 7 – Sep 17, 2026</div>
+    <div class="count" id="countdown" aria-live="polite">
+      <div class="cd"><div class="n" id="cd-d">–</div><div class="l">Days</div></div>
+      <div class="cd"><div class="n" id="cd-h">–</div><div class="l">Hours</div></div>
+      <div class="cd"><div class="n" id="cd-m">–</div><div class="l">Minutes</div></div>
+      <div class="cd"><div class="n" id="cd-s">–</div><div class="l">Seconds</div></div>
+      <div class="cd-label" id="cd-label">TO MARKET OPEN<br><b>SEP 18 · 9:00 AM ET</b><br><span id="cd-week">—</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true"><div class="tape" id="tape">
+  <span class="tk"><b>IPX SLATE</b> 100+ PROJECTS <span class="au">$1.35B</span></span>
+  <span class="tk"><b>FIRST GREENLIGHT</b> "AUTOBIOGRAPHY" · FETTY WAP</span>
+  <span class="tk"><b>MAX CPQL BLENDED</b> <span class="up">$26.34</span></span>
+  <span class="tk"><b>GRADE A BID CAP</b> <span class="up">$58.03</span></span>
+  <span class="tk"><b>TARGET ORDER BOOK</b> <span class="au">$4.9M INDICATED</span></span>
+  <span class="tk"><b>CAPITAL-TO-SPEND</b> 12.3×</span>
+  <span class="tk"><b>INTENT HALF-LIFE</b> <span style="color:var(--red)">−4%/WK DECAY</span></span>
+  <span class="tk"><b>UPFRONT WINDOW</b> LOCK PG/PMP BEFORE Q4 SCATTER</span>
+  <span class="tk"><b>WORKING MEDIA RATIO</b> ≥82%</span>
+</div></div>
+
+<main class="wrap">
+
+<!-- ================= ONE-PAGER ================= -->
+<section id="onepager" class="reveal onepager-wrap">
+  <div class="k" data-n="00">The Assignment · One-Page Digital Media Plan</div>
+  <h2>Paid social, search, one influencer partnership — the literal deliverable.</h2>
+  <p class="lede">Everything else on this page is the operating system I would build to run IPX's launch. This
+    section is the specific one-pager that was asked for: <b>digital only</b> — three channels, a realistic
+    early-stage budget, channel allocation, KPIs, and the reasoning behind each call — distilled from the best
+    findings in the research below.</p>
+
+
+  <div class="dlbar">
+    <div class="dt">
+      <b>The one-page plan, as a PDF</b>
+      Paid social + search + one influencer partnership — the deliverable on its own, print-ready.
+    </div>
+    <a href="/downloads/IPX-Digital-Media-Plan-MK-Parrish.pdf" download>↓ Download the one-pager (PDF)</a>
+  </div>
+
+  <div class="onepager-card">
+    <div class="op-head">
+      <div class="op-brand">
+        <div class="op-logo">IP<span>X</span></div>
+        <div>
+          <h3>IPX Awareness Campaign — Digital Media Plan</h3>
+          <div class="op-sub">Pre-launch awareness · paid social + search + influencer</div>
+        </div>
+      </div>
+      <div class="op-byline">
+        Prepared by <b>Mary Kate Parrish</b><br>Digital Marketing Strategist
+        <div class="op-badges">
+          <span class="op-badge">$50K BUDGET</span>
+          <span class="op-badge alt">6-WEEK FLIGHT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="op-body">
+      <div>
+        <div class="op-kicker">Objective &amp; Assumptions</div>
+        <p class="op-lead"><b>Build category awareness and a qualified reservation pipeline</b> ahead of the Sep 18
+          market open — awareness paired with a leading indicator (verified interest), not impressions for their
+          own sake.</p>
+        <ul class="op-facts">
+          <li><b>Audience:</b> Investor / believer segment</li>
+          <li><b>Market:</b> US only (SEC-compliant)</li>
+          <li><b>Budget:</b> $50,000 working media</li>
+          <li><b>Flight:</b> 6 weeks, back-loaded to launch</li>
+        </ul>
+
+        <div class="op-kicker">Audience &amp; Positioning</div>
+        <div class="op-aud">
+          <div class="op-aud-row"><div class="op-num">1</div><p><b>Alt-asset / DeFi-native investors</b> — yield-seekers fluent in stablecoins &amp; fractional ownership. Highest intent, lowest education cost.</p></div>
+          <div class="op-aud-row"><div class="op-num">2</div><p><b>Culture &amp; creator-economy believers</b> — fans who want to own the upside of culture they love. IPX's emotional hook.</p></div>
+          <div class="op-aud-row"><div class="op-num">3</div><p><b>Accredited investors seeking alt yield</b> — smaller, higher-value; retargeting- and search-led.</p></div>
+        </div>
+        <div class="op-posit"><b>Message A/B:</b> "Own the culture you believe in" (emotional) vs. "Royalties, minus the gatekeepers" (rational). In a new category, the winning <b>message</b> outweighs the winning channel.</div>
+
+        <div class="op-kicker">Channel Allocation</div>
+        <table class="op-table">
+          <tr><th>Channel</th><th>Role</th><th style="width:66px">Share</th><th style="text-align:right">Budget</th></tr>
+          <tr>
+            <td class="op-ch"><b>Paid Social</b><small>Meta · TikTok · X</small></td>
+            <td>Category education at scale</td>
+            <td><div class="op-bar"><i style="width:100%;background:#6C5CE7"></i></div>55%</td>
+            <td class="op-amt">$27,500</td>
+          </tr>
+          <tr>
+            <td class="op-ch"><b>Search</b><small>Google · Bing</small></td>
+            <td>Capture existing intent + brand defense</td>
+            <td><div class="op-bar"><i style="width:46%;background:#1F9678"></i></div>25%</td>
+            <td class="op-amt">$12,500</td>
+          </tr>
+          <tr>
+            <td class="op-ch"><b>Influencer</b><small>1 partner + whitelisting</small></td>
+            <td>Trust transfer for a new category</td>
+            <td><div class="op-bar"><i style="width:36%;background:#B87A0E"></i></div>20%</td>
+            <td class="op-amt">$10,000</td>
+          </tr>
+        </table>
+
+        <p class="op-lead" style="margin-top:10px">Paid social carries the majority because a brand-new asset category has to be <b>taught before it can be sold</b> — the cheapest scaled reach for that education job. Search is capped at 25% deliberately: pre-launch search volume for this category is largely a function of the awareness we're creating ourselves, so over-funding it just inflates CPCs against a ceiling that doesn't exist yet. The influencer line is smallest in dollars and highest in leverage — it buys something media spend alone cannot: <b>third-party trust</b> for a first-time investor on an unproven, regulated platform.</p>
+
+        <div class="op-kicker" style="margin-top:16px">The Influencer Partnership — 1 Partner</div>
+        <p class="op-lead"><b>Humphrey Yang</b> <span style="color:#6B6D80">(@humphreytalks · 3.4M TikTok)</span> — screened against Milan Singh, Tori Dunlap, Vivian Tu, and Rick Beato, and selected as the largest genuinely <i>explanatory</i> finance creator in the category: built on teaching mechanics rather than hype, which is the register a securities platform needs from its one paid voice, with a clean compliance history. Deal: 3 videos + <b>Spark Ads whitelisting rights</b>, so the paid-social budget amplifies his content directly instead of competing with it for the same attention. Unique tracking link for clean attribution.</p>
+      </div>
+
+      <div>
+        <div class="op-north">
+          <div class="lab">North-Star Metric</div>
+          <div class="val">$22–28 <small>/ qualified lead</small></div>
+        </div>
+        <div class="op-kicker">KPIs &amp; Targets</div>
+        <table class="op-kpi">
+          <tr><td class="t" colspan="2">Awareness</td></tr>
+          <tr><td class="metric">Impressions / Reach</td><td class="tgt">~3.2–4M / 1.3–1.6M</td></tr>
+          <tr><td class="metric">CPM (social)</td><td class="tgt">$9–15</td></tr>
+          <tr><td class="t" colspan="2">Engagement</td></tr>
+          <tr><td class="metric">Click-through rate</td><td class="tgt">0.9–1.5%</td></tr>
+          <tr><td class="metric">Cost / landing-page view</td><td class="tgt">$1.75–$3.00</td></tr>
+          <tr><td class="t" colspan="2">Qualified Interest</td></tr>
+          <tr><td class="metric">Qualified leads (verified, not just captured)</td><td class="tgt">1,400–1,800</td></tr>
+          <tr><td class="metric">Cost / qualified lead</td><td class="tgt">$22–28</td></tr>
+          <tr><td class="metric">Est. Founding Member reservations</td><td class="tgt">300–450</td></tr>
+        </table>
+        <div class="op-kicker" style="margin-top:16px">Measurement &amp; Optimization</div>
+        <ul class="op-tick">
+          <li><b>Attribution:</b> strict UTM taxonomy, GA4 + server-side / CAPI tracking against browser signal loss.</li>
+          <li><b>Lead grading:</b> verified interest (KYC started or deposit intent) is tracked as a distinct event from a bare email capture — budget is judged on qualified pipeline, not raw volume.</li>
+          <li><b>Cadence:</b> weekly optimization; reallocate toward whichever channel is producing the cheapest qualified lead, not the cheapest click.</li>
+        </ul>
+        <div class="op-warn">
+          <div class="op-kicker" style="color:#B87A0E">Compliance Is a Media Input</div>
+          <ul>
+            <li><b>Ad-platform gating:</b> Meta, Google &amp; TikTok pre-certify securities/financial advertisers — clear in week one or the flight slips.</li>
+            <li><b>Influencer = paid testimonial for a security</b> — stricter than a standard #ad; legal-approved claims &amp; disclosures required.</li>
+            <li><b>No performance promises</b> in creative — lead with access &amp; ownership, never returns.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="op-foot">
+        <div class="q">Weight <b>paid social</b> because a new asset category must be taught before it can be sold;
+          use <b>search</b> to harvest the intent that already exists; and spend the smallest line on the
+          <b>one creator</b> who can vouch for IPX's legitimacy — trust, not reach, turns a first-time visitor into
+          a Founding Member.</div>
+        <div class="op-stamp">IPX · CONFIDENTIAL<br>Media Plan v1 · 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="mut" style="margin-top:14px">Reasoning provenance: audience segmentation and positioning pulled from the
+    original strategy brief; the influencer choice and its logic from the screened creator roster below; the
+    qualified-lead framing from the bid model's grade ladder, simplified here to a single blended target appropriate
+    for a one-page brief. $50K reflects a realistic early-stage test budget — a fraction of the six-week operating
+    budgets modeled below, sized for a focused three-channel proof of concept rather than a full go-to-market flight.</p>
+</section>
+
+<!-- ================= FORMULA ================= -->
+<section id="formula" class="reveal">
+  <div class="k" data-n="01">The Bid Model</div>
+  <h2>There is no CPA before there is a product. So we bid on probability.</h2>
+  <p class="lede">Every pre-launch campaign that fails does so the same way: it optimizes to <b>cheap leads</b> and
+    discovers on launch day that it bought an email list, not an order book. The fix is to stop treating a lead as one
+    thing. We grade every lead by <b>observed commitment</b>, attach a modeled probability of funding, and derive a
+    <b>separate bid cap per grade</b> — so the auction can never buy us volume we can't convert.</p>
+
+  <div class="formula">
+    <div class="fx">Max Bid<sub>grade</sub> = <b>Target CAC</b> × <i>P(fund | grade)</i>&nbsp;&nbsp;where&nbsp;&nbsp;<b>Target CAC</b> = (LTV × GM) ÷ LTV:CAC = ($310 × 0.78) ÷ 3.0 = <b>$80.60</b></div>
+
+    <div class="calc">
+      <div>
+        <h3>Live model — drag the assumptions</h3>
+        <p class="mut" style="margin-bottom:14px">Modeled on fintech pre-launch benchmarks. Replace <i>P(fund)</i> with
+          observed cohort behavior the moment week T-3 produces real conversion data.</p>
+        <div class="slider"><label><span>3-yr revenue per funded account <span class="jargon" title="Lifetime value">(LTV)</span></span><output id="o-ltv">$310</output></label>
+          <input type="range" id="i-ltv" min="100" max="900" step="10" value="310" aria-label="Three year LTV"></div>
+        <div class="slider"><label><span>Gross margin</span><output id="o-gm">78%</output></label>
+          <input type="range" id="i-gm" min="40" max="95" step="1" value="78" aria-label="Gross margin"></div>
+        <div class="slider"><label><span>Target LTV:CAC</span><output id="o-ratio">3.0×</output></label>
+          <input type="range" id="i-ratio" min="15" max="60" step="1" value="30" aria-label="Target LTV to CAC"></div>
+        <div class="slider"><label><span>Grade A — P(fund) on launch</span><output id="o-pa">72%</output></label>
+          <input type="range" id="i-pa" min="30" max="95" step="1" value="72" aria-label="Grade A fund probability"></div>
+        <div class="slider"><label><span>Grade B — P(fund) on launch</span><output id="o-pb">38%</output></label>
+          <input type="range" id="i-pb" min="10" max="70" step="1" value="38" aria-label="Grade B fund probability"></div>
+        <div class="slider"><label><span>Intent decay <span class="jargon" title="Leads captured earlier convert worse — intent has a half-life">(per week held)</span></span><output id="o-dec">4%</output></label>
+          <input type="range" id="i-dec" min="0" max="12" step="1" value="4" aria-label="Weekly intent decay"></div>
+      </div>
+
+      <div class="out">
+        <div class="row hero-row"><span>TARGET CAC · FUNDED ACCOUNT</span><b id="r-cac">$80.60</b></div>
+        <div class="ladder">
+          <div class="gr a"><div class="gl">GRADE A<small>Reserved</small></div>
+            <div class="gd">Founding Member reservation · payment method on file</div><div class="gv" id="r-ba">$58.03</div></div>
+          <div class="gr b"><div class="gl">GRADE B<small>Verified</small></div>
+            <div class="gd">Waitlist + KYC started or deposit intent indicated</div><div class="gv" id="r-bb">$30.63</div></div>
+          <div class="gr c"><div class="gl">GRADE C<small>Registered</small></div>
+            <div class="gd">Email captured, no verification step completed</div><div class="gv" id="r-bc">$11.28</div></div>
+          <div class="gr d"><div class="gl">GRADE D<small>Engaged</small></div>
+            <div class="gd">Content viewer · retargetable only, never a paid-lead goal</div><div class="gv" id="r-bd">$3.22</div></div>
+        </div>
+        <div class="row"><span>Blended max CPQL at target grade mix</span><b id="r-blend">$26.04</b></div>
+        <div class="row"><span>Decay-adjusted bid, lead held 6 weeks</span><b id="r-decay">$45.03</b></div>
+      </div>
+    </div>
+
+    <p class="mut" style="margin-top:18px"><b style="color:var(--ink)">Why this beats a single CPL target:</b> a
+      blended $26 CPQL goal will happily buy 10,000 Grade-C emails at $11 and report a "win." The grade ladder makes
+      that mathematically impossible — a channel delivering only Grade C is <b style="color:var(--ink)">capped at $11.28</b>
+      no matter how good its headline CPL looks, and the budget mechanically flows to whoever can produce reservations.
+      <b style="color:var(--gold)">We are not buying leads. We are buying probability-weighted capital.</b></p>
+  </div>
+
+  <div class="stats">
+    <div class="stat hi"><div class="v">$4.9M</div><div class="t">Target indicated capital</div></div>
+    <div class="stat"><div class="v">12.3×</div><div class="t">Capital-to-spend multiple</div></div>
+    <div class="stat"><div class="v">22%</div><div class="t">Grade A mix floor</div></div>
+    <div class="stat"><div class="v">≥82%</div><div class="t">Working media ratio</div></div>
+  </div>
+
+  <div class="card">
+    <h3>The measurement spine — built in T-6, not retrofitted</h3>
+    <ul class="dash">
+      <li><b>Server-side <span class="jargon" title="Conversions API — server-to-server event forwarding">CAPI</span> / S2S on every platform</b> before a dollar is spent. Match-rate floor <b>85%</b> — below that, every downstream optimization is fiction. This is KPI #0.</li>
+      <li><b>Lead grade written back to every ad platform</b> as a custom conversion event, so the algorithms optimize toward reservations rather than registrations. Most pre-launch campaigns skip this and then wonder why volume is junk.</li>
+      <li><b>Pixel seasoning:</b> platform algorithms need ~50 conversions/week per ad set to exit learning phase. T-6 and T-5 exist partly to <i>manufacture</i> that conversion volume cheaply, so T-1 can scale without relearning.</li>
+      <li><b>Order-book dashboard</b> — one number the whole company watches daily: <b>indicated capital ÷ media spend</b>. Finance, product, and partnerships all read the same scoreboard.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= CALENDAR ================= -->
+<section id="calendar" class="reveal">
+  <div class="k" data-n="02">The Countdown Calendar · T-6 → T-1</div>
+  <h2>Aug 7 → Sep 17 · Build the audience, then squeeze it.</h2>
+  <p class="lede">Budget shown from the <b>Base $400K scenario</b>. Spend is deliberately <b>back-loaded</b> — and that's
+    not instinct, it's the decay math: a lead captured at T-6 converts at roughly <b>0.78×</b> the rate of one captured
+    at T-1, because intent has a half-life. Early weeks buy <i>infrastructure and cheap audience</i>; late weeks buy
+    <i>commitment</i>. Standing rhythm: <b>Mon 9:15a</b> Pacing &amp; Bid Review (Media + Finance), <b>Thu 2:00p</b>
+    Creative Council (Media + Brand + Compliance), <b>Fri 4:00p</b> CFO Gate.</p>
+  <div class="curve" id="curve" aria-label="Budget pacing curve across six weeks"></div>
+  <p class="mut" style="margin:10px 0 20px">Pacing curve — % of flight budget by week. The shape is the strategy.</p>
+  <div id="weeks"></div>
+</section>
+
+<!-- ================= BUDGETS ================= -->
+<section id="budgets" class="reveal">
+  <div class="k" data-n="03">Three Budgets · Zero-Based, Not Inherited</div>
+  <h2>Every dollar defends itself against a bid cap.</h2>
+  <p class="lede">These are <b>zero-based</b> allocations — nothing is funded because it was funded last time. Each
+    channel earns budget only if its modeled cost per Grade-A/B lead clears the bid-model ladder. Note how the mix
+    <b>shifts away from auction media as budget grows</b>: pre-launch, incremental auction dollars hit
+    <span class="jargon" title="Diminishing returns as the addressable in-market audience is exhausted">saturation</span>
+    fast because the in-market audience is finite, so scale buys <b>guaranteed and owned inventory</b> instead.</p>
+  <div class="tabs" role="tablist" id="btabs">
+    <button role="tab" class="on" data-b="lean">Lean <span class="p">$250K</span></button>
+    <button role="tab" data-b="base">Base <span class="p">$400K</span></button>
+    <button role="tab" data-b="aggr">Aggressive <span class="p">$650K</span></button>
+  </div>
+  <div id="bpanes"></div>
+
+  <div class="card" style="margin-top:18px">
+    <h3>Five budgeting methods most launch plans don't use <span class="tag">CFO TOOLKIT</span></h3>
+    <div class="grid2" style="margin-top:12px">
+      <ul class="dash">
+        <li><b>Upfront vs. scatter arbitrage.</b> Podcast, newsletter and CTV inventory bought as <span class="jargon" title="Programmatic Guaranteed — fixed price, fixed inventory, locked in advance">PG</span>/flat-fee in T-6–T-5 locks pre-Q4 rates. The same impressions bought in <span class="jargon" title="Last-minute open-market buying">scatter</span> in late September cost 25–40% more. <b>Modeled saving: $47K on the Base plan.</b></li>
+        <li><b>Working-media ratio as a covenant.</b> Non-working spend (production, fees, tooling) capped at <b>18%</b>. Any breach is a CFO-Gate conversation, not a line-item surprise.</li>
+        <li><b>Barter / <span class="jargon" title="Value-in-kind — non-cash reciprocal media">VIK</span> and contra deals.</b> Slate talent and their existing brand partners hold co-op budgets and audiences. Audience swaps and contra placements are <b>media at zero cash cost</b> — target 8–12% of total delivered impressions.</li>
+      </ul>
+      <ul class="dash">
+        <li><b>Reserve laddering.</b> 6% held unallocated until T-2, then released only into channels that have proven a Grade-A cost below cap. Prevents the classic error of committing the full budget before any evidence exists.</li>
+        <li><b>Make-goods written into every guaranteed buy.</b> If a publisher under-delivers viewable impressions or a creator misses posting windows, we take value back in inventory — protects the plan from partner risk without a lawyer.</li>
+        <li><b>Capital-efficiency framing for the board.</b> Pre-launch spend is reported as <b>cost per $1,000 of indicated capital</b> ($81 on the Base plan), not as marketing expense. It reframes the flight as a capital-formation activity, which is what it actually is.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INVENTORY ================= -->
+<section id="inventory" class="reveal">
+  <div class="k" data-n="04">Native, Sponsorship &amp; Cross-Promotion</div>
+  <h2>Auction media rents attention. This buys belief — and some of it is free.</h2>
+  <p class="lede">Pre-launch has a structural problem: <b>you cannot run performance advertising to a product that
+    doesn't exist</b>. There's no purchase event, no ROAS, no in-market intent to harvest at scale. Which is exactly why
+    native, sponsorship and cross-promotional inventory carries a far heavier weight here than it would post-launch —
+    it's the only inventory that can <i>manufacture</i> a category before there's demand to capture.</p>
+
+  <div class="grid3" style="margin-bottom:18px">
+    <div class="card pad-s"><h3 style="font-size:15px">Paid native</h3><p class="small">Cash for placement. Locked early at flat rates to hedge Q4 inflation.</p></div>
+    <div class="card pad-s"><h3 style="font-size:15px">Sponsorship</h3><p class="small">Cash for association. Buys category legitimacy that ads cannot.</p></div>
+    <div class="card pad-s"><h3 style="font-size:15px">Cross-promo / barter</h3><p class="small">No cash at all. Trades audience for audience — the highest-ROI line in the plan.</p></div>
+  </div>
+
+  <div class="tbl-scroll"><div class="card pad-s"><table>
+    <tr><th>Opportunity</th><th>Type</th><th>Cost basis</th><th>Strategic rationale &amp; buying note</th></tr>
+    <tr><td><b>Finance/creator-economy newsletter takeovers</b></td><td>Native</td><td class="num">$8–15K/send</td><td>~$25–45 <span class="jargon" title="Cost per thousand impressions">CPM</span> but the highest-intent audience purchasable. Negotiate <b>dedicated sends</b>, not sponsor slots, and buy 3-send packages for rate breaks.</td></tr>
+    <tr><td><b>Podcast host-reads</b> (music-business + creator-economy shows)</td><td>Native</td><td class="num">$18–25 CPM</td><td>Lock <b>60-day flat rates in T-6</b> before Q4 demand. Host-read only — produced spots lose the trust transfer that justifies the premium. Insert <span class="jargon" title="Compensation for under-delivery">make-goods</span> for download shortfalls.</td></tr>
+    <tr><td><b>Slate-talent co-op &amp; brand-partner cross-promo</b></td><td>Cross-promo</td><td class="num">$0 cash</td><td><b>The single best line item in the plan.</b> The 100+ slate talent have existing brand partnerships with unspent co-op funds. Structure reciprocal promotion into listing agreements — their partners reach our audience, we reach theirs.</td></tr>
+    <tr><td><b>Adjacent-platform audience swaps</b></td><td>Barter/VIK</td><td class="num">$0 cash</td><td>Non-competing platforms serving the same investor-creator overlap (royalty data tools, music-business SaaS, creator-finance apps) trade newsletter and in-app placements. Contra-valued, booked as VIK.</td></tr>
+    <tr><td><b>"Autobiography" premiere &amp; watch-party circuit</b></td><td>Sponsorship</td><td class="num">$10–14K</td><td>The Fetty Wap docuseries <i>is</i> the product demo. Five-city screenings + creator reaction content generate earned coverage, owned footage, and Grade-A leads in one spend.</td></tr>
+    <tr><td><b>Music-business conference &amp; industry-event sponsorship</b></td><td>Sponsorship</td><td class="num">$15–30K</td><td>Buys legitimacy with rights-holders and managers — the supply side. Pre-launch, credibility with <b>IP owners</b> matters as much as investor reach; an exchange needs both sides of the book.</td></tr>
+    <tr><td><b>Reddit founder AMA + Conversation Ads</b></td><td>Native</td><td class="num">$12K flight</td><td>Answers "is this legitimate?" publicly and permanently. Indexes in search, becomes an evergreen retargeting asset. Schedule T-4, once the offer is live and there's something to convert to.</td></tr>
+    <tr><td><b>X Spaces / Discord listing previews</b></td><td>Native</td><td class="num">$5–8K</td><td>Turn each slate reveal into a live event. Highest Grade-A yield of any social placement because attendance is itself a commitment signal.</td></tr>
+    <tr><td><b>Substack &amp; long-form culture-business writers</b></td><td>Native</td><td class="num">$3–5K/post</td><td>Evergreen SEO seeding the category before launch — "how fractional IP ownership works" needs to rank <i>before</i> anyone searches IPX by name.</td></tr>
+    <tr><td><b>Spotify / streaming audio vs. music-fan playlists</b></td><td>Native</td><td class="num">$14 CPM</td><td>Contextual alignment: pitch owning music IP to people actively listening to music. Cheap frequency for the culture-first segment.</td></tr>
+    <tr><td><b>CTV / connected-TV around music documentary content</b></td><td>PG/PMP</td><td class="num">$28–38 CPM</td><td>Bought as a <span class="jargon" title="Private marketplace deal with a fixed deal ID">PMP deal ID</span> against music-doc inventory. Expensive per impression, but <span class="jargon" title="Completed view rate">VCR</span> above 92% and it makes an unknown brand look established — a real consideration for a platform asking for deposits.</td></tr>
+    <tr><td><b>Affiliate / rev-share with music-business media</b></td><td>Cross-promo</td><td class="num">Performance</td><td>Zero upfront. Trade-publication and newsletter partners earn on tracked Grade-A reservations. Converts fixed media risk into variable cost — a CFO's preferred shape pre-revenue.</td></tr>
+  </table></div></div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>The cross-promotion thesis — why this is IPX's structural advantage</h3>
+    <p class="small">Most launches buy audiences because they have none. IPX is different: it has signed
+      <b style="color:var(--ink)">100+ celebrity, athlete, and influencer projects</b>, each with an audience and each
+      with an economic interest in the platform succeeding. That is a distribution network that competitors would have
+      to <i>rent</i> and IPX simply <b style="color:var(--ink)">owns by contract</b>.</p>
+    <p class="small" style="margin-top:10px">The operational move is unglamorous and worth more than any media buy:
+      <b style="color:var(--gold)">put promotional obligations into the listing agreement</b> — minimum post counts
+      across the pre-launch window, raw-footage rights, and cross-tagging requirements. Partnerships owns the paper;
+      media owns the calendar. If this is executed well, roughly <b>8–12% of delivered impressions carry zero cash
+      cost</b> and outperform paid social on Grade-A yield, because they arrive as endorsement rather than
+      advertising.</p>
+  </div>
+</section>
+
+<!-- ================= ROSTER ================= -->
+<section id="roster" class="reveal">
+  <div class="k" data-n="05">The Named Roster · Who We Actually Buy</div>
+  <h2>Named partners, scored — and the ones we deliberately don't call.</h2>
+  <p class="lede">A tier structure isn't a plan until it has names against it. Each creator is scored on audience
+    overlap, engagement authenticity, view velocity, compliance history, whitelisting rights, and CPM efficiency.
+    Pre-launch, one criterion outranks all others: <b>can this person credibly vouch for something that doesn't exist
+    yet?</b></p>
+
+  <div class="tier0">
+    <span class="t0tag">TIER 0 · THE UNLOCK</span>
+    <h3>IPX has already signed its influencer roster.</h3>
+    <p>The slate is <b>100+ celebrity, athlete, and influencer projects</b> — "Autobiography" (Fetty Wap) first among
+      them. Every one holds <b>equity in the platform's success</b>. The strongest pre-launch testimonial isn't
+      "I was paid to mention IPX" — it's <b>"I'm putting my own IP on this."</b> No competitor can buy that sentence at
+      any CPM.</p>
+    <div class="t0math">
+      <div><div class="mv">~$0 CPM</div><div class="mt">Marginal media cost — the obligation sits inside a deal already being signed</div></div>
+      <div><div class="mv">100+ × 3</div><div class="mt">300+ authentic native posts available across the pre-launch window</div></div>
+      <div><div class="mv">$40–55K</div><div class="mt">Hero budget freed to solve what the slate can't — third-party legitimacy</div></div>
+    </div>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--muted)"><b style="color:var(--ink)">Why paid creators still matter:</b>
+      talent with skin in the game cannot answer <i>"is this a scam?"</i> — they are the interested party. That question
+      needs a voice with nothing to gain. <b style="color:var(--ink)">The paid creator budget exists to close the trust
+      gap the slate structurally cannot</b>, which is why the roster skews to credibility over reach.</p>
+  </div>
+
+  <h3 style="font-size:15px;letter-spacing:1.4px;text-transform:uppercase;color:var(--violet);margin:26px 0 12px">Hero tier · 1 partner · $40–55K · books T-5, drops T-2</h3>
+  <div class="rost">
+    <div class="rcard">
+      <div class="rhead"><span class="rname">Colin &amp; Samir</span><span class="rhandle">YouTube · @ColinandSamir</span>
+        <span class="rscore">FIT 92 / 100</span></div>
+      <div class="rreach">1.62M subscribers · 453.5M lifetime views · TIME Top 100 Creators (2025) <span class="vf">↳ verified Aug 2026</span></div>
+      <p class="small">The best fit in the market, and it isn't close. Their editorial thesis is that
+        <b style="color:var(--ink)">creators should own and monetize their IP as a business</b> — IPX is the
+        infrastructure for that argument. Their audience is working creators with income, IP, and no vehicle to
+        capitalize it: simultaneously IPX's investor <i>and</i> supply side.</p>
+      <div class="rsplit">
+        <div class="w"><h5>Why they convert</h5><p>They interview MrBeast and MKBHD — their endorsement reads as peer vetting, not advertising. A decade of guarded credibility means a Colin &amp; Samir integration functions as diligence. Zero crypto-scam adjacency, which for a securities platform is worth more than 3× the reach.</p></div>
+        <div class="r"><h5>The risk</h5><p>Highly selective; they will run real diligence on IPX's compliance posture. Budget <b>6–8 weeks lead</b> — which means outreach in T-6 for a T-2 drop, non-negotiable. Treat a "no" as free due diligence: if the most creator-aligned channel online won't touch it, that's signal about the offer.</p></div>
+      </div>
+      <div class="rask"><b>The ask</b> Not a read — a documented deep-dive on tokenizing IP, plus Colin or Samir listing something of their own. A creator using the product on camera converts at a multiple of any scripted integration, and it makes them a slate member rather than a vendor.</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;letter-spacing:1.4px;text-transform:uppercase;color:var(--c3);margin:26px 0 12px">Mid tier · 3 partners · $15–22K each</h3>
+  <div class="rost">
+    <div class="rcard mid">
+      <div class="rhead"><span class="rname">Rick Beato</span><span class="rhandle">YouTube · Everything Music</span>
+        <span class="rscore warn">FIT 84 / 100 · HIGH VARIANCE</span></div>
+      <div class="rreach">~5M subscribers <span class="vf">↳ reported; re-verify at contract</span></div>
+      <p class="small">Music-industry economics <b style="color:var(--ink)">is his beat</b>. He covers relentlessly how
+        artists get underpaid and who captures the value of recorded music — IPX's artist-ownership pitch answers a
+        worldview he has already spent years broadcasting.</p>
+      <div class="rsplit">
+        <div class="w"><h5>Why they convert</h5><p>Unmatched authority with working musicians and serious fans — the exact psychographic for a slate built on artist IP. If Beato judges the economics fair to artists, that lands harder with the music world than any campaign IPX could run.</p></div>
+        <div class="r"><h5>The risk</h5><p>A <b>critic by disposition</b> who may publicly attack tokenization as another extraction layer. Highest-variance name here. <b>Mitigation:</b> pitch artist ownership and transparency exclusively — never investor yield. Pre-brief with real deal terms; if he isn't convinced artists win, walk rather than push.</p></div>
+      </div>
+      <div class="rask"><b>The ask</b> Integration inside an existing industry-economics episode, not a standalone ad. Cutdown rights for paid amplification to music-fan lookalikes.</div>
+    </div>
+
+    <div class="rcard mid">
+      <div class="rhead"><span class="rname">Vivian Tu</span><span class="rhandle">TikTok/YouTube · @yourrichbff</span>
+        <span class="rscore">FIT 79 / 100</span></div>
+      <div class="rreach">2.7M TikTok followers · ex-Wall Street · published author <span class="vf">↳ verified Aug 2026</span></div>
+      <p class="small">The brand-safety and mainstream-credibility play. An institutional finance background means she
+        can discuss a regulated securities product accurately — a genuinely scarce trait in creator finance.</p>
+      <div class="rsplit">
+        <div class="w"><h5>Why they convert</h5><p>Diversifies off the crypto-native axis toward mainstream retail investors who fund larger, stickier accounts. Her audience skews first-time investor — exactly where a trusted explainer outperforms a performance claim.</p></div>
+        <div class="r"><h5>The risk</h5><p>Mainstream-conservative on speculative alt assets; a real chance she declines on principle. Conversion slower, deposit size higher — model her on <b>indicated capital, not lead volume</b>, or she'll look like a loser on the wrong metric.</p></div>
+      </div>
+      <div class="rask"><b>The ask</b> An explainer framed as "how fractional IP ownership actually works," compliance-cleared. Whitelisting rights mandatory.</div>
+    </div>
+
+    <div class="rcard mid">
+      <div class="rhead"><span class="rname">Anthony Fantano</span><span class="rhandle">YouTube · theneedledrop / fantano</span>
+        <span class="rscore warn">FIT 76 / 100 · SLATE ONLY</span></div>
+      <div class="rreach"><span class="vf">Reach not independently verified in this pass — confirm before final scoring</span></div>
+      <p class="small">Music's most-trusted independent critical voice. Cultural credibility that cannot be
+        manufactured and is rarely for sale.</p>
+      <div class="rsplit">
+        <div class="w"><h5>Why they convert</h5><p>Unrivaled authority inside music fandom — the audience for the Fetty Wap docuseries and the wider slate. Reaches culture-first believers who will never watch a finance channel, closing a segment nothing else on this roster touches.</p></div>
+        <div class="r"><h5>The risk</h5><p>Not a finance voice; investment messaging through him is off-brand and a disclosure problem. Fiercely protective of independence — a paid investment endorsement could damage him and backfire. <b>Slate and listing awareness only</b>, never investor acquisition.</p></div>
+      </div>
+      <div class="rask"><b>The ask</b> Coverage of the <i>projects</i> — "Autobiography" and the slate as cultural events. Investment mechanics stay out of his content entirely.</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;letter-spacing:1.4px;text-transform:uppercase;color:var(--c2);margin:26px 0 12px">Micro tier · 8 partners · $4–6.5K each · the testing lab</h3>
+  <div class="card">
+    <p class="small">Eight micro partners aren't a reach buy — they're <b>24 native creative tests per month</b> at a
+      fraction of production cost, and they generate the cheap conversion volume that seasons the pixel in T-6/T-5.
+      Split <b>5 FinTok : 3 music/creator-economy</b> so both messages are tested where each should win:
+      <i>"Royalties, minus the gatekeepers"</i> against finance audiences, <i>"Own the culture you believe in"</i>
+      against culture audiences. The winner becomes the hero brief.</p>
+    <div class="tbl-scroll"><table>
+      <tr><th>Candidate</th><th>Verified reach</th><th>Segment</th><th>Why they're on the screen list</th></tr>
+      <tr><td><b>Humphrey Yang</b> <span class="rhandle">@humphreytalks</span></td><td class="num">3.4M TikTok</td><td>FinTok</td><td>Largest genuinely explanatory finance creator; built on teaching mechanics rather than hype — the register a securities product requires</td></tr>
+      <tr><td><b>Milan Singh</b> <span class="rhandle">@milansinghhh</span></td><td class="num">2.6M TikTok</td><td>FinTok</td><td>Young investor audience with high platform-adoption propensity; strong fit for card and stablecoin funding flows</td></tr>
+      <tr><td><b>Tori Dunlap</b> <span class="rhandle">Her First $100K</span></td><td class="num">2M TikTok</td><td>FinTok</td><td>Reaches the most underserved segment in alt-assets — women investors. Genuine white space and a differentiated cohort</td></tr>
+      <tr><td><b>Josh Brown</b> <span class="rhandle">Downtown Josh Brown</span></td><td class="num">verify</td><td>Accredited / RIA</td><td>Credentialed advisor voice into the accredited segment; lowest volume, highest indicated capital per lead</td></tr>
+      <tr><td><b>Mady Mills</b></td><td class="num">verify</td><td>FinTok</td><td>Named in current FinTok rankings; screen for compliance history and audience overlap</td></tr>
+      <tr><td><b>Main Street Wolf</b></td><td class="num">verify</td><td>FinTok</td><td>Named in current rankings; screen carefully for hype-adjacency before shortlisting</td></tr>
+      <tr><td colspan="4" style="color:var(--muted)"><b style="color:var(--gold)">+ 3 music-business / creator-economy micro slots</b> — sourced by the SCOUT agent from artist-rights, publishing and creator-business channels in the 50–250K band. Deliberately unnamed: this is the tier where a live audience-overlap crawl beats a strategist's recall, and where fresh creators outperform established ones.</td></tr>
+    </table></div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="dq">
+      <h3>Hard disqualifiers · non-negotiable</h3>
+      <p class="small" style="margin-top:6px">IPX is a <b style="color:var(--ink)">securities offering</b> — promoter
+        liability is real, and the FTX celebrity endorsers were named in class actions. These are legal-exposure
+        filters, applied <i>before</i> fit is scored.</p>
+      <ul>
+        <li>Anyone who promoted <b>FTX, Celsius, or any failed crypto platform</b> — opposing counsel will find it</li>
+        <li>Any prior <b>FTC disclosure enforcement</b> history</li>
+        <li><b>Pump-and-dump or meme-stock hype</b> accounts, regardless of reach</li>
+        <li>Anyone who <b>won't grant whitelisting rights</b> — unamplifiable content fails the model's economics</li>
+        <li>No <b>morals clause and pause rights</b> in contract — a hero partner's controversy is a campaign-level balance-sheet risk</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Deliberate exclusions · reach that doesn't fit</h3>
+      <p class="small" style="margin-top:6px">Not everything large is useful. <b>Dave Ramsey (3.3M TikTok)</b> is the
+        biggest finance account we screened and a <b>hard pass</b> — his entire philosophy is debt-elimination and
+        index-fund conservatism, publicly hostile to speculative alt assets. Buying that audience spends real money
+        against a worldview that rejects the product.</p>
+      <p class="small" style="margin-top:10px"><b style="color:var(--ink)">The principle:</b> audience–thesis alignment
+        outranks audience size every time. A 200K-follower creator whose audience already believes culture is an asset
+        class converts better than a 3M-follower creator whose audience has been taught it isn't.</p>
+      <p class="small" style="margin-top:10px">Also excluded on geography: several top-ranked global finance creators
+        (<b>Chinkee Tan</b>, <b>Mr Money Jar</b>, <b>Kia Commodore</b>) sit outside the US, and this flight is US-only by
+        SEC constraint. Reach we cannot legally convert is reach we don't buy.</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;letter-spacing:1.4px;text-transform:uppercase;color:var(--violet);margin:26px 0 10px">The screening funnel · source 200 to sign 12</h3>
+  <div class="funnel">
+    <div class="fstep"><div class="fv">200+</div><div class="ft">Crawled / wk</div><div class="fn">SCOUT agent scores continuously against the rubric</div></div>
+    <div class="fstep"><div class="fv">20</div><div class="ft">Shortlisted</div><div class="fn">Score ≥75 with clean compliance history; humans judge only these</div></div>
+    <div class="fstep"><div class="fv">12</div><div class="ft">Signed</div><div class="fn">Expect a <b style="color:var(--gold)">40–50% decline rate</b> at mid/hero tier — normal for regulated fintech</div></div>
+    <div class="fstep end"><div class="fv">2</div><div class="ft">Warm bench</div><div class="fn">Vetted understudies per tier against dropout or controversy</div></div>
+  </div>
+  <p class="mut" style="margin-top:12px">Declines are budgeted for, not treated as failure. The <b>8% concentration
+    cap</b> means no single signature can hold the flight hostage, and the bench means a T-3 dropout costs days rather
+    than the launch.</p>
+
+  <div class="prov"><b>Data provenance &amp; honesty note:</b> follower counts are as currently reported and verified
+    where marked — they move constantly and must be re-verified at contract. Fit scores are my assessment against the
+    rubric, not platform-supplied metrics. <b>I have no visibility into these creators' actual rates, current sponsor
+    commitments, or willingness to work with a tokenized-securities platform</b> — all dollar figures remain modeled
+    benchmarks until outreach returns real quotes. Any strategist quoting exact creator pricing before outreach is
+    guessing; the honest deliverable is a scored target list and a screening process.</div>
+</section>
+
+<!-- ================= AGENTS ================= -->
+<section id="agents" class="reveal">
+  <div class="k" data-n="06">The Agent Layer · MCP + LLM Automation</div>
+  <h2>A media team of six that never sleeps.</h2>
+  <p class="lede">Each agent is an MCP-connected LLM service with a narrow job, a numeric trigger, and a human approval
+    gate on anything touching money. Modeled impact: <b>−18% blended CPQL and ~34 analyst-hours/week</b> returned to
+    strategy.</p>
+  <div class="grid2">
+    <div class="agent"><span class="ic">PACER</span><p><b>Bid &amp; pacing agent.</b> Reads hourly spend and cost-per-grade via ad-platform MCP servers; enforces the bid caps automatically within a ±15% band. Anything larger drafts the change and pings Slack for one-tap approval. <span class="m">Guardrail: hard daily cap per channel.</span></p></div>
+    <div class="agent"><span class="ic">GRADER</span><p><b>Lead-quality scorer.</b> Writes lead grade back to every platform as a custom conversion within 90 seconds of capture, so algorithms optimize toward reservations rather than emails. <span class="m">The single highest-leverage automation in the stack.</span></p></div>
+    <div class="agent"><span class="ic">FATIGUE</span><p><b>Creative-fatigue sentinel.</b> Watches frequency and 3-day CTR decay per asset; flags at −25%, queues the next approved variant, drafts new hooks from winning transcripts. <span class="m">Modeled: −18% CPQL vs. static rotation.</span></p></div>
+    <div class="agent"><span class="ic">SCOUT</span><p><b>Influencer discovery crawler.</b> Scores TikTok/YouTube candidates against the creator-roster rubric via audience APIs; ships a ranked top-20 to Thursday's Creative Council. <span class="m">200+ profiles/wk screened; humans pick from 20.</span></p></div>
+    <div class="agent"><span class="ic">LISTEN</span><p><b>Sentiment &amp; community listener.</b> Streams comments, Reddit and X; classifies trust-blocking objections ("is this a scam?", "what happens if IPX folds?") and feeds the top three weekly into creative and FAQ. Fires the War-Room webhook past threshold. <span class="m">The crisis tripwire for the War Room.</span></p></div>
+    <div class="agent"><span class="ic">COMPLY</span><p><b>Compliance pre-check.</b> Every script and ad passes an LLM tuned on legal's rules — no performance promises, required disclosures, no pre-effective offer language — <i>before</i> human review. <span class="m">Legal SLA 48h → 12h.</span></p></div>
+  </div>
+</section>
+
+<!-- ================= CRISIS ================= -->
+<section id="crisis" class="reveal">
+  <div class="k" data-n="07">The War Room · Three Pre-Launch Failure Modes</div>
+  <h2>Plans are tested by the weeks that go wrong.</h2>
+  <p class="lede">Three failure modes rehearsed in advance, each with a tripwire, a decision tree and a re-entry
+    condition — because the difference between a bad week and a failed launch is <b>how much of the response was
+    pre-authorized</b>.</p>
+  <div class="tabs" role="tablist" id="ctabs">
+    <button role="tab" class="on" data-c="c1">Lead-Quality Collapse</button>
+    <button role="tab" data-c="c2">Launch Date Slips</button>
+    <button role="tab" data-c="c3">Pre-Effective Ad Rejection</button>
+  </div>
+
+  <div class="pane on" id="c1">
+    <div class="crisis">
+      <h3>T-4: CPQL looks great at $19 — but Grade A mix has collapsed to 6% <span class="sev high">SEV-1 · QUALITY</span></h3>
+      <div class="play">
+        <div>
+          <h4 style="color:var(--red);font-size:12px;letter-spacing:1.4px;margin-bottom:8px">WHY THIS IS THE MOST DANGEROUS SCENARIO</h4>
+          <ul class="dash">
+            <li><b>It looks like success.</b> Volume up, cost down, dashboard green — and the order book is filling with people who will never fund. This is how pre-launch campaigns fail silently and only reveal it on launch day, when nothing converts.</li>
+            <li><b>Diagnose:</b> decompose CPQL by grade and source. Modeled finding — one prospecting audience delivering Grade C at $9 is flattering the blend while Grade A quietly costs $140.</li>
+            <li><b>Second check:</b> is it the ad or the offer? If Grade C→B step-up is broken, the <b>reservation flow</b> is the problem, not the media.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color:var(--teal-bright);font-size:12px;letter-spacing:1.4px;margin-bottom:8px">RESPOND WITH NUMBERS</h4>
+          <ul class="dash">
+            <li>Re-point every campaign objective from registration to the <b>reservation event</b> — GRADER already writes it back; the fix is bidding to it, and it costs nothing but a week of relearning.</li>
+            <li>Kill the Grade-C-only audiences outright. Modeled effect: blended CPQL <i>rises</i> to $31 and that is the correct direction — we're paying for probability, not volume.</li>
+            <li>Add a friction step that qualifies rather than deters: a deposit-intent question. Lower volume, dramatically better grade mix.</li>
+            <li><b>Re-entry rule:</b> resume scaled prospecting when Grade A mix ≥18% for 5 consecutive days.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane" id="c2">
+    <div class="crisis">
+      <h3>T-2: legal signals the Sep 18 market open slips to mid-October <span class="sev high">SEV-1 · TIMELINE</span></h3>
+      <div class="play">
+        <div>
+          <h4 style="color:var(--red);font-size:12px;letter-spacing:1.4px;margin-bottom:8px">THE PRE-LAUNCH NIGHTMARE</h4>
+          <ul class="dash">
+            <li>Six weeks of urgency creative point at a date that no longer exists. Worse, the <b>order book is a decaying asset</b> — at 4%/week, a 4-week slip costs ~15% of modeled indicated capital with zero media waste to blame.</li>
+            <li><b>The instinct is to hide it. That's the one fatal option</b> — nothing destroys a financial platform's credibility faster than a silently missed date that early believers discover themselves.</li>
+            <li>Immediate freeze on all date-specific creative and countdown assets within 4 hours; COMPLY sweeps live copy for "Sep 18" references across every channel and partner.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color:var(--teal-bright);font-size:12px;letter-spacing:1.4px;margin-bottom:8px">CONVERT THE DELAY INTO AN ASSET</h4>
+          <ul class="dash">
+            <li><b>Tell the list first, and frame it correctly:</b> a regulated exchange delaying for compliance is evidence the compliance is real. Founder video to reserved members within 24h, before any public statement.</li>
+            <li><b>Pay the believers for their patience:</b> extend Founding Member first-look pricing, add an allocation bonus for reservations already placed. Converts a broken promise into a loyalty event and <i>defends the order book against decay</i>.</li>
+            <li>Cut paid spend 55% into a <b>maintenance flight</b> — retargeting and content only. Preserve the audience, stop buying urgency you can't honor. Modeled saving redeployed to the new T-2/T-1: <b>$96K</b>.</li>
+            <li><b>Re-entry:</b> full spend resumes at new-date T-3 with the reserved cohort as the seed audience — warmer and cheaper than the original build.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane" id="c3">
+    <div class="crisis">
+      <h3>T-5: Meta and Google reject creative — unregistered securities / financial-product policy <span class="sev med">SEV-2 · CHANNEL</span></h3>
+      <div class="play">
+        <div>
+          <h4 style="color:var(--red);font-size:12px;letter-spacing:1.4px;margin-bottom:8px">EXPECTED, NOT SURPRISING</h4>
+          <ul class="dash">
+            <li>Pre-launch is the hardest advertising window for a securities platform: you cannot make offer claims before effectiveness, and platform reviewers apply blunt rules to nuanced products. <b>We plan for rejection rather than appeal it in a panic.</b></li>
+            <li>Which is precisely why no channel exceeds 40% of pre-launch spend, and why flat-fee native was locked in T-6 — the hedge was bought before it was needed.</li>
+            <li>Certification package (entity docs, disclaimers, compliant landing experience) pre-assembled in COMPLY; filed within 4 hours, rep escalation same day.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color:var(--teal-bright);font-size:12px;letter-spacing:1.4px;margin-bottom:8px">REROUTE AND REFRAME</h4>
+          <ul class="dash">
+            <li><b>Change the creative, not just the appeal:</b> run <i>content and category education</i> ("how fractional IP ownership works") rather than offer claims. Passes review, and pre-launch it converts better anyway — nobody is ready to commit on first exposure.</li>
+            <li>Shift ~$9K/day (Base) into channels with no securities policy gate: newsletters, podcasts, Reddit, creator whitelisting, PMP/CTV. All were bought flat and can absorb it immediately.</li>
+            <li>Modeled damage: blended CPQL drifts $26 → $30 for the affected fortnight — inside tolerance, <b>no panic cuts</b>.</li>
+            <li>Structural fix banked: registered backup ad accounts and a pre-cleared creative library for the post-launch flight, when offer language finally becomes permissible.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CFO ================= -->
+<section id="cfo" class="reveal">
+  <div class="k" data-n="08">CFO Lens · The Variables That Move Pre-Launch Math</div>
+  <h2>The spreadsheet lives inside a market.</h2>
+  <p class="lede">Six variables priced into this plan — including the ones that don't look like marketing problems
+    until they've already cost you the launch.</p>
+  <div class="grid3">
+    <div class="card pad-s"><h3>Intent decay — the hidden one</h3><p class="small">A lead is a <b>depreciating asset</b>. Modeled at <b>4%/week</b>, a T-6 lead converts at ~0.78× a T-1 lead. This single variable justifies the entire back-loaded pacing curve — and it's why "start early and coast" is the most expensive pre-launch mistake. It also means any launch delay has a <i>calculable</i> cost, not a vague one.</p></div>
+    <div class="card pad-s"><h3>Q4 upfront vs. scatter</h3><p class="small">Holiday advertisers and the <b>Nov 3 midterms</b> stack into Q4 auctions; CPMs inflate 25–40%. Our flight ends Sep 17, mostly ahead of it — but the <i>post-launch</i> flight lands inside it. Lock PG/PMP and flat-fee native <b>now</b>, at pre-launch rates, for delivery after launch. <b>Modeled saving: $47K.</b></p></div>
+    <div class="card pad-s"><h3>Labor Day inventory dip</h3><p class="small">Monday <b>Sep 7</b> sits inside T-2. Auction CPMs typically soften over the long weekend as brand advertisers pause. We deliberately <b>lean in</b> — cheap reach against an audience that is home, on-device, and reachable, three days before the commitment push.</p></div>
+    <div class="card pad-s"><h3>Risk-appetite beta</h3><p class="small">Alt-asset commitment correlates with risk-on sentiment. A &gt;15% weekly BTC drawdown should be expected to cut reservation rate 3–5 pts. The plan shifts message weight from yield to ownership automatically — culture-framed creative decays less with risk mood, and we hold both versions live to make the swap instant.</p></div>
+    <div class="card pad-s"><h3>Two-sided book risk</h3><p class="small">An exchange needs <b>supply and demand at open</b>. All the investor demand in the world fails if listings aren't ready. Media therefore spends against <b>rights-holders and managers</b> (industry events, trades) as well as investors — the only line item where marketing is de-risking the product, not just selling it.</p></div>
+    <div class="card pad-s"><h3>Creator-risk concentration</h3><p class="small">A hero partner's controversy is a balance-sheet risk to the flight. Cap any single creator at <b>8% of budget</b>, morals clause and pause rights in every contract, and SCOUT holds two vetted understudies warm per tier. Concentration risk is managed the way a portfolio manages it — with limits, set in advance.</p></div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h3>Terminology used in this plan <span class="tag">GLOSSARY</span></h3>
+    <div class="glos">
+      <div><b>CPQL</b> — cost per qualified lead, graded by commitment</div>
+      <div><b>PG / PMP</b> — programmatic guaranteed / private marketplace deal</div>
+      <div><b>Working media ratio</b> — % of budget reaching audiences vs. fees</div>
+      <div><b>Scatter market</b> — last-minute inventory, priced at a premium</div>
+      <div><b>VIK / contra</b> — value-in-kind; non-cash reciprocal media</div>
+      <div><b>Make-good</b> — inventory compensation for under-delivery</div>
+      <div><b>Pixel seasoning</b> — accumulating conversions to exit learning phase</div>
+      <div><b>Effective frequency</b> — exposures needed before response (3–5+)</div>
+      <div><b>Indicated capital</b> — probability-weighted committed deposits</div>
+      <div><b>Capital-to-spend multiple</b> — indicated capital ÷ media spend</div>
+      <div><b>Zero-based budgeting</b> — every line re-justified, nothing inherited</div>
+      <div><b>Reserve laddering</b> — staged budget release against proven efficiency</div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <b>IPX Pre-Launch Control</b> · Prepared by Mary Kate Parrish · Strategy exercise — all economics are modeled
+  benchmarks to be replaced by platform actuals from week T-6 telemetry. Launch date, budget, and bid-model
+  assumptions are each a single constant in this file.<br>
+  Verified context: IPX unveiled a 100+ project, $1.35B slate at Cannes (May 15, 2026) and greenlit "Autobiography"
+  (Fetty Wap) as its first project. The Sep 18 market open is per client brief and was not independently verified —
+  confirm before this plan is presented. Sources: PR Newswire · Dealroom · ipx.exchange.
+</footer>
+
+</main>
+<div class="tt" id="tt" role="presentation"></div>
+
+<script>
+/* ========== CONFIG ========== */
+const LAUNCH_DATE = new Date('2026-09-18T09:00:00-04:00');
+const FLIGHT_WEEKS = 6;
+const FLIGHT_START = new Date(LAUNCH_DATE.getTime() - FLIGHT_WEEKS*7*864e5);
+const SCENARIO_DEFAULT = 'base';
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,'0');
+
+/* ========== COUNTDOWN ========== */
+function currentWeekIndex(){
+  const now=new Date();
+  if(now<FLIGHT_START) return -1;
+  if(now>=LAUNCH_DATE) return 99;
+  return Math.floor((now-FLIGHT_START)/(7*864e5));
+}
+function tickCountdown(){
+  const now=new Date(), diff=LAUNCH_DATE-now;
+  if(diff>0){
+    const d=Math.floor(diff/864e5), h=Math.floor(diff/36e5)%24,
+          m=Math.floor(diff/6e4)%60, s=Math.floor(diff/1e3)%60;
+    $('cd-d').textContent=d; $('cd-h').textContent=pad(h);
+    $('cd-m').textContent=pad(m); $('cd-s').textContent=pad(s);
+    const wi=currentWeekIndex();
+    $('cd-week').textContent = wi<0 ? 'FLIGHT BEGINS AUG 7'
+      : 'IN FLIGHT · WEEK T-'+(FLIGHT_WEEKS-wi);
+  }else{
+    $('cd-label').innerHTML='<b>MARKET OPEN — IPX IS LIVE</b><br>PRE-LAUNCH FLIGHT COMPLETE';
+    $('cd-d').textContent='0';$('cd-h').textContent='00';
+    $('cd-m').textContent='00';$('cd-s').textContent='00';
+  }
+}
+tickCountdown(); setInterval(tickCountdown,1000);
+const tape=$('tape'); tape.innerHTML+=tape.innerHTML;
+
+/* ========== BID MODEL ========== */
+const fmt$=v=>'$'+v.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const GRADE_MIX={a:.22,b:.30,c:.35,d:.13};
+function calc(){
+  const ltv=+$('i-ltv').value, gm=+$('i-gm').value/100, ratio=+$('i-ratio').value/10,
+        pa=+$('i-pa').value/100, pb=+$('i-pb').value/100, dec=+$('i-dec').value/100;
+  const pc=pb*0.37, pd=pb*0.105;                 // C and D derived from B
+  $('o-ltv').textContent='$'+ltv; $('o-gm').textContent=Math.round(gm*100)+'%';
+  $('o-ratio').textContent=ratio.toFixed(1)+'×'; $('o-pa').textContent=Math.round(pa*100)+'%';
+  $('o-pb').textContent=Math.round(pb*100)+'%'; $('o-dec').textContent=Math.round(dec*100)+'%';
+  const cac=(ltv*gm)/ratio;
+  const ba=cac*pa, bb=cac*pb, bc=cac*pc, bd=cac*pd;
+  $('r-cac').textContent=fmt$(cac);
+  $('r-ba').textContent=fmt$(ba); $('r-bb').textContent=fmt$(bb);
+  $('r-bc').textContent=fmt$(bc); $('r-bd').textContent=fmt$(bd);
+  const blend=ba*GRADE_MIX.a+bb*GRADE_MIX.b+bc*GRADE_MIX.c+bd*GRADE_MIX.d;
+  $('r-blend').textContent=fmt$(blend);
+  $('r-decay').textContent=fmt$(ba*Math.pow(1-dec,6));
+}
+['i-ltv','i-gm','i-ratio','i-pa','i-pb','i-dec'].forEach(id=>$(id).addEventListener('input',calc));
+calc();
+
+/* ========== DATA ========== */
+const CH=[
+  {k:'social',  n:'Paid Social',        c:'var(--c1)'},
+  {k:'native',  n:'Native & Sponsorship',c:'var(--c4)'},
+  {k:'creator', n:'Creators',            c:'var(--c2)'},
+  {k:'search',  n:'Search & Conquest',   c:'var(--c3)'},
+  {k:'prog',    n:'PMP / CTV',           c:'#7A5AC9'},
+  {k:'test',    n:'Reserve Ladder',      c:'#5C6278'}
+];
+const SCEN={
+  lean:{total:250, mix:{social:.30,native:.24,creator:.20,search:.12,prog:.06,test:.08},
+    cpql:23, capital:3.4, mult:13.7, cac:71, note:[
+    ['Warm-first, auction-last','At $250K we can nearly exhaust the existing waitlist, organic audience and category search before paying prospecting prices — which is why lean shows the best CPQL of the three. Efficiency here is a function of small scale, not superior strategy.'],
+    ['Native holds at 24%','Cut the hero creator, keep native. Pre-launch you cannot performance-market your way to a category that does not exist yet; the explanatory inventory is load-bearing at every budget level.'],
+    ['What lean costs you','~$3.4M indicated capital and a thinner order book at open. The real cost is learning speed: fewer creative cells means the bid model converges on real P(fund) data around T-2 instead of T-3, leaving one week to act on it.']]},
+  base:{total:400, mix:{social:.32,native:.22,creator:.20,search:.12,prog:.08,test:.06},
+    cpql:26, capital:4.9, mult:12.3, cac:80, note:[
+    ['Social at 32% — engine, not majority','Deliberately lower than a post-launch plan would run it. Pre-launch, social buys cheap reach and pixel seasoning but converts poorly to Grade A on its own; it earns its 32% as an audience-building and retargeting-seeding channel, not a closer.'],
+    ['Native + sponsorship at 22% is the real bet','This is where the category gets explained and legitimacy gets built. It is also the budget most exposed to Q4 inflation, which is why it is locked flat in T-6/T-5 — the timing of the buy matters as much as the size.'],
+    ['The recommendation','~$4.9M indicated capital at a 12.3× capital-to-spend multiple, blended CPQL $26, and an implied CAC of ~$80 at launch — exactly on formula at 3:1 LTV:CAC. This is the plan I would defend to a board.']]},
+  aggr:{total:650, mix:{social:.28,native:.25,creator:.24,search:.08,prog:.09,test:.06},
+    cpql:31, capital:7.1, mult:10.9, cac:89, note:[
+    ['Auction share falls as budget rises','Counterintuitive but correct: past roughly $55K/week, modeled marginal CPQL on social crosses $48 because the pre-launch in-market audience is finite. New demand must be manufactured, and creators and sponsorship manufacture it more cheaply than frequency does.'],
+    ['Search drops to 8% by design','Not a dollar cut ($52K vs. Base $48K) — search volume pre-launch is capped by category queries we are partly generating ourselves. Its percentage must fall as the total grows; anything else is budget theater.'],
+    ['The honest tradeoff','~$7.1M indicated capital but a 10.9× multiple and implied CAC of $89 — 11% worse than Base, LTV:CAC 2.8×. You are buying a deeper opening book and Q4 cohort mass at a knowable efficiency cost. Defensible if the Series-A narrative needs launch-day scale; the model says so out loud rather than hiding it.']]}
+};
+const WEEKS=[
+ {t:'T-6', n:'Infrastructure & Audience Seeding', d:'Aug 7–13', pct:.12,
+   obj:'Build the measurement spine and the retargetable pool. Zero conversion pressure — spending on response now, before the pixel is seasoned and the offer exists, is how budgets get wasted invisibly.',
+   s:['<b>Stand up the spine before spend:</b> CAPI/S2S on every platform, one UTM taxonomy, consent mode, GRADER writeback live and tested end to end',
+      '<b>Lock the upfront:</b> negotiate and sign all flat-fee native, podcast and PG/PMP inventory at pre-Q4 rates — the single highest-ROI week of buying in the flight',
+      'Upper-funnel <b>reach &amp; frequency</b> buys against category content; optimize to reach and CPM, explicitly <i>not</i> to leads',
+      'Micro-creator cohort live — cheap conversion volume to season the pixel toward learning-phase exit',
+      'Cross-promo paper: promotional obligations drafted into slate listing agreements with Partnerships and Legal'],
+   kpi:[['CAPI match rate','≥ 85% verified'],['Addressable pool','≥ 400K'],['CPM baseline','$9–15 set'],['Upfront locked','≥ 70% of native $']],
+   m:['<b>Mon Pacing &amp; Bid Review:</b> baseline-setting session — no optimization decisions this week','<b>Fri CFO Gate:</b> upfront commitments signed off before rates move'],
+   d2:['Data: spine build is the critical path','Legal: pre-effective language rules issued','Partnerships: listing-agreement promo clauses','Finance: upfront vs. scatter savings modeled']},
+
+ {t:'T-5', n:'Narrative & Share of Search', d:'Aug 14–20', pct:.13,
+   obj:'Create category awareness before there is an offer. We are teaching a concept — fractional IP ownership — so that the offer in T-4 lands on prepared ground rather than cold.',
+   s:['Long-form and explanatory native goes live: newsletters, Substack, podcast host-reads begin delivering',
+      '<b>Share of search</b> becomes the leading indicator — branded and category query volume vs. the competitive set is the cleanest pre-launch read on whether narrative is landing',
+      'Hero creator (Colin &amp; Samir) outreach and contracting <b>must open now</b> — 6–8 week lead means T-5 booking for a T-2 drop',
+      'CTV/PMP deal IDs activated against music-documentary inventory for credibility reach',
+      'Founder podcast tour (earned, not paid) booked through Comms'],
+   kpi:[['Share of search','+35% vs. baseline'],['vCPM','≤ $18'],['Earned media value','≥ $180K'],['Video completion','≥ 92% CTV']],
+   m:['<b>Thu Creative Council:</b> category-education creative approved and shipped','<b>Fri CFO Gate:</b> hero-creator commitment authorized'],
+   d2:['Brand: category narrative ownership','Comms: earned tour + trade coverage','Compliance: 12h creative SLA active']},
+
+ {t:'T-4', n:'The Offer Goes Live', d:'Aug 21–27', pct:.16,
+   obj:'Switch from reach to response. The Founding Member reservation opens — for the first time there is a real conversion event, so the bid model goes live and every channel starts being judged on grade, not volume.',
+   s:['<b>Founding Member window opens</b> — 24–72h first-look pricing, locked for life. This is the offer the whole flight has been building toward',
+      'Bid caps by grade activated in every platform; PACER enforces the ladder automatically inside its ±15% band',
+      '<b>Scarcity as live creative:</b> allocation is finite, so <b>sell-through rate</b> becomes the message — real scarcity, disclosed accurately, never manufactured',
+      'Reddit founder AMA — the "is this legitimate?" moment, answered publicly and permanently indexed',
+      'First retargeting flights against the T-6/T-5 audience pool, which is now large enough to be efficient'],
+   kpi:[['CPQL blended','≤ $26'],['Grade A mix','≥ 18% and rising'],['Sell-through','≥ 20% of allocation'],['Reservation rate','≥ 4.5% of LP visits']],
+   m:['<b>Mon Pacing &amp; Bid Review:</b> first true grade-level readout; first winner/loser reallocation','<b>Thu Council:</b> offer creative tournament round 1'],
+   d2:['Product: reservation flow live-watch','Finance: first CPQL variance report','CS: objection log → creative feedback loop']},
+
+ {t:'T-3', n:'Cross-Promotion & Barter Wave', d:'Aug 28–Sep 3', pct:.15,
+   obj:'Deploy the inventory money cannot buy. This is the week the slate becomes a distribution network and the marginal cost of reach falls sharply — deliberately placed before the final push so the warm pool is at maximum size for T-2 and T-1.',
+   s:['<b>Slate-talent cross-promo activates at scale</b> — contracted promotional obligations from T-6 paper now come due; target 300+ authentic posts',
+      'Co-op and barter deals go live: slate talent brand partners, adjacent-platform audience swaps, VIK placements booked as contra',
+      '"Autobiography" watch-party circuit across five cities — earned coverage, owned footage, Grade-A capture in a single spend',
+      'Mid-tier creator integrations (Beato, Tu) drop into a warm, primed audience',
+      '<b>Marginal-CPQL curve rebuilt</b> per channel on three weeks of real data — this replaces every modeled benchmark in the bid model'],
+   kpi:[['Barter/VIK impressions','≥ 8% of total delivered'],['Cross-promo Grade A','≥ 1.4× paid social'],['Marginal CPQL curve','built per channel'],['Cost per $1K capital','≤ $85']],
+   m:['<b>THE REALLOCATION SUMMIT (Wed, 90 min):</b> all departments. T-2/T-1 budgets rebuilt on observed data, bid model re-parameterized with real P(fund), scenario posture formally re-confirmed','<b>Fri CFO Gate:</b> re-forecast signed'],
+   d2:['Partnerships owns this week outright','Finance co-owns the model from here','Data: real P(fund) replaces assumptions']},
+
+ {t:'T-2', n:'Capital Commitment', d:'Sep 4–10', pct:.19,
+   obj:'Move the book from interested to committed. Every dollar now targets Grade A — the step-up from registered to reserved is the only conversion that matters with two weeks left.',
+   s:['<b>Grade-B→A conversion campaign</b> is the priority: everyone verified but not reserved gets a dedicated sequenced flight across email, retargeting and creator content',
+      '<b>Labor Day inventory arbitrage (Mon Sep 7):</b> brand advertisers pause, auction CPMs soften — we lean in for cheap reach against a home, on-device audience',
+      'Hero creator episode drops into the largest warm retargeting pool of the flight',
+      'X Spaces and Discord listing previews — attendance is itself a commitment signal and the highest Grade-A yield per dollar in social',
+      '<b>Reserve ladder released</b> (6%) into whichever channels have proven Grade-A cost below cap'],
+   kpi:[['Grade A mix','≥ 26%'],['Indicated capital','≥ $3.4M cumulative'],['B→A step-up','≥ 22%'],['Hero episode','≥ 400K views / ≥ 350 Grade A']],
+   m:['<b>Mon Pacing &amp; Bid Review:</b> reserve-release decisions, each showing its math','<b>Fri CFO Gate:</b> launch-week budget and contingency authorized'],
+   d2:['Product: launch-day funding capacity + KYC throughput','Finance: real-time order-book dashboard','Legal: launch-day disclosure pack final']},
+
+ {t:'T-1', n:'Ignition', d:'Sep 11–17', pct:.25,
+   obj:'Peak frequency, maximum urgency, zero new experiments. The largest budget week in the flight aimed at a single question: how much capital is standing at the door when the market opens on Sep 18?',
+   s:['<b>Frequency caps released</b> on the warm pool — effective frequency target <b>5+</b> for reserved and verified segments; this is the one week over-frequency is correct',
+      '<b>Dayparting toward the open:</b> spend weighted to mornings ET across the final 72 hours, converging on the 9:00 AM launch hour',
+      'Countdown creative across every channel and partner simultaneously — a <b>surround-session</b> effect for anyone in the pool',
+      'Final-allocation messaging on genuine sell-through; launch-day roadblock booked on core placements',
+      '<b>Zero new tests.</b> Everything unproven is off. The week executes what the previous five weeks learned'],
+   kpi:[['Effective frequency','5+ on warm pool'],['Indicated capital','≥ $4.9M at open'],['Grade A total','≥ 3,385'],['Launch-ready %','≥ 92% payment method on file']],
+   m:['<b>Mon War Room (daily this week):</b> 15-min pacing check, all hands','<b>Wed:</b> launch-day media plan dry run with Product','<b>Fri 4:00p:</b> final CFO Gate — go/no-go on launch-day surge budget'],
+   d2:['All hands: launch-day runbook','Product: capacity + failover confirmed','CS: staffed for launch-day volume','Comms: embargo lifts sequenced']}
+];
+
+/* ========== PACING CURVE ========== */
+function renderCurve(){
+  const max=Math.max(...WEEKS.map(w=>w.pct)), MAXPX=104, MINPX=26;
+  $('curve').innerHTML=WEEKS.map(w=>{
+    const px=Math.round(MINPX+(w.pct/max)*(MAXPX-MINPX));
+    return `<div class="cbar"><span class="cp">${Math.round(w.pct*100)}%</span>
+      <div class="cf" data-h="${px}"
+        data-tt="<b>${w.t} · ${w.n}</b><br>${w.d}<br>${Math.round(w.pct*100)}% of flight budget"></div>
+      <span class="cl">${w.t}</span></div>`;
+  }).join('');
+  requestAnimationFrame(()=>document.querySelectorAll('#curve .cf').forEach(f=>f.style.height=f.dataset.h+'px'));
+}
+renderCurve();
+
+/* ========== WEEKS ========== */
+function renderWeeks(){
+  const total=SCEN[SCENARIO_DEFAULT].total*1000, wi=currentWeekIndex();
+  $('weeks').innerHTML=WEEKS.map((w,i)=>{
+    const cur=(i===wi), past=(wi>i);
+    return `<div class="week reveal ${cur?'current':''} ${past?'past':''}" id="wk${i+1}">
+      <button aria-expanded="false">
+        <span class="wnum">${w.t}</span>
+        <span class="wname">${w.n}${cur?' <span class="now-flag">● NOW</span>':''}<small>${w.d} · ${Math.round(w.pct*100)}% of flight budget</small></span>
+        <span class="wbudget">$${Math.round(total*w.pct/1000)}K</span>
+        <span class="chev">▶</span>
+      </button>
+      <div class="wbody">
+        <div class="wobj"><b>Objective</b>${w.obj}</div>
+        <div class="wgrid">
+          <div class="wcol"><h4>Strategy &amp; buying</h4><ul>${w.s.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+          <div class="wcol"><h4>KPIs on the wall</h4>${w.kpi.map(x=>`<span class="kpi-chip">${x[0]} <b>${x[1]}</b></span>`).join('')}
+            <h4 style="margin-top:14px">Meetings &amp; gates</h4>${w.m.map(x=>`<div class="meet">${x}</div>`).join('')}</div>
+          <div class="wcol"><h4>Departments in the room</h4><ul>${w.d2.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        </div>
+      </div></div>`;
+  }).join('');
+  document.querySelectorAll('.week>button').forEach(b=>b.addEventListener('click',()=>{
+    const w=b.parentElement, open=w.classList.toggle('open');
+    b.setAttribute('aria-expanded',open);
+  }));
+  const cur=document.querySelector('.week.current button');
+  (cur||document.querySelector('#wk1 button')).click();
+}
+renderWeeks();
+
+/* ========== BUDGETS ========== */
+function renderBudget(){
+  $('bpanes').innerHTML=Object.entries(SCEN).map(([k,s])=>{
+    const tot=s.total*1000;
+    const rows=CH.map(c=>{
+      const v=Math.round(tot*(s.mix[c.k]||0)), p=(s.mix[c.k]*100).toFixed(0);
+      return `<div class="brow"><span class="bl">${c.n}</span>
+        <div class="btrack"><div class="bfill" data-w="${p}" style="background:${c.c}"
+          data-tt="<b>${c.n}</b><br>$${(v/1000).toFixed(1)}K · ${p}% of $${s.total}K<br>6-week pre-launch flight"></div></div>
+        <span class="bv">$${(v/1000).toFixed(0)}K · ${p}%</span></div>`;
+    }).join('');
+    return `<div class="pane" id="bp-${k}">
+      <div class="stats">
+        <div class="stat hi"><div class="v">$${s.total}K</div><div class="t">6-week working media</div></div>
+        <div class="stat"><div class="v">$${s.capital}M</div><div class="t">Indicated capital at open</div></div>
+        <div class="stat"><div class="v">$${s.cpql}</div><div class="t">Blended CPQL</div></div>
+        <div class="stat"><div class="v">${s.mult}×</div><div class="t">Capital-to-spend multiple</div></div>
+      </div>
+      <div class="card"><h3>Channel allocation <span class="tag">IMPLIED CAC $${s.cac}</span></h3>
+        <div class="chart">${rows}</div>
+        <div class="legend">${CH.map(c=>`<span><i class="ldot" style="background:${c.c}"></i>${c.n}</span>`).join('')}</div></div>
+      <div class="grid3" style="margin-top:16px">${s.note.map(n=>`<div class="card pad-s"><h3 style="font-size:14.5px">${n[0]}</h3><p class="small" style="margin-top:6px">${n[1]}</p></div>`).join('')}</div>
+    </div>`;
+  }).join('');
+  const tabs=[...document.querySelectorAll('#btabs button')];
+  function show(k){
+    tabs.forEach(t=>t.classList.toggle('on',t.dataset.b===k));
+    document.querySelectorAll('#bpanes .pane').forEach(p=>p.classList.toggle('on',p.id==='bp-'+k));
+    requestAnimationFrame(()=>document.querySelectorAll('#bp-'+k+' .bfill').forEach(f=>f.style.width=f.dataset.w+'%'));
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>show(t.dataset.b)));
+  show('lean');
+}
+renderBudget();
+
+/* ========== CRISIS TABS ========== */
+const ctabs=[...document.querySelectorAll('#ctabs button')];
+ctabs.forEach(t=>t.addEventListener('click',()=>{
+  ctabs.forEach(x=>x.classList.toggle('on',x===t));
+  ['c1','c2','c3'].forEach(id=>$(id).classList.toggle('on',id===t.dataset.c));
+}));
+
+/* ========== TOOLTIP ========== */
+const tt=$('tt');
+document.addEventListener('mousemove',e=>{
+  const el=e.target.closest('[data-tt]');
+  if(el){tt.innerHTML=el.dataset.tt;tt.style.opacity=1;
+    tt.style.left=Math.min(e.clientX+14,innerWidth-270)+'px';
+    tt.style.top=Math.min(e.clientY+16,innerHeight-90)+'px';}
+  else tt.style.opacity=0;
+});
+
+/* ========== REVEAL ========== */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

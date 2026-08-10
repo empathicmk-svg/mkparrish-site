@@ -65,6 +65,45 @@ const nextConfig: NextConfig = {
         source: "/desk.webmanifest",
         headers: [{ key: "Content-Type", value: "application/manifest+json" }],
       },
+      {
+        // The IPX case study is a standalone HTML file in public/, reached at
+        // /ipx via the rewrite below. Same octet-stream caveat as above: without
+        // an explicit type the browser downloads it instead of rendering it.
+        // It is an unlisted client deliverable, so keep it out of search too.
+        source: "/ipx",
+        headers: [
+          { key: "Content-Type", value: "text/html; charset=utf-8" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+      {
+        source: "/ipx.html",
+        headers: [
+          { key: "Content-Type", value: "text/html; charset=utf-8" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+      {
+        // Serve the one-pager with its real type so it opens in the browser's
+        // PDF viewer rather than downloading as an unnamed blob.
+        source: "/downloads/IPX-Digital-Media-Plan-MK-Parrish.pdf",
+        headers: [
+          { key: "Content-Type", value: "application/pdf" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      // The IPX case study lives as a self-contained HTML file in public/ so it
+      // keeps its own dark theme and scripts, untouched by the site's chrome.
+      // The rewrite gives it the clean /ipx URL. It is deliberately absent from
+      // Nav, Footer and sitemap: shared by link only.
+      {
+        source: "/ipx",
+        destination: "/ipx.html",
+      },
     ];
   },
   async redirects() {
