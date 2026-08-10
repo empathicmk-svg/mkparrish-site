@@ -387,6 +387,25 @@ footer b{color:var(--muted)}
   font-weight:800;font-size:9.5px;display:flex;align-items:center;justify-content:center;margin-top:1px}
 .op-aud-row p{font-size:11.5px;color:#3B3D4D;line-height:1.45}
 .op-aud-row b{color:#1B1D27}
+.op-seg{width:100%;border-collapse:collapse;margin-bottom:12px;table-layout:fixed}
+.op-seg th{text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#6B6D80;
+  font-weight:700;padding:0 6px 4px;border-bottom:1px solid #D8D6E8}
+.op-seg td{padding:7px 6px;border-bottom:1px solid #E4E3EE;font-size:10.5px;color:#3B3D4D;
+  vertical-align:top;line-height:1.38}
+.op-seg tr:last-child td{border-bottom:none}
+.op-seg small{display:block;color:#6B6D80;font-size:9.3px;margin-top:2px;line-height:1.35}
+.op-seg .seg b{color:#1B1D27;display:block;font-size:11px}
+.op-seg .plat{color:#1B1D27;font-weight:700}
+.op-seg .plat small{font-weight:400}
+.op-seg .bud{text-align:right;white-space:nowrap}
+.op-seg .bud b{color:#1B1D27;font-size:11.5px;font-family:var(--mono)}
+.op-seg tr.meta td{background:#EFEDFD}
+.op-seg tr.meta .seg b,.op-seg tr.meta .bud b{color:#6C5CE7}
+@media(max-width:640px){.op-seg,.op-seg thead,.op-seg tbody,.op-seg tr,.op-seg td{display:block;width:auto}
+  .op-seg thead{display:none}
+  .op-seg tr{border-bottom:1px solid #E4E3EE;padding:6px 0}
+  .op-seg td{border:none;padding:2px 0}
+  .op-seg .bud{text-align:left}}
 .op-posit{background:#FBF3DC;border-left:2px solid #B87A0E;padding:7px 10px;border-radius:0 8px 8px 0;
   font-size:11px;color:#3B3D4D;margin-bottom:16px;line-height:1.45}
 .op-posit b{color:#1B1D27}
@@ -408,6 +427,7 @@ footer b{color:var(--muted)}
 <nav aria-label="Sections">
   <span class="mark">IP<b>X</b> · PRE-LAUNCH CONTROL</span>
   <a href="#onepager">The One-Pager</a>
+  <a href="#demos">Demo Segmentation</a>
   <a href="#formula">Bid Model</a><a href="#calendar">T-6 → T-1</a><a href="#budgets">Budgets</a>
   <a href="#inventory">Native &amp; Sponsorship</a><a href="#roster">Creator Roster</a>
   <a href="#agents">Agents</a><a href="#crisis">War Room</a><a href="#cfo">CFO Lens</a>
@@ -494,20 +514,39 @@ footer b{color:var(--muted)}
           <li><b>Flight:</b> 6 weeks, back-loaded to launch</li>
         </ul>
 
-        <div class="op-kicker">Audience &amp; Positioning</div>
-        <div class="op-aud">
-          <div class="op-aud-row"><div class="op-num">1</div><p><b>Alt-asset / DeFi-native investors</b> — yield-seekers fluent in stablecoins &amp; fractional ownership. Highest intent, lowest education cost.</p></div>
-          <div class="op-aud-row"><div class="op-num">2</div><p><b>Culture &amp; creator-economy believers</b> — fans who want to own the upside of culture they love. IPX's emotional hook.</p></div>
-          <div class="op-aud-row"><div class="op-num">3</div><p><b>Accredited investors seeking alt yield</b> — smaller, higher-value; retargeting- and search-led.</p></div>
-        </div>
-        <div class="op-posit"><b>Message A/B:</b> "Own the culture you believe in" (emotional) vs. "Royalties, minus the gatekeepers" (rational). In a new category, the winning <b>message</b> outweighs the winning channel.</div>
+        <div class="op-kicker">Audience Segmentation — Demo × Platform</div>
+        <p class="op-lead" style="margin-bottom:8px">Platform choice <b>is</b> the demographic decision. Each segment is defined by age and investable capital first, then bought where that cohort already lives — in the format and at the hour it pays attention.</p>
+        <table class="op-seg">
+          <thead><tr><th>Segment &amp; Demo</th><th>Where</th><th>What / When</th><th>Budget</th></tr></thead>
+          <tbody>
+            <tr class="meta">
+              <td class="seg"><b>Established Investors</b><small>45–65+ · HHI $150K+ · existing brokerage accounts</small></td>
+              <td class="plat">Meta<small>FB &amp; IG feed</small></td>
+              <td>60–90s explainer + carousel; mechanics over hype.<small>Weekdays 7–10pm, Sun AM</small></td>
+              <td class="bud"><b>$12,375</b><small>45%</small></td>
+            </tr>
+            <tr>
+              <td class="seg"><b>Culture &amp; Creator Believers</b><small>25–40 · urban · music/film fandom</small></td>
+              <td class="plat">TikTok + Reels<small>Spark Ads</small></td>
+              <td>Creator-led short-form; emotional hook first.<small>Daily 8pm–12am</small></td>
+              <td class="bud"><b>$9,625</b><small>35%</small></td>
+            </tr>
+            <tr>
+              <td class="seg"><b>DeFi / Alt-Asset Natives</b><small>25–44 · skews male · crypto-holding</small></td>
+              <td class="plat">X + TikTok finance<small>thread placements</small></td>
+              <td>Royalty yield math, fractional mechanics.<small>Market hours; 8–11pm</small></td>
+              <td class="bud"><b>$5,500</b><small>20%</small></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="op-posit"><b>Meta carries the largest share because the oldest segment carries the most capital</b> — it is the only platform with scaled, targetable reach above 45, the cohort with real investable assets and the highest average deposit. <b>Where</b> buys the demographic, <b>when</b> buys the attention, <b>what</b> meets each cohort at its own level of literacy.</div>
 
         <div class="op-kicker">Channel Allocation</div>
         <table class="op-table">
           <tr><th>Channel</th><th>Role</th><th style="width:66px">Share</th><th style="text-align:right">Budget</th></tr>
           <tr>
-            <td class="op-ch"><b>Paid Social</b><small>Meta · TikTok · X</small></td>
-            <td>Category education at scale</td>
+            <td class="op-ch"><b>Paid Social</b><small>Meta 45% · TikTok/IG 35% · X 20%</small></td>
+            <td>Category education, split by demo</td>
             <td><div class="op-bar"><i style="width:100%;background:#6C5CE7"></i></div>55%</td>
             <td class="op-amt">$27,500</td>
           </tr>
@@ -525,7 +564,7 @@ footer b{color:var(--muted)}
           </tr>
         </table>
 
-        <p class="op-lead" style="margin-top:10px">Paid social carries the majority because a brand-new asset category has to be <b>taught before it can be sold</b> — the cheapest scaled reach for that education job. Search is capped at 25% deliberately: pre-launch search volume for this category is largely a function of the awareness we're creating ourselves, so over-funding it just inflates CPCs against a ceiling that doesn't exist yet. The influencer line is smallest in dollars and highest in leverage — it buys something media spend alone cannot: <b>third-party trust</b> for a first-time investor on an unproven, regulated platform.</p>
+        <p class="op-lead" style="margin-top:10px">Paid social carries the majority because a brand-new asset category has to be <b>taught before it can be sold</b>, and it is the only line that can be cut precisely by demographic. Search is capped at 25% deliberately: pre-launch search volume for this category is largely a function of the awareness we're creating ourselves, so over-funding it just inflates CPCs against a ceiling that doesn't exist yet. The influencer line is smallest in dollars and highest in leverage — it buys something media spend alone cannot: <b>third-party trust</b> for a first-time investor on an unproven, regulated platform.</p>
 
         <div class="op-kicker" style="margin-top:16px">The Influencer Partnership — 1 Partner</div>
         <p class="op-lead"><b>Humphrey Yang</b> <span style="color:#6B6D80">(@humphreytalks · 3.4M TikTok)</span> — screened against Milan Singh, Tori Dunlap, Vivian Tu, and Rick Beato, and selected as the largest genuinely <i>explanatory</i> finance creator in the category: built on teaching mechanics rather than hype, which is the register a securities platform needs from its one paid voice, with a clean compliance history. Deal: 3 videos + <b>Spark Ads whitelisting rights</b>, so the paid-social budget amplifies his content directly instead of competing with it for the same attention. Unique tracking link for clean attribution.</p>
@@ -582,9 +621,87 @@ footer b{color:var(--muted)}
     budgets modeled below, sized for a focused three-channel proof of concept rather than a full go-to-market flight.</p>
 </section>
 
+<!-- ================= DEMO SEGMENTATION ================= -->
+<section id="demos" class="reveal">
+  <div class="k" data-n="01">Demographic Segmentation · The Market Research</div>
+  <h2>Platform choice <i>is</i> the targeting decision.</h2>
+  <p class="lede">A single blended "investor" audience would have hidden the most important fact about this launch:
+    <b>the people with the most capital and the people with the most category affinity are not the same people.</b>
+    So the social budget is cut by demographic first and channel second — each segment bought where that cohort
+    already lives, in the format and at the hour it actually pays attention.</p>
+
+  <div class="grid3">
+    <div class="card">
+      <h3>Established Investors <span class="tag">45–65+</span></h3>
+      <p class="mut">HHI $150K+ · existing brokerage accounts · homeowners</p>
+      <ul class="dash">
+        <li><b>Where — Meta.</b> Facebook's audience aged with the platform. It is the only social environment offering scaled, reliably targetable reach above 45.</li>
+        <li><b>What.</b> 60–90s explainer video plus static carousel. Mechanics and credibility before story; no performance language.</li>
+        <li><b>When.</b> Weekdays 7–10pm, Sunday mornings.</li>
+        <li><b>Why it takes the biggest share.</b> Fewest leads, highest cost per lead — and the largest deposits. An order book is built from deposit size.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Culture &amp; Creator Believers <span class="tag">25–40</span></h3>
+      <p class="mut">Urban · music and film fandom · first-time or light investors</p>
+      <ul class="dash">
+        <li><b>Where — TikTok + IG Reels.</b> Native to the creator economy and already fluent in the idea of backing an artist.</li>
+        <li><b>What.</b> Creator-led short-form via Spark Ads whitelisting. The emotional hook leads; mechanics follow.</li>
+        <li><b>When.</b> Daily 8pm–12am, plus the weekday lunch window.</li>
+        <li><b>Why.</b> Cheapest reach and the highest share rate — this is where volume and cultural credibility come from.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>DeFi / Alt-Asset Natives <span class="tag">25–44</span></h3>
+      <p class="mut">Skews male · crypto-holding · yield-seeking</p>
+      <ul class="dash">
+        <li><b>Where — X + TikTok finance.</b> Where fractional-ownership conversation already happens unprompted.</li>
+        <li><b>What.</b> Royalty yield math and mechanics. This segment needs no education, only proof.</li>
+        <li><b>When.</b> Market hours 9:30am–4pm ET, and 8–11pm.</li>
+        <li><b>Why smallest.</b> Fastest to a Grade A lead, but the smallest addressable pool — it saturates first.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>The split, and what each segment is expected to return</h3>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Segment</th><th>Platform</th><th class="num">Budget</th><th class="num">Share of social</th><th class="num">Expected share of leads</th><th class="num">Expected share of indicated capital</th></tr></thead>
+        <tbody>
+          <tr><td><b>Established Investors</b></td><td>Meta</td><td class="num">$12,375</td><td class="num">45%</td><td class="num">~25%</td><td class="num">~55%</td></tr>
+          <tr><td><b>Culture &amp; Creator Believers</b></td><td>TikTok + Reels</td><td class="num">$9,625</td><td class="num">35%</td><td class="num">~50%</td><td class="num">~20%</td></tr>
+          <tr><td><b>DeFi / Alt-Asset Natives</b></td><td>X + TikTok finance</td><td class="num">$5,500</td><td class="num">20%</td><td class="num">~25%</td><td class="num">~25%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mut" style="margin-top:12px">The two right-hand columns are the whole argument. The youngest segment produces roughly half the leads and a fifth of the capital; the oldest produces a quarter of the leads and more than half the capital. Optimizing this campaign on lead volume alone would quietly defund the segment that actually fills the order book — which is exactly what the grade ladder below prevents.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card">
+      <h3>How these segments were identified</h3>
+      <ul class="dash">
+        <li><b>Platform age skew.</b> Facebook indexes oldest and is uniquely targetable above 45; TikTok and Reels index hardest 18–34; X concentrates finance and crypto conversation in the 25–44 band.</li>
+        <li><b>Asset ownership by age.</b> Brokerage ownership and average balance both climb steeply with age — fewer leads, larger deposits.</li>
+        <li><b>Category literacy.</b> Fractional ownership needs no explanation for a crypto-native 30-year-old and a great deal for a 55-year-old with a brokerage account. That gap sets the creative, not just the targeting.</li>
+      </ul>
+      <p class="mut" style="margin-top:10px">These are directional platform patterns used to set the opening split. First-party cohort data from weeks T-6 and T-5 replaces them.</p>
+    </div>
+    <div class="card">
+      <h3>Why where, when and what decide the outcome</h3>
+      <ul class="dash">
+        <li><b>Where buys the demographic.</b> There is no meaningful way to buy 55-year-olds at scale except by buying Facebook. Platform selection <i>is</i> the targeting lever, so the platform split and the demo split have to be the same decision.</li>
+        <li><b>When buys the attention.</b> Each cohort has a different window — the 45+ buyer in the evening and Sunday morning, the 25–40 buyer late at night, the trader during market hours. Same creative, wrong hour, is wasted budget.</li>
+        <li><b>What meets them at their literacy.</b> A 55-year-old needs the mechanics before the story. A 28-year-old needs the story before the mechanics. Running one creative across both underperforms on both.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- ================= FORMULA ================= -->
 <section id="formula" class="reveal">
-  <div class="k" data-n="01">The Bid Model</div>
+  <div class="k" data-n="02">The Bid Model</div>
   <h2>There is no CPA before there is a product. So we bid on probability.</h2>
   <p class="lede">Every pre-launch campaign that fails does so the same way: it optimizes to <b>cheap leads</b> and
     discovers on launch day that it bought an email list, not an order book. The fix is to stop treating a lead as one
@@ -657,7 +774,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= CALENDAR ================= -->
 <section id="calendar" class="reveal">
-  <div class="k" data-n="02">The Countdown Calendar · T-6 → T-1</div>
+  <div class="k" data-n="03">The Countdown Calendar · T-6 → T-1</div>
   <h2>Aug 7 → Sep 17 · Build the audience, then squeeze it.</h2>
   <p class="lede">Budget shown from the <b>Base $400K scenario</b>. Spend is deliberately <b>back-loaded</b> — and that's
     not instinct, it's the decay math: a lead captured at T-6 converts at roughly <b>0.78×</b> the rate of one captured
@@ -671,7 +788,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= BUDGETS ================= -->
 <section id="budgets" class="reveal">
-  <div class="k" data-n="03">Three Budgets · Zero-Based, Not Inherited</div>
+  <div class="k" data-n="04">Three Budgets · Zero-Based, Not Inherited</div>
   <h2>Every dollar defends itself against a bid cap.</h2>
   <p class="lede">These are <b>zero-based</b> allocations — nothing is funded because it was funded last time. Each
     channel earns budget only if its modeled cost per Grade-A/B lead clears the bid-model ladder. Note how the mix
@@ -704,7 +821,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= INVENTORY ================= -->
 <section id="inventory" class="reveal">
-  <div class="k" data-n="04">Native, Sponsorship &amp; Cross-Promotion</div>
+  <div class="k" data-n="05">Native, Sponsorship &amp; Cross-Promotion</div>
   <h2>Auction media rents attention. This buys belief — and some of it is free.</h2>
   <p class="lede">Pre-launch has a structural problem: <b>you cannot run performance advertising to a product that
     doesn't exist</b>. There's no purchase event, no ROAS, no in-market intent to harvest at scale. Which is exactly why
@@ -750,7 +867,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= ROSTER ================= -->
 <section id="roster" class="reveal">
-  <div class="k" data-n="05">The Named Roster · Who We Actually Buy</div>
+  <div class="k" data-n="06">The Named Roster · Who We Actually Buy</div>
   <h2>Named partners, scored — and the ones we deliberately don't call.</h2>
   <p class="lede">A tier structure isn't a plan until it has names against it. Each creator is scored on audience
     overlap, engagement authenticity, view velocity, compliance history, whitelisting rights, and CPM efficiency.
@@ -905,7 +1022,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= AGENTS ================= -->
 <section id="agents" class="reveal">
-  <div class="k" data-n="06">The Agent Layer · MCP + LLM Automation</div>
+  <div class="k" data-n="07">The Agent Layer · MCP + LLM Automation</div>
   <h2>A media team of six that never sleeps.</h2>
   <p class="lede">Each agent is an MCP-connected LLM service with a narrow job, a numeric trigger, and a human approval
     gate on anything touching money. Modeled impact: <b>−18% blended CPQL and ~34 analyst-hours/week</b> returned to
@@ -922,7 +1039,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= CRISIS ================= -->
 <section id="crisis" class="reveal">
-  <div class="k" data-n="07">The War Room · Three Pre-Launch Failure Modes</div>
+  <div class="k" data-n="08">The War Room · Three Pre-Launch Failure Modes</div>
   <h2>Plans are tested by the weeks that go wrong.</h2>
   <p class="lede">Three failure modes rehearsed in advance, each with a tripwire, a decision tree and a re-entry
     condition — because the difference between a bad week and a failed launch is <b>how much of the response was
@@ -1011,7 +1128,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= CFO ================= -->
 <section id="cfo" class="reveal">
-  <div class="k" data-n="08">CFO Lens · The Variables That Move Pre-Launch Math</div>
+  <div class="k" data-n="09">CFO Lens · The Variables That Move Pre-Launch Math</div>
   <h2>The spreadsheet lives inside a market.</h2>
   <p class="lede">Six variables priced into this plan — including the ones that don't look like marketing problems
     until they've already cost you the launch.</p>
