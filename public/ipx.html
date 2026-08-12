@@ -155,6 +155,7 @@ h1 .g{background:var(--grad);
 .op-kpi .t{font-size:9px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#8B8DA0;padding-top:8px}
 .op-kpi .metric{color:#1B1D27;font-weight:600}
 .op-kpi .tgt{text-align:right;color:#3B3D4D;font-weight:700;white-space:nowrap;font-family:var(--mono)}
+.op-kpi .bm{text-align:right;color:#8B8DA0;white-space:nowrap;font-size:10.5px;font-family:var(--mono)}
 .op-note{background:#FBF3DC;border-left:2px solid #B87A0E;padding:8px 10px;border-radius:0 8px 8px 0;
   font-size:11px;color:#3B3D4D;margin-top:12px;line-height:1.45}
 .op-note b{color:#1B1D27}
@@ -361,6 +362,24 @@ td b{color:var(--ink)}
 .rask b{color:var(--gold);font-family:var(--mono);font-size:11.5px;letter-spacing:1px;
   text-transform:uppercase;margin-right:6px}
 
+/* ---- measurement: diagnostic ladder + phase gates ---- */
+.rungs{display:flex;flex-direction:column;gap:9px;margin-top:6px}
+.rung{display:grid;grid-template-columns:1fr 1.3fr;gap:14px;align-items:start;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:12px 15px}
+@media(max-width:820px){.rung{grid-template-columns:1fr;gap:6px}}
+.rung .sym{font-size:13.5px;color:var(--ink);font-weight:700}
+.rung .sym small{display:block;color:var(--muted);font-weight:400;font-size:12px;margin-top:2px}
+.rung .fix{font-size:13.5px;color:var(--ink2)}
+.rung .fix b{color:var(--gold)}
+.gates{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.gate{border-left:3px solid var(--teal-bright);background:rgba(45,212,167,.06);
+  border-radius:0 12px 12px 0;padding:13px 16px}
+.gate .g{font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--teal-bright);display:block;margin-bottom:4px}
+.gate p{font-size:13.5px;color:var(--ink2)}
+.gate p b{color:var(--ink)}
+.gate.stop{border-left-color:var(--red);background:rgba(244,63,94,.07)}
+.gate.stop .g{color:var(--red)}
 .dq{border:1px solid rgba(241,96,99,.35);border-radius:14px;background:rgba(241,96,99,.05);padding:20px}
 .dq h3{color:var(--red)}
 .dq ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:10px}
@@ -458,6 +477,7 @@ footer b{color:var(--muted)}
   <span class="mark">IP<b>X</b> · PRE-LAUNCH CONTROL</span>
   <a href="#onepager">The One-Pager</a>
   <a href="#demos">Demo Segmentation</a>
+  <a href="#measure">Measurement</a>
   <a href="#formula">Bid Model</a><a href="#calendar">T-6 → T-1</a><a href="#budgets">Budgets</a>
   <a href="#inventory">Native &amp; Sponsorship</a><a href="#roster">Creator Roster</a>
   <a href="#agents">Agents</a><a href="#crisis">War Room</a><a href="#cfo">CFO Lens</a>
@@ -469,12 +489,14 @@ footer b{color:var(--muted)}
     <div class="pills">
       <span class="pill">Tokenize · Advertise · Monetize · Distribute</span>
       <span class="pill">Founding Membership · Open Now</span>
-      <span class="pill">$50K · 6-Week Flight</span>
+      <span class="pill">$5,000 · 6-Week Test Flight</span>
     </div>
     <h1>You don't launch an exchange.<br>You open it with <span class="g">an order book already full.</span></h1>
     <p class="sub">A marketplace that opens with no bids is dead on arrival — liquidity <i>is</i> the product. So these
       six weeks don't buy customers, because there's nothing to buy yet. They buy a <b>book of committed capital that
-      converts in the first 72 hours of trading</b>, priced and paced like any other capital-raising process.</p>
+      converts in the first 72 hours of trading</b>, priced and paced like any other capital-raising process.
+      The brief on the table is a <b>$5,000 test</b> — so the first job is proving the economics clear their bid cap
+      before anyone funds the rest.</p>
     <div class="byline">Prepared by <b>Mary Kate Parrish</b> · Senior Digital Media Strategy · Pre-Launch Flight v2 · Aug 7 – Sep 17, 2026</div>
     <div class="count" id="countdown" aria-live="polite">
       <div class="cd"><div class="n" id="cd-d">–</div><div class="l">Days</div></div>
@@ -502,20 +524,19 @@ footer b{color:var(--muted)}
 
 <!-- ================= ONE-PAGER ================= -->
 <section id="onepager" class="reveal onepager-wrap">
-  <div class="k" data-n="00">The Assignment · One-Page Digital Media Plan</div>
-  <h2>Paid social, search, one influencer partnership — the literal deliverable.</h2>
-  <p class="lede">Everything else on this page is the operating system I would build to run IPX's launch. This
-    section is the specific one-pager that was asked for: <b>digital only</b> — three channels, a realistic
-    early-stage budget, channel allocation, KPIs, and the reasoning behind each call — distilled from the best
-    findings in the research below.</p>
-
+  <div class="k" data-n="00">The Assignment · $5,000 Test Flight</div>
+  <h2>Five thousand dollars doesn't buy a launch. It buys <i>an answer.</i></h2>
+  <p class="lede">The brief is a $5,000 six-week budget, the KPIs, the benchmarks I would hold them against, and how
+    I would measure and adjust. At roughly <b>$119 a day</b> the honest constraint is that this cannot fund a
+    campaign in the usual sense — so it is built as an experiment with a pass mark, and the finding is the
+    deliverable. Everything below is the operating system that a proven result would unlock.</p>
 
   <div class="dlbar">
     <div class="dt">
-      <b>The one-page plan, as a PDF</b>
-      Paid social + search + one influencer partnership — the deliverable on its own, print-ready.
+      <b>The plan, as a two-page PDF</b>
+      Page one is the budget and KPIs. Page two is the measurement and decision framework.
     </div>
-    <a href="/downloads/IPX-Digital-Media-Plan-MK-Parrish.pdf" download>↓ Download the one-pager (PDF)</a>
+    <a href="/downloads/IPX-Digital-Media-Plan-MK-Parrish.pdf" download>↓ Download the plan (PDF)</a>
   </div>
 
   <div class="onepager-card">
@@ -523,14 +544,14 @@ footer b{color:var(--muted)}
       <div class="op-brand">
         <div class="op-logo">IP<span>X</span></div>
         <div>
-          <h3>IPX Awareness Campaign — Digital Media Plan</h3>
-          <div class="op-sub">Pre-launch awareness · paid social + search + influencer</div>
+          <h3>IPX Awareness Campaign — $5,000 Test Flight</h3>
+          <div class="op-sub">Paid social + search + one creator · 6 weeks · pre-launch demand test</div>
         </div>
       </div>
       <div class="op-byline">
         Prepared by <b>Mary Kate Parrish</b><br>Digital Marketing Strategist
         <div class="op-badges">
-          <span class="op-badge">$50K BUDGET</span>
+          <span class="op-badge">$5,000 BUDGET</span>
           <span class="op-badge alt">6-WEEK FLIGHT</span>
         </div>
       </div>
@@ -538,122 +559,84 @@ footer b{color:var(--muted)}
 
     <div class="op-body">
       <div>
-        <div class="op-kicker">Objective &amp; Assumptions</div>
-        <p class="op-lead"><b>Build category awareness and a qualified reservation pipeline</b> ahead of the Sep 18
-          market open — awareness paired with a leading indicator (verified interest), not impressions for their
-          own sake.</p>
-        <ul class="op-facts">
-          <li><b>Audience:</b> Investor / believer segment</li>
-          <li><b>Market:</b> US only (SEC-compliant)</li>
-          <li><b>Budget:</b> $50,000 working media</li>
-          <li><b>Flight:</b> 6 weeks, back-loaded to launch</li>
-        </ul>
+        <div class="op-kicker">What $5,000 Actually Buys</div>
+        <p class="op-lead">Spread across three platforms, none would ever exit the learning phase. So the budget is
+          deliberately concentrated, and its job is different: <b>answer whether this message converts this audience
+          at a price the business can afford.</b> The media is the experiment; the finding is the product.</p>
 
-        <div class="op-kicker">Audience Segmentation — Demo × Platform</div>
-        <p class="op-lead" style="margin-bottom:8px">Platform choice <b>is</b> the demographic decision. Each segment is defined by age and investable capital first, then bought where that cohort already lives — in the format and at the hour it pays attention.</p>
-        <table class="op-seg">
-          <thead><tr><th>Segment &amp; Demo</th><th>Where</th><th>What / When</th><th>Budget</th></tr></thead>
-          <tbody>
-            <tr class="meta">
-              <td class="seg"><b>Established Investors</b><small>45–65+ · HHI $150K+ · existing brokerage accounts</small></td>
-              <td class="plat">Meta<small>FB &amp; IG feed</small></td>
-              <td>60–90s explainer + carousel; mechanics over hype.<small>Weekdays 7–10pm, Sun AM</small></td>
-              <td class="bud"><b>$12,375</b><small>45%</small></td>
-            </tr>
-            <tr>
-              <td class="seg"><b>Culture &amp; Creator Believers</b><small>25–40 · urban · music/film fandom</small></td>
-              <td class="plat">TikTok + Reels<small>Spark Ads</small></td>
-              <td>Creator-led short-form; emotional hook first.<small>Daily 8pm–12am</small></td>
-              <td class="bud"><b>$9,625</b><small>35%</small></td>
-            </tr>
-            <tr>
-              <td class="seg"><b>DeFi / Alt-Asset Natives</b><small>25–44 · skews male · crypto-holding</small></td>
-              <td class="plat">X + TikTok finance<small>thread placements</small></td>
-              <td>Royalty yield math, fractional mechanics.<small>Market hours; 8–11pm</small></td>
-              <td class="bud"><b>$5,500</b><small>20%</small></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="op-posit"><b>Meta carries the largest share because the oldest segment carries the most capital</b> — it is the only platform with scaled, targetable reach above 45, the cohort with real investable assets and the highest average deposit. <b>Where</b> buys the demographic, <b>when</b> buys the attention, <b>what</b> meets each cohort at its own level of literacy.</div>
-
-        <div class="op-kicker">Channel Allocation</div>
+        <div class="op-kicker">Where The $5,000 Goes</div>
         <table class="op-table">
-          <tr><th>Channel</th><th>Role</th><th style="width:66px">Share</th><th style="text-align:right">Budget</th></tr>
+          <tr><th>Channel</th><th>Role</th><th style="text-align:right">Budget</th></tr>
           <tr>
-            <td class="op-ch"><b>Paid Social</b><small>Meta 45% · TikTok/IG 35% · X 20%</small></td>
-            <td>Category education, split by demo</td>
-            <td><div class="op-bar"><i style="width:100%;background:#F97316"></i></div>55%</td>
-            <td class="op-amt">$27,500</td>
+            <td class="op-ch"><b>Meta — FB &amp; IG</b><small>45–65+ primary</small></td>
+            <td>The only platform reaching the highest-capital segment at scale</td>
+            <td class="op-amt">$2,900<br><small style="color:#6B6D80">58%</small></td>
           </tr>
           <tr>
-            <td class="op-ch"><b>Search</b><small>Google · Bing</small></td>
-            <td>Capture existing intent + brand defense</td>
-            <td><div class="op-bar"><i style="width:46%;background:#1F9678"></i></div>25%</td>
-            <td class="op-amt">$12,500</td>
+            <td class="op-ch"><b>Google Search</b><small>brand + 6–8 terms</small></td>
+            <td>Catches demand the social spend creates</td>
+            <td class="op-amt">$1,100<br><small style="color:#6B6D80">22%</small></td>
           </tr>
           <tr>
-            <td class="op-ch"><b>Influencer</b><small>1 partner + whitelisting</small></td>
-            <td>Trust transfer for a new category</td>
-            <td><div class="op-bar"><i style="width:36%;background:#B87A0E"></i></div>20%</td>
-            <td class="op-amt">$10,000</td>
+            <td class="op-ch"><b>One micro-creator</b><small>usage rights</small></td>
+            <td>Bought as a creative asset, not as reach</td>
+            <td class="op-amt">$600<br><small style="color:#6B6D80">12%</small></td>
+          </tr>
+          <tr>
+            <td class="op-ch"><b>Held reserve</b><small>week-3 gate</small></td>
+            <td>Released only to a proven winner — never pre-committed</td>
+            <td class="op-amt">$400<br><small style="color:#6B6D80">8%</small></td>
           </tr>
         </table>
 
-        <p class="op-lead" style="margin-top:10px">Paid social carries the majority because a brand-new asset category has to be <b>taught before it can be sold</b>, and it is the only line that can be cut precisely by demographic. Search is capped at 25% deliberately: pre-launch search volume for this category is largely a function of the awareness we're creating ourselves, so over-funding it just inflates CPCs against a ceiling that doesn't exist yet. The influencer line is smallest in dollars and highest in leverage — it buys something media spend alone cannot: <b>third-party trust</b> for a first-time investor on an unproven, regulated platform.</p>
-
-        <div class="op-kicker" style="margin-top:16px">The Influencer Partnership — 1 Partner</div>
-        <p class="op-lead"><b>Humphrey Yang</b> <span style="color:#6B6D80">(@humphreytalks · 3.4M TikTok)</span> — screened against Milan Singh, Tori Dunlap, Vivian Tu, and Rick Beato, and selected as the largest genuinely <i>explanatory</i> finance creator in the category: built on teaching mechanics rather than hype, which is the register a securities platform needs from its one paid voice, with a clean compliance history. Deal: 3 videos + <b>Spark Ads whitelisting rights</b>, so the paid-social budget amplifies his content directly instead of competing with it for the same attention. Unique tracking link for clean attribution.</p>
+        <div class="op-note" style="margin-top:12px"><b>Why no TikTok.</b> A third platform would split about
+          $40/day three ways. Algorithms need roughly 50 conversions per week per ad set to leave the learning
+          phase; at that spend none would, and I would pay full price for unoptimised delivery three times over.
+          <b>Concentration is not a preference here — it is the only way the budget works.</b></div>
       </div>
 
       <div>
         <div class="op-north">
           <div class="lab">North-Star Metric</div>
-          <div class="val">$22–28 <small>/ qualified lead</small></div>
+          <div class="val">≤ $58 <small>/ qualified lead</small></div>
         </div>
-        <div class="op-kicker">KPIs &amp; Targets</div>
+        <p class="op-lead" style="font-size:11.5px;margin-bottom:12px">Not a round number — it is the modelled maximum
+          bid for a reservation-grade lead ($80.60 target CAC × 72% probability of funding). Above it, the budget is
+          buying leads the business cannot profitably serve.</p>
+
+        <div class="op-kicker">KPIs, Targets &amp; Benchmarks</div>
         <table class="op-kpi">
-          <tr><td class="t" colspan="2">Awareness</td></tr>
-          <tr><td class="metric">Impressions / Reach</td><td class="tgt">~3.2–4M / 1.3–1.6M</td></tr>
-          <tr><td class="metric">CPM (social)</td><td class="tgt">$9–15</td></tr>
-          <tr><td class="t" colspan="2">Engagement</td></tr>
-          <tr><td class="metric">Click-through rate</td><td class="tgt">0.9–1.5%</td></tr>
-          <tr><td class="metric">Cost / landing-page view</td><td class="tgt">$1.75–$3.00</td></tr>
-          <tr><td class="t" colspan="2">Qualified Interest</td></tr>
-          <tr><td class="metric">Qualified leads (verified, not just captured)</td><td class="tgt">1,400–1,800</td></tr>
-          <tr><td class="metric">Cost / qualified lead</td><td class="tgt">$22–28</td></tr>
-          <tr><td class="metric">Est. Founding Member reservations</td><td class="tgt">300–450</td></tr>
+          <tr><td class="t" colspan="3">Awareness</td></tr>
+          <tr><td class="metric">Impressions</td><td class="tgt">160–290K</td><td class="bm">—</td></tr>
+          <tr><td class="metric">CPM (Meta, 45+)</td><td class="tgt">$12–18</td><td class="bm">$9–20</td></tr>
+          <tr><td class="t" colspan="3">Engagement</td></tr>
+          <tr><td class="metric">Link CTR</td><td class="tgt">0.8–1.5%</td><td class="bm">0.5–1.2%</td></tr>
+          <tr><td class="metric">Cost / landing-page view</td><td class="tgt">$1.75–3.00</td><td class="bm">$2–4</td></tr>
+          <tr><td class="metric">LP → email conversion</td><td class="tgt">8–12%</td><td class="bm">5–10%</td></tr>
+          <tr><td class="t" colspan="3">Qualified Interest</td></tr>
+          <tr><td class="metric">Email → verified</td><td class="tgt">30–40%</td><td class="bm">20–35%</td></tr>
+          <tr><td class="metric">Qualified leads</td><td class="tgt">60–90</td><td class="bm">—</td></tr>
+          <tr class="hero"><td class="metric">Cost / qualified lead</td><td class="tgt">$55–85</td><td class="bm">cap $58</td></tr>
+          <tr><td class="metric">Founding Member reservations</td><td class="tgt">12–20</td><td class="bm">—</td></tr>
         </table>
-        <div class="op-kicker" style="margin-top:16px">Measurement &amp; Optimization</div>
-        <ul class="op-tick">
-          <li><b>Attribution:</b> strict UTM taxonomy, GA4 + server-side / CAPI tracking against browser signal loss.</li>
-          <li><b>Lead grading:</b> verified interest (KYC started or deposit intent) is tracked as a distinct event from a bare email capture — budget is judged on qualified pipeline, not raw volume.</li>
-          <li><b>Cadence:</b> weekly optimization; reallocate toward whichever channel is producing the cheapest qualified lead, not the cheapest click.</li>
-        </ul>
-        <div class="op-warn">
-          <div class="op-kicker" style="color:#B87A0E">Compliance Is a Media Input</div>
-          <ul>
-            <li><b>Ad-platform gating:</b> Meta, Google &amp; TikTok pre-certify securities/financial advertisers — clear in week one or the flight slips.</li>
-            <li><b>Influencer = paid testimonial for a security</b> — stricter than a standard #ad; legal-approved claims &amp; disclosures required.</li>
-            <li><b>No performance promises</b> in creative — lead with access &amp; ownership, never returns.</li>
-          </ul>
-        </div>
+
+        <div class="op-note" style="margin-top:12px"><b>On the record:</b> the expected cost-per-qualified-lead range
+          straddles the $58 cap. That is the honest read at this budget, and it is precisely the question worth
+          spending $5,000 to answer.</div>
       </div>
 
       <div class="op-foot">
-        <div class="q">Weight <b>paid social</b> because a new asset category must be taught before it can be sold;
-          use <b>search</b> to harvest the intent that already exists; and spend the smallest line on the
-          <b>one creator</b> who can vouch for IPX's legitimacy — trust, not reach, turns a first-time visitor into
-          a Founding Member.</div>
-        <div class="op-stamp">IPX · CONFIDENTIAL<br>Media Plan v1 · 2026</div>
+        <div class="q">At $50K I would be buying a pipeline. At <b>$5K I am buying a decision</b> — whether this
+          audience, on this message, produces reservation-grade interest below its bid cap. A clean no is worth the
+          budget; an expensive maybe is not.</div>
+        <div class="op-stamp">IPX · CONFIDENTIAL<br>Test Flight v1 · 2026</div>
       </div>
     </div>
   </div>
 
-  <p class="mut" style="margin-top:14px">Reasoning provenance: audience segmentation and positioning pulled from the
-    original strategy brief; the influencer choice and its logic from the screened creator roster below; the
-    qualified-lead framing from the bid model's grade ladder, simplified here to a single blended target appropriate
-    for a one-page brief. $50K reflects a realistic early-stage test budget — a fraction of the six-week operating
-    budgets modeled below, sized for a focused three-channel proof of concept rather than a full go-to-market flight.</p>
+  <p class="mut" style="margin-top:14px">Provenance: the $58 cap comes from the bid model below, not from a
+    benchmark table. Segment definitions come from the demographic research that follows. The budget split is the
+    result of one constraint applied honestly — at $119/day, concentration beats coverage every time.</p>
 </section>
 
 <!-- ================= DEMO SEGMENTATION ================= -->
@@ -699,18 +682,24 @@ footer b{color:var(--muted)}
   </div>
 
   <div class="card" style="margin-top:16px">
-    <h3>The split, and what each segment is expected to return</h3>
+    <h3>Why the $5,000 goes to one segment, not three</h3>
     <div class="tbl-scroll">
       <table>
-        <thead><tr><th>Segment</th><th>Platform</th><th class="num">Budget</th><th class="num">Share of social</th><th class="num">Expected share of leads</th><th class="num">Expected share of indicated capital</th></tr></thead>
+        <thead><tr><th>Segment</th><th>Platform</th><th class="num">Expected share of leads</th><th class="num">Expected share of capital</th><th class="num">At $5,000</th></tr></thead>
         <tbody>
-          <tr><td><b>Established Investors</b></td><td>Meta</td><td class="num">$12,375</td><td class="num">45%</td><td class="num">~25%</td><td class="num">~55%</td></tr>
-          <tr><td><b>Culture &amp; Creator Believers</b></td><td>TikTok + Reels</td><td class="num">$9,625</td><td class="num">35%</td><td class="num">~50%</td><td class="num">~20%</td></tr>
-          <tr><td><b>DeFi / Alt-Asset Natives</b></td><td>X + TikTok finance</td><td class="num">$5,500</td><td class="num">20%</td><td class="num">~25%</td><td class="num">~25%</td></tr>
+          <tr><td><b>Established Investors</b><br><span class="mut" style="font-size:12px">45–65+</span></td><td>Meta</td><td class="num">~25%</td><td class="num">~55%</td><td class="num" style="color:var(--gold)"><b>$2,900 — tested</b></td></tr>
+          <tr><td><b>Culture &amp; Creator Believers</b><br><span class="mut" style="font-size:12px">25–40</span></td><td>TikTok + Reels</td><td class="num">~50%</td><td class="num">~20%</td><td class="num">deferred to scale</td></tr>
+          <tr><td><b>DeFi / Alt-Asset Natives</b><br><span class="mut" style="font-size:12px">25–44</span></td><td>X + TikTok finance</td><td class="num">~25%</td><td class="num">~25%</td><td class="num">deferred to scale</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="mut" style="margin-top:12px">The two right-hand columns are the whole argument. The youngest segment produces roughly half the leads and a fifth of the capital; the oldest produces a quarter of the leads and more than half the capital. Optimizing this campaign on lead volume alone would quietly defund the segment that actually fills the order book — which is exactly what the grade ladder below prevents.</p>
+    <p class="mut" style="margin-top:12px">The two middle columns are the whole argument, and they are proportions
+      rather than dollars, so they hold at any budget. The youngest segment produces roughly half the leads and a
+      fifth of the capital; the oldest produces a quarter of the leads and more than half the capital.
+      <b style="color:var(--ink)">At $50,000 I would buy all three and let the mix tell me which to lean into. At
+      $5,000 that choice has to be made in advance — so the money goes to the segment carrying the most capital per
+      lead, because it is the only one that can clear a $58 bid cap.</b> The other two are not rejected; they are
+      what a successful test unlocks.</p>
   </div>
 
   <div class="grid2" style="margin-top:16px">
@@ -734,9 +723,93 @@ footer b{color:var(--muted)}
   </div>
 </section>
 
+<!-- ================= MEASUREMENT ================= -->
+<section id="measure" class="reveal">
+  <div class="k" data-n="02">Measurement &amp; Decision Framework</div>
+  <h2>Thresholds set in advance are judgement. Set afterwards, they're <i>justification.</i></h2>
+  <p class="lede">Every rule below is written down before a dollar moves. That is the point: at $119 a day there is
+    no room to argue with the data later, so the pass marks, the kill rules and the stop rule are all committed up
+    front — including the one that ends the campaign early.</p>
+
+  <div class="card">
+    <h3>Diagnose before fixing — the failure is usually not where people look</h3>
+    <p class="mut" style="margin-bottom:4px">Most underperforming campaigns get "fixed" at the wrong layer: new
+      audiences bolted on when the creative was the problem. I work the funnel top-down and change
+      <b style="color:var(--ink)">one layer at a time</b>, because fixing two things at once means learning nothing
+      from either.</p>
+    <div class="rungs">
+      <div class="rung">
+        <div class="sym">CTR below 0.7%<small>Nobody is stopping the scroll</small></div>
+        <div class="fix"><b>Creative, not targeting.</b> The message is failing to earn attention. Swap executions before touching the audience — the audience is not the thing that failed.</div>
+      </div>
+      <div class="rung">
+        <div class="sym">CTR fine, cost per landing-page view above $4<small>They click, they don't land</small></div>
+        <div class="fix"><b>Page speed or a promise mismatch.</b> The ad is writing a cheque the landing page isn't cashing. Fix the page, not the buy.</div>
+      </div>
+      <div class="rung">
+        <div class="sym">Landing views fine, email conversion below 6%<small>They read, they don't sign up</small></div>
+        <div class="fix"><b>The offer.</b> What we are asking for is worth less to them than what we are asking them to give.</div>
+      </div>
+      <div class="rung">
+        <div class="sym">Emails fine, verified rate below 25%<small>They sign up, they don't verify</small></div>
+        <div class="fix"><b>Audience quality.</b> We bought curiosity, not intent. Narrow the targeting and move the optimisation event deeper.</div>
+      </div>
+      <div class="rung">
+        <div class="sym">Every stage healthy, CPQL above $58<small>It works, it just costs too much</small></div>
+        <div class="fix"><b>Economics, not execution.</b> Nothing tactical fixes this one. Escalate the finding rather than spend the remainder proving it twice.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card">
+      <h3>Three gates, three real decisions</h3>
+      <div class="gates">
+        <div class="gate">
+          <span class="g">Gate 1 · end of week 2 · $1,500 spent</span>
+          <p><b>Is anyone engaging?</b> Pass: CTR ≥0.8% and cost per landing-page view ≤$3. If it fails I rebuild
+            creative rather than add budget — spending more against a message that isn't landing just buys the same
+            failure at scale.</p>
+        </div>
+        <div class="gate">
+          <span class="g">Gate 2 · end of week 4 · $3,300 spent</span>
+          <p><b>Does engagement become verified intent?</b> Pass: CPQL ≤$70 and falling. If it fails I cut to the
+            single best-performing segment and switch entirely to retargeting, accepting lower volume to protect
+            cost per lead.</p>
+        </div>
+        <div class="gate stop">
+          <span class="g">Gate 3 · week 5 · the stop rule</span>
+          <p><b>Can this clear its bid cap?</b> If CPQL is still above $58 with no downward trend, my recommendation
+            is to stop and return the remaining spend rather than finish the flight. Knowing at $3,300 that the
+            model doesn't work is worth more than a completed report that says the same thing at $5,000.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Rules set before the money moves</h3>
+      <ul class="dash">
+        <li><b>Pause any ad</b> under 0.5% CTR after 1,000 impressions, or above $4 per landing-page view after $150 spend.</li>
+        <li><b>Winners are chosen on cost per qualified lead</b> — never cost per click or per email. The cheapest lead is usually the least valuable one, and at this budget one wrong optimisation target burns the whole test.</li>
+        <li><b>Reallocate no more than 20% per week</b>, once weekly. Larger or more frequent shifts reset the algorithm's learning and cost more than they save.</li>
+        <li><b>No structural change inside 72 hours</b> unless spend is running away. At $119/day, daily numbers are noise — acting on them is the most common way small budgets get wasted.</li>
+      </ul>
+      <h3 style="margin-top:16px">What success actually means</h3>
+      <ul class="dash">
+        <li><b>Did it produce qualified leads?</b> 60–90 against target.</li>
+        <li><b>At a price the business can afford?</b> CPQL against the $58 cap — the only pass/fail number.</li>
+        <li><b>Did it de-risk the next budget?</b> A winning message, a winning segment and a real baseline. <b>At $5K this is the most valuable output</b>, because it is what makes a larger ask defensible rather than speculative.</li>
+      </ul>
+      <p class="prov" style="margin-top:14px">A campaign returning 60 leads at $54 with a proven message is a
+        success. One returning 200 leads at $95 is a failure with good-looking topline numbers — and I would report
+        it as one.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ================= FORMULA ================= -->
 <section id="formula" class="reveal">
-  <div class="k" data-n="02">The Bid Model</div>
+  <div class="k" data-n="03">The Bid Model</div>
   <h2>There is no CPA before there is a product. So we bid on probability.</h2>
   <p class="lede">Every pre-launch campaign that fails does so the same way: it optimizes to <b>cheap leads</b> and
     discovers on launch day that it bought an email list, not an order book. The fix is to stop treating a lead as one
@@ -809,7 +882,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= CALENDAR ================= -->
 <section id="calendar" class="reveal">
-  <div class="k" data-n="03">The Countdown Calendar · T-6 → T-1</div>
+  <div class="k" data-n="04">The Countdown Calendar · T-6 → T-1</div>
   <h2>Aug 7 → Sep 17 · Build the audience, then squeeze it.</h2>
   <p class="lede">Budget shown from the <b>Base $400K scenario</b>. Spend is deliberately <b>back-loaded</b> — and that's
     not instinct, it's the decay math: a lead captured at T-6 converts at roughly <b>0.78×</b> the rate of one captured
@@ -823,7 +896,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= BUDGETS ================= -->
 <section id="budgets" class="reveal">
-  <div class="k" data-n="04">Three Budgets · Zero-Based, Not Inherited</div>
+  <div class="k" data-n="05">Three Budgets · Zero-Based, Not Inherited</div>
   <h2>Every dollar defends itself against a bid cap.</h2>
   <p class="lede">These are <b>zero-based</b> allocations — nothing is funded because it was funded last time. Each
     channel earns budget only if its modeled cost per Grade-A/B lead clears the bid-model ladder. Note how the mix
@@ -856,7 +929,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= INVENTORY ================= -->
 <section id="inventory" class="reveal">
-  <div class="k" data-n="05">Native, Sponsorship &amp; Cross-Promotion</div>
+  <div class="k" data-n="06">Native, Sponsorship &amp; Cross-Promotion</div>
   <h2>Auction media rents attention. This buys belief — and some of it is free.</h2>
   <p class="lede">Pre-launch has a structural problem: <b>you cannot run performance advertising to a product that
     doesn't exist</b>. There's no purchase event, no ROAS, no in-market intent to harvest at scale. Which is exactly why
@@ -902,7 +975,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= ROSTER ================= -->
 <section id="roster" class="reveal">
-  <div class="k" data-n="06">The Named Roster · Who We Actually Buy</div>
+  <div class="k" data-n="07">The Named Roster · Who We Actually Buy</div>
   <h2>Named partners, scored — and the ones we deliberately don't call.</h2>
   <p class="lede">A tier structure isn't a plan until it has names against it. Each creator is scored on audience
     overlap, engagement authenticity, view velocity, compliance history, whitelisting rights, and CPM efficiency.
@@ -1057,7 +1130,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= AGENTS ================= -->
 <section id="agents" class="reveal">
-  <div class="k" data-n="07">The Agent Layer · MCP + LLM Automation</div>
+  <div class="k" data-n="08">The Agent Layer · MCP + LLM Automation</div>
   <h2>A media team of six that never sleeps.</h2>
   <p class="lede">Each agent is an MCP-connected LLM service with a narrow job, a numeric trigger, and a human approval
     gate on anything touching money. Modeled impact: <b>−18% blended CPQL and ~34 analyst-hours/week</b> returned to
@@ -1074,7 +1147,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= CRISIS ================= -->
 <section id="crisis" class="reveal">
-  <div class="k" data-n="08">The War Room · Three Pre-Launch Failure Modes</div>
+  <div class="k" data-n="09">The War Room · Three Pre-Launch Failure Modes</div>
   <h2>Plans are tested by the weeks that go wrong.</h2>
   <p class="lede">Three failure modes rehearsed in advance, each with a tripwire, a decision tree and a re-entry
     condition — because the difference between a bad week and a failed launch is <b>how much of the response was
@@ -1163,7 +1236,7 @@ footer b{color:var(--muted)}
 
 <!-- ================= CFO ================= -->
 <section id="cfo" class="reveal">
-  <div class="k" data-n="09">CFO Lens · The Variables That Move Pre-Launch Math</div>
+  <div class="k" data-n="10">CFO Lens · The Variables That Move Pre-Launch Math</div>
   <h2>The spreadsheet lives inside a market.</h2>
   <p class="lede">Six variables priced into this plan — including the ones that don't look like marketing problems
     until they've already cost you the launch.</p>
