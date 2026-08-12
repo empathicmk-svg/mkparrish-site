@@ -5,17 +5,16 @@ export const STRIPE_NEW_CHAPTER = "https://buy.stripe.com/00w28j2Smfahfmx36Q0oM0
 export const STRIPE_BYLINE      = "https://buy.stripe.com/fZu00b9gKbY5eitfTC0oM03";
 export const STRIPE_BUILD       = "https://buy.stripe.com/9B6cMX64ygel4HTazi0oM0f"; // The Build — $6,000 one-time
 export const STRIPE_SESSION     = "https://buy.stripe.com/eVqaEPfF86DLa2dcHq0oM0g"; // The Session — $300 one-time
-export const STRIPE_AUDIT       = "/book"; // async positioning audit — link to checkout when ready
+export const STRIPE_AUDIT       = "https://buy.stripe.com/9B64gA2nL51KamMaX38AE0e"; // The 48-Hour Positioning Audit — $97 (intake collected at checkout)
 
 // ── Growth / Revenue Systems ─────────────────────────────────────────────────
 export const STRIPE_OUTBOUND        = "https://buy.stripe.com/28E7sD0Ked295LX22M0oM0e"; // The Outbound Engine — $2,500/mo
-export const STRIPE_CONTENT_ENGINE  = "/book"; // (legacy) link to checkout when ready
+export const STRIPE_CONTENT_ENGINE  = STRIPE_BYLINE; // LinkedIn Content Engine now routes to The Byline checkout
 export const STRIPE_INBOUND_SYSTEM  = "https://buy.stripe.com/eVq5kvdx01jr1vHazi0oM0d"; // Full-Funnel Growth — $6,500/mo
-export const STRIPE_REVENUE_SYSTEMS = "/book"; // Fractional Growth Lead (custom)
+export const STRIPE_REVENUE_SYSTEMS = STRIPE_INBOUND_SYSTEM; // Legacy alias; custom growth work books a call
 
 // ── Production & Media (The Studio) ──────────────────────────────────────────
-// Replace with Stripe links when ready
-export const STRIPE_SITE     = "/book"; // (legacy) The Site — merged into The Build
+export const STRIPE_SITE     = STRIPE_BUILD; // The Site merged into The Build
 export const STRIPE_HOSTING  = "https://buy.stripe.com/9B614fgJc0fn5LXcHq0oM0j"; // The Upkeep — $300/mo
 export const STRIPE_SOCIAL   = "https://buy.stripe.com/5kQ28j3Wqd29cal0YI0oM0k"; // The Social Suite — $2,000/mo
 export const STRIPE_YOUTUBE  = "https://buy.stripe.com/9B6fZ9gJc2nveit36Q0oM0l"; // The Channel — $1,500/video
@@ -34,10 +33,14 @@ export const CALENDLY_URL       = "https://www.calendly.com/mkparrish";
 
 // ── Site ─────────────────────────────────────────────────────────────────────
 export const SITE_URL           = "https://www.mkparrish.com";
+export const BOOK_CALL_URL      = "/book";
+
+// ── Amazon author page (books on Kindle + paperback) ─────────────────────────
+export const AMAZON_AUTHOR_URL  = "https://www.amazon.com/author/mkparrish";
 
 // ── Products not yet live ────────────────────────────────────────────────────
 // Add a slug here to show "Coming Soon" instead of the buy button.
-export const COMING_SOON_SLUGS = new Set<string>();
+export const COMING_SOON_SLUGS = new Set<string>([]);
 
 // ── Contact ──────────────────────────────────────────────────────────────────
 export const CONTACT = {
@@ -49,24 +52,371 @@ export const CONTACT = {
 // ── Social links ─────────────────────────────────────────────────────────────
 // Rendered as petal-pink chips with black text in the footer.
 export const SOCIALS = [
-  { label: "Instagram", handle: "@mkeezieee", href: "https://www.instagram.com/mkeezieee" },
+  { label: "Instagram", handle: "@mk_parrish", href: "https://www.instagram.com/mk_parrish" },
   { label: "Substack",  handle: "The Margins", href: SUBSTACK_URL },
   { label: "LinkedIn",  handle: "/in/mkparrish", href: "https://www.linkedin.com/in/mkparrish" },
+  { label: "Amazon",    handle: "Author Page", href: AMAZON_AUTHOR_URL },
 ];
 
 // ── All ebooks / digital products (used by shop page) ────────────────────────
 export const EBOOKS = [
   {
+    slug:      "the-bio-teardown",
+    title:     "The Bio Teardown",
+    subtitle:  "5 LinkedIn headlines, rewritten — and the one formula behind every fix.",
+    price:     "Free",
+    tag:       "Free · Start Here",
+    highlight: true,
+    free:      true,
+    download:  "/downloads/lead-magnets/the-bio-teardown.pdf",
+    href:      "/shop/the-bio-teardown",
+    features:  [
+      "5 real before/after headline rewrites",
+      "The WHO → OUTCOME → EDGE formula",
+      "A quick win you can copy in 5 minutes",
+      "Instant free download — no payment",
+    ],
+    desc: "The free front door to the Shelf. Five LinkedIn headlines torn down and rewritten, plus the single formula behind every fix — then the 15-minute path to fixing your whole profile.",
+  },
+  {
+    slug:      "the-sentence-that-sells",
+    title:     "The Sentence That Sells",
+    subtitle:  "A small book for making the offer obvious before you touch the funnel.",
+    price:     "Free",
+    tag:       "Free · Mini Book",
+    highlight: false,
+    free:      true,
+    download:  "/downloads/ebooks/the-sentence-that-sells.pdf",
+    href:      "/download/the-sentence-that-sells",
+    features:  [
+      "The four jobs of a selling sentence",
+      "A translation test for unclear offers",
+      "A rewrite drill for sharper positioning",
+      "Instant PDF + EPUB download",
+    ],
+    desc: "A practical mini-book for turning a vague offer into one clean sentence: who it is for, what changes, why now, and why this way.",
+  },
+  {
+    slug:      "evidence-not-vibes",
+    title:     "Evidence, Not Vibes",
+    subtitle:  "Turn proof into trust without sounding like a case study robot.",
+    price:     "Free",
+    tag:       "Free · Mini Book",
+    highlight: false,
+    free:      true,
+    download:  "/downloads/ebooks/evidence-not-vibes.pdf",
+    href:      "/download/evidence-not-vibes",
+    features:  [
+      "Five proof types every offer needs",
+      "A proof-bank system for client work",
+      "Ways to place proof where buyer fear appears",
+      "Instant PDF + EPUB download",
+    ],
+    desc: "A field guide for replacing vague credibility with evidence buyers can inspect: outcomes, process, taste, proximity, and public proof.",
+  },
+  {
+    slug:      "the-quiet-launch",
+    title:     "The Quiet Launch",
+    subtitle:  "Sell without turning your audience into a countdown timer.",
+    price:     "Free",
+    tag:       "Free · Mini Book",
+    highlight: false,
+    free:      true,
+    download:  "/downloads/ebooks/the-quiet-launch.pdf",
+    href:      "/download/the-quiet-launch",
+    features:  [
+      "The three assets every quiet launch needs",
+      "A seven-day launch sequence",
+      "Simple ways to make the first buyer safer",
+      "Instant PDF + EPUB download",
+    ],
+    desc: "A short, practical launch book for selling a useful offer with clarity, repetition, and taste instead of manufactured urgency.",
+  },
+  {
+    slug:      "rebecoming",
+    title:     "REBECOMING: From Fear to Faith",
+    subtitle:  "A memoir about losing your fear without losing yourself.",
+    price:     "$39",
+    tag:       "The Memoir",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/rebecoming.pdf",
+    stripe:    "https://buy.stripe.com/cNi4gAbYl65OamM6GN8AE0s",
+    href:      "https://buy.stripe.com/cNi4gAbYl65OamM6GN8AE0s",
+    // Paperback via Lulu print-on-demand (sold direct, you keep the margin).
+    // href is the Lulu storefront product URL — added once the title is uploaded.
+    paperback: { price: "$39", href: "https://buy.stripe.com/4gMdRageBcuceD25CJ8AE0l" },
+    features:  [
+      "A present-tense memoir in thirteen chapters",
+      "Woven through with Scripture, the saints, and the Blessed Mother",
+      "On fear, faith, prayer, and rebecoming yourself",
+      "Complete PDF + Kindle-ready EPUB",
+    ],
+    desc: "MK Parrish's flagship memoir, now expanded to thirteen present-tense chapters and woven through with Scripture, the saints, and the Blessed Mother. A vivid story about fear, faith, prayer, friendship, and the eleven minutes it took to walk through a door she was sure was not for her, and about becoming the latest model of the person she always was.",
+  },
+  {
+    slug:      "still-here-still-hers",
+    title:     "Still Here, Still Hers",
+    subtitle:  "Essays on losing yourself, surviving the in-between, and learning to belong to your own life.",
+    price:     "$29",
+    tag:       "The In-Between",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/still-here-still-hers.pdf",
+    stripe:    "https://buy.stripe.com/14A8wQ5zXfGo8eE6GN8AE0C",
+    href:      "https://buy.stripe.com/14A8wQ5zXfGo8eE6GN8AE0C",
+    paperback: { price: "$44", href: "https://buy.stripe.com/fZufZi4vTcucamM6GN8AE0D" },
+    features:  [
+      "Intimate personal essays from the in-between",
+      "On grief, heartbreak, father loss, body shame, and rebuilding",
+      "Complete PDF + Kindle-ready EPUB",
+      "Cover PDF/JPG included for KDP upload prep",
+    ],
+    desc: "For the woman who is not healed yet, but is tired of abandoning herself while she waits. A raw essay collection about surviving the in-between and still belonging to your own life.",
+  },
+  {
+    slug:      "street-smarts",
+    title:     "Street Smarts",
+    subtitle:  "What my father taught me in 1,109 texts.",
+    price:     "$39",
+    tag:       "Memoir",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/street-smarts.pdf",
+    stripe:    "https://buy.stripe.com/3cI00k4vT3XG52s2qx8AE0E",
+    href:      "https://buy.stripe.com/3cI00k4vT3XG52s2qx8AE0E",
+    paperback: { price: "$54", href: "https://buy.stripe.com/bJe28s9QddygdyYe9f8AE0F" },
+    features:  [
+      "A father, a daughter, and an education that came too late",
+      "The 1,109 texts, read back like scripture",
+      "Complete PDF + Kindle-ready EPUB",
+      "Lulu-ready 6 x 9 paperback interior + wrap cover",
+    ],
+    desc: "A raw, luminous memoir about the eleven months that finally gave MK a father after twenty-five years of silence, the texts she now reads like scripture, and the long climb from merely existing back into a life.",
+  },
+  {
+    slug:      "make-my-own-light",
+    title:     "Make My Own Light",
+    subtitle:  "Poems from the dark, and the turning toward.",
+    price:     "$29",
+    tag:       "Poetry",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/make-my-own-light.pdf",
+    stripe:    "https://buy.stripe.com/cNieVee6t3XG0Mcc178AE0G",
+    href:      "https://buy.stripe.com/cNieVee6t3XG0Mcc178AE0G",
+    paperback: { price: "$44", href: "https://buy.stripe.com/fZu7sM0fD2TC9iI7KR8AE0H" },
+    features:  [
+      "Confessional poems on grief, fear, faith, and survival",
+      "From free-falling to making your own light",
+      "Complete PDF + Kindle-ready EPUB",
+      "Lulu-ready 6 x 9 paperback interior + wrap cover",
+    ],
+    desc: "A fierce poetry collection from the dark and the turning toward it. Poems on loss, survival, and the decision to stop waiting for someone else to light the way.",
+  },
+  {
+    slug:      "the-meantime",
+    title:     "The Meantime",
+    subtitle:  "A memoir on society's clock, the myth of falling behind, and finding peace while everything falls into place.",
+    price:     "$29",
+    tag:       "Memoir",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-meantime.pdf",
+    href:      "/checkout/the-meantime",
+    paperback: { price: "$44", href: "/checkout/the-meantime?format=paperback" },
+    features:  [
+      "A reflective memoir on feeling behind and finding peace",
+      "Stoicism, Kierkegaard, Nietzsche, Frankl & Rilke woven throughout",
+      "Grounded in the research on the social clock, comparison & impermanence",
+      "Complete PDF + Kindle-ready EPUB, plus Lulu-ready 6 x 9 paperback files",
+    ],
+    desc: "For anyone measuring their life against a clock they never chose to wind. The Meantime takes apart the myth of falling behind — weaving Stoic philosophy and the research on comparison and impermanence into a quiet, strategic case that the season you're in is temporary, already moving, and, in a time that isn't the clock's time, falling into place.",
+  },
+  {
+    slug:      "the-invisible-bruise",
+    title:     "The Invisible Bruise",
+    subtitle:  "Surviving emotional abuse, suffering in silence, and rewriting your life.",
+    price:     "$39",
+    tag:       "Survival & Healing",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/the-invisible-bruise.pdf",
+    stripe:    "https://buy.stripe.com/8x25kE7I5bq8dyYaX38AE0I",
+    href:      "https://buy.stripe.com/8x25kE7I5bq8dyYaX38AE0I",
+    paperback: { price: "$54", href: "https://buy.stripe.com/9B6cN62nL8dWgLad5b8AE0J" },
+    features:  [
+      "Emotional abuse named plainly and compassionately",
+      "Gaslighting, silence, and the theft of your reality",
+      "Complete PDF + Kindle-ready EPUB",
+      "Lulu-ready 6 x 9 paperback interior + wrap cover",
+    ],
+    desc: "A clear-eyed guide for anyone who has survived emotional abuse: naming what happened, understanding why you stayed quiet, and rewriting your life one true line forward.",
+  },
+  {
+    slug:      "decoding-angel-numbers",
+    title:     "Decoding Angel Numbers",
+    subtitle:  "A skeptic's guide to spiritual curiosity.",
+    price:     "$29",
+    tag:       "Spiritual Curiosity",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/decoding-angel-numbers.pdf",
+    stripe:    "https://buy.stripe.com/fZu00k5zX51K2Ukghn8AE0K",
+    href:      "https://buy.stripe.com/fZu00k5zX51K2Ukghn8AE0K",
+    paperback: { price: "$44", href: "https://buy.stripe.com/bJe28s3rP9i00Mcfdj8AE0L" },
+    features:  [
+      "A grounded framework for the patterns you notice",
+      "Discernment without superstition or dismissal",
+      "Complete PDF + Kindle-ready EPUB",
+      "Lulu-ready 6 x 9 paperback interior + wrap cover",
+    ],
+    desc: "A grounded guide for spiritually curious readers who keep noticing patterns and want a better way to pay attention without handing over their common sense.",
+  },
+  {
+    slug:      "the-cosmos-starter-kit",
+    title:     "The Cosmos Starter Kit",
+    subtitle:  "Your free field guide to numerology & astrology — read like a mirror, not a fortune.",
+    price:     "Free",
+    tag:       "Free · Cosmos",
+    highlight: true,
+    free:      true,
+    download:  "/downloads/ebooks/the-cosmos-starter-kit.pdf",
+    href:      "/shop/the-cosmos-starter-kit",
+    features:  [
+      "Calculate and read your life-path number (1–9 + master numbers)",
+      "Your Big Three — sun, moon, and rising — explained simply",
+      "A grounded angel-numbers guide + your personal-year timing",
+      "Free instant download — PDF + EPUB, no payment",
+    ],
+    desc: "The free front door to the Cosmos line. A short, grounded field guide to numerology and astrology — life-path numbers, your Big Three, angel numbers, and personal-year timing — read as a mirror for self-knowledge, not a fortune. No woo, no handing over your common sense.",
+  },
+  {
+    slug:      "the-manifest",
+    title:     "The Manifest",
+    subtitle:  "Manifesting for business, minus the magical thinking.",
+    price:     "$29",
+    tag:       "Manifestation · Flagship",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-manifest.pdf",
+    href:      "/checkout/the-manifest",
+    paperback: { price: "$38", href: "/checkout/the-manifest?format=paperback" },
+    features:  [
+      "Turn intention into a positioning-and-repetition system",
+      "The one sentence your market can repeat + the number you can finally say out loud",
+      "The 30-day Manifest Sprint, plus fill-in Field Notes & worksheets",
+      "50+ pages · Complete PDF, print-ready",
+    ],
+    desc: "The front door to the manifestation line. Manifesting works — because of what it forces you to do, not because the sky keeps score. The Manifest hands you the mechanism underneath the ritual: decide the outcome, describe it so it travels, price for it, repeat past boredom, and receive what shows up. A grounded, founder-first guide to making the wanted thing feel inevitable.",
+  },
+  {
+    slug:      "the-compound",
+    title:     "The Compound",
+    subtitle:  "A guide to micro habits — the smallest change that rebuilds everything.",
+    price:     "$24",
+    tag:       "Habits · Flagship",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-compound.pdf",
+    href:      "/checkout/the-compound",
+    paperback: { price: "$32", href: "/checkout/the-compound?format=paperback" },
+    features:  [
+      "The two-minute rule, habit stacking, and 'never miss twice'",
+      "Design your environment so willpower becomes unnecessary",
+      "The 30-day build + a printable habit tracker",
+      "50+ pages · Complete PDF, print-ready",
+    ],
+    desc: "You don't have a discipline problem — you have a design problem. The Compound is the field guide to ridiculously small, repeated actions that compound into a different life and business: shrink it, anchor it, make it obvious, track it, and never miss twice. Boring-that-works beats exciting-that-quits, every time.",
+  },
+  {
+    slug:      "manifest-the-money",
+    title:     "Manifest the Money",
+    subtitle:  "Manifesting money without the magical thinking — where mindset ends and math begins.",
+    price:     "$24",
+    tag:       "Manifestation · Money",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/manifest-the-money.pdf",
+    href:      "/checkout/manifest-the-money",
+    paperback: { price: "$32", href: "/checkout/manifest-the-money?format=paperback" },
+    features:  [
+      "Find and raise your money ceiling — the number you only whisper",
+      "Price to the value, hold the silence, and stop leaking money at every yes",
+      "The weekly money date, automatic wealth habits, and your 'enough' number",
+      "50+ pages · Complete PDF, print-ready",
+    ],
+    desc: "Money doesn't respond to how badly you want it. It responds to what you'll ask for, what you'll charge, and what you'll do the day after you decide. Half mindset, half math: raise the ceiling so you'll allow the number, then do the specific, unglamorous things that people who have money actually do.",
+  },
+  {
+    slug:      "the-morning-blueprint",
+    title:     "The Morning Blueprint",
+    subtitle:  "Build a morning routine that survives real life — no 5am cold plunge required.",
+    price:     "$18",
+    tag:       "Habits · Routine",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/the-morning-blueprint.pdf",
+    href:      "/checkout/the-morning-blueprint",
+    paperback: { price: "$26", href: "/checkout/the-morning-blueprint?format=paperback" },
+    features:  [
+      "The four blocks (Move, Mind, Plan, Grow) and a phone-free first hour",
+      "Ten-minute, thirty-minute, and 90-second versions for any day",
+      "The evening blueprint, chronotypes, and mornings for parents & shift workers",
+      "50+ pages · Complete PDF, print-ready",
+    ],
+    desc: "You don't need a perfect morning. You need a repeatable one — the version that still happens on the day everything goes wrong. A flexible, evidence-based blueprint for starting the day on purpose instead of on your phone: protect it from the phone, anchor it to what you already do, and let the first hour compound into a different life.",
+  },
+  {
+    slug:      "the-manifestation-vault",
+    title:     "The Manifestation Vault",
+    subtitle:  "All four manifestation & self-mastery books in one bundle — manifesting, money, micro habits, and mornings.",
+    price:     "$67",
+    compareAt: "$95",
+    tag:       "Best Value",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/the-manifestation-vault.zip",
+    href:      "/checkout/the-manifestation-vault",
+    features:  [
+      "The Manifest + Manifest the Money + The Compound + The Morning Blueprint",
+      "Four complete 50+ page guides — the whole manifestation & self-mastery line",
+      "Every book as PDF and Kindle-ready EPUB, in one ZIP",
+      "Buy the bundle for far less than the four books separately",
+    ],
+    desc: "The complete manifestation and self-mastery library in one purchase: The Manifest (manifesting for business), Manifest the Money, The Compound (micro habits), and The Morning Blueprint. Four full-length guides — PDF and EPUB — bundled well below the individual price. The grounded, no-woo companion to the Cosmos line.",
+  },
+  {
+    slug:      "the-linkedin-bio-fix-kit",
+    title:     "The LinkedIn Bio Fix Kit",
+    subtitle:  "Fix the first thing everyone reads about you — in fifteen minutes.",
+    price:     "$9",
+    tag:       "Start Here · $9",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-linkedin-bio-fix-kit.pdf",
+    stripe:    "https://buy.stripe.com/bJe6oI5zXbq852s3uB8AE0f",
+    href:      "https://buy.stripe.com/bJe6oI5zXbq852s3uB8AE0f",
+    features:  [
+      "3 headline formulas + a fill-in About template",
+      "15 swipe-file opening lines you can steal",
+      "The banned-words list + a 15-minute checklist",
+      "Instant download — PDF + EPUB",
+    ],
+    desc: "The fastest fix on the Shelf. Rewrite your LinkedIn headline and About in 15 minutes with copy-paste formulas, templates, and swipe lines. Your $9 front door to everything else.",
+  },
+  {
     slug:      "reinvention-workbook",
     title:     "The Reinvention Workbook",
     subtitle:  "A guided writing workbook for people in the middle of becoming someone new.",
-    price:     "$18",
-    tag:       "Digital Download",
+    price:     "$29",
+    tag:       "Workbook",
     highlight: false,
-    free:      true,
-    limitedFree: true,   // free for a limited time; regular price is `price`
+    free:      false,
     download:  "/downloads/ebooks/reinvention-workbook.pdf",
-    href:      "/downloads/ebooks/reinvention-workbook.pdf",
+    stripe:    "https://buy.stripe.com/14A9AUe6t65O9iIe9f8AE0k",
+    href:      "https://buy.stripe.com/14A9AUe6t65O9iIe9f8AE0k",
+    paperback: { price: "$34", href: "https://buy.stripe.com/8x27sM4vTfGo2Ukc178AE0o" },
     features:  [
       "20 guided writing exercises",
       "The identity audit framework",
@@ -79,13 +429,14 @@ export const EBOOKS = [
     slug:      "write-yourself-into-the-room",
     title:     "Write Yourself Into the Room",
     subtitle:  "The personal brand writing guide for people tired of sounding like everyone else.",
-    price:     "$28",
+    price:     "$39",
     tag:       "Best Seller",
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/write-yourself-into-the-room.pdf",
-    stripe:    "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
-    href:      "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
+    stripe:    "https://buy.stripe.com/14AeVefax3XGdyY5CJ8AE0i",
+    href:      "https://buy.stripe.com/14AeVefax3XGdyY5CJ8AE0i",
+    paperback: { price: "$44", href: "https://buy.stripe.com/6oUaEY3rPcuc66w6GN8AE0m" },
     features:  [
       "The three-layer positioning framework",
       "Bio writing templates + real examples",
@@ -98,13 +449,14 @@ export const EBOOKS = [
     slug:      "brand-voice-playbook",
     title:     "The Brand Voice Playbook",
     subtitle:  "Build a brand voice document from scratch.",
-    price:     "$35",
+    price:     "$45",
     tag:       "Digital Download",
     highlight: false,
     free:      false,
     download:  "/downloads/ebooks/brand-voice-playbook.pdf",
-    stripe:    "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
-    href:      "https://buy.stripe.com/3cI28s4vTbq83Yo5CJ8AE01",
+    stripe:    "https://buy.stripe.com/9B6bJ27I5bq8fH6aX38AE0j",
+    href:      "https://buy.stripe.com/9B6bJ27I5bq8fH6aX38AE0j",
+    paperback: { price: "$49", href: "https://buy.stripe.com/6oU7sM5zXeCkamM3uB8AE0n" },
     features:  [
       "Full brand voice framework",
       "Tone spectrum mapping",
@@ -118,17 +470,20 @@ export const EBOOKS = [
     title:     "The Vault",
     subtitle:  "Every digital product in one bundle — the complete self-study library.",
     price:     "$97",
+    compareAt: "$317",
     tag:       "Best Value",
-    highlight: false,
+    highlight: true,
     free:      false,
+    download:  "/downloads/the-vault.pdf",
     stripe:    "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     href:      "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
     features:  [
-      "All 3 ebooks & guides included",
+      "The complete writing-and-identity library in one purchase",
       "The Brand Voice Playbook + Write Yourself Into the Room",
-      "The Reinvention Workbook — plus any future releases",
+      "The Reinvention Workbook + healing and voice guides",
+      "ZIP bundle + future library releases included",
     ],
-    desc: "The full library. Every framework, every guide, every word. One price.",
+    desc: "The highest-leverage way to buy the Shelf: every writing, voice, identity, and healing framework in one library, bundled below the individual price.",
   },
 ] as const;
 
@@ -143,8 +498,10 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/the-edit-diy.pdf",
+    cover:     "/downloads/covers/the-edit-diy-cover.jpg",
     stripe:    "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
     href:      "https://buy.stripe.com/cNi9AUe6tcuc2Uk6GN8AE03",
+    paperback: { price: "$29", href: "https://buy.stripe.com/00w3cw6E18dW52s8OV8AE0t" },
     features:  [
       "Copy audit checklist for any piece of writing",
       "Word-level edits for brand voice alignment",
@@ -164,6 +521,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/before-the-session.pdf",
     stripe:    "https://buy.stripe.com/cNieVe8M91Py2Uk5CJ8AE04",
     href:      "https://buy.stripe.com/cNieVe8M91Py2Uk5CJ8AE04",
+    paperback: { price: "$26", href: "https://buy.stripe.com/eVq7sM4vT3XG3YoaX38AE0u" },
     features:  [
       "Identity and positioning self-audit",
       "Brand clarity questions (the ones that change how you see yourself)",
@@ -183,6 +541,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/the-rewrite-playbook.pdf",
     stripe:    "https://buy.stripe.com/5kQ4gAbYl79S3Yo7KR8AE05",
     href:      "https://buy.stripe.com/5kQ4gAbYl79S3Yo7KR8AE05",
+    paperback: { price: "$52", href: "https://buy.stripe.com/9B63cw6E1gKseD2d5b8AE0v" },
     features:  [
       "Full story audit framework (career, identity, pivot narrative)",
       "LinkedIn profile optimization — every section covered",
@@ -190,6 +549,25 @@ export const SERVICE_EBOOKS = [
       "Positioning statement builder from scratch",
     ],
     desc: "The Rewrite service — packaged as a self-guided process. For the executive, founder, or career-changer who is ready to do the work.",
+  },
+  {
+    slug:      "the-redesign-playbook",
+    title:     "The Redesign Playbook",
+    subtitle:  "The self-guided system for rebuilding a slow, dated, or off-brand website — done yourself.",
+    price:     "$45",
+    tag:       "Website Redesign",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/templates/the-redesign-playbook.pdf",
+    href:      "/checkout/the-redesign-playbook",
+    paperback: { price: "$52", href: "/checkout/the-redesign-playbook?format=paperback" },
+    features:  [
+      "The four-part site audit: performance, clarity, mobile & conversion",
+      "Message-first rebuild framework + page-by-page architecture",
+      "Mobile-first, speed, and design-that-converts principles",
+      "A full rebuild & launch checklist, plus Lulu-ready 6 x 9 paperback files",
+    ],
+    desc: "The DIY companion to The Build and the founding-client redesign offer. Audit a website that's slow, dated, or no longer sounds like your business, then rebuild it in the right order — message first, structure second, design third, speed last — with the exact framework and checklists behind MK Parrish's website work.",
   },
   {
     slug:      "the-new-chapter-workbook",
@@ -202,6 +580,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/the-new-chapter-workbook.pdf",
     stripe:    "https://buy.stripe.com/9B69AUe6tfGobqQ2qx8AE06",
     href:      "https://buy.stripe.com/9B69AUe6tfGobqQ2qx8AE06",
+    paperback: { price: "$42", href: "https://buy.stripe.com/fZu28s2nLbq81Qgd5b8AE0w" },
     features:  [
       "Brand audit + positioning map",
       "Website copy architecture (page by page)",
@@ -221,6 +600,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/the-byline-method.pdf",
     stripe:    "https://buy.stripe.com/cNibJ2aUh8dWamMd5b8AE07",
     href:      "https://buy.stripe.com/cNibJ2aUh8dWamMd5b8AE07",
+    paperback: { price: "$45", href: "https://buy.stripe.com/4gMaEY2nLdyg7aAe9f8AE0x" },
     features:  [
       "Voice capture interview questions (used with every ghostwriting client)",
       "Tone calibration guide across formats",
@@ -240,6 +620,7 @@ export const SERVICE_EBOOKS = [
     download:  "/downloads/templates/the-build-copy-guide.pdf",
     stripe:    "https://buy.stripe.com/5kQ9AU8M9gKseD2aX38AE08",
     href:      "https://buy.stripe.com/5kQ9AU8M9gKseD2aX38AE08",
+    paperback: { price: "$52", href: "https://buy.stripe.com/aFaaEY6E179SfH64yF8AE0y" },
     features:  [
       "Page-by-page copy architecture (home, about, services, contact)",
       "SEO-informed headline and subheadline frameworks",
@@ -257,8 +638,9 @@ export const SERVICE_EBOOKS = [
     highlight: false,
     free:      false,
     download:  "/downloads/templates/the-social-strategy-playbook.pdf",
-    stripe:    "https://buy.stripe.com/8x26oz9gKd294HTcHq0oM0m",
-    href:      "https://buy.stripe.com/8x26oz9gKd294HTcHq0oM0m",
+    stripe:    "https://buy.stripe.com/eVq7sM7I53XG66wfdj8AE0B",
+    href:      "https://buy.stripe.com/eVq7sM7I53XG66wfdj8AE0B",
+    paperback: { price: "$45", href: "https://buy.stripe.com/4gM7sMaUh3XGeD24yF8AE0z" },
     features:  [
       "Content pillar framework (what to say + why it builds authority)",
       "Brand voice calibration for social — Instagram, LinkedIn, TikTok",
@@ -268,24 +650,502 @@ export const SERVICE_EBOOKS = [
     desc: "For founders and thought leaders who know they need to show up online — and finally have a repeatable system for it. The exact content strategy framework behind The Social Suite, documented for self-study.",
   },
   {
-    slug:      "the-services-vault",
-    title:     "The Services Vault",
-    subtitle:  "All seven service companion guides — the complete DIY consulting library.",
-    price:     "$127",
-    tag:       "Best Value",
+    slug:      "the-brand-deal-room",
+    title:     "The Brand Deal Room",
+    subtitle:  "Media kit, rate card, pitch scripts, and a partnership tracker for creators ready to get paid.",
+    price:     "$47",
+    tag:       "Creator Monetization",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/templates/the-brand-deal-room.pdf",
+    href:      "/checkout/the-brand-deal-room",
+    features:  [
+      "One-page media kit structure + copy blocks",
+      "Rate card logic for posts, UGC, usage, and bundles",
+      "Warm pitch, follow-up, and inbound reply scripts",
+      "Partnership tracker for moving brands from maybe to invoice",
+    ],
+    desc: "A practical brand-deal operating room for creators who need to look ready before the next partnership email lands: media kit, rates, scripts, usage questions, and a tracker.",
+  },
+  {
+    slug:      "the-ugc-brief-bank",
+    title:     "The UGC Brief Bank",
+    subtitle:  "Paid content concepts, scripts, and deliverable menus for creator work brands can actually use.",
+    price:     "$38",
+    tag:       "UGC & Scripts",
     highlight: false,
     free:      false,
-    stripe:    "https://buy.stripe.com/aFa14ogeBam452s0ip8AE09",
-    href:      "https://buy.stripe.com/aFa14ogeBam452s0ip8AE09",
+    download:  "/downloads/templates/the-ugc-brief-bank.pdf",
+    href:      "/checkout/the-ugc-brief-bank",
     features:  [
-      "All 7 service guides included (every method, every framework)",
-      "The Edit + Before the Session + The Rewrite Playbook",
-      "The New Chapter + The Byline Method + The Build Copy Guide + The Social Strategy Playbook",
-      "Future service guide releases included",
+      "Five commercial UGC brief types",
+      "Starter, conversion, and launch-bank package menus",
+      "Demo, objection, comparison, and lifestyle script templates",
+      "Brand intake questions before you quote",
     ],
-    desc: "Every consulting framework documented and packaged for self-study. For the woman who is ready to do the full work — on her own timeline.",
+    desc: "For creators who can make content but need the paid-content spine around it. Turn raw creative into packaged UGC offers, scripts, and monthly retainers.",
+  },
+  {
+    slug:      "the-tiktok-shop-sprint",
+    title:     "The TikTok Shop Sprint",
+    subtitle:  "A 14-day affiliate content plan for creator commerce without torching audience trust.",
+    price:     "$44",
+    tag:       "Affiliate Sprint",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/templates/the-tiktok-shop-sprint.pdf",
+    href:      "/checkout/the-tiktok-shop-sprint",
+    features:  [
+      "Product fit scoring before you promote anything",
+      "Seven content angles for every affiliate product",
+      "14-day posting, testing, and review sprint",
+      "Tracker for clicks, sales, comments, and keep-or-cut decisions",
+    ],
+    desc: "A fast creator-commerce sprint for testing affiliate products with taste: choose better products, make repeated useful content, track what moves, and protect trust.",
+  },
+  {
+    slug:      "the-repurposing-engine",
+    title:     "The Repurposing Engine",
+    subtitle:  "Turn one strong idea into 30 platform-native posts without making content soup.",
+    price:     "$42",
+    tag:       "Repurposing",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-repurposing-engine.pdf",
+    href:      "/checkout/the-repurposing-engine",
+    features:  [
+      "Core idea test for tension, usefulness, repeatability, and revenue",
+      "30-piece repurposing map across video, carousel, LinkedIn, stories, and email",
+      "Platform translation rules for each format",
+      "Revenue bridge so attention points to an offer",
+    ],
+    desc: "A repurposing system for creators who need more output from fewer strong ideas. Same spine, different doorway, clearer path to revenue.",
+  },
+  {
+    slug:      "the-ai-content-twin",
+    title:     "The AI Content Twin",
+    subtitle:  "Prompts and guardrails so AI drafts in your voice instead of the average of the internet.",
+    price:     "$34",
+    tag:       "AI & Voice",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-ai-content-twin.pdf",
+    href:      "/checkout/the-ai-content-twin",
+    features:  [
+      "Voice snapshot prompt built from your own samples",
+      "Point-of-view prompt before drafting",
+      "De-slop edit prompt for killing generic AI tells",
+      "Platform variant prompt for TikTok, LinkedIn, Instagram, stories, and email",
+    ],
+    desc: "The creator-safe AI prompt workbook: voice capture, point-of-view sharpening, draft variants, and guardrails so speed does not erase the person.",
+  },
+  {
+    slug:      "the-creator-owned-funnel",
+    title:     "The Creator-Owned Funnel",
+    subtitle:  "Turn followers into email, low-ticket offers, paid community, and buyer behavior.",
+    price:     "$39",
+    tag:       "Owned Audience",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/templates/the-creator-owned-funnel.pdf",
+    href:      "/checkout/the-creator-owned-funnel",
+    features:  [
+      "Five-part funnel map from discovery to recurring revenue",
+      "Lead magnet test tied to paid next steps",
+      "Three-email welcome sequence",
+      "Low-ticket ladder and social CTAs that do not feel desperate",
+    ],
+    desc: "For creators with attention but no system behind it. Build the bridge from social posts to email, offers, paid community, and recurring revenue.",
+  },
+  {
+    slug:      "the-authority-carousel-kit",
+    title:     "The Authority Carousel Kit",
+    subtitle:  "Turn one idea into a scroll-stopping LinkedIn carousel — without the Canva chaos.",
+    price:     "$48",
+    tag:       "LinkedIn & Carousels",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-authority-carousel-kit.zip",
+    stripe:    "https://buy.stripe.com/5kQcN63rPdyg52s2qx8AE0g",
+    href:      "https://buy.stripe.com/5kQcN63rPdyg52s2qx8AE0g",
+    features:  [
+      "Editable JSON carousel templates — teardown, steps & story formats",
+      "The full PDF guide: house style, the 7-slide story, voice rules & the formula",
+      "Copy-paste AI prompts to draft a carousel in your voice",
+      "One command turns your words into LinkedIn-ready slides + a multi-page PDF",
+    ],
+    desc: "The carousel system behind the MK Parrish brand, packaged so you can run it yourself. Write your words into a template, run one command, and get on-brand LinkedIn slides — no designer, no Canva, no subscription. The DIY version of The Social Suite.",
+  },
+  {
+    slug:      "the-prompt-vault",
+    title:     "The Prompt Vault",
+    subtitle:  "The AI prompt library for brand, copy & positioning — so the machine sounds like you, not everyone else.",
+    price:     "$34",
+    tag:       "AI & Prompts",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/templates/the-prompt-vault.pdf",
+    stripe:    "https://buy.stripe.com/bJe3cw1jH65OgLa7KR8AE0d",
+    href:      "https://buy.stripe.com/bJe3cw1jH65OgLa7KR8AE0d",
+    paperback: { price: "$41", href: "https://buy.stripe.com/fZu7sMfax3XG7aAghn8AE0A" },
+    features:  [
+      "40+ copy-paste prompts mapped to all 7 service methods",
+      "The voice-capture prompt that makes AI sound like you",
+      "Edit + de-slop prompts that kill the dead giveaways of AI",
+      "Instant download — PDF + EPUB, 35 pages",
+    ],
+    desc: "Stop shipping the average of the internet. 40+ prompts for positioning, bios, website copy, content, and email — engineered so AI drafts in your voice. The AI companion to the Services Vault.",
+  },
+  {
+    slug:      "the-services-vault",
+    title:     "The Services Vault",
+    subtitle:  "All fourteen service and creator-monetization guides — the complete DIY consulting + AI library.",
+    price:     "$127",
+    compareAt: "$567",
+    tag:       "Best Value",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/the-services-vault.pdf",
+    stripe:    "https://buy.stripe.com/aFa14ogeBam452s0ip8AE09",
+    href:      "/checkout/the-services-vault",
+    features:  [
+      "All 14 guides included (every method, every framework, every prompt)",
+      "The Edit + Before the Session + The Rewrite Playbook + The New Chapter",
+      "The Byline Method + The Build Copy Guide + The Social Strategy Playbook + The Prompt Vault",
+      "Brand deals, UGC, TikTok Shop, repurposing, AI voice, and creator-owned funnel guides",
+    ],
+    desc: "The fastest monetization buy on the Shelf: every consulting method plus the new creator revenue stack. Buy one bundle, get the full library for far less than buying each guide one by one.",
+  },
+  {
+    slug:      "her-story-rewritten",
+    title:     "Her Story, Rewritten",
+    subtitle:  "Eight women of the Bible, the moment everything turned, and what their stories are still saying to yours.",
+    price:     "$24",
+    tag:       "Faith · The Flagship",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/her-story-rewritten.pdf",
+    href:      "/checkout/her-story-rewritten",
+    paperback: { price: "$32", href: "/checkout/her-story-rewritten?format=paperback" },
+    features:  [
+      "Eve, Hagar, Hannah, Ruth, Esther & three more — told like stories, not sermons",
+      "For women of any age, any stage of faith — no Bible knowledge required",
+      "Each chapter turns on the same thing: being seen, and rewritten",
+      "Complete PDF + Kindle EPUB, plus Lulu-ready 6 x 9 paperback files",
+    ],
+    desc: "The new front door to the faith line, and a book you can hand any woman in your life. Eight women of the Bible — Eve, Hagar, Hannah, Ruth, Esther, the woman at the well, Mary Magdalene, and Martha — told as real, unsentimental stories about being seen at the bottom of the page and having everything rewritten from there. Scripture for the woman who suspects her own story isn't finished.",
+  },
+  {
+    slug:      "her-story-rewritten-volume-two",
+    title:     "Her Story, Rewritten: Volume Two",
+    subtitle:  "Eight more women of the Bible, the moment everything turned, and what their courage is still saying to yours.",
+    price:     "$24",
+    tag:       "Faith · The Series",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/her-story-rewritten-volume-two.pdf",
+    href:      "/checkout/her-story-rewritten-volume-two",
+    paperback: { price: "$32", href: "/checkout/her-story-rewritten-volume-two?format=paperback" },
+    features:  [
+      "Deborah, Rahab, Abigail, Mary, Lydia, Priscilla & more — women who acted",
+      "The companion to Her Story, Rewritten — if Volume One was being found, this is what you do next",
+      "For women of any age, any stage of faith — no Bible knowledge required",
+      "Complete PDF + Kindle EPUB, plus Lulu-ready 6 x 9 paperback files",
+    ],
+    desc: "The second volume of the faith flagship — eight more women of the Bible, this time the ones who acted: Deborah who led without permission, Rahab who bet on mercy, Abigail who walked into the storm, Mary who said yes to the impossible, Lydia who threw open her doors, Priscilla who taught the teacher, the woman who reached through the crowd, and Naomi who survived the empty season. If Volume One was about being seen, Volume Two is about what you do once you have been.",
+  },
+  {
+    slug:      "the-study",
+    title:     "The Study",
+    subtitle:  "A modern guide to building a Bible study practice that actually sticks — on your own terms.",
+    price:     "$18",
+    tag:       "Faith · Start Here",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/the-study.pdf",
+    href:      "/checkout/the-study",
+    paperback: { price: "$26", href: "/checkout/the-study?format=paperback" },
+    features:  [
+      "A simple, repeatable study rhythm you'll actually keep",
+      "How to read for formation, not just information",
+      "Note-taking and reflection systems that compound",
+      "Instant download — PDF + Kindle EPUB",
+    ],
+    desc: "The front door to the faith line. A grounded, unfussy method for building a Bible study practice that sticks — on your own terms, at your own pace, without guilt or performance.",
+  },
+  {
+    slug:      "the-sermon-notes",
+    title:     "The Sermon Notes",
+    subtitle:  "Turn your personal Bible study into content your audience wants — and that you can charge for.",
+    price:     "$25",
+    tag:       "Faith · Content",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/the-sermon-notes.pdf",
+    href:      "/checkout/the-sermon-notes",
+    paperback: { price: "$32", href: "/checkout/the-sermon-notes?format=paperback" },
+    features:  [
+      "Turn study notes into shareable, useful content",
+      "A repeatable framework from insight to post",
+      "How to be generous online without giving it all away",
+      "Instant download — PDF + Kindle EPUB",
+    ],
+    desc: "The bridge between your private study and a public audience. Take what you're already learning and turn it into content people want to read — and that can quietly build toward income.",
+  },
+  {
+    slug:      "gospel-and-grind",
+    title:     "Gospel & Grind",
+    subtitle:  "Build a profitable practice grounded in what you believe — without feeling like you're selling your faith.",
+    price:     "$28",
+    tag:       "Faith · Business",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/gospel-and-grind.pdf",
+    href:      "/checkout/gospel-and-grind",
+    paperback: { price: "$38", href: "/checkout/gospel-and-grind?format=paperback" },
+    features:  [
+      "Reconcile faith and money without the guilt",
+      "Position and price work you believe in",
+      "Sell with integrity — clear, calm, no hype",
+      "Instant download — PDF + Kindle EPUB",
+    ],
+    desc: "For the faith-driven founder who feels the tension between calling and commerce. A framework for building a profitable practice grounded in what you believe — without feeling like you're selling your faith.",
+  },
+  {
+    slug:      "the-calling-card",
+    title:     "The Calling Card",
+    subtitle:  "Build a faith-informed brand voice that connects, converts, and stays true to who you are.",
+    price:     "$35",
+    tag:       "Faith · Voice",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/the-calling-card.pdf",
+    href:      "/checkout/the-calling-card",
+    paperback: { price: "$42", href: "/checkout/the-calling-card?format=paperback" },
+    features:  [
+      "A voice framework rooted in your convictions",
+      "Language that connects and converts, honestly",
+      "Message a mission plainly — no coyness, no apology",
+      "Instant download — PDF + Kindle EPUB",
+    ],
+    desc: "The brand-voice guide for people whose work is inseparable from their faith. Build a voice that connects, converts, and stays true — so your message sounds like you and names the mission plainly.",
+  },
+  {
+    slug:      "ministry-monetized",
+    title:     "Ministry, Monetized",
+    subtitle:  "The launch & revenue playbook for faith-based creators.",
+    price:     "$42",
+    tag:       "Faith · Deep Work",
+    highlight: false,
+    free:      false,
+    download:  "/downloads/ebooks/ministry-monetized.pdf",
+    href:      "/checkout/ministry-monetized",
+    paperback: { price: "$52", href: "/checkout/ministry-monetized?format=paperback" },
+    features:  [
+      "A full launch and revenue playbook, step by step",
+      "Offers, pricing, and a pipeline that fits your calling",
+      "Sustainable income without burning out or selling out",
+      "Instant download — PDF + Kindle EPUB",
+    ],
+    desc: "The deepest guide in the faith line: a complete launch and revenue playbook for faith-based creators. From offer to pipeline to sustainable income — built for people who refuse to choose between calling and paying the bills.",
+  },
+  {
+    slug:      "scripture-and-strategy",
+    title:     "Scripture & Strategy",
+    subtitle:  "A complete faith-based business curriculum — from study practice to sustainable income.",
+    price:     "$497",
+    tag:       "Complete Curriculum",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/scripture-and-strategy.pdf",
+    href:      "/checkout/scripture-and-strategy",
+    features:  [
+      "Eight modules: source, calling, voice, offer, pipeline, engine, obedience",
+      "The full faith line woven into one guided path",
+      "From study practice to positioning to sustainable revenue",
+      "Instant download — complete PDF + Kindle EPUB",
+    ],
+    desc: "The flagship of the faith line: a complete faith-based business curriculum that takes you from a real study practice all the way to sustainable income. Eight modules, one guided path — source, calling, voice, offer, pipeline, and the discipline to keep going.",
   },
 ] as const;
+
+// ── The Little Rewrites — children's book line ───────────────────────────────
+// Bedtime stories about children writing their own happily ever after.
+export const KIDS_BOOKS = [
+  {
+    slug:      "the-princess-who-rescued-herself",
+    title:     "The Princess Who Rescued Herself",
+    subtitle:  "A fairytale about writing your own happily ever after.",
+    price:     "$14",
+    tag:       "Kids · Picture Book",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-princess-who-rescued-herself.pdf",
+    href:      "/checkout/the-princess-who-rescued-herself",
+    features:  [
+      "A fully illustrated picture book — original art on every spread",
+      "A witty fairytale: the princess doesn't wait for a prince, she notices the hinges",
+      "The gentle first lesson in agency: you can write your own door",
+      "Illustrated PDF picture book + reflowable EPUB edition",
+    ],
+    desc: "The flagship of The Little Rewrites, now a fully illustrated picture book — a warm, funny, quietly radical fairytale for the child learning they get to write their own happily ever after. Princess Wren is locked in a tower waiting for a rescue that keeps not coming, until she stops waiting, notices the hinges are on her side of the door, and lets herself out. Original art on every spread.",
+  },
+  {
+    slug:      "the-boy-who-talked-to-the-stars",
+    title:     "The Boy Who Talked to the Stars",
+    subtitle:  "A story about a mind that works a little differently — and a world that needs exactly that.",
+    price:     "$14",
+    tag:       "Kids · Picture Book",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-boy-who-talked-to-the-stars.pdf",
+    href:      "/checkout/the-boy-who-talked-to-the-stars",
+    features:  [
+      "A fully illustrated picture book — original starlit art on every spread",
+      "A gentle, affirming story for autistic and neurodivergent kids",
+      "Theo saves the day not by changing, but by being exactly himself",
+      "Illustrated PDF picture book + reflowable EPUB edition",
+    ],
+    desc: "For the child who lines things up, knows everything about one enormous thing, and covers their ears when the world gets loud. Theo can't always find the right words, but he knows the night sky by heart — and when a fog threatens the fishing boats, the way his mind works turns out to be the thing that brings everyone home. A tender story that tells neurodivergent kids the truth: your mind isn't broken, it's a gift the world hasn't learned to hold yet.",
+  },
+  {
+    slug:      "the-quietest-kid-in-the-kingdom",
+    title:     "The Quietest Kid in the Kingdom",
+    subtitle:  "A story about the loud, brave magic of a quiet heart.",
+    price:     "$14",
+    tag:       "Kids · Picture Book",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-quietest-kid-in-the-kingdom.pdf",
+    href:      "/checkout/the-quietest-kid-in-the-kingdom",
+    features:  [
+      "A fully illustrated picture book — original art on every spread",
+      "For the shy, quiet, and introverted child who's told to 'speak up'",
+      "Posy saves the kingdom by listening when everyone else is shouting",
+      "Illustrated PDF picture book + reflowable EPUB edition",
+    ],
+    desc: "For every quiet child who's been told to be louder. In a kingdom that loves noise, Posy barely speaks — she listens instead. And when the Great Bell cracks and the finest craftsmen are stumped, the quietest kid in the kingdom is the only one who heard exactly where it was breaking. A story that tells shy and introverted kids that quiet isn't empty — it's full, and brave, and sometimes it's the thing that saves the day.",
+  },
+  {
+    slug:      "the-one-who-sat-alone",
+    title:     "The One Who Sat Alone",
+    subtitle:  "A story about the new kid, the empty seat, and who we get to become.",
+    price:     "$14",
+    tag:       "Kids · Picture Book",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-one-who-sat-alone.pdf",
+    href:      "/checkout/the-one-who-sat-alone",
+    features:  [
+      "A fully illustrated picture book — original art on every spread",
+      "For the new kid, the outsider, and the child who feels left out",
+      "And for the kid with the power to change it in ten steps and one sentence",
+      "Illustrated PDF picture book + reflowable EPUB edition",
+    ],
+    desc: "For the child at the edge of the playground, and for the one who gets to decide what happens next. Juniper moves to a town where everything already has its place — until one ordinary boy is brave enough to cross the yard and sit down beside her. A story about belonging, empathy, and the quiet power every child has to end someone else's loneliness — then pass it on.",
+  },
+  {
+    slug:      "the-girl-who-found-her-words",
+    title:     "The Girl Who Found Her Words",
+    subtitle:  "A story about a voice that takes its time — and the day everyone finally listened.",
+    price:     "$14",
+    tag:       "Kids · Picture Book",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-girl-who-found-her-words.pdf",
+    href:      "/checkout/the-girl-who-found-her-words",
+    features:  [
+      "A fully illustrated picture book — original art on every spread",
+      "For kids who stutter, speak slowly, or are shy of their own voice",
+      "Willa's words take their time — and turn out to be worth the wait",
+      "Illustrated PDF picture book + reflowable EPUB edition",
+    ],
+    desc: "For the child whose words take their time. Willa is full of stories, but when she speaks they catch and stick behind her teeth, and her impatient kingdom stops listening — until the day a grey forgetting steals everyone's stories and the only one who still remembers is the girl who learned to hold hers carefully. A tender story for kids who stutter or are shy of speaking: your words are worth waiting for.",
+  },
+  {
+    slug:      "the-kid-with-two-homes",
+    title:     "The Kid with Two Homes",
+    subtitle:  "A story about a heart that's big enough for two houses.",
+    price:     "$14",
+    tag:       "Kids · Picture Book",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-kid-with-two-homes.pdf",
+    href:      "/checkout/the-kid-with-two-homes",
+    features:  [
+      "A fully illustrated picture book — original art on every spread",
+      "For kids whose parents live apart — a gentle, honest, reassuring story",
+      "It doesn't pretend the houses become one; it says the heart doesn't break",
+      "Illustrated PDF picture book + reflowable EPUB edition",
+    ],
+    desc: "For the child who packs a bag on Fridays. Sam has two homes and a small heavy question — which one is real, and did he cause the one house to become two? A gentle, honest bedtime story that doesn't pretend the family changes back, but tells a truer, kinder thing: home was never the house, it's the love you carry with you, none of it was your fault, and a heart is big enough for two homes.",
+  },
+  {
+    slug:      "the-girl-who-loved-gray",
+    title:     "The Girl Who Loved Gray",
+    subtitle:  "A picture book about all the colors between yes and no.",
+    price:     "$12",
+    tag:       "Kids · Picture Book",
+    highlight: true,
+    free:      false,
+    download:  "/downloads/ebooks/the-girl-who-loved-gray.pdf",
+    href:      "/checkout/the-girl-who-loved-gray",
+    features:  [
+      "A fully illustrated picture book — original art on every spread",
+      "For kids taught the world is black-and-white — a love letter to nuance",
+      "Sensory, lyrical, and different in voice from every other Little Rewrite",
+      "Illustrated PDF picture book + reflowable EPUB edition",
+    ],
+    desc: "The first fully illustrated picture book in The Little Rewrites — and a gentle rebellion against the black-and-white world we teach children to live in. Marlowe is told to pick a side, quickly, until a gray morning of fog, rain, storm, and twilight teaches her that black and white are only the two ends of a long soft ribbon, and everything that matters lives in the gray in between. Sensory, lyrical, and illustrated on every spread.",
+  },
+] as const;
+
+export const SHOP_PRODUCTS = [...EBOOKS, ...SERVICE_EBOOKS, ...KIDS_BOOKS] as const;
+
+export type ShopProduct = (typeof SHOP_PRODUCTS)[number];
+
+export const getShopProduct = (slug: string) =>
+  SHOP_PRODUCTS.find((product) => product.slug === slug);
+
+export const productDownload = (product: ShopProduct) =>
+  (product as { download?: string }).download;
+
+export const productCover = (product: ShopProduct) =>
+  (product as { cover?: string }).cover ?? `/downloads/covers/${product.slug}-cover.jpg`;
+
+export const isFreeProduct = (product: ShopProduct) =>
+  Boolean((product as { free?: boolean }).free && productDownload(product));
+
+export const productPriceLabel = (product: ShopProduct) =>
+  isFreeProduct(product) ? "Free" : product.price;
+
+export const isLimitedFreeProduct = (product: ShopProduct) =>
+  isFreeProduct(product) && Boolean((product as { limitedFree?: boolean }).limitedFree);
+
+export const productCheckoutHref = (product: ShopProduct) => {
+  const stripe = (product as { stripe?: string }).stripe;
+  return stripe && stripe.length > 0 ? stripe : product.href;
+};
+
+export const productDeliveryLinks = (product: ShopProduct) => {
+  const primary = productDownload(product);
+  if (!primary) return [];
+
+  // Bundles delivered as a single ZIP (e.g. The Manifestation Vault).
+  if (primary.endsWith(".zip")) {
+    return [{ label: "ZIP Bundle", href: primary }];
+  }
+
+  const links = [{ label: "PDF", href: primary }];
+  if (primary.endsWith(".pdf")) {
+    links.push({ label: "EPUB", href: primary.replace(/\.pdf$/, ".epub") });
+  }
+  if (product.slug === "the-vault" || product.slug === "the-services-vault") {
+    links.push({ label: "ZIP Bundle", href: primary.replace(/\.pdf$/, ".zip") });
+  }
+
+  return links;
+};
 
 // Prints sell via Stripe. Add the buy.stripe.com link to `stripe` when created.
 export const PRINTS = [
@@ -298,6 +1158,27 @@ export const PRINTS = [
     preview: "I picked up the pen and I felt the world shift / the weight of a lifetime becoming a gift.",
   },
   { title: "Selected Lines", price: "From $18", stripe: "https://buy.stripe.com/fZubJ2geB3XGamMaX38AE0c", sizes: ["5×7","8×10"] },
+  {
+    title:   "Live Out Loud",
+    price:   "From $22",
+    stripe:  "https://buy.stripe.com/bJecN61jH51KgLa6GN8AE0p",
+    sizes:   ["8×10","11×14","16×20"],
+    preview: "I am here to live out loud.",
+  },
+  {
+    title:   "Not Afraid of Storms",
+    price:   "From $22",
+    stripe:  "https://buy.stripe.com/8x28wQfaxfGobqQ7KR8AE0q",
+    sizes:   ["8×10","11×14","16×20"],
+    preview: "I am not afraid of storms.",
+  },
+  {
+    title:   "Never Too Late",
+    price:   "From $18",
+    stripe:  "https://buy.stripe.com/cNicN6aUhgKsdyY8OV8AE0r",
+    sizes:   ["5×7","8×10"],
+    preview: "It is never too late.",
+  },
 ] as const;
 
 export const SERVICES = [

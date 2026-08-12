@@ -23,6 +23,8 @@
 # misc
 .DS_Store
 *.pem
+/tmp/
+/drafts/
 
 # debug
 npm-debug.log*
@@ -46,3 +48,19 @@ next-env.d.ts
 
 # generated font cache for the Instagram/TikTok image scripts
 /output/.font-cache/
+
+# zipped image bundles (build artifacts, regenerated from the PNGs)
+/output/*.zip
+/output/linkedin/
+
+# generated social bulk-upload assets (regenerated via `npm run social`)
+scripts/social/out/
+
+# job-search package build artifacts — large inlined HTML/PNG working files
+# (regenerated via build-marketing-brief.mjs / build-portfolio.mjs).
+# The shippable PDFs + preview PNGs live in /public/downloads/{marketing-brief,portfolio}/.
+/output/marketing-brief/
+/output/portfolio/
+
+# Sales toolkit local data (may contain customer names)
+sales/data/

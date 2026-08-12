@@ -1,603 +1,451 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import AuthorGlow from "@/app/components/AuthorGlow";
+import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  RevealSection,
-  QuoteDivider,
-  Eyebrow,
-  H1,
-  H2,
-  H3Script,
-  BtnPrimary,
-  BtnGhost,
-  ArrowLink,
-  Marquee,
-  ServiceCard,
-} from "@/app/components/ui";
-import {
-  STRIPE_EDIT,
-  STRIPE_REWRITE,
-  STRIPE_BYLINE,
-  STRIPE_BUILD,
-  STRIPE_SESSION,
-  STRIPE_OUTBOUND,
-  STRIPE_INBOUND_SYSTEM,
-  STRIPE_REVENUE_SYSTEMS,
-  STRIPE_HOSTING,
-  STRIPE_SOCIAL,
-  STRIPE_YOUTUBE,
-  SUBSTACK_URL,
-  MARGINS_TIERS,
-} from "@/app/lib/config";
+import LegacyOfferingsRedirect from "@/app/components/LegacyOfferingsRedirect";
+import { QuoteMosaic } from "@/app/components/QuoteMosaic";
+import { Marquee, QuoteDivider } from "@/app/components/ui";
+import { SERVICES, MARGINS_TIERS, STRIPE_AUDIT, SUBSTACK_SUBSCRIBE_URL } from "@/app/lib/config";
+import { featuredTestimonials } from "@/app/lib/testimonials";
 
-// ── Animated counter hook ─────────────────────────────────────────────────────
-function useCounter(target: number, duration = 1800, suffix = "") {
-  const [value, setValue] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
+const HOME_TESTIMONIALS = featuredTestimonials();
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          let start: number | null = null;
-          function step(ts: number) {
-            if (!start) start = ts;
-            const pct = Math.min((ts - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - pct, 3);
-            setValue(Math.round(eased * target));
-            if (pct < 1) requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.5 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [target, duration]);
+export const metadata: Metadata = {
+  title: "MK Parrish — Growth Strategy, Websites & Messaging",
+  description:
+    "Growth strategy, conversion websites, positioning, and messaging for B2B companies. Start with the $97 Positioning Audit, the books, or a full engagement.",
+};
 
-  return { ref, display: value + suffix };
-}
-
-function StatCounter({ value, suffix, label }: { value: number; suffix: string; label: string }) {
-  const { ref, display } = useCounter(value, 1600, suffix);
-  return (
-    <div className="flex flex-col gap-2">
-      <span
-        ref={ref}
-        className="font-display text-petal"
-        style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", lineHeight: 0.9, letterSpacing: "0.01em" }}
-      >
-        {display}
-      </span>
-      <span className="font-body text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-ash">{label}</span>
-    </div>
-  );
-}
-
-// ── Word cycling words ────────────────────────────────────────────────────────
-const CYCLE_WORDS = ["Pipeline"];
-
-// ── Services data ────────────────────────────────────────────────────────────
-const services = [
+const cards = [
   {
-    tag: "Quick Fix",
-    title: "The Edit",
-    price: "From $250",
-    desc: "One piece of copy, rewritten. Headline, positioning statement, about page, or services copy. You know what is not working — I fix it in 48 hours.",
-    perks: [
-      "Homepage headline or tagline",
-      "Positioning or mission statement",
-      "About page or services copy",
-      "Founder or exec bio",
-    ],
-    cta: "Buy The Edit",
-    href: STRIPE_EDIT,
-    highlight: false,
+    eyebrow: "Done for you",
+    title: "Services",
+    text: "Positioning, websites, outbound, and growth systems handled by one senior operator.",
+    href: "/services#offerings",
+    cta: "See Services",
   },
   {
-    tag: "Strategy Session",
-    title: "The Session",
-    price: "$300",
-    desc: "One hour. Your messaging, your positioning, your strategy — live with me. Walk away with a written brief and a clear next move. Bring your team.",
-    perks: [
-      "60-minute strategy session",
-      "Live copy audit or positioning work",
-      "Written follow-up brief delivered same day",
-      "Recording included",
-    ],
-    cta: "Book The Session",
-    href: STRIPE_SESSION,
-    highlight: false,
+    eyebrow: "Books + guides",
+    title: "Shop",
+    text: "Buy the books, workbooks, and practical guides for rebuilding voice, clarity, and momentum.",
+    href: "/shop",
+    cta: "Shop the Shelf",
   },
   {
-    tag: "Most Requested",
-    title: "The Rewrite",
-    price: "From $2,500",
-    desc: "Core messaging overhauled. Homepage, positioning statement, and brand voice direction anchored in a strategy session. For companies whose results have outpaced their copy.",
-    perks: [
-      "Homepage and positioning copy",
-      "Brand voice and messaging direction",
-      "About page and services copy",
-      "30-minute strategy session included",
-    ],
-    cta: "Start The Rewrite",
-    href: STRIPE_REWRITE,
-    highlight: true,
+    eyebrow: "The memoir",
+    title: "Rebecoming",
+    text: "Read the book at the center of the MK Parrish story: fear, faith, identity, and starting again without disappearing.",
+    href: "/rebecoming",
+    cta: "Enter Rebecoming",
   },
-  {
-    tag: "Full Repositioning",
-    title: "The New Chapter",
-    price: "Custom",
-    desc: "Full company repositioning, strategy to final copy. Brand voice guide, complete website, founder narrative, and messaging framework. For pivots, relaunches, and new-category plays.",
-    perks: [
-      "Brand voice and messaging guide",
-      "Full website copy",
-      "Founder story and pitch narrative",
-      "On-brand copy bank for your team",
-    ],
-    cta: "Let's Talk",
-    href: "/book",
-    highlight: false,
-  },
-  {
-    tag: "Ongoing",
-    title: "The Byline",
-    price: "From $2,500/mo",
-    desc: "Monthly ghostwriting under your founders' and executives' names. LinkedIn, essays, newsletters — in their voice, consistent enough to build a reputation and sharp enough to open doors.",
-    perks: [
-      "Founder and executive LinkedIn ghostwriting",
-      "Long-form essays and thought leadership",
-      "Newsletter and email copy",
-      "Strategic editorial calendar",
-    ],
-    cta: "Start The Byline",
-    href: STRIPE_BYLINE,
-    highlight: false,
-  },
-  {
-    tag: "Full Site",
-    title: "The Build",
-    price: "From $6,000",
-    desc: "Your company website, built from the ground up — strategy, copy, design, and production in one engagement. Launch-ready in 3–4 weeks, built to turn traffic into booked calls.",
-    perks: [
-      "Positioning, messaging, and page architecture",
-      "Full website copy and custom design",
-      "Mobile-first, fast, and SEO-ready build",
-      "Launch and domain setup handled for you",
-    ],
-    cta: "Let's Build It",
-    href: STRIPE_BUILD,
-    highlight: false,
-  },
+] as const;
+
+const MARQUEE_ITEMS = [
+  "The 48-Hour Audit · $97",
+  "The Build",
+  "The Vault · $97",
+  "Outbound Engine",
+  "Full-Funnel Growth",
+  "The Rewrite",
+  "The Byline",
+  "Website Redesigns",
+  "The Margins · $9/mo",
+  "Paperbacks",
+  "The Manifestation Vault",
+  "The Cosmos Starter Kit · Free",
 ];
 
-const growthServices = [
+const BUNDLES = [
   {
-    tag: "Outbound",
-    title: "The Outbound Engine",
-    price: "From $2,500/mo",
-    desc: "Qualified calls on your calendar. I build the lists, write the cold email and LinkedIn outreach, run the sends, and handle every reply — so your team talks to buyers, not tire-kickers. Recent campaigns: 32% reply rates.",
-    perks: [
-      "ICP research and clean, targeted lead lists",
-      "Cold email and LinkedIn copy that earns replies",
-      "Follow-up sequences and reply handling, end to end",
-      "Qualified, briefed calls booked into your calendar",
-      "Performance-based and rev-share structures available",
-    ],
-    cta: "Fill My Calendar",
-    href: STRIPE_OUTBOUND,
-    highlight: false,
-  },
-  {
-    tag: "Most Popular",
-    title: "Full-Funnel Growth",
-    price: "From $6,500/mo",
-    desc: "Demand through activation, run as one motion. Outbound, paid, organic, SEO, and lifecycle wired together — with the experimentation loop that tells you what is working and what to kill. The demand engine and the full funnel, under one operator.",
-    perks: [
-      "Demand gen across outbound, paid, organic, and SEO",
-      "Landing pages, campaigns, and email sequences shipped weekly",
-      "Hybrid motion fluency — PLG layered on SLG, self-serve + assisted",
-      "Experiment velocity: test, read the numbers, double down",
-      "Positioning and messaging that moves numbers, not slide decks",
-    ],
-    cta: "Run the Funnel",
-    href: STRIPE_INBOUND_SYSTEM,
-    highlight: true,
-  },
-  {
-    tag: "Embedded",
-    title: "Fractional Growth Lead",
-    price: "Custom",
-    desc: "I sit on your team and own the number. A senior growth operator who strategizes, ships, and owns the outcome — and partners cleanly with your product and PLG side. Not an agency. Not a strategist who needs a team to execute.",
-    perks: [
-      "Embedded ownership of the growth function",
-      "Agent-orchestrated execution stack, built and run",
-      "Full-funnel: demand gen, capture, activation, conversion",
-      "Founder-facing — senior enough to own the room",
-      "Clean, project-by-project collaboration with your team",
-    ],
-    cta: "Partner With Me",
-    href: STRIPE_REVENUE_SYSTEMS,
-    highlight: false,
-  },
-];
-
-const productionServices = [
-  {
-    tag: "Always-On",
-    title: "The Upkeep",
-    price: "From $300/mo",
-    desc: "Managed hosting, maintenance, and care so your site never goes stale. Updates, backups, monitoring, and small changes handled — you never touch a dashboard or worry about a thing breaking.",
-    perks: [
-      "Managed hosting and uptime monitoring",
-      "Security, backups, and software updates",
-      "Monthly content and copy edits included",
-      "Priority turnaround on requests",
-    ],
-    cta: "Keep It Running",
-    href: STRIPE_HOSTING,
-    highlight: false,
-  },
-  {
-    tag: "Most Requested",
-    title: "The Social Suite",
-    price: "From $2,000/mo",
-    desc: "A complete social package, produced and managed. Content, graphics, captions, and scheduling across the platforms that fit your audience — a consistent, on-brand presence without you producing a single post.",
-    perks: [
-      "Full content calendar across chosen platforms",
-      "Custom graphics, carousels, and short-form video",
-      "Captions and copy written in your voice",
-      "Scheduling, publishing, and performance reporting",
-    ],
-    cta: "Launch the Suite",
-    href: STRIPE_SOCIAL,
-    highlight: true,
-  },
-  {
-    tag: "Video",
-    title: "The Channel",
-    price: "From $1,500/video",
-    desc: "YouTube and long-form video, end to end. Scripting, editing, thumbnails, and publishing — built to grow a channel that compounds, not a pile of clips nobody finds.",
-    perks: [
-      "Scripting and story structure",
-      "Editing, captions, and thumbnail design",
-      "SEO-optimized titles and descriptions",
-      "Repurposing into short-form clips",
-    ],
-    cta: "Start the Channel",
-    href: STRIPE_YOUTUBE,
-    highlight: false,
-  },
-];
-
-const digitalProducts = [
-  {
-    label: "Best Seller",
-    title: "Write Yourself Into the Room",
-    price: "$28",
-    href: "https://buy.stripe.com/00waEY9Qd1PygLa8OV8AE00",
-    highlight: true,
-  },
-  {
-    label: "Best Value",
-    title: "The Vault — Full Bundle",
+    tag: "Best Value · Writing",
+    title: "The Vault",
     price: "$97",
-    href: "https://buy.stripe.com/9B69AUfax0Lu1Qgc178AE02",
-    highlight: false,
+    compareAt: "$317",
+    text: "Every writing, voice, identity, and healing framework in one library — for far less than buying each guide alone.",
+    href: "/shop/the-vault",
   },
-];
+  {
+    tag: "Best Value · Business",
+    title: "The Services Vault",
+    price: "$127",
+    compareAt: "$567",
+    text: "All fourteen consulting methods plus the creator revenue stack — the complete DIY playbook library.",
+    href: "/shop/the-services-vault",
+  },
+  {
+    tag: "New · Manifestation",
+    title: "The Manifestation Vault",
+    price: "$67",
+    compareAt: "$95",
+    text: "Four books on manifesting, money, micro habits, and mornings — the whole self-mastery line in one bundle.",
+    href: "/shop/the-manifestation-vault",
+  },
+] as const;
 
-// ── Page ──────────────────────────────────────────────────────────────────────
-
-export default function Home() {
-  const [wordIndex, setWordIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWordIndex((i) => (i + 1) % CYCLE_WORDS.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
-  const currentWord = CYCLE_WORDS[wordIndex];
-
+export default function HomePage() {
   return (
     <>
-      {/* ── HERO ──────────────────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-svh flex-col justify-end bg-void pb-16 pt-28 md:pb-24">
+      <LegacyOfferingsRedirect />
+
+      {/* ── HERO ── */}
+      <section className="relative overflow-hidden bg-void pb-16 pt-32 md:pb-24 md:pt-40">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-0 h-[70vh] w-[90vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.18),transparent_60%)]" />
-          <div className="absolute bottom-0 right-0 h-[40vh] w-[50vw] bg-[radial-gradient(ellipse_at_bottom_right,rgba(242,175,198,0.04),transparent_60%)]" />
+          <div className="absolute left-1/2 top-0 h-[70vh] w-[90vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.16),transparent_60%)]" />
+          <div className="absolute bottom-0 right-0 h-[40vh] w-[50vw] bg-[radial-gradient(ellipse_at_bottom_right,rgba(217,79,124,0.08),transparent_60%)]" />
         </div>
-
-        <div className="relative mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          {/* Service pills */}
-          <div className="mb-6 flex flex-wrap items-center gap-3">
-            {["Growth Marketing", "Outbound & Appointment Setting", "Demand Gen", "Brand Messaging", "Web Production", "Lead Generation", "PLG / SLG"].map((s) => (
-              <span key={s} className="border border-graphite px-3 py-1 font-body text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-iron">
-                {s}
-              </span>
-            ))}
-          </div>
-
-          <H1>
-            Rewrite Your{" "}
-            <br />
-            <span
-              key={currentWord}
-              className="word-cycle-enter text-petal"
-              style={{ textShadow: "0 0 60px rgba(242,175,198,0.4)", display: "inline-block" }}
-            >
-              {currentWord}
-            </span>
-          </H1>
-
-          <p className="mt-5 font-serif text-xl italic text-petal/80 md:text-2xl" style={{ fontWeight: 500, maxWidth: "none" }}>
-            The website, outbound, and messaging that turn how you&apos;re seen into revenue you can prove.
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <p className="font-body text-[0.68rem] font-bold uppercase tracking-[0.32em] text-petal">
+            Senior growth operator
           </p>
-
-          <p className="mt-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
-            Most companies leak revenue in the gap between what they&apos;ve become and how they read online. I close it — building conversion websites, running the outbound that books calls, and writing the messaging that lands. One senior operator for B2B SaaS, growth-stage teams, and agencies who want a partner, not another vendor.
+          <h1 className="mt-5 max-w-5xl font-display text-6xl uppercase leading-[0.88] tracking-[0.01em] text-pearl md:text-8xl lg:text-9xl">
+            Turn how you&apos;re seen <span className="text-petal text-glow">into revenue.</span>
+          </h1>
+          <p className="mt-7 max-w-3xl font-serif text-xl italic leading-9 text-smoke md:text-2xl">
+            I help B2B companies clarify positioning, improve conversion, and build growth systems that connect the message to the pipeline. Rewrite Your Story is the line underneath all of it.
           </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <BtnPrimary href="/book">Book a Strategy Call →</BtnPrimary>
-            <BtnGhost href="#offerings">See What I Build</BtnGhost>
-          </div>
-
-          {/* Author signature — animated glow portrait + name */}
-          <div className="mt-8 flex w-fit items-center gap-4">
-            <AuthorGlow size={66} ring={3} />
-            <Link href="/about" className="group leading-tight">
-              <span className="block font-body text-sm font-semibold text-pearl transition-colors duration-300 group-hover:text-petal">
-                MK Parrish
-              </span>
-              <span className="block font-body text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-ash">
-                Senior growth operator &amp; writer
-              </span>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link href="/book" className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+              Book a Call →
+            </Link>
+            <Link href={STRIPE_AUDIT} target="_blank" rel="noreferrer" className="inline-flex justify-center border border-petal/60 px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:border-petal hover:bg-petal/5">
+              Start with the $97 Audit
+            </Link>
+            <Link href="/shop" className="inline-flex justify-center border border-graphite px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
+              Shop the Books
             </Link>
           </div>
-
-          {/* Proof stat band */}
-          <div className="mt-12 grid grid-cols-2 gap-px border-t border-graphite bg-graphite pt-px sm:grid-cols-4">
-            {[
-              { num: "$40M+", label: "Pipeline influenced" },
-              { num: "2 Decades", label: "Growth + marketing" },
-              { num: "32%", label: "Cold reply rates" },
-              { num: "1", label: "Operator, no layers" },
-            ].map((s) => (
-              <div key={s.label} className="bg-void px-5 pt-8 pb-2">
-                <p className="font-display text-3xl tracking-[0.02em] text-petal md:text-4xl">{s.num}</p>
-                <p className="mt-2 font-body text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ash">{s.label}</p>
+          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+            {["Websites & positioning", "Outbound & growth systems", "35+ books & guides", "Async $97 entry point"].map((t) => (
+              <div key={t} className="flex items-center gap-3">
+                <span className="h-1 w-1 bg-petal" />
+                <span className="font-body text-xs font-light text-smoke">{t}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <Marquee />
+      {/* ── TICKER ── */}
+      <Marquee items={MARQUEE_ITEMS} />
 
-      {/* ── OFFERINGS ─────────────────────────────────────────────────────────── */}
-      <RevealSection id="offerings" bg="obsidian" num="01">
-        <Eyebrow>Work With Me</Eyebrow>
-        <H2>
-          Everything I build,{" "}
-          <span className="text-petal">in one place.</span>
-        </H2>
-        <p className="mt-4 mb-3 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "62ch" }}>
-          Websites, outbound, growth, and messaging — one senior operator, clear pricing, no agency layers. Buy or book directly below. Pick one or stack them.
-        </p>
-        <p className="mb-12 font-body text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-petal/70">
-          All-in pricing. No retainer traps.
-        </p>
-
-        <div className="grid gap-px bg-graphite md:grid-cols-2 lg:grid-cols-3">
-          {[...services, ...growthServices, ...productionServices].map((s) => (
-            <ServiceCard key={s.title} {...s} />
-          ))}
-        </div>
-
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
-          <p className="font-body text-sm font-light text-smoke">Not sure where to start? One call and I&apos;ll tell you exactly where the revenue is leaking.</p>
-          <BtnPrimary href="/book">Book a Discovery Call →</BtnPrimary>
-        </div>
-      </RevealSection>
-
-      <Marquee />
-      <QuoteDivider index={2} />
-
-      {/* ── HOW I WORK (teaser) ──────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="02">
-        <Eyebrow>How I Work</Eyebrow>
-        <H2>
-          From unclear to{" "}
-          <span className="text-petal">undeniable.</span>
-        </H2>
-        <p className="mt-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
-          The four-step process, the companies I do my best work with, and proof of what repositioning actually changes — all in one place, so the homepage stays about what you can buy.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center gap-6">
-          <BtnPrimary href="/how-i-work">See How I Work →</BtnPrimary>
-          <ArrowLink href="/book">Or just book a call</ArrowLink>
-        </div>
-      </RevealSection>
-
-      <QuoteDivider index={6} />
-
-      {/* ── THE SHOP ─────────────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="07">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr]">
+      {/* ── FEATURED: Founding-client website redesigns ── */}
+      <section className="relative overflow-hidden border-y border-petal/25 py-12 md:py-16 gradient-pink-grey-soft">
+        <div className="relative mx-auto grid max-w-[1400px] items-center gap-8 px-6 lg:grid-cols-[1.35fr_0.65fr] lg:px-10">
           <div>
-            <Eyebrow>The Shop — Digital Products</Eyebrow>
-            <H2>
-              The work,{" "}
-              <span className="text-petal">on demand.</span>
-            </H2>
-            <H3Script>Frameworks, guides, and downloads built from real client work.</H3Script>
-            <p className="mt-6 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "48ch" }}>
-              Frameworks and guides for rewriting how the world reads you — built from real client work, ready to use today.
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">
+              Limited · A few founding clients · This quarter
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href="/shelf">Browse The Shelf</BtnPrimary>
-              <ArrowLink href="/shelf">See all downloads</ArrowLink>
+            <h2 className="mt-4 font-display text-4xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-5xl lg:text-6xl">
+              Your site, rebuilt to <span className="text-petal">earn its keep.</span>
+            </h2>
+            <p className="mt-5 max-w-2xl font-body text-base font-light leading-8 text-smoke">
+              Site slow, clunky on mobile, or no longer sounding like your business? I&apos;m taking on a small number of founding clients this quarter for full redesigns — audited, rebuilt fast and mobile-first, hands-on from start to finish — at a discounted rate in exchange for a testimonial.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-6">
+              {["Full site audit", "Fast, mobile-first rebuild", "Direct collaboration"].map((t) => (
+                <div key={t} className="flex items-center gap-3">
+                  <span className="h-1 w-1 bg-petal" />
+                  <span className="font-body text-xs font-light text-smoke">{t}</span>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="grid gap-px bg-graphite sm:grid-cols-2">
-            {digitalProducts.map((item) => (
-              <a
-                key={item.title}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative flex flex-col justify-between bg-obsidian p-6 transition-all duration-300 hover:-translate-y-px hover:bg-carbon"
-                style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
-              >
-                {item.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-50" />
-                <div>
-                  <p className="font-body text-[0.62rem] font-bold uppercase tracking-[0.25em] text-iron">{item.label}</p>
-                  <span className="mt-2 block select-none font-serif text-[3rem] leading-none text-petal/[0.1]">&ldquo;</span>
-                  <p className="mt-1 font-display text-lg uppercase tracking-[0.02em] text-pearl leading-tight">{item.title}</p>
-                </div>
-                <div className="mt-5 flex items-center justify-between">
-                  <p className="font-display text-2xl text-petal">{item.price}</p>
-                  <span className="flex h-7 w-7 items-center justify-center border border-petal/20 text-sm text-petal/50 transition-all duration-300 group-hover:border-petal group-hover:bg-petal group-hover:text-void">
-                    →
-                  </span>
-                </div>
-              </a>
+          <div className="flex flex-col gap-3">
+            <Link href="/redesign" className="btn-primary inline-flex w-full justify-center px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+              See the Offer →
+            </Link>
+            <Link href="/book" className="inline-flex w-full justify-center border border-graphite px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
+              Book a Fit Call
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROOF / CLIENT TESTIMONIALS ── */}
+      <section className="relative overflow-hidden bg-void py-16 md:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.06),transparent_55%)]" />
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+            <div className="max-w-3xl">
+              <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">In their words</p>
+              <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+                Founders on <span className="text-petal">the work.</span>
+              </h2>
+            </div>
+            <Link href="/testimonials" className="font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:text-blush">
+              Read all client results →
+            </Link>
+          </div>
+          <div className="grid gap-px bg-graphite lg:grid-cols-2">
+            {HOME_TESTIMONIALS.map((t) => (
+              <figure key={t.name} className="relative flex flex-col justify-between bg-obsidian p-8 md:p-10">
+                <div className="absolute inset-x-0 top-0 h-px bg-petal" />
+                <span className="select-none font-serif text-6xl leading-none text-petal/25">&ldquo;</span>
+                <blockquote className="mt-2 font-serif text-lg italic leading-8 text-pearl md:text-xl">
+                  {t.quote}
+                </blockquote>
+                <figcaption className="mt-8 border-t border-graphite pt-6">
+                  <p className="font-display text-2xl uppercase tracking-[0.02em] text-white">{t.name}</p>
+                  <p className="mt-1 font-body text-sm font-light text-petal">{t.role}, {t.company}</p>
+                  <p className="mt-2 font-body text-[0.62rem] font-bold uppercase tracking-[0.22em] text-iron">{t.service}</p>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>
-      </RevealSection>
+      </section>
 
-      <QuoteDivider index={14} />
+      <QuoteDivider index={11} />
 
-      {/* ── THE MARGINS ──────────────────────────────────────────────────────── */}
-      <RevealSection bg="void" num="08">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <Eyebrow>The private side</Eyebrow>
-            <H2>
-              The{" "}
-              <span className="text-petal">Margins.</span>
-            </H2>
-            <H3Script>Where the real thinking lives.</H3Script>
-            <div className="mt-8 space-y-4 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "56ch" }}>
-              <p>Long-form essays. Raw strategy notes. The frameworks that come out of actual client work, documented before they get cleaned up for public consumption.</p>
-              <p>
-                Not content. Not thought leadership theatre. The real thinking — before it gets positioned. If the public work is the final sentence, The Margins is the version with all the edits still showing.
+      {/* ── SERVICES / WORK WITH ME (high-ticket) ── */}
+      <section className="relative overflow-hidden bg-obsidian py-16 md:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(242,175,198,0.07),transparent_55%)]" />
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="mb-4 max-w-3xl">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Work with MK · Done for you</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              One senior operator,<br /><span className="text-petal">the whole revenue stack.</span>
+            </h2>
+            <p className="mt-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
+              Websites, positioning, outbound, and growth — handled end to end. Pick the engagement that fits, or book a call and we&apos;ll find it together.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((s) => (
+              <Link
+                key={s.title}
+                href="/services#offerings"
+                className="group/svc relative flex flex-col justify-between gap-6 bg-obsidian p-7 transition-colors duration-300 hover:bg-carbon md:p-8"
+              >
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity duration-300 group-hover/svc:opacity-100 gradient-rule" />
+                <div>
+                  <p className="font-body text-[0.62rem] font-bold uppercase tracking-[0.24em] text-iron">{s.tag}</p>
+                  <h3 className="mt-3 font-display text-3xl uppercase tracking-[0.02em] text-pearl md:text-4xl">{s.title}</h3>
+                </div>
+                <div className="flex items-end justify-between">
+                  <span className="font-display text-2xl text-petal">{s.price}</span>
+                  <span className="font-body text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ash transition-colors group-hover/svc:text-petal">Details →</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <Link href="/book" className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+              Book a Call →
+            </Link>
+            <Link href="/services#offerings" className="inline-flex justify-center border border-graphite px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
+              See All Services & Pricing
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── $97 AUDIT TRIPWIRE ── */}
+      <section className="relative overflow-hidden border-y border-petal/25 py-14 md:py-20 gradient-pink-grey">
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.4fr_0.6fr]">
+            <div>
+              <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Start here · Async · No call required</p>
+              <h2 className="mt-4 font-display text-5xl uppercase leading-[0.92] tracking-[0.02em] text-white md:text-7xl">
+                The 48-Hour Positioning Audit — <span className="text-petal text-glow">$97.</span>
+              </h2>
+              <p className="mt-5 max-w-2xl font-body text-base font-light leading-8 text-smoke">
+                Send your website, LinkedIn, and one offer page. In 48 hours you get a Loom teardown, a written scorecard, three rewritten headlines, and your three highest-priority fixes. The cheapest way to find out exactly what&apos;s costing you the click — and the front door to everything else.
               </p>
             </div>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href={SUBSTACK_URL}>Enter The Margins</BtnPrimary>
-              <ArrowLink href="/margins">Learn more</ArrowLink>
+            <div className="flex flex-col gap-3">
+              <Link href={STRIPE_AUDIT} target="_blank" rel="noreferrer" className="btn-primary inline-flex w-full justify-center px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+                Get the Audit — $97
+              </Link>
+              <Link href="/audit" className="inline-flex w-full justify-center border border-graphite bg-void/40 px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-pearl transition hover:border-petal hover:text-petal">
+                How it works
+              </Link>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="flex flex-col gap-px">
-            {MARGINS_TIERS.map((t) => (
-              <a
-                key={t.name}
-                href={SUBSTACK_URL}
-                target="_blank"
-                rel="noreferrer"
-                className={`group relative block p-8 transition-all duration-200 hover:brightness-110 ${t.highlight ? "bg-carbon" : "bg-obsidian"}`}
-              >
-                {t.highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
-                <div className="flex items-baseline justify-between">
-                  <p className="font-display text-xl uppercase tracking-[0.02em] text-pearl">{t.name}</p>
-                  <p className={`font-display text-2xl ${t.highlight ? "text-petal" : "text-white"}`}>{t.price}</p>
+      {/* ── BUNDLES / BEST VALUE ── */}
+      <section className="relative overflow-hidden bg-void py-16 md:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(217,79,124,0.06),transparent_55%)]" />
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="mb-10 max-w-3xl">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Buy the bundle · Best value</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              Get the whole library<br /><span className="text-petal">for the price of a few.</span>
+            </h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {BUNDLES.map((b) => (
+              <Link key={b.title} href={b.href} className="money-card group/bundle flex flex-col p-8">
+                <div className="gradient-rule absolute inset-x-0 top-0" />
+                <p className="font-body text-[0.62rem] font-bold uppercase tracking-[0.24em] text-petal">{b.tag}</p>
+                <h3 className="mt-4 font-display text-4xl uppercase tracking-[0.02em] text-pearl">{b.title}</h3>
+                <div className="mt-3 flex items-baseline gap-3">
+                  <span className="font-display text-5xl text-white">{b.price}</span>
+                  {b.compareAt && <span className="font-body text-sm font-light text-iron line-through">{b.compareAt}</span>}
                 </div>
-                <p className="mt-3 font-body text-sm font-light leading-7 text-smoke">{t.desc}</p>
-                <p className="mt-3 font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-petal opacity-0 transition-opacity group-hover:opacity-100">
-                  Join on Substack →
-                </p>
-              </a>
+                <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{b.text}</p>
+                <span className="mt-7 inline-flex font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition-all group-hover/bundle:tracking-[0.24em]">
+                  Get {b.title} →
+                </span>
+              </Link>
             ))}
           </div>
         </div>
-      </RevealSection>
+      </section>
 
-      <QuoteDivider index={4} />
+      {/* ── WHERE TO START ── */}
+      <section id="offerings" className="bg-obsidian py-16 md:py-24">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="mb-10 max-w-3xl">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Where to start</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              Keep the site focused on the work.
+            </h2>
+          </div>
+          <div className="grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-3">
+            {cards.map((card) => (
+              <article key={card.title} className="flex h-full flex-col bg-void p-7 md:p-9">
+                <p className="font-body text-[0.62rem] font-bold uppercase tracking-[0.28em] text-petal">{card.eyebrow}</p>
+                <h2 className="mt-5 font-display text-4xl uppercase tracking-[0.02em] text-pearl">{card.title}</h2>
+                <p className="mt-5 font-body text-sm font-light leading-7 text-smoke">{card.text}</p>
+                <div className="mt-auto pt-8">
+                  <Link href={card.href} className="btn-primary inline-flex w-full justify-center px-5 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+                    {card.cta} →
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* ── WRITING ──────────────────────────────────────────────────────────── */}
-      <RevealSection bg="obsidian" num="09">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
+      <QuoteMosaic
+        eyebrow="The house voice"
+        title="A little philosophy, a little hustle, a little pink light."
+        description="The MK Parrish world sits between story and sales: thinkers, artists, founders, rappers, and original Rewrite Your Story language."
+        highlighted
+        primaryCta={{ href: "/rebecoming", label: "Enter Rebecoming" }}
+        secondaryCta={{ href: "/shop", label: "Shop the Shelf" }}
+        slugs={["mk-rebecoming", "marcus-mind", "jayz-business", "mk-seen"]}
+      />
+
+      {/* ── REBECOMING ── */}
+      <section className="bg-void py-16 md:py-24">
+        <div className="mx-auto grid max-w-[1400px] gap-10 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-10">
           <div>
-            <Eyebrow>The personal work</Eyebrow>
-            <H2>
-              Writing that{" "}
-              <span className="text-petal">started it all.</span>
-            </H2>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <BtnPrimary href="/writing">Read the Work</BtnPrimary>
-              <ArrowLink href={SUBSTACK_URL}>More in The Margins</ArrowLink>
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Rebecoming: From Fear To Faith</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              Buy the book. Start with Chapter One.
+            </h2>
+            <p className="mt-6 max-w-xl font-body text-base font-light leading-8 text-smoke">
+              REBECOMING is the clearest entry point into the &quot;Rewrite Your Story&quot; work: a memoir for women rebuilding identity, voice, faith, work, and life after the thing that changed everything.
+            </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link href="/rebecoming" className="btn-primary inline-flex justify-center px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+                Enter Rebecoming →
+              </Link>
+              <Link href="/shop" className="inline-flex justify-center border border-graphite px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
+                Shop All Books
+              </Link>
             </div>
           </div>
-          <div className="relative border-l-2 border-petal/40 pl-8">
-            <span className="absolute -left-4 -top-6 select-none font-serif text-[6rem] leading-none text-petal/[0.09]">&ldquo;</span>
-            <p
-              className="font-serif italic text-pearl"
-              style={{ fontSize: "clamp(1.05rem,2.2vw,1.3rem)", lineHeight: 1.95, fontWeight: 500 }}
-            >
-              She did not wait to be described.<br />
-              She picked up the pen<br />
-              while they were still deciding<br />
-              what kind of woman she was.<br />
-              <br />
-              This is not a revision. Not a rescue.<br />
-              <br />
-              The first draft,<br />
-              finally in her own hand —<br />
-              and it does not need their permission to be true.
-            </p>
-            <p className="mt-6 font-body text-[0.65rem] font-bold uppercase tracking-[0.25em] text-ash">
-              — The Original
-            </p>
+          <div className="grid gap-px bg-graphite sm:grid-cols-3 lg:grid-cols-1">
+            {[
+              {
+                label: "Free sample",
+                title: "Chapter One",
+                text: "Read the opening chapter when you want the first page before the purchase.",
+                href: "/downloads/ebooks/rebecoming-sample.pdf",
+                cta: "Read Sample",
+              },
+              {
+                label: "Main offer",
+                title: "Rebecoming",
+                text: "Send book traffic to the dedicated microsite first so readers understand the story before checkout.",
+                href: "/rebecoming",
+                cta: "View Book",
+              },
+              {
+                label: "Shelf",
+                title: "Books + Guides",
+                text: "Keep every ebook, workbook, and practical guide easy to buy from one stronger commerce surface.",
+                href: "/shop",
+                cta: "Open Shop",
+              },
+            ].map((item) => (
+              <article key={item.title} className="bg-obsidian p-6 md:p-7">
+                <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.24em] text-petal">{item.label}</p>
+                <h3 className="mt-3 font-display text-3xl uppercase tracking-[0.02em] text-pearl">{item.title}</h3>
+                <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{item.text}</p>
+                <Link href={item.href} className="mt-5 inline-flex font-body text-[0.68rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:text-blush">
+                  {item.cta} →
+                </Link>
+              </article>
+            ))}
           </div>
         </div>
-      </RevealSection>
+      </section>
 
-      <QuoteDivider index={5} />
-
-      {/* ── FINAL CTA ────────────────────────────────────────────────────────── */}
-      <section className="relative bg-void pb-16 md:pb-0" style={{ padding: "clamp(5rem, 12vw, 11rem) 0" }}>
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-1/2 h-[80vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse,rgba(242,175,198,0.1),transparent_60%)]" />
+      {/* ── THE MARGINS · RECURRING ── */}
+      <section className="relative overflow-hidden bg-obsidian py-16 md:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(242,175,198,0.08),transparent_55%)]" />
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="mb-10 max-w-3xl">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">The Margins · Membership</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              The thinking before the edit.
+            </h2>
+            <p className="mt-5 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "60ch" }}>
+              Strategy notes, frameworks, and unfinished thinking from real client work. Free to read; members get the full archive, weekly frameworks, and direct access.
+            </p>
+          </div>
+          <div className="grid gap-px bg-graphite md:grid-cols-3">
+            {MARGINS_TIERS.map((t) => (
+              <article key={t.name} className={`flex h-full flex-col p-7 md:p-8 ${t.highlight ? "bg-carbon" : "bg-obsidian"}`}>
+                {t.highlight && <div className="gradient-rule -mx-7 -mt-7 mb-6 md:-mx-8 md:-mt-8" />}
+                <p className="font-body text-[0.62rem] font-bold uppercase tracking-[0.24em] text-petal">{t.name}</p>
+                <p className="mt-3 font-display text-4xl text-white">{t.price}</p>
+                <p className="mt-4 flex-1 font-body text-sm font-light leading-7 text-smoke">{t.desc}</p>
+                <Link
+                  href={SUBSTACK_SUBSCRIBE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`mt-7 inline-flex w-full justify-center px-5 py-3.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.18em] transition ${
+                    t.highlight
+                      ? "btn-primary text-void"
+                      : "border border-graphite text-ash hover:border-petal hover:text-petal"
+                  }`}
+                >
+                  {t.price === "Free" ? "Subscribe Free" : "Become a Member"} →
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
-        <div className="relative mx-auto max-w-[1400px] text-center" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
-          <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-            The rewrite starts here
+      </section>
+
+      <QuoteDivider index={3} />
+
+      {/* ── CLOSING CTA ── */}
+      <section className="relative overflow-hidden py-20 md:py-28 gradient-pink-grey">
+        <div className="relative mx-auto max-w-[1400px] px-6 text-center lg:px-10">
+          <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Ready when you are</p>
+          <h2 className="mx-auto mt-5 max-w-4xl font-display text-5xl uppercase leading-[0.92] tracking-[0.02em] text-white md:text-7xl">
+            Turn how you&apos;re seen <span className="text-petal text-glow">into revenue.</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl font-serif text-lg italic leading-8 text-smoke md:text-xl">
+            Start with the $97 audit, grab a bundle, or book a call. Every door leads to the same place — words and systems that pay for themselves.
           </p>
-          <div className="mt-6">
-            <H1>
-              Stop Being{" "}
-              <span className="text-petal" style={{ textShadow: "0 0 40px rgba(242,175,198,0.3)" }}>
-                Underestimated.
-              </span>
-            </H1>
-          </div>
-          <p className="mx-auto mt-8 font-body text-base font-light leading-8 text-smoke" style={{ maxWidth: "52ch" }}>
-            The companies deciding whether to partner with you are judging an earlier version of your business — because that is the version your copy still describes. Let&apos;s fix that.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BtnPrimary href="/book">Book a Discovery Call →</BtnPrimary>
-            <BtnGhost href="/contact">Get in Touch</BtnGhost>
-          </div>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
-            <ArrowLink href="/brand">Brand Messaging</ArrowLink>
-            <ArrowLink href="/growth">Growth Marketing</ArrowLink>
-            <ArrowLink href="/studio">The Studio</ArrowLink>
-            <ArrowLink href="/shop">The Shop</ArrowLink>
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link href="/book" className="btn-primary inline-flex justify-center px-8 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+              Book a Call →
+            </Link>
+            <Link href={STRIPE_AUDIT} target="_blank" rel="noreferrer" className="inline-flex justify-center border border-petal/60 bg-void/30 px-8 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:bg-petal/5">
+              Start with the $97 Audit
+            </Link>
+            <Link href="/shop" className="inline-flex justify-center border border-graphite bg-void/30 px-8 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-pearl transition hover:border-petal hover:text-petal">
+              Shop the Shelf
+            </Link>
           </div>
         </div>
       </section>

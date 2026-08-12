@@ -1,7 +1,134 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { SUBSTACK_URL } from "@/app/lib/config";
+import { useEffect, useMemo, useState } from "react";
+
+const FREE_CHAPTER = "/downloads/ebooks/rebecoming-sample.pdf";
+const COSMOS_KIT = "/downloads/ebooks/the-cosmos-starter-kit.pdf";
+const STORAGE_KEY = "mkp_lead_capture_status";
+const DISMISS_DAYS = 7;
+
+type Variant = "rebecoming" | "cosmos";
+
+// The popup adapts to the page: the Cosmos free guide on /cosmos, the REBECOMING
+// first chapter everywhere else.
+const VARIANTS: Record<Variant, {
+  cover: string;
+  coverAlt: string;
+  eyebrow: string;
+  titleTop: string;
+  titleAccent: string;
+  productLine: string;
+  blurb: string;
+  bullets: string[];
+  submitLabel: string;
+  footnote: string;
+  download: string;
+  successTitle: [string, string];
+  successSub: { emailed: string; fallback: string };
+  successRead: string;
+  crossEyebrow: string;
+  crossText: string;
+  crossHref: string;
+  crossCta: string;
+  requestBody: (email: string, source: string) => Record<string, string>;
+}> = {
+  rebecoming: {
+    cover: "/downloads/covers/rebecoming-cover.jpg",
+    coverAlt: "REBECOMING: From Fear to Faith book cover",
+    eyebrow: "Rewrite Your Story · Free First Chapter",
+    titleTop: "Read the first",
+    titleAccent: "chapter free.",
+    productLine: "REBECOMING: From Fear to Faith",
+    blurb:
+      "A memoir about losing your fear without losing yourself. You are not starting over. You are rebecoming. Enter your email and I'll send the opening chapter.",
+    bullets: [
+      "Immediate chapter access after signup.",
+      "A direct inbox copy when email delivery is available.",
+      "Occasional field notes on voice, faith, work, and rebuilding. No spam.",
+    ],
+    submitLabel: "Send Me Chapter One →",
+    footnote:
+      "One email with your free chapter. A portion of every book sale is donated to my local parish. Unsubscribe any time.",
+    download: FREE_CHAPTER,
+    successTitle: ["Chapter one", "is yours."],
+    successSub: {
+      emailed: "It is on its way to your inbox, and you can start reading right now.",
+      fallback: "Email delivery is not connected right now, but the chapter is ready below.",
+    },
+    successRead: "Read Chapter One →",
+    crossEyebrow: "Don't want to wait?",
+    crossText: "Read the whole story now - instant ebook or a paperback shipped to your door.",
+    crossHref: "/rebecoming",
+    crossCta: "Get the Full Book →",
+    requestBody: (email, source) => ({ email, offer: "rebecoming-sample", source }),
+  },
+  cosmos: {
+    cover: "/downloads/covers/the-cosmos-starter-kit-cover.jpg",
+    coverAlt: "The Cosmos Starter Kit cover",
+    eyebrow: "Cosmos · Free Field Guide",
+    titleTop: "Read your",
+    titleAccent: "chart free.",
+    productLine: "The Cosmos Starter Kit",
+    blurb:
+      "Numerology & astrology, read like a mirror: your life-path number, your Big Three, angel numbers, and personal-year timing. Enter your email and I'll send the free guide.",
+    bullets: [
+      "Instant download after signup — PDF + EPUB.",
+      "A direct inbox copy when email delivery is available.",
+      "Occasional field notes on the Cosmos line and the work. No spam.",
+    ],
+    submitLabel: "Send Me the Kit →",
+    footnote: "One email with your free guide. Read like a mirror, not a fortune. Unsubscribe any time.",
+    download: COSMOS_KIT,
+    successTitle: ["Your kit", "is ready."],
+    successSub: {
+      emailed: "It is on its way to your inbox, and you can start reading right now.",
+      fallback: "Email delivery is not connected right now, but the guide is ready below.",
+    },
+    successRead: "Read the Kit →",
+    crossEyebrow: "Want the full method?",
+    crossText: "Turn insight into action — the whole manifestation line in one bundle.",
+    crossHref: "/shop/the-manifestation-vault",
+    crossCta: "Get the Vault →",
+    requestBody: (email, source) => ({ email, magnet: "the-cosmos-starter-kit", source }),
+  },
+};
+
+function getDaysFromNow(days: number) {
+  return Date.now() + days * 24 * 60 * 60 * 1000;
+}
+
+function shouldSuppressPopup() {
+  if (typeof window === "undefined") return true;
+
+  const pathname = window.location.pathname;
+  const suppressedPaths = ["/rebecoming", "/services", "/contact", "/book"];
+  if (suppressedPaths.some((path) => pathname.startsWith(path))) return true;
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return false;
+
+  try {
+    const status = JSON.parse(saved) as { expiresAt?: number; submitted?: boolean };
+    if (status.submitted) return true;
+    if (status.expiresAt && status.expiresAt > Date.now()) return true;
+  } catch {
+    localStorage.removeItem(STORAGE_KEY);
+  }
+
+  return false;
+}
+
+function rememberPopup(status: "dismissed" | "submitted") {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({
+      status,
+      submitted: status === "submitted",
+      expiresAt: status === "submitted" ? getDaysFromNow(365) : getDaysFromNow(DISMISS_DAYS),
+    }),
+  );
+}
 
 export default function LeadCapture() {
   const [visible, setVisible] = useState(false);
@@ -10,58 +137,107 @@ export default function LeadCapture() {
   const [closing, setClosing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [checklistUrl, setChecklistUrl] = useState("/downloads/positioning-checklist.pdf");
   const [emailed, setEmailed] = useState(false);
+  const [variant, setVariant] = useState<Variant>("rebecoming");
+  const v = VARIANTS[variant];
+  const [downloadUrl, setDownloadUrl] = useState(FREE_CHAPTER);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (localStorage.getItem("mkp_lead_seen")) return;
+    if (window.location.pathname.startsWith("/cosmos")) {
+      setVariant("cosmos");
+      setDownloadUrl(COSMOS_KIT);
+    }
+  }, []);
 
-    const timer = setTimeout(() => setVisible(true), 8000);
+  const pageSource = useMemo(() => {
+    if (typeof window === "undefined") return "popup";
+    return `popup:${window.location.pathname}`;
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || shouldSuppressPopup()) return;
+
+    let hasOpened = false;
+    const openOnce = () => {
+      if (hasOpened || shouldSuppressPopup()) return;
+      hasOpened = true;
+      setVisible(true);
+    };
+
+    const timer = window.setTimeout(openOnce, 12000);
 
     const onScroll = () => {
-      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      if (pct >= 45 && !localStorage.getItem("mkp_lead_seen")) {
-        setVisible(true);
-        window.removeEventListener("scroll", onScroll);
-      }
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      const pct = (window.scrollY / scrollable) * 100;
+      if (pct >= 45) openOnce();
     };
+
+    const onMouseOut = (event: MouseEvent) => {
+      if (window.innerWidth < 900) return;
+      if (event.clientY <= 0) openOnce();
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("mouseout", onMouseOut);
 
     return () => {
-      clearTimeout(timer);
+      window.clearTimeout(timer);
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("mouseout", onMouseOut);
     };
   }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") dismiss();
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [visible]);
 
   function dismiss() {
     setClosing(true);
     setTimeout(() => {
       setVisible(false);
       setClosing(false);
-      localStorage.setItem("mkp_lead_seen", "1");
+      rememberPopup("dismissed");
     }, 350);
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email.trim() || loading) return;
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail || loading) return;
+
     setLoading(true);
     setError("");
+
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify(v.requestBody(cleanEmail, pageSource)),
       });
-      if (!res.ok) throw new Error("failed");
       const data = await res.json().catch(() => ({}));
-      if (data.checklist) setChecklistUrl(data.checklist);
+      if (!res.ok) throw new Error(data.error || "failed");
+
+      if (typeof data.download === "string" && data.download) {
+        setDownloadUrl(data.download);
+      } else if (typeof data.checklist === "string" && data.checklist) {
+        setDownloadUrl(data.checklist);
+      }
       setEmailed(Boolean(data.emailed));
       setSubmitted(true);
-      localStorage.setItem("mkp_lead_seen", "1");
-    } catch {
-      setError("Something went wrong — try again or join via Substack.");
+      rememberPopup("submitted");
+    } catch (err) {
+      setError(err instanceof Error && err.message !== "failed"
+        ? err.message
+        : "Something went wrong. You can still read the chapter below, then try your email again.");
     } finally {
       setLoading(false);
     }
@@ -79,105 +255,131 @@ export default function LeadCapture() {
         transition: "opacity 0.35s cubic-bezier(0.16,1,0.3,1)",
       }}
       onClick={(e) => { if (e.target === e.currentTarget) dismiss(); }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="lead-capture-title"
     >
       <div
-        className="relative w-full max-w-[520px] bg-void border border-graphite"
+        className="relative grid w-full max-w-[860px] overflow-hidden border border-graphite bg-void md:grid-cols-[0.85fr_1fr]"
         style={{
           transform: closing ? "translateY(20px) scale(0.97)" : "translateY(0) scale(1)",
           transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
         }}
       >
-        {/* Top accent line */}
-        <div className="absolute inset-x-0 top-0 h-px bg-petal" />
+        <div className="absolute inset-x-0 top-0 z-10 h-px bg-petal" />
 
-        {/* Close */}
         <button
           onClick={dismiss}
-          className="absolute right-5 top-5 font-body text-sm text-ash transition hover:text-pearl"
+          className="absolute right-4 top-4 z-20 font-body text-sm text-ash transition hover:text-pearl"
           aria-label="Close"
         >
           ✕
         </button>
 
-        <div className="p-10 md:p-12">
+        <div className="relative hidden items-center justify-center bg-carbon p-8 md:flex">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(242,175,198,0.18),transparent_70%)]" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={v.cover}
+            alt={v.coverAlt}
+            width={1600}
+            height={2560}
+            className="relative aspect-[5/8] w-full max-w-[240px] border border-graphite/70 object-cover shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
+          />
+        </div>
+
+        <div className="p-8 md:p-10">
           {!submitted ? (
             <>
-              <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.35em] text-petal mb-5">
-                Free Resource
+              <p className="mb-4 font-body text-[0.6rem] font-bold uppercase tracking-[0.35em] text-petal">
+                {v.eyebrow}
               </p>
               <h2
-                className="font-display uppercase tracking-[0.02em] text-white leading-[0.9]"
-                style={{ fontSize: "clamp(2rem, 6vw, 3.2rem)" }}
+                id="lead-capture-title"
+                className="font-display uppercase leading-[0.9] tracking-[0.02em] text-white"
+                style={{ fontSize: "clamp(1.9rem, 5vw, 2.8rem)" }}
               >
-                Stop Being<br />
-                <span className="text-petal">Misread.</span>
+                {v.titleTop}<br /><span className="text-petal">{v.titleAccent}</span>
               </h2>
-              <p className="mt-5 font-serif italic text-smoke leading-7" style={{ fontSize: "1rem" }}>
-                Get the free <strong className="text-pearl not-italic">Positioning Checklist</strong> — the 12-point audit I run on every client before we rewrite anything. Know exactly where your copy is losing people before you change a word.
+              <p className="mt-4 font-display uppercase leading-none tracking-[0.03em] text-petal" style={{ fontSize: "1.5rem" }}>
+                {v.productLine}
               </p>
-              <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-3">
+              <p className="mt-3 font-body text-base font-light leading-7 text-smoke">
+                {v.blurb}
+              </p>
+              <ul className="mt-5 space-y-2 font-body text-xs leading-5 text-smoke">
+                {v.bullets.map((b) => (
+                  <li key={b}>• {b}</li>
+                ))}
+              </ul>
+              <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
+                <label className="sr-only" htmlFor="lead-email">Email address</label>
                 <input
+                  id="lead-email"
                   type="email"
                   required
+                  autoComplete="email"
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border border-graphite bg-carbon px-5 py-4 font-body text-sm text-pearl placeholder:text-iron focus:border-petal focus:outline-none transition-colors duration-200"
+                  className="w-full border border-graphite bg-carbon px-5 py-4 font-body text-sm text-pearl placeholder:text-iron transition-colors duration-200 focus:border-petal focus:outline-none"
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn-primary w-full py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="btn-primary w-full py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {loading ? "Sending…" : "Send Me the Checklist →"}
+                  {loading ? "Sending…" : v.submitLabel}
                 </button>
               </form>
+              {error && <p className="mt-3 font-body text-[0.7rem] leading-5 text-petal" aria-live="polite">{error}</p>}
               {error && (
-                <p className="mt-3 font-body text-[0.7rem] text-petal leading-5">{error}</p>
-              )}
-              <p className="mt-4 font-body text-[0.65rem] text-iron leading-5">
-                No spam. No pitch sequence. One email with the checklist. Unsubscribe any time.
-              </p>
-
-              <div className="mt-8 border-t border-graphite pt-6 flex items-center justify-between">
-                <p className="font-body text-[0.65rem] uppercase tracking-[0.2em] text-iron">Or join The Margins</p>
                 <a
-                  href={SUBSTACK_URL}
+                  href={downloadUrl}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={dismiss}
-                  className="font-body text-[0.7rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:text-blush"
+                  className="mt-3 inline-flex font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal underline underline-offset-4"
                 >
-                  Read free →
+                  Read without waiting →
                 </a>
-              </div>
+              )}
+              <p className="mt-4 font-body text-[0.65rem] leading-5 text-iron">
+                {v.footnote}
+              </p>
             </>
           ) : (
-            <div className="text-center py-4">
-              <p className="font-display text-5xl uppercase tracking-[0.02em] text-petal leading-none">You&apos;re in.</p>
-              <p className="mt-6 font-serif italic text-smoke text-lg leading-7">
-                {emailed
-                  ? "The Positioning Checklist is on its way to your inbox — and you can grab it right now below."
-                  : "Here's your Positioning Checklist — download it now. You're on the list for The Margins, too."}
+            <div className="py-2" aria-live="polite">
+              <p className="font-display text-4xl uppercase leading-none tracking-[0.02em] text-petal">
+                {v.successTitle[0]}<br />{v.successTitle[1]}
               </p>
+              <p className="mt-5 font-serif text-base italic leading-7 text-smoke">
+                {emailed ? v.successSub.emailed : v.successSub.fallback}
+              </p>
+
               <a
-                href={checklistUrl}
+                href={downloadUrl}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => setTimeout(dismiss, 400)}
-                className="btn-primary mt-8 inline-block w-full py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+                className="mt-6 inline-flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.78rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
               >
-                Download the Checklist →
+                {v.successRead}
               </a>
-              <p className="mt-4 font-body text-[0.7rem] text-iron leading-5">
-                {emailed ? "Didn't get the email? Use the button above — it's the same file." : "A copy is in your inbox if email delivery is on."}
-              </p>
-              <button
-                onClick={dismiss}
-                className="mt-6 btn-ghost px-8 py-3 font-body text-[0.75rem] font-bold uppercase tracking-[0.2em]"
-              >
-                Keep Reading →
-              </button>
+
+              <div className="mt-6 border-t border-graphite pt-6">
+                <p className="font-body text-[0.6rem] font-bold uppercase tracking-[0.25em] text-petal">
+                  {v.crossEyebrow}
+                </p>
+                <p className="mt-2 font-body text-sm font-light leading-6 text-smoke">
+                  {v.crossText}
+                </p>
+                <a
+                  href={v.crossHref}
+                  onClick={() => setTimeout(dismiss, 300)}
+                  className="btn-primary mt-4 inline-flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
+                >
+                  {v.crossCta}
+                </a>
+              </div>
             </div>
           )}
         </div>

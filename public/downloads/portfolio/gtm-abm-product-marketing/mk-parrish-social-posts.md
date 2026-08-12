@@ -1,0 +1,51 @@
+# Social Posts Swipe File
+
+Ready-to-adapt social posts for the GTM, ABM, and product marketing portfolio push.
+
+## LinkedIn
+
+1. The GTM handoff is where good copy goes to die. If the ad, landing page, SDR note, sales deck, and follow-up all say a different version of the value, the buyer has to do the work your messaging should have done. Fix the sentence before you buy more traffic.
+
+2. ABM is not putting the company name in the first line. ABM is proof placement. It is knowing which claim matters to which person in the buying committee, then giving that person the exact evidence they need to believe the next step is worth it.
+
+3. Product marketing is the discipline of making a product easier to choose. Not easier to describe. Easier to choose. That means the message house has to survive the homepage, launch email, sales call, founder post, and objection handling.
+
+4. If your homepage headline could belong to a competitor, your positioning has not made a decision yet.
+
+## X / Threads
+
+1. Most pipeline problems are language problems with a dashboard on top.
+
+2. A good message house should make the sales call shorter.
+
+3. ABM is not personalization. It is proof placement.
+
+4. Your product marketing is working when sales starts stealing the language.
+
+5. The funnel starts with the sentence the buyer needs to believe.
+
+## Instagram carousel
+
+1. Slide 1: Your headline is not positioning if a competitor can use it.
+
+2. Slide 2: Name the buyer before you describe the company.
+
+3. Slide 3: Name the business pain, not just the feature gap.
+
+4. Slide 4: Make one claim and prove it.
+
+5. Slide 5: Handle the silent objection.
+
+6. Slide 6: Make the next step obvious.
+
+7. Slide 7: Fix the sentence before you buy more traffic.
+
+## Substack
+
+1. Essay: The sentence before the funnel - why most demand problems start before the campaign is built.
+
+2. Essay: Proof placement - the quiet difference between content that gets attention and content that creates trust.
+
+3. Essay: Founder voice after AI - why generic output made taste more valuable, not less.
+
+4. Essay: The account room as a sales asset - how ABM gets sharper when it gives the buyer a useful artifact.
