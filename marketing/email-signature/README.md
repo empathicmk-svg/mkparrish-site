@@ -1,15 +1,14 @@
 # Email signature — Mercedes-Benz of Smithtown
 
-Two finished signatures, same layout, different metal:
+Silver, per the marque. Two builds of the same signature:
 
-| File | Accent |
+| File | Use it for |
 | --- | --- |
-| `mk-parrish-signature-platinum.html` | Silver / chrome — the Mercedes-Benz house palette |
-| `mk-parrish-signature-gold.html` | Gold, closer to the original draft |
-| `mk-parrish-signature-crm.html` | Silver, rebuilt for a dealer CRM's editor — see below |
+| `mk-parrish-signature.html` | Gmail, Outlook, Apple Mail — a full page to open and copy |
+| `mk-parrish-signature-crm.html` | Momentum CRM — a bare fragment for its source view |
 
-`preview.html` shows both side by side. Open it first, pick one, then install
-that file.
+`preview.html` renders it with the star read off disk, so it looks right before
+this branch ships.
 
 Do not hand-edit the HTML — it is generated. Change `scripts/build-email-signature.mjs`
 and run:
@@ -18,11 +17,11 @@ and run:
 npm run email:signature
 ```
 
-## Install
+## Install in Gmail / Outlook / Apple Mail
 
-**Gmail** — Settings → See all settings → General → Signature. Open the chosen
-`.html` file in a browser, select all (⌘A), copy, paste into the signature box,
-save. Paste into the box itself, not into a compose window.
+**Gmail** — Settings → See all settings → General → Signature. Open
+`mk-parrish-signature.html` in a browser, select all (⌘A), copy, paste into the
+signature box, save. Paste into the box itself, not into a compose window.
 
 **Outlook (desktop)** — File → Options → Mail → Signatures → New, then paste the
 same way. Outlook re-writes what it is given; check one test send before relying
@@ -34,9 +33,9 @@ contents, keeping the header lines above it.
 
 ## Install in Momentum CRM
 
-Use `mk-parrish-signature-crm.html`, not the two above. It is the same silver
-signature with three changes a CRM editor needs, because these editors (Momentum,
-VinSolutions and the rest all wrap TinyMCE or CKEditor) sanitise the HTML on save:
+Use `mk-parrish-signature-crm.html`. It is the same signature with three changes
+a CRM editor needs, because these editors (Momentum, VinSolutions and the rest
+all wrap TinyMCE or CKEditor) sanitise the HTML on save:
 
 - **No HTML comments.** The editor strips them, and the Outlook VML button lives
   inside one — it would be thrown away mid-tag. The CTA is a padded table cell
@@ -56,12 +55,29 @@ Steps:
    layout survived the round trip.
 4. Send one test email to yourself and open it on a phone as well as a desktop.
 
-If Momentum has no source view, open `mk-parrish-signature-crm.html` in a browser,
-select all, copy, and paste into the visual editor instead — it survives that
-route too, just with less predictable results on save.
-
 Momentum's merge tokens can go straight into the markup if you ever want them —
 they are plain text and pass through the build untouched.
+
+## The font
+
+mercedes-benz.com is set in **MB Corpo** — `MB Corpo A Title` for headings,
+`MB Corpo S Text` for body. It is licensed through the Mercedes-Benz Font
+Service, so it cannot be served from this repo, and that would not help anyway:
+Gmail, Outlook and Yahoo all drop `@font-face`, so no email signature anywhere
+loads a webfont. Whatever is installed on the reading machine is what renders.
+
+So the stack names the real MB families first and falls through to the nearest
+neutral grotesque. Any machine with the dealer brand kit installed — likely
+including the showroom's own — renders true MB Corpo; everyone else gets
+Helvetica or Arial, which is what the layout was built against.
+
+One catch handled inline: Word reads only the *first* family in a stack and drops
+to Times New Roman when it is missing, which would wreck the signature on every
+Outlook desktop without the brand kit. `mso-ascii-font-family:Arial` and its two
+siblings pin Word to Arial; every other client ignores them.
+
+If the store's IT can install MB Corpo on your machine, the signature picks it up
+with no change here.
 
 ## The star
 
@@ -70,17 +86,25 @@ The signature loads `https://mkparrish.com/email/mb-star.png`, which is
 branch is deployed.** Email clients cannot render SVG and cannot see local files,
 so the mark has to be a hosted PNG.
 
-In the CRM, there is a second option: most dealer CRMs have an image button in
-the signature editor that uploads to their own CDN. Upload `public/email/mb-star.png`
+In the CRM there is a second option: most dealer CRMs have an image button in the
+signature editor that uploads to their own CDN. Upload `public/email/mb-star.png`
 that way and let the editor rewrite the `src` — the signature then works before
 this branch ships, and keeps working if mkparrish.com ever moves.
 
 That PNG is drawn by the build script, not an official asset. Mercedes-Benz USA
 gives dealers a brand kit; when you have the store's approved star, overwrite
-`public/email/mb-star.png` (and `mb-star-gold.png`) with it at ~140px square and
-redeploy — no markup change needed. Dealer-brand rules also normally want the
-store's own name in the signature, which is why the store line sits under the
-mark.
+`public/email/mb-star.png` with it at ~140px square and redeploy — no markup
+change needed. Dealer-brand rules also normally want the store's own name in the
+signature, which is why the store line sits under the mark.
+
+## The review button
+
+It points at MK's Maps share link, `maps.app.goo.gl/gcCgAvQGMnthZ3co8`. Click it
+from a test send once to confirm where it lands: a share link opens the store's
+listing, from which a customer still has to tap through to write a review. The
+Google Business Profile → *Ask for reviews* link (`https://g.page/r/…/review`)
+opens the review box directly and is worth swapping in — change
+`DATA.review.href` and rebuild.
 
 ## What changed from the first draft
 
@@ -90,19 +114,10 @@ mark.
   and `background: linear-gradient` for the flourish, all collapse. The dividers
   are now 1px table rows and the flourish is a real centred rule.
 - **Button rebuilt.** Word ignores padding on an inline-block `<a>`, so the CTA
-  had no shape in Outlook. It now ships a VML button for Outlook and the styled
-  link everywhere else.
+  had no shape in Outlook. The email build ships a VML button for Outlook and the
+  styled link everywhere else; the CRM build uses a padded cell.
 - **Garamond italic → the Mercedes-Benz register.** Garamond is not installed on
-  Windows and was falling back to Georgia. Mercedes sets its brand in Corporate
-  A/S, which no email client can load, so this uses wide-tracked uppercase in the
-  nearest neutral grotesque — that tracking, not a serif, is what reads as
-  Mercedes.
-- **Phone numbers are now `tel:` links** and every `&` is escaped, including the
-  one inside the Maps URL, where a bare `&` can swallow the characters after it.
-- **The review link.** The original carried a placeholder Place ID
-  (`0x89e81b5e...5e5e`) and coordinates that land in open water south of the
-  Hamptons — it did not resolve to the store. It now searches Maps by name and
-  address, which always finds the listing. Better still: sign in to the store's
-  Google Business Profile → *Ask for reviews*, and paste that
-  `https://g.page/r/…/review` link into `DATA.review.href` — it opens the review
-  box directly instead of the listing.
+  Windows and was falling back to Georgia. See *The font* above.
+- **Phone numbers are now `tel:` links** and every `&` is escaped.
+- **The review link was broken.** It carried a placeholder Place ID
+  (`0x89e81b5e...5e5e`) at coordinates in open water south of the Hamptons.

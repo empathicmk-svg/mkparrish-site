@@ -8,8 +8,8 @@
  * Output:
  *   public/email/mb-star.svg              source mark
  *   public/email/mb-star.png              the mark the signature hotlinks (2x, transparent)
- *   marketing/email-signature/mk-parrish-signature-platinum.html
- *   marketing/email-signature/mk-parrish-signature-gold.html
+ *   marketing/email-signature/mk-parrish-signature.html      Gmail / Outlook
+ *   marketing/email-signature/mk-parrish-signature-crm.html  Momentum CRM
  *   marketing/email-signature/preview.html
  *
  * Everything is table-based with inline styles: Outlook's Word engine drops
@@ -43,39 +43,47 @@ const DATA = {
   email: 'mparrish@mbofsmithtown.com',
   address: ['630 Middle Country Road', 'St James, NY 11780'],
   website: { display: 'mbofsmithtown.com', href: 'https://www.mbofsmithtown.com' },
-  // The original link carried a placeholder Place ID (0x89e...5e5e) and
-  // coordinates out in the Atlantic, so it resolved to open water rather than
-  // to the store. A Maps search by name + address always lands on the real
-  // listing. Swap in the store's own g.page/r/<id>/review link when you have it.
+  // MK's own share link out of the Maps app. The first draft's link carried a
+  // placeholder Place ID (0x89e...5e5e) at coordinates in open water south of
+  // the Hamptons, so it never resolved to the store.
   review: {
     label: 'Share Your Experience',
-    href: 'https://www.google.com/maps/search/?api=1&query=Mercedes-Benz+of+Smithtown+630+Middle+Country+Road+St+James+NY+11780',
+    href: 'https://maps.app.goo.gl/gcCgAvQGMnthZ3co8?g_st=ic',
   },
 };
 
 /* ------------------------------------------------------------------ *
- * Type + colour. Mercedes-Benz sets its own brand in Corporate A/S —
- * no email client can load it, so the stack falls to the closest widely
- * installed neutral grotesques. Wide tracking on near-black is what makes
- * it read as Mercedes rather than the serif it was.
+ * Type.
+ *
+ * mercedes-benz.com is set in MB Corpo — 'MB Corpo A Title' for headings,
+ * 'MB Corpo S Text' for everything else. It is licensed through the
+ * Mercedes-Benz Font Service, so it cannot be served from this repo, and it
+ * would not help if it could: Gmail, Outlook and Yahoo all drop @font-face,
+ * so no email signature anywhere loads a webfont.
+ *
+ * Naming the real families first still pays: any machine with the dealer brand
+ * kit installed — likely including the showroom's own — renders true MB Corpo,
+ * and every other machine falls through to the nearest neutral grotesque.
  * ------------------------------------------------------------------ */
-const SANS = "'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif";
+const TITLE_FONT = "'MB Corpo A Title', 'MB Corpo A Title Web', 'MB Corpo S Title', 'Corporate A', 'Helvetica Neue', Helvetica, Arial, sans-serif";
+const TEXT_FONT = "'MB Corpo S Text', 'MB Corpo S Text Web', 'MBCorpo Text', 'Corporate S', 'Helvetica Neue', Helvetica, Arial, sans-serif";
 
-const THEMES = {
-  platinum: {
-    star: ['#FFFFFF', '#C6CCD0'],
-    logo: `${SITE}/email/mb-star.png`,
-    accent: '#E4E8EA',   // links + numbers
-    button: '#DDE1E3',
-    name: '#FFFFFF',
-  },
-  gold: {
-    star: ['#F0DFA8', '#B8942C'],
-    logo: `${SITE}/email/mb-star-gold.png`,
-    accent: '#D4AF37',
-    button: '#D4AF37',
-    name: '#F3E7C3',
-  },
+// Word reads only the first family in a stack and drops to Times New Roman when
+// it is missing, so naming MB Corpo first would wreck the signature on every
+// Outlook desktop without the brand kit. These Word-only properties pin it to
+// Arial; every other client ignores them and honours the stack above.
+const MSO_FONT = 'mso-ascii-font-family:Arial;mso-hansi-font-family:Arial;mso-bidi-font-family:Arial;';
+
+/* ------------------------------------------------------------------ *
+ * Colour. Silver, per the marque — the gold variant was dropped once MK
+ * picked this one; it is in the history if it is ever wanted back.
+ * ------------------------------------------------------------------ */
+const THEME = {
+  star: ['#FFFFFF', '#C6CCD0'],
+  logo: `${SITE}/email/mb-star.png`,
+  accent: '#E4E8EA',   // links + numbers
+  button: '#DDE1E3',
+  name: '#FFFFFF',
 };
 
 const BASE = {
@@ -146,8 +154,8 @@ function rule(color = BASE.rule, top = 0, bottom = 0) {
 function contactRow({ label, display, href }, theme, { last = false, caps = (v) => v } = {}) {
   const pad = last ? 0 : 9;
   return `              <tr>
-                <td align="left" style="font-family:${SANS};font-size:10px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:1.6px;color:${BASE.label};text-transform:uppercase;padding:0 12px ${pad}px 0;white-space:nowrap;">${esc(caps(label))}</td>
-                <td align="right" style="font-family:${SANS};font-size:12px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:0.6px;padding:0 0 ${pad}px 0;">
+                <td align="left" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:10px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:1.6px;color:${BASE.label};text-transform:uppercase;padding:0 12px ${pad}px 0;white-space:nowrap;">${esc(caps(label))}</td>
+                <td align="right" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:12px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:0.6px;padding:0 0 ${pad}px 0;">
                   <a href="${attr(href)}" style="color:${theme.accent};text-decoration:none;font-weight:600;">${esc(display)}</a>
                 </td>
               </tr>`;
@@ -185,7 +193,7 @@ function signature(theme, { crm = false } = {}) {
     ? `            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;">
               <tr>
                 <td align="center" bgcolor="${theme.button}" style="background-color:${theme.button};padding:13px 28px;">
-                  <a href="${attr(DATA.review.href)}" style="font-family:${SANS};font-size:11px;line-height:14px;letter-spacing:2px;font-weight:700;color:${BASE.ink};text-decoration:none;display:inline-block;">${esc(DATA.review.label.toUpperCase())}</a>
+                  <a href="${attr(DATA.review.href)}" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:11px;line-height:14px;letter-spacing:2px;font-weight:700;color:${BASE.ink};text-decoration:none;display:inline-block;">${esc(DATA.review.label.toUpperCase())}</a>
                 </td>
               </tr>
             </table>`
@@ -196,7 +204,7 @@ function signature(theme, { crm = false } = {}) {
             </v:roundrect>
             <![endif]-->
             <!--[if !mso]><!-- -->
-            <a href="${attr(DATA.review.href)}" style="display:inline-block;font-family:${SANS};font-size:11px;line-height:14px;letter-spacing:2px;font-weight:700;color:${BASE.ink};background-color:${theme.button};padding:13px 28px;text-decoration:none;text-transform:uppercase;">${esc(DATA.review.label)}</a>
+            <a href="${attr(DATA.review.href)}" style="display:inline-block;font-family:${TEXT_FONT};${MSO_FONT}font-size:11px;line-height:14px;letter-spacing:2px;font-weight:700;color:${BASE.ink};background-color:${theme.button};padding:13px 28px;text-decoration:none;text-transform:uppercase;">${esc(DATA.review.label)}</a>
             <!--<![endif]-->`;
 
   return `${note}${msoOpen}<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;border-collapse:collapse;background-color:${BASE.bg};border:1px solid ${BASE.edge};">
@@ -211,7 +219,7 @@ ${comment('Marque')}
           </td>
         </tr>
         <tr>
-          <td align="center" style="font-family:${SANS};font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:4px;color:${BASE.body};text-transform:uppercase;padding:0 0 22px 0;">${esc(caps(DATA.store))}</td>
+          <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:4px;color:${BASE.body};text-transform:uppercase;padding:0 0 22px 0;">${esc(caps(DATA.store))}</td>
         </tr>
 ${comment('Short centred rule: the original used a CSS gradient, which Outlook and Gmail both drop, leaving a gap where the flourish should be.')}
         <tr>
@@ -223,12 +231,12 @@ ${comment('Short centred rule: the original used a CSS gradient, which Outlook a
         </tr>
 ${comment('Name')}
         <tr>
-          <td align="center" style="font-family:${SANS};font-size:21px;line-height:26px;mso-line-height-rule:exactly;letter-spacing:5px;padding:0 0 9px 0;">
-            <a href="${attr(DATA.personalUrl)}" style="color:${theme.name};text-decoration:none;font-weight:400;text-transform:uppercase;">${esc(caps(DATA.name))}</a>
+          <td align="center" style="font-family:${TITLE_FONT};${MSO_FONT}font-size:21px;line-height:26px;mso-line-height-rule:exactly;letter-spacing:5px;padding:0 0 9px 0;">
+            <a href="${attr(DATA.personalUrl)}" style="color:${theme.name};text-decoration:none;font-weight:700;text-transform:uppercase;">${esc(caps(DATA.name))}</a>
           </td>
         </tr>
         <tr>
-          <td align="center" style="font-family:${SANS};font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:2.4px;color:${BASE.label};text-transform:uppercase;padding:0 0 24px 0;">${esc(caps(DATA.title))}</td>
+          <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:2.4px;color:${BASE.label};text-transform:uppercase;padding:0 0 24px 0;">${esc(caps(DATA.title))}</td>
         </tr>
 
 ${rule(BASE.rule, 0, 20)}
@@ -246,10 +254,10 @@ ${contactRow({ label: 'Email', display: DATA.email, href: `mailto:${DATA.email}`
 ${rule(BASE.rule, 20, 20)}
 ${comment('Where')}
         <tr>
-          <td align="center" style="font-family:${SANS};font-size:11px;line-height:19px;mso-line-height-rule:exactly;letter-spacing:1.4px;color:${BASE.body};text-transform:uppercase;padding:0 0 12px 0;">${DATA.address.map((line) => esc(caps(line))).join('<br>')}</td>
+          <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:11px;line-height:19px;mso-line-height-rule:exactly;letter-spacing:1.4px;color:${BASE.body};text-transform:uppercase;padding:0 0 12px 0;">${DATA.address.map((line) => esc(caps(line))).join('<br>')}</td>
         </tr>
         <tr>
-          <td align="center" style="font-family:${SANS};font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:1.8px;padding:0 0 26px 0;">
+          <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:1.8px;padding:0 0 26px 0;">
             <a href="${attr(DATA.website.href)}" style="color:${theme.accent};text-decoration:none;font-weight:600;text-transform:uppercase;">${esc(caps(DATA.website.display))}</a>
           </td>
         </tr>
@@ -285,53 +293,44 @@ ${body}
 /* ------------------------------------------------------------------ *
  * Write
  * ------------------------------------------------------------------ */
-const svg = starSvg(THEMES.platinum.star);
-fs.writeFileSync(path.join(PUBLIC_EMAIL, 'mb-star.svg'), `${svg}\n`);
-fs.writeFileSync(path.join(PUBLIC_EMAIL, 'mb-star-gold.svg'), `${starSvg(THEMES.gold.star)}\n`);
+fs.writeFileSync(path.join(PUBLIC_EMAIL, 'mb-star.svg'), `${starSvg(THEME.star)}\n`);
 
 // Chromium refuses to run sandboxed as root, which is how CI containers run.
 const sandboxArgs = process.getuid?.() === 0 ? ['--no-sandbox'] : [];
 const browser = await puppeteer.launch({ headless: true, args: ['--disable-lcd-text', ...sandboxArgs] });
 try {
-  for (const [name, theme] of Object.entries(THEMES)) {
-    const file = name === 'platinum' ? 'mb-star.png' : 'mb-star-gold.png';
-    const p = await browser.newPage();
-    // 3x so the 46px mark stays sharp on retina and on Outlook's own scaling.
-    await p.setViewport({ width: 200, height: 200, deviceScaleFactor: 3 });
-    await p.setContent(`<body style="margin:0">${starSvg(theme.star)}</body>`, { waitUntil: 'load' });
-    await p.screenshot({ path: path.join(PUBLIC_EMAIL, file), omitBackground: true });
-    await p.close();
-    console.log(`✓ public/email/${file}`);
-  }
+  const p = await browser.newPage();
+  // 3x so the 46px mark stays sharp on retina and on Outlook's own scaling.
+  await p.setViewport({ width: 200, height: 200, deviceScaleFactor: 3 });
+  await p.setContent(`<body style="margin:0">${starSvg(THEME.star)}</body>`, { waitUntil: 'load' });
+  await p.screenshot({ path: path.join(PUBLIC_EMAIL, 'mb-star.png'), omitBackground: true });
+  console.log('✓ public/email/mb-star.png');
 } finally {
   await browser.close();
 }
 
-const built = {};
-for (const [name, theme] of Object.entries(THEMES)) {
-  const html = signature(theme);
-  built[name] = html;
-  const file = `mk-parrish-signature-${name}.html`;
-  fs.writeFileSync(path.join(OUT, file), `${page(`${DATA.name} — ${DATA.store}`, html)}\n`);
-  console.log(`✓ marketing/email-signature/${file}`);
-}
+// Gmail, Outlook, Apple Mail: a full document to open, select all and copy.
+const emailHtml = signature(THEME);
+fs.writeFileSync(
+  path.join(OUT, 'mk-parrish-signature.html'),
+  `${page(`${DATA.name} — ${DATA.store}`, emailHtml)}\n`,
+);
+console.log('✓ marketing/email-signature/mk-parrish-signature.html');
 
 // Momentum CRM (and the other dealer CRMs) paste into a WYSIWYG editor, not
 // into Gmail's signature box: it wants a bare fragment with no doctype, and it
-// sanitises comments away on save. Silver only — that is the one in use.
-const crmFragment = signature(THEMES.platinum, { crm: true });
-fs.writeFileSync(path.join(OUT, 'mk-parrish-signature-crm.html'), `${crmFragment}\n`);
+// sanitises comments away on save.
+fs.writeFileSync(
+  path.join(OUT, 'mk-parrish-signature-crm.html'),
+  `${signature(THEME, { crm: true })}\n`,
+);
 console.log('✓ marketing/email-signature/mk-parrish-signature-crm.html');
 
+// The preview reads the mark off disk, so it renders before the branch ships.
 const localised = (html) => html.replace(new RegExp(`${SITE}/email/`, 'g'), '../../public/email/');
-
-const previewBody = Object.entries(built).map(([name, html]) => `<div style="margin:0 auto 48px auto;max-width:600px;">
-  <p style="font-family:${SANS};font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#6B7073;margin:0 0 12px 0;">${name}</p>
-  ${localised(html)}
-</div>`).join('\n');
 
 fs.writeFileSync(
   path.join(OUT, 'preview.html'),
-  `${page('Signature preview', `<p style="font-family:${SANS};font-size:12px;line-height:20px;color:#6B7073;max-width:600px;margin:0 auto 32px auto;">Pick one, open that file on its own, select all, copy, paste into Gmail or Outlook. The mark below is read off disk; in the real files it loads from mkparrish.com/email/, which needs this branch deployed.</p>${previewBody}`, '#F4F5F6')}\n`,
+  `${page('Signature preview', `<p style="font-family:${TEXT_FONT};${MSO_FONT}font-size:12px;line-height:20px;color:#6B7073;max-width:600px;margin:0 auto 32px auto;">Open mk-parrish-signature.html on its own, select all, copy, paste into Gmail or Outlook. Momentum takes mk-parrish-signature-crm.html instead, pasted into its source view. The mark below is read off disk; in the real files it loads from mkparrish.com/email/, which needs this branch deployed.</p><div style="margin:0 auto;max-width:600px;">${localised(emailHtml)}</div>`, '#F4F5F6')}\n`,
 );
 console.log('✓ marketing/email-signature/preview.html');
