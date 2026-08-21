@@ -12,6 +12,7 @@
     "social:carousel": "node scripts/social/generate-carousel.mjs",
     "social:video": "node scripts/social/generate-video.mjs",
     "social:all": "npm run social && npm run social:carousel && npm run social:video",
+    "email:signature": "node scripts/build-email-signature.mjs",
     "lead-magnet": "node scripts/lead-magnet/build.mjs",
     "portfolio-pages": "node scripts/build-portfolio-pages.mjs",
     "stripe:books": "node scripts/create-stripe-payment-links.mjs --write"
