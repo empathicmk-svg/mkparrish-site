@@ -6,6 +6,7 @@ Two finished signatures, same layout, different metal:
 | --- | --- |
 | `mk-parrish-signature-platinum.html` | Silver / chrome — the Mercedes-Benz house palette |
 | `mk-parrish-signature-gold.html` | Gold, closer to the original draft |
+| `mk-parrish-signature-crm.html` | Silver, rebuilt for a dealer CRM's editor — see below |
 
 `preview.html` shows both side by side. Open it first, pick one, then install
 that file.
@@ -31,12 +32,48 @@ on it.
 `.mailsignature` file in `~/Library/Mail/V*/MailData/Signatures/` with the file
 contents, keeping the header lines above it.
 
+## Install in Momentum CRM
+
+Use `mk-parrish-signature-crm.html`, not the two above. It is the same silver
+signature with three changes a CRM editor needs, because these editors (Momentum,
+VinSolutions and the rest all wrap TinyMCE or CKEditor) sanitise the HTML on save:
+
+- **No HTML comments.** The editor strips them, and the Outlook VML button lives
+  inside one — it would be thrown away mid-tag. The CTA is a padded table cell
+  instead, which Word honours natively, so Outlook still gets a real button.
+- **No doctype or `<body>`.** It is a bare fragment; a full document gets
+  unwrapped or rejected.
+- **Caps typed as caps,** since `text-transform` is one of the first properties
+  these editors drop.
+
+Steps:
+
+1. Momentum → your user profile → Email / Signature settings.
+2. Switch the editor to source view — the `< >` button, sometimes labelled
+   *Source*, *Code*, or *HTML*. Paste the whole file there. **Do not** paste into
+   the visual editor; it escapes the markup and you get code as text.
+3. Save, then reopen the signature. CRMs rewrite what they store, so confirm the
+   layout survived the round trip.
+4. Send one test email to yourself and open it on a phone as well as a desktop.
+
+If Momentum has no source view, open `mk-parrish-signature-crm.html` in a browser,
+select all, copy, and paste into the visual editor instead — it survives that
+route too, just with less predictable results on save.
+
+Momentum's merge tokens can go straight into the markup if you ever want them —
+they are plain text and pass through the build untouched.
+
 ## The star
 
 The signature loads `https://mkparrish.com/email/mb-star.png`, which is
 `public/email/mb-star.png` in this repo — so **the logo stays broken until this
 branch is deployed.** Email clients cannot render SVG and cannot see local files,
 so the mark has to be a hosted PNG.
+
+In the CRM, there is a second option: most dealer CRMs have an image button in
+the signature editor that uploads to their own CDN. Upload `public/email/mb-star.png`
+that way and let the editor rewrite the `src` — the signature then works before
+this branch ships, and keeps working if mkparrish.com ever moves.
 
 That PNG is drawn by the build script, not an official asset. Mercedes-Benz USA
 gives dealers a brand kit; when you have the store's approved star, overwrite

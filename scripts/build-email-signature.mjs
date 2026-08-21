@@ -143,87 +143,53 @@ function rule(color = BASE.rule, top = 0, bottom = 0) {
         </tr>`;
 }
 
-function contactRow({ label, display, href }, theme, last = false) {
+function contactRow({ label, display, href }, theme, { last = false, caps = (v) => v } = {}) {
   const pad = last ? 0 : 9;
   return `              <tr>
-                <td align="left" style="font-family:${SANS};font-size:10px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:1.6px;color:${BASE.label};text-transform:uppercase;padding:0 12px ${pad}px 0;white-space:nowrap;">${esc(label)}</td>
+                <td align="left" style="font-family:${SANS};font-size:10px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:1.6px;color:${BASE.label};text-transform:uppercase;padding:0 12px ${pad}px 0;white-space:nowrap;">${esc(caps(label))}</td>
                 <td align="right" style="font-family:${SANS};font-size:12px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:0.6px;padding:0 0 ${pad}px 0;">
                   <a href="${attr(href)}" style="color:${theme.accent};text-decoration:none;font-weight:600;">${esc(display)}</a>
                 </td>
               </tr>`;
 }
 
-function signature(theme) {
-  return `<!-- MK Parrish · Mercedes-Benz of Smithtown · built by scripts/build-email-signature.mjs — edit that, not this -->
-<!--[if mso]>
+/**
+ * Build the signature.
+ *
+ * `crm` targets a dealer CRM's signature editor (Momentum, VinSolutions and
+ * friends all wrap TinyMCE or CKEditor) rather than Gmail/Outlook directly.
+ * Those editors sanitise on save, which changes what is safe to ship:
+ *   - HTML comments are stripped, and the Outlook VML button lives inside one,
+ *     so the CTA becomes a padded table cell instead — Word honours padding on
+ *     a <td>, so it survives Outlook without any conditional markup.
+ *   - text-transform is often dropped, so the caps are typed as caps.
+ *   - the outer table takes a width attribute as well as the CSS, since some
+ *     editors rewrite the style attribute and keep the attribute.
+ */
+function signature(theme, { crm = false } = {}) {
+  const caps = (v) => (crm ? String(v).toUpperCase() : v);
+  const note = crm ? '' : `<!-- MK Parrish · Mercedes-Benz of Smithtown · built by scripts/build-email-signature.mjs — edit that, not this -->
+`;
+  const msoOpen = crm ? '' : `<!--[if mso]>
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr><td>
 <![endif]-->
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:600px;border-collapse:collapse;background-color:${BASE.bg};border:1px solid ${BASE.edge};">
-  <tr>
-    <td align="center" bgcolor="${BASE.bg}" style="padding:36px 40px 34px 40px;background-color:${BASE.bg};">
+`;
+  const msoClose = crm ? '' : `
+<!--[if mso]>
+</td></tr></table>
+<![endif]-->`;
+  const comment = (text) => (crm ? '' : `
+        <!-- ${text} -->`);
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;">
-
-        <!-- Marque -->
-        <tr>
-          <td align="center" style="padding:0 0 14px 0;">
-            <img src="${attr(theme.logo)}" width="46" height="46" alt="Mercedes-Benz" style="display:block;width:46px;height:46px;border:0;outline:none;text-decoration:none;">
-          </td>
-        </tr>
-        <tr>
-          <td align="center" style="font-family:${SANS};font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:4px;color:${BASE.body};text-transform:uppercase;padding:0 0 22px 0;">${esc(DATA.store)}</td>
-        </tr>
-
-        <!-- Short centred rule: the original used a CSS gradient, which Outlook
-             and Gmail both drop, leaving a gap where the flourish should be. -->
-        <tr>
-          <td align="center" style="padding:0 0 22px 0;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="56" style="width:56px;border-collapse:collapse;">
-              <tr><td height="1" bgcolor="${theme.accent}" style="height:1px;line-height:1px;font-size:0;mso-line-height-rule:exactly;">&nbsp;</td></tr>
-            </table>
-          </td>
-        </tr>
-
-        <!-- Name -->
-        <tr>
-          <td align="center" style="font-family:${SANS};font-size:21px;line-height:26px;mso-line-height-rule:exactly;letter-spacing:5px;padding:0 0 9px 0;">
-            <a href="${attr(DATA.personalUrl)}" style="color:${theme.name};text-decoration:none;font-weight:400;text-transform:uppercase;">${esc(DATA.name)}</a>
-          </td>
-        </tr>
-        <tr>
-          <td align="center" style="font-family:${SANS};font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:2.4px;color:${BASE.label};text-transform:uppercase;padding:0 0 24px 0;">${esc(DATA.title)}</td>
-        </tr>
-
-${rule(BASE.rule, 0, 20)}
-
-        <!-- Reach -->
-        <tr>
-          <td>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;">
-${contactRow(DATA.phone, theme)}
-${contactRow(DATA.mobile, theme)}
-${contactRow({ label: 'Email', display: DATA.email, href: `mailto:${DATA.email}` }, theme, true)}
-            </table>
-          </td>
-        </tr>
-
-${rule(BASE.rule, 20, 20)}
-
-        <!-- Where -->
-        <tr>
-          <td align="center" style="font-family:${SANS};font-size:11px;line-height:19px;mso-line-height-rule:exactly;letter-spacing:1.4px;color:${BASE.body};text-transform:uppercase;padding:0 0 12px 0;">${DATA.address.map(esc).join('<br>')}</td>
-        </tr>
-        <tr>
-          <td align="center" style="font-family:${SANS};font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:1.8px;padding:0 0 26px 0;">
-            <a href="${attr(DATA.website.href)}" style="color:${theme.accent};text-decoration:none;font-weight:600;text-transform:uppercase;">${esc(DATA.website.display)}</a>
-          </td>
-        </tr>
-
-        <!-- Review CTA. Outlook ignores padding on an inline-block <a>, so it
-             gets a VML button and every other client gets the real one. -->
-        <tr>
-          <td align="center">
-            <!--[if mso]>
+  const button = crm
+    ? `            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;">
+              <tr>
+                <td align="center" bgcolor="${theme.button}" style="background-color:${theme.button};padding:13px 28px;">
+                  <a href="${attr(DATA.review.href)}" style="font-family:${SANS};font-size:11px;line-height:14px;letter-spacing:2px;font-weight:700;color:${BASE.ink};text-decoration:none;display:inline-block;">${esc(DATA.review.label.toUpperCase())}</a>
+                </td>
+              </tr>
+            </table>`
+    : `            <!--[if mso]>
             <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${attr(DATA.review.href)}" style="height:40px;v-text-anchor:middle;width:232px;" arcsize="0%" stroke="f" fillcolor="${theme.button}">
               <w:anchorlock/>
               <center style="color:${BASE.ink};font-family:Arial,sans-serif;font-size:11px;font-weight:bold;letter-spacing:2px;">${esc(DATA.review.label.toUpperCase())}</center>
@@ -231,7 +197,66 @@ ${rule(BASE.rule, 20, 20)}
             <![endif]-->
             <!--[if !mso]><!-- -->
             <a href="${attr(DATA.review.href)}" style="display:inline-block;font-family:${SANS};font-size:11px;line-height:14px;letter-spacing:2px;font-weight:700;color:${BASE.ink};background-color:${theme.button};padding:13px 28px;text-decoration:none;text-transform:uppercase;">${esc(DATA.review.label)}</a>
-            <!--<![endif]-->
+            <!--<![endif]-->`;
+
+  return `${note}${msoOpen}<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;border-collapse:collapse;background-color:${BASE.bg};border:1px solid ${BASE.edge};">
+  <tr>
+    <td align="center" bgcolor="${BASE.bg}" style="padding:36px 40px 34px 40px;background-color:${BASE.bg};">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;">
+${comment('Marque')}
+        <tr>
+          <td align="center" style="padding:0 0 14px 0;">
+            <img src="${attr(theme.logo)}" width="46" height="46" alt="Mercedes-Benz" style="display:block;width:46px;height:46px;border:0;outline:none;text-decoration:none;">
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="font-family:${SANS};font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:4px;color:${BASE.body};text-transform:uppercase;padding:0 0 22px 0;">${esc(caps(DATA.store))}</td>
+        </tr>
+${comment('Short centred rule: the original used a CSS gradient, which Outlook and Gmail both drop, leaving a gap where the flourish should be.')}
+        <tr>
+          <td align="center" style="padding:0 0 22px 0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="56" style="width:56px;border-collapse:collapse;">
+              <tr><td height="1" bgcolor="${theme.accent}" style="height:1px;line-height:1px;font-size:0;mso-line-height-rule:exactly;">&nbsp;</td></tr>
+            </table>
+          </td>
+        </tr>
+${comment('Name')}
+        <tr>
+          <td align="center" style="font-family:${SANS};font-size:21px;line-height:26px;mso-line-height-rule:exactly;letter-spacing:5px;padding:0 0 9px 0;">
+            <a href="${attr(DATA.personalUrl)}" style="color:${theme.name};text-decoration:none;font-weight:400;text-transform:uppercase;">${esc(caps(DATA.name))}</a>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="font-family:${SANS};font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:2.4px;color:${BASE.label};text-transform:uppercase;padding:0 0 24px 0;">${esc(caps(DATA.title))}</td>
+        </tr>
+
+${rule(BASE.rule, 0, 20)}
+${comment('Reach')}
+        <tr>
+          <td>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;">
+${contactRow(DATA.phone, theme, { caps })}
+${contactRow(DATA.mobile, theme, { caps })}
+${contactRow({ label: 'Email', display: DATA.email, href: `mailto:${DATA.email}` }, theme, { caps, last: true })}
+            </table>
+          </td>
+        </tr>
+
+${rule(BASE.rule, 20, 20)}
+${comment('Where')}
+        <tr>
+          <td align="center" style="font-family:${SANS};font-size:11px;line-height:19px;mso-line-height-rule:exactly;letter-spacing:1.4px;color:${BASE.body};text-transform:uppercase;padding:0 0 12px 0;">${DATA.address.map((line) => esc(caps(line))).join('<br>')}</td>
+        </tr>
+        <tr>
+          <td align="center" style="font-family:${SANS};font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:1.8px;padding:0 0 26px 0;">
+            <a href="${attr(DATA.website.href)}" style="color:${theme.accent};text-decoration:none;font-weight:600;text-transform:uppercase;">${esc(caps(DATA.website.display))}</a>
+          </td>
+        </tr>
+${comment("Review CTA. Outlook ignores padding on an inline-block <a>, so it gets a VML button and every other client gets the real one.")}
+        <tr>
+          <td align="center">
+${button}
           </td>
         </tr>
 
@@ -239,10 +264,7 @@ ${rule(BASE.rule, 20, 20)}
 
     </td>
   </tr>
-</table>
-<!--[if mso]>
-</td></tr></table>
-<![endif]-->`;
+</table>${msoClose}`;
 }
 
 function page(title, body, bg = '#FFFFFF') {
@@ -293,6 +315,13 @@ for (const [name, theme] of Object.entries(THEMES)) {
   fs.writeFileSync(path.join(OUT, file), `${page(`${DATA.name} — ${DATA.store}`, html)}\n`);
   console.log(`✓ marketing/email-signature/${file}`);
 }
+
+// Momentum CRM (and the other dealer CRMs) paste into a WYSIWYG editor, not
+// into Gmail's signature box: it wants a bare fragment with no doctype, and it
+// sanitises comments away on save. Silver only — that is the one in use.
+const crmFragment = signature(THEMES.platinum, { crm: true });
+fs.writeFileSync(path.join(OUT, 'mk-parrish-signature-crm.html'), `${crmFragment}\n`);
+console.log('✓ marketing/email-signature/mk-parrish-signature-crm.html');
 
 const localised = (html) => html.replace(new RegExp(`${SITE}/email/`, 'g'), '../../public/email/');
 
