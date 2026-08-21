@@ -86,6 +86,14 @@ The signature loads `https://mkparrish.com/email/mb-star.png`, which is
 branch is deployed.** Email clients cannot render SVG and cannot see local files,
 so the mark has to be a hosted PNG.
 
+### Testing before it merges
+
+The branch has a public Vercel preview, so the star is already live at
+`https://mkparrish-site-git-claude-merce-1a7599-empathicmk-svgs-projects.vercel.app/email/mb-star.png`.
+To try the signature today, paste it in, then swap `https://mkparrish.com` for
+that preview host in the `<img src>` only. Change it back — or just rebuild —
+once this merges: the preview host disappears with the branch.
+
 In the CRM there is a second option: most dealer CRMs have an image button in the
 signature editor that uploads to their own CDN. Upload `public/email/mb-star.png`
 that way and let the editor rewrite the `src` — the signature then works before
