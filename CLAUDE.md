@@ -111,10 +111,14 @@ Checkout takes one of two paths, and which one depends on the product entry:
   key is missing, or the key isn't live in production, it falls back to a
   `mailto:` checkout request rather than failing visibly.
 
-`app/api/stripe-webhook/route.ts` maps Stripe payment-link IDs (`plink_...`) back
-to slugs so the delivery email knows which files to send. **A new static payment
-link must be added to those maps** (`EBOOK_LINKS`, `PAPERBACK_LINKS`,
-`PRINT_LINKS`) or the buyer gets a generic notification.
+`app/api/stripe-webhook/route.ts` verifies Stripe's signature by hand (HMAC-SHA256,
+rejecting anything older than five minutes) and resolves the sale back to a slug:
+the `plink_...` maps first, falling back to `metadata.slug` for sessions the
+dynamic path built. **A new static payment link must be added to those maps**
+(`EBOOK_LINKS`, `PAPERBACK_LINKS`, `PRINT_LINKS`) — a payment link carries no
+metadata, so an unregistered one only produces a generic "New order" notice to
+the owner. The route also answers `checkout.session.expired` with an
+abandoned-cart nudge when Stripe captured an email.
 
 Free products set `free: true` and a `download:` path; `/checkout/<slug>`
 redirects straight to the file. Delivery links assume a PDF at `download:` with a
@@ -122,6 +126,63 @@ sibling `.epub` — bundles ship as a single `.zip`.
 
 `docs/store-operations.md` is the human-facing runbook (Stripe webhook setup,
 Lulu paperback specs per title). Update it when fulfillment mechanics change.
+
+### The sale, end to end
+
+What `/checkout/[slug]` decides, and where each branch lands:
+
+```mermaid
+flowchart TD
+    A["Buy button — GET /checkout/&lt;slug&gt;"] --> B{"slug in SHOP_PRODUCTS?"}
+    B -->|"no"| SHOP["redirect → /shop"]
+    B -->|"yes"| F{"?format=paperback ?"}
+
+    F -->|"yes"| P1{"paperback field set?"}
+    P1 -->|"no"| MAIL
+    P1 -->|"yes"| P2{"paperback.href is a<br/>buy.stripe.com link?"}
+    P2 -->|"yes"| LINK["redirect → static payment link"]
+    P2 -->|"no"| P3{"price parses to cents > 0?"}
+    P3 -->|"no"| MAIL
+    P3 -->|"yes"| SP["build Session<br/>+ US shipping + phone"]
+
+    F -->|"no"| E1{"stripe field set?"}
+    E1 -->|"yes"| LINK
+    E1 -->|"no"| E2{"free: true, with a download?"}
+    E2 -->|"yes"| FILE["redirect → the file<br/>no Stripe, no webhook"]
+    E2 -->|"no"| E3{"download set<br/>and price > 0?"}
+    E3 -->|"no"| MAIL
+    E3 -->|"yes"| SE["build Session"]
+
+    SP --> K{"secret key present,<br/>and live if production?"}
+    SE --> K
+    K -->|"no, or Stripe errors"| MAIL["mailto: checkout request"]
+    K -->|"yes"| CO["redirect → Stripe Checkout"]
+
+    LINK --> WH
+    CO --> WH["Stripe fires the webhook"]
+```
+
+And what the webhook does with it:
+
+```mermaid
+flowchart TD
+    W["POST /api/stripe-webhook"] --> V{"signature valid<br/>and under 5 minutes old?"}
+    V -->|"no"| ERR["400 — or 503 if the secret is unset"]
+    V -->|"yes"| T{"event type"}
+    T -->|"session.expired"| AB["abandoned-cart nudge,<br/>if Stripe caught an email"]
+    T -->|"anything else"| ACK["200, ignored"]
+    T -->|"session.completed"| R["resolve the slug:<br/>plink_ maps first,<br/>then metadata.slug"]
+
+    R --> M{"which one matched?"}
+    M -->|"EBOOK_LINKS"| DE["files email —<br/>PDF + EPUB, or the ZIP"]
+    M -->|"PAPERBACK_LINKS"| DP["ships in 5–7 days,<br/>with the shipping address"]
+    M -->|"PRINT_LINKS"| DR["print order confirmed"]
+    M -->|"nothing"| DU["generic 'New order',<br/>owner only"]
+
+    DE --> CC["the buyer's copy CCs the owner"]
+    DP --> CC
+    DR --> CC
+```
 
 ### Adding or changing a product
 
