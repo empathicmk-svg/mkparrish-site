@@ -8,6 +8,7 @@
  * Output:
  *   public/email/mb-star.{svg,png}        the three-pointed star
  *   public/email/mk-heart.{svg,png}       MK's heart, from the site cursor
+ *   public/email/review-qr.png            scan-to-review code for the Maps link
  *   marketing/email-signature/mk-parrish-signature.html      Gmail / Outlook
  *   marketing/email-signature/mk-parrish-signature-crm.html  Momentum CRM
  *   marketing/email-signature/mk-parrish-signature.pdf      the handoff sheet
@@ -21,6 +22,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import puppeteer from 'puppeteer';
+import QRCode from 'qrcode';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -33,6 +35,7 @@ fs.mkdirSync(OUT, { recursive: true });
  * The facts. Every link here came from the existing signature.
  * ------------------------------------------------------------------ */
 const SITE = 'https://mkparrish.com';
+const QR_FILE = 'review-qr.png';
 
 const DATA = {
   name: 'Mary Kate Parrish',
@@ -65,11 +68,13 @@ const DATA = {
  * Naming the real families first still pays — any machine with the dealer
  * brand kit installed, likely including the showroom's own, renders true MB
  * Corpo. Everything else falls through: Georgia for the serif headline, since
- * it is the one serif installed on every Mac and Windows machine, and
- * Helvetica/Arial for the text.
+ * it is the one serif installed on every Mac and Windows machine, then Proxima
+ * Nova for the text — a humanist geometric, far closer to MB Corpo S than
+ * Helvetica is, and installed on plenty of design machines — and finally
+ * Helvetica/Arial.
  * ------------------------------------------------------------------ */
 const TITLE_FONT = "'MB Corpo A Title', 'MB Corpo A Title Web', 'MB Corpo A Title Cond', 'Corporate A', Georgia, 'Times New Roman', serif";
-const TEXT_FONT = "'MB Corpo S Text', 'MB Corpo S Text Web', 'MBCorpo Text', 'Corporate S', 'Helvetica Neue', Helvetica, Arial, sans-serif";
+const TEXT_FONT = "'MB Corpo S Text', 'MB Corpo S Text Web', 'MBCorpo Text', 'Corporate S', 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif";
 
 // Word reads only the first family in a stack and drops to Times New Roman
 // when it is missing, so naming MB Corpo first would wreck the signature on
@@ -87,6 +92,7 @@ const THEME = {
   star: ['#FFFFFF', '#C6CCD0'],
   logo: `${SITE}/email/mb-star.png`,
   heart: `${SITE}/email/mk-heart.png`,
+  qr: `${SITE}/email/${QR_FILE}`,
   accent: '#E4E8EA',   // links + numbers
   button: '#DDE1E3',
   name: '#FFFFFF',
@@ -270,7 +276,7 @@ ${comment('Short centred rule: the original used a CSS gradient, which Outlook a
         </tr>
 ${comment('Name')}
         <tr>
-          <td align="center" style="font-family:${TITLE_FONT};${MSO_TITLE}font-size:26px;line-height:32px;mso-line-height-rule:exactly;letter-spacing:0.4px;padding:0 0 10px 0;">
+          <td align="center" style="font-family:${TITLE_FONT};${MSO_TITLE}font-size:30px;line-height:36px;mso-line-height-rule:exactly;letter-spacing:0.4px;padding:0 0 10px 0;">
             <a href="${attr(DATA.personalUrl)}" style="color:${theme.name};text-decoration:none;font-weight:700;">${esc(DATA.name)}</a>
           </td>
         </tr>
@@ -306,6 +312,21 @@ ${comment("Review CTA. Outlook ignores padding on an inline-block <a>, so it get
 ${button}
           </td>
         </tr>
+${comment('Scan-to-review QR. The tile is white because the code has to be dark-on-light to scan.')}
+        <tr>
+          <td align="center" style="padding:22px 0 0 0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;">
+              <tr>
+                <td align="center" bgcolor="#FFFFFF" style="background-color:#FFFFFF;padding:7px;line-height:0;font-size:0;">
+                  <img src="${attr(theme.qr)}" width="78" height="78" alt="Scan to review Mercedes-Benz of Smithtown on Google" style="display:block;width:78px;height:78px;border:0;outline:none;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:9px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:1.8px;color:${BASE.label};text-transform:uppercase;padding:9px 0 0 0;">${esc(caps('Scan to review on Google'))}</td>
+        </tr>
 
       </table>
 
@@ -321,22 +342,22 @@ ${button}
  */
 function printSheet(html) {
   const step = (n, text) => `<tr>
-      <td valign="top" style="font-family:${TEXT_FONT};font-size:10px;line-height:17px;color:#9AA0A4;padding:0 10px 7px 0;white-space:nowrap;">${n}</td>
-      <td valign="top" style="font-family:${TEXT_FONT};font-size:11px;line-height:17px;color:#2A2D2F;padding:0 0 7px 0;">${text}</td>
+      <td valign="top" style="font-family:${TEXT_FONT};font-size:10px;line-height:17px;color:#9AA0A4;padding:0 10px 6px 0;white-space:nowrap;">${n}</td>
+      <td valign="top" style="font-family:${TEXT_FONT};font-size:11px;line-height:17px;color:#2A2D2F;padding:0 0 6px 0;">${text}</td>
     </tr>`;
 
   return `<div style="max-width:600px;margin:0 auto;">
   <p style="font-family:${TITLE_FONT};font-size:22px;line-height:28px;color:#111;margin:0 0 4px 0;">Email signature</p>
-  <p style="font-family:${TEXT_FONT};font-size:11px;line-height:17px;letter-spacing:1.4px;text-transform:uppercase;color:#8A9095;margin:0 0 22px 0;">${esc(DATA.name)} · ${esc(DATA.store)}</p>
+  <p style="font-family:${TEXT_FONT};font-size:11px;line-height:17px;letter-spacing:1.4px;text-transform:uppercase;color:#8A9095;margin:0 0 16px 0;">${esc(DATA.name)} · ${esc(DATA.store)}</p>
   ${html}
-  <p style="font-family:${TEXT_FONT};font-size:11px;line-height:17px;letter-spacing:1.6px;text-transform:uppercase;color:#8A9095;margin:24px 0 8px 0;">Installing it</p>
+  <p style="font-family:${TEXT_FONT};font-size:11px;line-height:17px;letter-spacing:1.6px;text-transform:uppercase;color:#8A9095;margin:16px 0 8px 0;">Installing it</p>
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
     ${step('01', 'Gmail, Outlook or Apple Mail: open <b>mk-parrish-signature.html</b>, select all, copy, paste into the signature box.')}
     ${step('02', 'Momentum CRM: paste <b>mk-parrish-signature-crm.html</b> into the editor&rsquo;s source view (the <b>&lt; &gt;</b> button), not the visual editor.')}
     ${step('03', 'Save, reopen the signature to confirm it survived, then send one test to yourself and open it on a phone as well as a desktop.')}
-    ${step('04', 'The star and heart load from mkparrish.com/email/ and appear once that deploys. In the CRM you can upload them through the editor&rsquo;s own image button instead.')}
+    ${step('04', 'The star, heart and QR load from mkparrish.com/email/ and appear once that deploys. In the CRM you can upload all three through the editor&rsquo;s own image button instead.')}
   </table>
-  <p style="font-family:${TEXT_FONT};font-size:10px;line-height:16px;color:#9AA0A4;margin:18px 0 0 0;">Generated by <b>npm run email:signature</b> — edit scripts/build-email-signature.mjs, never the HTML.</p>
+  <p style="font-family:${TEXT_FONT};font-size:10px;line-height:16px;color:#9AA0A4;margin:10px 0 0 0;">Generated by <b>npm run email:signature</b> — edit scripts/build-email-signature.mjs, never the HTML.</p>
 </div>`;
 }
 
@@ -360,6 +381,18 @@ ${body}
  * ------------------------------------------------------------------ */
 fs.writeFileSync(path.join(PUBLIC_EMAIL, 'mb-star.svg'), `${starSvg(THEME.star)}\n`);
 fs.writeFileSync(path.join(PUBLIC_EMAIL, 'mk-heart.svg'), `${heartSvg()}\n`);
+
+// Dark modules on white: inverted codes defeat a good share of scanners, which
+// is why the card gives the QR its own light tile rather than dropping it onto
+// the black.
+await QRCode.toFile(path.join(PUBLIC_EMAIL, QR_FILE), DATA.review.href, {
+  type: 'png',
+  width: 480,
+  margin: 1,
+  errorCorrectionLevel: 'M',
+  color: { dark: '#0B0B0CFF', light: '#FFFFFFFF' },
+});
+console.log(`✓ public/email/${QR_FILE}`);
 
 // Chromium refuses to run sandboxed as root, which is how CI containers run.
 const sandboxArgs = process.getuid?.() === 0 ? ['--no-sandbox'] : [];
@@ -408,7 +441,8 @@ const dataUri = (file) =>
 const localised = (html) =>
   html
     .replace(`${SITE}/email/mb-star.png`, dataUri('mb-star.png'))
-    .replace(`${SITE}/email/mk-heart.png`, dataUri('mk-heart.png'));
+    .replace(`${SITE}/email/mk-heart.png`, dataUri('mk-heart.png'))
+    .replace(`${SITE}/email/${QR_FILE}`, dataUri(QR_FILE));
 
 {
   const b = await puppeteer.launch({ headless: true, args: ['--disable-lcd-text', '--allow-file-access-from-files', ...sandboxArgs] });
@@ -425,7 +459,7 @@ const localised = (html) =>
       path: path.join(OUT, 'mk-parrish-signature.pdf'),
       format: 'Letter',
       printBackground: true,
-      margin: { top: '0.7in', bottom: '0.7in', left: '0.9in', right: '0.9in' },
+      margin: { top: '0.45in', bottom: '0.45in', left: '0.9in', right: '0.9in' },
     });
     console.log('✓ marketing/email-signature/mk-parrish-signature.pdf');
   } finally {
