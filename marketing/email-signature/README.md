@@ -6,6 +6,7 @@ Silver, per the marque. Two builds of the same signature:
 | --- | --- |
 | `mk-parrish-signature.html` | Gmail, Outlook, Apple Mail — a full page to open and copy |
 | `mk-parrish-signature-crm.html` | Momentum CRM — a bare fragment for its source view |
+| `mk-parrish-signature.pdf` | One-page handoff sheet: the signature as it renders, plus the install steps. Printed from the same markup, so it cannot drift. |
 
 `preview.html` renders it with the star read off disk, so it looks right before
 this branch ships.
