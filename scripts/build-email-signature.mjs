@@ -44,7 +44,7 @@ const DATA = {
   personalUrl: SITE,
   phone: { label: 'Showroom', display: '631.265.2204', href: 'tel:+16312652204' },
   mobile: { label: 'Mobile', display: '347.853.4238', href: 'tel:+13478534238' },
-  email: 'marykateparrish.parrish@mbofsmithtown.com',
+  email: 'mparrish@mbofsmithtown.com',
   address: ['630 Middle Country Road', 'St James, NY 11780'],
   website: { display: 'mbofsmithtown.com', href: 'https://www.mbofsmithtown.com' },
   // MK's own share link out of the Maps app. The first draft's link carried a
