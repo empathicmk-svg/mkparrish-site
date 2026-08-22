@@ -6,8 +6,8 @@
  *   npm run email:signature
  *
  * Output:
- *   public/email/mb-star.svg              source mark
- *   public/email/mb-star.png              the mark the signature hotlinks (2x, transparent)
+ *   public/email/mb-star.{svg,png}        the three-pointed star
+ *   public/email/mk-heart.{svg,png}       MK's heart, from the site cursor
  *   marketing/email-signature/mk-parrish-signature.html      Gmail / Outlook
  *   marketing/email-signature/mk-parrish-signature-crm.html  Momentum CRM
  *   marketing/email-signature/preview.html
@@ -55,24 +55,28 @@ const DATA = {
 /* ------------------------------------------------------------------ *
  * Type.
  *
- * mercedes-benz.com is set in MB Corpo — 'MB Corpo A Title' for headings,
- * 'MB Corpo S Text' for everything else. It is licensed through the
- * Mercedes-Benz Font Service, so it cannot be served from this repo, and it
- * would not help if it could: Gmail, Outlook and Yahoo all drop @font-face,
- * so no email signature anywhere loads a webfont.
+ * mercedes-benz.com and mbusa.com set headlines in MB Corpo A Title — a
+ * SERIF — over body copy in MB Corpo S Text, a grotesque. Both are licensed
+ * through the Mercedes-Benz Font Service, so neither can be served from this
+ * repo, and that would not help anyway: Gmail, Outlook and Yahoo all drop
+ * @font-face, so no email signature anywhere loads a webfont.
  *
- * Naming the real families first still pays: any machine with the dealer brand
- * kit installed — likely including the showroom's own — renders true MB Corpo,
- * and every other machine falls through to the nearest neutral grotesque.
+ * Naming the real families first still pays — any machine with the dealer
+ * brand kit installed, likely including the showroom's own, renders true MB
+ * Corpo. Everything else falls through: Georgia for the serif headline, since
+ * it is the one serif installed on every Mac and Windows machine, and
+ * Helvetica/Arial for the text.
  * ------------------------------------------------------------------ */
-const TITLE_FONT = "'MB Corpo A Title', 'MB Corpo A Title Web', 'MB Corpo S Title', 'Corporate A', 'Helvetica Neue', Helvetica, Arial, sans-serif";
+const TITLE_FONT = "'MB Corpo A Title', 'MB Corpo A Title Web', 'MB Corpo A Title Cond', 'Corporate A', Georgia, 'Times New Roman', serif";
 const TEXT_FONT = "'MB Corpo S Text', 'MB Corpo S Text Web', 'MBCorpo Text', 'Corporate S', 'Helvetica Neue', Helvetica, Arial, sans-serif";
 
-// Word reads only the first family in a stack and drops to Times New Roman when
-// it is missing, so naming MB Corpo first would wreck the signature on every
-// Outlook desktop without the brand kit. These Word-only properties pin it to
-// Arial; every other client ignores them and honours the stack above.
-const MSO_FONT = 'mso-ascii-font-family:Arial;mso-hansi-font-family:Arial;mso-bidi-font-family:Arial;';
+// Word reads only the first family in a stack and drops to Times New Roman
+// when it is missing, so naming MB Corpo first would wreck the signature on
+// every Outlook desktop without the brand kit. These Word-only properties pin
+// it to a matching installed face; every other client ignores them.
+const mso = (family) => `mso-ascii-font-family:${family};mso-hansi-font-family:${family};mso-bidi-font-family:${family};`;
+const MSO_FONT = mso('Arial');
+const MSO_TITLE = mso('Georgia');
 
 /* ------------------------------------------------------------------ *
  * Colour. Silver, per the marque — the gold variant was dropped once MK
@@ -81,10 +85,14 @@ const MSO_FONT = 'mso-ascii-font-family:Arial;mso-hansi-font-family:Arial;mso-bi
 const THEME = {
   star: ['#FFFFFF', '#C6CCD0'],
   logo: `${SITE}/email/mb-star.png`,
+  heart: `${SITE}/email/mk-heart.png`,
   accent: '#E4E8EA',   // links + numbers
   button: '#DDE1E3',
   name: '#FFFFFF',
 };
+
+// mkparrish.com's own palette, for the heart.
+const BRAND = { petal: '#F2AFC6' };
 
 const BASE = {
   bg: '#0B0B0C',
@@ -132,6 +140,20 @@ function starSvg([light, dark]) {
 }
 
 /* ------------------------------------------------------------------ *
+ * MK's heart, lifted from public/cursor-heart.svg — the cursor on
+ * mkparrish.com. That one is petal pink outlined in near-black, which
+ * disappears against this card, so the email copy keeps the fill and drops
+ * the outline.
+ * ------------------------------------------------------------------ */
+const HEART_PATH = 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z';
+
+function heartSvg() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="MK Parrish">
+  <path d="${HEART_PATH}" fill="${BRAND.petal}"/>
+</svg>`;
+}
+
+/* ------------------------------------------------------------------ *
  * Signature markup
  * ------------------------------------------------------------------ */
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -149,6 +171,15 @@ function rule(color = BASE.rule, top = 0, bottom = 0) {
             </table>
           </td>
         </tr>`;
+}
+
+/** One 44px flourish rule, vertically centred beside the heart. */
+function hairline(theme) {
+  return `<td width="44" valign="middle" style="width:44px;padding:0;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="44" style="width:44px;border-collapse:collapse;">
+                    <tr><td height="1" bgcolor="${theme.accent}" style="height:1px;line-height:1px;font-size:0;mso-line-height-rule:exactly;">&nbsp;</td></tr>
+                  </table>
+                </td>`;
 }
 
 function contactRow({ label, display, href }, theme, { last = false, caps = (v) => v } = {}) {
@@ -223,16 +254,22 @@ ${comment('Marque')}
         </tr>
 ${comment('Short centred rule: the original used a CSS gradient, which Outlook and Gmail both drop, leaving a gap where the flourish should be.')}
         <tr>
-          <td align="center" style="padding:0 0 22px 0;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="56" style="width:56px;border-collapse:collapse;">
-              <tr><td height="1" bgcolor="${theme.accent}" style="height:1px;line-height:1px;font-size:0;mso-line-height-rule:exactly;">&nbsp;</td></tr>
+          <td align="center" style="padding:0 0 20px 0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;">
+              <tr>
+                ${hairline(theme)}
+                <td style="padding:0 12px;line-height:0;font-size:0;">
+                  <img src="${attr(theme.heart)}" width="15" height="15" alt="" style="display:block;width:15px;height:15px;border:0;outline:none;">
+                </td>
+                ${hairline(theme)}
+              </tr>
             </table>
           </td>
         </tr>
 ${comment('Name')}
         <tr>
-          <td align="center" style="font-family:${TITLE_FONT};${MSO_FONT}font-size:21px;line-height:26px;mso-line-height-rule:exactly;letter-spacing:5px;padding:0 0 9px 0;">
-            <a href="${attr(DATA.personalUrl)}" style="color:${theme.name};text-decoration:none;font-weight:700;text-transform:uppercase;">${esc(caps(DATA.name))}</a>
+          <td align="center" style="font-family:${TITLE_FONT};${MSO_TITLE}font-size:26px;line-height:32px;mso-line-height-rule:exactly;letter-spacing:0.4px;padding:0 0 10px 0;">
+            <a href="${attr(DATA.personalUrl)}" style="color:${theme.name};text-decoration:none;font-weight:700;">${esc(DATA.name)}</a>
           </td>
         </tr>
         <tr>
@@ -294,6 +331,7 @@ ${body}
  * Write
  * ------------------------------------------------------------------ */
 fs.writeFileSync(path.join(PUBLIC_EMAIL, 'mb-star.svg'), `${starSvg(THEME.star)}\n`);
+fs.writeFileSync(path.join(PUBLIC_EMAIL, 'mk-heart.svg'), `${heartSvg()}\n`);
 
 // Chromium refuses to run sandboxed as root, which is how CI containers run.
 const sandboxArgs = process.getuid?.() === 0 ? ['--no-sandbox'] : [];
@@ -305,6 +343,11 @@ try {
   await p.setContent(`<body style="margin:0">${starSvg(THEME.star)}</body>`, { waitUntil: 'load' });
   await p.screenshot({ path: path.join(PUBLIC_EMAIL, 'mb-star.png'), omitBackground: true });
   console.log('✓ public/email/mb-star.png');
+
+  await p.setViewport({ width: 24, height: 24, deviceScaleFactor: 8 });
+  await p.setContent(`<body style="margin:0">${heartSvg()}</body>`, { waitUntil: 'load' });
+  await p.screenshot({ path: path.join(PUBLIC_EMAIL, 'mk-heart.png'), omitBackground: true });
+  console.log('✓ public/email/mk-heart.png');
 } finally {
   await browser.close();
 }
