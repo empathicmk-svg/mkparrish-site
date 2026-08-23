@@ -181,24 +181,17 @@ function rule(color = BASE.rule, top = 0, bottom = 0) {
         </tr>`;
 }
 
-/** One 44px flourish rule, vertically centred beside the heart. */
-function hairline(theme) {
-  return `<td width="44" valign="middle" style="width:44px;padding:0;">
-                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="44" style="width:44px;border-collapse:collapse;">
-                    <tr><td height="1" bgcolor="${theme.accent}" style="height:1px;line-height:1px;font-size:0;mso-line-height-rule:exactly;">&nbsp;</td></tr>
-                  </table>
-                </td>`;
-}
-
+/** One row of the contact block: label in a fixed left column, value beside it.
+ *  Both left-aligned — in a landscape signature the value column is narrow
+ *  enough that justifying the two apart just opens a gap. */
 function contactRow({ label, display, href }, theme, { last = false, caps = (v) => v } = {}) {
-  const pad = last ? 0 : 9;
-  const size = display.length > 24 ? 11 : 12;
-  return `              <tr>
-                <td align="left" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:10px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:1.6px;color:${BASE.label};text-transform:uppercase;padding:0 12px ${pad}px 0;white-space:nowrap;">${esc(caps(label))}</td>
-                <td align="right" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:${size}px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:0.6px;padding:0 0 ${pad}px 0;">
-                  <a href="${attr(href)}" style="color:${theme.accent};text-decoration:none;font-weight:600;">${esc(display)}</a>
-                </td>
-              </tr>`;
+  const pad = last ? 0 : 6;
+  return `                  <tr>
+                    <td align="left" valign="top" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:9px;line-height:15px;mso-line-height-rule:exactly;letter-spacing:1.4px;color:${BASE.label};text-transform:uppercase;padding:0 14px ${pad}px 0;white-space:nowrap;">${esc(caps(label))}</td>
+                    <td align="left" valign="top" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:12px;line-height:15px;mso-line-height-rule:exactly;letter-spacing:0.4px;padding:0 0 ${pad}px 0;white-space:nowrap;">
+                      <a href="${attr(href)}" style="color:${theme.accent};text-decoration:none;font-weight:600;">${esc(display)}</a>
+                    </td>
+                  </tr>`;
 }
 
 /**
@@ -249,86 +242,81 @@ function signature(theme, { crm = false } = {}) {
 
   return `${note}${msoOpen}<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;border-collapse:collapse;background-color:${BASE.bg};border:1px solid ${BASE.edge};">
   <tr>
-    <td align="center" bgcolor="${BASE.bg}" style="padding:36px 40px 34px 40px;background-color:${BASE.bg};">
+    <td bgcolor="${BASE.bg}" style="padding:28px;background-color:${BASE.bg};">
 
+${comment('Three columns: marque, details, QR. A landscape block is what a signature is expected to look like under a message, and it keeps the height off long threads.')}
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;">
-${comment('Marque')}
         <tr>
-          <td align="center" style="padding:0 0 14px 0;">
-            <img src="${attr(theme.logo)}" width="46" height="46" alt="Mercedes-Benz" style="display:block;width:46px;height:46px;border:0;outline:none;text-decoration:none;">
-          </td>
-        </tr>
-        <tr>
-          <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:4px;color:${BASE.body};text-transform:uppercase;padding:0 0 22px 0;">${esc(caps(DATA.store))}</td>
-        </tr>
-${comment('Short centred rule: the original used a CSS gradient, which Outlook and Gmail both drop, leaving a gap where the flourish should be.')}
-        <tr>
-          <td align="center" style="padding:0 0 20px 0;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;">
-              <tr>
-                ${hairline(theme)}
-                <td style="padding:0 12px;line-height:0;font-size:0;">
-                  <img src="${attr(theme.heart)}" width="15" height="15" alt="" style="display:block;width:15px;height:15px;border:0;outline:none;">
-                </td>
-                ${hairline(theme)}
-              </tr>
-            </table>
-          </td>
-        </tr>
-${comment('Name')}
-        <tr>
-          <td align="center" style="font-family:${TITLE_FONT};${MSO_TITLE}font-size:30px;line-height:36px;mso-line-height-rule:exactly;letter-spacing:0.4px;padding:0 0 10px 0;">
-            <a href="${attr(DATA.personalUrl)}" style="color:${theme.name};text-decoration:none;font-weight:700;">${esc(DATA.name)}</a>
-          </td>
-        </tr>
-        <tr>
-          <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:2.4px;color:${BASE.label};text-transform:uppercase;padding:0 0 24px 0;">${esc(caps(DATA.title))}</td>
-        </tr>
 
-${rule(BASE.rule, 0, 20)}
-${comment('Reach')}
-        <tr>
-          <td>
+${comment('Marque. The heart under it is MK, the star is the store.')}
+          <td width="76" valign="top" align="center" style="width:76px;padding:0 18px 0 0;">
+            <img src="${attr(theme.logo)}" width="52" height="52" alt="Mercedes-Benz" style="display:block;width:52px;height:52px;border:0;outline:none;text-decoration:none;">
+            <img src="${attr(theme.heart)}" width="13" height="13" alt="" style="display:block;width:13px;height:13px;border:0;outline:none;margin:14px auto 0 auto;">
+          </td>
+
+${comment('Details. The vertical rule is a td border — Word honours those, unlike a full-height spacer cell.')}
+          <td valign="top" style="padding:0 0 0 20px;border-left:1px solid ${BASE.rule};">
+
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;border-collapse:collapse;">
+              <tr>
+                <td align="left" style="font-family:${TITLE_FONT};${MSO_TITLE}font-size:26px;line-height:31px;mso-line-height-rule:exactly;letter-spacing:0.2px;padding:0 0 7px 0;">
+                  <a href="${attr(DATA.personalUrl)}" style="color:${theme.name};text-decoration:none;font-weight:700;">${esc(DATA.name)}</a>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:10px;line-height:15px;mso-line-height-rule:exactly;letter-spacing:2.2px;color:${BASE.label};text-transform:uppercase;padding:0 0 3px 0;">${esc(caps(DATA.title))}</td>
+              </tr>
+              <tr>
+                <td align="left" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:10px;line-height:15px;mso-line-height-rule:exactly;letter-spacing:2.2px;color:${BASE.body};text-transform:uppercase;padding:0 0 14px 0;">${esc(caps(DATA.store))}</td>
+              </tr>
+
+${rule(BASE.rule, 0, 14)}
+${comment('Reach')}
+              <tr>
+                <td>
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
 ${contactRow(DATA.phone, theme, { caps })}
 ${contactRow(DATA.mobile, theme, { caps })}
 ${contactRow({ label: 'Email', display: DATA.email, href: `mailto:${DATA.email}` }, theme, { caps, last: true })}
-            </table>
-          </td>
-        </tr>
+                  </table>
+                </td>
+              </tr>
 
-${rule(BASE.rule, 20, 20)}
+${rule(BASE.rule, 14, 12)}
 ${comment('Where')}
-        <tr>
-          <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:11px;line-height:19px;mso-line-height-rule:exactly;letter-spacing:1.4px;color:${BASE.body};text-transform:uppercase;padding:0 0 12px 0;">${DATA.address.map((line) => esc(caps(line))).join('<br>')}</td>
-        </tr>
-        <tr>
-          <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:11px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:1.8px;padding:0 0 26px 0;">
-            <a href="${attr(DATA.website.href)}" style="color:${theme.accent};text-decoration:none;font-weight:600;text-transform:uppercase;">${esc(caps(DATA.website.display))}</a>
-          </td>
-        </tr>
-${comment("Review CTA. Outlook ignores padding on an inline-block <a>, so it gets a VML button and every other client gets the real one.")}
-        <tr>
-          <td align="center">
-${button}
-          </td>
-        </tr>
-${comment('Scan-to-review QR. The tile is white because the code has to be dark-on-light to scan.')}
-        <tr>
-          <td align="center" style="padding:22px 0 0 0;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;">
               <tr>
-                <td align="center" bgcolor="#FFFFFF" style="background-color:#FFFFFF;padding:7px;line-height:0;font-size:0;">
-                  <img src="${attr(theme.qr)}" width="78" height="78" alt="Scan to review Mercedes-Benz of Smithtown on Google" style="display:block;width:78px;height:78px;border:0;outline:none;">
+                <td align="left" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:10px;line-height:16px;mso-line-height-rule:exactly;letter-spacing:1.2px;color:${BASE.body};text-transform:uppercase;padding:0 0 6px 0;">${esc(caps(DATA.address.join(' · ')))}</td>
+              </tr>
+              <tr>
+                <td align="left" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:10px;line-height:15px;mso-line-height-rule:exactly;letter-spacing:1.6px;padding:0 0 16px 0;">
+                  <a href="${attr(DATA.website.href)}" style="color:${theme.accent};text-decoration:none;font-weight:600;text-transform:uppercase;">${esc(caps(DATA.website.display))}</a>
+                </td>
+              </tr>
+${comment("Review CTA. Outlook ignores padding on an inline-block <a>, so it gets a VML button and every other client gets the real one.")}
+              <tr>
+                <td align="left">
+${button}
                 </td>
               </tr>
             </table>
-          </td>
-        </tr>
-        <tr>
-          <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:9px;line-height:14px;mso-line-height-rule:exactly;letter-spacing:1.8px;color:${BASE.label};text-transform:uppercase;padding:9px 0 0 0;">${esc(caps('Scan to review on Google'))}</td>
-        </tr>
 
+          </td>
+
+${comment('Scan-to-review QR. The tile is white because the code has to be dark-on-light to scan.')}
+          <td width="100" valign="middle" align="center" style="width:100px;padding:0 0 0 16px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse;">
+              <tr>
+                <td align="center" bgcolor="#FFFFFF" style="background-color:#FFFFFF;padding:6px;line-height:0;font-size:0;">
+                  <img src="${attr(theme.qr)}" width="76" height="76" alt="Scan to review Mercedes-Benz of Smithtown on Google" style="display:block;width:76px;height:76px;border:0;outline:none;">
+                </td>
+              </tr>
+              <tr>
+                <td align="center" style="font-family:${TEXT_FONT};${MSO_FONT}font-size:8px;line-height:12px;mso-line-height-rule:exactly;letter-spacing:1.2px;color:${BASE.label};text-transform:uppercase;padding:8px 0 0 0;">${esc(caps('Scan to review'))}</td>
+              </tr>
+            </table>
+          </td>
+
+        </tr>
       </table>
 
     </td>
@@ -467,7 +455,7 @@ const localised = (html) =>
     // A flat JPG of the card, for anywhere HTML signatures aren't accepted
     // (an image-only upload field, a text message, a quick look on a phone).
     // Reuses the same page and data-URI marks as the PDF above.
-    await p.setViewport({ width: 680, height: 700, deviceScaleFactor: 2 });
+    await p.setViewport({ width: 680, height: 400, deviceScaleFactor: 2 });
     await p.setContent(
       `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="margin:0;padding:40px;background-color:${BASE.bg};">${localised(emailHtml)}</body></html>`,
       { waitUntil: 'load' },
