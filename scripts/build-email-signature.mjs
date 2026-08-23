@@ -12,6 +12,7 @@
  *   marketing/email-signature/mk-parrish-signature.html      Gmail / Outlook
  *   marketing/email-signature/mk-parrish-signature-crm.html  Momentum CRM
  *   marketing/email-signature/mk-parrish-signature.pdf      the handoff sheet
+ *   marketing/email-signature/mk-parrish-signature.jpg      the card as a flat image
  *   marketing/email-signature/preview.html
  *
  * Everything is table-based with inline styles: Outlook's Word engine drops
@@ -462,6 +463,18 @@ const localised = (html) =>
       margin: { top: '0.45in', bottom: '0.45in', left: '0.9in', right: '0.9in' },
     });
     console.log('✓ marketing/email-signature/mk-parrish-signature.pdf');
+
+    // A flat JPG of the card, for anywhere HTML signatures aren't accepted
+    // (an image-only upload field, a text message, a quick look on a phone).
+    // Reuses the same page and data-URI marks as the PDF above.
+    await p.setViewport({ width: 680, height: 700, deviceScaleFactor: 2 });
+    await p.setContent(
+      `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="margin:0;padding:40px;background-color:${BASE.bg};">${localised(emailHtml)}</body></html>`,
+      { waitUntil: 'load' },
+    );
+    const card = await p.$('table');
+    await card.screenshot({ path: path.join(OUT, 'mk-parrish-signature.jpg'), type: 'jpeg', quality: 92 });
+    console.log('✓ marketing/email-signature/mk-parrish-signature.jpg');
   } finally {
     await b.close();
   }
