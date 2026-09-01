@@ -310,6 +310,10 @@ export const SCRIPTS: Script[] = [
     text: 'Hi [Name], MK at Mercedes-Benz of Smithtown. Because you leased with us, Financial Services will waive up to your first 3 payments if we move now — 6 payments if you are in a GLE, GLS, or S-Class. Worth 20 minutes to run your exact numbers? I have 5:30 or 6:15.',
   },
   {
+    id: 'stepup', when: 'Mid-lease step-up — years left, wants a bigger car',
+    text: 'Hi [Name], MK at Mercedes-Benz of Smithtown — do you have two minutes? … I am calling because you are in the [year model], and I know you are not near the end of it. Here is the only reason I called. Right now you have two separate numbers: what the [model] is actually worth today, and what is left on the contract. Nobody has told you the first one. My job is to find the gap between them and tell you honestly whether it is small enough to move now or big enough that you should wait — and if it is the second one, I will say so. Two questions so I can run it properly: what is the odometer at today, and how many miles a year are you contracted for? … And what made you start thinking about a bigger one?',
+  },
+  {
     id: 'conquest', when: 'Owner of a competing brand',
     text: 'Hi [Name], MK at Mercedes-Benz of Smithtown. Since you are currently in a [brand], you qualify for our $1,500 Upgrade Certificate on top of this month\'s incentives — and I can likely land you near your current payment. Worth 20 minutes?',
   },
