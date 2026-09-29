@@ -36,7 +36,7 @@ const MK = {
   rows: [
     { label: 'Cell', text: '347.853.4238' },
     { label: 'Email', text: 'mkp414@icloud.com' },
-    { label: 'Web', text: 'mkparrish.com' },
+    { label: 'Web', text: 'https://mkparrish.com' },
     { label: 'LinkedIn', text: 'linkedin.com/in/mkparrish' },
   ],
 };

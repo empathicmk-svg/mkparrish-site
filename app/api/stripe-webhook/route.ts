@@ -7,7 +7,7 @@ export const runtime = "nodejs";
 // Stripe sends the raw body; we must not let the framework parse/transform it.
 export const dynamic = "force-dynamic";
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.mkparrish.com").replace(/\/+$/, "");
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://mkparrish.com").replace(/\/+$/, "");
 const FROM = process.env.LEAD_FROM_EMAIL || "MK Parrish <hello@mkparrish.com>";
 const OWNER_EMAIL = process.env.LEAD_NOTIFY_EMAIL || "mkp414@icloud.com";
 const MAX_WEBHOOK_BYTES = 256 * 1024;

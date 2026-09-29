@@ -32,7 +32,7 @@ export const PATREON_URL            = MEMBERSHIP_URL;
 export const CALENDLY_URL       = "https://www.calendly.com/mkparrish";
 
 // ── Site ─────────────────────────────────────────────────────────────────────
-export const SITE_URL           = "https://www.mkparrish.com";
+export const SITE_URL           = "https://mkparrish.com";
 export const BOOK_CALL_URL      = "/book";
 
 // ── Amazon author page (books on Kindle + paperback) ─────────────────────────
