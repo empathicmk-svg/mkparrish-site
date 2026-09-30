@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Client Testimonials & Results — MK Parrish",
     description:
       "Founders and operators on the positioning, websites, and messaging that turned how they're seen into revenue.",
-    url: "https://www.mkparrish.com/testimonials",
+    url: "https://mkparrish.com/testimonials",
     images: ["/og/default.png"],
   },
   twitter: { card: "summary_large_image", images: ["/og/default.png"] },

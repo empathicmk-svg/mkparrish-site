@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Cosmos — Numerology & Astrology Insights — MK Parrish",
     description:
       "Your chart is a first draft. Numerology and astrology, read like strategy — a mirror for voice, timing, and positioning.",
-    url: "https://www.mkparrish.com/cosmos",
+    url: "https://mkparrish.com/cosmos",
     images: ["/og/default.png"],
   },
   twitter: { card: "summary_large_image", images: ["/og/default.png"] },

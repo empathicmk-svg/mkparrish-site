@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   description:
     "Websites, outbound, and messaging that turn how you're seen into revenue. Senior growth strategy for B2B SaaS, agencies, and growth-stage teams.",
   applicationName: "MK Parrish",
-  metadataBase: new URL("https://www.mkparrish.com"),
+  metadataBase: new URL("https://mkparrish.com"),
   openGraph: {
     title: "MK Parrish — Growth Strategy, Websites & Messaging",
     description:
       "Websites, outbound, and messaging that turn how you're seen into revenue. Senior growth strategy for B2B SaaS, agencies, and growth-stage teams.",
-    url: "https://www.mkparrish.com",
+    url: "https://mkparrish.com",
     siteName: "MK Parrish",
     type: "website",
     images: [{ url: "/og/default.png", width: 1200, height: 630, alt: "MK Parrish — Turn how you're seen into revenue." }],

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "Founding-Client Website Redesigns — MK Parrish",
     description:
       "A few founding clients this quarter get a full website redesign at a discounted rate, in exchange for a testimonial. Fast, modern, mobile-first — hands-on start to finish.",
-    url: "https://www.mkparrish.com/redesign",
+    url: "https://mkparrish.com/redesign",
     images: [{ url: "/social/founding-redesign/founding-redesign-square.png" }],
   },
 };
