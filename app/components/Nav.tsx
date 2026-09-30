@@ -13,8 +13,8 @@ type NavLinkItem = {
 const workLinks: NavLinkItem[] = [
   { label: "All Offerings", href: "/services#offerings" },
   { label: "Founding Redesign Offer", href: "/redesign" },
-  { label: "Web Design & Build", href: "/studio" },
-  { label: "Outbound & Growth", href: "/growth" },
+  { label: "Web Design & Development", href: "/studio" },
+  { label: "Marketing & Growth", href: "/growth" },
   { label: "Messaging & Copy", href: "/brand" },
   { label: "Positioning Audit", href: "/audit" },
   { label: "How I Work", href: "/how-i-work" },
@@ -72,14 +72,18 @@ const mobileSections: { label: string; links: NavLinkItem[] }[] = [
     links: workLinks,
   },
   {
-    label: "More",
+    label: "Company",
     links: [
-      { label: "Rebecoming", href: "/rebecoming" },
-      { label: "Shop", href: "/shop" },
-      { label: "Cosmos", href: "/cosmos" },
-      { label: "Client Results", href: "/testimonials" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
+    ],
+  },
+  {
+    label: "Books & Writing",
+    links: [
+      { label: "Shop", href: "/shop" },
+      { label: "Rebecoming", href: "/rebecoming" },
+      { label: "Cosmos", href: "/cosmos" },
     ],
   },
 ];
@@ -287,30 +291,30 @@ export default function Nav() {
             </div>
 
             <Link
-              href="/rebecoming"
+              href="/studio"
               className={`nav-link whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
-                isActive("/rebecoming") ? "active text-pearl" : "text-ash"
+                isActive("/studio") ? "active text-pearl" : "text-ash"
               }`}
             >
-              Rebecoming
+              Web Design
             </Link>
 
             <Link
-              href="/shop"
+              href="/growth"
               className={`nav-link whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
-                isActive("/shop") ? "active text-pearl" : "text-ash"
+                isActive("/growth") ? "active text-pearl" : "text-ash"
               }`}
             >
-              Shop
+              Marketing
             </Link>
 
             <Link
-              href="/cosmos"
+              href="/audit"
               className={`nav-link whitespace-nowrap font-body text-[0.58rem] font-medium uppercase tracking-[0.1em] transition-colors hover:text-pearl focus:outline-none focus-visible:text-pearl xl:text-[0.62rem] xl:tracking-[0.12em] ${
-                isActive("/cosmos") ? "active text-pearl" : "text-ash"
+                isActive("/audit") ? "active text-pearl" : "text-ash"
               }`}
             >
-              Cosmos
+              Audit
             </Link>
 
             <Link
@@ -343,10 +347,10 @@ export default function Nav() {
 
           <div className="hidden items-center gap-3 2xl:flex">
             <Link
-              href="/shop"
+              href="/redesign"
               className="btn-ghost px-4 py-2 font-body text-[0.65rem] font-bold uppercase tracking-[0.18em]"
             >
-              Shop
+              Redesign Offer
             </Link>
             <Link
               href="/book"
@@ -429,11 +433,11 @@ export default function Nav() {
 
             <div className="flex flex-col gap-3">
               <Link
-                href="/shop"
+                href="/audit"
                 onClick={() => setMobileNav(false)}
                 className="btn-ghost inline-flex w-full justify-center px-5 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em]"
               >
-                Shop
+                $97 Audit
               </Link>
               <Link
                 href="/book"
@@ -528,13 +532,12 @@ export default function Nav() {
           </svg>
           Services
         </button>
-        <Link href="/shop" className={`mobile-bottom-nav-item${isActive("/shop") ? " active" : ""}`}>
+        <Link href="/audit" className={`mobile-bottom-nav-item${isActive("/audit") ? " active" : ""}`}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <path d="M16 10a4 4 0 01-8 0" />
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
-          Shop
+          Audit
         </Link>
         <button
           onClick={() => setMobileNav(!mobileNav)}
