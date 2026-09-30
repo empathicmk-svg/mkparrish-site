@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { quoteAt } from "@/app/lib/quote-bank";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Hooks
@@ -36,16 +37,20 @@ export function RevealSection({
   bg = "obsidian",
   num,
   className = "",
+  spacing = "normal",
 }: {
   children: ReactNode;
   id?: string;
   bg?: "void" | "obsidian" | "carbon";
   num?: string;
   className?: string;
+  spacing?: "normal" | "compact";
 }) {
   const { ref, cls } = useReveal();
   const bgColor =
     bg === "void" ? "#080808" : bg === "carbon" ? "#1A1A1A" : "#111111";
+  const sectionPadding =
+    spacing === "compact" ? "clamp(3.5rem, 6vw, 5.5rem) 0" : "clamp(5rem, 10vw, 9rem) 0";
   return (
     <section
       ref={ref}
@@ -53,13 +58,19 @@ export function RevealSection({
       className={`${cls} relative ${className}`}
       style={{
         background: bgColor,
-        padding: "clamp(5rem, 10vw, 9rem) 0",
+        padding: sectionPadding,
         scrollMarginTop: "4.5rem",
       }}
     >
       <div className="mx-auto max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
         {num && (
-          <p className="mb-8 font-mono text-xs tracking-[0.2em] text-iron">{num}</p>
+          <p
+            className={`font-mono text-xs tracking-[0.2em] text-iron ${
+              spacing === "compact" ? "mb-5 md:mb-6" : "mb-8"
+            }`}
+          >
+            {num}
+          </p>
         )}
         {children}
       </div>
@@ -68,29 +79,7 @@ export function RevealSection({
 }
 
 export function QuoteDivider({ index }: { index: number }) {
-  const quotes = [
-    { text: "You have power over your mind, not outside events. Realize this, and you will find strength.", author: "Marcus Aurelius" },
-    { text: "One is not born, but rather becomes, a woman.", author: "Simone de Beauvoir" },
-    { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
-    { text: "The secret of change is to focus all of your energy not on fighting the old, but on building the new.", author: "Socrates" },
-    { text: "The only way to deal with an unfree world is to become so absolutely free that your very existence is an act of rebellion.", author: "Albert Camus" },
-    { text: "He who has a why to live can bear almost any how.", author: "Friedrich Nietzsche" },
-    { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
-    { text: "The soul becomes dyed with the colour of its thoughts.", author: "Marcus Aurelius" },
-    { text: "To live is the rarest thing in the world. Most people exist, that is all.", author: "Oscar Wilde" },
-    { text: "Know thyself.", author: "Socrates" },
-    { text: "Stay far from timid, only make moves when your heart's in it, and live the phrase ‘sky’s the limit.'", author: "The Notorious B.I.G." },
-    { text: "If you don’t love yourself, you’ll always be chasing people who don’t love you either.", author: "The Notorious B.I.G." },
-    { text: "I’m tough, ambitious, and I know exactly what I want. If that makes me a bitch, okay.", author: "Madonna" },
-    { text: "Imperfection is beauty, madness is genius, and it’s better to be absolutely ridiculous than absolutely boring.", author: "Marilyn Monroe" },
-    { text: "I don’t want to make money, I just want to be wonderful.", author: "Marilyn Monroe" },
-    { text: "A wise girl kisses but doesn’t love, listens but doesn’t believe, and leaves before she is left.", author: "Marilyn Monroe" },
-    { text: "Promise me I can finally give myself what I kept begging other people to give me.", author: "MK Parrish" },
-    { text: "She just wanted to begin.", author: "MK Parrish" },
-    { text: "I did not confuse being chosen with being loved.", author: "MK Parrish" },
-    { text: "She is not who she used to be, and that is not a loss.", author: "MK Parrish" },
-  ];
-  const q = quotes[index % quotes.length];
+  const q = quoteAt(index);
   const { ref, cls } = useReveal();
   return (
     <div ref={ref} className={`${cls} bg-obsidian`} style={{ padding: "clamp(3rem, 6vw, 5rem) 0" }}>
@@ -280,18 +269,24 @@ export function ServiceCard({
 }) {
   const external = href.startsWith("http");
   return (
-    <div
-      className={`relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1 ${
-        highlight ? "bg-carbon shadow-[0_0_60px_rgba(242,175,198,0.08)]" : "bg-obsidian"
+    <article
+      className={`service-card group/card relative isolate flex min-h-full flex-col overflow-visible border p-6 transition-all duration-300 md:p-7 ${
+        highlight
+          ? "border-petal/35 bg-carbon shadow-[0_0_70px_rgba(255,181,208,0.12)]"
+          : "border-graphite/80 bg-obsidian"
       }`}
       style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
       {highlight && <div className="absolute inset-x-0 top-0 h-px bg-petal" />}
-      <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-iron">{tag}</p>
-      <h3 className="mt-3 font-display text-3xl uppercase tracking-[0.02em] text-pearl">{title}</h3>
-      <p className="mt-2 font-display text-4xl text-white">{price}</p>
-      <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{desc}</p>
-      <ul className="mt-6 flex-1 space-y-3">
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,181,208,0.09),transparent_65%)]" />
+      </div>
+      <p className="font-body text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-iron">{tag}</p>
+      <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.02em] text-pearl md:text-3xl">{title}</h3>
+      <p className="mt-1.5 font-display text-3xl text-white md:text-4xl">{price}</p>
+      <p className="mt-4 font-body text-sm font-light leading-6 text-smoke">{desc}</p>
+      <ul className="mt-5 flex-1 space-y-2.5">
         {perks.map((p) => (
           <li key={p} className="flex gap-3 font-body text-sm font-light leading-6 text-smoke">
             <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
@@ -299,7 +294,7 @@ export function ServiceCard({
           </li>
         ))}
       </ul>
-      <div className="mt-8">
+      <div className="mt-7">
         <a
           href={href}
           target={external ? "_blank" : undefined}
@@ -319,6 +314,6 @@ export function ServiceCard({
           </a>
         )}
       </div>
-    </div>
+    </article>
   );
 }

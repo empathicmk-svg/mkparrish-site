@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { EBOOKS, SERVICE_EBOOKS, SUBSTACK_URL, MARGINS_TIERS, COMING_SOON_SLUGS } from "@/app/lib/config";
+import { EBOOKS, SERVICE_EBOOKS, KIDS_BOOKS, SUBSTACK_URL, MARGINS_TIERS, COMING_SOON_SLUGS } from "@/app/lib/config";
+import {
+  PRINT_SHOP_PRODUCTS,
+  findShelfProduct,
+  relatedShelfProducts,
+  type ShelfProduct,
+} from "@/app/lib/shelf-catalog";
 import {
   RevealSection, QuoteDivider, Eyebrow, H1, H2, H3Script,
   BtnPrimary, ArrowLink,
 } from "@/app/components/ui";
 
-const ALL_SHOP_EBOOKS = [...EBOOKS, ...SERVICE_EBOOKS] as const;
+const ALL_SHOP_EBOOKS = [...EBOOKS, ...SERVICE_EBOOKS, ...KIDS_BOOKS] as const;
 type ShopProduct = (typeof ALL_SHOP_EBOOKS)[number];
 
 const productDownload = (product: ShopProduct) =>
@@ -25,20 +32,123 @@ const productEyebrow = (product: ShopProduct) =>
   product.tag === "Digital Download" ? product.tag : `${product.tag} · Digital Download`;
 
 export function generateStaticParams() {
-  return ALL_SHOP_EBOOKS.map((e) => ({ slug: e.slug }));
+  return [
+    ...ALL_SHOP_EBOOKS.map((e) => ({ slug: e.slug })),
+    ...PRINT_SHOP_PRODUCTS.map((p) => ({ slug: p.slug })),
+  ];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const product = ALL_SHOP_EBOOKS.find((e) => e.slug === slug);
-  if (!product) return {};
-  return {
-    title: `${product.title} — MK Parrish`,
-    description: `${product.subtitle} ${product.desc}`,
-  };
+  if (product) {
+    return {
+      title: `${product.title} — MK Parrish`,
+      description: `${product.subtitle} ${product.desc}`,
+    };
+  }
+  const print = findShelfProduct(slug);
+  if (print && print.kind === "print") {
+    return {
+      title: `${print.title} — MK Parrish`,
+      description: `${print.subtitle} ${print.desc}`,
+    };
+  }
+  return {};
 }
 
 const extraContent: Record<string, { about: string[]; forWho: string[]; pullQuote: string }> = {
+  "rebecoming": {
+    about: [
+      "REBECOMING: From Fear to Faith is MK Parrish's flagship memoir, now expanded to thirteen present-tense chapters that read like she is in your head, figuring it out alongside you. It opens on a rainy set of church steps, with a QR code and eleven minutes she almost spends walking the other way, and it does not let go.",
+      "It is a book about fear, the kind that moves in like a roommate and quietly runs the thermostat of your whole life, and about the slow, unglamorous, profoundly human work of growing bigger than it. It is woven through with Scripture and the saints: the prodigal son and the persistent widow, the parable of the talents and the parable of the sower, Martha and Mary, the woman at the well, and the Word that turns out to be living and active after all. It is about being an empath in a world that keeps calling your sensitivity a malfunction, about prayer and novenas and the Blessed Mother, about a father's last phone call and an irrefutable family story of the afterlife, about a grandmother's rosary, and about a roomful of women who became the great loves of a life.",
+      "Above all, it is written to take apart a lie: that faith, and Bible study, and the warm rooms where people tell each other the truth, are for a certain kind of person and not for you. They are for you. This book walks down the steps, takes your cold hand, and tells you exactly what is on the other side of the door.",
+      "A portion of every sale is donated to my local parish, the beautiful old church that welcomed me before I had said a word, so the door stays open and the lights stay on for whoever comes next.",
+    ],
+    forWho: [
+      "You are standing at the bottom of your own set of steps, certain a room isn't for you",
+      "You carry your fear quietly and have been told to just toughen up",
+      "You are an empath or a highly sensitive person learning the volume was the gift",
+      "You are curious about faith but allergic to performance and judgment",
+      "You love a memoir that is vivid, honest, and quietly transformative",
+    ],
+    pullQuote: "Certainty is just fear in a better coat. Faith is what you do while your hands are still shaking.",
+  },
+  "still-here-still-hers": {
+    about: [
+      "Still Here, Still Hers is a collection of intimate personal essays about grief, heartbreak, mental health, emotional hunger, father loss, body shame, and the private work of rebuilding while your life still looks unfinished.",
+      "This is the in-between book: not the polished after, not the tidy lesson, not the version of healing that arrives already wise. It begins where many women actually are: still checking the phone, still grieving the father, still afraid of being late to their own lives, and still somehow waking up.",
+      "It is written for the woman who is not healed yet but is tired of abandoning herself while she waits. A book about belonging to your own life before it becomes beautiful enough to post.",
+    ],
+    forWho: [
+      "You are in the middle of a season that has not resolved itself yet",
+      "You want essays that offer recognition instead of a clinical plan",
+      "You are rebuilding after heartbreak, grief, shame, or emotional collapse",
+      "You need language for the floor, not just the comeback",
+      "You want a Kindle-ready ebook with cover assets for the next publishing step",
+    ],
+    pullQuote: "This is not a book about becoming unbreakable. It is a book about discovering there is still someone left inside you worth coming back for.",
+  },
+  "street-smarts": {
+    about: [
+      "Street Smarts is a father-loss memoir built from 1,109 text messages, a few phone calls, and the eleven months that finally gave MK a father after twenty-five years of silence.",
+      "It moves through grief, survival, the strange education love gives you after it is already too late, and the brutal curriculum of learning which loves are load-bearing. It is raw, direct, and full of the kind of lines that stay under the skin.",
+      "The ebook is ready as PDF and Kindle EPUB, with Lulu-ready 6 x 9 interior and wraparound cover files prepared for a direct paperback listing.",
+    ],
+    forWho: [
+      "You have loved someone harder after losing them than you knew how to love them while they were here",
+      "You keep old texts, voicemails, and fragments like a private archive",
+      "You want a grief memoir that is unsentimental but deeply tender",
+      "You are drawn to father stories, survival writing, and essays about coming back to life",
+      "You want a book that can become a premium direct paperback, not just a digital file",
+    ],
+    pullQuote: "I had to love you to lose you. And given the choice, knowing the cost, I would open that door again every single time.",
+  },
+  "make-my-own-light": {
+    about: [
+      "Make My Own Light is a compact poetry collection from the dark and the turning toward it: grief, fear, father loss, faith, and the stubborn decision to keep breathing.",
+      "The poems are confessional, direct, and made for readers who do not need pain dressed up to recognize it. They live in the same emotional world as REBECOMING and Street Smarts, but with the compression and force of poetry.",
+      "It is ready as a premium PDF/EPUB and has Lulu-ready 6 x 9 paperback files, making it a strong direct-sale chapbook and a natural companion to the memoir titles.",
+    ],
+    forWho: [
+      "You like poems that sound like someone finally stopped apologizing",
+      "You are drawn to grief, survival, faith, and self-rescue writing",
+      "You want a short collection you can read in one sitting and return to",
+      "You are buying the poetry companion to the memoir work",
+      "You want a paperback-ready poetry title with direct-store margin",
+    ],
+    pullQuote: "No. I will make my own light.",
+  },
+  "the-invisible-bruise": {
+    about: [
+      "The Invisible Bruise names emotional abuse without turning the reader into a case study. It is for the person who has been very good at being fine, and is only now beginning to understand what happened.",
+      "The book moves through gaslighting, silence, body memory, and the work of learning to trust your own reality again. It is tender but not vague, practical but not clinical, and grounded in the long process of taking your story back.",
+      "The product includes PDF and Kindle EPUB files, plus Lulu-ready 6 x 9 paperback files for a premium direct-sale edition.",
+    ],
+    forWho: [
+      "You are trying to name something that never left a visible mark",
+      "You want clear language for emotional abuse and gaslighting",
+      "You are rebuilding your voice after being misread, controlled, or diminished",
+      "You want a healing book that is direct without being cold",
+      "You want the digital edition now and a paperback-ready path later",
+    ],
+    pullQuote: "The bruise was invisible. Your recovery does not have to be.",
+  },
+  "decoding-angel-numbers": {
+    about: [
+      "Decoding Angel Numbers is a grounded guide for spiritually curious readers who notice patterns and want to engage them without surrendering their discernment.",
+      "It is not a magical glossary. It is a practice of attention: why certain numbers or moments catch you, how to read the thought underneath the noticing, and how to tell the difference between meaning and anxiety.",
+      "The ebook includes PDF and Kindle EPUB files, with Lulu-ready 6 x 9 paperback files for a premium print edition.",
+    ],
+    forWho: [
+      "You keep noticing repeated numbers and want a thoughtful framework",
+      "You are curious but do not want to be sold certainty",
+      "You like spiritual writing with common sense still intact",
+      "You want journal prompts and discernment instead of a lookup table",
+      "You want a digital ebook with a paperback-ready file set",
+    ],
+    pullQuote: "The number is not the message. Your attention is the message.",
+  },
   "reinvention-workbook": {
     about: [
       "Twenty writing exercises built from the actual reinvention process — not theory lifted from a business book. These exercises are what I used myself and refined with clients who were in the middle of becoming someone new.",
@@ -206,10 +316,231 @@ const extraContent: Record<string, { about: string[]; forWho: string[]; pullQuot
   },
 };
 
+function isProofRequest(product: ShelfProduct) {
+  return (product.stripe || product.href).startsWith("mailto:");
+}
+
+function PrintBuyAction({
+  product,
+  className,
+  comingSoon,
+  proof,
+  buyHref,
+  external,
+}: {
+  product: ShelfProduct;
+  className: string;
+  comingSoon: boolean;
+  proof: boolean;
+  buyHref: string;
+  external: boolean;
+}) {
+  if (comingSoon) {
+    return <div className={`${className} border border-graphite text-iron`}>Coming Soon</div>;
+  }
+
+  return (
+    <a
+      href={buyHref}
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      className={`${className} btn-primary text-void`}
+    >
+      {proof ? "Request Proof" : `Buy Print — ${product.price}`}
+    </a>
+  );
+}
+
+function PrintDetailPage({ product }: { product: ShelfProduct }) {
+  const comingSoon = COMING_SOON_SLUGS.has(product.slug);
+  const proof = isProofRequest(product);
+  const buyHref = product.stripe || product.href;
+  const external = buyHref.startsWith("http");
+  const related = relatedShelfProducts(product);
+
+  return (
+    <>
+      <section className="relative overflow-hidden bg-void pb-16 pt-32 md:pb-24 md:pt-40">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/2 top-0 h-[70vh] w-[90vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.14),transparent_62%)]" />
+        </div>
+
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <Link
+            href="/shop#print-shop"
+            className="font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ash transition hover:text-petal"
+          >
+            ← Back to the Print Shop
+          </Link>
+
+          <div className="mt-10 grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16">
+            <div>
+              <Eyebrow>{product.tag} · Physical Print</Eyebrow>
+              <div className="mt-4 max-w-5xl">
+                <H1>{product.title}</H1>
+              </div>
+              <p className="mt-6 max-w-3xl font-serif text-xl italic leading-9 text-petal/85 md:text-2xl" style={{ fontWeight: 500 }}>
+                {product.subtitle}
+              </p>
+              <p className="mt-5 max-w-2xl font-body text-base font-light leading-8 text-smoke">
+                {product.desc}
+              </p>
+
+              {product.preview && (
+                <blockquote className="mt-8 max-w-2xl border-l-2 border-petal/40 pl-6">
+                  <p className="font-serif text-lg italic leading-8 text-pearl">&ldquo;{product.preview}&rdquo;</p>
+                </blockquote>
+              )}
+            </div>
+
+            <aside className="relative bg-obsidian p-8 md:p-10">
+              <div className="absolute inset-x-0 top-0 h-px bg-petal" />
+              {product.cover && (
+                <div className="mb-8 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={product.cover}
+                    alt={`${product.title} — print mockup`}
+                    width={1600}
+                    height={2560}
+                    className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_16px_60px_rgba(0,0,0,0.55)]"
+                  />
+                </div>
+              )}
+              <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.24em] text-iron">The Print Shop</p>
+              <p className="mt-4 font-display text-5xl uppercase tracking-[0.01em] text-white">{product.price}</p>
+              <p className="mt-2 font-body text-xs font-light leading-6 text-ash">
+                {comingSoon
+                  ? "Coming soon"
+                  : proof
+                  ? "Custom proof request · No payment until the print is confirmed"
+                  : "Secure checkout · Printed and shipped to you"}
+              </p>
+
+              <ul className="my-8 space-y-4">
+                {product.features.map((feature) => (
+                  <li key={feature} className="flex gap-3 font-body text-sm font-light leading-6 text-smoke">
+                    <span className="mt-2 h-1 w-1 flex-shrink-0 bg-petal" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <PrintBuyAction
+                product={product}
+                className="flex w-full items-center justify-center px-5 py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.18em]"
+                comingSoon={comingSoon}
+                proof={proof}
+                buyHref={buyHref}
+                external={external}
+              />
+              <p className="mt-4 text-center font-body text-[0.65rem] font-light leading-5 text-iron">
+                {proof
+                  ? "Proof request opens email · Sizes and pricing confirmed before printing"
+                  : "Secure Stripe checkout · Available sizes shown at checkout"}
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <RevealSection bg="void" num="01">
+        <div className="grid gap-14 lg:grid-cols-2">
+          <div>
+            <Eyebrow>Made for</Eyebrow>
+            <H2>This belongs<br /><span className="text-petal">with you if —</span></H2>
+          </div>
+          <ul className="space-y-4 pt-2">
+            {product.forWho.map((item, index) => (
+              <li key={item} className="flex gap-4 border-b border-graphite pb-4 last:border-0">
+                <span className="mt-1 font-mono text-xs tracking-[0.2em] text-petal/60">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="font-body text-sm font-light leading-7 text-smoke">{item}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={17} />
+
+      <RevealSection bg="obsidian">
+        <div className="relative overflow-hidden text-center">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute left-1/2 top-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse,rgba(242,175,198,0.09),transparent_65%)]" />
+          </div>
+          <div className="relative py-12 md:py-20">
+            <Eyebrow>Ready when you are</Eyebrow>
+            <H2>{product.title}</H2>
+            <p className="mx-auto mt-6 max-w-xl font-body text-base font-light leading-8 text-smoke">
+              {product.subtitle}
+            </p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
+              <PrintBuyAction
+                product={product}
+                className="inline-flex items-center justify-center px-9 py-5 font-body text-[0.8rem] font-bold uppercase tracking-[0.18em]"
+                comingSoon={comingSoon}
+                proof={proof}
+                buyHref={buyHref}
+                external={external}
+              />
+              <ArrowLink href="/shop">Browse the Shop</ArrowLink>
+            </div>
+          </div>
+        </div>
+      </RevealSection>
+
+      <QuoteDivider index={13} />
+
+      <RevealSection bg="void">
+        <Eyebrow>Keep browsing</Eyebrow>
+        <H2>More from<br /><span className="text-petal">the shop.</span></H2>
+        <div className="mt-12 grid gap-px bg-graphite md:grid-cols-3">
+          {related.map((rel) => (
+            <Link
+              key={rel.slug}
+              href={`/shop/${rel.slug}`}
+              className="group relative flex min-h-[300px] flex-col bg-obsidian p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-carbon"
+              style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-petal to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-50" />
+              {rel.cover && (
+                <div className="mb-6 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={rel.cover}
+                    alt={`${rel.title} — cover`}
+                    width={1600}
+                    height={2560}
+                    loading="lazy"
+                    className="aspect-[5/8] w-full border border-graphite/70 object-cover shadow-[0_12px_50px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+              )}
+              <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.2em] text-iron">{rel.tag}</p>
+              <h3 className="mt-4 font-display text-2xl uppercase leading-tight tracking-[0.02em] text-pearl">{rel.title}</h3>
+              <p className="mt-2 font-display text-3xl text-petal">{rel.price}</p>
+              <span className="mt-7 font-body text-xs font-bold uppercase tracking-[0.2em] text-petal/60 transition group-hover:text-petal">
+                View details →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </RevealSection>
+    </>
+  );
+}
+
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const product = ALL_SHOP_EBOOKS.find((e) => e.slug === slug);
-  if (!product) notFound();
+  if (!product) {
+    const print = findShelfProduct(slug);
+    if (print && print.kind === "print") {
+      return <PrintDetailPage product={print} />;
+    }
+    notFound();
+  }
 
   const extra = extraContent[product.slug] ?? {
     about: [product.desc],
@@ -221,14 +552,19 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   const dl = productDownload(product);
   const isFree = isFreeProduct(product);
+  const paperback = (product as { paperback?: { price: string; href: string } }).paperback;
+  const showPaperback = Boolean(paperback?.href && paperback.href.length > 0 && !COMING_SOON_SLUGS.has(product.slug));
   const stripe = (product as { stripe?: string }).stripe;
   const buyTarget = isFree ? (dl as string) : (stripe && stripe.length > 0 ? stripe : product.href);
-  const buyLabel = isFree ? "Download Free" : "Buy Now";
+  const requestCheckout = !isFree && buyTarget.startsWith("mailto:");
+  const buyExternal = buyTarget.startsWith("http");
+  const paperbackExternal = Boolean(paperback?.href?.startsWith("http"));
+  const buyLabel = isFree ? "Download Free" : requestCheckout ? "Request Checkout" : "Buy Now";
   const priceLabel = productPriceLabel(product);
   const limitedFree = isLimitedFree(product);
   const accessLabel = limitedFree
     ? `Free for a limited time · normally ${product.price}`
-    : isFree ? "Direct download · Instant access" : "One-time purchase · Instant access";
+    : isFree ? "Direct download · Instant access" : requestCheckout ? "Direct checkout request · Files ready" : "One-time purchase · Instant access";
 
   return (
     <>
@@ -259,11 +595,19 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <a
                     href={buyTarget}
                     download={isFree ? "" : undefined}
-                    target="_blank"
-                    rel="noreferrer"
+                    {...(buyExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                     className="btn-primary inline-flex items-center justify-center px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
                     {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
+                  </a>
+                )}
+                {showPaperback && (
+                  <a
+                    href={paperback!.href}
+                    {...(paperbackExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+                    className="inline-flex items-center justify-center border border-graphite px-8 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
+                  >
+                    Paperback — {paperback!.price}
                   </a>
                 )}
                 <span className="font-body text-xs font-light text-iron">
@@ -273,6 +617,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     ? `Free for a limited time — normally ${product.price}`
                     : isFree
                     ? "Free instant download · No signup"
+                    : requestCheckout
+                    ? "Checkout request opens email · Files ready"
                     : "Instant download · Secure checkout"}
                 </span>
               </div>
@@ -311,11 +657,19 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <a
                     href={buyTarget}
                     download={isFree ? "" : undefined}
-                    target="_blank"
-                    rel="noreferrer"
+                    {...(buyExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                     className="btn-primary flex w-full items-center justify-center py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                   >
                     {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
+                  </a>
+                )}
+                {showPaperback && (
+                  <a
+                    href={paperback!.href}
+                    {...(paperbackExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+                    className="flex w-full items-center justify-center border border-graphite py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-pearl transition-colors hover:border-petal hover:text-petal"
+                  >
+                    Paperback — {paperback!.price}
                   </a>
                 )}
                 <p className="text-center font-body text-[0.65rem] font-light text-iron">
@@ -325,6 +679,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     ? `Free for a limited time · normally ${product.price}`
                     : isFree
                     ? "Free · PDF format · No subscription"
+                    : requestCheckout
+                    ? "PDF + EPUB ready · Checkout request"
                     : "PDF format · Secure checkout · No subscription"}
                 </p>
               </div>
@@ -348,11 +704,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <a
                   href={buyTarget}
                   download={isFree ? "" : undefined}
-                  target="_blank"
-                  rel="noreferrer"
+                  {...(buyExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                   className="btn-primary inline-flex items-center justify-center px-7 py-4 font-body text-[0.8rem] font-bold uppercase tracking-[0.2em] text-void"
                 >
-                  {isFree ? "Download Free →" : `Get It — ${priceLabel}`}
+                  {isFree ? "Download Free →" : requestCheckout ? `Request Checkout — ${priceLabel}` : `Get It — ${priceLabel}`}
                 </a>
               )}
             </div>
@@ -416,20 +771,21 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <a
                   href={buyTarget}
                   download={isFree ? "" : undefined}
-                  target="_blank"
-                  rel="noreferrer"
+                  {...(buyExternal ? { target: "_blank", rel: "noreferrer" } : {})}
                   className="btn-primary inline-flex items-center justify-center px-10 py-5 font-body text-[0.85rem] font-bold uppercase tracking-[0.2em] text-void"
                 >
                   {buyLabel}{isFree ? " →" : ` — ${priceLabel}`}
                 </a>
               )}
-              <ArrowLink href="/shelf">Browse The Shelf</ArrowLink>
+              <ArrowLink href="/shop">Browse the Shop</ArrowLink>
             </div>
             <p className="mt-6 font-body text-xs font-light text-iron">
               {COMING_SOON_SLUGS.has(product.slug)
                 ? "Coming soon · PDF format · No subscription required"
                 : isFree
                 ? "Free · Instant download · No subscription required"
+                : requestCheckout
+                ? "Checkout request opens email · PDF and EPUB ready"
                 : "Secure checkout · Instant delivery · No subscription required"}
             </p>
           </div>

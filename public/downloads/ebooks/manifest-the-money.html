@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --white: #FAFAF8;
+    --blush: #FFD6E4;
+    --petal: #F2AFC6;
+    --rose: #E0869F;
+    --carmine: #C75B78;
+    --font-display: 'Bebas Neue', Impact, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    /* Reusable gray → pink gradients */
+    --grad-pink: linear-gradient(120deg, var(--rose), var(--petal) 55%, var(--blush));
+    --grad-rule: linear-gradient(90deg, transparent, var(--petal), transparent);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(242,175,198,0.06), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, rgba(199,91,120,0.05), transparent 55%),
+      linear-gradient(180deg, var(--obsidian) 0%, var(--void) 38%);
+    background-attachment: fixed;
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.78;
+    position: relative;
+  }
+  /* Grain overlay — the site's signature texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9998;
+    mix-blend-mode: screen;
+  }
+  ::selection { background: var(--petal); color: var(--void); }
+
+  /* ── COVER ─────────────────────────────────────────── */
+  .cover {
+    position: relative;
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 104px 48px 84px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% -10%, rgba(242,175,198,0.20) 0%, transparent 62%),
+      radial-gradient(ellipse 50% 50% at 88% 108%, rgba(199,91,120,0.12) 0%, transparent 60%),
+      linear-gradient(160deg, rgba(176,176,176,0.06), transparent 45%);
+    pointer-events: none;
+  }
+  /* Thin gray→pink gradient hairline across the very top */
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--iron), var(--petal) 50%, var(--blush));
+    opacity: 0.7;
+  }
+  .cover > * { position: relative; z-index: 1; }
+  .cover-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7.5vw, 4.6rem);
+    letter-spacing: 0.04em;
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    color: var(--white);
+  }
+  /* Soft gray→white→pink gradient fill on the lead words */
+  .cover h1 .grad {
+    background: linear-gradient(135deg, var(--pearl) 0%, var(--pearl) 50%, var(--blush) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--pearl);
+    filter: drop-shadow(0 0 16px rgba(242,175,198,0.14));
+  }
+  .cover h1 .outline {
+    -webkit-text-stroke: 1px rgba(242,175,198,0.5);
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  /* Subtitle — matches the live site tagline: Playfair italic, petal */
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+    color: rgba(242, 175, 198, 0.8);
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.5;
+  }
+  .cover-rule {
+    width: 90px;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, var(--rose), var(--petal), var(--blush), transparent);
+  }
+  .cover-meta {
+    margin-top: 30px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+
+  /* ── CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    counter-reset: section;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    letter-spacing: 0.03em;
+    line-height: 1.04;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  /* Section headings get an editorial mono counter, like the site's section numbers */
+  h2 {
+    counter-increment: section;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.3vw, 1.95rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--pearl);
+    margin: 68px 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--graphite);
+    position: relative;
+  }
+  h2::before {
+    content: counter(section, decimal-leading-zero);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--rose), var(--petal));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--petal);
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 88px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--petal), rgba(242,175,198,0));
+  }
+  /* Sub-section labels — live-site accent: Playfair italic, petal */
+  h3 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--petal);
+    margin: 40px 0 12px;
+  }
+  p { margin: 0 0 1.25em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  /* Emphasis — live-site accent: Playfair italic, petal */
+  em { font-family: var(--font-serif); font-style: italic; color: var(--petal); }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { color: var(--blush); text-decoration: underline; }
+
+  ul, ol { padding-left: 1.4em; margin: 0 0 1.6em; color: var(--smoke); }
+  li { margin-bottom: 0.55em; padding-left: 0.35em; }
+  ul li::marker { color: var(--petal); }
+  ol li::marker { color: var(--petal); font-family: var(--font-mono); font-size: 0.85em; }
+
+  blockquote {
+    position: relative;
+    border-left: 2px solid var(--petal);
+    margin: 40px 0;
+    padding: 26px 30px 26px 40px;
+    background: linear-gradient(110deg, rgba(242,175,198,0.10), rgba(176,176,176,0.04) 55%, transparent 90%);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.08rem;
+    color: rgba(242, 175, 198, 0.9);
+    line-height: 1.6;
+  }
+  blockquote::before {
+    content: '\201C';
+    position: absolute;
+    top: 0.08em;
+    left: 0.14em;
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(242,175,198,0.22);
+    pointer-events: none;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code { font-family: var(--font-mono); font-size: 0.86rem; color: var(--petal); white-space: pre; }
+  p > code, li > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    font-size: 0.82em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.9rem; }
+  thead tr { background: linear-gradient(90deg, rgba(242,175,198,0.12), rgba(176,176,176,0.04) 70%, transparent); }
+  th {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--graphite); color: var(--smoke); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--iron) 25%, var(--petal) 50%, var(--iron) 75%, transparent);
+    opacity: 0.6;
+    margin: 52px 0;
+  }
+
+  /* ── FOOTER ────────────────────────────────────────── */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 48px 24px;
+    text-align: center;
+    background: var(--obsidian);
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .footer-legal {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+  .footer-legal a { color: var(--ash); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PRINT EDITION — light, publisher-style layout for the PDF.
+     The screen stays dark; the printed book inverts to a white page
+     with black header boxes and pink/white titles.
+     ═══════════════════════════════════════════════════════════════ */
+  @media print {
+    @page { margin: 0; }
+
+    html, body {
+      background: #ffffff !important;
+      color: #232323 !important;
+    }
+    body::before { display: none !important; }   /* no grain in print */
+
+    /* ── COVER: a full-page black panel on a white sheet ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      background: #ffffff !important;
+      border-bottom: none;
+      padding: 0;
+      break-after: page;
+    }
+    .cover::before, .cover::after { display: none !important; }
+    /* The panel fills the printable page and centres the title block,
+       instead of floating as a thin band in the middle of the sheet. */
+    .cover-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 52px;
+      background: #0E0E0E;
+      border: 1px solid rgba(242, 175, 198, 0.45);
+    }
+    .cover-kicker { color: var(--petal); }
+    .cover h1 { color: #ffffff; font-size: clamp(3rem, 8vw, 4rem); }
+    /* Solid fills only. background-clip:text and text-stroke rasterise as
+       opaque boxes / vanish entirely in print — that is what turned the old
+       title into a white rectangle. Keep the white + pink two-tone with
+       plain fills so it renders identically everywhere. */
+    .cover h1 .grad {
+      background: none;
+      -webkit-background-clip: border-box; background-clip: border-box;
+      -webkit-text-fill-color: #ffffff; color: #ffffff;
+      filter: none;
+    }
+    .cover h1 .outline {
+      -webkit-text-stroke: 0;
+      -webkit-text-fill-color: var(--petal); color: var(--petal);
+    }
+    .cover .subtitle { color: var(--petal); }
+    .cover-meta { color: #B0B0B0; }
+
+    /* ── BODY: black text on white ── */
+    .content { padding-top: 64px; color: #232323; }
+    p { color: #2b2b2b; }
+    /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
+    strong {
+      background: #0E0E0E;
+      color: #FAFAF8;
+      font-weight: 600;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    a { color: #B23A59; }
+    ul li::marker, ol li::marker { color: #B23A59; }
+
+    /* ── SECTION HEADERS: black boxes, pink number + white title ── */
+    h2 {
+      background: #0E0E0E;
+      color: #ffffff;
+      padding: 24px 30px;
+      margin: 40px 0 42px;
+      border: none;
+      break-before: page;          /* every Part / section starts a fresh page */
+    }
+    /* …except the first section, which follows the cover (and any intro/metadata
+       block) on page 2 instead of forcing a near-empty page before it. */
+    .content h2:first-of-type { break-before: auto; }
+    h2::before {
+      background: none;
+      -webkit-text-fill-color: var(--petal);
+      color: var(--petal);
+      margin-bottom: 10px;
+    }
+    h2::after { display: none; }
+
+    /* Exercise titles — pink, with extra breathing room above each */
+    h3 { color: #B23A59; margin: 58px 0 18px; }
+    /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
+    em {
+      background: var(--petal);
+      color: #1A1008;
+      font-style: italic;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    /* ── PULL QUOTES: soft panel, pink rule + mark, dark text ── */
+    blockquote {
+      background: #F5F2F0;
+      border-left: 3px solid #B23A59;
+      color: #232323;
+    }
+    blockquote::before { color: rgba(178, 58, 89, 0.3); }
+
+    /* ── TABLES: black header band ── */
+    thead tr { background: #0E0E0E; }
+    th { color: #ffffff; border-bottom: 1px solid #0E0E0E; }
+    td { color: #2b2b2b; border-bottom: 1px solid #e3e3e3; }
+
+    /* ── CODE: light chip ── */
+    pre { background: #f3f3f1; border: 1px solid #e3e3e3; }
+    pre code { color: #A8344F; }
+    p > code, li > code { background: #f0eeec; color: #A8344F; }
+
+    hr {
+      background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
+      opacity: 1;
+    }
+    /* The markdown "---" separators always sit just before a section heading,
+       and every section already starts a fresh page — so a rule landing right
+       before a heading is redundant and can strand alone on a near-empty page.
+       Hide those; keep any genuine in-content rule (one not followed by H2). */
+    hr:has(+ h2) { display: none; }
+
+    /* ── FOOTER: white page, black signature ── */
+    .footer { background: #ffffff; border-top: 1px solid #dddddd; }
+    .footer-logo { color: #0A0A0A; }
+    .footer-legal { color: #8a8a8a; }
+    .footer-legal a { color: #B23A59; }
+
+    /* ── PAGINATION — natural flow; just avoid bad breaks ── */
+    h1, h2, h3 { break-after: avoid-page; break-inside: avoid; }
+    p, li { orphans: 3; widows: 3; }
+    h2, h3, li, tr, blockquote, pre, table, figure, img { break-inside: avoid; }
+    ul, ol { break-before: avoid-page; }
+    .footer { break-before: avoid-page; }
+  }
+  *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+</style>
+
+<title>Manifest the Money — MK Parrish</title>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">Manifest the</span> <span class="outline">Money</span></h1>
+    <p class="subtitle">The grounded guide to manifesting money — where mindset ends, math begins, and how to close the gap between the number you want and the number you'll actually say out loud.</p>
+    <div class="cover-rule"></div>
+    <div class="cover-meta">By MK Parrish · $24</div>
+  </div>
+</div>
+
+<div class="content">
+<h2>Start Here</h2>
+<p>Manifesting money has a branding problem. It gets sold as a way to think your way to a windfall — visualize the check, feel the abundance, wait by the mailbox. That version does not work, and deep down you know it, which is probably why you're skeptical enough to want a book that's honest about it.</p>
+<p>Here's the honest version. Manifesting money is the practice of removing the mental blocks that keep you from <em>earning, asking for, pricing,</em> and <em>keeping</em> it — and then doing the concrete things a wealthier version of you would do. The mindset is real and it matters. But it matters because of the behavior it unlocks, not because the universe runs a payment processor.</p>
+<p>This book has two halves, and you need both. The first is the money mindset — the beliefs quietly capping what you allow yourself to charge, ask for, and receive. The second is the money math — the specific, unglamorous moves that turn a raised ceiling into an actual number in an actual account. Skip the mindset and you'll sabotage the math. Skip the math and you'll have great energy and an empty bank.</p>
+<blockquote>Money doesn't respond to how badly you want it. It responds to what you'll ask for, what you'll charge, and what you'll do the day after you decide.</blockquote>
+<p>Let's raise the ceiling and then go get the number.</p>
+<hr>
+<h2>The Number You Only Whisper</h2>
+<p>Say the amount you actually want to earn this year. Out loud. Not the reasonable one — the real one.</p>
+<p>Watch your body. If your voice dropped, if you laughed, if you rushed past it, you just found your money ceiling. It is not set by the market. It is set by the highest number you can say without flinching, because a number you're embarrassed by is a number you'll unconsciously price and pitch beneath.</p>
+<p>This is the whole hinge of manifesting money. Most people are not blocked by a lack of opportunity. They are blocked by a private cap — a figure above which some old voice says <em>who do you think you are.</em> We are going to find that cap, name it, and start moving it upward on purpose.</p>
+<h3>Exercise: find your ceiling</h3>
+<ol><li>Write increasing income figures until one makes you tense: it should feel fine, fine, fine — then suddenly ridiculous.</li><li>The number where the tension starts is roughly your current ceiling.</li><li>Ask: whose voice says that number is too much? Where did you first hear it?</li><li>Write the counter-truth in your own words. Say the higher number again. Then again tomorrow.</li></ol>
+<hr>
+<h2>The Money Stories You Inherited</h2>
+<p>Nobody arrives at money as a blank slate. You inherited a script — from family, culture, religion, the exact amount of money that was or wasn't around when you were small. Most of it runs silently, and most of it caps you.</p>
+<p>You cannot delete these stories, but you can drag them into the light, where they lose most of their power. Watch for the classics: money is dirty or corrupting; wanting more is greedy; charging full price is taking advantage; there's only so much to go around; people like us don't get to have that. Each one, unexamined, becomes a pricing decision.</p>
+<h3>Common blocks and their rewrites</h3>
+<table><thead><tr><th>The inherited story</th><th>The rewrite</th></tr></thead><tbody><tr><td>Wanting more is greedy</td><td>Wanting more capacity to help, pay people, and choose freely is responsible</td></tr><tr><td>Charging full price is taking advantage</td><td>A fair price for real value is the honest transaction; discounting to be liked is the dishonest one</td></tr><tr><td>There's only so much to go around</td><td>Value is created, not divided; my earning does not empty someone else's account</td></tr><tr><td>People like us don't get to have that</td><td>That was a description of a past circumstance, not a law about my future</td></tr></tbody></table>
+<h3>Exercise: name three, rewrite three</h3>
+<p>Write the three money beliefs you absorbed before you were old enough to choose them. For each, write the truer sentence you'd tell a friend. Read the rewrites out loud. This is not affirmation fluff — it's editing the assumptions your pricing runs on.</p>
+<hr>
+<h2>Where Mindset Ends and Math Begins</h2>
+<p>Here's where this book parts ways with the vision-board version. A raised ceiling is necessary and not sufficient. Once you'll allow yourself to want and charge more, you have to build the machine that delivers it. Belief without a plan is a nicer kind of stuck.</p>
+<p>The money math is simple and most people avoid it because it's specific, and specific is where you can no longer hide. Your income is a product of three levers: how many people you reach, what fraction of them buy, and what each one pays. Manifesting money means deliberately moving at least one of these — and the fastest one to move is almost always price.</p>
+<h3>The three levers</h3>
+<ul><li><strong>Reach</strong> — how many of the right people encounter your offer. Grows slowly; compounds.</li><li><strong>Conversion</strong> — what fraction say yes. Improves with clearer positioning and proof.</li><li><strong>Price</strong> — what each yes is worth. The fastest lever, and the one your mindset most directly caps.</li></ul>
+<h3>Exercise: the reverse-engineered number</h3>
+<ol><li>Write your real annual number.</li><li>Divide by twelve for the monthly target.</li><li>Divide by your current price for the number of yeses required.</li><li>Now raise the price twenty percent and redo the math. Notice how many fewer yeses you need. The ceiling you moved earlier just did real work.</li></ol>
+<hr>
+<h2>Pricing Is a Manifestation</h2>
+<p>Nowhere does your money ceiling show up more plainly than in your prices. Under-pricing is rarely a math mistake; it's a self-worth statement wearing a discount. And here is the part people miss: your price is not just what you earn — it's a signal to the buyer about what you're worth, and they read it before they read anything else.</p>
+<p>Raising your price does three things at once. It increases what each yes is worth, it filters out the buyers who were going to be the most work for the least money, and — this is the manifesting part — it forces you to become the person who can say the higher number and hold the silence after it. That person earns more automatically, because they stop leaking money at every negotiation.</p>
+<h3>The silence drill</h3>
+<p>Practice saying your price and then saying nothing. No justifying, no 'but I'm flexible,' no nervous discount before they've even reacted. The silence after the number is where the money is made or given away. Rehearse it until it's comfortable — out loud, to a mirror, to a friend.</p>
+<blockquote>Your price is the first thing a buyer learns about how you value your own work. Lower it out of fear and they believe you.</blockquote>
+<hr>
+<h2>Receiving (and Keeping)</h2>
+<p>Manifesting money isn't only about earning more. It's about being able to <em>receive</em> it without flinching and <em>keep</em> it without leaking. Plenty of people raise the ceiling, earn the number — and then unconsciously spend, discount, or over-give it all back, because at some level they don't believe they're allowed to hold it.</p>
+<p>Receiving well is a skill. It looks like taking the compliment, accepting the referral, letting someone pay full price without an apology tour, and not immediately giving the raise back to the world to prove you're still humble. Keeping well is a system: knowing your numbers, paying yourself first, and treating profit as a deliberate decision rather than whatever happens to be left.</p>
+<h3>Exercise: the receiving audit</h3>
+<ol><li>Where do you deflect money — discounts offered before they're asked for, free work that was meant to be paid, prices softened mid-sentence?</li><li>Where does money leak once it arrives — untracked spending, no profit set aside, giving it away to feel okay about having it?</li><li>Pick one deflection and one leak. Close each this month.</li></ol>
+<hr>
+<h2>The Scarcity Loop</h2>
+<p>Scarcity is not a bank balance. It's a mode of thinking, and it can run just as loudly in someone with money as in someone without. Understanding the loop is essential, because scarcity thinking sabotages the exact behaviors that create wealth.</p>
+<p>Here's how the loop runs. You feel there isn't enough. That feeling narrows your focus to the immediate shortfall, which makes you play small — take the safe low-paying gig, discount to close fast, cling to a bad client because losing them feels catastrophic. Playing small produces small results, which confirms the original feeling that there isn't enough, which tightens the loop. Scarcity is self-fulfilling. It literally makes you make the decisions that keep you scarce.</p>
+<p>Abundance thinking is not delusion or 'good vibes.' It's the practical recognition that you can create value, that opportunities are not a fixed pie, and that one lost client or deal is a data point, not a disaster. From that steadier place you make better decisions — you hold your price, you walk from bad-fit work, you invest instead of only defending. The mindset isn't magic. It's the difference between decisions made from fear and decisions made from clarity, and over years those decisions are the whole story.</p>
+<h3>Breaking the loop</h3>
+<ul><li>Widen the time horizon: 'this month is tight' is survivable when you're building a decade.</li><li>Widen the options: a full pipeline makes any single no a non-event.</li><li>Separate the fact from the feeling: 'I have $X' is a fact; 'there's never enough' is a story running on top of it.</li><li>Make the decision you'd make if you weren't afraid — then check whether fear was actually the only objection.</li></ul>
+<blockquote>Scarcity makes you take the deal that keeps you scarce. The first raise you have to give yourself is a raise in how you think.</blockquote>
+<hr>
+<h2>Wealth Is Boring</h2>
+<p>The manifesting fantasy sells the windfall — the viral launch, the surprise check, the overnight change. Actual wealth, for almost everyone who builds it, is boring. It's the accumulated result of unremarkable habits repeated for an unremarkable long time.</p>
+<p>Earn a bit more than you spend. Widen the gap deliberately. Move the difference somewhere it grows before you can fritter it. Do that consistently and the outcome is, eventually, dramatic — but the process that got you there would put a documentary crew to sleep. The people who stay wealthy are rarely the ones who had one enormous moment. They're the ones who made the boring deposit, month after month, while everyone else waited for lightning.</p>
+<p>This matters for manifesting because the fantasy of the windfall keeps you from the boring machine that actually works. You skip the unglamorous system while you wait for the exciting event. Manifest the boring machine instead: the repeatable offer, the steady pipeline, the automatic savings, the price that goes up a little each year. Boring compounds. Exciting usually just spends.</p>
+<h3>The boring machine</h3>
+<ol><li>A repeatable offer you can sell again and again without reinventing it.</li><li>A steady source of the right leads so revenue doesn't depend on luck.</li><li>A fixed percentage moved to savings/investment the day money lands.</li><li>A price that rises deliberately over time as your proof accumulates.</li></ol>
+<hr>
+<h2>Charge the Value, Not the Hours</h2>
+<p>One of the fastest ways to raise your money ceiling is to stop selling your time and start selling the outcome. Time-based pricing caps you at the number of hours in a day and quietly tells the buyer your work is a commodity measured by the clock. Value-based pricing anchors the price to what the result is worth to them.</p>
+<p>Consider the difference. 'My rate is $100 an hour, and this will take about ten hours' invites the buyer to negotiate the hours down and to see you as interchangeable labor. 'This engagement gets you a website that converts the traffic you're already paying for — the investment is $6,000' anchors to the result and the return. Same work. Wildly different price ceiling, and a completely different conversation.</p>
+<p>This is a mindset shift before it's a pricing tactic. You have to believe the outcome is worth the number, which loops right back to the ceiling work from the opening chapters. When you undercharge, you're usually not pricing the hours too low — you're valuing the transformation too low, because some old story told you it wasn't worth much. Reprice the transformation and the number takes care of itself.</p>
+<h3>Exercise: reprice one offer to the value</h3>
+<ol><li>Take one offer you currently price by time or by habit.</li><li>Write down what the result is actually worth to the buyer — money made, money saved, time returned, risk removed, stress ended.</li><li>Set a price that reflects a fair share of that value, not the hours you'll spend.</li><li>Rewrite how you describe it: lead with the outcome, mention the price once, plainly.</li></ol>
+<hr>
+<h2>The Money Date</h2>
+<p>You cannot manifest what you refuse to look at, and most people avoid their numbers the way they avoid a scary email — hoping it resolves itself if ignored long enough. It never does. So we install a habit: a weekly money date.</p>
+<p>Once a week, for fifteen minutes, you sit down and look. What came in, what went out, what's owed to you, what you owe, and whether you're on track toward your number. That's it. No spreadsheet mastery required. The magic isn't in the sophistication; it's in the consistency of attention. Money grows where attention goes, not because of mysticism, but because you can only steer what you're actually watching.</p>
+<p>The money date also dissolves financial anxiety, which is usually worse in the dark. The dread of not-knowing is heavier than almost any number you'll actually find. Founders who avoid their finances live with a low, constant hum of fear; founders who look weekly trade that hum for clarity, even when the clarity is 'we need more sales this month.' Clarity you can act on. A vague hum just erodes you.</p>
+<h3>Your weekly money date</h3>
+<ul><li>Money in this week vs. your weekly target.</li><li>Money out — anything surprising or worth cutting.</li><li>Outstanding invoices — who owes you, and is it time to follow up?</li><li>One number that's trending the wrong way, and one small action to correct it.</li></ul>
+<blockquote>The scariest thing about money is almost never the number. It's not looking. Look weekly and most of the fear simply leaves.</blockquote>
+<hr>
+<h2>Invest in the Earner</h2>
+<p>Manifesting money eventually requires spending some, and where you spend it is a statement about what you believe. The highest-return investment available to most people is not a stock or a side hustle. It's the person doing the earning — you.</p>
+<p>Skills, positioning, tools that buy back your time, help that removes your bottleneck, rooms full of people playing a bigger game than you are: these are investments in your capacity to earn, and capacity is the thing that compounds hardest. The founder who reinvests in becoming more valuable raises the ceiling on everything downstream. The one who hoards every dollar out of scarcity often stays exactly as capable — and therefore exactly as capped — as they were.</p>
+<p>This is not permission to buy every course and call it growth. It's a filter: does this spend make me meaningfully more valuable, buy back time I can sell for more, or remove the bottleneck holding the number down? If yes, it's an investment. If it's just anxiety-shopping for a shortcut, it's an expense in disguise. Learn the difference and put real money behind the earner.</p>
+<h3>Exercise: one investment in your earning power</h3>
+<p>Name the single skill, tool, or support that would most raise your capacity to earn this year. Price it. Then ask whether the story stopping you from buying it is a real budget constraint or the same old ceiling telling you you're not worth the investment.</p>
+<hr>
+<h2>The Emotional Life of Money</h2>
+<p>Money is never just numbers. It's loaded with feeling — safety, freedom, worth, guilt, shame, power, love. Two people with identical bank balances can live in completely different emotional realities, one anxious and grasping, the other calm and generous. The difference isn't the number. It's the relationship.</p>
+<p>Manifesting money without tending to that relationship is like pouring water into a cracked cup. You can earn more and still feel broke, because the feeling was never about the amount. Chronic money anxiety in someone objectively fine, compulsive over-giving, the inability to spend on yourself, the secret shame about what you do or don't have — these are relationship problems, not math problems, and no windfall fixes them. Plenty of people have proven that by winning money and feeling exactly as scared six months later.</p>
+<p>So part of the work is emotional. Notice what money makes you feel and where you learned to feel it. Notice the moments you use money to manage an emotion — spending to soothe, hoarding to feel safe, giving to feel worthy. You don't have to fix all of it. You just have to see it, because a relationship you can see is one you can slowly change, and a calmer relationship with money makes every practical decision in this book easier.</p>
+<h3>Exercise: your money feelings</h3>
+<ol><li>Finish: 'When I think about money, I mostly feel ____.'</li><li>Where did you first feel that? Whose relationship with money are you echoing?</li><li>Name one way you use money to manage a feeling rather than to meet a need.</li><li>Write the calmer relationship you want — and one small behavior that reflects it.</li></ol>
+<hr>
+<h2>Their Objection Is Usually Yours</h2>
+<p>When you start charging more, you'll brace for pushback. Here's the pattern almost nobody warns you about: the objection you're most afraid of hearing is usually the one you secretly hold yourself. You fear they'll say 'that's too expensive' because part of you believes it's too expensive.</p>
+<p>Buyers are remarkably good at reading your conviction. If you don't fully believe the price is fair, that doubt leaks into how you say the number — the flinch, the rushed justification, the discount offered before they've even reacted — and they price the doubt right back to you. The objection isn't really about their budget. It's a mirror reflecting your own uncertainty about whether you're worth it.</p>
+<p>This is why the ceiling work and the pricing work are the same work. When you genuinely believe the value is there — because you've done the reframing, seen the results, and reverse-engineered the worth — you say the number cleanly and hold the silence, and a surprising share of the objections simply never arrive. The rest, from people for whom it's genuinely not a fit, you can hear without collapsing, because your worth was never on the table in the first place.</p>
+<blockquote>The price objection you dread most is the one you haven't resolved in yourself. Convince yourself first; the market is downstream of your conviction.</blockquote>
+<h3>Exercise: resolve your own objection</h3>
+<p>Write the price objection you're most afraid to hear. Then write the honest case for why the price is fair — the outcome, the results, the value delivered. If you can't make that case convincingly to yourself, that's the work to do before the next quote, not the market's problem to solve for you.</p>
+<hr>
+<h2>Debt, Fear, and the Fresh Start</h2>
+<p>For a lot of people, money isn't a blank field to grow — it's a hole to climb out of first. Debt carries its own emotional weight: shame, dread, the sense of being permanently behind. If that's you, manifesting money starts with turning the fear into a plan, because fear keeps you from looking, and not looking is what lets debt quietly run your life.</p>
+<p>The move is the same one from the money date, applied with more compassion: look at the whole number, awful as it feels, because the not-knowing is heavier than the knowing. Write down exactly what's owed, to whom, at what cost. A defined number is a problem you can attack; a vague dread is a problem that attacks you. Most people find the real total, while serious, is more finite and more workable than the monster they'd been imagining in the dark.</p>
+<p>Then it becomes a system, not a source of self-hatred. A steady amount toward the debt, protected like any other habit, chips it down through the same compounding that builds wealth — just in reverse and in your favor. And crucially: you're allowed a fresh start. The financial story so far is not a verdict on your future. Plenty of people who now have real stability once stood exactly where you are, looking at a number that felt impossible, and simply began.</p>
+<h3>The debt reset</h3>
+<ul><li>Write the full picture: every balance, rate, and minimum. Look at all of it once.</li><li>Pick a strategy you'll actually stick to (smallest balance first for momentum, or highest rate first for math).</li><li>Automate a fixed payment as a non-negotiable habit, however small.</li><li>Drop the shame. It doesn't pay down a cent, and it keeps you from looking.</li></ul>
+<hr>
+<h2>Generosity Without Self-Erasure</h2>
+<p>Many kind, giving people have a specific money wound: they can receive nothing and give everything, and they call it virtue. It isn't, entirely. Over-giving that leaves you depleted, resentful, or broke isn't generosity — it's self-erasure with a halo on it, and it quietly keeps you from ever building the stability that would let you give from real abundance.</p>
+<p>True generosity requires having something to give. The instruction from the safety demonstration applies here: secure your own oxygen mask first. Building your own financial stability is not selfish; it's what makes sustained generosity possible. The person who tends their own resources can give freely for decades. The person who gives themselves empty burns out and has nothing left for anyone, themselves included.</p>
+<p>So let yourself receive. Take full price without an apology. Accept the referral, the raise, the gift, the compliment. Build the reserve. And then give — deliberately, from surplus, in a way that doesn't require you to disappear. Manifesting money and being a genuinely generous person are not in tension. The most generous people, sustained over a life, are usually the ones who first allowed themselves to have.</p>
+<blockquote>Giving until you're empty isn't generosity — it's self-erasure. Fill the cup first; then pour from the overflow for the rest of your life.</blockquote>
+<hr>
+<h2>The Wealth Identity</h2>
+<p>Everything in this book converges on one thing: the identity of a person who earns, holds, and grows money with ease. Outcomes follow identity, and a shaky money identity will sabotage even a great strategy, quietly, at every decision point.</p>
+<p>A person with a healthy wealth identity does specific, learnable things. They know their numbers. They charge fairly and hold the price. They receive without apology and invest in their own capacity. They think in decades, not weeks. They treat money as a tool and a responsibility rather than a verdict on their worth. None of this requires a trust fund or a personality transplant — it requires practicing the behaviors until they feel like yours, at which point the identity is simply true.</p>
+<p>This is the manifesting part, correctly understood. You don't visualize the money into existence. You become — through repeated, slightly-bolder behavior and repeated evidence — the kind of person for whom this level of money is normal. And for that person, the number you're chasing today isn't a miracle. It's a Tuesday.</p>
+<h3>Exercise: step into the identity</h3>
+<ol><li>Write: 'A person who is at ease with money would ____.' Fill it in for pricing, spending, saving, and receiving.</li><li>Choose the one behavior on that list you resist most.</li><li>Do it this week, and log it. Identity is built from evidence, and you're collecting it.</li><li>Repeat with the next behavior until the wealth identity stops being aspirational and starts being ordinary.</li></ol>
+<hr>
+<h2>The 30-Day Money Reset</h2>
+<p>The whole book as a plan. Half mindset, half math, because you need both.</p>
+<h3>Week One — Raise the ceiling</h3>
+<ol><li>Find your ceiling; say the higher number daily until it stops flinching.</li><li>Name three inherited money stories; write the rewrites.</li><li>Read the rewrites out loud each morning.</li></ol>
+<h3>Week Two — Do the math</h3>
+<ol><li>Reverse-engineer your number into monthly yeses.</li><li>Redo it with a twenty-percent higher price.</li><li>Choose the one lever — reach, conversion, or price — you'll move first.</li></ol>
+<h3>Week Three — Charge it</h3>
+<ol><li>Raise the price of one offer to match the new ceiling.</li><li>Practice the silence drill daily.</li><li>Quote the new price to the next prospect without softening it.</li></ol>
+<h3>Week Four — Receive and keep</h3>
+<ol><li>Run the receiving audit; close one deflection and one leak.</li><li>Set up 'pay yourself first' — move a fixed percentage the day money lands.</li><li>Review: what did you allow yourself to earn, ask for, and keep that you wouldn't have thirty days ago?</li></ol>
+<hr>
+<h2>Comparison Is a Money Leak</h2>
+<p>There's a specific tax most people pay without noticing, and it quietly drains both their money and their peace: comparison. In an age where everyone broadcasts their highlight reel, it's nearly impossible not to measure your finances against a feed full of other people's curated wins.</p>
+<p>Comparison distorts your money decisions in expensive ways. It makes you spend to match a lifestyle that may itself be fake or debt-funded. It makes you feel behind and therefore rush — into the bad deal, the discount, the desperate pitch — which is precisely how scarcity thinking gets its grip. And it makes you devalue real progress because someone else appears further ahead, even though you have no idea what their actual balance sheet, stress level, or starting point looks like.</p>
+<p>The antidote is to run your own race against your own numbers. The only honest comparison is you versus you: are you further along than last year, closer to your number, calmer with money than you were? That's a comparison you can act on. Someone else's highlight reel is not data; it's a distraction dressed as motivation. Close the app, open your own ledger, and measure the only thing that's actually yours to change.</p>
+<blockquote>Comparison spends money you don't have to impress people you don't know. Run your own race; it's the only one you can actually win.</blockquote>
+<hr>
+<h2>The Multiple-Streams Myth</h2>
+<p>'Multiple streams of income' gets repeated like scripture in the manifesting-money world, usually by people selling you the course on how to build them. There's truth in it and there's a trap, and telling them apart will save you years.</p>
+<p>The truth: relying on a single source of income is fragile, and building additional streams can create real security and growth. The trap: most people try to build several streams at once, before any single one is stable, and end up with a handful of leaky trickles instead of one strong river. Five half-built income sources that each earn a little is not diversification — it's dilution, and it's exhausting.</p>
+<p>The grounded sequence is boring and it works: make one stream genuinely strong first. Get one offer, one skill, one source producing reliable money before you split your attention. Then, from that stable base, add a second stream that compounds with the first — ideally one that uses the same audience, skill, or asset rather than a brand-new hustle. Depth before breadth. A single deep, reliable stream beats a scattered delta of shallow ones every time, and it's the only foundation solid enough to build the next stream on.</p>
+<h3>Exercise: strengthen before you multiply</h3>
+<ul><li>Name your primary income stream. Is it genuinely stable and optimized, or just familiar?</li><li>List everything you'd improve about it before starting anything new.</li><li>Only once it's strong, choose a second stream that reuses your existing audience, skill, or asset.</li></ul>
+<hr>
+<h2>Visualize the Wealthy You — Correctly</h2>
+<p>Visualization is the most caricatured tool in manifesting — the person staring at a picture of a yacht, willing it closer. Done that way, it's useless. But there's a version of visualization that actually works, and it has nothing to do with summoning objects. It's about rehearsing an identity until your behavior catches up to it.</p>
+<p>Effective visualization is not picturing the money. It's picturing the person who has it — and specifically, how that person behaves. Don't imagine the bank balance; imagine yourself quoting your real price without flinching, following up without apology, saying no to the wrong-fit client with ease, looking at your numbers calmly on a Friday. When you rehearse the behaviors of the wealthy version of you, you make those behaviors more familiar and therefore more likely. The mind treats vivid rehearsal a little like practice, and the point of practice is the doing, not the wanting.</p>
+<p>This is why athletes rehearse the race, not the medal. The medal is downstream; the performance is what visualization can actually improve. Apply the same logic to money. Spend two minutes imagining yourself moving through a specific money situation — a pricing conversation, a negotiation, a decision to invest in yourself — as the person you're becoming would move through it. Then, when the real moment arrives, you've been there before. The visualization did its job: not by attracting the money, but by rehearsing you into the person who earns it.</p>
+<h3>Exercise: rehearse the behavior</h3>
+<ol><li>Pick one money situation you find hard (quoting a price, following up, saying no).</li><li>Spend two minutes vividly rehearsing yourself handling it with ease — the words, the calm, the silence after the number.</li><li>Do it daily until the real version feels familiar instead of frightening.</li></ol>
+<blockquote>Don't visualize the money. Visualize the person who charges what they're worth and holds the silence. Become her in rehearsal; the money follows the behavior.</blockquote>
+<hr>
+<h2>Define Your Enough</h2>
+<p>Here is a question the manifesting world almost never asks, because it doesn't sell courses: how much is enough? Not the ceiling you're raising, not the ambitious number — the amount at which you'd actually feel free, at ease, done proving. Most people chase 'more' forever precisely because they never defined enough, and a target you never name is a target you can never hit.</p>
+<p>Without an 'enough' number, more money doesn't buy peace; it just resets the baseline. This is lifestyle creep — earnings rise, spending rises to match, and the feeling of scarcity survives every raise intact. People who swore they'd feel secure at a certain income arrive there and immediately need the next one, because the goalpost was never a number, it was a feeling, and the feeling followed them up the ladder. Manifesting money without defining enough is how you end up wealthy and still anxious, which is a real and common tragedy.</p>
+<p>So define it. What income would cover the life you actually want — the home, the freedom, the generosity, the security — with margin to spare? That's your enough. Naming it does two powerful things at once. It gives your manifesting a real finish line to aim at, which makes the effort feel purposeful instead of infinite. And it protects you from the trap of sacrificing your whole life to a number that keeps receding. You may well earn past your enough — that's fine, and it funds bigger generosity and bigger bets. But you'll be doing it from choice and abundance, not from a fear that no amount ever silences.</p>
+<h3>Exercise: name your enough</h3>
+<ol><li>Write the annual income that would fund the life you genuinely want, with margin.</li><li>Break down what that number actually covers — housing, freedom, giving, security, joy.</li><li>Notice the gap between 'enough' and 'as much as possible.' Which have you been chasing, and why?</li><li>Let 'enough' be your first finish line. Anything past it is a choice, not a compulsion.</li></ol>
+<blockquote>If you never define enough, no amount will ever feel like it. Name the number that means free — then chase it instead of chasing forever.</blockquote>
+<hr>
+<h2>The One-Percent Money Habits</h2>
+<p>Manifesting money is not one heroic financial move. It's a handful of small habits repeated until they compound — the money version of everything in the micro-habits playbook. Individually they look trivial. Stacked over years, they're the difference between constant anxiety and quiet stability.</p>
+<p>Here are the small, boring habits that quietly build wealth. Notice that none of them require a windfall, a rich relative, or a viral moment. They require only consistency, which is available to almost everyone and practiced by almost no one.</p>
+<ul><li>Pay yourself first: the day money lands, move a fixed percentage to savings or investment before you can spend it.</li><li>Look weekly: the fifteen-minute money date keeps you steering instead of drifting.</li><li>Raise prices annually: a small, deliberate increase each year, in step with your growing proof.</li><li>Invoice immediately and follow up promptly: most 'cash flow problems' are really 'I didn't ask' problems.</li><li>Sleep on purchases over a set amount: a 24-hour rule kills most impulse leaks without any deprivation.</li><li>Reinvest a slice into your earning power: skills and tools that raise the ceiling.</li></ul>
+<p>Pick one. Make it automatic. Add another only when the first is second nature. This is the compound curve applied to money — flat and unremarkable for a while, then suddenly a different financial life.</p>
+<h3>Automate the good decisions</h3>
+<p>The single highest-leverage move is to remove yourself from the loop wherever you can. Automatic transfers to savings the day you're paid, automatic bill payment, automatic investment — each one is a good decision you make once that then keeps making itself, immune to the mood you're in that week. Willpower is unreliable; automation is not. Set up the machine so that doing the right thing with money requires no discipline at all, because the discipline is built into the system.</p>
+<blockquote>Wealth is not built in the big, dramatic money moments. It's built in the small automatic ones you set up once and then forget.</blockquote>
+<hr>
+<h2>Money Myths, Debunked</h2>
+<p>Before the worksheets, let's clear the most common myths that keep people stuck — the beliefs that sound wise and quietly cap you.</p>
+<ul><li><strong>'Money is the root of all evil.'</strong> A misquote. The original line warns about the <em>love</em> of money over everything else. Money itself is neutral — a tool that amplifies whoever holds it. In good hands it does enormous good.</li><li><strong>'You have to spend money to make money.'</strong> Sometimes, strategically — but this myth funds a lot of anxious over-spending. Spend on what raises your capacity to earn; not on the appearance of a business.</li><li><strong>'Wanting more makes you greedy.'</strong> Wanting more capacity to help, pay people, give, and choose freely is responsible, not greedy. Greed is hoarding at others' expense; ambition is creating value and being paid fairly for it.</li><li><strong>'Rich people are lucky / born into it.'</strong> Some are. Many built it through exactly the unglamorous habits in this book. Luck helps; consistency compounds.</li><li><strong>'I'm just not good with money.'</strong> This is a story, not a diagnosis. Being good with money is a set of learnable habits — looking weekly, saving automatically, charging fairly. You can start being 'good with money' this week.</li><li><strong>'Talking about money is tacky.'</strong> Silence about money mostly benefits the people who'd rather you not know your worth. Clarity — about prices, salaries, and numbers — is how you stop leaving money on the table.</li></ul>
+<p>Notice how many of these you absorbed without ever choosing them. Each one, unexamined, becomes a pricing decision or a permission you refuse yourself. Debunk them on paper and you loosen their grip on your ceiling.</p>
+<hr>
+<h2>Field Notes &amp; Worksheets</h2>
+<p>The system as fill-in pages. Half mindset, half math. Work them by hand.</p>
+<h3>1. My ceiling</h3>
+<p>The highest number I can say without flinching today: ________. The number where the tension starts: ________. The voice that says it's 'too much' belongs to: ____________.</p>
+<h3>2. My money stories (name three, rewrite three)</h3>
+<p>Story: ____________ → Rewrite: ____________.</p>
+<p>Story: ____________ → Rewrite: ____________.</p>
+<p>Story: ____________ → Rewrite: ____________.</p>
+<h3>3. The math</h3>
+<p>Real annual number: ________. Monthly (÷12): ________. Yeses needed at current price: ________. Yeses needed at +20% price: ________.</p>
+<h3>4. Repricing</h3>
+<p>The offer I'll reprice: ____________. Old price: ________. New price (to the value): ________. I will say it and then say nothing.</p>
+<h3>5. My weekly money date</h3>
+<p>Day and time: ____________. In vs. target: ________. One number trending wrong: ________. One corrective action: ____________.</p>
+<h3>6. Receiving audit</h3>
+<p>One place I deflect money: ____________ → I'll stop by ____________. One leak once it arrives: ____________ → I'll close it by ____________.</p>
+<hr>
+<h2>The Close</h2>
+<p>Money does not respond to how badly you want it. It responds to what you'll ask for, what you'll charge, what you'll do the day after you decide, and what you'll let yourself keep. Raise the ceiling so you'll allow the number. Do the math so you'll actually reach it. Charge like you believe it, receive like you deserve it, and keep it like it's yours — because it is.</p>
+<p>That's manifesting money without the magical thinking. The mindset opens the door. The math walks you through it.</p>
+<blockquote>First you decide you're allowed to have it. Then you go do the specific, unglamorous things that people who have it do. Both halves. Every time.</blockquote>
+<p>Rewrite your story — and your ledger. ♡</p>
+<p>— MK</p>
+</div>
+
+<div class="footer">
+  <div class="footer-logo">MK Parrish</div>
+  <div class="footer-legal">© MK Parrish · Rewrite Your Story · <a href="https://www.mkparrish.com">mkparrish.com</a></div>
+</div>
+
+</body>
+</html>

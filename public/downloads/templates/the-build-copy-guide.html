@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Build Copy Guide: Every Word You Need for a New Website — MK Parrish</title>
+<title>The Build: Copy Guide — MK Parrish</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -431,6 +431,11 @@
       background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
       opacity: 1;
     }
+    /* The markdown "---" separators always sit just before a section heading,
+       and every section already starts a fresh page — so a rule landing right
+       before a heading is redundant and can strand alone on a near-empty page.
+       Hide those; keep any genuine in-content rule (one not followed by H2). */
+    hr:has(+ h2) { display: none; }
 
     /* ── FOOTER: white page, black signature ── */
     .footer { background: #ffffff; border-top: 1px solid #dddddd; }
@@ -453,130 +458,133 @@
 <div class="cover">
   <div class="cover-inner">
     <div class="cover-kicker">MK Parrish · mkparrish.com</div>
-    <h1><span class="grad">The Build Copy</span> <span class="outline">Guide</span></h1>
-    <p class="subtitle">Every Word You Need for a New Website</p>
+    <h1><span class="grad">The Build: Copy</span> <span class="outline">Guide</span></h1>
+    <p class="subtitle">Every word you need for a new website.</p>
     <div class="cover-rule"></div>
-    
+    <div class="cover-meta">By MK Parrish · $45</div>
   </div>
 </div>
 
 <div class="content">
+<h2>What This Is</h2>
 
-<p><strong>Format:</strong> Digital template pack (Google Docs + PDF)</p>
-<p><strong>Price:</strong> $48</p>
-<p><strong>Audience:</strong> Founders and business owners launching or relaunching a website who need to write the copy themselves — or brief a copywriter — without guessing.</p>
+<p>Building a website is not primarily a design problem. It's a copy problem. Most sites fail at the sentence level — the headline says nothing, the about page talks only about the company, the services page lists features with no outcomes. A beautiful site with weak copy is a beautiful building with no address.</p>
 
-<hr>
+<p>This is the copy guide for The Build — my full-site strategy and production service — written so it stands alone. Every section, every page, every sentence you'll need: frameworks, fill-in templates, worked examples, swipe copy, and the one test that separates copy that converts from copy that just sounds nice.</p>
 
-<h2>What this is</h2>
+<p>Work top to bottom. Fill in the brief first; it makes every page downstream easier. Then write each page from its template, and run the whole thing through the test in Section Six before you ship.</p>
 
-<p>Building a website is not primarily a design problem. It's a copy problem. Most websites fail at the sentence level — the headline doesn't say anything, the about page talks only about the company, the services page lists features with no outcomes. A beautiful site with weak copy is a beautiful building with no address.</p>
-
-<p>This is the copy guide for The Build: the full-site strategy and production service. But it works as a standalone tool for any company or creator who needs to write — or brief — a complete website.</p>
-
-<p>It covers every section, every page, every sentence you'll need. With frameworks, examples, fill-in-the-blank starters, and the one test that separates copy that converts from copy that sounds nice.</p>
+<blockquote>Nobody reads your website. They scan it for evidence they're in the right place. Write for the scan, earn the read.</blockquote>
 
 <hr>
 
-<h2>What's included</h2>
+<h2>Section One: Before You Write Anything</h2>
 
-<h3>Section 1: Before You Write Anything</h3>
+<h3>The Positioning Brief</h3>
 
-<p><strong>The positioning brief</strong></p>
-<p>One page. Five questions. Every word in the site comes from the answers to these five questions:</p>
-<ol><li>Who is this for? (One specific person, not a category.)</li><li>What's the one thing we do better or differently than anyone else?</li><li>What does the reader most need to believe in order to hire us?</li><li>What's the single most common objection — and what's the honest response to it?</li><li>What do we want them to do right now?</li></ol>
+<p>Five questions. Every word on the site comes from the answers. Write them down before you touch a single page.</p>
 
-<p>If you can't answer all five, the copy isn't the problem yet.</p>
+<ol><li><strong>Who is this for?</strong> One specific person, not a category.</li><li><strong>What's the one thing you do better or differently than anyone else?</strong></li><li><strong>What does the reader most need to believe to hire you?</strong></li><li><strong>What's the single most common objection — and the honest answer to it?</strong></li><li><strong>What do you want them to do right now?</strong></li></ol>
 
-<p><strong>The voice snapshot</strong></p>
-<p>Three adjectives, three banned words, one "sounds like us" sentence. Your voice snapshot prevents your website from reading like it was written by a committee of people who've never met.</p>
+<p><strong>Worked example (a boutique financial-modeling firm):</strong></p>
+<p><em>For: a non-financial seed-stage founder prepping to raise. Better/different: we build the model AND teach you to defend it in the room. Need to believe: this won't be generic spreadsheet theater. Top objection: "I can find a cheaper template" → answer: a template can't answer an investor's follow-up; we build for the questions, not the cells. Action: book a 20-minute fit call.</em></p>
 
-<hr>
+<h3>The Voice Snapshot</h3>
 
-<h3>Section 2: The Homepage</h3>
+<p>Three adjectives, three banned words, one "sounds like us" sentence. This is what keeps the site from reading like a committee wrote it.</p>
 
-<p>The homepage has one job: convince the right person they're in the right place and direct them to one next step.</p>
-
-<p><strong>The hero section</strong></p>
-<ul><li>H1 framework: <em>[What you do] for [who]</em> — stated with a verb, not a noun. "We build financial models for early-stage founders" beats "Financial Strategy Solutions."</li><li>Subhead framework: The specific outcome your best clients get, in one sentence.</li><li>CTA copy: Three options for the button — when to use "Get Started," "Book a Call," "See Our Work," and why "Learn More" converts nothing.</li></ul>
-
-<p><strong>The social proof strip</strong></p>
-<p>Three types of proof in order of effectiveness: specific outcomes (revenue, saves time, solves what), named client quotes (with company + title), and recognizable logos. Frameworks for writing each.</p>
-
-<p><strong>The services preview</strong></p>
-<p>The three-card rule: no more than three service cards on the homepage. For each card: one-line title, one-line outcome, one CTA. Templates and examples.</p>
-
-<p><strong>The about preview</strong></p>
-<p>One paragraph, written about what you believe — not who you are. The about preview on the homepage is not a bio. It's a conviction statement. Template and examples.</p>
-
-<p><strong>The final CTA section</strong></p>
-<p>The offer, restated simply, with the friction-reducing phrase that addresses the last objection before the click. Templates by service type.</p>
+<p><strong>Fill-in:</strong> <em>We sound ______, ______, ______. We never say ______, ______, ______. At our best we write lines like: "______________."</em></p>
 
 <hr>
 
-<h3>Section 3: The Services Pages</h3>
+<h2>Section Two: The Homepage</h2>
 
-<p>A services page fails in one of two ways: it lists features with no outcomes, or it's so outcome-focused it forgets to describe what the person actually gets.</p>
+<p>One job: convince the right person they're in the right place, and point them to one next step.</p>
 
-<p><strong>The services page framework (per service):</strong></p>
-<ul><li><strong>Header</strong>: Service name + one-line outcome statement</li><li><strong>The problem section</strong>: Three to four sentences that describe the situation this service addresses. Written as <em>their</em> problem, not your pitch.</li><li><strong>The solution section</strong>: What you do and what it produces — in concrete terms. "You get X, Y, and Z. Within [timeframe], you'll have [deliverable]."</li><li><strong>The process section</strong> (optional): Three to five steps. Makes the abstract feel real.</li><li><strong>The proof section</strong>: One case study or quote, specific to this service.</li><li><strong>The CTA</strong>: Price anchor (or "starting from") + booking link.</li></ul>
+<h3>The Hero</h3>
 
-<p>Templates for six types of service pages: retainer, project, digital product, course, coaching, and done-for-you.</p>
+<ul><li><strong>H1 formula:</strong> <em>[What you do] for [who]</em> — with a verb, not a noun. ✅ "We build financial models for early-stage founders." ❌ "Financial Strategy Solutions." (A noun-pile says nothing; a verb makes a promise.)</li><li><strong>Subhead formula:</strong> the specific outcome your best clients get, in one sentence. <em>"Walk into your raise able to defend every number — not just present it."</em></li><li><strong>CTA:</strong> use a verb that names the next step. <strong>"Book a fit call"</strong> / <strong>"See the work"</strong> / <strong>"Get the model."</strong> Never "Learn More" — it commits the reader to nothing and converts nothing.</li></ul>
 
-<hr>
+<h3>The Social Proof Strip</h3>
 
-<h3>Section 4: The About Page</h3>
+<p>Three kinds of proof, in order of power: <strong>specific outcomes</strong> ("closed a $3M seed six weeks after we built the model"), <strong>named quotes</strong> (with company + title), <strong>recognizable logos.</strong> One line of real outcome beats five vague testimonials.</p>
 
-<p>The most miswritten page on almost every website. Most About pages are about the company. The best About pages are about the reader — their problem, told through the lens of how you came to care about it.</p>
+<h3>The Services Preview — the three-card rule</h3>
 
-<p><strong>The About page framework:</strong></p>
-<ol><li><strong>The empathy opener</strong>: Start with them, not you. One paragraph that names the situation they're in.</li><li><strong>The bridge</strong>: How you came to understand that situation. The true version.</li><li><strong>The conviction</strong>: What you believe that shapes how you do the work. Not a values list — a point of view.</li><li><strong>The credentials</strong>: Brief, specific, and ordered by relevance not prestige.</li><li><strong>The human detail</strong>: One non-professional detail. People buy from people.</li><li><strong>The CTA</strong>: One next step.</li></ol>
+<p>No more than three cards on the homepage. Each card: a one-line title, a one-line <em>outcome</em>, one CTA.</p>
+<p><em>Example card — "The Raise Model · An investor-ready model you can defend in the room · See how it works →"</em></p>
 
-<p>Templates and a full annotated example.</p>
+<h3>The About Preview</h3>
 
-<hr>
+<p>One paragraph, written about what you <em>believe</em> — not who you are. It's a conviction statement, not a bio.</p>
+<p><em>Example: "We think most founders lose the room not on the idea but on the math they can't defend. So we build the math with you, until the answer to every follow-up is already in your head."</em></p>
 
-<h3>Section 5: The Contact &amp; Booking Pages</h3>
+<h3>The Final CTA</h3>
 
-<p>The last page people visit before they decide. Most contact pages abandon the visitor at the worst moment.</p>
-
-<ul><li><strong>The micro-headline</strong>: One line that justifies the friction of the form. Examples by service type.</li><li><strong>The expectation-setter</strong>: What happens after they submit. Specific timeline. No one likes not knowing.</li><li><strong>Form field guidance</strong>: Which fields to include, which to cut (every extra field reduces completions), and how to phrase questions so they don't feel like interrogation.</li><li><strong>The booking page</strong>: Pre-booking language that warms the conversation before it starts. What to say above a Calendly embed.</li></ul>
-
-<hr>
-
-<h3>Section 6: The One Test</h3>
-
-<p>Every sentence in your site, run through one test: <em>Does this sentence help the right person take the right action, or does it make us feel good?</em></p>
-
-<p>Copy that makes the company feel good: "We are a leading provider of integrated strategic solutions." Copy that helps the right person: "We write the investor pitch decks that get to the next meeting."</p>
-
-<p>The test is not elegant. It's just useful. Run every sentence through it before the site goes live.</p>
+<p>Restate the offer simply, then add the friction-reducer that answers the last hesitation before the click.</p>
+<p><em>Example: "Book a 20-minute fit call. If we're not the right fit, we'll tell you on the call and point you somewhere better."</em></p>
 
 <hr>
 
-<h2>Templates Included</h2>
+<h2>Section Three: The Services Pages</h2>
 
-<p>All templates are provided as Google Docs you can copy to your Drive:</p>
+<p>A services page fails one of two ways: features with no outcomes, or outcomes so vague it forgets to say what you actually get. Use this frame per service:</p>
 
-<ol><li><strong>Positioning brief</strong> (1 page)</li><li><strong>Voice snapshot</strong> (1 page)</li><li><strong>Homepage copy template</strong> (section by section, with fill-in starters)</li><li><strong>Services page template</strong> (adaptable to any service type)</li><li><strong>About page template</strong> (with annotated example)</li><li><strong>Contact/booking page template</strong></li><li><strong>Copy review checklist</strong> (runs every page through the one test + 12 other checks)</li></ol>
+<ul><li><strong>Header:</strong> service name + one-line outcome.</li><li><strong>The problem:</strong> 3–4 sentences describing <em>their</em> situation, in their words, not your pitch.</li><li><strong>The solution:</strong> what you do and what it produces, concretely. <em>"You get X, Y, and Z. Within [timeframe] you'll have [deliverable]."</em></li><li><strong>The process (optional):</strong> 3–5 steps. Makes the abstract feel real and de-risks the buy.</li><li><strong>The proof:</strong> one case or quote specific to <em>this</em> service.</li><li><strong>The CTA:</strong> price anchor ("from $X") + booking link.</li></ul>
 
-<hr>
+<p><strong>Worked mini-example — "The Raise Model":</strong></p>
+<p><em>Problem: "You're weeks from a raise with a spreadsheet you didn't build and can't fully defend. The model looks fine until an investor asks why churn flattens in month 14." Solution: "We rebuild your model with you — assumptions you can explain, scenarios you can run live, and a one-page summary that answers the five questions investors always ask. In two weeks you'll have a model and the fluency to defend it." Proof: [client quote]. CTA: "From $6,000 · Book a fit call →"</em></p>
 
-<h2>Who this is for</h2>
-
-<ul><li>Founders writing their own site copy for a launch or rebrand</li><li>Business owners who need to brief a copywriter without starting from scratch</li><li>Agencies and consultants who want a repeatable framework for client website copy</li><li>Creators building their first real site and doing it themselves</li></ul>
-
-<hr>
-
-<h2>What you'll leave with</h2>
-
-<ul><li>A complete framework for every page of a new or relaunched website</li><li>Seven fill-in templates ready to use in Google Docs</li><li>The positioning brief that makes all the copy easier to write</li><li>One test that separates copy that converts from copy that sounds nice</li></ul>
+<p>The pack includes adaptable templates for six page types: <strong>retainer, project, digital product, course, coaching, done-for-you.</strong></p>
 
 <hr>
 
-<p><em>This is the copy companion to The Build — MK's full-site strategy and production service. If you're building with the team, this is the brief. If you're building yourself, this is the guide.</em></p>
+<h2>Section Four: The About Page</h2>
 
-<p>→ <strong>$48. All templates included. Immediate download.</strong></p>
+<p>The most miswritten page on the internet. Most About pages are about the company; the best are about the reader, told through how you came to care. Six parts:</p>
+
+<ol><li><strong>The empathy opener</strong> — start with <em>them.</em> Name the situation they're in.</li><li><strong>The bridge</strong> — how you came to understand that situation. The true version.</li><li><strong>The conviction</strong> — what you believe that shapes the work. A point of view, not a values list.</li><li><strong>The credentials</strong> — brief, specific, ordered by relevance, not prestige.</li><li><strong>The human detail</strong> — one non-professional thing. People buy from people.</li><li><strong>The CTA</strong> — one next step.</li></ol>
+
+<p><strong>Annotated opener example:</strong> <em>"Most founders don't lose the raise on the idea. They lose it on a number they can't defend at 4pm in a cold conference room. [empathy] I learned that the hard way, sitting in those rooms as the analyst who watched great companies fumble the math. [bridge] So I stopped building models </em>for<em> founders and started building them </em>with<em> founders — because the model isn't the deliverable; the confidence is. [conviction]"</em></p>
+
+<hr>
+
+<h2>Section Five: The Contact &amp; Booking Pages</h2>
+
+<p>The last page before they decide — and the one most likely to abandon them at the worst moment.</p>
+
+<ul><li><strong>The micro-headline:</strong> one line that justifies the friction of the form. <em>"Tell us where you are in your raise — we'll reply within one business day."</em></li><li><strong>The expectation-setter:</strong> say exactly what happens next, with a timeline. <em>"You'll get a real reply from MK (not a bot) within 24 hours, with two times to talk."</em></li><li><strong>Form fields:</strong> include only what you'll act on. Every extra field lowers completion. Name, email, one open question usually beats a ten-field interrogation.</li><li><strong>The booking page:</strong> warm the conversation above the embed. <em>"This is a 20-minute fit call. Come with one question about your raise; leave knowing whether we can help."</em></li></ul>
+
+<hr>
+
+<h2>Section Six: The One Test</h2>
+
+<p>Run every sentence on the site through one question:</p>
+
+<blockquote><em>Does this sentence help the right person take the right action — or does it just make us feel good?</em></blockquote>
+
+<p>❌ Feels good: "We are a leading provider of integrated strategic financial solutions."</p>
+<p>✅ Helps them: "We build the investor model you can actually defend in the room."</p>
+
+<p>It's not an elegant test. It's just useful. Run all of it through before you publish — the homepage hero first, the About second, because those are where the feel-good sentences hide.</p>
+
+<hr>
+
+<h2>The Templates (And How to Use Them)</h2>
+
+<p>Each is a Google Doc you copy to your Drive — and every frame above is ready to rebuild anywhere: the <strong>Positioning Brief</strong>, the <strong>Voice Snapshot</strong>, the <strong>Homepage template</strong> (hero → proof → services → about → final CTA), the <strong>Services Page template</strong> (six types), the <strong>About Page template</strong> (annotated), the <strong>Contact/Booking template</strong>, and the <strong>Copy Review Checklist</strong> (the one test + 12 line-level checks). Fill them with your real positioning. The structure is the gift; the words have to be yours.</p>
+
+<hr>
+
+<h2>Keep Going</h2>
+
+<p>This is the copy companion to <strong>The Build</strong> — my full-site strategy and production service. If you'd rather hand the whole site to a team that does this daily, that's the service.</p>
+
+<p>If the <em>positioning</em> underneath the copy still feels blurry, run the free <strong>Positioning Checklist</strong> first — it diagnoses the leaks before you write. And if your brand <em>voice</em> keeps going generic, <strong>The Brand Voice Playbook</strong> is the system that fixes it. Both at mkparrish.com.</p>
+
+<p>A website doesn't need more words. It needs the right ones, in the right order, pointed at one action. Now you have them.</p>
+
+<p>— MK Parrish</p>
 
 </div>
 

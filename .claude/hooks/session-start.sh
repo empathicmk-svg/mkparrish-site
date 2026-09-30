@@ -12,7 +12,13 @@ fi
 cd "${CLAUDE_PROJECT_DIR:-$(pwd)}"
 
 echo "[session-start] Installing npm dependencies..."
-npm install --no-audit --no-fund --prefer-offline
+# `npm ci` installs strictly from the lockfile and never rewrites it. Plain
+# `npm install` was rewriting package-lock.json on every session — stripping
+# the `libc` fields from optional platform-specific packages — which left the
+# working tree dirty before any work had been done. Fall back to `npm install`
+# if the lockfile is out of sync with package.json, which is the one case
+# `npm ci` refuses to handle.
+npm ci --no-audit --no-fund 2>/dev/null || npm install --no-audit --no-fund --prefer-offline
 
 # Set up the Substack MCP server so the substack__* tools are available.
 # Optional and best-effort: never let it abort the critical npm setup above.

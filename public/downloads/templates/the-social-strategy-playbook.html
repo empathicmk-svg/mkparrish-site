@@ -431,6 +431,11 @@
       background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
       opacity: 1;
     }
+    /* The markdown "---" separators always sit just before a section heading,
+       and every section already starts a fresh page — so a rule landing right
+       before a heading is redundant and can strand alone on a near-empty page.
+       Hide those; keep any genuine in-content rule (one not followed by H2). */
+    hr:has(+ h2) { display: none; }
 
     /* ── FOOTER: white page, black signature ── */
     .footer { background: #ffffff; border-top: 1px solid #dddddd; }
@@ -456,107 +461,123 @@
     <h1><span class="grad">The Social Strategy</span> <span class="outline">Playbook</span></h1>
     <p class="subtitle">A Content System You'll Actually Use</p>
     <div class="cover-rule"></div>
-    
+    <div class="cover-meta">By MK Parrish · $38</div>
   </div>
 </div>
 
 <div class="content">
-
-<p><strong>Format:</strong> Digital template pack (Google Docs + PDF)</p>
-<p><strong>Price:</strong> $38</p>
-<p><strong>Audience:</strong> Founders and thought leaders who know they need to show up online — and want a repeatable system instead of relying on inspiration.</p>
-
-<hr>
-
-<h2>What this is</h2>
+<h2>What This Is</h2>
 
 <p>Most people don't have a content problem. They have a system problem. They post when they feel like it, the posts don't sound like them, and the whole thing collapses the first busy week. Consistency feels like willpower, so it never lasts.</p>
 
-<p>This is the strategy and framework side of The Social Suite — MK Parrish's managed content service — isolated so you can run it yourself, at your own pace, without a retainer. It is the same thinking used to onboard new Social Suite clients, documented for self-study.</p>
+<p>This is the strategy side of The Social Suite — my managed content service — taken apart and handed to you so you can run it yourself, at your own pace, without a retainer. It's the exact thinking I use to onboard a new client, written out so you can do it alone.</p>
 
-<p>It covers the full content strategy build: how to find the topics you can speak on with authority, how to make your voice survive the jump to each platform, and how to batch and structure content so you're never starting from a blank page again. It is a system, not a mood board.</p>
+<p>It's a system, not a mood board. By the end you'll have your pillars, your voice, a month of content planned, and a posting rhythm that survives a bad week. Work through it in order. Fill in every template as you go — reading it does nothing; <em>using</em> it is the product.</p>
 
-<hr>
-
-<h2>What's included</h2>
-
-<h3>Section 1: Before You Post Anything</h3>
-
-<p><strong>The authority brief</strong></p>
-<p>One page. Five questions. Every piece of content you make comes from the answers:</p>
-<ol><li>Who is this for? (One specific person, not "my audience.")</li><li>What do you want to be known for in one sentence?</li><li>What do you believe about your field that most people in it don't say out loud?</li><li>What does this person need to believe before they'll trust you?</li><li>What's the one action you want to be top-of-mind for when they're ready?</li></ol>
-
-<p>If you can't answer these, more posting won't help. Clarity comes first.</p>
-
-<p><strong>The voice snapshot</strong></p>
-<p>Three adjectives, three banned words, and one "sounds like me" sentence. This is what keeps your content from drifting into generic industry filler the moment you're tired or rushed.</p>
+<blockquote>You will not out-discipline a bad system. Build the system once and let it carry the weeks your motivation doesn't show up.</blockquote>
 
 <hr>
 
-<h3>Section 2: The Content Pillar Framework</h3>
+<h2>Section One: Before You Post Anything</h2>
 
-<p>The single most useful decision you'll make: choosing three to five <strong>content pillars</strong> — the themes you return to again and again. Pillars are why people follow you for a reason instead of scrolling past.</p>
+<p>You can't make content that sounds like you until you've decided what "you" sounds like and who it's for. Two one-page tools do that. Don't skip to the tactics — every tactic later points back here.</p>
 
-<p><strong>How to find your pillars:</strong></p>
-<ul><li>The expertise pillar — what you know cold, the thing people already ask you about.</li><li>The point-of-view pillar — what you believe that's a little contrarian. This is what builds authority, not just reach.</li><li>The proof pillar — results, process, and the work itself, shown not claimed.</li><li>The human pillar — the story, the journey, the reason you care. This is what builds trust.</li><li>The optional fifth pillar — seasonal, community, or behind-the-scenes.</li></ul>
+<h3>The Authority Brief</h3>
 
-<p><strong>For each pillar you'll define:</strong> the core promise, three to five recurring angles, and example hooks. Five pillars × four angles = twenty content ideas before you've tried.</p>
+<p>Answer these five in writing. One specific person, real sentences, no hedging. Every post you ever make will be traceable to one of these answers.</p>
 
-<hr>
+<ol><li><strong>Who is this for?</strong> One person, named specifically — "Dana, a second-time founder who just raised a seed round and feels invisible next to louder competitors," not "founders."</li><li><strong>What do you want to be known for, in one sentence?</strong> If it takes two, keep cutting.</li><li><strong>What do you believe about your field that most people in it won't say out loud?</strong> This is the seed of every post that travels.</li><li><strong>What does this person need to believe before they'll trust you?</strong></li><li><strong>What's the one action you want to be top-of-mind for when they're ready?</strong></li></ol>
 
-<h3>Section 3: Brand Voice Calibration by Platform</h3>
+<p><strong>Worked example (a fractional CMO):</strong></p>
+<p><em>For: Dana, post-seed founder, technical, allergic to hype. Known for: making early-stage marketing feel like engineering, not magic. Unsaid belief: most "growth hacks" are noise that buries the one channel that actually works. Needs to believe: marketing can be rigorous, not vibes. One action: "call her when it's time to build the real engine."</em></p>
 
-<p>Your voice is one thing. How it lands changes by room. The same idea is a carousel on Instagram, a short essay on LinkedIn, and a spoken hook on TikTok — and getting the translation right is the difference between content that travels and content that sits.</p>
+<p>If you can't fill this in, more posting won't help. Clarity first.</p>
 
-<p><strong>Instagram</strong> — visual-first. How to write the first line so it survives the "more" cut, caption structures for carousels vs. single posts, and when the caption carries the weight vs. the image.</p>
+<h3>The Voice Snapshot</h3>
 
-<p><strong>LinkedIn</strong> — credibility-first. The hook-to-payoff structure, why the first two lines are the whole game, formatting for the feed, and how to have a point of view without sounding like a motivational poster.</p>
+<p>Three adjectives. Three banned words. One "sounds like me" sentence. This is the guardrail that keeps you from sliding into generic industry filler the second you're tired.</p>
 
-<p><strong>TikTok / Reels</strong> — spoken-first. Writing for the ear, the three-second hook, scripting that doesn't sound scripted, and on-screen text that does its own job.</p>
+<p><strong>Fill-in:</strong> <em>My voice is ______, ______, and ______ (e.g., dry, exact, warm). I never say ______, ______, or ______ (e.g., "leverage," "passionate about," "game-changer"). When I sound most like myself, I write sentences like: "______________."</em></p>
 
-<p>Each platform gets a calibration table: tone, length, hook style, and the one mistake to avoid.</p>
-
-<hr>
-
-<h3>Section 4: The 30-Day Content Sprint</h3>
-
-<p>The same structure used to onboard new Social Suite clients. A month of content, planned and batched, so posting becomes execution instead of invention.</p>
-
-<ul><li><strong>The sprint calendar</strong>: 30 days mapped across your pillars so no single theme dominates and nothing repeats too soon.</li><li><strong>The batch workflow</strong>: how to write a month in two sittings — ideation, then production — instead of scrambling daily.</li><li><strong>The caption structure</strong>: the repeatable hook → context → payoff → CTA frame, with fill-in starters.</li><li><strong>The repurposing map</strong>: turn one strong idea into a LinkedIn post, an Instagram carousel, and a Reel without it feeling recycled.</li></ul>
+<blockquote>Pin the snapshot above your drafting doc. Nine out of ten off-brand posts die the moment they're read against that one sentence.</blockquote>
 
 <hr>
 
-<h3>Section 5: The Posting System</h3>
+<h2>Section Two: The Content Pillar Framework</h2>
 
-<p>A system you keep is worth more than a strategy you admire. This is how the whole thing runs without depending on motivation.</p>
+<p>The single highest-leverage decision you'll make: three to five <strong>content pillars</strong> — the themes you return to on purpose. Pillars are why people follow you <em>for a reason</em> instead of scrolling past. Pick from these five:</p>
 
-<ul><li><strong>The weekly rhythm</strong>: a realistic cadence by platform — what's enough, what's too much, and what to drop first when life happens.</li><li><strong>The content bank</strong>: how to keep a backlog of ready-to-post pieces so a bad week never breaks the streak.</li><li><strong>The review loop</strong>: the few numbers actually worth watching, and how to read them without spiraling.</li><li><strong>The recovery plan</strong>: exactly how to restart when you fall off — because you will, and that's not failure, it's the system working as designed.</li></ul>
+<ul><li><strong>The expertise pillar</strong> — what you know cold; the thing people already DM you about.</li><li><strong>The point-of-view pillar</strong> — what you believe that's a little contrarian. This builds authority, not just reach.</li><li><strong>The proof pillar</strong> — results, process, the work itself. Shown, not claimed.</li><li><strong>The human pillar</strong> — the story, the why. This builds trust.</li><li><strong>The fifth (optional)</strong> — seasonal, community, or behind-the-scenes.</li></ul>
 
-<hr>
+<p><strong>For each pillar, define three things:</strong> the <em>core promise</em> (what the reader gets), three to five <em>recurring angles</em>, and a few <em>example hooks.</em> Five pillars × four angles = twenty post ideas before you've tried.</p>
 
-<h2>Templates Included</h2>
+<p><strong>Worked example — the "point-of-view" pillar for the fractional CMO:</strong></p>
+<ul><li><em>Core promise:</em> I'll tell you which marketing advice to ignore.</li><li><em>Angles:</em> sacred cows that waste budget · metrics that lie · "best practices" that are just averages · the channel everyone skips.</li><li><em>Example hooks:</em> "Your CAC isn't a budget problem. It's a positioning problem." / "Most founders A/B test the button color and never test the offer." / "Brand awareness is what agencies sell when they can't sell revenue."</li></ul>
 
-<p>All templates are provided as Google Docs you can copy to your Drive:</p>
-
-<ol><li><strong>Authority brief</strong> (1 page)</li><li><strong>Voice snapshot</strong> (1 page)</li><li><strong>Content pillar map</strong> (with example angles and hooks)</li><li><strong>Platform calibration tables</strong> (Instagram, LinkedIn, TikTok)</li><li><strong>30-day sprint calendar</strong> (fill-in)</li><li><strong>Caption structure template</strong> (with starters)</li><li><strong>Posting tracker + content bank</strong> (the system that keeps it running)</li></ol>
-
-<hr>
-
-<h2>Who this is for</h2>
-
-<ul><li>Founders building a personal brand who need a strategy behind the posts, not just ideas</li><li>Thought leaders who know they should show up but have no system for it</li><li>Anyone whose content feels like generic industry filler instead of <em>them</em></li><li>People who want to batch content in advance instead of scrambling week to week</li></ul>
+<p>Do this for all your pillars in the <strong>Content Pillar Map</strong> template. That map is your idea bank for the rest of the year.</p>
 
 <hr>
 
-<h2>What you'll leave with</h2>
+<h2>Section Three: Brand Voice, Calibrated by Platform</h2>
 
-<ul><li>Three to five content pillars that give people a reason to follow you</li><li>A voice that survives the jump to every platform</li><li>A 30-day sprint planned and ready to batch</li><li>A posting system that runs on structure instead of inspiration</li></ul>
+<p>Your voice is one thing; how it <em>lands</em> changes by room. The same idea is a carousel on Instagram, a short essay on LinkedIn, and a spoken hook on TikTok. Getting the translation right is the difference between content that travels and content that sits.</p>
+
+<table><thead><tr><th>Platform</th><th>Tone</th><th>Length</th><th>Hook style</th><th>The one mistake to avoid</th></tr></thead><tbody><tr><td><strong>LinkedIn</strong></td><td>Credible, plain</td><td>120–200 words</td><td>First two lines = the whole game; promise a payoff</td><td>Sounding like a motivational poster</td></tr>
+<tr><td><strong>Instagram</strong></td><td>Warm, visual-first</td><td>Caption serves the image</td><td>First line must survive the "…more" cut</td><td>Burying the point below the fold</td></tr>
+<tr><td><strong>TikTok / Reels</strong></td><td>Spoken, fast</td><td>30–60 sec script</td><td>Three-second verbal hook</td><td>Writing for the eye, not the ear</td></tr></tbody></table>
+
+<p><strong>LinkedIn hook → payoff frame:</strong> open with tension ("Most founders price from fear."), widen it ("Here's what that costs you over a year…"), pay it off with one concrete idea, end with a line they'd repost.</p>
+
+<p><strong>Instagram first-line swipes:</strong> "Save this before your next launch." / "The bio mistake I see every single week." / "Read this if your content feels like everyone else's."</p>
+
+<p><strong>TikTok three-second hooks:</strong> "Stop writing your About page like this." / "The fastest way to sound generic online." / "I rewrote this founder's bio in 60 seconds — watch."</p>
 
 <hr>
 
-<p><em>This is the self-guided companion to The Social Suite — MK's managed content strategy, writing, and execution service. If you're working with the team, this is the framework behind the work. If you're doing it yourself, this is the system.</em></p>
+<h2>Section Four: The 30-Day Content Sprint</h2>
 
-<p>→ <strong>$38. All templates included. Immediate download.</strong></p>
+<p>The same structure I use to onboard Social Suite clients. A month of content, planned and batched, so posting becomes <em>execution</em> instead of invention.</p>
+
+<p><strong>The sprint calendar.</strong> Map 30 days across your pillars so no theme dominates and nothing repeats too soon. A simple, sane weekly pattern:</p>
+
+<table><thead><tr><th>Day</th><th>Pillar</th><th>Format</th></tr></thead><tbody><tr><td>Mon</td><td>Point-of-view</td><td>LinkedIn short essay</td></tr>
+<tr><td>Wed</td><td>Expertise</td><td>Carousel / how-to</td></tr>
+<tr><td>Fri</td><td>Proof or Human</td><td>Story or case</td></tr>
+<tr><td>(1×/wk)</td><td>Any</td><td>Repurpose to Reel</td></tr></tbody></table>
+
+<p><strong>The batch workflow — a month in two sittings.</strong> <em>Sitting one (ideation):</em> pull 12–16 ideas straight from your Pillar Map; write only the hooks. <em>Sitting two (production):</em> draft all the posts from the hooks, back to back. Separating ideation from production is the whole trick — you stop starting from a blank page.</p>
+
+<p><strong>The caption structure</strong> (fill-in): <strong>Hook</strong> ("______") → <strong>Context</strong> (2–3 lines of the why) → <strong>Payoff</strong> (the one useful idea) → <strong>CTA</strong> ("Save this / follow for more / DM me 'X'"). Starters: "Here's what nobody tells you about ___." · "I used to believe ___. Then ___." · "The fastest way to ___ is ___."</p>
+
+<p><strong>The repurposing map.</strong> One strong idea → a LinkedIn post (the argument) → an Instagram carousel (the steps) → a Reel (the hook, spoken). Same spine, three rooms. You're not repeating yourself; you're meeting the same person in different places.</p>
+
+<hr>
+
+<h2>Section Five: The Posting System</h2>
+
+<p>A system you keep beats a strategy you admire. Here's how the whole thing runs without depending on motivation.</p>
+
+<ul><li><strong>The weekly rhythm.</strong> Pick a cadence you can hit on your worst week, not your best. Three real posts beat seven you resent. When life happens, drop frequency before quality, and drop the platform you like least first.</li><li><strong>The content bank.</strong> Keep a backlog of 5–10 ready-to-post pieces. A bank is what makes a bad week a non-event instead of a broken streak.</li><li><strong>The review loop.</strong> Watch three numbers only: saves/shares (did it land?), profile visits (did it pull?), and DMs/replies (did it start something?). Ignore raw likes and follower count week to week — they're weather.</li><li><strong>The recovery plan.</strong> You will fall off. When you do: post one thing from the bank, say nothing about being gone, and resume the rhythm. No apology posts. Falling off and getting back on <em>is</em> the system working as designed.</li></ul>
+
+<blockquote>Consistency isn't a personality trait. It's a backlog plus a rhythm plus permission to restart without shame.</blockquote>
+
+<hr>
+
+<h2>The Templates (And How to Use Them)</h2>
+
+<p>Each lives as a Google Doc you copy to your Drive — but the frameworks above <em>are</em> the templates, ready to rebuild anywhere: the <strong>Authority Brief</strong> (5 questions), the <strong>Voice Snapshot</strong>, the <strong>Content Pillar Map</strong> (promise · angles · hooks), the <strong>Platform Calibration tables</strong>, the <strong>30-Day Sprint Calendar</strong>, the <strong>Caption Structure</strong> (hook → context → payoff → CTA), and the <strong>Posting Tracker + Content Bank.</strong> Fill them with your real answers. The structure is the gift; the words have to be yours.</p>
+
+<hr>
+
+<h2>Keep Going</h2>
+
+<p>This is the self-guided companion to <strong>The Social Suite</strong> — my managed strategy, writing, and execution service. If you'd rather hand the system to someone who runs it every day, that's the service.</p>
+
+<p>If your <em>voice</em> is the part that keeps going generic, <strong>The Brand Voice Playbook</strong> is the system underneath all of this. And if you want the positioning the pillars hang on, start with the free <strong>Positioning Checklist</strong> at mkparrish.com.</p>
+
+<p>You don't need to post more. You need a system that posts <em>you</em>. Now you have one.</p>
+
+<p>— MK Parrish</p>
 
 </div>
 

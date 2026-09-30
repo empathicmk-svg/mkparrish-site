@@ -1,0 +1,48 @@
+{
+  "slug": "website-that-sells",
+  "brand": "MK PARRISH",
+  "signature": "mkparrish.com ♡",
+  "slides": [
+    {
+      "type": "cover",
+      "eyebrow": "WEBSITE COPY",
+      "title": ["Your website", "is not a {{moodboard}}"],
+      "body": "It is a sales conversation. Pretty helps. Clear sells."
+    },
+    {
+      "eyebrow": "THE MISTAKE",
+      "title": ["Most service sites", "hide the offer"],
+      "body": "They open with vague identity copy, bury the actual service, and make a stranger work too hard to understand why they should care."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "BEFORE AND AFTER",
+      "before": "Helping brands unlock their potential through innovative solutions and meaningful storytelling.",
+      "after": ["I rewrite messy", "service pages", "so buyers get it fast"],
+      "takeaway": "A buyer should know what you do, who it is for, and why it matters before they have to scroll like they are solving a crime."
+    },
+    {
+      "eyebrow": "PAGE RULE 01",
+      "title": ["Name the buyer", "before the {{benefit}}"],
+      "body": "A strong page makes the right person feel immediately addressed. Not everyone. The person with the problem you actually solve."
+    },
+    {
+      "eyebrow": "PAGE RULE 02",
+      "title": ["Turn services", "into outcomes"],
+      "body": "Do not list deliverables like a receipt. Show the business result. Sharper positioning. Better conversion paths. Cleaner sales conversations."
+    },
+    {
+      "eyebrow": "PAGE RULE 03",
+      "title": ["Every section", "needs a job"],
+      "body": "Hero earns attention. Proof earns trust. Offer explains value. CTA creates motion. Anything else is probably decoration wearing business casual."
+    },
+    {
+      "type": "cta",
+      "eyebrow": "NEXT MOVE",
+      "title": ["Want me", "to audit your", "website {{copy}}?"],
+      "body": "Book a strategy session or start with a positioning audit at mkparrish.com. I will find the fog and make the page easier to buy from.",
+      "cta": "BOOK THROUGH MKPARRISH.COM",
+      "url": "mkparrish.com"
+    }
+  ]
+}
