@@ -1,10 +1,15 @@
 #!/usr/bin/env node
 /**
- * MK × Mercedes-Benz of Smithtown — Instagram / TikTok kit.
+ * MK (@mkeeziee) × Mercedes-Benz of Smithtown — Instagram / Facebook / TikTok kit.
  *
- * Renders the feed posts (1080×1350), carousel slides (1080×1350),
- * stories (1080×1920) and TikTok overlays from the showroom photos in
- * ./media, then burns the overlays onto the walkaround clips with ffmpeg.
+ * Pink Bow October: every car on the floor wears a pink bow for Breast Cancer
+ * Awareness Month, so every post ties its bow back to the cause, names the
+ * Mercedes-Benz model, and ends on a clear call to action.
+ *
+ * Renders the feed posts (1080×1350, Instagram + Facebook), carousel slides
+ * (1080×1350), stories (1080×1920, IG/FB stories) and Reels/TikTok overlays
+ * from the showroom photos in ./media. Photos and clips get a light retouch
+ * (contrast, colour, sharpening) before the overlays go on.
  *
  * Brand matches mkparrish.com: void/obsidian black, pearl white, smoke grey,
  * petal pink; Bebas Neue / Playfair Display / DM Sans.
@@ -28,16 +33,37 @@ const FONTS = fs.readFileSync(path.join(ROOT, 'scripts', 'assets', 'fonts-embedd
 const VOID  = '#080808';
 const PEARL = '#F0F0EE';
 const SMOKE = '#B0B0B0';
-const ASH   = '#7A7A7A';
 const PETAL = '#FFB5D0';
-const ROSE  = '#F58CAD';
 
-const HANDLE = '@mk_parrish';
+const HANDLE = '@mkeeziee';
 const STORE  = 'Mercedes-Benz of Smithtown';
+const GROUP  = 'Competition Automotive Group';
+
+fs.mkdirSync(OUT, { recursive: true });
+const work = fs.mkdtempSync(path.join(OUT, '.work-'));
+
+// ── Retouch ────────────────────────────────────────────────────────────────────
+// Lifts colour and contrast and sharpens the paint and chrome without changing
+// the scene. Cached per run in the work dir.
+const enhanced = new Map();
+function enhance(name) {
+  if (!enhanced.has(name)) {
+    const out = path.join(work, `enh-${name}`);
+    execFileSync('convert', [
+      path.join(MEDIA, name),
+      '-modulate', '103,114,100',
+      '-sigmoidal-contrast', '2.6x50%',
+      '-unsharp', '0x1.2+0.7+0.02',
+      '-quality', '92', out,
+    ]);
+    enhanced.set(name, out);
+  }
+  return enhanced.get(name);
+}
 
 // Inline as data URIs: Chromium won't load file:// images into a setContent() page.
 const dataUri = file => `data:image/jpeg;base64,${fs.readFileSync(file).toString('base64')}`;
-const img = name => dataUri(path.join(MEDIA, name));
+const img = name => dataUri(enhance(name));
 
 const ribbon = (size, color = PETAL) => `
   <svg width="${size * 0.66}" height="${size}" viewBox="0 0 40 60" aria-hidden="true">
@@ -52,51 +78,73 @@ const BASE_CSS = `
            font-family: 'DM Sans', sans-serif; }
   .photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .shade { position: absolute; inset: 0; }
+  .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 42%, rgba(8,8,8,0) 55%, rgba(8,8,8,.45) 100%); }
   .kicker { display: flex; align-items: center; gap: 14px; font-weight: 500; font-size: 22px;
-            letter-spacing: .28em; text-transform: uppercase; color: ${PETAL}; }
+            letter-spacing: .26em; text-transform: uppercase; color: ${PETAL}; }
   .head { font-family: 'Bebas Neue', sans-serif; line-height: .88; letter-spacing: .01em; color: ${PEARL}; }
   .head em { font-style: normal; color: ${PETAL}; }
   .sub { font-family: 'Playfair Display', serif; font-style: italic; line-height: 1.3; color: ${PEARL}; }
   .rule { height: 2px; width: 84px; background: ${PETAL}; }
+  .cta { align-self: flex-start; display: inline-flex; align-items: center; gap: 14px; background: ${PETAL}; color: ${VOID};
+         font-family: 'Bebas Neue', sans-serif; font-size: 38px; letter-spacing: .06em; padding: 12px 26px 8px; border-radius: 999px; }
+  .cta span { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: .04em; }
+  .topbar { position: absolute; top: 56px; left: 72px; right: 72px; display: flex; justify-content: space-between; align-items: center;
+            font-size: 19px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: ${PEARL}; }
+  .topbar .pill { display: flex; align-items: center; gap: 10px; color: ${PETAL}; background: rgba(8,8,8,.55);
+                  border: 1px solid rgba(255,181,208,.55); padding: 8px 16px 8px 12px; border-radius: 999px; }
   .sig { position: absolute; left: 72px; right: 72px; display: flex; justify-content: space-between;
-         align-items: baseline; font-size: 21px; letter-spacing: .14em; text-transform: uppercase; color: ${SMOKE}; }
-  .sig b { font-family: 'Bebas Neue', sans-serif; font-weight: 400; font-size: 34px; letter-spacing: .08em; color: ${PEARL}; margin-right: 12px; }
-  .sig .handle { color: ${PETAL}; letter-spacing: .08em; text-transform: none; font-size: 24px; }
+         align-items: baseline; font-size: 18px; letter-spacing: .16em; text-transform: uppercase; color: ${SMOKE}; }
+  .sig b { font-family: 'Bebas Neue', sans-serif; font-weight: 400; font-size: 34px; letter-spacing: .08em; color: ${PEARL}; margin-right: 10px; }
+  .sig .handle { color: ${PETAL}; font-size: 24px; letter-spacing: .06em; text-transform: none; }
 `;
+
+const topbar = (top = 56) => `
+  <div class="topbar" style="top:${top}px">
+    <span style="text-shadow:0 1px 8px rgba(0,0,0,.6)">${STORE}</span>
+    <span class="pill">${ribbon(24)}Pink Bow October</span>
+  </div>`;
 
 const sig = bottom => `
   <div class="sig" style="bottom:${bottom}px">
-    <span><b>MK PARRISH</b>${STORE}</span><span class="handle">${HANDLE}</span>
+    <span><b>MK</b><span class="handle">${HANDLE}</span></span><span>${GROUP}</span>
   </div>`;
+
+const cta = (big, small = '') => `<div class="cta">${big}${small ? `<span>${small}</span>` : ''}</div>`;
 
 // ── Templates ──────────────────────────────────────────────────────────────────
 
-/** Full-bleed photo, dark fade at the bottom, copy stacked over it. */
-function hero({ w = 1080, h = 1350, photo, pos = 'center', kicker, head, headSize = 150, sub, fine, sigBottom = 60, textBottom = 150 }) {
+/** Full-bleed photo, dark fade at the bottom, model + copy + CTA over it. */
+function hero({ w = 1080, h = 1350, photo, pos = 'center', model, head, headSize = 140, sub, action, sigBottom = 56, textBottom = 120, top = 56 }) {
   return `<div class="frame" style="width:${w}px;height:${h}px">
     <img class="photo" src="${img(photo)}" style="object-position:${pos}">
-    <div class="shade" style="background:linear-gradient(180deg, rgba(8,8,8,.35) 0%, rgba(8,8,8,0) 22%, rgba(8,8,8,0) 42%, rgba(8,8,8,.88) 72%, rgba(8,8,8,.97) 100%)"></div>
-    <div style="position:absolute;left:72px;right:72px;bottom:${textBottom}px;display:flex;flex-direction:column;gap:26px">
-      ${kicker ? `<div class="kicker">${ribbon(34)}${kicker}</div>` : ''}
+    <div class="vignette"></div>
+    <div class="shade" style="background:linear-gradient(180deg, rgba(8,8,8,.5) 0%, rgba(8,8,8,0) 16%, rgba(8,8,8,0) 42%, rgba(8,8,8,.86) 68%, rgba(8,8,8,.97) 100%)"></div>
+    ${topbar(top)}
+    <div style="position:absolute;left:72px;right:72px;bottom:${textBottom}px;display:flex;flex-direction:column;gap:22px">
+      <div class="kicker">${model}</div>
       <div class="head" style="font-size:${headSize}px">${head}</div>
-      ${sub ? `<div class="sub" style="font-size:38px;max-width:880px">${sub}</div>` : ''}
-      ${fine ? `<div style="font-size:21px;letter-spacing:.06em;color:${SMOKE};max-width:860px;line-height:1.45">${fine}</div>` : ''}
+      ${sub ? `<div class="sub" style="font-size:34px;max-width:900px">${sub}</div>` : ''}
+      ${action ? cta(...action) : ''}
     </div>
     ${sig(sigBottom)}
   </div>`;
 }
 
 /** Photo on top, petal-pink panel underneath with black copy. */
-function pinkPanel({ w = 1080, h = 1350, photo, pos = 'center', split = 0.58, kicker, head, sub, fine }) {
+function pinkPanel({ w = 1080, h = 1350, photo, pos = 'center', split = 0.56, model, head, sub, action, dark = false }) {
   const ph = Math.round(h * split);
-  return `<div class="frame" style="width:${w}px;height:${h}px;background:${PETAL}">
+  const bg = dark ? VOID : PETAL, fg = dark ? PEARL : VOID, accent = dark ? PETAL : VOID;
+  return `<div class="frame" style="width:${w}px;height:${h}px;background:${bg}">
     <img class="photo" src="${img(photo)}" style="height:${ph}px;object-position:${pos}">
-    <div style="position:absolute;top:${ph}px;left:0;right:0;bottom:0;padding:56px 72px;display:flex;flex-direction:column;gap:22px;color:${VOID}">
-      <div class="kicker" style="color:${VOID}">${ribbon(32, VOID)}${kicker}</div>
-      <div class="head" style="font-size:118px;color:${VOID}">${head}</div>
-      <div class="sub" style="font-size:34px;color:${VOID}">${sub}</div>
-      <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;font-size:20px;letter-spacing:.14em;text-transform:uppercase">
-        <span>${fine}</span><span style="text-transform:none;letter-spacing:.06em;font-size:23px">${HANDLE}</span>
+    <div class="shade" style="height:${ph}px;background:linear-gradient(180deg, rgba(8,8,8,.5) 0%, rgba(8,8,8,0) 22%)"></div>
+    ${topbar()}
+    <div style="position:absolute;top:${ph}px;left:0;right:0;bottom:0;padding:50px 72px 48px;display:flex;flex-direction:column;gap:20px;color:${fg}">
+      <div class="kicker" style="color:${accent}">${ribbon(30, accent)}${model}</div>
+      <div class="head" style="font-size:112px;color:${fg}">${head}</div>
+      <div class="sub" style="font-size:32px;color:${fg}">${sub}</div>
+      <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center">
+        <div class="cta" style="background:${dark ? PETAL : VOID};color:${dark ? VOID : PETAL}">${action[0]}<span style="color:${dark ? VOID : PEARL}">${action[1]}</span></div>
+        <span style="color:${dark ? SMOKE : VOID};font-size:17px;letter-spacing:.16em;text-transform:uppercase">${GROUP}</span>
       </div>
     </div>
   </div>`;
@@ -108,29 +156,31 @@ function intro() {
     <img class="photo" src="${dataUri(path.join(ROOT, 'public', 'author', 'mk-parrish-photo.jpg'))}"
          style="width:520px;filter:grayscale(1) contrast(1.05);object-position:center 20%">
     <div class="shade" style="left:400px;background:linear-gradient(90deg, rgba(8,8,8,0) 0%, ${VOID} 120px)"></div>
-    <div style="position:absolute;left:560px;right:64px;top:150px;bottom:90px;display:flex;flex-direction:column;gap:30px">
-      <div class="kicker">${ribbon(32)}Smithtown, NY</div>
-      <div class="head" style="font-size:132px">Hi, I'm<br><em>MK.</em></div>
+    <div style="position:absolute;left:560px;right:64px;top:120px;bottom:80px;display:flex;flex-direction:column;gap:28px">
+      <div class="kicker">${ribbon(32)}Pink Bow October</div>
+      <div class="head" style="font-size:128px">Hi, I'm<br><em>MK.</em></div>
       <div class="rule"></div>
-      <div class="sub" style="font-size:36px">I sell Mercedes-Benz — and I'd love to hand you the keys to yours.</div>
-      <div style="font-size:23px;line-height:1.6;color:${SMOKE}">New &amp; pre-owned · AMG · SUVs<br>Lease-end &amp; trade questions welcome</div>
-      <div style="margin-top:auto;font-family:'Bebas Neue';font-size:40px;letter-spacing:.06em;color:${PETAL}">DM ME · ASK FOR MK</div>
-      <div style="font-size:21px;letter-spacing:.14em;text-transform:uppercase;color:${SMOKE}">${STORE}<br><span style="color:${PETAL};text-transform:none;letter-spacing:.08em;font-size:24px">${HANDLE}</span></div>
+      <div class="sub" style="font-size:34px">Your Mercedes-Benz specialist at ${STORE}.</div>
+      <div style="font-size:22px;line-height:1.7;color:${SMOKE}">New &amp; Certified Pre-Owned<br>AMG · SUVs · Coupés &amp; Cabriolets<br>Lease-end &amp; trade-in questions</div>
+      <div style="margin-top:auto">${cta('DM me', HANDLE)}</div>
+      <div style="font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:${SMOKE};line-height:1.6">${STORE}<br>${GROUP}</div>
     </div>
   </div>`;
 }
 
-/** Carousel slide: full photo, numbered tag, short label. */
+/** Carousel slide: full photo, numbered tag, model + one line. */
 function slide({ photo, pos = 'center', zoom = 1, n, of, label, note }) {
   return `<div class="frame" style="width:1080px;height:1350px">
     <img class="photo" src="${img(photo)}" style="object-position:${pos};transform:scale(${zoom});transform-origin:center top">
-    <div class="shade" style="background:linear-gradient(180deg, rgba(8,8,8,.55) 0%, rgba(8,8,8,0) 20%, rgba(8,8,8,0) 66%, rgba(8,8,8,.92) 100%)"></div>
-    <div class="kicker" style="position:absolute;top:64px;left:72px">${ribbon(30)}Pick your bow · ${String(n).padStart(2, '0')}/${String(of).padStart(2, '0')}</div>
+    <div class="vignette"></div>
+    <div class="shade" style="background:linear-gradient(180deg, rgba(8,8,8,.55) 0%, rgba(8,8,8,0) 18%, rgba(8,8,8,0) 62%, rgba(8,8,8,.93) 100%)"></div>
+    <div class="topbar"><span>Pick your bow · ${String(n).padStart(2, '0')}/${String(of).padStart(2, '0')}</span><span class="pill">${ribbon(24)}Pink Bow October</span></div>
     <div style="position:absolute;left:72px;right:72px;bottom:130px;display:flex;align-items:flex-end;gap:30px">
       <div class="head" style="font-size:210px;color:${PETAL};line-height:.8">${String(n).padStart(2, '0')}</div>
       <div style="padding-bottom:12px">
+        <div class="kicker" style="font-size:19px;margin-bottom:8px">Mercedes-Benz</div>
         <div class="head" style="font-size:72px">${label}</div>
-        <div class="sub" style="font-size:30px;color:${SMOKE}">${note}</div>
+        <div class="sub" style="font-size:29px;color:${SMOKE}">${note}</div>
       </div>
     </div>
     ${sig(56)}
@@ -138,37 +188,43 @@ function slide({ photo, pos = 'center', zoom = 1, n, of, label, note }) {
 }
 
 /** Solid black end card / CTA. */
-function endCard({ w = 1080, h = 1350, kicker, head, sub, cta, padY = 150 }) {
-  return `<div class="frame" style="width:${w}px;height:${h}px;background:radial-gradient(ellipse at 50% 38%, #1d1418 0%, ${VOID} 62%)">
-    <div style="position:absolute;inset:${padY}px 72px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:34px">
+function endCard({ w = 1080, h = 1350, kicker, head, sub, action, padY = 150, sigBottom = 56 }) {
+  return `<div class="frame" style="width:${w}px;height:${h}px;background:radial-gradient(ellipse at 50% 38%, #24161c 0%, ${VOID} 62%)">
+    <div style="position:absolute;inset:${padY}px 72px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:32px">
       ${ribbon(150)}
       <div class="kicker">${kicker}</div>
-      <div class="head" style="font-size:150px">${head}</div>
+      <div class="head" style="font-size:146px">${head}</div>
       <div class="rule"></div>
-      <div class="sub" style="font-size:38px;max-width:820px">${sub}</div>
-      <div style="font-family:'Bebas Neue';font-size:46px;letter-spacing:.08em;color:${PETAL}">${cta}</div>
+      <div class="sub" style="font-size:36px;max-width:840px">${sub}</div>
+      <div class="cta" style="align-self:center">${action[0]}<span>${action[1]}</span></div>
+      <div style="font-size:19px;letter-spacing:.18em;text-transform:uppercase;color:${SMOKE};line-height:1.7">${STORE}<br>630 Middle Country Rd · St. James, NY</div>
     </div>
-    ${sig(padY === 150 ? 60 : 260)}
+    ${sig(sigBottom)}
   </div>`;
 }
 
-/** Transparent TikTok overlay: hook at top, MK tag low in the safe zone. */
-function tiktokOverlay({ hook, sub }) {
+/** Transparent Reels/TikTok overlay: hook at top. */
+function tiktokOverlay({ model, hook, sub }) {
   return `<div style="width:1080px;height:1920px;position:relative;font-family:'DM Sans'">
-    <div style="position:absolute;top:210px;left:60px;right:60px;text-align:center">
-      <div style="display:inline-block;background:rgba(8,8,8,.78);padding:26px 40px 30px;border-bottom:4px solid ${PETAL}">
-        <div class="head" style="font-size:112px">${hook}</div>
-        <div class="sub" style="font-size:36px;margin-top:10px">${sub}</div>
+    <div style="position:absolute;top:200px;left:60px;right:60px;text-align:center">
+      <div style="display:inline-block;background:rgba(8,8,8,.8);padding:24px 40px 30px;border-bottom:4px solid ${PETAL}">
+        <div class="kicker" style="justify-content:center;font-size:21px;margin-bottom:10px">${ribbon(26)}${model}</div>
+        <div class="head" style="font-size:108px">${hook}</div>
+        <div class="sub" style="font-size:34px;margin-top:10px">${sub}</div>
       </div>
     </div>
   </div>`;
 }
-function tiktokTag() {
+/** Transparent Reels/TikTok overlay: MK tag + CTA low in the safe zone. */
+function tiktokTag(action) {
   return `<div style="width:1080px;height:1920px;position:relative;font-family:'DM Sans'">
-    <div style="position:absolute;left:48px;bottom:470px;display:flex;align-items:center;gap:14px;background:rgba(8,8,8,.7);padding:14px 24px 14px 18px;border-left:4px solid ${PETAL}">
-      ${ribbon(40)}
-      <div><div style="font-family:'Bebas Neue';font-size:40px;letter-spacing:.06em;color:${PEARL};line-height:1">ASK FOR MK</div>
-      <div style="font-size:19px;letter-spacing:.14em;text-transform:uppercase;color:${SMOKE}">${STORE}</div></div>
+    <div style="position:absolute;left:48px;bottom:460px;display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+      <div style="display:flex;align-items:center;gap:14px;background:rgba(8,8,8,.75);padding:14px 24px 14px 18px;border-left:4px solid ${PETAL}">
+        ${ribbon(40)}
+        <div><div style="font-family:'Bebas Neue';font-size:40px;letter-spacing:.06em;color:${PEARL};line-height:1">ASK FOR MK · <span style="color:${PETAL}">${HANDLE}</span></div>
+        <div style="font-size:18px;letter-spacing:.14em;text-transform:uppercase;color:${SMOKE}">${STORE}</div></div>
+      </div>
+      <div class="cta" style="font-size:34px">${action[0]}<span>${action[1]}</span></div>
     </div>
   </div>`;
 }
@@ -177,94 +233,104 @@ function tiktokTag() {
 const FEED = [
   ['01-think-pink', hero({
     photo: 'amg-gt-front-white.jpg', pos: 'center 62%',
-    kicker: 'October · Breast Cancer Awareness Month',
+    model: 'Mercedes-AMG GT 4-Door Coupé',
     head: 'Think <em>pink.</em>',
-    sub: 'Every bow on our showroom floor is pink this month — for the women fighting, and the ones who won.',
+    sub: 'Every Mercedes-Benz on our floor wears a pink bow this October — for every fighter, every survivor, and everyone we carry with us.',
+    action: ['Tag a survivor', '& share the pink'],
   })],
   ['02-book-the-screening', pinkPanel({
     photo: 'suv-black-front.jpg', pos: 'center 42%',
-    kicker: 'A reminder from the showroom',
+    model: 'Mercedes-Benz GLE · Pink Bow October',
     head: 'Book the screening.',
     sub: 'Then book the test drive. In that order.',
-    fine: 'Early detection saves lives',
+    action: ['DM “PINK”', HANDLE],
   })],
   ['03-hi-im-mk', intro()],
-  ['04-two-bows-one-decision', hero({
-    photo: 'cle-black-pair.jpg', pos: '50% center',
-    kicker: 'Coupé or cabriolet?',
-    head: 'Two bows.<br>One <em>decision.</em>',
-    sub: 'Come sit in both. I’ll have the keys ready.',
+  ['04-cle-coupe-or-cabriolet', pinkPanel({
+    dark: true, split: 0.58,
+    photo: 'cle-black-pair.jpg', pos: '50% 62%',
+    model: 'Mercedes-Benz CLE Coupé &amp; Cabriolet',
+    head: 'Two bows. One <em>decision.</em>',
+    sub: 'Coupé or Cabriolet? Two pink bows, two very different weekends.',
+    action: ['Comment COUPÉ or CABRIO', ''],
   })],
-  ['05-room-for-everyone', hero({
+  ['05-gls-room-for-everyone', hero({
     photo: 'gls-white-front.jpg', pos: 'center 60%',
-    kicker: 'Wrapped &amp; ready',
+    model: 'Mercedes-Benz GLS · 7 seats',
     head: 'Room for<br><em>everyone.</em>',
-    sub: 'Three rows, one pink bow, and a whole family’s next chapter.',
+    sub: 'Seven seats and a pink bow — for the moms, sisters and best friends who carry everyone.',
+    action: ['DM “GLS”', 'to book a test drive'],
   })],
-  ['06-black-white-pink', hero({
+  ['06-amg-black-white-pink', hero({
     photo: 'amg-suv-black-front.jpg', pos: 'center 60%',
-    kicker: 'The only palette I trust',
+    model: 'Mercedes-AMG GLE',
     head: 'Black. White.<br><em>Pink.</em>',
-    sub: 'Gloss black AMG, showroom white, and a bow that means something this month.',
+    sub: 'AMG Panamericana grille, gloss black paint, and a pink bow that means something this month.',
+    action: ['DM “AMG”', HANDLE],
   })],
   ['07-find-me-in-smithtown', hero({
     photo: 'suv-black-outdoor.jpg', pos: '78% center',
-    kicker: 'Smithtown, Long Island',
+    model: 'Mercedes-Benz GLE · St. James, NY',
     head: 'Find me in<br><em>Smithtown.</em>',
-    sub: 'Fall drives hit different in a Benz. Come take one.',
+    sub: '630 Middle Country Rd, St. James. Fall drives hit different in a Mercedes-Benz.',
+    action: ['Ask for MK', 'test drives all week'],
   })],
 ];
 
 const CAROUSEL_ITEMS = [
-  { photo: 'sedan-silver-stars.jpg', pos: 'center 60%', label: 'Silver &amp; starry', note: 'That grille is all three-pointed stars.' },
-  { photo: 'amg-matte-white-front.jpg', pos: 'center 60%', label: 'Matte white AMG', note: 'Satin finish. Zero subtlety.' },
-  { photo: 'amg-suv-black-front.jpg', pos: 'center 62%', label: 'Gloss black AMG', note: 'The one that turns heads at the light.' },
-  { photo: 'amg-white-profile-pair.jpg', pos: '30% center', label: 'White on white', note: 'Two AMGs, two bows, one lucky driveway.' },
-  { photo: 'suv-silver-front.jpg', pos: 'center top', zoom: 1.5, label: 'Silver SUV', note: 'Room for the kids, the dog and the Costco run.' },
+  { photo: 'sedan-silver-stars.jpg', pos: 'center 60%', label: 'The all-new CLA', note: 'A star-pattern grille — and a pink bow on top.' },
+  { photo: 'amg-matte-white-front.jpg', pos: 'center 60%', label: 'AMG E-Class · matte', note: 'Satin white, AMG grille, zero subtlety.' },
+  { photo: 'amg-suv-black-front.jpg', pos: 'center 62%', label: 'Mercedes-AMG GLE', note: 'The one that turns heads at every light.' },
+  { photo: 'amg-white-profile-pair.jpg', pos: '30% center', label: 'AMG GT 4-Door Coupé', note: 'Four doors. Still an AMG GT.' },
+  { photo: 'suv-silver-front.jpg', pos: 'center top', zoom: 1.5, label: 'Mercedes-Benz GLB', note: 'Room for the kids, the dog and the Costco run.' },
 ];
 const CAROUSEL = [
   ['00-cover', hero({
     photo: 'sedan-silver-daylight.jpg', pos: 'center 55%',
-    kicker: 'Swipe → comment your number',
+    model: 'Swipe → comment your number',
     head: 'Pick your <em>bow.</em>',
-    sub: 'Five cars on my floor right now. Which one’s going home with you?',
+    sub: 'Five Mercedes-Benz models, five pink bows. Which one’s going home with you?',
+    action: ['Comment 1–5', 'I’ll DM you details'],
   })],
   ...CAROUSEL_ITEMS.map((s, i) => [`${String(i + 1).padStart(2, '0')}-slide`, slide({ ...s, n: i + 1, of: CAROUSEL_ITEMS.length })]),
   ['06-end', endCard({
-    kicker: 'Mercedes-Benz of Smithtown',
+    kicker: 'Pink Bow October',
     head: 'Which one’s <em>yours?</em>',
-    sub: 'Comment the number and I’ll DM you the details — trim, color, payment options.',
-    cta: 'Ask for MK',
+    sub: 'Comment the number and I’ll DM you trim, color and payment options. Every pink bow is a reminder: book your screening.',
+    action: ['DM “PINK”', HANDLE],
   })],
 ];
 
 const STORIES = [
   ['01-think-pink-story', hero({
     w: 1080, h: 1920, photo: 'sedan-silver-stars.jpg', pos: 'center 55%',
-    kicker: 'Breast Cancer Awareness Month',
+    model: 'The all-new Mercedes-Benz CLA',
     head: 'Think <em>pink.</em>', headSize: 170,
-    sub: 'Pink bows all October. Book your screening — then come see me.',
-    textBottom: 420, sigBottom: 330,
+    sub: 'Pink bows all October at Mercedes-Benz of Smithtown. Book your screening — then come see me.',
+    action: ['DM “PINK”', HANDLE],
+    top: 230, textBottom: 400, sigBottom: 320,
   })],
   ['02-dm-me-story', endCard({
-    w: 1080, h: 1920, padY: 330,
+    w: 1080, h: 1920, padY: 300, sigBottom: 260,
     kicker: 'Test drives this week',
     head: 'DM me <em>“pink.”</em>',
-    sub: 'I’ll set up a test drive and have your bow waiting.',
-    cta: 'MK · Mercedes-Benz of Smithtown',
+    sub: 'Pick your Mercedes-Benz and I’ll have your pink bow waiting.',
+    action: ['Ask for MK', HANDLE],
   })],
 ];
 
 const TIKTOK = [
   {
-    name: '01-matte-black-amg', clip: 'matte-amg-walkaround.mp4',
-    hook: 'Matte black <em>AMG.</em>', sub: 'Walk it with me.',
-    end: { kicker: 'Mercedes-Benz of Smithtown', head: 'Want the <em>keys?</em>', sub: 'Comment “matte” and I’ll send you the details.', cta: 'Ask for MK' },
+    name: '01-matte-black-amg-glc-coupe', clip: 'matte-amg-walkaround.mp4',
+    model: 'Mercedes-AMG GLC Coupé', hook: 'Matte black <em>AMG.</em>', sub: 'Walk it with me.',
+    action: ['Comment “MATTE”', 'for details'],
+    end: { kicker: 'Mercedes-AMG · Pink Bow October', head: 'Want the <em>keys?</em>', sub: 'Comment “MATTE” and I’ll send you the details.', action: ['Ask for MK', HANDLE] },
   },
   {
-    name: '02-top-down-season', clip: 'cabriolet-walkaround.mp4',
-    hook: 'Top-down season<br><em>isn’t over.</em>', sub: 'Cognac leather. Black paint. Long Island fall.',
-    end: { kicker: 'Mercedes-Benz of Smithtown', head: 'Sit in it <em>this week.</em>', sub: 'DM me and I’ll have it pulled up front.', cta: 'Ask for MK' },
+    name: '02-cle-cabriolet-top-down', clip: 'cabriolet-walkaround.mp4',
+    model: 'Mercedes-Benz CLE Cabriolet', hook: 'Top-down season<br><em>isn’t over.</em>', sub: 'Cognac leather. Black paint. Long Island fall.',
+    action: ['DM “CABRIO”', 'to sit in it'],
+    end: { kicker: 'CLE Cabriolet · Pink Bow October', head: 'Sit in it <em>this week.</em>', sub: 'DM me and I’ll have it pulled up front.', action: ['DM “CABRIO”', HANDLE] },
   },
 ];
 
@@ -277,37 +343,38 @@ async function render(page, html, w, h, file, transparent = false) {
   console.log('  ✓', path.relative(ROOT, file));
 }
 
-const dir = d => { const p = path.join(OUT, d); fs.mkdirSync(p, { recursive: true }); return p; };
+const dir = d => { const p = path.join(OUT, d); fs.rmSync(p, { recursive: true, force: true }); fs.mkdirSync(p, { recursive: true }); return p; };
 
 const browser = await chromium.launch();
 const page = await browser.newPage();
 
-for (const [name, html] of FEED) await render(page, html, 1080, 1350, path.join(dir('feed'), `${name}.png`));
-for (const [name, html] of CAROUSEL) await render(page, html, 1080, 1350, path.join(dir('carousel'), `${name}.png`));
-for (const [name, html] of STORIES) await render(page, html, 1080, 1920, path.join(dir('stories'), `${name}.png`));
+const feedDir = dir('feed'), carouselDir = dir('carousel'), storiesDir = dir('stories'), tiktokDir = dir('tiktok');
+for (const [name, html] of FEED) await render(page, html, 1080, 1350, path.join(feedDir, `${name}.png`));
+for (const [name, html] of CAROUSEL) await render(page, html, 1080, 1350, path.join(carouselDir, `${name}.png`));
+for (const [name, html] of STORIES) await render(page, html, 1080, 1920, path.join(storiesDir, `${name}.png`));
 
-const work = fs.mkdtempSync(path.join(OUT, '.work-'));
 for (const t of TIKTOK) {
   const hookPng = path.join(work, `${t.name}-hook.png`);
   const tagPng = path.join(work, `${t.name}-tag.png`);
   const endPng = path.join(work, `${t.name}-end.png`);
   await render(page, tiktokOverlay(t), 1080, 1920, hookPng, true);
-  await render(page, tiktokTag(), 1080, 1920, tagPng, true);
-  await render(page, endCard({ w: 1080, h: 1920, padY: 330, ...t.end }), 1080, 1920, endPng);
+  await render(page, tiktokTag(t.action), 1080, 1920, tagPng, true);
+  await render(page, endCard({ w: 1080, h: 1920, padY: 300, sigBottom: 260, ...t.end }), 1080, 1920, endPng);
 
-  // Clip with hook for the first 3.5s and the MK tag after it, then a 3s end card.
-  const out = path.join(dir('tiktok'), `${t.name}.mp4`);
+  // Retouched clip with the hook for the first 3.5s and the MK tag after it, then a 3s end card.
+  const out = path.join(tiktokDir, `${t.name}.mp4`);
   execFileSync('ffmpeg', [
     '-v', 'error', '-y',
     '-i', path.join(MEDIA, t.clip), '-i', hookPng, '-i', tagPng,
     '-loop', '1', '-t', '3', '-framerate', '30', '-i', endPng,
     '-filter_complex',
-    '[0:v][1:v]overlay=enable=\'lt(t,3.5)\'[a];[a][2:v]overlay=enable=\'gte(t,3.5)\',fps=30,format=yuv420p,setsar=1[clip];' +
+    '[0:v]eq=contrast=1.07:saturation=1.15:brightness=0.01,unsharp=5:5:0.6[g];' +
+    '[g][1:v]overlay=enable=\'lt(t,3.5)\'[a];[a][2:v]overlay=enable=\'gte(t,3.5)\',fps=30,format=yuv420p,setsar=1[clip];' +
     '[3:v]fps=30,format=yuv420p,setsar=1[end];[clip][end]concat=n=2:v=1:a=0[v]',
     '-map', '[v]', '-c:v', 'libx264', '-crf', '24', '-preset', 'medium', '-movflags', '+faststart', out,
   ]);
   console.log('  ✓', path.relative(ROOT, out));
 }
-fs.rmSync(work, { recursive: true, force: true });
 
 await browser.close();
+fs.rmSync(work, { recursive: true, force: true });
