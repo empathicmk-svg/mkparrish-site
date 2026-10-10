@@ -1,4 +1,4 @@
-# MK (@mkeezieee) × Mercedes-Benz of Smithtown — Pink Bow October
+# MK (@mk_parrish) × Mercedes-Benz of Smithtown — Pink Bow October
 
 Images and videos are in `output/mercedes-smithtown/`. To rebuild them, run
 `node marketing/mercedes-smithtown/build.mjs`.
@@ -72,7 +72,7 @@ part of Competition Automotive Group.
 New and Certified Pre-Owned, AMG, SUVs, coupés and cabriolets. Lease-end and
 trade-in questions welcome.
 
-👉 Follow @mkeezieee for new arrivals and DM me anytime.
+👉 Follow @mk_parrish for new arrivals and DM me anytime.
 
 **Facebook**
 Hi, I'm MK! I sell Mercedes-Benz at Mercedes-Benz of Smithtown (630 Middle
@@ -124,7 +124,7 @@ Fall drives hit different in a Mercedes-Benz 🍂
 
 Find me at Mercedes-Benz of Smithtown, 630 Middle Country Rd, St. James.
 
-👉 Come in and ask for MK. I'm booking test drives all week. DM @mkeezieee to
+👉 Come in and ask for MK. I'm booking test drives all week. DM @mk_parrish to
 lock in a time.
 
 **Facebook**
@@ -170,7 +170,7 @@ Mercedes-Benz of Smithtown. Comment "MATTE" and I'll send you the details.
 #MercedesAMG #AMG #MatteBlack #CarTok #LongIsland #PinkBowOctober
 
 **Instagram Reels:** Matte black AMG, no bow needed… but it's October 🎀
-Comment "MATTE" and I'll DM you the details. Follow @mkeezieee for new arrivals.
+Comment "MATTE" and I'll DM you the details. Follow @mk_parrish for new arrivals.
 
 **Facebook Reels:** Matte black Mercedes-AMG GLC Coupé 🖤 Message me "MATTE"
 for details, at Mercedes-Benz of Smithtown, St. James.

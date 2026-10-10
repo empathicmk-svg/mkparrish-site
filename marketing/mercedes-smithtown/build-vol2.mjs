@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * MK (@mkeezieee) × Mercedes-Benz of Smithtown — Pink Bow October, volume 2.
+ * MK (@mk_parrish) × Mercedes-Benz of Smithtown — Pink Bow October, volume 2.
  *
  * More feed posts, two carousels ("Know your grille", "Lease ending?"), poll and
  * question stories, and five Reels/TikToks cut from the same showroom photos

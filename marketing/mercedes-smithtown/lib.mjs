@@ -19,7 +19,7 @@ const PEARL = '#F0F0EE';
 const SMOKE = '#B0B0B0';
 const PETAL = '#FFB5D0';
 
-const HANDLE = '@mkeezieee';
+const HANDLE = '@mk_parrish';
 const STORE  = 'Mercedes-Benz of Smithtown';
 const GROUP  = 'Competition Automotive Group';
 

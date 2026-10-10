@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * MK (@mkeezieee) × Mercedes-Benz of Smithtown — Instagram / Facebook / TikTok kit.
+ * MK (@mk_parrish) × Mercedes-Benz of Smithtown — Instagram / Facebook / TikTok kit.
  *
  * Pink Bow October: every car on the floor wears a pink bow for Breast Cancer
  * Awareness Month, so every post ties its bow back to the cause, names the
