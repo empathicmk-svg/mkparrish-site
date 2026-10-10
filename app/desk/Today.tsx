@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import {
-  SHIFTS, SCRIPTS, SPRINTER_BRANDS, COMMERCIAL_SCRIPTS, NAME_KEY, PULLS, STANDING_LISTS,
+  SHIFTS, SCRIPTS, SPRINTER_BRANDS, COMMERCIAL_SCRIPTS, NONAME_SCRIPTS, NAME_KEY, PULLS, STANDING_LISTS, TIERS,
   shiftsLeftInMonth, currentBlock, fmtTime, greeting,
   type Shift,
 } from './deskPlan';
@@ -302,13 +302,25 @@ export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }
               <div style={{ marginTop: 10 }}>
                 <p className="note" style={{ marginTop: 0 }}>
                   Build and save these once. Alert names differ between stores — ask your AutoAlert
-                  admin to match them up, then you reuse them every shift.
+                  admin to match them up, then you reuse them every shift. Honour Do Not Contact
+                  flags and keep dials inside 8am–9pm.
                 </p>
-                {STANDING_LISTS.map((l) => (
-                  <div className="pull" key={l.name}>
-                    <div className="pullname">{l.name}</div>
-                    <div className="pullfilter"><b>How:</b> {l.how}</div>
-                    <div className="pullwhy">{l.why}</div>
+                {([1, 2, 3] as const).map((tier) => (
+                  <div key={tier} style={{ marginTop: 14 }}>
+                    <h4 className="h4" style={{ marginBottom: 2 }}>
+                      {tier}. {TIERS[tier].label}
+                    </h4>
+                    <p className="note" style={{ marginTop: 0 }}>{TIERS[tier].note}</p>
+                    {STANDING_LISTS.filter((l) => l.tier === tier).map((l) => (
+                      <div className="pull" key={l.name}>
+                        <div className="pullname">
+                          {l.name}
+                          {l.target ? <span className="xshop" style={{ marginLeft: 6, fontSize: '.66rem' }}>~{l.target}</span> : null}
+                        </div>
+                        <div className="pullfilter"><b>Filter:</b> {l.how}</div>
+                        <div className="pullwhy">{l.why}</div>
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
@@ -336,6 +348,28 @@ export default function Today({ pipe, goal, savePipe, onGoImport, onGoFollowUp }
                   answer the phone. Use today to build the target list.
                 </p>
               )}
+              <h4 className="h4">Cold call, no contact name</h4>
+              <p className="note" style={{ marginTop: 0 }}>
+                Every name off a franchise locator or a licence list comes without a person attached.
+                You are not selling on this call — you are leaving with a <b>name</b>.
+              </p>
+              {NONAME_SCRIPTS.map((s2) => (
+                <div key={s2.id} className="scriptrow">
+                  <button className="scripthead" onClick={() => setOpenScript(openScript === s2.id ? null : s2.id)}>
+                    <span>{s2.when}</span>
+                    <span className="chev">{openScript === s2.id ? '−' : '+'}</span>
+                  </button>
+                  {openScript === s2.id && (
+                    <>
+                      <p className="scripttext">{s2.text}</p>
+                      <button className="sm" onClick={() => copy(s2.id, s2.text)}>
+                        {copied === s2.id ? '✓ Copied' : 'Copy'}
+                      </button>
+                    </>
+                  )}
+                </div>
+              ))}
+
               <h4 className="h4">The call, start to finish</h4>
               {COMMERCIAL_SCRIPTS.map((s2) => (
                 <div key={s2.id} className="scriptrow">
