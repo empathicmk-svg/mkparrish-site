@@ -27,7 +27,8 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(HERE, '..', '..');
 const OUT_DIR = path.join(ROOT, 'output', 'mercedes-smithtown');
 const ROWS_PER_FILE = 50;
-const RAW = 'https://raw.githubusercontent.com/empathicmk-svg/mkparrish-site/main/output/mercedes-smithtown';
+// RAW_REF pins media to a commit instead of main (e.g. when scheduling before a merge).
+const RAW = `https://raw.githubusercontent.com/empathicmk-svg/mkparrish-site/${process.env.RAW_REF || 'main'}/output/mercedes-smithtown`;
 
 const DRAFT = 'TRUE';
 
@@ -41,6 +42,7 @@ const TAGS = {
 // ── Posts ──────────────────────────────────────────────────────────────────────
 // files: paths under output/mercedes-smithtown, in carousel order.
 // ig / fb / tt: caption per network; a missing network isn't posted there.
+// ttTitle: TikTok's video title (required by TikTok, max 90 chars).
 const POSTS = {
   'think-pink': {
     files: ['feed/01-think-pink.jpg'], alt: 'White Mercedes-AMG GT 4-Door Coupé with a pink bow in the showroom',
@@ -48,6 +50,7 @@ const POSTS = {
     fb: `Pink bows on every Mercedes-Benz this October 🎀 This one's for every fighter, every survivor, and everyone we've lost. Tag someone who wears pink for a reason, and share this to remind a friend to book a screening.\n\n#PinkBowOctober #BreastCancerAwarenessMonth #MercedesBenz`,
   },
   'reel-matte-amg': {
+    ttTitle: 'Matte black AMG walkaround 🖤',
     files: ['tiktok/01-matte-black-amg-glc-coupe.mp4'], alt: 'Walkaround of a matte black Mercedes-AMG GLC Coupé',
     ig: `Matte black AMG — no bow needed… but it's October 🎀 Comment "MATTE" and I'll DM you the details. Follow @mk_parrish for new arrivals.\n\n${TAGS.amg} #GLCCoupe #MatteBlack #MBofSmithtown #LongIslandCars #PinkBowOctober`,
     fb: `Matte black Mercedes-AMG GLC Coupé 🖤 Message me "MATTE" for details — Mercedes-Benz of Smithtown, St. James.`,
@@ -75,6 +78,7 @@ const POSTS = {
     fb: `Settle this for me: CLE Coupé or CLE Cabriolet? 🖤 Comment your pick 👇 Want to sit in both? Message me and I'll have the keys ready.`,
   },
   'reel-top-down': {
+    ttTitle: 'Top-down season isn’t over 🍂',
     files: ['tiktok/02-cle-cabriolet-top-down.mp4'], alt: 'Walkaround of a black Mercedes-Benz CLE Cabriolet with cognac leather',
     ig: `Cognac leather. Black paint. Long Island fall 🍂 DM me "CABRIO" to sit in it this week.\n\n#CLECabriolet #Convertible #PinkBowOctober ${TAGS.store}`,
     fb: `The Mercedes-Benz CLE Cabriolet — top-down season edition 🍂 Message me "CABRIO" to book a test drive.`,
@@ -98,6 +102,7 @@ const POSTS = {
 
   // ── Volume 2 ──
   'reel-every-bow-is-pink': {
+    ttTitle: 'Every bow on our floor is pink 🎀',
     files: ['vol2/reels/04-every-bow-is-pink.mp4'], alt: 'Pink bows on Mercedes-Benz cars for Breast Cancer Awareness Month',
     ig: `Every bow on our floor is pink this October 🎀 For every fighter. Every survivor. And everyone we carry with us. Book the screening — then come see me. Share this with someone who needs the reminder.\n\n${TAGS.cause} ${TAGS.store}`,
     fb: `Every bow at Mercedes-Benz of Smithtown is pink this month 🎀 For every fighter, every survivor, and everyone we carry with us. Please book your screening — and share this with someone who needs the nudge.`,
@@ -114,6 +119,7 @@ const POSTS = {
     fb: `GLS or GLB? 🎀 Comment your pick 👇 Both are on the floor now at Mercedes-Benz of Smithtown.`,
   },
   'reel-pick-your-bow': {
+    ttTitle: 'Pick your bow 🎀 5 Mercedes-Benz models',
     files: ['vol2/reels/03-pick-your-bow.mp4'], alt: 'Five Mercedes-Benz models with pink bows',
     ig: `Five Mercedes-Benz models, five pink bows 🎀 Which one's going home with you? Comment 1–5 and I'll DM you the details.\n\n#PinkBowOctober #NewCarDay ${TAGS.store}`,
     fb: `Pick your bow 🎀 Five Mercedes-Benz models on the floor at Mercedes-Benz of Smithtown. Comment 1–5 and I'll message you the details.`,
@@ -126,6 +132,7 @@ const POSTS = {
     fb: `Know your grille 👀 Four Mercedes-Benz faces on the floor right now. Which one's your favorite? Comment 1–4.`,
   },
   'reel-which-amg': {
+    ttTitle: 'Which AMG are you? 🏁',
     files: ['vol2/reels/05-which-amg-are-you.mp4'], alt: 'Four Mercedes-AMG models',
     ig: `Which AMG are you? 🏁 1. AMG GT 4-Door Coupé 2. AMG E-Class 3. AMG GLE 4. AMG GLC Coupé. Comment your number — I'll send specs and availability.\n\n${TAGS.amg} #AMGGT #AMGGLE #PinkBowOctober ${TAGS.store}`,
     fb: `Which Mercedes-AMG are you? 🏁 Comment 1–4 and I'll message you specs and availability — all on the floor now in St. James.`,
@@ -142,6 +149,7 @@ const POSTS = {
     fb: `The all-new Mercedes-Benz CLA is here ✨ Message me "CLA" and I'll set up a time for you to see it in person.`,
   },
   'reel-this-or-that-suv': {
+    ttTitle: 'This or that: Mercedes-Benz SUV edition',
     files: ['vol2/reels/06-this-or-that-suv.mp4'], alt: 'Mercedes-Benz SUVs this-or-that: GLS, GLB, GLE, AMG GLE',
     ig: `This or that: Mercedes-Benz SUV edition 🎀 Round 1: GLS or GLB? Round 2: GLE or AMG GLE? Drop your picks below 👇\n\n#GLS #GLE #GLB #AMGGLE #LuxurySUV #ThisOrThat ${TAGS.store}`,
     fb: `This or that — Mercedes-Benz SUV edition 🎀 GLS or GLB? GLE or AMG GLE? Comment your picks and I'll message you details on both.`,
@@ -159,6 +167,7 @@ const POSTS = {
     fb: `Sedan or SUV — CLA or GLE? Comment your pick 👇 Pink bows on both this month 🎀`,
   },
   'reel-cabriolet-interior': {
+    ttTitle: 'CLE Cabriolet: top down + cognac leather',
     files: ['vol2/reels/07-cabriolet-interior-check.mp4'], alt: 'Mercedes-Benz CLE Cabriolet exterior and cognac leather interior',
     ig: `Top-down check ✅ Cognac leather check ✅ CLE Cabriolet at Mercedes-Benz of Smithtown. DM "CABRIO" and I'll have it pulled up front this week.\n\n#CLECabriolet #Convertible ${TAGS.store}`,
     fb: `Mercedes-Benz CLE Cabriolet — top down, cognac leather, ready for a Long Island fall drive 🍂 Message me "CABRIO" to book a test drive.`,
@@ -182,7 +191,8 @@ const CALENDAR = [
   ['2026-10-16', '12:00', 'book-the-screening'],
   ['2026-10-17', '10:00', 'reel-which-amg'],
   ['2026-10-18', '12:00', 'cle-coupe-or-cabriolet'],
-  ['2026-10-19', '19:00', 'reel-top-down'],
+  // reel-top-down opens on a staff member, so the person-free cabriolet reel takes its slot.
+  ['2026-10-19', '19:00', 'reel-cabriolet-interior'],
   ['2026-10-20', '12:00', 'early-detection'],
   ['2026-10-21', '19:00', 'this-or-that-gls-glb'],
   ['2026-10-22', '19:00', 'reel-pick-your-bow'],
@@ -192,7 +202,6 @@ const CALENDAR = [
   ['2026-10-25', '12:00', 'meet-the-new-cla'],
   ['2026-10-26', '19:00', 'carousel-lease-ending'],
   ['2026-10-27', '12:00', 'matte-amg-e-class'],
-  ['2026-10-27', '19:00', 'reel-cabriolet-interior'],
   ['2026-10-28', '19:00', 'this-or-that-cla-gle'],
   ['2026-10-29', '12:00', 'amg-black-white-pink'],
   ['2026-10-30', '19:00', 'wrapped-for-a-reason'],
@@ -230,6 +239,11 @@ for (const [date, time, id] of CALENDAR) {
   }
 }
 if (missing.length) throw new Error(`Missing media — run the build scripts first:\n  ${missing.join('\n  ')}`);
+
+// Same calendar as JSON, for scheduling through the Metricool API instead of CSV.
+const plan = CALENDAR.map(([date, time, id]) => ({ date, time, id, media: POSTS[id].files.map(f => `${RAW}/${f}`), alt: POSTS[id].alt,
+  ig: POSTS[id].ig, tt: POSTS[id].tt, ttTitle: POSTS[id].ttTitle, video: POSTS[id].files[0].endsWith('.mp4') }));
+fs.writeFileSync(path.join(OUT_DIR, 'metricool-plan.json'), JSON.stringify(plan, null, 2));
 
 const unscheduled = Object.keys(POSTS).filter(id => !CALENDAR.some(([, , c]) => c === id));
 if (unscheduled.length) console.warn(`⚠ Not on the calendar: ${unscheduled.join(', ')}`);
