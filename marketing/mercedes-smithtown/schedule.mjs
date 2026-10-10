@@ -4,6 +4,7 @@
  * (volumes 1 and 2) across Instagram (@mk_parrish), Facebook (MK Parrish) and
  * TikTok (@mk_parrish).
  *
+ * Images are JPEGs (Instagram's and TikTok's publishing APIs reject PNG).
  * Media is referenced by its raw.githubusercontent.com URL on main, the same
  * way scripts/build-metricool-csv.mjs does it, so the kit has to be merged to
  * main before importing. Each network gets its own row so captions and calls
@@ -42,7 +43,7 @@ const TAGS = {
 // ig / fb / tt: caption per network; a missing network isn't posted there.
 const POSTS = {
   'think-pink': {
-    files: ['feed/01-think-pink.png'], alt: 'White Mercedes-AMG GT 4-Door Coupé with a pink bow in the showroom',
+    files: ['feed/01-think-pink.jpg'], alt: 'White Mercedes-AMG GT 4-Door Coupé with a pink bow in the showroom',
     ig: `Every Mercedes-Benz on our floor wears a pink bow this October 🎀\n\nIt's Breast Cancer Awareness Month at Mercedes-Benz of Smithtown. These bows are for every fighter, every survivor, and everyone we carry with us.\n\n👉 Tag a survivor who deserves to see this, and share to your story to spread the pink.\n\n${TAGS.cause} #AMGGT ${TAGS.store}`,
     fb: `Pink bows on every Mercedes-Benz this October 🎀 This one's for every fighter, every survivor, and everyone we've lost. Tag someone who wears pink for a reason, and share this to remind a friend to book a screening.\n\n#PinkBowOctober #BreastCancerAwarenessMonth #MercedesBenz`,
   },
@@ -53,23 +54,23 @@ const POSTS = {
     tt: `Walk it with me 🖤 Matte black Mercedes-AMG GLC Coupé at Mercedes-Benz of Smithtown. Comment "MATTE" and I'll send you the details.\n\n${TAGS.amg} #MatteBlack #CarTok #LongIsland #PinkBowOctober`,
   },
   'hi-im-mk': {
-    files: ['feed/03-hi-im-mk.png'], alt: 'Black-and-white portrait of MK, Mercedes-Benz specialist',
+    files: ['feed/03-hi-im-mk.jpg'], alt: 'Black-and-white portrait of MK, Mercedes-Benz specialist',
     ig: `Hi, I'm MK 👋 Your Mercedes-Benz specialist at Mercedes-Benz of Smithtown, part of Competition Automotive Group.\n\nNew & Certified Pre-Owned, AMG, SUVs, coupés and cabriolets — plus lease-end and trade-in questions.\n\n👉 Follow @mk_parrish for new arrivals and DM me anytime.\n\n${TAGS.store} #StJamesNY #SuffolkCounty #CarSales`,
     fb: `Hi, I'm MK! I sell Mercedes-Benz at Mercedes-Benz of Smithtown (630 Middle Country Rd, St. James). Shopping, leasing, or just curious what your trade is worth? Message me or come in and ask for MK.`,
   },
   'carousel-pick-your-bow': {
-    files: ['carousel/00-cover.png', 'carousel/01-slide.png', 'carousel/02-slide.png', 'carousel/03-slide.png', 'carousel/04-slide.png', 'carousel/05-slide.png', 'carousel/06-end.png'],
+    files: ['carousel/00-cover.jpg', 'carousel/01-slide.jpg', 'carousel/02-slide.jpg', 'carousel/03-slide.jpg', 'carousel/04-slide.jpg', 'carousel/05-slide.jpg', 'carousel/06-end.jpg'],
     alt: 'Five Mercedes-Benz models with pink bows: CLA, AMG E-Class, AMG GLE, AMG GT 4-Door, GLB',
     ig: `Five Mercedes-Benz models, five pink bows 🎀 Which one's going home with you?\n\n1️⃣ The all-new CLA\n2️⃣ AMG E-Class in matte white\n3️⃣ Mercedes-AMG GLE\n4️⃣ AMG GT 4-Door Coupé\n5️⃣ Mercedes-Benz GLB\n\n👉 Comment your number and I'll DM you trim, color and payment options. And every pink bow is a reminder: book your screening.\n\n#PinkBowOctober ${TAGS.amg} #CLA #GLE #GLB ${TAGS.store}`,
     fb: `Pick your bow 🎀 Five Mercedes-Benz models on the floor right now at Mercedes-Benz of Smithtown. Comment 1–5 and I'll message you the details.`,
   },
   'book-the-screening': {
-    files: ['feed/02-book-the-screening.png'], alt: 'Black Mercedes-Benz GLE with a pink bow above a pink panel reading Book the screening',
+    files: ['feed/02-book-the-screening.jpg'], alt: 'Black Mercedes-Benz GLE with a pink bow above a pink panel reading Book the screening',
     ig: `Reminder from the showroom floor: book the screening. Then book the test drive. In that order 🎀\n\nEarly detection saves lives — ask your doctor what screening is right for you.\n\n👉 Already booked? DM me "PINK" and I'll set up a test drive in any pink-bow Mercedes-Benz on the floor.\n\n${TAGS.cause} #GLE ${TAGS.store}`,
     fb: `Book the screening, then book the test drive 🎀 Early detection saves lives. If you've been putting it off, this is your sign. When you're ready, send me a message and I'll line up a GLE (or anything with a pink bow) for you.`,
   },
   'cle-coupe-or-cabriolet': {
-    files: ['feed/04-cle-coupe-or-cabriolet.png'], alt: 'Black Mercedes-Benz CLE Coupé and CLE Cabriolet side by side with pink bows',
+    files: ['feed/04-cle-coupe-or-cabriolet.jpg'], alt: 'Black Mercedes-Benz CLE Coupé and CLE Cabriolet side by side with pink bows',
     ig: `CLE Coupé or CLE Cabriolet? 🖤🖤 Same face, two pink bows, two very different weekends.\n\n👉 Comment COUPÉ or CABRIO — I'll DM the details to everyone who votes.\n\n#CLE #CLECoupe #CLECabriolet #PinkBowOctober ${TAGS.store}`,
     fb: `Settle this for me: CLE Coupé or CLE Cabriolet? 🖤 Comment your pick 👇 Want to sit in both? Message me and I'll have the keys ready.`,
   },
@@ -80,17 +81,17 @@ const POSTS = {
     tt: `Top-down season isn't over 🍂 CLE Cabriolet in black with cognac leather. DM "CABRIO" and I'll have it pulled up front.\n\n#MercedesBenz #CLE #Cabriolet #CarTok #LongIsland #Smithtown`,
   },
   'gls-room-for-everyone': {
-    files: ['feed/05-gls-room-for-everyone.png'], alt: 'White Mercedes-Benz GLS with a pink bow',
+    files: ['feed/05-gls-room-for-everyone.jpg'], alt: 'White Mercedes-Benz GLS with a pink bow',
     ig: `Seven seats. One pink bow 🎀 For the moms, sisters and best friends who carry everyone.\n\nThe GLS fits the whole crew — kids, carpool, the dog and the Costco run.\n\n👉 DM me "GLS" to book a test drive this week.\n\n#GLS #LuxurySUV #PinkBowOctober #BreastCancerAwarenessMonth ${TAGS.store}`,
     fb: `The Mercedes-Benz GLS — room for everyone 🎀 Wearing pink this October for the women who hold it all together. Message me "GLS" and I'll book your test drive.`,
   },
   'amg-black-white-pink': {
-    files: ['feed/06-amg-black-white-pink.png'], alt: 'Gloss black Mercedes-AMG GLE with a pink bow',
+    files: ['feed/06-amg-black-white-pink.jpg'], alt: 'Gloss black Mercedes-AMG GLE with a pink bow',
     ig: `The only palette I trust 🖤🤍🎀\n\nMercedes-AMG GLE — Panamericana grille, gloss black paint, and a pink bow that means something this month.\n\n👉 DM me "AMG" for specs and availability.\n\n${TAGS.amg} #GLE #AMGGLE #PinkBowOctober ${TAGS.store}`,
     fb: `Black. White. Pink. 🖤🤍🎀 Mercedes-AMG GLE, on the floor now at Mercedes-Benz of Smithtown. Message me "AMG" for details.`,
   },
   'find-me-in-smithtown': {
-    files: ['feed/07-find-me-in-smithtown.png'], alt: 'Black Mercedes-Benz GLE parked under trees outside Mercedes-Benz of Smithtown',
+    files: ['feed/07-find-me-in-smithtown.jpg'], alt: 'Black Mercedes-Benz GLE parked under trees outside Mercedes-Benz of Smithtown',
     ig: `Fall drives hit different in a Mercedes-Benz 🍂\n\nFind me at Mercedes-Benz of Smithtown — 630 Middle Country Rd, St. James.\n\n👉 Come in and ask for MK, test drives all week. DM @mk_parrish to lock in a time.\n\n#GLE #StJamesNY #SuffolkCounty #PinkBowOctober ${TAGS.store}`,
     fb: `Find me at Mercedes-Benz of Smithtown, 630 Middle Country Rd, St. James 🍂 Ask for MK when you come in, or message me to book a time. Pink bows on every car all October 🎀`,
   },
@@ -103,12 +104,12 @@ const POSTS = {
     tt: `Every bow on our floor is pink this October 🎀 For every fighter. Every survivor. And everyone we carry with us. Book the screening 💗\n\n#BreastCancerAwarenessMonth #PinkBowOctober #ThinkPink #MercedesBenz #CarTok`,
   },
   'early-detection': {
-    files: ['vol2/feed/10-early-detection.png'], alt: 'Pink graphic reading Early detection saves lives',
+    files: ['vol2/feed/10-early-detection.jpg'], alt: 'Pink graphic reading Early detection saves lives',
     ig: `Early detection saves lives 🎀\n\nEvery pink bow on our floor this month is a reminder. Book the screening — for you, your mom, your sister, your best friend. Talk to your doctor about what's right for you.\n\n👉 Share this to your story. Someone needs the nudge.\n\n${TAGS.cause} #MBofSmithtown`,
     fb: `Early detection saves lives 🎀 Every pink bow on our floor this month is a reminder to book the screening. Please share this — someone in your life needs the nudge.`,
   },
   'this-or-that-gls-glb': {
-    files: ['vol2/feed/08-this-or-that-suv.png'], alt: 'Mercedes-Benz GLS above a Mercedes-Benz GLB, both with pink bows',
+    files: ['vol2/feed/08-this-or-that-suv.jpg'], alt: 'Mercedes-Benz GLS above a Mercedes-Benz GLB, both with pink bows',
     ig: `Big family or easy parking? 🎀 GLS (seven seats) or GLB (compact)? Comment GLS or GLB 👇 I'll DM the details to everyone who votes.\n\n#GLS #GLB #LuxurySUV #ThisOrThat #PinkBowOctober ${TAGS.store}`,
     fb: `GLS or GLB? 🎀 Comment your pick 👇 Both are on the floor now at Mercedes-Benz of Smithtown.`,
   },
@@ -119,7 +120,7 @@ const POSTS = {
     tt: `Five Mercedes-Benz models, five pink bows 🎀 Which one's going home with you? Comment 1–5.\n\n#MercedesBenz #PinkBowOctober #CarTok #LongIsland #NewCarDay`,
   },
   'carousel-know-your-grille': {
-    files: ['vol2/carousel-grille/00-cover.png', 'vol2/carousel-grille/01-grille.png', 'vol2/carousel-grille/02-grille.png', 'vol2/carousel-grille/03-grille.png', 'vol2/carousel-grille/04-grille.png', 'vol2/carousel-grille/05-end.png'],
+    files: ['vol2/carousel-grille/00-cover.jpg', 'vol2/carousel-grille/01-grille.jpg', 'vol2/carousel-grille/02-grille.jpg', 'vol2/carousel-grille/03-grille.jpg', 'vol2/carousel-grille/04-grille.jpg', 'vol2/carousel-grille/05-end.jpg'],
     alt: 'Close-ups of four Mercedes-Benz grilles: CLA, AMG GLE, GLE, GLS',
     ig: `You can tell a Mercedes-Benz from the front. Can you tell which one? 👀\n\n1️⃣ Star pattern — the all-new CLA\n2️⃣ AMG Panamericana — AMG GLE\n3️⃣ Star grille + chrome — GLE\n4️⃣ Classic chrome bars — GLS\n\n👉 Comment your favorite and save this for your next car.\n\n${TAGS.amg} #Panamericana #CLA #GLE #GLS #PinkBowOctober ${TAGS.store}`,
     fb: `Know your grille 👀 Four Mercedes-Benz faces on the floor right now. Which one's your favorite? Comment 1–4.`,
@@ -131,12 +132,12 @@ const POSTS = {
     tt: `Which AMG are you? 🏁 1. AMG GT 4-Door 2. AMG E-Class 3. AMG GLE 4. AMG GLC Coupé. Comment your number.\n\n#MercedesAMG #AMG #CarTok #LongIslandCars #PinkBowOctober`,
   },
   'matte-amg-e-class': {
-    files: ['vol2/feed/11-matte-amg-e-class.png'], alt: 'Matte white Mercedes-AMG E-Class with a pink bow',
+    files: ['vol2/feed/11-matte-amg-e-class.jpg'], alt: 'Matte white Mercedes-AMG E-Class with a pink bow',
     ig: `Satin white. Pink bow. 🤍🎀 Mercedes-AMG E-Class in matte white — AMG grille, zero subtlety.\n\n👉 DM me "MATTE" for details.\n\n${TAGS.amg} #EClass #MatteWhite #PinkBowOctober ${TAGS.store}`,
     fb: `Mercedes-AMG E-Class in matte white 🤍🎀 On the floor now in St. James. Message me "MATTE" for details.`,
   },
   'meet-the-new-cla': {
-    files: ['vol2/feed/12-meet-the-new-cla.png'], alt: 'Silver all-new Mercedes-Benz CLA with a pink bow',
+    files: ['vol2/feed/12-meet-the-new-cla.jpg'], alt: 'Silver all-new Mercedes-Benz CLA with a pink bow',
     ig: `Meet the all-new CLA ✨ A grille full of three-pointed stars — and a pink bow on top 🎀\n\n👉 DM me "CLA" to see it in person this week.\n\n#CLA #NewCLA #PinkBowOctober ${TAGS.store}`,
     fb: `The all-new Mercedes-Benz CLA is here ✨ Message me "CLA" and I'll set up a time for you to see it in person.`,
   },
@@ -147,13 +148,13 @@ const POSTS = {
     tt: `This or that: Mercedes-Benz SUV edition 🎀 GLS or GLB? GLE or AMG GLE? Drop your picks 👇\n\n#MercedesBenz #LuxurySUV #CarTok #ThisOrThat #LongIsland`,
   },
   'carousel-lease-ending': {
-    files: ['vol2/carousel-lease/00-cover.png', 'vol2/carousel-lease/01-tip.png', 'vol2/carousel-lease/02-tip.png', 'vol2/carousel-lease/03-tip.png', 'vol2/carousel-lease/04-tip.png', 'vol2/carousel-lease/05-end.png'],
+    files: ['vol2/carousel-lease/00-cover.jpg', 'vol2/carousel-lease/01-tip.jpg', 'vol2/carousel-lease/02-tip.jpg', 'vol2/carousel-lease/03-tip.jpg', 'vol2/carousel-lease/04-tip.jpg', 'vol2/carousel-lease/05-end.jpg'],
     alt: 'Four tips for Mercedes-Benz drivers whose lease is ending',
     ig: `Lease ending in the next few months? Read this before you hand back the keys 🔑\n\n1. Check your miles\n2. Know your equity\n3. Start 90–120 days out\n4. Ask about current programs\n\n👉 DM me "LEASE" with your model and maturity month and I'll walk you through your options. No pressure.\n\n#LeaseEnd #CarLease #SuffolkCounty ${TAGS.store}`,
     fb: `Lease ending soon? 4 moves to make before you hand back the keys 🔑 Message me "LEASE" with your model and maturity month and I'll walk you through it.`,
   },
   'this-or-that-cla-gle': {
-    files: ['vol2/feed/09-this-or-that-sedan-suv.png'], alt: 'All-new Mercedes-Benz CLA above a black Mercedes-Benz GLE, both with pink bows',
+    files: ['vol2/feed/09-this-or-that-sedan-suv.jpg'], alt: 'All-new Mercedes-Benz CLA above a black Mercedes-Benz GLE, both with pink bows',
     ig: `Sedan or SUV? The all-new CLA or the GLE 🎀 Comment CLA or GLE and I'll send you the details.\n\n#CLA #GLE #ThisOrThat #PinkBowOctober ${TAGS.store}`,
     fb: `Sedan or SUV — CLA or GLE? Comment your pick 👇 Pink bows on both this month 🎀`,
   },
@@ -164,7 +165,7 @@ const POSTS = {
     tt: `Top-down check ✅ Cognac leather check ✅ CLE Cabriolet. DM "CABRIO" and I'll have it pulled up front.\n\n#MercedesBenz #CLECabriolet #Convertible #CarTok #LongIsland`,
   },
   'wrapped-for-a-reason': {
-    files: ['vol2/feed/13-wrapped-for-a-reason.png'], alt: 'Close-up of a pink bow on a black Mercedes-Benz GLE',
+    files: ['vol2/feed/13-wrapped-for-a-reason.jpg'], alt: 'Close-up of a pink bow on a black Mercedes-Benz GLE',
     ig: `Wrapped for a reason 🎀 This bow is for every fighter, every survivor, and everyone we carry with us.\n\n👉 Tag someone who wears pink for a reason.\n\n${TAGS.cause} #GLE ${TAGS.store}`,
     fb: `Wrapped for a reason 🎀 Every bow on our floor is pink this October — for every fighter and survivor. Tag someone who wears pink for a reason.`,
   },
