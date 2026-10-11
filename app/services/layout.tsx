@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "Services — MK Parrish",
     description:
       "Websites, positioning, outbound, and growth — done for you by one senior operator. Start with the $97 audit or book a call.",
-    url: "https://www.mkparrish.com/services",
+    url: "https://mkparrish.com/services",
     images: ["/og/services.png"],
   },
 };

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="Mercedes-Benz">
+  <defs>
+    <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#C6CCD0"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="84" fill="none" stroke="url(#chrome)" stroke-width="11"/>
+  <path d="M 91 100 L 100 22.5 L 109 100 Z M 104.5 107.79422863405995 L 32.88303120670601 138.75 L 95.5 92.20577136594005 Z M 104.5 92.20577136594005 L 167.11696879329398 138.75000000000003 L 95.5 107.79422863405995 Z" fill="url(#chrome)"/>
+</svg>

@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const SUBSTACK_PUB = "mkparrishthemargins";
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.mkparrish.com").replace(/\/+$/, "");
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://mkparrish.com").replace(/\/+$/, "");
 const CHECKLIST_PATH = "/downloads/positioning-checklist.pdf";
 const CHECKLIST_URL = `${SITE_URL}${CHECKLIST_PATH}`;
 const SAMPLE_PATH = "/downloads/ebooks/rebecoming-sample.pdf";
@@ -61,7 +61,8 @@ function isAllowedOrigin(req: NextRequest) {
   try {
     const originUrl = new URL(origin);
     const host = req.headers.get("x-forwarded-host") || req.headers.get("host");
-    const allowed = new Set(["https://www.mkparrish.com", "https://mkparrish.com", SITE_URL]);
+    // www stays allowed so the form keeps working once www.mkparrish.com resolves again.
+    const allowed = new Set(["https://mkparrish.com", "https://www.mkparrish.com", SITE_URL]);
     const vercelUrl = process.env.VERCEL_URL;
     if (vercelUrl) allowed.add(`https://${vercelUrl}`);
 
