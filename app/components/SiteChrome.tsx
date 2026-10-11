@@ -7,9 +7,10 @@ import { usePathname } from "next/navigation";
  * tool routes. `/desk` is a full-screen app with its own bottom tab bar; the
  * site's mobile nav overlaps it and the lead-capture modal covers it, so the
  * page is unusable on a phone with the chrome rendered. `/links` is the
- * Instagram/TikTok link-in-bio page and should open as a single clean card.
+ * Instagram/TikTok link-in-bio page and should open as a single clean card;
+ * `/test-drive` is the Mercedes-Benz booking page it links to.
  */
-const BARE_ROUTES = ["/desk", "/ideals", "/links"];
+const BARE_ROUTES = ["/desk", "/ideals", "/links", "/test-drive"];
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
