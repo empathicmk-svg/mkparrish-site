@@ -14,6 +14,7 @@ type LinkItem = { label: string; note: string; href: string };
 const IG_DM = "https://ig.me/m/mk_parrish";
 
 const mercedes: LinkItem[] = [
+  { label: "Book a test drive", note: "Pick the car and the time. I’ll have it ready.", href: "/test-drive" },
   { label: "DM me “PINK” for a test drive", note: "Pink Bow October — every car on the floor wears one", href: IG_DM },
   { label: "Shop the inventory", note: "Mercedes-Benz of Smithtown · Competition Automotive Group", href: "https://www.mbofsmithtown.com" },
   {
