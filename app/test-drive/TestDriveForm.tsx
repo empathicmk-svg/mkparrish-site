@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 
 // MK's Mercedes-Benz of Smithtown contact details: her work line takes the texts.
 const WORK = "+16313666417";
-const SHOWROOM = "631.265.2204";
+const WORK_DISPLAY = "631.366.6417";
+const CELL = "+13478534238";
+const CELL_DISPLAY = "347.853.4238";
 const EMAIL = "mparrish@mbofsmithtown.com";
 
 const INTERESTS = [
@@ -174,7 +176,9 @@ export default function TestDriveForm() {
       </div>
       <p className="font-body text-xs leading-6 text-ash">
         Both buttons open a message to me with your details filled in. Just hit send and I&apos;ll confirm your time. Rather
-        call? The showroom is <a href={`tel:+1${SHOWROOM.replace(/\D/g, "")}`} className="text-pearl underline underline-offset-4">{SHOWROOM}</a>.
+        call? My work line is{" "}
+        <a href={`tel:${WORK}`} className="text-pearl underline underline-offset-4">{WORK_DISPLAY}</a> and my cell is{" "}
+        <a href={`tel:${CELL}`} className="text-pearl underline underline-offset-4">{CELL_DISPLAY}</a>.
       </p>
     </form>
   );
