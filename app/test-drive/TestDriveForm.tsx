@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 
-// MK's contact details from her Mercedes-Benz of Smithtown business card.
-const MOBILE = "+13478534238";
+// MK's Mercedes-Benz of Smithtown contact details: her work line takes the texts.
+const WORK = "+16313666417";
 const SHOWROOM = "631.265.2204";
 const EMAIL = "mparrish@mbofsmithtown.com";
 
@@ -76,7 +76,7 @@ export default function TestDriveForm() {
     const body = encodeURIComponent(message());
     window.location.href =
       via === "sms"
-        ? `sms:${MOBILE}?&body=${body}`
+        ? `sms:${WORK}?&body=${body}`
         : `mailto:${EMAIL}?subject=${encodeURIComponent(`Test drive request: ${name}`)}&body=${body}`;
   };
 
