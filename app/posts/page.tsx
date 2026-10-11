@@ -7,7 +7,25 @@ export const metadata: Metadata = {
 
 // ─── Quote data ───────────────────────────────────────────────────────────────
 
-const quotes = [
+type QuoteLayout = "bold" | "pullquote" | "standard" | "minimal" | "bold-line" | "split" | "verse";
+type BaseQuote = {
+  id: number;
+  quote: string;
+  author: string;
+  work: string;
+  category: string;
+};
+type SplitQuote = BaseQuote & {
+  layout: "split";
+  top: string;
+  bottom: string;
+};
+type RegularQuote = BaseQuote & {
+  layout: Exclude<QuoteLayout, "split">;
+};
+type Quote = SplitQuote | RegularQuote;
+
+const quotes: Quote[] = [
   {
     id: 1,
     quote: "You are not accidental. The world could not have happened without you.",
@@ -625,7 +643,7 @@ function QuoteCardVerse({ quote, author, work, category }: { quote: string; auth
   );
 }
 
-function renderCard(q: (typeof quotes)[number]) {
+function renderCard(q: Quote) {
   switch (q.layout) {
     case "pullquote":
       return <QuoteCardPullquote quote={q.quote} author={q.author} work={q.work} category={q.category} />;
@@ -634,7 +652,7 @@ function renderCard(q: (typeof quotes)[number]) {
     case "minimal":
       return <QuoteCardMinimal quote={q.quote} author={q.author} work={q.work} category={q.category} />;
     case "split":
-      return <QuoteCardSplit top={(q as any).top} bottom={(q as any).bottom} author={q.author} work={q.work} category={q.category} />;
+      return <QuoteCardSplit top={q.top} bottom={q.bottom} author={q.author} work={q.work} category={q.category} />;
     case "verse":
       return <QuoteCardVerse quote={q.quote} author={q.author} work={q.work} category={q.category} />;
     default:
@@ -708,7 +726,7 @@ export default function QuotesPage() {
         {/* Footer note */}
         <div className="mt-16 border-t border-graphite pt-8">
           <p className="font-body text-xs font-light leading-7 text-iron" style={{ maxWidth: "60ch" }}>
-            <span className="font-semibold text-ash">A living collection.</span> These words are returned to often — in client work, in essays, in the thinking that happens before the writing. If something here stays with you, that's the point.
+            <span className="font-semibold text-ash">A living collection.</span> These words are returned to often — in client work, in essays, in the thinking that happens before the writing. If something here stays with you, that&apos;s the point.
           </p>
         </div>
 

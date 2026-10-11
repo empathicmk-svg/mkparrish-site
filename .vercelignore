@@ -1,0 +1,10 @@
+output/
+tmp/
+drafts/
+
+.next/
+node_modules/
+tsconfig.tsbuildinfo
+
+*.log
+.DS_Store

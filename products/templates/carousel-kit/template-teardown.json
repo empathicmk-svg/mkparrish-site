@@ -1,0 +1,56 @@
+{
+  "slug": "my-teardown",
+  "brand": "YOUR NAME",
+  "signature": "/in/yourhandle ♡",
+  "slides": [
+    {
+      "type": "cover",
+      "eyebrow": "Teardown",
+      "title": ["Rewrite the", "thing they ignore"],
+      "body": "One line in your copy is quietly costing you. Here are three weak versions and the rewrite for each. Steal them."
+    },
+    {
+      "type": "statement",
+      "eyebrow": "The problem",
+      "title": ["It isn't broken.", "It's {{vague.}}"],
+      "body": "People rarely reject you. They fail to understand you fast enough, then they leave. **Vague copy reads as a vague offer.** Three lines doing the damage, below."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Teardown 01",
+      "before": "Put the weak, generic version here.",
+      "after": ["Put your sharp, specific", "rewrite here."],
+      "takeaway": "Name the rule this proves."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Teardown 02",
+      "before": "Second weak version.",
+      "after": ["Second strong", "rewrite."],
+      "takeaway": "One line. The lesson, not the recap."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Teardown 03",
+      "before": "Third weak version.",
+      "after": ["Third strong", "rewrite."],
+      "takeaway": "Proof beats adjectives. Every time."
+    },
+    {
+      "type": "statement",
+      "eyebrow": "The principle",
+      "title": ["Say what you do.", "Say who breaks without it.", "Say it like a human."],
+      "size": "small",
+      "body": "Do that and your copy stops sounding like everyone else's. Same offer. Completely different signal."
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Your move",
+      "title": ["Find your weak line."],
+      "body": "Tell readers exactly what to do next. One action only — a free resource, a checklist, a DM, a booked call.",
+      "cta": "Get the checklist →",
+      "url": "yoursite.com",
+      "footer": "VISIT →"
+    }
+  ]
+}
