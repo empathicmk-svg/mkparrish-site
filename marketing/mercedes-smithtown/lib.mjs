@@ -82,10 +82,12 @@ const BASE_CSS = `
   .sig .handle { color: ${PETAL}; font-size: 24px; letter-spacing: .06em; text-transform: none; }
 `;
 
-const topbar = (top = 56) => `
+// The pill in the top-right corner. Volume 3 swaps it for its own topic tags.
+const PINK_TAG = `${ribbon(24)}Pink Bow October`;
+const topbar = (top = 56, tag = PINK_TAG) => `
   <div class="topbar" style="top:${top}px">
     <span style="text-shadow:0 1px 8px rgba(0,0,0,.6)">${STORE}</span>
-    <span class="pill">${ribbon(24)}Pink Bow October</span>
+    <span class="pill">${tag}</span>
   </div>`;
 
 const sig = bottom => `
@@ -97,13 +99,17 @@ const cta = (big, small = '') => `<div class="cta">${big}${small ? `<span>${smal
 
 // ── Templates ──────────────────────────────────────────────────────────────────
 
+/** Photo layer that can zoom into a detail: (ox, oy) is the focus point in %. */
+const photo = ({ photo: name, pos = 'center', zoom = 1, ox = 50, oy = 50, style = '' }) =>
+  `<img class="photo" src="${img(name)}" style="object-position:${pos};transform:scale(${zoom});transform-origin:${ox}% ${oy}%;${style}">`;
+
 /** Full-bleed photo, dark fade at the bottom, model + copy + CTA over it. */
-function hero({ w = 1080, h = 1350, photo, pos = 'center', model, head, headSize = 140, sub, action, sigBottom = 56, textBottom = 120, top = 56 }) {
+function hero({ w = 1080, h = 1350, photo: name, pos = 'center', model, head, headSize = 140, sub, action, sigBottom = 56, textBottom = 120, top = 56, tag }) {
   return `<div class="frame" style="width:${w}px;height:${h}px">
-    <img class="photo" src="${img(photo)}" style="object-position:${pos}">
+    ${photo({ photo: name, pos })}
     <div class="vignette"></div>
     <div class="shade" style="background:linear-gradient(180deg, rgba(8,8,8,.5) 0%, rgba(8,8,8,0) 16%, rgba(8,8,8,0) 42%, rgba(8,8,8,.86) 68%, rgba(8,8,8,.97) 100%)"></div>
-    ${topbar(top)}
+    ${topbar(top, tag)}
     <div style="position:absolute;left:72px;right:72px;bottom:${textBottom}px;display:flex;flex-direction:column;gap:22px">
       <div class="kicker">${model}</div>
       <div class="head" style="font-size:${headSize}px">${head}</div>
@@ -172,10 +178,10 @@ function slide({ photo, pos = 'center', zoom = 1, n, of, label, note }) {
 }
 
 /** Solid black end card / CTA. */
-function endCard({ w = 1080, h = 1350, kicker, head, sub, action, padY = 150, sigBottom = 56 }) {
+function endCard({ w = 1080, h = 1350, kicker, head, sub, action, padY = 150, sigBottom = 56, mark = ribbon(150) }) {
   return `<div class="frame" style="width:${w}px;height:${h}px;background:radial-gradient(ellipse at 50% 38%, #24161c 0%, ${VOID} 62%)">
     <div style="position:absolute;inset:${padY}px 72px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:32px">
-      ${ribbon(150)}
+      ${mark}
       <div class="kicker">${kicker}</div>
       <div class="head" style="font-size:146px">${head}</div>
       <div class="rule"></div>
@@ -222,13 +228,60 @@ async function render(page, html, w, h, file, transparent = false) {
   console.log('  ✓', path.relative(ROOT, file));
 }
 
+// ── Reels ──────────────────────────────────────────────────────────────────────
+// Each scene is a photo card (slow push-in), a clip segment with an overlay, or
+// a still card. Segments are cross-faded into one 1080×1920 reel.
+const XFADE = 0.35;
+const enc = ['-c:v', 'libx264', '-crf', '23', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30'];
+
+/** Turn one scene into a 1080×1920 mp4 segment. */
+async function scene(page, s, file) {
+  const png = file.replace(/\.mp4$/, '.png');
+  if (s.clip) {
+    await render(page, s.html, 1080, 1920, png, true);
+    execFileSync('ffmpeg', ['-v', 'error', '-y', '-ss', String(s.start), '-t', String(s.dur), '-i', path.join(MEDIA, s.clip), '-i', png,
+      '-filter_complex', '[0:v]eq=contrast=1.07:saturation=1.15:brightness=0.01,unsharp=5:5:0.6[g];[g][1:v]overlay,setsar=1[v]',
+      '-map', '[v]', '-an', ...enc, file]);
+    return;
+  }
+  await render(page, s.html, 1080, 1920, png);
+  const frames = Math.round(s.dur * 30);
+  // Upscale before zoompan so the slow push-in doesn't jitter.
+  const motion = s.still
+    ? 'scale=1080:1920'
+    : `scale=2160:3840,zoompan=z='1+0.07*on/${frames}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30`;
+  execFileSync('ffmpeg', ['-v', 'error', '-y', '-loop', '1', '-framerate', '30', '-t', String(s.dur), '-i', png,
+    '-vf', `${motion},setsar=1`, '-frames:v', String(frames), ...enc, file]);
+}
+
+/** Render a reel's scenes and cross-fade them into outDir/<name>.mp4. */
+async function buildReel(page, r, outDir) {
+  const segs = [];
+  for (const [i, s] of r.scenes.entries()) {
+    const seg = path.join(work, `${r.name}-${i}.mp4`);
+    await scene(page, s, seg);
+    segs.push(seg);
+  }
+  let chain = '', prev = '[0:v]', offset = 0;
+  r.scenes.slice(0, -1).forEach((s, i) => {
+    offset += s.dur - XFADE;
+    const out = i === r.scenes.length - 2 ? '[v]' : `[x${i}]`;
+    chain += `${prev}[${i + 1}:v]xfade=transition=fade:duration=${XFADE}:offset=${offset.toFixed(3)}${out};`;
+    prev = out;
+  });
+  const out = path.join(outDir, `${r.name}.mp4`);
+  execFileSync('ffmpeg', ['-v', 'error', '-y', ...segs.flatMap(s => ['-i', s]),
+    '-filter_complex', chain.slice(0, -1), '-map', '[v]', ...enc, '-movflags', '+faststart', out]);
+  console.log('  ✓', path.relative(ROOT, out));
+}
+
 const dir = d => { const p = path.join(OUT, d); fs.rmSync(p, { recursive: true, force: true }); fs.mkdirSync(p, { recursive: true }); return p; };
 
 const cleanup = () => fs.rmSync(work, { recursive: true, force: true });
 
 export {
   ROOT, MEDIA, OUT, VOID, PEARL, SMOKE, PETAL, HANDLE, STORE, GROUP, work,
-  enhance, dataUri, img, ribbon, BASE_CSS, topbar, sig, cta,
-  hero, pinkPanel, intro, slide, endCard, tiktokOverlay, tiktokTag,
-  render, dir, cleanup,
+  enhance, dataUri, img, ribbon, BASE_CSS, PINK_TAG, topbar, sig, cta,
+  photo, hero, pinkPanel, intro, slide, endCard, tiktokOverlay, tiktokTag,
+  render, buildReel, dir, cleanup,
 };

@@ -10,18 +10,13 @@
  * Run:    node marketing/mercedes-smithtown/build-vol2.mjs
  */
 import { chromium } from 'playwright';
-import { execFileSync } from 'child_process';
 import path from 'path';
 import {
-  ROOT, MEDIA, VOID, PEARL, SMOKE, PETAL, HANDLE, STORE, work,
-  img, ribbon, topbar, sig, cta, hero, endCard, render, dir, cleanup,
+  VOID, PEARL, SMOKE, PETAL, HANDLE, STORE,
+  ribbon, topbar, sig, cta, photo, hero, endCard, render, buildReel, dir, cleanup,
 } from './lib.mjs';
 
 // ── Templates ──────────────────────────────────────────────────────────────────
-
-/** Photo layer that can zoom into a detail: (ox, oy) is the focus point in %. */
-const photo = ({ photo: name, pos = 'center', zoom = 1, ox = 50, oy = 50, style = '' }) =>
-  `<img class="photo" src="${img(name)}" style="object-position:${pos};transform:scale(${zoom});transform-origin:${ox}% ${oy}%;${style}">`;
 
 /** Two photos stacked with an OR pill between them. */
 function thisOrThat({ w = 1080, h = 1350, top, bottom, kicker, head, action }) {
@@ -344,29 +339,6 @@ const REELS = [
 ];
 
 // ── Render ─────────────────────────────────────────────────────────────────────
-const XFADE = 0.35;
-const enc = ['-c:v', 'libx264', '-crf', '23', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30'];
-
-/** Turn one scene into a 1080×1920 mp4 segment. */
-async function scene(page, s, file) {
-  const png = file.replace(/\.mp4$/, '.png');
-  if (s.clip) {
-    await render(page, s.html, 1080, 1920, png, true);
-    execFileSync('ffmpeg', ['-v', 'error', '-y', '-ss', String(s.start), '-t', String(s.dur), '-i', path.join(MEDIA, s.clip), '-i', png,
-      '-filter_complex', '[0:v]eq=contrast=1.07:saturation=1.15:brightness=0.01,unsharp=5:5:0.6[g];[g][1:v]overlay,setsar=1[v]',
-      '-map', '[v]', '-an', ...enc, file]);
-    return;
-  }
-  await render(page, s.html, 1080, 1920, png);
-  const frames = Math.round(s.dur * 30);
-  // Upscale before zoompan so the slow push-in doesn't jitter.
-  const motion = s.still
-    ? 'scale=1080:1920'
-    : `scale=2160:3840,zoompan=z='1+0.07*on/${frames}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30`;
-  execFileSync('ffmpeg', ['-v', 'error', '-y', '-loop', '1', '-framerate', '30', '-t', String(s.dur), '-i', png,
-    '-vf', `${motion},setsar=1`, '-frames:v', String(frames), ...enc, file]);
-}
-
 const browser = await chromium.launch();
 const page = await browser.newPage();
 
@@ -377,26 +349,7 @@ for (const [name, html] of CAROUSEL_GRILLE) await render(page, html, 1080, 1350,
 for (const [name, html] of CAROUSEL_LEASE) await render(page, html, 1080, 1350, path.join(leaseDir, `${name}.png`));
 for (const [name, html] of STORIES) await render(page, html, 1080, 1920, path.join(storiesDir, `${name}.png`));
 
-for (const r of REELS) {
-  const segs = [];
-  for (const [i, s] of r.scenes.entries()) {
-    const seg = path.join(work, `${r.name}-${i}.mp4`);
-    await scene(page, s, seg);
-    segs.push(seg);
-  }
-  // Cross-fade the segments into one reel.
-  let chain = '', prev = '[0:v]', offset = 0;
-  r.scenes.slice(0, -1).forEach((s, i) => {
-    offset += s.dur - XFADE;
-    const out = i === r.scenes.length - 2 ? '[v]' : `[x${i}]`;
-    chain += `${prev}[${i + 1}:v]xfade=transition=fade:duration=${XFADE}:offset=${offset.toFixed(3)}${out};`;
-    prev = out;
-  });
-  const out = path.join(reelsDir, `${r.name}.mp4`);
-  execFileSync('ffmpeg', ['-v', 'error', '-y', ...segs.flatMap(s => ['-i', s]),
-    '-filter_complex', chain.slice(0, -1), '-map', '[v]', ...enc, '-movflags', '+faststart', out]);
-  console.log('  ✓', path.relative(ROOT, out));
-}
+for (const r of REELS) await buildReel(page, r, reelsDir);
 
 await browser.close();
 cleanup();
