@@ -17,12 +17,12 @@ import {
   topbar, sig, cta, photo, hero, endCard, render, buildReel, dir, cleanup,
 } from './lib.mjs';
 
-// ── Contact (from MK's business card) ──────────────────────────────────────────
+// ── Contact (MK's work line and cell) ──────────────────────────────────────────────────
 const CARD = {
   name: 'Mary Kate Parrish',
   title: 'Sales & Leasing Consultant',
-  showroom: '631.265.2204',
-  mobile: '347.853.4238',
+  work: '631.366.6417',
+  cell: '347.853.4238',
   email: 'mparrish@mbofsmithtown.com',
   web: 'mbofsmithtown.com',
   address: '630 Middle Country Road · St. James, NY 11780',
@@ -118,7 +118,7 @@ function contactCard({ w = 1080, h = 1350 }) {
       <div class="head" style="font-size:150px">Mary Kate<br><em>Parrish.</em></div>
       <div class="sub" style="font-size:34px">${CARD.title} · ${STORE}</div>
       <div style="margin-top:auto">
-        ${row('Showroom', CARD.showroom)}${row('Mobile', CARD.mobile)}${row('Email', CARD.email)}
+        ${row('Work', CARD.work)}${row('Cell', CARD.cell)}${row('Email', CARD.email)}
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center">
         ${cta('Text me', 'or DM ' + HANDLE)}

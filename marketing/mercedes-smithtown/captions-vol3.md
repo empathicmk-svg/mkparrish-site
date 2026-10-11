@@ -21,9 +21,8 @@ Before posting, check these:
 - **Model names.** Check model names against the window stickers. The SUV in
   `10-interior-check` is captioned "Mercedes-Benz SUV" because the clip
   doesn't show which model it is.
-- **Phone numbers.** `21-save-my-number` and the story show your showroom
-  number, mobile number and email from your business card. Remove the mobile
-  from `CARD` in `build-vol3.mjs` if you'd rather keep it off public posts.
+- **Phone numbers.** `21-save-my-number` and the story show your work line
+  (631.366.6417), your cell (347.853.4238) and email.
 - **LIBI coupon.** `23-libi-coupon` is built but **not scheduled**. Confirm
   the store is happy to promote the $1,500 coupon publicly. Also note the
   printed expiry reads 11/31/2026, and November has 30 days.

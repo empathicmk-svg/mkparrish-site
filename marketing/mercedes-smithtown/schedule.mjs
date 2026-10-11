@@ -243,7 +243,7 @@ const POSTS = {
     ig: `Fresh face ✨\n\nStar-pattern grille, panoramic roof, and a cabin made for road trips. The Mercedes-Benz GLE.\n\n👉 DM me "GLE" and I'll set up your test drive.\n\n#GLE #MercedesSUV ${TAGS.store}`,
   },
   'save-my-number': {
-    files: ['vol3/feed/21-save-my-number.jpg'], alt: 'MK Parrish contact card: showroom, mobile and email at Mercedes-Benz of Smithtown',
+    files: ['vol3/feed/21-save-my-number.jpg'], alt: 'MK Parrish contact card: work line, cell and email at Mercedes-Benz of Smithtown',
     ig: `Save my number 📲\n\nWhether it's a new Mercedes-Benz, a Sprinter for your business, a custom 2027 order or a lease that's ending, text me or DM me. I'm here to make it easy.\n\nMary Kate Parrish, Sales & Leasing Consultant\nMercedes-Benz of Smithtown · 630 Middle Country Rd, St. James\n\n${TAGS.store}`,
   },
   'showroom-fit-check': {

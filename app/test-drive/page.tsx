@@ -80,7 +80,8 @@ export default function TestDrivePage() {
             630 Middle Country Road, St. James, NY 11780
           </a>
           <br />
-          Showroom <a href="tel:+16312652204" className="text-pearl hover:text-petal">631.265.2204</a> ·{" "}
+          Work <a href="tel:+16313666417" className="text-pearl hover:text-petal">631.366.6417</a> · Cell{" "}
+          <a href="tel:+13478534238" className="text-pearl hover:text-petal">347.853.4238</a> ·{" "}
           <a href="https://www.instagram.com/mk_parrish" target="_blank" rel="noopener noreferrer" className="text-petal">
             @mk_parrish
           </a>
