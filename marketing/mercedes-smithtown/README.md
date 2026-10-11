@@ -1,4 +1,4 @@
-# MK × Mercedes-Benz of Smithtown — Pink Bow October kit
+# MK × Mercedes-Benz of Smithtown social kit
 
 These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
 **Facebook MK Parrish**.
@@ -7,11 +7,13 @@ These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
 | --- | --- |
 | `build.mjs` | Volume 1: 7 feed posts, the Pick Your Bow carousel, 2 stories, 2 reels |
 | `build-vol2.mjs` | Volume 2: 6 feed posts, 2 carousels, 2 stories, 5 reels |
-| `schedule.mjs` | Metricool bulk-schedule CSVs for both volumes (Oct 12–31) |
+| `build-vol3.mjs` | Volume 3: fleet vans, custom 2027 orders, community and MK: 10 feed posts, 2 carousels, 1 story, 6 reels |
+| `build-gls-tiktok.mjs` | The GLS selfie-camera TikTok |
+| `schedule.mjs` | Metricool schedule for all three volumes (Oct 12 – Nov 6) |
 
 `lib.mjs` holds the shared brand, photo retouch and templates. Source photos
-and clips live in `media/`. Captions are in `captions.md` and
-`captions-vol2.md`.
+and clips live in `media/`. Captions are in `captions.md`,
+`captions-vol2.md`, `captions-vol3.md` and `schedule.mjs`.
 
 ## Automating the posting with Metricool
 

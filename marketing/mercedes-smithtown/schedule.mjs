@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Builds a Metricool bulk-scheduling CSV for the Pink Bow October kit
- * (volumes 1 and 2) across Instagram (@mk_parrish), Facebook (MK Parrish) and
+ * Builds a Metricool bulk-scheduling CSV for the Mercedes-Benz of Smithtown kit
+ * (Pink Bow October volumes 1 and 2, then volume 3) across Instagram (@mk_parrish), Facebook (MK Parrish) and
  * TikTok (@mk_parrish).
  *
  * Images are JPEGs (Instagram's and TikTok's publishing APIs reject PNG).
@@ -37,6 +37,8 @@ const TAGS = {
   cause: '#PinkBowOctober #BreastCancerAwarenessMonth #ThinkPink #EarlyDetectionSavesLives',
   store: '#MercedesBenz #MBofSmithtown #CompetitionAutoGroup #Smithtown #LongIsland',
   amg: '#MercedesAMG #AMG',
+  fleet: '#MercedesBenzVans #Sprinter #SprinterVan #FleetSales #CommercialVans #SmallBusiness #LongIslandBusiness',
+  local: '#ShopLocal #SupportLocal #LongIslandLiving #SuffolkCounty',
 };
 
 // ── Posts ──────────────────────────────────────────────────────────────────────
@@ -178,6 +180,94 @@ const POSTS = {
     ig: `Wrapped for a reason 🎀 This bow is for every fighter, every survivor, and everyone we carry with us.\n\n👉 Tag someone who wears pink for a reason.\n\n${TAGS.cause} #GLE ${TAGS.store}`,
     fb: `Wrapped for a reason 🎀 Every bow on our floor is pink this October — for every fighter and survivor. Tag someone who wears pink for a reason.`,
   },
+
+  // ── Volume 3: fleet, custom 2027 orders, community, MK ──────────────────────
+  'fleet-sprinter': {
+    files: ['vol3/feed/14-fleet-sprinter.jpg'], alt: 'Your business. Our Sprinter. Fleet and commercial vans from MK at Mercedes-Benz of Smithtown',
+    ig: `Your business. Our Sprinter. 🚐\n\nCargo, crew and passenger vans for Long Island businesses, with fleet specials when you're ready to grow. One van or a whole fleet, I'll make it easy.\n\n👉 DM me "FLEET" with your business and what you haul, and I'll send you this month's fleet offers.\n\n${TAGS.fleet} ${TAGS.store}`,
+  },
+  'carousel-built-for-business': {
+    files: ['00-cover', '01-van', '02-van', '03-van', '04-van', '05-end'].map(f => `vol3/carousel-fleet/${f}.jpg`),
+    alt: 'Mercedes-Benz Sprinter options: cargo van, crew van, passenger van and fleet specials',
+    ig: `Built for business 🚐 Swipe for three ways to put a Mercedes-Benz Sprinter to work:\n\n1️⃣ Cargo Van: tools, stock, ladders (ask me about upfits)\n2️⃣ Crew Van: your crew and their gear, in one van\n3️⃣ Passenger Van: shuttles, teams, tours\n4️⃣ Fleet specials: buying for a business? Ask what's running this month\n\n👉 Save this and DM me "FLEET".\n\n${TAGS.fleet} ${TAGS.store}`,
+    tt: `Built for business 🚐 Cargo, crew or passenger: which Sprinter does your business need? DM me "FLEET" for this month's fleet specials.\n\n#Sprinter #MercedesBenzVans #SmallBusiness #FleetSales #LongIsland`,
+    ttTitle: 'Which Sprinter does your business need? 🚐',
+  },
+  'reel-fleet-sprinter': {
+    ttTitle: 'Your next work van is a Sprinter 🚐',
+    files: ['vol3/reels/12-fleet-sprinter.mp4'], alt: 'Contractors, caterers, florists, plumbers: your next work van is a Mercedes-Benz Sprinter',
+    ig: `Contractors. Caterers. Florists. Plumbers. Your next work van is a Sprinter 🚐\n\nOne van or twenty, I'll match you with the right setup and this month's fleet specials. DM me "FLEET".\n\n${TAGS.fleet} ${TAGS.store}`,
+    tt: `If you run a business on Long Island, your next work van is a Sprinter 🚐 DM me "FLEET" for this month's fleet specials.\n\n#Sprinter #SmallBusiness #WorkVan #FleetSales #LongIsland #CarTok`,
+  },
+  'build-your-2027': {
+    files: ['vol3/feed/15-build-your-2027.jpg'], alt: 'Mercedes-AMG GLS 63 in the build configurator: build your 2027',
+    ig: `Don't settle for the lot ✨\n\nPick the paint, the leather, the wheels, the packages, and I'll place the factory order for your 2027 Mercedes-Benz. You'll get exactly the car you want.\n\n👉 DM me "BUILD" with the model you're dreaming about and I'll send you a build to start from.\n\n#CustomOrder #2027MercedesBenz #BuildYourOwn ${TAGS.amg} ${TAGS.store}`,
+  },
+  'carousel-build-your-2027': {
+    files: ['00-cover', '01-step', '02-step', '03-step', '04-step', '05-end'].map(f => `vol3/carousel-build/${f}.jpg`),
+    alt: 'How a custom Mercedes-Benz order works: spec it, order it, track it, drive it home',
+    ig: `How a custom order works ✨ Swipe →\n\n1️⃣ Spec it: paint, leather, wheels, packages\n2️⃣ I place the order and keep you posted on timing\n3️⃣ Track it, with updates from me until it arrives in St. James\n4️⃣ Drive it home, exactly how you specced it\n\n👉 Save this and DM me "BUILD".\n\n#CustomOrder #2027MercedesBenz #BuildYourOwn ${TAGS.store}`,
+    tt: `How to custom-order your 2027 Mercedes-Benz ✨ Spec it, order it, track it, drive it home. DM me "BUILD" and I'll start yours.\n\n#MercedesBenz #CustomOrder #CarTok #NewCarDay #LongIsland`,
+    ttTitle: 'How to custom-order your 2027 Mercedes ✨',
+  },
+  'reel-build-your-2027': {
+    ttTitle: "Don't settle for the lot. Build your 2027 ✨",
+    files: ['vol3/reels/11-build-your-2027.mp4'], alt: 'Pick the paint, the leather and the wheels: build your 2027 Mercedes-Benz',
+    ig: `Don't settle for the lot. Pick the paint, the leather, the wheels ✨ I'll place the factory order for your 2027 Mercedes-Benz and keep you posted the whole way.\n\nDM me "BUILD" 👇\n\n#CustomOrder #2027MercedesBenz ${TAGS.amg} ${TAGS.store}`,
+    tt: `Don't settle for the lot ✨ Build your 2027 Mercedes-Benz exactly how you want it. Comment or DM "BUILD" and I'll start yours.\n\n#MercedesBenz #GWagon #CustomOrder #CarTok #LongIsland`,
+  },
+  'g63-built-your-way': {
+    files: ['vol3/feed/16-g63-built-your-way.jpg'], alt: 'Matte black Mercedes-AMG G 63 in the Mercedes-Benz of Smithtown showroom under the AMG sign',
+    ig: `Matte paint. Black wheels. Black everything. 🖤\n\nThe Mercedes-AMG G 63, built your way. Custom-order yours and every detail is your call.\n\n👉 DM me "G" to spec yours.\n\n#GWagon #G63 #GClass #MatteBlack ${TAGS.amg} ${TAGS.store}`,
+  },
+  'proud-to-be-local': {
+    files: ['vol3/feed/17-proud-to-be-local.jpg'], alt: 'Mercedes-Benz of Smithtown GLE at a local street fair',
+    ig: `Proud to be local 🤍\n\nYou'll find us out in the neighborhood, not just on the showroom floor. Thank you to everyone who stopped by to say hi and check out the GLE.\n\n👉 Know an event we should be at? Tag them below.\n\n${TAGS.local} ${TAGS.store}`,
+  },
+  'libi-golf-outing': {
+    files: ['vol3/feed/18-libi-golf-outing.jpg'], alt: 'Competition Automotive Group tent and Mercedes-Benz of Smithtown table at the LIBI golf outing',
+    ig: `Proud to show up ⛳\n\nThank you to the Long Island Builders Institute for having Competition Automotive Group and Mercedes-Benz of Smithtown out on the course for the LIBI Annual Golf & Softball Outing.\n\nBuilders and contractors: your next work van is a Sprinter. DM me "FLEET" for work-van specials.\n\n#LIBI #LongIslandBuilders ${TAGS.local} #Sprinter ${TAGS.store}`,
+  },
+  'reel-community': {
+    ttTitle: 'Out in the community 🤍',
+    files: ['vol3/reels/13-out-in-the-community.mp4'], alt: 'Mercedes-Benz of Smithtown at a street fair and the LIBI golf outing',
+    ig: `Out in the community 🤍 From street fairs to the LIBI golf outing, we love showing up for Long Island. Tell me what's happening in your town; we'd love to be there.\n\n${TAGS.local} ${TAGS.store}`,
+    tt: `Out in the community with Mercedes-Benz of Smithtown 🤍 What event should we show up to next? Comment below.\n\n#ShopLocal #LongIsland #MercedesBenz #CarTok`,
+  },
+  'amg-gt-coupe': {
+    files: ['vol3/feed/19-amg-gt-coupe.jpg'], alt: 'White Mercedes-AMG GT Coupé on the lot at Mercedes-Benz of Smithtown',
+    ig: `Two doors. Zero apologies. 🤍\n\nThe Mercedes-AMG GT Coupé is on the lot in St. James. Come hear it start.\n\n👉 DM me "GT" for details and a test drive.\n\n#AMGGT ${TAGS.amg} ${TAGS.store}`,
+  },
+  'gle-fresh-face': {
+    files: ['vol3/feed/20-gle-fresh-face.jpg'], alt: 'White Mercedes-Benz GLE from the front, star-pattern grille',
+    ig: `Fresh face ✨\n\nStar-pattern grille, panoramic roof, and a cabin made for road trips. The Mercedes-Benz GLE.\n\n👉 DM me "GLE" and I'll set up your test drive.\n\n#GLE #MercedesSUV ${TAGS.store}`,
+  },
+  'save-my-number': {
+    files: ['vol3/feed/21-save-my-number.jpg'], alt: 'MK Parrish contact card: showroom, mobile and email at Mercedes-Benz of Smithtown',
+    ig: `Save my number 📲\n\nWhether it's a new Mercedes-Benz, a Sprinter for your business, a custom 2027 order or a lease that's ending, text me or DM me. I'm here to make it easy.\n\nMary Kate Parrish, Sales & Leasing Consultant\nMercedes-Benz of Smithtown · 630 Middle Country Rd, St. James\n\n${TAGS.store}`,
+  },
+  'showroom-fit-check': {
+    files: ['vol3/feed/22-showroom-fit-check.jpg'], alt: 'MK mirror selfie at the Mercedes-Benz of Smithtown showroom',
+    ig: `Showroom fit check 🖤🩶\n\nDressed for the deal. Come say hi at Mercedes-Benz of Smithtown and ask for MK.\n\n👉 Follow @mk_parrish for new arrivals, fleet specials and custom builds.\n\n#OOTD #WomenInAutomotive #CarSales ${TAGS.store}`,
+  },
+  'reel-glc-walkaround': {
+    ttTitle: 'POV: your GLC is ready 🤍',
+    files: ['vol3/reels/08-glc-walkaround.mp4'], alt: 'Walkaround of a white Mercedes-Benz GLC 300',
+    ig: `POV: your GLC is ready 🤍 Walk it with me, from our lot to your driveway.\n\nDM me "GLC" and I'll set up your test drive.\n\n#GLC #GLC300 #MercedesSUV ${TAGS.store}`,
+    tt: `POV: your GLC 300 is ready 🤍 DM me "GLC" for details and a test drive.\n\n#GLC300 #MercedesBenz #CarTok #NewCarDay #LongIsland`,
+  },
+  'reel-cle-cabriolet-graphite': {
+    ttTitle: 'Top down in October? 🍂',
+    files: ['vol3/reels/09-cle-cabriolet-graphite.mp4'], alt: 'Dark Mercedes-Benz CLE Cabriolet with cognac leather in the showroom',
+    ig: `Top down in October? 🍂 Dark paint, cognac leather, Mercedes-Benz CLE Cabriolet. Come sit in it.\n\nDM me "CABRIO" and I'll have it pulled up front for you.\n\n#CLECabriolet #Convertible ${TAGS.store}`,
+    tt: `Top down in October? 🍂 Mercedes-Benz CLE Cabriolet with cognac leather. DM me "CABRIO" to see it in person.\n\n#CLE #Convertible #MercedesBenz #CarTok #LongIsland`,
+  },
+  'reel-interior-check': {
+    ttTitle: 'Mercedes-Benz interior check 🤍',
+    files: ['vol3/reels/10-interior-check.mp4'], alt: 'Interior tour of a Mercedes-Benz SUV with light leather and wood trim',
+    ig: `Interior check 🤍 Light leather, wood, chrome and that screen. Room for everyone.\n\nDM me "TOUR" and I'll give you the full walkthrough in person.\n\n#MercedesInterior #MercedesSUV ${TAGS.store}`,
+    tt: `Mercedes-Benz SUV interior check 🤍 Would you pick this color? DM me "TOUR" for the full walkthrough.\n\n#MercedesBenz #CarInterior #CarTok #LongIsland`,
+  },
 };
 
 // ── Calendar (New York time) ──────────────────────────────────────────────────
@@ -206,6 +296,24 @@ const CALENDAR = [
   ['2026-10-29', '12:00', 'amg-black-white-pink'],
   ['2026-10-30', '19:00', 'wrapped-for-a-reason'],
   ['2026-10-31', '12:00', 'find-me-in-smithtown'],
+  // Volume 3, one a day at 17:00 so it runs alongside Pink Bow October and carries on after it.
+  ['2026-10-21', '17:00', 'fleet-sprinter'],
+  ['2026-10-22', '17:00', 'reel-glc-walkaround'],
+  ['2026-10-23', '17:00', 'build-your-2027'],
+  ['2026-10-24', '17:00', 'libi-golf-outing'],
+  ['2026-10-25', '17:00', 'reel-fleet-sprinter'],
+  ['2026-10-26', '17:00', 'g63-built-your-way'],
+  ['2026-10-27', '17:00', 'reel-cle-cabriolet-graphite'],
+  ['2026-10-28', '17:00', 'carousel-built-for-business'],
+  ['2026-10-29', '17:00', 'save-my-number'],
+  ['2026-10-30', '17:00', 'reel-build-your-2027'],
+  ['2026-10-31', '17:00', 'proud-to-be-local'],
+  ['2026-11-01', '17:00', 'reel-interior-check'],
+  ['2026-11-02', '17:00', 'carousel-build-your-2027'],
+  ['2026-11-03', '17:00', 'amg-gt-coupe'],
+  ['2026-11-04', '17:00', 'reel-community'],
+  ['2026-11-05', '17:00', 'showroom-fit-check'],
+  ['2026-11-06', '17:00', 'gle-fresh-face'],
 ];
 
 // ── CSV ────────────────────────────────────────────────────────────────────────
