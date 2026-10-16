@@ -3,7 +3,8 @@
  * MK (@mk_parrish) × Mercedes-Benz of Smithtown — "Ask for MK" selfie posts.
  *
  * MK's blazer mirror selfie, cropped to the reflection, colour-corrected and
- * retouched (media/mk-selfie-blazer*.jpg), as a feed post and a story.
+ * retouched (media/mk-selfie-blazer*.jpg), as two feed posts (copy along the
+ * bottom, or down the side) and a story.
  *
  * Output: output/mercedes-smithtown/mk-selfie/{feed,stories,clean}/
  * Run:    node marketing/mercedes-smithtown/build-mk-selfie.mjs
@@ -21,6 +22,22 @@ const feed = hero({
   sub: 'Sales &amp; Leasing Consultant. New, AMG, Sprinter vans and custom 2027 orders.',
   action: ['DM “MK”', HANDLE],
 });
+
+// Same photo with the copy stacked down the right-hand side, so the outfit stays uncovered.
+const side = `<div class="frame" style="width:1080px;height:1350px">
+  ${photo({ photo: 'mk-selfie-blazer.jpg', pos: 'center 30%' })}
+  <div class="shade" style="background:linear-gradient(270deg, rgba(8,8,8,.92) 0%, rgba(8,8,8,.8) 26%, rgba(8,8,8,0) 42%)"></div>
+  <div class="shade" style="background:linear-gradient(180deg, rgba(8,8,8,.45) 0%, rgba(8,8,8,0) 12%, rgba(8,8,8,0) 84%, rgba(8,8,8,.85) 100%)"></div>
+  ${topbar(56, TAG)}
+  <div style="position:absolute;right:64px;top:190px;width:330px;display:flex;flex-direction:column;gap:22px;align-items:flex-end;text-align:right">
+    <div class="kicker" style="font-size:19px;letter-spacing:.22em">Sales &amp; Leasing</div>
+    <div class="head" style="font-size:150px">Ask<br>for<br><em>MK.</em></div>
+    <div class="rule"></div>
+    <div class="sub" style="font-size:31px">New, AMG, Sprinter vans and custom 2027 orders.</div>
+    <div style="align-self:flex-end;white-space:nowrap">${cta('DM me “MK”')}</div>
+  </div>
+  ${sig(56)}
+</div>`;
 
 const story = `<div class="frame" style="width:1080px;height:1920px">
   ${photo({ photo: 'mk-selfie-blazer-tall.jpg', pos: 'center 30%' })}
@@ -45,6 +62,7 @@ for (const f of ['mk-selfie-blazer', 'mk-selfie-blazer-tall'])
   execFileSync('convert', [path.join(MEDIA, `${f}.jpg`), '-modulate', '102,110,100', '-quality', '94', path.join(cleanDir, `${f}.jpg`)]);
 const outs = [
   [feed, 1080, 1350, path.join(feedDir, '01-ask-for-mk.png')],
+  [side, 1080, 1350, path.join(feedDir, '02-ask-for-mk-side.png')],
   [story, 1080, 1920, path.join(storyDir, '01-ready-when-you-are.png')],
 ];
 for (const [html, w, h, file] of outs) {
