@@ -15,6 +15,9 @@ These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
 After building any reels, run `node scripts/add-music.mjs`. It gives every
 silent video MK's own music bed (made by `scripts/audio/make-music-beds.py`),
 so nothing posts without sound.
+Photo and carousel posts go out as short Reels with music: `node
+scripts/photo-reels.mjs` builds them into `output/photo-reels/`, because
+Instagram can't add a song to a scheduled photo post.
 
 `lib.mjs` holds the shared brand, photo retouch and templates. Source photos
 and clips live in `media/`. Captions are in `captions.md`,
