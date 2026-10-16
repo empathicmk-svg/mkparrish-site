@@ -43,7 +43,7 @@ See coupon for expiration; see dealer for details.
 ```
 
 ## Reels
-The reels have no audio. Metricool posts them silent, so add a trending sound
-in the app if you post one by hand. On TikTok, adding a sound after
-publishing isn't possible, so for the reels you care most about, consider
-posting by hand with a sound instead of relying on the schedule.
+The reels carry MK's own "showroom" music bed, an original track made by
+`scripts/audio/make-music-beds.py` and added by `scripts/add-music.mjs`, so
+Metricool never posts them silent. If you post one by hand, you can swap in a
+trending sound in the app instead.

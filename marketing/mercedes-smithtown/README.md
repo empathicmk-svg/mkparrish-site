@@ -9,7 +9,12 @@ These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
 | `build-vol2.mjs` | Volume 2: 6 feed posts, 2 carousels, 2 stories, 5 reels |
 | `build-vol3.mjs` | Volume 3: fleet vans, custom 2027 orders, community and MK: 10 feed posts, 2 carousels, 1 story, 6 reels |
 | `build-gls-tiktok.mjs` | The GLS selfie-camera TikTok |
+| `build-parktronic.mjs` | The Parktronic self-parking reel and poll story |
 | `schedule.mjs` | Metricool schedule for all three volumes (Oct 12 – Nov 6) |
+
+After building any reels, run `node scripts/add-music.mjs`. It gives every
+silent video MK's own music bed (made by `scripts/audio/make-music-beds.py`),
+so nothing posts without sound.
 
 `lib.mjs` holds the shared brand, photo retouch and templates. Source photos
 and clips live in `media/`. Captions are in `captions.md`,
