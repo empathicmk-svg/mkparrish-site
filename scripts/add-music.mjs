@@ -20,8 +20,10 @@ import { fileURLToPath } from 'url';
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BEDS = path.join(ROOT, 'output', 'audio');
 
-// Folder → bed. Every .mp4 under the folder is checked.
+// Folder (or single video) → bed. Every .mp4 under a folder is checked; the
+// first job to reach a video gives it its bed, so single videos go first.
 const JOBS = [
+  ['output/mercedes-smithtown/viral/03-fell-in-love-in-october.mp4', 'soft.wav'],
   ['output/mercedes-smithtown', 'showroom.wav'],
   ['output/tiktok', 'soft.wav'],
 ];
@@ -31,6 +33,7 @@ const hasAudio = file => probe(file, ['-select_streams', 'a', '-show_entries', '
 const duration = file => parseFloat(probe(file, ['-show_entries', 'format=duration']));
 
 function* videos(dir) {
+  if (dir.endsWith('.mp4')) { if (fs.existsSync(dir)) yield dir; return; }
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     if (e.name.startsWith('.')) continue;
     const p = path.join(dir, e.name);

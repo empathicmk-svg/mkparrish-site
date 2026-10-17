@@ -10,6 +10,7 @@ These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
 | `build-vol3.mjs` | Volume 3: fleet vans, custom 2027 orders, community and MK: 10 feed posts, 2 carousels, 1 story, 6 reels |
 | `build-gls-tiktok.mjs` | The GLS selfie-camera TikTok |
 | `build-parktronic.mjs` | The Parktronic self-parking reel and poll story |
+| `build-viral.mjs` | Six trend-format reels (pick one, costume reveal, fall edit, day in my life, rate it, things that make sense). Captions and sounds are in `captions-viral.md` |
 | `schedule.mjs` | Metricool schedule for all three volumes (Oct 12 – Nov 6) |
 
 After building any reels, run `node scripts/add-music.mjs`. It gives every
