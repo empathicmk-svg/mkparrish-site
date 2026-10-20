@@ -2,8 +2,8 @@
 /**
  * MK (@mk_parrish) × Mercedes-Benz of Smithtown — Volume 4: "Walk in with me".
  *
- * Six trend-format Reels/TikToks and four feed posts from MK's latest photos
- * and clips: the walk-in POV, a showroom fit check, a GLE walkaround, the
+ * Five trend-format Reels/TikToks and four feed posts from MK's latest photos
+ * and clips: the walk-in POV, a GLE walkaround, the
  * "BOO-tiful Mercedes" Halloween ghosts, fleet & member savings, and a
  * pray-on-it / sky's-the-limit motivation reel. captions-vol4.md has the
  * captions, sounds and posting plan.
@@ -18,7 +18,7 @@ import { chromium } from 'playwright';
 import { execFileSync } from 'child_process';
 import path from 'path';
 import { HANDLE, STORE, hero, render, buildReel, dir, cleanup } from './lib.mjs';
-import { beats, say, pick, still, lifted, fitted, over, end } from './trend.mjs';
+import { beats, say, still, lifted, fitted, over, end } from './trend.mjs';
 
 const TAG = 'Ask for MK';
 
@@ -37,20 +37,7 @@ const REELS = [
     ],
   },
   {
-    name: '02-fit-check',
-    scenes: [
-      { html: still('mk-fit-grey-plaid.jpg', 'center 30%', say(['Mercedes saleswoman', 'fit check 💅'], { size: 64 })), dur: beats(4) },
-      ...[
-        ['mk-fit-plaid.jpg', 'Plaid + off-shoulder'],
-        ['mk-fit-bow-dress.jpg', 'Little black dress 🎀'],
-        ['mk-fit-grey-plaid.jpg', 'Grey plaid'],
-        ['mk-fit-beige.jpg', 'Silk + black trousers'],
-      ].map(([photo, label], i) => ({ html: lifted(photo, 'center 25%', pick(i + 1, label)), dur: beats(4) })),
-      { html: end({ kicker: 'Comment your number', head: 'Which fit<br><em>wins?</em>' }), dur: beats(6), still: true },
-    ],
-  },
-  {
-    name: '03-gle-walkaround',
+    name: '02-gle-walkaround',
     scenes: [
       { clip: 'gle-grey-walkaround.mp4', start: 0.2, html: over(say(['walk around this', 'GLE with me 🩶'], { size: 64 })), dur: beats(6) },
       { clip: 'gle-grey-walkaround.mp4', start: 4.8, html: over(say(['that side profile 😮‍💨'])), dur: beats(5) },
@@ -60,7 +47,7 @@ const REELS = [
     ],
   },
   {
-    name: '04-boo-tiful',
+    name: '03-boo-tiful',
     scenes: [
       { html: lifted('boo-ghosts.jpg', 'center 45%', say(['“We can be happy again', 'with a BOO-tiful', 'Mercedes-Benz” 👻'], { size: 56, top: 200 })), dur: beats(6) },
       { html: still('e-class-white-lot.jpg', 'center 55%', say(['nothing scary', 'about this one 🤍'], { size: 64 })), dur: beats(5) },
@@ -69,7 +56,7 @@ const REELS = [
     ],
   },
   {
-    name: '05-member-savings',
+    name: '04-member-savings',
     scenes: [
       { html: still('fleet-member-banner.jpg', 'center 40%', say(['Lawyer? Doctor?', 'CPA? Dentist? 👀'], { size: 64 })), dur: beats(5) },
       { html: still('fleet-member-banner.jpg', 'center 40%', say(['you may qualify for', 'member savings on', 'a new Mercedes-Benz'], { size: 56 })), dur: beats(6) },
@@ -78,10 +65,10 @@ const REELS = [
     ],
   },
   {
-    name: '06-pray-on-it',
+    name: '05-pray-on-it',
     scenes: [
       { html: still('desk-pray.jpg', 'center 45%', say(['pray on it.', 'pray over it.', 'pray through it. 🎀'], { size: 60 })), dur: beats(6) },
-      { html: still('mk-fit-bow-dress.jpg', 'center 25%', say(['then go get it 💅'])), dur: beats(5) },
+      { html: still('e-class-white-lot.jpg', 'center 55%', say(['then go', 'get it.'])), dur: beats(5) },
       { html: end({ kicker: 'Monday motivation', head: 'Sky’s the<br><em>limit.</em>', sub: 'Your next chapter might come with a star on the hood.' }), dur: beats(6), still: true },
     ],
   },

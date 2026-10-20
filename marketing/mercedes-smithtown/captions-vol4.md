@@ -1,6 +1,6 @@
 # Volume 4: "Walk in with me"
 
-Six Reels/TikToks and four feed posts from MK's latest photos and clips. The
+Five Reels/TikToks and four feed posts from MK's latest photos and clips. The
 files are in `output/mercedes-smithtown/vol4/`. To rebuild them, run
 `node marketing/mercedes-smithtown/build-vol4.mjs`, then
 `node scripts/add-music.mjs`.
@@ -28,7 +28,6 @@ trend reels in `captions-viral.md`.
 | --- | --- | --- | --- |
 | Wed Oct 21, 8pm | Reel: Walk in with me | "Paper Moon Static", Marnie Cusk | "Autumn Colors", LuLuMusic |
 | Thu Oct 22, 12:30pm | Feed: Another one delivered (once the customers say yes) | — | — |
-| Fri Oct 23, 8pm | Reel: Fit check | "Nicole Kidman", ADÉLA | your showroom bed |
 | Sat Oct 24, 8pm | Reel: GLE walkaround | "BLUE WATER CANDY", DJ Allanzinho JP | your showroom bed |
 | Sun Oct 25, 12:30pm | Feed: Welcome home | — | — |
 | Mon Oct 26, 8pm | Reel: Pray on it | "Autumn Colors", LuLuMusic | your showroom bed |
@@ -54,22 +53,7 @@ trend reels in `captions-viral.md`.
 **Facebook**
 > POV: you finally walk into Mercedes-Benz of Smithtown 🖤 The mat says "Welcome home," and you leave with the keys. Come see me at 630 Middle Country Rd, St. James. Ask for MK. Work 631.366.6417 · Cell 347.853.4238
 
-### Reel 02 · Fit check (`reels/02-fit-check.mp4`)
-
-**Instagram**
-> Mercedes saleswoman fit check 💅
-> 01 Plaid + off-shoulder · 02 Little black dress 🎀 · 03 Grey plaid · 04 Silk + black trousers
-> Which one wins? Comment your number 👇
-> Want to see me in person? DM me "MK". Work 631.366.6417 · Cell 347.853.4238
-> #FitCheck #OOTD #WorkOutfit #WomenInSales #WomenInAutomotive #MercedesBenz #MercedesBenzOfSmithtown
-
-**TikTok**
-> mercedes saleswoman fit check 💅 which one wins? 1-4 👇 #fitcheck #ootd #workoutfit #womeninsales #carsales
-
-**Facebook**
-> Fit check at Mercedes-Benz of Smithtown 💅 Which one wins, 1, 2, 3 or 4? Comment below! Come say hi and ask for MK. Work 631.366.6417 · Cell 347.853.4238
-
-### Reel 03 · GLE walkaround (`reels/03-gle-walkaround.mp4`)
+### Reel 02 · GLE walkaround (`reels/02-gle-walkaround.mp4`)
 
 **Instagram**
 > Walk around this GLE with me 🩶
@@ -84,7 +68,7 @@ trend reels in `captions-viral.md`.
 **Facebook**
 > Walk around this Mercedes-Benz GLE with me 🩶 Want the full tour? Message me or stop by Mercedes-Benz of Smithtown and ask for MK. Work 631.366.6417 · Cell 347.853.4238
 
-### Reel 04 · BOO-tiful (`reels/04-boo-tiful.mp4`)
+### Reel 03 · BOO-tiful (`reels/03-boo-tiful.mp4`)
 
 **Instagram**
 > "We can be happy again with a BOO-tiful Mercedes-Benz" 👻
@@ -98,7 +82,7 @@ trend reels in `captions-viral.md`.
 **Facebook**
 > Our showroom ghosts have a message: "We can be happy again with a BOO-tiful Mercedes-Benz" 👻 Trick or treat yourself at Mercedes-Benz of Smithtown. Ask for MK. Work 631.366.6417 · Cell 347.853.4238
 
-### Reel 05 · Member savings (`reels/05-member-savings.mp4`)
+### Reel 04 · Member savings (`reels/04-member-savings.mp4`)
 
 **Instagram**
 > Lawyer? Doctor? CPA? Dentist? 👀
@@ -112,11 +96,11 @@ trend reels in `captions-viral.md`.
 **Facebook**
 > Are you a lawyer, doctor, CPA or dentist? A United MileagePlus member or Morgan Stanley client? You may qualify for member savings on a new Mercedes-Benz. Message me and I'll check. MK at Mercedes-Benz of Smithtown, work 631.366.6417 · cell 347.853.4238
 
-### Reel 06 · Pray on it (`reels/06-pray-on-it.mp4`)
+### Reel 05 · Pray on it (`reels/05-pray-on-it.mp4`)
 
 **Instagram**
 > Pray on it. Pray over it. Pray through it. 🎀
-> Then go get it 💅 Sky's the limit.
+> Then go get it. Sky's the limit.
 > Happy Monday from my desk at Mercedes-Benz of Smithtown.
 > #MondayMotivation #PrayOnIt #SkysTheLimit #WomenInSales #Faith #MercedesBenzOfSmithtown
 

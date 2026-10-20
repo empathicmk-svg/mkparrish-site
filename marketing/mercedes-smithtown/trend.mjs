@@ -1,9 +1,9 @@
 /**
  * Shared templates for the trend-format Reels/TikToks (build-viral.mjs,
- * build-vol4.mjs): native caption boxes, the MK tag, numbered picks, photo and
+ * build-vol4.mjs): headlines in the website's type, the MK tag, numbered picks, photo and
  * clip scenes, and the end card, all timed to the 118 BPM "showroom" bed.
  */
-import { VOID, PEARL, SMOKE, PETAL, HANDLE, STORE, img, endCard } from './lib.mjs';
+import { PEARL, SMOKE, PETAL, HANDLE, STORE, img, endCard } from './lib.mjs';
 
 // Scene lengths in beats. buildReel overlaps scenes by its 0.35s cross-fade,
 // so each scene gets that back to keep every cut on the beat.
@@ -12,11 +12,24 @@ export const beats = n => +(n * BEAT + 0.35).toFixed(3);
 
 export const PHONES = 'Work 631.366.6417 · Cell 347.853.4238';
 
-/** Native-style caption boxes, one per line, centred near the top of the safe area. */
-export const say = (lines, { top = 250, size = 62, dark = false } = {}) => `
-  <div style="position:absolute;left:64px;right:64px;top:${top}px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
-    ${lines.map(l => `<span style="background:${dark ? VOID : PEARL};color:${dark ? PEARL : VOID};font-family:'DM Sans';font-weight:700;font-size:${size}px;line-height:1.18;padding:8px 24px 10px;border-radius:16px">${l}</span>`).join('')}
+// On-screen text skips emoji: the site's Bebas Neue / Playfair Display type carries the tone.
+const plain = t => t.replace(/[\p{Extended_Pictographic}\u{FE0F}\u{200D}]/gu, '').replace(/\s+/g, ' ').trim();
+const lift = 'text-shadow:0 2px 18px rgba(0,0,0,.55)';
+
+/**
+ * Headline in the mkparrish.com hero style, near the top of the safe area:
+ * Bebas Neue capitals, with the last of several lines set as the site's pink
+ * Playfair Display italic accent.
+ */
+export const say = (lines, { top = 250, size = 62 } = {}) => {
+  const head = lines.length > 1 ? lines.slice(0, -1) : lines;
+  const accent = lines.length > 1 ? lines.at(-1) : '';
+  return `
+  <div style="position:absolute;left:64px;right:64px;top:${top}px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center">
+    <div class="head" style="font-size:${Math.round(size * 1.8)}px;line-height:.9;${lift}">${head.map(plain).join('<br>')}</div>
+    ${accent ? `<div style="font-family:'Playfair Display';font-style:italic;font-weight:700;font-size:${Math.round(size * 0.95)}px;line-height:1.15;color:${PETAL};${lift}">${plain(accent)}</div>` : ''}
   </div>`;
+};
 
 /** Small MK tag above the Reels/TikTok caption area. */
 export const tag = `
@@ -30,13 +43,13 @@ export const tag = `
 export const pick = (n, model) => `
   <div style="position:absolute;left:64px;right:64px;top:210px;display:flex;flex-direction:column;align-items:center;gap:6px">
     <div class="head" style="font-size:230px;color:${PETAL};line-height:.85;text-shadow:0 6px 30px rgba(0,0,0,.45)">${String(n).padStart(2, '0')}</div>
-    <span style="background:${PEARL};color:${VOID};font-weight:700;font-size:52px;padding:6px 24px 8px;border-radius:14px">${model}</span>
+    <div style="font-family:'Playfair Display';font-style:italic;font-weight:700;font-size:58px;color:${PEARL};${lift}">${plain(model)}</div>
   </div>`;
 
 /** Full-bleed 9:16 photo scene. */
 export const still = (photo, pos, over) => `<div class="frame" style="width:1080px;height:1920px">
   <img class="photo" src="${img(photo)}" style="object-position:${pos}">
-  <div class="shade" style="background:linear-gradient(180deg, rgba(8,8,8,.45) 0%, rgba(8,8,8,0) 30%, rgba(8,8,8,0) 66%, rgba(8,8,8,.5) 100%)"></div>
+  <div class="shade" style="background:linear-gradient(180deg, rgba(8,8,8,.72) 0%, rgba(8,8,8,0) 36%, rgba(8,8,8,0) 66%, rgba(8,8,8,.5) 100%)"></div>
   ${over}${tag}
 </div>`;
 
@@ -51,7 +64,7 @@ export const lifted = (photo, pos, over) => `<div class="frame" style="width:108
 
 /** Transparent overlay for a clip scene. */
 export const over = html => `<div style="width:1080px;height:1920px;position:relative;font-family:'DM Sans'">
-  <div style="position:absolute;inset:0 0 auto 0;height:640px;background:linear-gradient(180deg, rgba(8,8,8,.45), rgba(8,8,8,0))"></div>
+  <div style="position:absolute;inset:0 0 auto 0;height:760px;background:linear-gradient(180deg, rgba(8,8,8,.72), rgba(8,8,8,0))"></div>
   ${html}${tag}
 </div>`;
 

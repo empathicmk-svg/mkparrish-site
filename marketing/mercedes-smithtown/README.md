@@ -11,7 +11,7 @@ These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
 | `build-gls-tiktok.mjs` | The GLS selfie-camera TikTok |
 | `build-parktronic.mjs` | The Parktronic self-parking reel and poll story |
 | `build-viral.mjs` | Six trend-format reels (pick one, costume reveal, fall edit, day in my life, rate it, things that make sense). Captions and sounds are in `captions-viral.md` |
-| `build-vol4.mjs` | Volume 4 "Walk in with me": six reels (walk-in POV, fit check, GLE walkaround, BOO-tiful, member savings, pray on it) and four feed posts. Captions in `captions-vol4.md`. Shared reel templates live in `trend.mjs` |
+| `build-vol4.mjs` | Volume 4 "Walk in with me": five reels (walk-in POV, GLE walkaround, BOO-tiful, member savings, pray on it) and four feed posts. Captions in `captions-vol4.md`. Shared reel templates live in `trend.mjs` |
 | `schedule.mjs` | Metricool schedule for all three volumes (Oct 12 – Nov 6) |
 
 After building any reels, run `node scripts/add-music.mjs`. It gives every

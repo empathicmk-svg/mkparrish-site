@@ -37,7 +37,7 @@ const REELS = [
     name: '02-halloween-costume',
     scenes: [
       { clip: 'matte-amg-walkaround.mp4', start: 1, html: over(say(['My Halloween costume', 'this year: 🎃'], { size: 66 })), dur: beats(4) },
-      { html: still('mk-selfie-blazer-tall.jpg', 'center 30%', say(['Mercedes saleswoman. 💅'], { size: 64 })), dur: beats(6) },
+      { html: still('g63-matte-showroom.jpg', '50% center', say(['Mercedes', 'saleswoman.'], { size: 64 })), dur: beats(6) },
       { html: still('suv-black-front.jpg', 'center 45%', say(['The scariest part?', 'You’ll want two. 🖤'], { size: 64 })), dur: beats(6) },
       { html: end({ kicker: 'Trick or treat yourself', head: 'Ask for<br><em>MK.</em>' }), dur: beats(6), still: true },
     ],
@@ -56,7 +56,7 @@ const REELS = [
   {
     name: '04-day-in-my-life',
     scenes: [
-      { html: still('mk-fit-check.jpg', '55% 20%', say(['day in my life:', 'Mercedes saleswoman 🖤'], { size: 60 })), dur: beats(5) },
+      { html: still('store-front-fall.jpg', '42% center', say(['Day in my life', 'Mercedes saleswoman edition'], { size: 60 })), dur: beats(5) },
       { clip: 'cle-graphite-walkaround.mp4', start: 2, html: over(say(['9:15 · first walkaround'], { size: 56 })), dur: beats(5) },
       { clip: 'matte-amg-walkaround.mp4', start: 13, html: over(say(['11:00 · “can I see the matte one?”'], { size: 50 })), dur: beats(5) },
       { clip: 'suv-interior-tour.mp4', start: 3, html: over(say(['1:30 · interior tour'], { size: 56 })), dur: beats(5) },
@@ -83,7 +83,7 @@ const REELS = [
       { html: still('amg-matte-white-front.jpg', 'center 60%', say(['matte paint + AMG badge'], { size: 58 })), dur: beats(4) },
       { html: still('gls-white-front.jpg', 'center 60%', say(['7 seats + zero compromise'], { size: 58 })), dur: beats(4) },
       { clip: 'cabriolet-walkaround.mp4', start: 10, html: over(say(['October + top down'], { size: 58 })), dur: beats(4) },
-      { html: still('mk-selfie-blazer-tall.jpg', 'center 30%', say(['a new Mercedes', '+ asking for MK 💅'], { size: 58 })), dur: beats(5) },
+      { html: still('key-fob-desk.jpg', 'center 60%', say(['a new Mercedes', '+ asking for MK'], { size: 58 })), dur: beats(5) },
       { html: end({ kicker: 'Mercedes-Benz of Smithtown', head: 'Just makes<br><em>sense.</em>' }), dur: beats(6), still: true },
     ],
   },
