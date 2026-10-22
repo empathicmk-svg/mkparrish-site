@@ -27,6 +27,9 @@ export async function requestQuote(_prev: QuoteState, formData: FormData): Promi
   }
 
   const webhook = process.env.QUOTE_WEBHOOK_URL;
+  if (!webhook && process.env.SITE_PREVIEW === "1") {
+    return { status: "error", message: "This is a preview, so the form isn't connected yet. It will send requests once the site is live." };
+  }
   if (!webhook) {
     if (process.env.NODE_ENV === "production") {
       console.error("QUOTE_WEBHOOK_URL is not set; quote request not delivered");

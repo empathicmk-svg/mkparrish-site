@@ -6,6 +6,10 @@
 // No prices, minimums or lead times are stated anywhere until the client
 // gives real numbers.
 
+// Set SITE_PREVIEW=1 on a review deployment: hides it from search engines,
+// shows a preview banner and explains that the quote form is not live yet.
+export const IS_PREVIEW = process.env.SITE_PREVIEW === "1";
+
 export const COMPANY = {
   name: "Nature's Value",
   legalName: "Nature's Value, Inc.",

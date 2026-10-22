@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import SiteProvider from "./components/SiteProvider";
 import Reveal from "./components/Reveal";
 import BackToTop from "./components/BackToTop";
-import { COMPANY, LOCATIONS } from "./content/site";
+import { COMPANY, IS_PREVIEW, LOCATIONS } from "./content/site";
 
 const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   description:
     "Nature's Value is a cGMP private label and contract manufacturer of vitamins and dietary supplements: capsules, tablets, liquid caps and powders, from formula to finished bottle.",
   openGraph: { type: "website", siteName: COMPANY.name, url: COMPANY.url },
+  robots: IS_PREVIEW ? { index: false, follow: false } : undefined,
 };
 
 const orgJsonLd = {
@@ -50,6 +51,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Skip to content
         </a>
+        {IS_PREVIEW && (
+          <p className="bg-ink px-4 py-1.5 text-center text-xs font-medium text-white/80">
+            Preview for review. This site is not live yet, and details are still being confirmed.
+          </p>
+        )}
         <SiteProvider>
           <Header />
           <main id="main" className="flex-1">

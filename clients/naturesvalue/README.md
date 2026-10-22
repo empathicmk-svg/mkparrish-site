@@ -62,3 +62,10 @@ silently dropping leads, so set it before launch.
 Create a new Vercel project from this repo with **Root Directory** set to
 `clients/naturesvalue`, add `QUOTE_WEBHOOK_URL`, then attach the
 `naturesvalue.com` domain.
+
+## Client preview
+
+Set `SITE_PREVIEW=1` on a review deployment. It blocks search engines
+(`robots.txt` and `noindex`), shows a "Preview for review" banner, and tells
+anyone using the quote form that it isn't connected yet. Leave it unset for the
+real launch.
