@@ -12,6 +12,7 @@ These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
 | `build-parktronic.mjs` | The Parktronic self-parking reel and poll story |
 | `build-viral.mjs` | Six trend-format reels (pick one, costume reveal, fall edit, day in my life, rate it, things that make sense). Captions and sounds are in `captions-viral.md` |
 | `build-vol4.mjs` | Volume 4 "Walk in with me": five reels (walk-in POV, GLE walkaround, BOO-tiful, member savings, pray on it) and four feed posts. Captions in `captions-vol4.md`. Shared reel templates live in `trend.mjs` |
+| `build-vol5.mjs` | Volume 5 "Your Mercedes girl": a showroom reel and two "Ask for MK" feed posts from MK's retouched black-dress selfies. Captions in `captions-vol5.md` |
 | `schedule.mjs` | Metricool schedule for all three volumes (Oct 12 – Nov 6) |
 
 After building any reels, run `node scripts/add-music.mjs`. It gives every
