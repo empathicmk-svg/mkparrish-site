@@ -268,6 +268,15 @@ const POSTS = {
     ig: `Interior check 🤍 Light leather, wood, chrome and that screen. Room for everyone.\n\nDM me "TOUR" and I'll give you the full walkthrough in person.\n\n#MercedesInterior #MercedesSUV ${TAGS.store}`,
     tt: `Mercedes-Benz SUV interior check 🤍 Would you pick this color? DM me "TOUR" for the full walkthrough.\n\n#MercedesBenz #CarInterior #CarTok #LongIsland`,
   },
+
+  // Active Parking Assist with PARKTRONIC (build-parktronic.mjs). Keeps the clip's own sound.
+  'reel-parks-itself': {
+    ttTitle: 'Hands off… it parks itself 👀',
+    files: ['parktronic/reels/01-it-parks-itself.mp4'], alt: 'A Mercedes-Benz steering itself into a parking space with Active Parking Assist and PARKTRONIC',
+    ig: `Hands off. Watch the wheel 👀\n\nThis is Active Parking Assist with PARKTRONIC: sensors and cameras find the space, and the car steers itself in while you watch.\n\nBe honest… does your car do that? 👇 Comment YES or "I WISH"\n\nDM me "PARK" and I'll let you try it on a test drive.\n\nDriver must stay attentive and ready to take over. Availability varies by model.\n\n#Parktronic #ActiveParkingAssist #SelfParking #MercedesTech #CarTech ${TAGS.store}`,
+    tt: `POV: you take your hands off the wheel and the Mercedes parks itself 👀 Does your car do this? YES or I WISH 👇\n\nDM me "PARK" to try it on a test drive at Mercedes-Benz of Smithtown.\n\n#Parktronic #SelfParking #MercedesBenz #CarTok #CarTech #LongIsland`,
+    fb: `Hands off. Watch the wheel 👀\n\nActive Parking Assist with PARKTRONIC finds the space and steers the car in for you. Parallel or straight in, no stress.\n\nDoes your car park itself? Tell me in the comments: YES or I WISH 👇\n\nCome try it on a test drive. Message me or book at mkparrish.com/test-drive\n📍 Mercedes-Benz of Smithtown · 630 Middle Country Rd, St. James\n\nDriver must stay attentive and ready to take over. Availability varies by model.\n\n#Parktronic #MercedesBenz #MBofSmithtown #CompetitionAutoGroup #LongIsland`,
+  },
 };
 
 // ── Calendar (New York time) ──────────────────────────────────────────────────
@@ -279,6 +288,7 @@ const CALENDAR = [
   ['2026-10-14', '12:00', 'hi-im-mk'],
   ['2026-10-15', '19:00', 'carousel-pick-your-bow'],
   ['2026-10-16', '12:00', 'book-the-screening'],
+  ['2026-10-16', '10:00', 'reel-parks-itself'],
   ['2026-10-17', '10:00', 'reel-which-amg'],
   ['2026-10-18', '12:00', 'cle-coupe-or-cabriolet'],
   // reel-top-down opens on a staff member, so the person-free cabriolet reel takes its slot.

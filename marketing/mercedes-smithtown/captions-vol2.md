@@ -11,8 +11,9 @@ unless the store is really fundraising. Use the hashtag sets from
 ---
 
 ## Reels / TikTok (1080×1920, 9–13s)
-The reels have no audio, so add a trending sound in the app. Post each one to
-TikTok, Instagram Reels and Facebook Reels.
+The reels carry MK's own "showroom" music bed (see `scripts/add-music.mjs`), so
+they never post silent. Post each one to TikTok, Instagram Reels and Facebook
+Reels.
 
 ### R03 · Pick Your Bow · `reels/03-pick-your-bow.mp4`
 **TikTok / Reels**
