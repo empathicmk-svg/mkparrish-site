@@ -2,8 +2,10 @@
 
 export type QuoteState = { status: "idle" | "ok" | "error"; message?: string };
 
-const FIELDS = ["name", "company", "email", "phone", "dosageForm", "quantity", "details"] as const;
+const FIELDS = ["name", "company", "email", "phone", "dosageForm", "quantity", "details", "source"] as const;
+// The lead popup asks for less, so company is optional there.
 const REQUIRED = ["name", "company", "email", "details"] as const;
+const REQUIRED_POPUP = ["name", "email", "details"] as const;
 
 // Quote requests are forwarded as JSON to QUOTE_WEBHOOK_URL (a Zapier/Make hook,
 // a CRM intake endpoint, or an email relay). Without it, nothing is delivered,
@@ -16,8 +18,9 @@ export async function requestQuote(_prev: QuoteState, formData: FormData): Promi
     FIELDS.map((f) => [f, String(formData.get(f) ?? "").trim().slice(0, 4000)]),
   ) as Record<(typeof FIELDS)[number], string>;
 
-  if (REQUIRED.some((f) => !data[f])) {
-    return { status: "error", message: "Please fill in your name, company, email and project details." };
+  const required = data.source === "popup" ? REQUIRED_POPUP : REQUIRED;
+  if (required.some((f) => !data[f])) {
+    return { status: "error", message: "Please fill in all the required fields." };
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
     return { status: "error", message: "Please enter a valid email address." };

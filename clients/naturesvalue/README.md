@@ -14,8 +14,28 @@ npm run dev
 
 ## Pages
 
-`/` home, `/capabilities`, `/quality`, `/about`, `/contact` (quote request form),
-plus `sitemap.xml` and `robots.txt`.
+- `/` home
+- `/capabilities` plus a page per dosage form (`/capabilities/capsules`, ...)
+- `/services` plus a page per service (`/services/private-label`, ...)
+- `/industries` plus a page per audience (`/industries/emerging-brands`, ...)
+- `/quality`, `/about`, `/process`, `/faq`, `/contact`
+- `/start`: a four-step product builder that prefills the quote form
+- `sitemap.xml`, `robots.txt`, Organization and FAQ structured data
+
+Detail pages are generated from the lists in `app/content/site.ts`, so adding an
+entry there adds its page, nav link, footer link, search entry and sitemap URL.
+
+## Interactive features
+
+- Dropdown menus on desktop, an accordion menu on mobile, header that shrinks on scroll
+- Quote popup on every "Request a quote" button, prefilled from where it was opened
+- Site search popup: Ctrl/Cmd+K, `/`, or the header search button
+- "Quick look" popups on the home page dosage-form cards
+- Lead popup offering a free formula review: after 30 seconds or on exit intent
+  (desktop), once per visitor every 14 days, never on `/contact` or `/start`
+- Tabs, animated counters, scroll-in animations, searchable FAQ, back-to-top button
+- All popups use native `<dialog>` (focus trap, Esc to close), and every
+  animation is off for visitors who set reduced motion
 
 ## Editing content
 
@@ -26,6 +46,9 @@ All copy and company facts live in `app/content/site.ts`.
 - `// PLACEHOLDER` values (phone, sales email) are blank until supplied; the
   site hides them while empty.
 - The logo in `app/components/Logo.tsx` is a placeholder wordmark.
+- Brand colors are placeholders too: swap the values in the `@theme` block at
+  the top of `app/globals.css` for the client's official palette.
+- The announcement bar text in `app/components/Header.tsx` is marked VERIFY.
 
 ## Quote form
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "../components/ui";
 import { COMPANY, LOCATIONS } from "../content/site";
-import QuoteForm from "./QuoteForm";
+import QuoteForm from "../components/QuoteForm";
 
 export const metadata: Metadata = {
   title: "Request a Quote",
@@ -47,7 +47,9 @@ export default function ContactPage() {
             ))}
           </dl>
         </div>
-        <QuoteForm />
+        <div className="rounded-3xl border border-line bg-white p-6 shadow-xl shadow-forest/5 sm:p-8">
+          <QuoteForm />
+        </div>
       </Container>
     </section>
   );

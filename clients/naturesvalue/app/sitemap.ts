@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
-import { COMPANY } from "./content/site";
+import { COMPANY, PAGES } from "./content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return ["", "/capabilities", "/quality", "/about", "/contact"].map((path) => ({
-    url: `${COMPANY.url}${path}`,
+  return PAGES.map((p) => ({
+    url: `${COMPANY.url}${p.href === "/" ? "" : p.href}`,
     changeFrequency: "monthly",
-    priority: path === "" ? 1 : 0.7,
+    priority: p.href === "/" ? 1 : 0.7,
   }));
 }
