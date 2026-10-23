@@ -187,6 +187,7 @@ export default function NaturesValuePage() {
           <BtnPrimary href="/resumes/natures-value/mk-parrish-resume-natures-value-signature.pdf">Resume · Signature</BtnPrimary>
           <BtnGhost href="/resumes/natures-value/mk-parrish-resume-natures-value-classic.pdf">Resume · Classic</BtnGhost>
           <BtnGhost href="/resumes/natures-value/mk-parrish-cover-letter-natures-value.pdf">Cover letter</BtnGhost>
+          <BtnGhost href="/resumes/natures-value/mk-parrish-amazon-strategy-natures-value.pdf">Strategy PDF</BtnGhost>
         </div>
       </section>
 
