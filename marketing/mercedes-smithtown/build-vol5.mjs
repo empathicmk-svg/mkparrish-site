@@ -3,7 +3,7 @@
  * MK (@mk_parrish) × Mercedes-Benz of Smithtown — Volume 5: "Your Mercedes girl".
  *
  * One Reel/TikTok and two feed posts from MK's black-dress selfies (retouched in
- * media/mk-black-dress-*.jpg: cropped past the selfie arm, softened and warmed)
+ * media/mk-black-dress-*.jpg: cropped past the selfie arm, softened, lit cool and light)
  * and two showroom pans (the lounge and GLS, and a CLE 450 Cabriolet).
  * captions-vol5.md has the captions, sound and posting plan.
  *

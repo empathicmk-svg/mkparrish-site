@@ -7,7 +7,7 @@ The selfies in `media/mk-black-dress-*.jpg` were retouched:
 - cropped past the selfie arm
 - slimmed 4%
 - skin softened
-- warmed
+- lit cool and light
 
 If MK wants a stronger look, she can run them through FaceApp on her phone before posting.
 
