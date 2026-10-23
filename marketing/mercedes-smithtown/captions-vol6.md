@@ -1,6 +1,6 @@
 # Volume 6: "Book it"
 
-Volume 6 is three Reels/TikToks and one story. Every piece ends on **mkparrish.com/test-drive**. Each reel has one of MK's bow-collar selfies (`media/mk-bow-collar-*.jpg`, cropped past the selfie arm, softened and warmed) so people see who they're booking with. The files are in `output/mercedes-smithtown/vol6/`. To rebuild them, run `node marketing/mercedes-smithtown/build-vol6.mjs`, then `node scripts/add-music.mjs`.
+Volume 6 is three Reels/TikToks and one story. Every piece ends on **mkparrish.com/test-drive**. Each reel has one of MK's bow-collar selfies (`media/mk-bow-collar-*.jpg`, cropped past the selfie arm, softened and colour-cooled) so people see who they're booking with. The files are in `output/mercedes-smithtown/vol6/`. To rebuild them, run `node marketing/mercedes-smithtown/build-vol6.mjs`, then `node scripts/add-music.mjs`.
 
 ## Strategy
 
