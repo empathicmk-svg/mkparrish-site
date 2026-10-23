@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   title: "The First Conversation — MK Parrish",
   description:
     "Thirty minutes. Tell me what is not working. I will tell you what I see, whether I can help, and what makes sense next.",
+  openGraph: { images: ["/og/book.png"] },
+  twitter: { card: "summary_large_image", images: ["/og/book.png"] },
 };
 
 const what = [
@@ -78,10 +80,10 @@ export default function BookPage() {
         <div className="mx-auto w-full max-w-[1400px]" style={{ padding: "0 clamp(1.25rem, 5vw, 3rem)" }}>
           <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <p className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-ash">
-              Pick a time
+              Book a Google Meet
             </p>
             <p className="font-body text-xs font-light text-iron">
-              Times shown in your local timezone.
+              Open calendar windows only. Meet link included.
             </p>
           </div>
           <CustomBooking />
@@ -94,7 +96,7 @@ export default function BookPage() {
           <div className="grid gap-8 sm:grid-cols-3">
             {[
               { label: "Duration",  value: "30 minutes" },
-              { label: "Format",    value: "Video or phone, your call" },
+              { label: "Format",    value: "Google Meet" },
               { label: "Cost",      value: "No charge. No obligation." },
             ].map((item) => (
               <div key={item.label} className="border-t border-graphite pt-6">

@@ -1,0 +1,56 @@
+{
+  "slug": "my-steps",
+  "brand": "YOUR NAME",
+  "signature": "/in/yourhandle ♡",
+  "slides": [
+    {
+      "type": "cover",
+      "eyebrow": "The method",
+      "title": ["The 3 steps to", "the outcome they want"],
+      "body": "The repeatable process behind the result. No theory. Run it in order and you get the same outcome I do."
+    },
+    {
+      "type": "statement",
+      "eyebrow": "Why this matters",
+      "title": ["Most people do this", "{{backwards.}}"],
+      "body": "They start with tactics and wonder why nothing sticks. **The order is the strategy.** Here is the sequence that actually holds."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Step 01",
+      "before": "What people do instead.",
+      "after": ["What to do first,", "stated as an action."],
+      "takeaway": "The point of step one in one line."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Step 02",
+      "before": "The common shortcut here.",
+      "after": ["The second move,", "stated plainly."],
+      "takeaway": "Why this step can't be skipped."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Step 03",
+      "before": "Where people stop too early.",
+      "after": ["The third move that", "makes it stick."],
+      "takeaway": "The lesson that ties it together."
+    },
+    {
+      "type": "statement",
+      "eyebrow": "The principle",
+      "title": ["Sequence beats", "effort. Every time."],
+      "size": "small",
+      "body": "You don't need to do more. You need to do it in the right order. Run these three and the result stops being luck."
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Your move",
+      "title": ["Run step one today."],
+      "body": "Give them one specific next action — the smallest version of step one they can do in five minutes.",
+      "cta": "Want the full system? →",
+      "url": "yoursite.com",
+      "footer": "VISIT →"
+    }
+  ]
+}

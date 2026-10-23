@@ -431,6 +431,11 @@
       background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
       opacity: 1;
     }
+    /* The markdown "---" separators always sit just before a section heading,
+       and every section already starts a fresh page — so a rule landing right
+       before a heading is redundant and can strand alone on a near-empty page.
+       Hide those; keep any genuine in-content rule (one not followed by H2). */
+    hr:has(+ h2) { display: none; }
 
     /* ── FOOTER: white page, black signature ── */
     .footer { background: #ffffff; border-top: 1px solid #dddddd; }
@@ -471,7 +476,7 @@
 
 <p>This is that pre-work. It's the worksheet I send before <strong>The Session</strong> — the questions that surface the real problem so we don't waste the hour finding it. Run it solo before any strategy call, with any consultant. Or run it on yourself when you can't afford one yet.</p>
 
-<p>Set aside ninety minutes. Write your answers down — actually written, not "thought about." The friction of writing is where the clarity lives.</p>
+<p>Set aside ninety minutes. Write your answers down — actually written, not "thought about." The friction of writing is where the clarity lives. You will be tempted to do this in your head on the drive over. Don't. The version in your head is the one you already believe; the version on paper is the one that surprises you.</p>
 
 <hr>
 
@@ -511,6 +516,21 @@
 
 <p>Notice what the example surfaces: the problem isn't skill, it's <em>perception</em>. That gap line is gold. It's the thing the session should be about. Find yours.</p>
 
+<h3>A second example (so you see the pattern)</h3>
+
+<pre><code>  I help women relaunching a career after a break
+<p>  rewrite their story so the gap reads as range, not absence,</p>
+<p>  so they stop apologizing for the most interesting years of their life.</p>
+
+<p>  Better at than most: making a non-linear path sound inevitable.</p>
+<p>  People come to me for: "help me explain the gap."</p>
+<p>  Known for now: nothing yet — I'm invisible.</p>
+<p>  Want to be known for: "the relaunch person."</p>
+<p>  The gap: I have the skill and zero public proof of it.</p>
+<p></code></pre></p>
+
+<p>Two different people, same structure, same payoff: the <strong>gap line</strong> is the brief. Whatever sits between <em>known for now</em> and <em>want to be known for</em> is the work — and almost always it's a perception or proof problem wearing a skill problem's clothes.</p>
+
 <hr>
 
 <h2>Part 2 — The Brand Clarity Questions</h2>
@@ -523,9 +543,39 @@
 
 <p>Write a real answer to each. One sentence minimum. The session moves at the speed of the answers you already have.</p>
 
+<p><strong>How to read your own answers:</strong> when you're done, circle the three that were hardest to write. Difficulty is signal — the question you most wanted to skip is usually sitting on top of the real issue. Questions 5, 8, and 9 (the hidden win, the misread, the thing you won't say) are where most breakthroughs actually live.</p>
+
 <hr>
 
-<h2>Part 3 — The Goal-Setting Framework for a 60-Minute Session</h2>
+<h2>Part 3 — The Inner Game</h2>
+
+<p>Most sessions don't stall on strategy. They stall on the thing under the strategy — the fear you haven't said out loud, so it quietly runs the decision. Name it here, in private, before someone else is watching.</p>
+
+<pre><code>  The story I tell myself about why I'm stuck: __________
+
+<p>  The story that might be more true (the less flattering one): ______</p>
+
+<p>  What I'm secretly afraid is true about my work or me: __________</p>
+
+<p>  What it would cost me to be wrong about that fear: __________</p>
+
+<p>  If I fully believed I was good at this, the next move would be: ____</p>
+<p></code></pre></p>
+
+<h3>Worked example</h3>
+
+<pre><code>  Story I tell: "The market's crowded, it's hard to stand out."
+<p>  More true: "I've been hiding behind 'crowded' so I don't have to pick a lane."</p>
+<p>  Secretly afraid: that if I niche down, I'll be found out as not expert enough.</p>
+<p>  Cost of being wrong: another year of generic, underpriced work.</p>
+<p>  If I believed I was good: I'd raise my price and say the one thing I actually think.</p>
+<p></code></pre></p>
+
+<p>You don't have to solve this here. You just have to name it, because a fear you've named can be worked on in the room — and a fear you haven't will hijack the hour disguised as a "strategy question." The scary line is the most valuable thing on the page.</p>
+
+<hr>
+
+<h2>Part 4 — The Goal-Setting Framework for a 60-Minute Session</h2>
 
 <p>An hour is short. The single biggest waste is showing up with a vague goal — "I want clarity on my brand." Clarity on <em>what</em>, decided <em>how</em>, by <em>when</em>? Tighten it.</p>
 
@@ -594,7 +644,13 @@
 
 <p>Do this the morning of the call.</p>
 
-<ul><li>[ ] All three parts filled in — written, not thought</li><li>[ ] The one decision named in a single sentence</li><li>[ ] "Useful" defined as concrete outputs</li><li>[ ] The scary version of the blocker written down</li><li>[ ] Relevant links/copy gathered in one place (bio, site, profile)</li><li>[ ] Phone off, notes app open, somewhere you can talk freely</li><li>[ ] One question you'd be slightly embarrassed to ask — bring it anyway</li></ul>
+<ul><li>[ ] All four parts filled in — written, not thought</li><li>[ ] The one decision named in a single sentence</li><li>[ ] "Useful" defined as concrete outputs</li><li>[ ] The scary version of the blocker written down</li><li>[ ] Relevant links/copy gathered in one place (bio, site, profile)</li><li>[ ] Phone off, notes app open, somewhere you can talk freely</li><li>[ ] One question you'd be slightly embarrassed to ask — bring it anyway</li></ul>
+
+<hr>
+
+<h2>Running this without a session</h2>
+
+<p>No budget for the call yet? This pre-work stands on its own — most people have never answered these questions in writing, and the act of doing it surfaces the answer more often than not. To self-facilitate: fill in all four parts, then leave it for 24 hours. Come back cold and read it as if it were a stranger's. Ask the three questions an outside brain would ask — <em>"What are they avoiding? What's the one sentence they keep circling? What would I tell them to do first?"</em> — and write those answers too. You won't fully replace the outside brain, but you'll get most of the way, and you'll know exactly what to bring when you can afford the room.</p>
 
 <hr>
 
@@ -610,6 +666,8 @@
 <p>  THE SENTENCE I'M KEEPING: __________</p>
 <p>  WHAT I STILL NEED TO RESOLVE: __________</p>
 <p></code></pre></p>
+
+<p>Then put the three actions somewhere you'll see them this week, and the kept sentence somewhere you'll see it every day. A decision you don't act on inside seven days quietly reverts to the old default. Move while it's hot.</p>
 
 <hr>
 

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "define-icp",
+    "title": "Define who we actually sell to",
+    "decision": "I chose to narrow the market deliberately, walking away from segments that bought once and never returned.",
+    "problem": "The company sold to whoever called. There was no definition of a good customer, so there was no way to aim anything.",
+    "approach": "I built an ICP from the order history: which industries reordered, which applications drove volume, which regions were unserved. That became the target list everything else pointed at.",
+    "cost": "Narrowing meant telling a small company to stop chasing revenue it could technically win. That is not a popular first proposal."
+  },
+  {
+    "id": "build-channel",
+    "title": "Build a channel instead of hiring headcount",
+    "decision": "I put the growth into partners rather than payroll, which bought national reach at a fraction of fixed cost.",
+    "problem": "Reaching the whole country directly would have required a sales team the business could not afford.",
+    "approach": "I designed a four-tier distributor network on fit and territory, wired to an ERP-backed database I tested in sandboxes before it touched production.",
+    "cost": "Margin. Every distributor point is revenue given away, and I had to prove the volume justified it."
+  },
+  {
+    "id": "price-tiers",
+    "title": "Price the tiers so the program pulls itself upward",
+    "decision": "I front-loaded incentives for partners who committed to volume, before they had earned it.",
+    "problem": "A flat distributor discount gives partners no reason to grow.",
+    "approach": "Each tier carried its own margin, its own co-marketing support, and its own targets, so moving up a tier was worth working for.",
+    "cost": "It meant paying to activate a network that had produced nothing yet, on the argument that it would."
+  },
+  {
+    "id": "rebuild-demand",
+    "title": "Rebuild demand around channels that compound",
+    "decision": "I cut the legacy print and directory spend completely rather than trimming it.",
+    "problem": "The inherited budget went to trade print, a directory, and brochures. None of it was measurable.",
+    "approach": "I moved the money into SEO, targeted ABM and paid, and PR behind launches, and put campaign tracking on all of it.",
+    "cost": "Long-standing publication relationships, and two quarters with little to show while organic demand built."
+  },
+  {
+    "id": "instrument",
+    "title": "Instrument everything before scaling anything",
+    "decision": "I spent eight percent of a hard-won budget on infrastructure rather than demand.",
+    "problem": "Nobody could say what a customer cost or where revenue came from.",
+    "approach": "The ERP database tied orders to accounts and distributors; campaign tracking covered awareness through purchase. That is where CAC and sourced pipeline became knowable.",
+    "cost": "It was the first line questioned in every review, and I had to defend it repeatedly until the data started answering questions for me."
+  },
+  {
+    "id": "direct-motion",
+    "title": "Put a direct motion on the accounts worth owning",
+    "decision": "I split coverage deliberately: direct on named accounts, channel everywhere else.",
+    "problem": "The largest opportunities needed a relationship the channel could not carry alone.",
+    "approach": "I introduced a domestic sales force concept and put it against the key accounts the ICP model surfaced, with the channel covering the long tail.",
+    "cost": "Managing the conflict where both could claim the same account, which needed clear rules of engagement up front."
+  }
+]
