@@ -266,7 +266,8 @@ async function buildReel(page, r, outDir) {
   r.scenes.slice(0, -1).forEach((s, i) => {
     offset += s.dur - XFADE;
     const out = i === r.scenes.length - 2 ? '[v]' : `[x${i}]`;
-    chain += `${prev}[${i + 1}:v]xfade=transition=fade:duration=${XFADE}:offset=${offset.toFixed(3)}${out};`;
+    // A scene's `fx` picks the xfade transition into it (default: fade).
+    chain += `${prev}[${i + 1}:v]xfade=transition=${r.scenes[i + 1].fx || 'fade'}:duration=${XFADE}:offset=${offset.toFixed(3)}${out};`;
     prev = out;
   });
   const out = path.join(outDir, `${r.name}.mp4`);
