@@ -1,4 +1,4 @@
-// Builds two Nature's Value–tailored resumes (Signature + Classic) in the
+// Builds two Nature's Value–tailored resumes (Signature + Classic) and a cover letter in the
 // mkparrish.com type system — Bebas Neue, Playfair Display italic, DM Sans —
 // and renders each to HTML + US Letter PDF in public/resumes/natures-value/.
 //
@@ -306,9 +306,75 @@ const classic =
   <p class="foot">Mary Kate Parrish · 2 / 2</p>
 </div></body></html>`;
 
+// ── Cover letter — one page, Signature letterhead ──
+const coverCss = `
+.page{display:grid;grid-template-columns:2.1in 1fr}
+.side{background:var(--obsidian);color:var(--pearl);padding:.55in .3in .45in .38in}
+.name{font-family:var(--display);font-size:44px;line-height:.86;color:var(--white)}
+.name span{color:var(--petal)}
+.script{font-family:var(--serif);font-style:italic;font-weight:600;color:var(--petal);font-size:13px;line-height:1.3;margin-top:12px}
+.side h4{font-size:8.5px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--petal);margin:22px 0 8px}
+.side ul{list-style:none}
+.side li{font-size:9.4px;line-height:1.5;color:#d6d6d3;padding:3px 0;border-bottom:1px solid #262626}
+.side li:last-child{border:0}
+.pitch{margin-top:22px;border:1px solid var(--petal);padding:10px}
+.pitch .k{font-size:7.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--petal)}
+.pitch .t{font-family:var(--serif);font-style:italic;font-weight:600;font-size:12px;line-height:1.3;color:var(--white);margin-top:5px}
+.pitch .u{font-size:8.6px;color:var(--petal);margin-top:6px;font-weight:600}
+.main{padding:.6in .6in .5in .5in}
+.eyebrow{font-size:8.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--carmine)}
+.date{font-size:9.6px;color:var(--ash);margin-top:14px}
+.to{font-size:10px;line-height:1.5;margin-top:10px;color:#222}
+.headline{font-family:var(--display);font-size:30px;letter-spacing:.02em;line-height:.95;margin-top:18px}
+.headline span{color:var(--carmine)}
+.letter p{font-size:10.4px;line-height:1.66;color:#222;margin-top:11px}
+.letter p.lede{font-family:var(--serif);font-style:italic;font-weight:600;font-size:14.5px;line-height:1.35;color:var(--void);padding-left:12px;border-left:3px solid var(--petal)}
+.letter ul{margin:6px 0 0 14px}
+.letter li{font-size:10.2px;line-height:1.55;color:#222;margin-top:3px}
+.letter li::marker{color:var(--carmine)}
+.letter b{font-weight:600}
+.sign{margin-top:16px;font-size:10.4px;color:#222}
+.sig{font-family:var(--serif);font-style:italic;font-weight:700;font-size:26px;color:var(--lipstick);margin-top:4px;line-height:1}
+.signame{font-family:var(--display);font-size:15px;letter-spacing:.06em;margin-top:6px}
+`;
+
+const coverDate = "October 23, 2026";
+
+const cover =
+  head("Mary Kate Parrish — Cover Letter · Nature's Value", coverCss) +
+  `<div class="page"><aside class="side">
+  <div class="name">Mary<br>Kate<br><span>Parrish</span></div>
+  <p class="script">Making the science credible, the story human, and every campaign accountable.</p>
+  <h4>Contact</h4>
+  <ul><li>${contact.location}</li><li>${contact.phone}</li><li>${contact.email}</li><li>${contact.linkedin}</li><li>${contact.site}</li></ul>
+  <h4>By the numbers</h4>
+  <ul>${proof.map((p) => `<li><b style="color:var(--white);font-weight:600">${p.stat}</b> ${p.label}</li>`).join("")}</ul>
+  <div class="pitch"><p class="k">My Amazon plan</p><p class="t">How I'd triple Amazon ROI in 90 days.</p><p class="u"><a href="https://${PITCH_URL}">${PITCH_URL} →</a></p></div>
+</aside><main class="main">
+  <p class="eyebrow">Cover letter · Marketing</p>
+  <p class="date">${coverDate}</p>
+  <p class="to">Hiring Team<br>Nature's Value, Inc.<br>Coram, New York</p>
+  <h1 class="headline">Make Amazon your <span>strongest</span> channel.</h1>
+  <div class="letter">
+    <p>Dear Nature's Value Hiring Team,</p>
+    <p class="lede">Your products already sell. At other retailers they return about $20 for every dollar invested. On Amazon, the return is closer to $0.15. That gap is the opportunity I'd like to own.</p>
+    <p>I'm applying for your marketing role because I've spent nearly two decades turning trusted brands into products people buy, across retail, partner, and consumer channels. Most recently I ran national marketing for Atlantic Ultraviolet, a Long Island manufacturer 20 minutes from Coram, across its distributor, dealer and direct-to-consumer channels. I know how a manufacturer's margins, timelines and sales teams work, and I know marketing only counts when it shows up in sell-through.</p>
+    <p>I'd treat Amazon the way a CFO would and run it the way a marketer should:</p>
+    <ul>
+      <li><b>Stop the bleed.</b> Build a P&amp;L for every ASIN, cut ad spend that can't break even, and win back the Buy Box from unauthorized sellers.</li>
+      <li><b>Rebuild to convert.</b> Better listings, A+ content and Dr. Michael Murray on video, plus bundles that lift order value above fee thresholds.</li>
+      <li><b>Scale with gates.</b> Amazon gets the largest budget, but each dollar is released only when a product proves it pays for itself, with Subscribe &amp; Save turning first orders into repeat revenue.</li>
+    </ul>
+    <p>My 90-day target is to triple Amazon ROI, then grow it into a channel that earns more than it costs. The track record behind that: <b>$200M+</b> in partner-influenced revenue at Ericsson, <b>$20M+</b> in retail product revenue at Take-Two, and a creator network I grew to <b>80M+</b> monthly viewers at DEFY Media, where I learned how one trusted face can become a channel people come back to.</p>
+    <p>I put the full plan in writing, including the budget split, unit math and weekly KPIs, at <a href="https://${PITCH_URL}" style="color:var(--lipstick);font-weight:600">${PITCH_URL}</a>. I'd welcome the chance to walk you through it.</p>
+  </div>
+  <div class="sign">Warmly,<p class="sig">Mary Kate Parrish</p><p class="signame">Mary Kate Parrish</p></div>
+</main></div></body></html>`;
+
 const versions = [
   ["mk-parrish-resume-natures-value-signature", signature],
   ["mk-parrish-resume-natures-value-classic", classic],
+  ["mk-parrish-cover-letter-natures-value", cover],
 ];
 
 const browser = await chromium.launch({

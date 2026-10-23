@@ -186,6 +186,7 @@ export default function NaturesValuePage() {
         <div className="mt-10 flex flex-wrap gap-3">
           <BtnPrimary href="/resumes/natures-value/mk-parrish-resume-natures-value-signature.pdf">Resume · Signature</BtnPrimary>
           <BtnGhost href="/resumes/natures-value/mk-parrish-resume-natures-value-classic.pdf">Resume · Classic</BtnGhost>
+          <BtnGhost href="/resumes/natures-value/mk-parrish-cover-letter-natures-value.pdf">Cover letter</BtnGhost>
         </div>
       </section>
 
