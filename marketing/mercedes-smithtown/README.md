@@ -14,7 +14,7 @@ These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
 | `build-vol4.mjs` | Volume 4 "Walk in with me": five reels (walk-in POV, GLE walkaround, BOO-tiful, member savings, pray on it) and four feed posts. Captions in `captions-vol4.md`. Shared reel templates live in `trend.mjs` |
 | `build-vol5.mjs` | Volume 5 "Your Mercedes girl": a showroom reel and two "Ask for MK" feed posts from MK's retouched black-dress selfies. Captions in `captions-vol5.md` |
 | `build-vol6.mjs` | Volume 6 "Book it": green flags, book-in-30-seconds and things-nobody-tells-you reels plus a link-sticker story, all driving to mkparrish.com/test-drive. Captions and strategy in `captions-vol6.md` |
-| `build-friday.mjs` | "Friday night vibes" reel: showroom AMG GT, desk roses and "Make it happen" desk mat with a night grade, glow and pink sparkles, ending on a weekend test-drive CTA. Captions in `captions-friday.md` |
+| `build-friday.mjs` | Friday reels ("Friday night vibes" and "POV: Friday at my desk"): showroom AMG GT, desk roses and "Make it happen" desk mat with a night grade, glow and pink sparkles, ending on a weekend test-drive CTA. Captions in `captions-friday.md` |
 | `schedule.mjs` | Metricool schedule for all three volumes (Oct 12 – Nov 6) |
 
 After building any reels, run `node scripts/add-music.mjs`. It gives every
