@@ -133,10 +133,10 @@ const proof = [
 ];
 
 const bring = [
-  "Expert-led social: turning Dr. Michael Murray's authority into a weekly content engine that sends people to the shelf, Amazon and direct.",
-  "Retail partner kits: campaign-in-a-box assets, shelf QR codes and co-op social posts retailers can run on their own.",
-  "Long Island manufacturing as a brand story: quality, testing and the people in Coram as a reason to trust the label.",
-  "One dashboard from reach to sell-through, and claims-aware copy that moves quickly through regulatory review.",
+  "Amazon turnaround: a P&L for every ASIN, cutting wasted ad spend, and listings rebuilt to convert, aiming to triple Amazon ROI in 90 days.",
+  "Budget discipline: Amazon gets the largest budget, released month by month only as each product proves it pays for itself.",
+  "Dr. Michael Murray's authority on Amazon: A+ content, Brand Store and Sponsored Brands video, plus Instagram traffic sent to Amazon with Attribution links.",
+  "Repeat revenue through Subscribe & Save, with Amazon search data shared with retail and product teams to grow the whole company.",
 ];
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
