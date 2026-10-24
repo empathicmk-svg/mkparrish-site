@@ -15,6 +15,7 @@ These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
 | `build-vol5.mjs` | Volume 5 "Your Mercedes girl": a showroom reel and two "Ask for MK" feed posts from MK's retouched black-dress selfies. Captions in `captions-vol5.md` |
 | `build-vol6.mjs` | Volume 6 "Book it": green flags, book-in-30-seconds and things-nobody-tells-you reels plus a link-sticker story, all driving to mkparrish.com/test-drive. Captions and strategy in `captions-vol6.md` |
 | `build-friday.mjs` | Friday reels ("Friday night vibes" and "POV: Friday at my desk"): showroom AMG GT, desk roses and "Make it happen" desk mat with a night grade, glow and pink sparkles, ending on a weekend test-drive CTA. Captions in `captions-friday.md` |
+| `build-gwagon.mjs` | "2027 G-Wagon, today": walkaround reel with a chrome light sweep, a story and two feed posts, all ending on a call-or-text-today CTA. Captions in `captions-gwagon.md` |
 | `schedule.mjs` | Metricool schedule for all three volumes (Oct 12 – Nov 6) |
 
 After building any reels, run `node scripts/add-music.mjs`. It gives every
