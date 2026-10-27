@@ -12,6 +12,12 @@ These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
 | `build-parktronic.mjs` | The Parktronic self-parking reel and poll story |
 | `build-viral.mjs` | Six trend-format reels (pick one, costume reveal, fall edit, day in my life, rate it, things that make sense). Captions and sounds are in `captions-viral.md` |
 | `build-vol4.mjs` | Volume 4 "Walk in with me": five reels (walk-in POV, GLE walkaround, BOO-tiful, member savings, pray on it) and four feed posts. Captions in `captions-vol4.md`. Shared reel templates live in `trend.mjs` |
+| `build-vol5.mjs` | Volume 5 "Your Mercedes girl": a showroom reel and two "Ask for MK" feed posts from MK's retouched black-dress selfies. Captions in `captions-vol5.md` |
+| `build-vol6.mjs` | Volume 6 "Book it": green flags, book-in-30-seconds and things-nobody-tells-you reels plus a link-sticker story, all driving to mkparrish.com/test-drive. Captions and strategy in `captions-vol6.md` |
+| `build-friday.mjs` | Friday reels ("Friday night vibes" and "POV: Friday at my desk"): showroom AMG GT, desk roses and "Make it happen" desk mat with a night grade, glow and pink sparkles, ending on a weekend test-drive CTA. Captions in `captions-friday.md` |
+| `build-gwagon.mjs` | "2027 G-Wagon, today": walkaround reel with a chrome light sweep, a story and two feed posts, all ending on a call-or-text-today CTA. Captions in `captions-gwagon.md` |
+| `build-g63.mjs` | "AMG G 63, red and black": matte G 63 photos plus a stabilized red-interior walkaround (no photos of MK), with a chrome light sweep, a story and three feed posts, ending on call or text MK and mbofsmithtown.com. Captions in `captions-g63.md` |
+| `build-sprinter.mjs` | "Sprinter 15, customized": stabilized walkaround of the 15-passenger Sprinter plus full-frame High Quality Custom Design upfit interiors, with a chrome light sweep, two stories and five feed posts, all ending on a call-or-text-today CTA. Captions in `captions-sprinter.md` |
 | `schedule.mjs` | Metricool schedule for all three volumes (Oct 12 – Nov 6) |
 
 After building any reels, run `node scripts/add-music.mjs`. It gives every
