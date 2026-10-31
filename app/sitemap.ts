@@ -23,6 +23,7 @@ const staticRoutes = [
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
   { path: "/book", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/test-drive", changeFrequency: "monthly", priority: 0.7 },
   { path: "/benz-blonde", changeFrequency: "weekly", priority: 0.9 },
   { path: "/benz-blonde/shop", changeFrequency: "weekly", priority: 0.8 },
   { path: "/benz-blonde/trade", changeFrequency: "monthly", priority: 0.8 },

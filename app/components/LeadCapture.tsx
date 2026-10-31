@@ -2,17 +2,35 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+const LEAK_MAP = "/downloads/homepage-leak-map.pdf";
 const FREE_CHAPTER = "/downloads/ebooks/rebecoming-sample.pdf";
 const COSMOS_KIT = "/downloads/ebooks/the-cosmos-starter-kit.pdf";
 const STORAGE_KEY = "mkp_lead_capture_status";
 const DISMISS_DAYS = 7;
 
-type Variant = "rebecoming" | "cosmos";
+type Variant = "business" | "rebecoming" | "cosmos";
 
-// The popup adapts to the page: the Cosmos free guide on /cosmos, the REBECOMING
-// first chapter everywhere else.
+// The popup adapts to the page: the Homepage Leak Map (a business offer) by
+// default, the Cosmos free guide on /cosmos, and the REBECOMING first chapter
+// only on the book and writing pages.
+const WRITING_PATHS = ["/shop", "/writing", "/margins", "/between-the-lines", "/next-chapter", "/posts"];
+
+function variantForPath(pathname: string): Variant {
+  if (pathname.startsWith("/cosmos")) return "cosmos";
+  if (WRITING_PATHS.some((path) => pathname === path || pathname.startsWith(path + "/"))) return "rebecoming";
+  return "business";
+}
+
+const LEAK_POINTS = [
+  { num: "01", label: "Hero", text: "Does a stranger know what you sell in five seconds?" },
+  { num: "02", label: "Offer path", text: "Is there one obvious next step, or six competing ones?" },
+  { num: "03", label: "Proof", text: "Is trust placed where the doubt actually shows up?" },
+  { num: "04", label: "CTA", text: "Does the button ask for a commitment the visitor is ready to make?" },
+  { num: "05", label: "Capture", text: "What happens to the visitor who isn't ready yet?" },
+];
+
 const VARIANTS: Record<Variant, {
-  cover: string;
+  cover: string | null;
   coverAlt: string;
   eyebrow: string;
   titleTop: string;
@@ -32,6 +50,35 @@ const VARIANTS: Record<Variant, {
   crossCta: string;
   requestBody: (email: string, source: string) => Record<string, string>;
 }> = {
+  business: {
+    cover: null,
+    coverAlt: "",
+    eyebrow: "Websites · Marketing · Free Diagnostic",
+    titleTop: "Find where your site",
+    titleAccent: "leaks leads.",
+    productLine: "The Homepage Leak Map",
+    blurb:
+      "Nine places a homepage loses trust, momentum, or money before a visitor ever books. It's the same pass I run before I redesign a client's site. Enter your email and I'll send it over.",
+    bullets: [
+      "Instant PDF download after signup.",
+      "Covers the hero, offer path, proof, CTA, and lead capture.",
+      "Occasional notes on websites, conversion, and marketing. No spam.",
+    ],
+    submitLabel: "Send Me the Leak Map →",
+    footnote: "One email with your free diagnostic. Unsubscribe any time.",
+    download: LEAK_MAP,
+    successTitle: ["Your leak map", "is ready."],
+    successSub: {
+      emailed: "It's on its way to your inbox, and you can open it right now.",
+      fallback: "Email delivery isn't connected right now, but the leak map is ready below.",
+    },
+    successRead: "Open the Leak Map →",
+    crossEyebrow: "Want me to run it for you?",
+    crossText: "The $97 Positioning Audit: a recorded teardown of your site, a written scorecard, and your three highest-priority fixes within 48 hours.",
+    crossHref: "/audit",
+    crossCta: "See the $97 Audit →",
+    requestBody: (email, source) => ({ email, magnet: "homepage-leak-map", source }),
+  },
   rebecoming: {
     cover: "/downloads/covers/rebecoming-cover.jpg",
     coverAlt: "REBECOMING: From Fear to Faith book cover",
@@ -101,7 +148,7 @@ function shouldSuppressPopup() {
   if (typeof window === "undefined") return true;
 
   const pathname = window.location.pathname;
-  const suppressedPaths = ["/rebecoming", "/services", "/contact", "/book"];
+  const suppressedPaths = ["/rebecoming", "/services", "/contact", "/book", "/order-confirmed", "/checkout"];
   if (suppressedPaths.some((path) => pathname.startsWith(path))) return true;
 
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -138,16 +185,15 @@ export default function LeadCapture() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [emailed, setEmailed] = useState(false);
-  const [variant, setVariant] = useState<Variant>("rebecoming");
+  const [variant, setVariant] = useState<Variant>("business");
   const v = VARIANTS[variant];
-  const [downloadUrl, setDownloadUrl] = useState(FREE_CHAPTER);
+  const [downloadUrl, setDownloadUrl] = useState(LEAK_MAP);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (window.location.pathname.startsWith("/cosmos")) {
-      setVariant("cosmos");
-      setDownloadUrl(COSMOS_KIT);
-    }
+    const next = variantForPath(window.location.pathname);
+    setVariant(next);
+    setDownloadUrl(VARIANTS[next].download);
   }, []);
 
   const pageSource = useMemo(() => {
@@ -237,7 +283,7 @@ export default function LeadCapture() {
     } catch (err) {
       setError(err instanceof Error && err.message !== "failed"
         ? err.message
-        : "Something went wrong. You can still read the chapter below, then try your email again.");
+        : "Something went wrong. You can still open the download below, then try your email again.");
     } finally {
       setLoading(false);
     }
@@ -278,14 +324,39 @@ export default function LeadCapture() {
 
         <div className="relative hidden items-center justify-center bg-carbon p-8 md:flex">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(242,175,198,0.18),transparent_70%)]" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={v.cover}
-            alt={v.coverAlt}
-            width={1600}
-            height={2560}
-            className="relative aspect-[5/8] w-full max-w-[240px] border border-graphite/70 object-cover shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
-          />
+          {v.cover ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={v.cover}
+              alt={v.coverAlt}
+              width={1600}
+              height={2560}
+              className="relative aspect-[5/8] w-full max-w-[240px] border border-graphite/70 object-cover shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
+            />
+          ) : (
+            <div className="relative w-full max-w-[320px] border border-graphite/70 bg-void/80 shadow-[0_20px_60px_rgba(0,0,0,0.6)]" aria-hidden="true">
+              <div className="flex items-center gap-1.5 border-b border-graphite px-4 py-3">
+                <span className="h-2 w-2 rounded-full bg-graphite" />
+                <span className="h-2 w-2 rounded-full bg-graphite" />
+                <span className="h-2 w-2 rounded-full bg-petal/70" />
+                <span className="ml-3 font-mono text-[0.6rem] text-iron">yoursite.com</span>
+              </div>
+              <ul className="divide-y divide-graphite">
+                {LEAK_POINTS.map((point) => (
+                  <li key={point.num} className="flex gap-3 px-4 py-3">
+                    <span className="font-display text-lg leading-none text-petal">{point.num}</span>
+                    <div>
+                      <p className="font-body text-[0.58rem] font-bold uppercase tracking-[0.22em] text-pearl">{point.label}</p>
+                      <p className="mt-1 font-body text-[0.7rem] font-light leading-5 text-smoke">{point.text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <p className="border-t border-graphite px-4 py-3 font-body text-[0.58rem] font-bold uppercase tracking-[0.22em] text-iron">
+                + 4 more in the full map
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="p-8 md:p-10">

@@ -6,11 +6,21 @@ import { usePathname } from "next/navigation";
  * Hides the marketing chrome (nav, footer, drawers, popups) on standalone
  * routes. `/desk` is a full-screen app with its own bottom tab bar; the
  * site's mobile nav overlaps it and the lead-capture modal covers it, so the
- * page is unusable on a phone with the chrome rendered. `/benz-blonde` is a
- * separate brand with its own nav, footer, and signup popup — two sets of
- * chrome would fight, and two lead popups would fire on the same visitor.
+ * page is unusable on a phone with the chrome rendered. `/links` is the
+ * Instagram/TikTok link-in-bio page and should open as a single clean card;
+ * `/test-drive` is the Mercedes-Benz booking page it links to; `/natures-value`
+ * is a private pitch page linked from a resume. `/benz-blonde` is a separate
+ * brand with its own nav, footer, and signup popup — two sets of chrome would
+ * fight, and two lead popups would fire on the same visitor.
  */
-const BARE_ROUTES = ["/desk", "/ideals", "/benz-blonde"];
+const BARE_ROUTES = [
+  "/desk",
+  "/ideals",
+  "/links",
+  "/natures-value",
+  "/test-drive",
+  "/benz-blonde",
+];
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

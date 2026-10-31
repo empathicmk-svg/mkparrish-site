@@ -6,19 +6,20 @@ const footerGroups = [
     heading: "Services",
     links: [
       { label: "All Offerings", href: "/services#offerings" },
-      { label: "Web Design & Build", href: "/studio" },
-      { label: "Outbound & Growth", href: "/growth" },
-      { label: "Messaging & Copy", href: "/brand" },
+      { label: "Web Design & Development", href: "/studio" },
+      { label: "Marketing & Growth", href: "/growth" },
+      { label: "Founding Redesign", href: "/redesign" },
+      { label: "$97 Positioning Audit", href: "/audit" },
     ],
   },
   {
     heading: "Company",
     links: [
       { label: "How I Work", href: "/how-i-work" },
-      { label: "Rebecoming", href: "/rebecoming" },
-      { label: "Shop", href: "/shop" },
+      { label: "Client Results", href: "/testimonials" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
+      { label: "Books & Shop", href: "/shop" },
     ],
   },
 ];
@@ -30,24 +31,24 @@ export default function Footer() {
         <div className="mb-10 grid gap-6 border border-petal/25 bg-carbon/55 p-6 shadow-[0_0_70px_rgba(255,181,208,0.09)] md:grid-cols-[1fr_auto] md:items-center md:p-8">
           <div>
             <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.32em] text-petal">
-              Rewrite Your Story
+              Websites · Marketing · Growth
             </p>
             <p className="mt-3 max-w-2xl font-serif text-xl italic leading-8 text-pearl md:text-2xl">
-              You are not starting over. You are rebecoming, rebuilding, and rewriting the way the work reads.
+              Fast sites, clear messaging, and marketing that keeps the calendar full. Built and run by one senior operator.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row md:flex-col xl:flex-row">
             <Link
-              href="/shop"
+              href="/book"
               className="btn-primary justify-center px-5 py-3 font-body text-[0.68rem] font-bold uppercase tracking-[0.18em] text-void"
             >
-              Shop the Shelf
+              Book a Call
             </Link>
             <Link
-              href="/book"
+              href="/audit"
               className="btn-ghost justify-center px-5 py-3 font-body text-[0.68rem] font-bold uppercase tracking-[0.18em]"
             >
-              Book a Call
+              $97 Audit
             </Link>
           </div>
         </div>
@@ -56,7 +57,7 @@ export default function Footer() {
           <div>
             <p className="font-display text-2xl uppercase tracking-[0.02em] text-pearl">MK Parrish</p>
             <p className="mt-1 font-serif text-base italic text-smoke" style={{ fontWeight: 500 }}>
-              Growth strategy, websites, and messaging.
+              Web design, development, and marketing.
             </p>
             <div className="mt-4 flex flex-col gap-1.5">
               <a href={`mailto:${CONTACT.email}`} className="font-body text-[0.72rem] tracking-[0.08em] text-smoke transition hover:text-petal">
@@ -98,17 +99,17 @@ export default function Footer() {
               Book a Call
             </Link>
             <Link
-              href="/shop"
+              href="/redesign"
               className="btn-ghost px-5 py-2.5 font-body text-[0.7rem] font-bold uppercase tracking-[0.2em]"
             >
-              Shop Books
+              Redesign Offer
             </Link>
           </div>
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
           <p className="font-body text-[0.7rem] font-light tracking-[0.1em] text-iron">
-            Websites, outbound, and messaging that turn how you&apos;re seen into revenue.
+            Websites and marketing that turn how you&apos;re seen into revenue.
           </p>
           <p className="font-body text-[0.7rem] font-light tracking-[0.06em] text-iron">
             &copy; {new Date().getFullYear()} MK Parrish
