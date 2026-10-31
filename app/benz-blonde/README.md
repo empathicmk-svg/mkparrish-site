@@ -47,20 +47,23 @@ set in the Vercel project before pointing traffic here.
 `benz-lease-end`, `benz-shop`, `benz-referral`, `benz-home`,
 `benz-watch-question`, `popup:/benz-blonde/...`.
 
-## Before launch — three things only you can do
+## Before launch — one thing only you can do
 
-1. **Social handles.** `SOCIAL` in `data.ts` currently uses `@thebenzblonde` as a
-   placeholder on all four platforms. Replace with the real ones. Set
-   `live: false` on anything not running yet and it disappears from the nav,
-   footer, home page, and Watch page rather than shipping a dead link.
-2. **Phone number.** `BENZ.phone` mirrors the main site's personal number. If
-   leads should go to a dealership line instead, change it in `data.ts` — it
-   feeds every tap-to-text link, the customer confirmation email, and the
-   JSON-LD.
-3. **Reviews.** `REVIEWS` in `data.ts` is intentionally empty — no invented
-   customers. Until you paste real ones in, the Reviews page renders the
-   standards-and-referral layout instead. Add entries and the review wall
-   replaces it automatically.
+**Reviews.** `REVIEWS` in `data.ts` is intentionally empty — no invented
+customers. Until you paste real ones in, the Reviews page renders the
+standards-and-referral layout instead. Add entries and the review wall replaces
+it automatically.
+
+### Already wired up
+
+- **Contact.** `BENZ` in `data.ts` carries the work line (631.366.6417) as the
+  primary — it takes the texts, same as `/test-drive` — with the cell as a
+  secondary and `mparrish@mbofsmithtown.com` as the email. Change them in one
+  place and every tap-to-text link, confirmation email, and the JSON-LD follow.
+- **Social.** `SOCIAL` points Instagram and TikTok at `@mk_parrish`, the same
+  accounts `/links` links to. YouTube and LinkedIn are staged with
+  `live: false`, so they are hidden from the nav, footer, home page, and Watch
+  page until there is something on them. Flip the flag when there is.
 
 ## Deliberately not here
 

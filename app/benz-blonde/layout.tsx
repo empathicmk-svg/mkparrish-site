@@ -3,7 +3,7 @@ import BenzNav from "./BenzNav";
 import BenzFooter from "./BenzFooter";
 import BenzPopup from "./BenzPopup";
 import StickyCTA from "./StickyCTA";
-import { BENZ } from "./data";
+import { BENZ, SOCIAL_LIVE } from "./data";
 
 const TITLE = "The Benz Blonde — MK Parrish at Mercedes-Benz of Smithtown";
 const DESCRIPTION =
@@ -38,6 +38,7 @@ const JSON_LD = {
   telephone: BENZ.phone,
   email: BENZ.email,
   url: "https://www.mkparrish.com/benz-blonde",
+  sameAs: SOCIAL_LIVE.map((s) => s.href),
   worksFor: { "@type": "AutoDealer", name: BENZ.store },
   areaServed: ["Long Island", "Nassau County", "Suffolk County", "Queens", "New York City"],
 };

@@ -39,6 +39,9 @@ export default function BenzFooter() {
               <a href={BENZ.smsHref} className="font-display text-2xl uppercase tracking-[0.04em] text-petal transition-colors hover:text-blush">
                 Text {BENZ.phone}
               </a>
+              <a href={BENZ.cellHref} className="font-body text-sm text-smoke transition-colors hover:text-petal">
+                Cell {BENZ.cell}
+              </a>
               <a href={`mailto:${BENZ.email}`} className="font-body text-sm text-smoke transition-colors hover:text-petal">
                 {BENZ.email}
               </a>

@@ -13,12 +13,15 @@ export const BENZ = {
   person: "MK Parrish",
   store: "Mercedes-Benz of Smithtown",
   area: "Long Island · Nassau, Suffolk, Queens & NYC",
-  // Site-wide contact, mirrored from app/lib/config.ts so the microsite can be
-  // pointed at a dealership line without touching the main site.
-  phone: "347.853.4238",
-  phoneHref: "tel:+13478534238",
-  smsHref: "sms:+13478534238",
-  email: "mkp414@icloud.com",
+  // Dealership contact, matching app/test-drive — the work line takes the texts,
+  // so every tap-to-text link, confirmation email, and the JSON-LD point there.
+  // The cell is listed as a second option, not the primary.
+  phone: "631.366.6417",
+  phoneHref: "tel:+16313666417",
+  smsHref: "sms:+16313666417",
+  cell: "347.853.4238",
+  cellHref: "tel:+13478534238",
+  email: "mparrish@mbofsmithtown.com",
   hours: [
     { day: "Monday", hours: "12:00 – 8:00" },
     { day: "Tuesday", hours: "12:00 – 8:00" },
@@ -31,13 +34,15 @@ export const BENZ = {
 } as const;
 
 // ── Social ────────────────────────────────────────────────────────────────────
-// TODO(MK): swap these for the live handles. Set `live: false` on anything not
-// running yet and it is hidden everywhere instead of shipping a dead link.
+// Instagram and TikTok are the live accounts (same handles the /links page
+// points at). YouTube and LinkedIn are staged with `live: false`, which hides
+// them from the nav, footer, home page, and Watch page — flip to `true` the day
+// the channel actually has something on it, rather than shipping a dead link.
 export const SOCIAL = [
-  { name: "Instagram", handle: "@thebenzblonde", href: "https://instagram.com/thebenzblonde", live: true, blurb: "Walkarounds, delivery days, and the parts of this job nobody films." },
-  { name: "TikTok", handle: "@thebenzblonde", href: "https://tiktok.com/@thebenzblonde", live: true, blurb: "60-second answers to the questions people are too embarrassed to ask a dealer." },
-  { name: "YouTube", handle: "@thebenzblonde", href: "https://youtube.com/@thebenzblonde", live: true, blurb: "Full model comparisons and the lease-vs-finance math, shown on paper." },
-  { name: "LinkedIn", handle: "MK Parrish", href: "https://www.linkedin.com/in/mkparrish", live: true, blurb: "Fleet, Sprinter, and Section 179 for business owners." },
+  { name: "Instagram", handle: "@mk_parrish", href: "https://www.instagram.com/mk_parrish", live: true, blurb: "Walkarounds, delivery days, and the parts of this job nobody films." },
+  { name: "TikTok", handle: "@mk_parrish", href: "https://www.tiktok.com/@mk_parrish", live: true, blurb: "60-second answers to the questions people are too embarrassed to ask a dealer." },
+  { name: "YouTube", handle: "@mk_parrish", href: "https://www.youtube.com/@mk_parrish", live: false, blurb: "Full model comparisons and the lease-vs-finance math, shown on paper." },
+  { name: "LinkedIn", handle: "MK Parrish", href: "https://www.linkedin.com/in/mkparrish", live: false, blurb: "Fleet, Sprinter, and Section 179 for business owners." },
 ] as const;
 
 export const SOCIAL_LIVE = SOCIAL.filter((s) => s.live);
