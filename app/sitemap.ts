@@ -24,6 +24,13 @@ const staticRoutes = [
   { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
   { path: "/book", changeFrequency: "monthly", priority: 0.85 },
   { path: "/test-drive", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/benz-blonde", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/benz-blonde/shop", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/benz-blonde/trade", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/benz-blonde/lease-end", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/benz-blonde/book", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/benz-blonde/watch", changeFrequency: "weekly", priority: 0.75 },
+  { path: "/benz-blonde/reviews", changeFrequency: "monthly", priority: 0.7 },
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
