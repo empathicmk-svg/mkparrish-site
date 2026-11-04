@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --white: #FAFAF8;
+    --blush: #FFD6E4;
+    --petal: #F2AFC6;
+    --rose: #E0869F;
+    --carmine: #C75B78;
+    --font-display: 'Bebas Neue', Impact, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    /* Reusable gray → pink gradients */
+    --grad-pink: linear-gradient(120deg, var(--rose), var(--petal) 55%, var(--blush));
+    --grad-rule: linear-gradient(90deg, transparent, var(--petal), transparent);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(242,175,198,0.06), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, rgba(199,91,120,0.05), transparent 55%),
+      linear-gradient(180deg, var(--obsidian) 0%, var(--void) 38%);
+    background-attachment: fixed;
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.78;
+    position: relative;
+  }
+  /* Grain overlay — the site's signature texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9998;
+    mix-blend-mode: screen;
+  }
+  ::selection { background: var(--petal); color: var(--void); }
+
+  /* ── COVER ─────────────────────────────────────────── */
+  .cover {
+    position: relative;
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 104px 48px 84px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% -10%, rgba(242,175,198,0.20) 0%, transparent 62%),
+      radial-gradient(ellipse 50% 50% at 88% 108%, rgba(199,91,120,0.12) 0%, transparent 60%),
+      linear-gradient(160deg, rgba(176,176,176,0.06), transparent 45%);
+    pointer-events: none;
+  }
+  /* Thin gray→pink gradient hairline across the very top */
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--iron), var(--petal) 50%, var(--blush));
+    opacity: 0.7;
+  }
+  .cover > * { position: relative; z-index: 1; }
+  .cover-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7.5vw, 4.6rem);
+    letter-spacing: 0.04em;
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    color: var(--white);
+  }
+  /* Soft gray→white→pink gradient fill on the lead words */
+  .cover h1 .grad {
+    background: linear-gradient(135deg, var(--pearl) 0%, var(--pearl) 50%, var(--blush) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--pearl);
+    filter: drop-shadow(0 0 16px rgba(242,175,198,0.14));
+  }
+  .cover h1 .outline {
+    -webkit-text-stroke: 1px rgba(242,175,198,0.5);
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  /* Subtitle — matches the live site tagline: Playfair italic, petal */
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+    color: rgba(242, 175, 198, 0.8);
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.5;
+  }
+  .cover-rule {
+    width: 90px;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, var(--rose), var(--petal), var(--blush), transparent);
+  }
+  .cover-meta {
+    margin-top: 30px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+
+  /* ── CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    counter-reset: section;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    letter-spacing: 0.03em;
+    line-height: 1.04;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  /* Section headings get an editorial mono counter, like the site's section numbers */
+  h2 {
+    counter-increment: section;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.3vw, 1.95rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--pearl);
+    margin: 68px 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--graphite);
+    position: relative;
+  }
+  h2::before {
+    content: counter(section, decimal-leading-zero);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--rose), var(--petal));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--petal);
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 88px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--petal), rgba(242,175,198,0));
+  }
+  /* Sub-section labels — live-site accent: Playfair italic, petal */
+  h3 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--petal);
+    margin: 40px 0 12px;
+  }
+  p { margin: 0 0 1.25em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  /* Emphasis — live-site accent: Playfair italic, petal */
+  em { font-family: var(--font-serif); font-style: italic; color: var(--petal); }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { color: var(--blush); text-decoration: underline; }
+
+  ul, ol { padding-left: 1.4em; margin: 0 0 1.6em; color: var(--smoke); }
+  li { margin-bottom: 0.55em; padding-left: 0.35em; }
+  ul li::marker { color: var(--petal); }
+  ol li::marker { color: var(--petal); font-family: var(--font-mono); font-size: 0.85em; }
+
+  blockquote {
+    position: relative;
+    border-left: 2px solid var(--petal);
+    margin: 40px 0;
+    padding: 26px 30px 26px 40px;
+    background: linear-gradient(110deg, rgba(242,175,198,0.10), rgba(176,176,176,0.04) 55%, transparent 90%);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.08rem;
+    color: rgba(242, 175, 198, 0.9);
+    line-height: 1.6;
+  }
+  blockquote::before {
+    content: '\201C';
+    position: absolute;
+    top: 0.08em;
+    left: 0.14em;
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(242,175,198,0.22);
+    pointer-events: none;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code { font-family: var(--font-mono); font-size: 0.86rem; color: var(--petal); white-space: pre; }
+  p > code, li > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    font-size: 0.82em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.9rem; }
+  thead tr { background: linear-gradient(90deg, rgba(242,175,198,0.12), rgba(176,176,176,0.04) 70%, transparent); }
+  th {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--graphite); color: var(--smoke); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--iron) 25%, var(--petal) 50%, var(--iron) 75%, transparent);
+    opacity: 0.6;
+    margin: 52px 0;
+  }
+
+  /* ── FOOTER ────────────────────────────────────────── */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 48px 24px;
+    text-align: center;
+    background: var(--obsidian);
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .footer-legal {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+  .footer-legal a { color: var(--ash); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PRINT EDITION — light, publisher-style layout for the PDF.
+     The screen stays dark; the printed book inverts to a white page
+     with black header boxes and pink/white titles.
+     ═══════════════════════════════════════════════════════════════ */
+  @media print {
+    @page { margin: 0; }
+
+    html, body {
+      background: #ffffff !important;
+      color: #232323 !important;
+    }
+    body::before { display: none !important; }   /* no grain in print */
+
+    /* ── COVER: a full-page black panel on a white sheet ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      background: #ffffff !important;
+      border-bottom: none;
+      padding: 0;
+      break-after: page;
+    }
+    .cover::before, .cover::after { display: none !important; }
+    /* The panel fills the printable page and centres the title block,
+       instead of floating as a thin band in the middle of the sheet. */
+    .cover-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 52px;
+      background: #0E0E0E;
+      border: 1px solid rgba(242, 175, 198, 0.45);
+    }
+    .cover-kicker { color: var(--petal); }
+    .cover h1 { color: #ffffff; font-size: clamp(3rem, 8vw, 4rem); }
+    /* Solid fills only. background-clip:text and text-stroke rasterise as
+       opaque boxes / vanish entirely in print — that is what turned the old
+       title into a white rectangle. Keep the white + pink two-tone with
+       plain fills so it renders identically everywhere. */
+    .cover h1 .grad {
+      background: none;
+      -webkit-background-clip: border-box; background-clip: border-box;
+      -webkit-text-fill-color: #ffffff; color: #ffffff;
+      filter: none;
+    }
+    .cover h1 .outline {
+      -webkit-text-stroke: 0;
+      -webkit-text-fill-color: var(--petal); color: var(--petal);
+    }
+    .cover .subtitle { color: var(--petal); }
+    .cover-meta { color: #B0B0B0; }
+
+    /* ── BODY: black text on white ── */
+    .content { padding-top: 64px; color: #232323; }
+    p { color: #2b2b2b; }
+    /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
+    strong {
+      background: #0E0E0E;
+      color: #FAFAF8;
+      font-weight: 600;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    a { color: #B23A59; }
+    ul li::marker, ol li::marker { color: #B23A59; }
+
+    /* ── SECTION HEADERS: black boxes, pink number + white title ── */
+    h2 {
+      background: #0E0E0E;
+      color: #ffffff;
+      padding: 24px 30px;
+      margin: 40px 0 42px;
+      border: none;
+      break-before: page;          /* every Part / section starts a fresh page */
+    }
+    /* …except the first section, which follows the cover (and any intro/metadata
+       block) on page 2 instead of forcing a near-empty page before it. */
+    .content h2:first-of-type { break-before: auto; }
+    h2::before {
+      background: none;
+      -webkit-text-fill-color: var(--petal);
+      color: var(--petal);
+      margin-bottom: 10px;
+    }
+    h2::after { display: none; }
+
+    /* Exercise titles — pink, with extra breathing room above each */
+    h3 { color: #B23A59; margin: 58px 0 18px; }
+    /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
+    em {
+      background: var(--petal);
+      color: #1A1008;
+      font-style: italic;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    /* ── PULL QUOTES: soft panel, pink rule + mark, dark text ── */
+    blockquote {
+      background: #F5F2F0;
+      border-left: 3px solid #B23A59;
+      color: #232323;
+    }
+    blockquote::before { color: rgba(178, 58, 89, 0.3); }
+
+    /* ── TABLES: black header band ── */
+    thead tr { background: #0E0E0E; }
+    th { color: #ffffff; border-bottom: 1px solid #0E0E0E; }
+    td { color: #2b2b2b; border-bottom: 1px solid #e3e3e3; }
+
+    /* ── CODE: light chip ── */
+    pre { background: #f3f3f1; border: 1px solid #e3e3e3; }
+    pre code { color: #A8344F; }
+    p > code, li > code { background: #f0eeec; color: #A8344F; }
+
+    hr {
+      background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
+      opacity: 1;
+    }
+    /* The markdown "---" separators always sit just before a section heading,
+       and every section already starts a fresh page — so a rule landing right
+       before a heading is redundant and can strand alone on a near-empty page.
+       Hide those; keep any genuine in-content rule (one not followed by H2). */
+    hr:has(+ h2) { display: none; }
+
+    /* ── FOOTER: white page, black signature ── */
+    .footer { background: #ffffff; border-top: 1px solid #dddddd; }
+    .footer-logo { color: #0A0A0A; }
+    .footer-legal { color: #8a8a8a; }
+    .footer-legal a { color: #B23A59; }
+
+    /* ── PAGINATION — natural flow; just avoid bad breaks ── */
+    h1, h2, h3 { break-after: avoid-page; break-inside: avoid; }
+    p, li { orphans: 3; widows: 3; }
+    h2, h3, li, tr, blockquote, pre, table, figure, img { break-inside: avoid; }
+    ul, ol { break-before: avoid-page; }
+    .footer { break-before: avoid-page; }
+  }
+  *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+</style>
+
+<title>The Cosmos Starter Kit — MK Parrish</title>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">The Cosmos</span> <span class="outline">Starter Kit</span></h1>
+    <p class="subtitle">Your free field guide to numerology &amp; astrology — life-path numbers, your Big Three, and angel numbers, read like a mirror instead of a fortune.</p>
+    <div class="cover-rule"></div>
+    <div class="cover-meta">By MK Parrish · Free</div>
+  </div>
+</div>
+
+<div class="content">
+<h2>Start Here</h2>
+<p>Welcome. This is a short, free field guide to the two languages people reach for when they want to understand themselves better: numerology and astrology.</p>
+<p>I'm a growth strategist, not a psychic, and I want to be honest about how I use these tools. I read a chart the way I read a positioning brief — as a <em>mirror,</em> not a map. Nothing in here decides your future or replaces your judgment. What it does is give you language for how you're wired, what season you're in, and the voice that's already yours. That's more useful than a prediction, and it's a lot more honest.</p>
+<p>This kit covers the three most-searched starting points — your life-path number, your Big Three, and angel numbers — plus a quick read on personal-year timing and one way to turn all of it into something practical. Read it in one sitting. Keep what resonates. Leave the rest.</p>
+<blockquote>You don't need the stars to be sending secret codes for this to be useful. You need a better language for paying attention to yourself. That's rarer, and it's real.</blockquote>
+<p>Let's begin.</p>
+<hr>
+<h2>Your Life-Path Number</h2>
+<p>Numerology's most useful starting point is your life-path number — a single digit (1–9, or the master numbers 11, 22, 33) that offers a surprisingly sharp read on your natural edge and your natural trap.</p>
+<h3>How to calculate it</h3>
+<p>Add every digit of your full birth date, then keep reducing until you reach a single digit. Example: born 14 March 1990 → 1+4+3+1+9+9+0 = 27 → 2+7 = 9. (If you land on 11, 22, or 33 along the way, those are 'master numbers' — they don't reduce; they carry the intensity of both digits.)</p>
+<h3>What each number tends to mean</h3>
+<ul><li><strong>1 — The Initiator.</strong> Built to start things. Edge: originality. Trap: going it alone.</li><li><strong>2 — The Diplomat.</strong> Wired for partnership and nuance. Edge: trust. Trap: disappearing to keep the peace.</li><li><strong>3 — The Communicator.</strong> Made to express. Edge: voice. Trap: scattering it across ten ideas.</li><li><strong>4 — The Builder.</strong> Systems and follow-through. Edge: reliability. Trap: rigidity.</li><li><strong>5 — The Free Agent.</strong> Change and reinvention. Edge: adaptability. Trap: finishing nothing.</li><li><strong>6 — The Caretaker.</strong> Responsibility and craft. Edge: care. Trap: over-giving.</li><li><strong>7 — The Seeker.</strong> Depth and analysis. Edge: insight. Trap: hiding in research.</li><li><strong>8 — The Executive.</strong> Power and results. Edge: ambition. Trap: measuring only in money.</li><li><strong>9 — The Old Soul.</strong> Vision and meaning. Edge: perspective. Trap: martyrdom.</li></ul>
+<p>Read your number as a description, not a sentence. The 'trap' isn't a curse — it's the growth edge. Knowing it is half the work of not falling into it.</p>
+<hr>
+<h2>The Big Three</h2>
+<p>In astrology, the three placements that do the most work are your sun, moon, and rising signs — your Big Three. Together they're a better introduction to a person than most résumés.</p>
+<h3>Sun — the work</h3>
+<p>Your sun sign is your core self, your essential drive, the thing you're here to develop. It's the answer to 'who am I becoming?' In brand terms, it's the substance — the actual work you do and why it matters to you.</p>
+<h3>Moon — the why</h3>
+<p>Your moon sign is your inner life: what you need to feel safe, how you process emotion, what quietly drives you underneath the doing. It's the private engine. Most people lead with their sun and are secretly run by their moon.</p>
+<h3>Rising — the first impression</h3>
+<p>Your rising sign (or ascendant) is the mask you meet the world in — how you come across before you've said a word. In brand terms, it's your packaging: the first impression your presence, your site, your voice makes. When the rising and the sun are aligned, people trust you faster, because what they see matches what they get.</p>
+<p>You'll need your birth time for an accurate rising sign — a free birth-chart calculator will give you all three in a minute. Read them as a stack: substance (sun), motive (moon), and first impression (rising).</p>
+<hr>
+<h2>Angel Numbers</h2>
+<p>Repeated number sequences — 111 on the clock, 444 on a receipt — are the most-searched spiritual pattern there is. Read them as a nudge toward something you already know, not a lottery result. The number isn't the message; your attention is.</p>
+<table><thead><tr><th>Sequence</th><th>A grounded read</th></tr></thead><tbody><tr><td>111</td><td>A doorway. An idea worth acting on before you talk yourself out of it.</td></tr><tr><td>222</td><td>Alignment. Keep going on what you just committed to.</td></tr><tr><td>333</td><td>Expression. Say the true thing you've been editing down.</td></tr><tr><td>444</td><td>Foundation. The unglamorous work is the work.</td></tr><tr><td>555</td><td>Change. A season is ending; stop clinging to the old version.</td></tr><tr><td>777</td><td>Confirmation. You're on the path — don't outsmart it.</td></tr><tr><td>888</td><td>Momentum. Effort is compounding; don't quit before the curve bends.</td></tr><tr><td>999</td><td>Completion. Something is finishing so the next thing can begin.</td></tr></tbody></table>
+<p>When a number keeps finding you, treat it as a prompt: what have I been avoiding deciding? The pattern is just the tap on the shoulder. The decision is yours.</p>
+<hr>
+<h2>Your Personal Year</h2>
+<p>Numerology also offers a simple read on timing: your personal year. It tells you the theme of the twelve months you're in — useful for deciding whether this is a season to plant, build, or release.</p>
+<h3>How to calculate it</h3>
+<p>Add your birth month + birth day + the current year, then reduce to a single digit. Example: born March 14, in 2026 → 3 + 14 + 2026 = 2043 → 2+0+4+3 = 9. That's a personal year 9.</p>
+<h3>The nine-year cycle, briefly</h3>
+<ul><li><strong>1 — Begin.</strong> New chapter, plant seeds, start the thing.</li><li><strong>2 — Partner.</strong> Patience, relationships, quiet development.</li><li><strong>3 — Express.</strong> Creativity, visibility, put your voice out.</li><li><strong>4 — Build.</strong> Systems, discipline, do the foundational work.</li><li><strong>5 — Change.</strong> Freedom, movement, expect the unexpected.</li><li><strong>6 — Tend.</strong> Responsibility, home, care for what you've built.</li><li><strong>7 — Reflect.</strong> Study, rest, go inward before the next push.</li><li><strong>8 — Harvest.</strong> Ambition and reward; a power year for money and results.</li><li><strong>9 — Release.</strong> Completion; let go of what's finished to make room.</li></ul>
+<p>Timing isn't destiny, but it's useful. Launching hard in a 7 year can feel like pushing a rope; the same effort in an 8 year tends to pay. Work with the season you're in.</p>
+<hr>
+<h2>A Mirror, Not a Map</h2>
+<p>Here's the honest part, and the whole point of this guide. None of this decides anything. Its value is that it gets you past the rehearsed answer about who you are and into the real one — faster than another self-assessment quiz ever could.</p>
+<p>Use it as a mirror. If your life-path number names a trap you recognize, that's information you can act on. If your rising sign and your actual first impression don't match, that's a positioning problem worth fixing. If a personal year says 'release' and you've been white-knuckling something finished, maybe listen. The chart doesn't move your life. It just helps you say the true thing sooner — and saying the true thing, out loud, is where every kind of change actually starts.</p>
+<blockquote>The most useful thing a chart can do isn't predict your future. It's hand you language honest enough to change it.</blockquote>
+<hr>
+<h2>Where to Next</h2>
+<p>If this gave you a clearer mirror, here's how to go deeper:</p>
+<ul><li><strong>Read more free insights</strong> at <a href="https://www.mkparrish.com/cosmos">mkparrish.com/cosmos</a> — the full Cosmos line: numerology and astrology, read like strategy.</li><li><strong>Turn insight into action</strong> with <a href="https://www.mkparrish.com/shop/the-manifest">The Manifest</a> — manifesting for business, minus the magical thinking.</li><li><strong>Get the whole library</strong> in <a href="https://www.mkparrish.com/shop/the-manifestation-vault">The Manifestation Vault</a> — four books on manifesting, money, micro habits, and mornings.</li><li><strong>Work with me directly</strong> — book a reading + strategy call at <a href="https://www.mkparrish.com/book">mkparrish.com/book</a>.</li></ul>
+<p>Thank you for reading. Keep noticing. Take your own attention seriously.</p>
+<blockquote>Your chart is a first draft. What you do with it is the rewrite.</blockquote>
+<p>Rewrite your story. ♡</p>
+<p>— MK</p>
+</div>
+
+<div class="footer">
+  <div class="footer-logo">MK Parrish</div>
+  <div class="footer-legal">© MK Parrish · Rewrite Your Story · <a href="https://www.mkparrish.com">mkparrish.com</a></div>
+</div>
+
+</body>
+</html>

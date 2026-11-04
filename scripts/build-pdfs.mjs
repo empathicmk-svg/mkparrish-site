@@ -10,14 +10,30 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
+const PAPERBACK_TRIM = { width: '6in', height: '9in' };
 
 const FILES = [
   // ebooks
   ['public/downloads/ebooks/reinvention-workbook.html',          'public/downloads/ebooks/reinvention-workbook.pdf'],
   ['public/downloads/ebooks/write-yourself-into-the-room.html',  'public/downloads/ebooks/write-yourself-into-the-room.pdf'],
   ['public/downloads/ebooks/brand-voice-playbook.html',          'public/downloads/ebooks/brand-voice-playbook.pdf'],
+  ['public/downloads/ebooks/rebecoming.html',                    'public/downloads/ebooks/rebecoming.pdf'],
+  ['public/downloads/ebooks/still-here-still-hers.html',         'public/downloads/ebooks/still-here-still-hers.pdf'],
+  ['public/downloads/ebooks/rebecoming-sample.html',             'public/downloads/ebooks/rebecoming-sample.pdf'],
+  ['public/downloads/ebooks/the-sentence-that-sells.html',        'public/downloads/ebooks/the-sentence-that-sells.pdf'],
+  ['public/downloads/ebooks/evidence-not-vibes.html',             'public/downloads/ebooks/evidence-not-vibes.pdf'],
+  ['public/downloads/ebooks/the-quiet-launch.html',               'public/downloads/ebooks/the-quiet-launch.pdf'],
+  ['public/downloads/ebooks/the-meantime.html',                   'public/downloads/ebooks/the-meantime.pdf'],
   ['public/downloads/ebooks/the-invisible-bruise.html',          'public/downloads/ebooks/the-invisible-bruise.pdf'],
   ['public/downloads/ebooks/decoding-angel-numbers.html',        'public/downloads/ebooks/decoding-angel-numbers.pdf'],
+  // Manifestation / self-mastery line (source: scripts/build-spiritual-ebooks.mjs)
+  ['public/downloads/ebooks/the-manifest.html',                  'public/downloads/ebooks/the-manifest.pdf'],
+  ['public/downloads/ebooks/the-compound.html',                  'public/downloads/ebooks/the-compound.pdf'],
+  ['public/downloads/ebooks/manifest-the-money.html',            'public/downloads/ebooks/manifest-the-money.pdf'],
+  ['public/downloads/ebooks/the-morning-blueprint.html',         'public/downloads/ebooks/the-morning-blueprint.pdf'],
+  ['public/downloads/ebooks/the-cosmos-starter-kit.html',        'public/downloads/ebooks/the-cosmos-starter-kit.pdf'],
+  ['public/downloads/ebooks/her-story-rewritten.html',           'public/downloads/ebooks/her-story-rewritten.pdf'],
+  ['public/downloads/ebooks/her-story-rewritten-volume-two.html', 'public/downloads/ebooks/her-story-rewritten-volume-two.pdf'],
   ['public/downloads/ebooks/the-study.html',                     'public/downloads/ebooks/the-study.pdf'],
   ['public/downloads/ebooks/gospel-and-grind.html',              'public/downloads/ebooks/gospel-and-grind.pdf'],
   ['public/downloads/ebooks/the-sermon-notes.html',              'public/downloads/ebooks/the-sermon-notes.pdf'],
@@ -27,14 +43,27 @@ const FILES = [
   ['public/downloads/templates/the-edit-diy.html',               'public/downloads/templates/the-edit-diy.pdf'],
   ['public/downloads/templates/before-the-session.html',         'public/downloads/templates/before-the-session.pdf'],
   ['public/downloads/templates/the-rewrite-playbook.html',       'public/downloads/templates/the-rewrite-playbook.pdf'],
+  ['public/downloads/templates/the-redesign-playbook.html',      'public/downloads/templates/the-redesign-playbook.pdf'],
   ['public/downloads/templates/the-new-chapter-workbook.html',   'public/downloads/templates/the-new-chapter-workbook.pdf'],
   ['public/downloads/templates/the-byline-method.html',          'public/downloads/templates/the-byline-method.pdf'],
   ['public/downloads/templates/the-build-copy-guide.html',       'public/downloads/templates/the-build-copy-guide.pdf'],
   ['public/downloads/templates/the-social-strategy-playbook.html', 'public/downloads/templates/the-social-strategy-playbook.pdf'],
+  ['public/downloads/templates/the-brand-deal-room.html',        'public/downloads/templates/the-brand-deal-room.pdf'],
+  ['public/downloads/templates/the-ugc-brief-bank.html',         'public/downloads/templates/the-ugc-brief-bank.pdf'],
+  ['public/downloads/templates/the-tiktok-shop-sprint.html',     'public/downloads/templates/the-tiktok-shop-sprint.pdf'],
+  ['public/downloads/templates/the-repurposing-engine.html',     'public/downloads/templates/the-repurposing-engine.pdf'],
+  ['public/downloads/templates/the-ai-content-twin.html',        'public/downloads/templates/the-ai-content-twin.pdf'],
+  ['public/downloads/templates/the-creator-owned-funnel.html',   'public/downloads/templates/the-creator-owned-funnel.pdf'],
+  ['public/downloads/templates/the-prompt-vault.html',           'public/downloads/templates/the-prompt-vault.pdf'],
+  ['public/downloads/templates/the-linkedin-bio-fix-kit.html',   'public/downloads/templates/the-linkedin-bio-fix-kit.pdf'],
+  ['public/downloads/templates/the-authority-carousel-kit.html', 'public/downloads/templates/the-authority-carousel-kit.pdf'],
   // course
   ['public/downloads/scripture-and-strategy.html',               'public/downloads/scripture-and-strategy.pdf'],
   // lead magnets
   ['public/downloads/positioning-checklist.html',                'public/downloads/positioning-checklist.pdf'],
+  // bundles
+  ['public/downloads/the-vault.html',                            'public/downloads/the-vault.pdf'],
+  ['public/downloads/the-services-vault.html',                   'public/downloads/the-services-vault.pdf'],
 ];
 
 const browser = await puppeteer.launch({
@@ -61,11 +90,15 @@ for (const [src, dest] of TARGETS) {
   if (!fs.existsSync(srcPath)) { console.warn(`  ✗  missing: ${src}`); continue; }
 
   const page = await browser.newPage();
-  await page.goto(`file://${srcPath}`, { waitUntil: 'networkidle0', timeout: 30000 });
+  await page.goto(`file://${srcPath}`, { waitUntil: 'load', timeout: 30000 });
+  await waitForFonts(page);
+  await new Promise((r) => setTimeout(r, 150));
   await page.pdf({
     path: destPath,
-    format: 'Letter',
-    margin: { top: '0.6in', right: '0.65in', bottom: '0.6in', left: '0.65in' },
+    width: PAPERBACK_TRIM.width,
+    height: PAPERBACK_TRIM.height,
+    margin: { top: 0, right: 0, bottom: 0, left: 0 },
+    preferCSSPageSize: true,
     printBackground: true,
   });
   await page.close();

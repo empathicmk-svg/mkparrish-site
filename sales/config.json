@@ -1,0 +1,30 @@
+{
+  "salesperson": "MK Parrish",
+  "store": "Mercedes-Benz of Smithtown",
+  "month": "2026-08",
+  "goal": {
+    "units": 15,
+    "sourceMix": {
+      "equityLease": 5,
+      "floorUps": 4,
+      "internetCrm": 3,
+      "repeatReferral": 2,
+      "serviceDrive": 1
+    }
+  },
+  "dailyTargets": {
+    "outboundTouches": 40,
+    "liveConversations": 10,
+    "appointmentsSet": 2
+  },
+  "schedule": {
+    "0": { "label": "Sun", "start": "11:00", "end": "16:00", "mode": "family" },
+    "1": { "label": "Mon", "start": "12:00", "end": "20:00", "mode": "evening" },
+    "2": { "label": "Tue", "start": "12:00", "end": "20:00", "mode": "evening" },
+    "3": { "label": "Wed", "off": true },
+    "4": { "label": "Thu", "start": "09:00", "end": "17:00", "mode": "daytime" },
+    "5": { "label": "Fri", "start": "09:00", "end": "17:00", "mode": "daytime" },
+    "6": { "label": "Sat", "start": "08:30", "end": "18:00", "mode": "floor" }
+  },
+  "cadenceDays": [1, 2, 4, 7, 14, 21, 30]
+}

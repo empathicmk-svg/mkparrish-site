@@ -1,0 +1,122 @@
+/* Typography repair layer
+   Keeps the whole site on Bebas Neue for display type while preventing fake-bold rendering. */
+
+:root {
+  --font-display: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow", sans-serif;
+}
+
+html {
+  scroll-padding-top: 96px;
+}
+
+body > header.fixed {
+  z-index: 90 !important;
+}
+
+.mobile-bottom-nav {
+  z-index: 50 !important;
+}
+
+.font-display,
+[class*="font-display"],
+h1.display,
+.display,
+.hero-title,
+.nav-logo,
+.footer-logo,
+.stat-number,
+.step-number,
+.marquee-item,
+.mega-service-card .font-display,
+.mobile-bottom-nav .font-display {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  font-synthesis: none !important;
+  font-synthesis-weight: none !important;
+}
+
+.font-display.font-thin,
+.font-display.font-extralight,
+.font-display.font-light,
+.font-display.font-normal,
+.font-display.font-medium,
+.font-display.font-semibold,
+.font-display.font-bold,
+.font-display.font-extrabold,
+.font-display.font-black,
+.display.font-thin,
+.display.font-extralight,
+.display.font-light,
+.display.font-normal,
+.display.font-medium,
+.display.font-semibold,
+.display.font-bold,
+.display.font-extrabold,
+.display.font-black,
+.hero-title.font-thin,
+.hero-title.font-extralight,
+.hero-title.font-light,
+.hero-title.font-normal,
+.hero-title.font-medium,
+.hero-title.font-semibold,
+.hero-title.font-bold,
+.hero-title.font-extrabold,
+.hero-title.font-black,
+[class*="font-display"][class*="font-bold"],
+[class*="font-display"][class*="font-semibold"],
+[class*="font-display"][class*="font-extrabold"],
+[class*="font-display"][class*="font-black"] {
+  font-weight: 400 !important;
+}
+
+.font-display strong,
+.font-display b,
+.display strong,
+.display b,
+.hero-title strong,
+.hero-title b,
+[class*="font-display"] strong,
+[class*="font-display"] b {
+  font-family: inherit !important;
+  font-weight: 400 !important;
+  font-synthesis: none !important;
+  font-synthesis-weight: none !important;
+}
+
+strong,
+b {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-pearl);
+  font-synthesis: none;
+  font-synthesis-weight: none;
+}
+
+.nav-link,
+.nav-link.active,
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:focus-visible {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-synthesis: none !important;
+  text-decoration: none !important;
+}
+
+.nav-link::after {
+  pointer-events: none;
+}
+
+.mega-menu-panel {
+  z-index: 95 !important;
+}
+
+@media (max-width: 767px) {
+  .mobile-bottom-nav {
+    z-index: 45 !important;
+  }
+
+  body > header.fixed {
+    z-index: 95 !important;
+  }
+}

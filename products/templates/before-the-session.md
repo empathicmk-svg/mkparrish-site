@@ -17,7 +17,7 @@ The clients who get the most out of a strategy session do the thinking *before* 
 
 This is that pre-work. It's the worksheet I send before **The Session** — the questions that surface the real problem so we don't waste the hour finding it. Run it solo before any strategy call, with any consultant. Or run it on yourself when you can't afford one yet.
 
-Set aside ninety minutes. Write your answers down — actually written, not "thought about." The friction of writing is where the clarity lives.
+Set aside ninety minutes. Write your answers down — actually written, not "thought about." The friction of writing is where the clarity lives. You will be tempted to do this in your head on the drive over. Don't. The version in your head is the one you already believe; the version on paper is the one that surprises you.
 
 ---
 
@@ -59,6 +59,22 @@ WHO I ACTUALLY AM (not the title)
 
 Notice what the example surfaces: the problem isn't skill, it's *perception*. That gap line is gold. It's the thing the session should be about. Find yours.
 
+### A second example (so you see the pattern)
+
+```
+  I help women relaunching a career after a break
+  rewrite their story so the gap reads as range, not absence,
+  so they stop apologizing for the most interesting years of their life.
+
+  Better at than most: making a non-linear path sound inevitable.
+  People come to me for: "help me explain the gap."
+  Known for now: nothing yet — I'm invisible.
+  Want to be known for: "the relaunch person."
+  The gap: I have the skill and zero public proof of it.
+```
+
+Two different people, same structure, same payoff: the **gap line** is the brief. Whatever sits between *known for now* and *want to be known for* is the work — and almost always it's a perception or proof problem wearing a skill problem's clothes.
+
 ---
 
 ## Part 2 — The Brand Clarity Questions
@@ -82,9 +98,41 @@ These are the questions I'd ask in the first fifteen minutes — so you arrive h
 
 Write a real answer to each. One sentence minimum. The session moves at the speed of the answers you already have.
 
+**How to read your own answers:** when you're done, circle the three that were hardest to write. Difficulty is signal — the question you most wanted to skip is usually sitting on top of the real issue. Questions 5, 8, and 9 (the hidden win, the misread, the thing you won't say) are where most breakthroughs actually live.
+
 ---
 
-## Part 3 — The Goal-Setting Framework for a 60-Minute Session
+## Part 3 — The Inner Game
+
+Most sessions don't stall on strategy. They stall on the thing under the strategy — the fear you haven't said out loud, so it quietly runs the decision. Name it here, in private, before someone else is watching.
+
+```
+  The story I tell myself about why I'm stuck: __________
+
+  The story that might be more true (the less flattering one): ______
+
+  What I'm secretly afraid is true about my work or me: __________
+
+  What it would cost me to be wrong about that fear: __________
+
+  If I fully believed I was good at this, the next move would be: ____
+```
+
+### Worked example
+
+```
+  Story I tell: "The market's crowded, it's hard to stand out."
+  More true: "I've been hiding behind 'crowded' so I don't have to pick a lane."
+  Secretly afraid: that if I niche down, I'll be found out as not expert enough.
+  Cost of being wrong: another year of generic, underpriced work.
+  If I believed I was good: I'd raise my price and say the one thing I actually think.
+```
+
+You don't have to solve this here. You just have to name it, because a fear you've named can be worked on in the room — and a fear you haven't will hijack the hour disguised as a "strategy question." The scary line is the most valuable thing on the page.
+
+---
+
+## Part 4 — The Goal-Setting Framework for a 60-Minute Session
 
 An hour is short. The single biggest waste is showing up with a vague goal — "I want clarity on my brand." Clarity on *what*, decided *how*, by *when*? Tighten it.
 
@@ -158,13 +206,19 @@ Look at how much sharper this is than "help me with my brand." A session built o
 
 Do this the morning of the call.
 
-- [ ] All three parts filled in — written, not thought
+- [ ] All four parts filled in — written, not thought
 - [ ] The one decision named in a single sentence
 - [ ] "Useful" defined as concrete outputs
 - [ ] The scary version of the blocker written down
 - [ ] Relevant links/copy gathered in one place (bio, site, profile)
 - [ ] Phone off, notes app open, somewhere you can talk freely
 - [ ] One question you'd be slightly embarrassed to ask — bring it anyway
+
+---
+
+## Running this without a session
+
+No budget for the call yet? This pre-work stands on its own — most people have never answered these questions in writing, and the act of doing it surfaces the answer more often than not. To self-facilitate: fill in all four parts, then leave it for 24 hours. Come back cold and read it as if it were a stranger's. Ask the three questions an outside brain would ask — *"What are they avoiding? What's the one sentence they keep circling? What would I tell them to do first?"* — and write those answers too. You won't fully replace the outside brain, but you'll get most of the way, and you'll know exactly what to bring when you can afford the room.
 
 ---
 
@@ -181,6 +235,8 @@ The session's value evaporates if you don't capture it fast. Within a day:
   THE SENTENCE I'M KEEPING: __________
   WHAT I STILL NEED TO RESOLVE: __________
 ```
+
+Then put the three actions somewhere you'll see them this week, and the kept sentence somewhere you'll see it every day. A decision you don't act on inside seven days quietly reverts to the old default. Move while it's hot.
 
 ---
 

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "atlantic-uv",
+    "title": "Atlantic UV: The Distributor Engine Story",
+    "role": "Business development and marketing lead for a 30-person UV manufacturer",
+    "problem": "No commercial model existed—only a good product and inbound relationships. Revenue was unpredictable and dependent on which customers happened to call.",
+    "approach": "Built a four-tier distributor network based on territory and fit. Designed an ERP-backed system to manage partnerships. Shifted marketing budget from unmeasured traditional media to tracked digital, ABM, and SEO. Created a tiered pricing model that incentivized partner growth and margin alignment.",
+    "decision": "Proposed increasing the business development budget from $50K to $175K annually, with clear ROI modeling. Funded partner incentives before they had produced revenue, accepting short-term financial risk for long-term scale.",
+    "outcome": "Built a repeatable commercial model that could forecast and scale.",
+    "metrics": {
+      "distributors": "24 active partners",
+      "revenue": "+31% distributor-generated revenue",
+      "inbound": "+42% qualified inbound",
+      "cac": "−28% blended CAC",
+      "budget": "Budget increased 250% ($50K → $175K)"
+    },
+    "narrative": "When I arrived at Atlantic UV, there was no plan to build a channel—only product and momentum from inbound. I took that chaos and asked: *What would it look like if we built this on purpose?* The answer was a four-tier distributor network where partners had clear incentives to grow into higher tiers. I wired that network to an ERP database before touching production, then designed the media spend to feed qualified accounts into it. The biggest risk was funding incentives before distributors had proven themselves, but that's exactly what unlocked the scale. Without that decision in Q1, there's no volume story in Q4."
+  },
+  {
+    "id": "vonage",
+    "title": "Vonage: Running a Channel like a P&L",
+    "role": "Channel marketing manager owning a $2M quarterly budget across partner and field motion",
+    "problem": "A multi-million dollar channel budget existed, but impact was unclear. It was hard to connect spend to pipeline, and harder still to defend budget against other departments.",
+    "approach": "Took ownership of the budget from allocation through reconciliation. Built cost per SQL into every campaign. Pursued MDF (marketing development funds) from channel partners to stretch the base budget. Coordinated spend across direct channel, partner incentives, and field enablement.",
+    "decision": "Treated the channel budget like a P&L, defending it quarterly on measured outcomes. Protected budget lines that compounded (like partner enablement) even when they were questioned, and cut programs that didn't track to pipeline.",
+    "outcome": "Channel demonstrated measurable, repeatable value through SQL generation and cost efficiency.",
+    "metrics": {
+      "budget": "$2M quarterly marketing budget",
+      "sqlGrowth": "SQL volume doubled over program",
+      "cpa": "−35% CPA reduction",
+      "efficiency": "Sustained delivery on cost-per-pipeline metrics"
+    },
+    "narrative": "Vonage taught me something critical: a budget is only as defensible as the story you can tell about what it produced. When I took over the channel, I had a big number but little narrative. I rebuilt it quarter by quarter, starting with a simple rule: if it doesn't connect to pipeline, it doesn't get funded. That meant cutting events that looked prestigious but didn't draw the right accounts. It meant protecting partner enablement even when the CFO questioned it, because I could show the downstream value. By the end, the channel wasn't a cost center—it was a known machine, which is the only way a budget survives."
+  },
+  {
+    "id": "us-localization",
+    "title": "US Localization: From Global Template to Buyer-Centric Value Prop",
+    "role": "Integrated campaign manager rebuilding US value proposition and go-to-market strategy",
+    "problem": "Global messaging centered on compliance and control—important to the European market, but not resonant with US decision-makers who cared about speed, competitive advantage, and clear ROI.",
+    "approach": "Conducted deep listening sessions with sales. Analyzed buyer behavior data to understand how US accounts actually buy (speed to value, third-party validation, ROI clarity). Rebuilt the value proposition, positioning, and channel strategy around those buyer signals while keeping the underlying product unchanged.",
+    "decision": "Made a deliberate choice to *change meaning without changing words*—repositioning the exact same product around buyer-centric value rather than product-centric features.",
+    "outcome": "Channels and cadence redesigned to match buyer behavior. Messaging now resonates with US buyer incentives, resulting in stronger conversion from awareness to pipeline.",
+    "metrics": {
+      "positioning": "Rebuilt value prop aligned to US buyer needs",
+      "channels": "Channel strategy redesigned for buyer journey",
+      "cadence": "Sales cadence adjusted to buyer decision velocity"
+    },
+    "narrative": "This one taught me that global templates are starting points, not endings. The global positioning was *true*—compliance and control *are* important. But truth and resonance aren't the same thing. US buyers want to know: *How fast can I get value? What's the competitive edge? What's my return?* Those aren't the questions the global deck answered. So I listened, mapped buyer signals, and rebuilt the entire package—positioning, channel strategy, sales cadence, messaging—around buyer behavior rather than feature list. Nothing about the product changed. Everything about how we talk about it changed. That's the power of listening before positioning."
+  }
+]
