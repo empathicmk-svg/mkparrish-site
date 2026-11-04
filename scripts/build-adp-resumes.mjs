@@ -26,29 +26,28 @@ const contact = {
   site: "mkparrish.com",
 };
 
-// The exact posting title. ADP lists HRO Comprehensive Services sales roles as
-// "Account Executive – HRO CS", "HRO Comprehensive Services – Outside Sales Associate"
-// and "Associate District Manager – HRO Comp Services"; change this one line to match.
-const role = "Account Executive, HRO Comprehensive Services";
+// Title from the posting: "ADP is hiring a Sales Representative for our Comprehensive
+// Services business" (an HRO Sales Representative role).
+const role = "Sales Representative, HRO Comprehensive Services";
 const title = `${role} · ADP`;
 
 const summary =
-  "Consultative B2B seller with nearly two decades selling technology and services to business owners and executives, from multimillion-dollar Fortune 500 partnerships at DEFY Media to $200M+ in partner-influenced cloud revenue at Ericsson. I learned the HR and benefits buyer at Mercer, the HR and benefits consulting firm, working with CHROs and Fortune 50 leaders. Today I run the full sales cycle at Mercedes-Benz of Smithtown, selling a premium product on the value of what's included, and I source, pitch, price and close every engagement at my own consultancy, where I'm working with Long Island's construction employers through the Long Island Builders Institute. I'd bring that mix to ADP HRO Comprehensive Services: selling payroll, benefits, HR and talent outsourcing to owners and finance and HR leaders who want experts to carry the work while they keep control of their business.";
+  "Consultative, competitive B2B seller with nearly two decades selling technology and services to business owners and executives, from multimillion-dollar Fortune 500 partnerships at DEFY Media to $200M+ in partner-influenced cloud revenue at Ericsson. I run the full cycle today, prospecting, qualifying, presenting, negotiating and closing, at Mercedes-Benz of Smithtown and at my own consultancy, where I'm working with Long Island's construction employers through the Long Island Builders Institute. I learned the HR and benefits buyer at Mercer with CHROs and Fortune 50 leaders, and I prospect with AI-driven research and multi-channel outreach. I'd bring that to ADP Comprehensive Services: selling top-down to small and mid-market owners who want ADP's experts to carry HR, payroll, benefits and talent while they run the business.";
 
 const expertise = [
-  "HR Outsourcing (HRO) & Co-Sourced Services",
-  "Payroll, Benefits, HR & Talent Value Selling",
-  "Consultative Selling to Owners, CFOs & HR Leaders",
-  "New Business Development & Territory Hunting",
-  "Full-Cycle Sales: Prospect to Close",
-  "Discovery, Cost-of-Inaction & ROI Cases",
-  "Multi-Channel & AI-Assisted Prospecting",
-  "CPA, Broker & Association Referral Channels",
+  "Full Sales Cycle: Prospect, Qualify, Present, Negotiate, Close",
+  "Consultative & Solution-Based Selling",
+  "Top-Down Selling to Owners & Executives",
+  "Territory Management & Pipeline Discipline",
+  "Multi-Channel Prospecting & Appointment Setting",
+  "AI-Driven Sales Tools & Data Insights",
+  "HR, Payroll, Benefits & Talent Solutions",
+  "HR Outsourcing (HRO) Value Selling",
+  "Cross-Selling with Internal Partners",
+  "Warm-Lead & Channel-Partner Conversion",
   "Negotiation & Objection Handling",
-  "Cross-Sell & Account Expansion",
-  "Pipeline Management & Forecasting (Salesforce)",
-  "Sales Content, Web & Video",
-];
+  "Referral & Client-Advocacy Programs",
+]
 
 const tools =
   "Salesforce CRM · AI research & personalization agents · LinkedIn Sales tools · Google Analytics · Excel modeling · Figma · HTML/CSS & Next.js";
@@ -156,14 +155,15 @@ const bundles = [
   ["Across every bundle", "ADP Workforce Now, a strategic advisor, regular business reviews and phone support for employees and managers. The client keeps its plans and its decisions."],
 ];
 
-// What an HRO Comprehensive Services seller is asked to do, and the proof for each.
+// ADP's required and preferred qualifications for this posting, and the proof for each.
 const fit = [
-  ["Sell a service, not software", "Comprehensive Services is people plus Workforce Now. I've sold services and outcomes to owners for two decades, and at Mercedes-Benz I sell the value of what's included, not the sticker price."],
-  ["Speak the HR & benefits buyer", "Learned it at Mercer with CHROs and Fortune 50 HR leaders. I can talk payroll tax, open enrollment, carrier invoices and compliance with an HR director, and cost and risk with a CFO."],
-  ["Hunt new logos in a territory", "Self-sourcing hunter with a 32% cold reply rate; already working with LIBI's builders and subcontractors on Long Island."],
-  ["Full-cycle, outside B2B closing", "Closing at Mercedes-Benz and at my consultancy; multimillion-dollar, multi-stakeholder closes with Sony, Warner Bros. and Google at DEFY Media."],
-  ["Cross-sell with ADP partners", "Salesforce bundle cross-sell at Ericsson (+25% pipeline, +20% ACV); service-customer calling at Mercedes-Benz."],
-  ["Pipeline discipline", "Ran Salesforce deal-stage reviews that raised win rates 15% and cut sales cycles 30%."],
+  ["Adaptability & emotional intelligence", "Read the room for a living: a first-time luxury buyer, a CHRO at Mercer, a subcontractor owner on a job site. Each needs a different conversation."],
+  ["Critical thinking & business acumen", "Built ROI forecasting models for retail promotions at Take-Two and KPI dashboards tying marketing to revenue at Atlantic UV; I'd sell Comprehensive Services on the cost of the work it removes, not price per employee."],
+  ["Communication & persuasion", "Closed multimillion-dollar, multi-stakeholder deals with Sony, Warner Bros. and Google; published author and ghostwriter."],
+  ["Grit & resilience", "Built a consultancy from zero, cold-prospecting every client, while selling on the floor at Mercedes-Benz."],
+  ["Sales execution & territory management", "Ran Salesforce deal-stage reviews that raised win rates 15% and cut sales cycles 30%; partnered on territory targeting at Atlantic UV."],
+  ["Modern selling skills", "AI-agent workflows for account research and personalization, with cold reply rates as high as 32%; coded my own sales tools."],
+  ["Consultative, solution-based selling", "Nearly two decades selling services and solutions, plus a cross-sell (+25% pipeline, +20% ACV) built with internal partners at Ericsson."],
 ];
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -267,7 +267,7 @@ const signatureSide = (first) => `<aside class="side">
 const signature =
   head("Mary Kate Parrish — Resume (Signature) · ADP", signatureCss) +
   `<div class="page">${signatureSide(true)}<main class="main">
-  <p class="eyebrow">Resume · ADP HRO Comprehensive Services</p>
+  <p class="eyebrow">Resume · ADP Comprehensive Services</p>
   <p class="title">${title}</p>
   <p class="lede">Owners didn't start a business to run payroll. I show them who will.</p>
   <p class="summary">${esc(summary)}</p>
@@ -279,7 +279,7 @@ const signature =
   ${roles.slice(4).map(roleHtml).join("")}
   <h2>What I'd sell</h2>
   <div class="fit">${bundles.map(([k, v]) => `<div><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join("")}</div>
-  <h2>How I meet the role</h2>
+  <h2>What ADP asks for, and my proof</h2>
   <div class="fit">${fit.map(([k, v]) => `<div><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join("")}</div>
   <p class="lede" style="margin-top:14px;font-size:14px">Full sales plan: <a href="https://${PITCH_URL}" style="color:var(--carmine)">${PITCH_URL}</a></p>
 </main><p class="foot">2 / 2</p></div></body></html>`;
@@ -334,7 +334,7 @@ const classic =
   ${roles.slice(3).map(roleHtml).join("")}
   <h2>What I'd Sell: ADP Comprehensive Services</h2>
   <div class="role"><ul>${bundles.map(([k, v]) => `<li><b>${esc(k)}:</b> ${esc(v)}</li>`).join("")}</ul></div>
-  <h2>How I Meet the Role</h2>
+  <h2>ADP Qualifications and My Proof</h2>
   <div class="role"><ul>${fit.map(([k, v]) => `<li><b>${esc(k)}:</b> ${esc(v)}</li>`).join("")}</ul></div>
   <h2>Selected Results</h2>
   <p class="skills">${proof.map((p) => `<b>${p.stat}</b> ${p.label}`).join(" · ")} · +25% pipeline from cross-sell · $20M+ retail revenue · $40M+ influenced pipeline</p>
@@ -395,13 +395,13 @@ const cover =
   <div class="letter">
     <p>Dear Evan,</p>
     <p class="lede">Most owners I meet on Long Island are stuck between two bad options: run payroll, benefits and HR themselves on software, or hand their people to a PEO. Comprehensive Services is the third way, and I'd like to be the one who shows them it exists.</p>
-    <p>I'm applying for the ${role} role because I understand what it sells. Comprehensive Pay, Benefits, HR and Talent put ADP specialists on the work an owner's staff carries today, from payroll tax and audits to open enrollment, carrier invoices, compliance and hiring, all on Workforce Now, with a strategic advisor and regular business reviews. The client keeps its own plans and its own decisions. That's a service sale, sold on the hours, risk and turnover it removes, not on price per employee.</p>
+    <p>I'm applying for the ${role} role because I understand what it sells, and I'm the motivated, consultative, competitive seller the posting describes. Comprehensive Pay, Benefits, HR and Talent put ADP specialists on the work an owner's staff carries today, from payroll tax and audits to open enrollment, carrier invoices, compliance and hiring, all on Workforce Now, with a strategic advisor and regular business reviews. The client keeps its own plans and its own decisions. That's a service sale, sold on the hours, risk and turnover it removes, not on price per employee.</p>
     <p>It's also the sale I make every day at Mercedes-Benz of Smithtown, where I run the full cycle and win on the value of what's included, not the sticker. Before that, I learned the HR and benefits buyer at Mercer with CHROs and Fortune 50 leaders; raised enterprise win rates <b>15%</b> and cut sales cycles <b>30%</b> at Ericsson on the way to <b>$200M+</b> in influenced revenue; and closed multimillion-dollar partnerships with Sony, Warner Bros. and Google at DEFY Media.</p>
     <p>How I'd build the business:</p>
     <ul>
       <li><b>Start where I'm trusted.</b> Through the Long Island Builders Institute I'm working with builders and subcontractors: multi-site crews, union and prevailing-wage payroll, and constant hiring.</li>
-      <li><b>Lead with the buyer's problem.</b> The owner hears hours and risk, the CFO hears cost and control, the HR leader hears relief. Then I bring in the bundle that fixes it.</li>
-      <li><b>Hunt with a system.</b> AI-assisted research, multi-channel outreach (32% reply rates), CPA and broker referrals, every touch in Salesforce and a pipeline reviewed weekly.</li>
+      <li><b>Sell top-down, consultatively.</b> The owner hears hours and risk, the CFO hears cost and control, the HR leader hears relief. Then I recommend the mix of HR, payroll, benefits and talent that fixes it, and turn the win into referrals.</li>
+      <li><b>Work the whole ADP network.</b> AI-driven research and multi-channel outreach (32% reply rates) for new logos, plus fast follow-up on warm leads from marketing and channel partners, and cross-sells with ADP colleagues into current clients.</li>
     </ul>
     <p>I wrote out the full plan, including the four bundles, the buyers, discovery questions, objections and my first 90 days, at <a href="https://${PITCH_URL}" style="color:var(--carmine);font-weight:600">${PITCH_URL}</a>. I'd welcome 20 minutes to walk you through it.</p>
   </div>

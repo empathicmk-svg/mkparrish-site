@@ -3,9 +3,9 @@ import Link from "next/link";
 import { BtnGhost } from "@/app/components/ui";
 
 export const metadata: Metadata = {
-  title: "Selling ADP HRO Comprehensive Services",
+  title: "Sales Plan for ADP Comprehensive Services",
   description:
-    "How MK Parrish would sell ADP Comprehensive Services on Long Island: where it fits between software and a PEO, the four bundles, the buyers, discovery, objections and a 90-day plan.",
+    "How MK Parrish would do the Sales Representative, HRO Comprehensive Services job on Long Island: where the offer fits, the four bundles, the buyers, the territory plan, and proof for every qualification.",
   alternates: { canonical: "/adp" },
   robots: { index: false, follow: false, nocache: true },
 };
@@ -67,6 +67,33 @@ const shared = [
   ["Specialists", "Payroll, tax, HR, benefits, talent and open enrollment specialists, matched to the bundles."],
   ["Phone support", "Employees and managers call ADP with their questions, so they stop lining up at the owner's office."],
   ["Workforce Now", "One platform for HR, payroll, time, benefits and talent, with self-service, mobile and reporting."],
+];
+
+const job = [
+  {
+    ask: "Own a protected territory and sell top-down",
+    how: "Start with owners and executives, not the payroll clerk. Map the territory by segment and headcount, lead with LIBI relationships, and work every account from the top.",
+  },
+  {
+    ask: "Drive the full sales cycle",
+    how: "Prospect, qualify, present, negotiate, close: the cycle I run every day at Mercedes-Benz and at my consultancy, logged step by step in Salesforce.",
+  },
+  {
+    ask: "Assess needs and recommend across HR, payroll, benefits and talent",
+    how: "Discovery first. Each question below puts a cost on work the client carries, and points to the bundle that removes it.",
+  },
+  {
+    ask: "Multi-channel prospecting to secure qualified appointments",
+    how: "AI-driven research plus phone, email, LinkedIn and in-person outreach, personalized by segment and buyer. My cold reply rates have reached 32%.",
+  },
+  {
+    ask: "Leverage the ADP network",
+    how: "Cross-sell with internal partners into current clients, and follow up on warm leads from marketing and channel partners within the day.",
+  },
+  {
+    ask: "Turn prospects into loyal, referring clients",
+    how: "Hand off cleanly to implementation, check in after the first payroll and first open enrollment, and ask every happy client for one introduction in their industry.",
+  },
 ];
 
 const buyers = [
@@ -197,24 +224,32 @@ const kpis = [
 
 const fit = [
   {
-    from: "Mercer · HR & benefits buyer",
-    to: "Worked with CHROs and Fortune 50 HR leaders across 50+ executive networks. I speak payroll, benefits and compliance with HR, and cost and risk with finance.",
+    from: "Adaptability & emotional intelligence",
+    to: "I read the room for a living: a first-time luxury buyer at Mercedes-Benz, a CHRO at Mercer, a subcontractor owner on a job site. Each one needs a different conversation.",
   },
   {
-    from: "Mercedes-Benz of Smithtown",
-    to: "I run the full consultative cycle and sell on the value of what's included, not the sticker price. That's the Comprehensive Services sale. I also opened a new channel by calling service customers before their appointments.",
+    from: "Critical thinking & business acumen",
+    to: "ROI forecasting models at Take-Two, KPI dashboards tying marketing to revenue at Atlantic UV. I'd sell Comprehensive Services on the cost of the work it removes, not price per employee.",
   },
   {
-    from: "MK Parrish · LIBI",
-    to: "I source, pitch, price and close every client myself, and I'm working with Long Island's builders and subcontractors, who have exactly the payroll and HR load Comprehensive Services takes on.",
+    from: "Communication & persuasion",
+    to: "Closed multimillion-dollar, multi-stakeholder partnerships with Sony, Warner Bros. and Google at DEFY Media. Published author and ghostwriter.",
   },
   {
-    from: "Ericsson · Deal reviews & cross-sell",
-    to: "Deal-stage reviews raised enterprise win rates 15% and cut sales cycles 30%; a Salesforce bundle cross-sell lifted pipeline 25% and ACV 20% on the way to $200M+ influenced revenue.",
+    from: "Grit & resilience",
+    to: "Built a consultancy from zero, cold-prospecting every client, while selling on the floor at Mercedes-Benz of Smithtown.",
   },
   {
-    from: "DEFY Media · Enterprise closes",
-    to: "Closed multimillion-dollar partnerships with Sony, Warner Bros. and Google, and managed a book of 150+ accounts for retention and expansion.",
+    from: "Sales execution & territory management",
+    to: "Salesforce deal-stage reviews at Ericsson raised enterprise win rates 15% and cut sales cycles 30%; partnered with sales leadership on territory targeting at Atlantic UV.",
+  },
+  {
+    from: "Modern selling skills",
+    to: "AI-agent workflows for account research and personalization, with cold reply rates as high as 32%. I code my own sales tools, like the inventory lookup I built at Mercedes-Benz.",
+  },
+  {
+    from: "Consultative, solution-based selling",
+    to: "Nearly two decades selling services and solutions to executives, learning the HR and benefits buyer at Mercer, and a cross-sell with internal partners at Ericsson that lifted pipeline 25% and ACV 20% on the way to $200M+ influenced revenue.",
   },
 ];
 
@@ -237,7 +272,7 @@ export default function AdpPage() {
       </header>
 
       <section className="mx-auto max-w-5xl px-4 pb-16 pt-16 md:pt-24">
-        <p className={`${eyebrow} ${RED}`}>Sales plan · Account Executive, HRO Comprehensive Services</p>
+        <p className={`${eyebrow} ${RED}`}>Sales plan · Sales Representative, HRO Comprehensive Services</p>
         <h1
           className="mt-4 font-display uppercase text-pearl"
           style={{ fontSize: "clamp(3.2rem, 11vw, 7.5rem)", lineHeight: 0.88 }}
@@ -311,6 +346,23 @@ export default function AdpPage() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-12">
+        <h2 className={h2} style={{ fontWeight: 700, lineHeight: 1.15 }}>
+          The job, and how I&apos;d do it.
+        </h2>
+        <p className={`mt-3 max-w-3xl ${body}`}>
+          Every responsibility in ADP&apos;s posting for this role, and my plan for it.
+        </p>
+        <div className="mt-8 divide-y divide-graphite border-y border-graphite">
+          {job.map((j) => (
+            <div key={j.ask} className="grid gap-2 py-6 md:grid-cols-[18rem_1fr] md:gap-8">
+              <p className={`font-display text-xl uppercase tracking-[0.03em] ${RED}`}>{j.ask}</p>
+              <p className={body}>{j.how}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 py-12">
         <p className={`${eyebrow} text-ash`}>Three buyers, three conversations</p>
         <div className="mt-6 grid gap-px bg-graphite md:grid-cols-3">
           {buyers.map((b) => (
@@ -330,7 +382,7 @@ export default function AdpPage() {
           Where I&apos;d start on Long Island.
         </h2>
         <p className={`mt-3 max-w-3xl ${body}`}>
-          Three segments of growing, established employers with complex payroll and HR, where I already have a way in.
+          Three segments of small and mid-market employers with complex payroll and HR, where I already have a way in.
         </p>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {segments.map((s, i) => (
@@ -430,10 +482,10 @@ export default function AdpPage() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-12">
-        <p className={`${eyebrow} text-ash`}>Why me</p>
+        <p className={`${eyebrow} text-ash`}>What ADP asks for, and my proof</p>
         <div className="mt-6 divide-y divide-graphite border-y border-graphite">
           {fit.map((f) => (
-            <div key={f.from} className="grid gap-2 py-6 md:grid-cols-[16rem_1fr] md:gap-8">
+            <div key={f.from} className="grid gap-2 py-6 md:grid-cols-[18rem_1fr] md:gap-8">
               <p className={`font-display text-xl uppercase tracking-[0.03em] ${RED}`}>{f.from}</p>
               <p className={body}>{f.to}</p>
             </div>
