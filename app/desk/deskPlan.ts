@@ -155,57 +155,112 @@ export type Pull = {
   source: string;   // maps to a pipeline source
 };
 
-/** Standing lists worth building once and saving in AutoAlert. */
-export const STANDING_LISTS: { name: string; how: string; why: string }[] = [
-  {
-    name: 'Equity / Flex — payment neutral',
-    how: 'Positive-equity customers whose payment on a newer unit lands within about $50 of today.',
-    why: 'Your highest-converting call. The pitch is "newer car, same money" — nobody argues with that.',
-  },
-  {
-    name: 'Lease maturity — 90 to 120 days',
-    how: 'Leases ending in the next 90–120 days, sorted soonest first.',
-    why: 'Catch them before the mail and before the other store. Pair with the LAP payment waiver.',
-  },
+/**
+ * Standing lists worth building once and saving in AutoAlert.
+ *
+ * Ordered by tier, not by yield. Tier 1 lists convert best, but every
+ * salesperson on the floor skims them each morning, so a new rep calling
+ * them is often the second or third call that customer has had. Tier 3
+ * converts worse per dial and is uncontested — which is why it is where a
+ * new rep actually builds a book.
+ */
+export type StandingList = {
+  name: string;
+  tier: 1 | 2 | 3;
+  how: string;      // the filter parameters
+  why: string;
+  target?: number;  // rough list size worth pulling
+};
+
+export const TIERS: Record<number, { label: string; note: string }> = {
+  1: { label: 'Every shift', note: 'These produce appointments today. Everyone else pulls them too — call early.' },
+  2: { label: 'Once a week', note: 'These fill next week and next month. Build the list Monday, work it all week.' },
+  3: { label: 'Ask your manager once', note: 'Lower hit rate per dial, but nobody else is working them. This is where a new rep builds a book.' },
+};
+
+export const STANDING_LISTS: StandingList[] = [
+  // ── Tier 1 — every shift ─────────────────────────────────────────────
   {
     name: 'Service today — with equity',
-    how: 'Customers with an RO open today who also carry positive equity.',
-    why: 'They are physically on the property. Walk the drive with this list on your phone.',
+    tier: 1, target: 15,
+    how: 'Open RO dated today · equity at or above $0 · exclude Do Not Contact · sort by RO write-up time.',
+    why: 'They are already standing on the property. No dial, no gatekeeper, no voicemail. Most veterans will not walk the drive — that is your opening.',
   },
   {
     name: 'Big repair estimate',
-    how: 'Open ROs above roughly $1,500, or any declined major service.',
-    why: '"Do not put $3,000 into a car worth $18,000" writes itself. Highest-urgency list you have.',
+    tier: 1, target: 10,
+    how: 'Open RO at or above $1,500, or a declined recommended service in the last 90 days · vehicle 5+ model years old.',
+    why: 'Urgency is already in the customer\'s head — you are not creating it. Highest-intent list in the system. Always check the estimate before you pitch.',
   },
   {
-    name: 'Over-mileage leases',
-    how: 'Active leases pacing over their contracted mileage.',
-    why: 'They owe money at turn-in and usually do not know yet. Pull-ahead solves their problem.',
+    name: 'Flex / equity — payment neutral',
+    tier: 1, target: 25,
+    how: 'Equity at or above $2,000 · payment on a comparable newer unit within about $50 of today · not contacted in the last 30 days.',
+    why: '"Newer car, same money" is the one pitch nobody argues with. Filter out recent contacts or you will be the third rep to call this week.',
+  },
+
+  // ── Tier 2 — weekly, builds the pipeline ─────────────────────────────
+  {
+    name: 'Lease maturity — 90 to 120 days',
+    tier: 2, target: 15,
+    how: 'Lease maturity 90–120 days out · sort soonest first · exclude already grounded or turned in.',
+    why: 'Catch them before the factory mailer and before another store does. Pair with the payment waiver.',
+  },
+  {
+    name: '24 to 48 months in service',
+    tier: 2, target: 20,
+    how: 'Months in service between 24 and 48 · equity at or above $1,500 · any contract type.',
+    why: 'The band where depreciation has slowed but the car still appraises well. Reliably the deepest source of trade equity.',
   },
   {
     name: 'Contract end / near payoff',
-    how: 'Finance contracts within 6 payments of payoff, or already paid off.',
-    why: 'Payment-free and used to a payment. Easiest re-entry into a new lease.',
+    tier: 2, target: 15,
+    how: 'Retail finance · 6 or fewer payments remaining, or payoff already $0 · 36+ months in service.',
+    why: 'Used to a payment, about to lose it. Easiest re-entry there is — and they rarely realise the equity is theirs to spend.',
+  },
+  {
+    name: 'Over-mileage leases',
+    tier: 2, target: 10,
+    how: 'Active lease · projected miles at maturity exceeding contracted miles by 2,000+ · sort by overage descending.',
+    why: 'They owe real money at turn-in and almost never know yet. A pull-ahead genuinely solves the problem — this call helps them.',
   },
   {
     name: 'Warranty expiring',
-    how: 'Factory warranty ending in the next 90 days.',
-    why: 'Fear of out-of-warranty repair bills is a real motivator. Trade before it expires.',
+    tier: 2, target: 10,
+    how: 'Factory warranty ending within 90 days, or within 3,000 miles of the mileage limit.',
+    why: 'The next repair bill stops being covered. Concrete, dated, and true — no manufactured urgency needed.',
+  },
+
+  // ── Tier 3 — uncontested; ask once, then they are yours ──────────────
+  {
+    name: 'Orphan owners',
+    tier: 3, target: 40,
+    how: 'Assigned salesperson blank or none · still owns the vehicle · exclude Do Not Contact.',
+    why: 'Nobody is working them, which is exactly why you should. Ask your manager to assign these to you — this is the single best ask a new rep can make.',
+  },
+  {
+    name: 'Departed rep\'s book',
+    tier: 3, target: 40,
+    how: 'Assigned salesperson equals anyone no longer employed at the store · sorted by equity.',
+    why: 'A full book of Mercedes owners with nobody calling them. Ask which names to use — managers usually want them re-covered and have not gotten to it.',
+  },
+  {
+    name: 'Commercial & Sprinter owners',
+    tier: 3, target: 20,
+    how: 'Body style van, cargo, chassis or Metris · OR customer name contains LLC, Inc, Corp, Contracting, Plumbing, Heating, Electric, Landscap, Construction.',
+    why: 'Businesses replace on a cycle and buy in multiples. Confirm with your admin that Sprinters actually flow into your AutoAlert feed — at some stores they do not.',
+  },
+  {
+    name: 'Cold file — 12 months untouched',
+    tier: 3, target: 30,
+    how: 'No logged contact in 12+ months, or never contacted · still owns the vehicle · exclude Do Not Contact.',
+    why: 'Low hit rate per dial and zero competition. Worked consistently, this is how you fill a pipeline nobody can take from you.',
   },
   {
     name: 'Conquest / in-market',
-    how: 'Non-Mercedes owners in your database showing shopping behaviour.',
-    why: 'The $1,500 Upgrade Certificate applies to any brand — free money you can lead with.',
-  },
-  {
-    name: 'Orphan owners',
-    how: 'Customers with no active salesperson assigned.',
-    why: 'Nobody is working them. As the new person, ask your manager to assign you these.',
-  },
-  {
-    name: 'Commercial / Sprinter owners',
-    how: 'Filter your owner base to Sprinter and commercially titled vehicles.',
-    why: 'Businesses replace on a cycle and buy in multiples. Confirm Sprinters are in your AutoAlert feed.',
+    tier: 3, target: 10,
+    how: 'Non-Mercedes vehicles in the service file · plus any in-market shopping flags your store subscribes to.',
+    why: 'The Upgrade Certificate applies to any brand — money you can lead with before you talk product.',
   },
 ];
 
@@ -255,6 +310,10 @@ export const SCRIPTS: Script[] = [
     text: 'Hi [Name], MK at Mercedes-Benz of Smithtown. Because you leased with us, Financial Services will waive up to your first 3 payments if we move now — 6 payments if you are in a GLE, GLS, or S-Class. Worth 20 minutes to run your exact numbers? I have 5:30 or 6:15.',
   },
   {
+    id: 'stepup', when: 'Mid-lease step-up — years left, wants a bigger car',
+    text: 'Hi [Name], MK at Mercedes-Benz of Smithtown — do you have two minutes? … I am calling because you are in the [year model], and I know you are not near the end of it. Here is the only reason I called. Right now you have two separate numbers: what the [model] is actually worth today, and what is left on the contract. Nobody has told you the first one. My job is to find the gap between them and tell you honestly whether it is small enough to move now or big enough that you should wait — and if it is the second one, I will say so. Two questions so I can run it properly: what is the odometer at today, and how many miles a year are you contracted for? … And what made you start thinking about a bigger one?',
+  },
+  {
     id: 'conquest', when: 'Owner of a competing brand',
     text: 'Hi [Name], MK at Mercedes-Benz of Smithtown. Since you are currently in a [brand], you qualify for our $1,500 Upgrade Certificate on top of this month\'s incentives — and I can likely land you near your current payment. Worth 20 minutes?',
   },
@@ -265,6 +324,10 @@ export const SCRIPTS: Script[] = [
   {
     id: 'service', when: 'Service drive walk-up',
     text: '[Name], while your [model] is in for service — did you know it is worth more than most people expect right now? Give me ten minutes and I will show you a newer one for about the same payment. No pressure, just the numbers.',
+  },
+  {
+    id: 'oldcar', when: 'Calling ahead — older car booked for service',
+    text: 'Hi [Name], this is MK on the sales side at Mercedes-Benz of Smithtown — nothing wrong, your appointment is all set for [day]. I called because your [year model] is one of the older ones we still take care of, and before you spend money on it I wanted you to know what it is worth and what your options are. Two questions while I have you: is anything else bothering you on it besides what you booked for? … And is it paid off? … Perfect. When you come in [day], ask the advisor for the estimate first, then text me the number — I will have it priced out both ways so you can just look at the two and pick. Fair enough?',
   },
   {
     id: 'confirm', when: 'Confirming an appointment, night before',
@@ -280,7 +343,7 @@ export const SCRIPTS: Script[] = [
 export const COMMERCIAL_SCRIPTS: { id: string; when: string; text: string }[] = [
   {
     id: 'gate', when: '1 · Getting past whoever answers',
-    text: 'Hi — I am trying to reach whoever handles the vans. Is that the owner, or do you have a fleet manager? … Great, is he/she around? I will only need about two minutes.',
+    text: 'Hi — I am trying to reach whoever handles the vans. Is that the owner, or do you have a fleet manager? … Great, are they around? I will only need about two minutes.',
   },
   {
     id: 'qualify', when: '2 · The question that pays — ask it early',
@@ -313,6 +376,65 @@ export const COMMERCIAL_SCRIPTS: { id: string; when: string; text: string }[] = 
   {
     id: 'close', when: '9 · Closing for the appointment',
     text: 'Here is what I would suggest — come see one. Ten minutes, no numbers, just stand in it and see if the size works for your crew. I am here Thursday and Friday until five, or Saturday. Which is easier?',
+  },
+];
+
+/**
+ * The cold commercial call when you have a business and a number but no
+ * contact name — which is every name off a franchise locator, a county
+ * licence list, or a map search.
+ *
+ * All of these open by saying who you are and why you are calling. Pretexting
+ * ("calling about your account") gets you past one gatekeeper and burns the
+ * shop permanently, and local trades all know each other.
+ *
+ * The through-line: you are not trying to sell on this call. You are trying to
+ * leave with a NAME. A name turns every future dial into a warm call.
+ */
+export const NONAME_SCRIPTS: { id: string; when: string; text: string }[] = [
+  {
+    id: 'nn-open', when: '1 · The opener — admit you have no name',
+    text: 'Hi — I am hoping you can point me in the right direction. I do not have a name to ask for, so I am calling a little blind here. Who handles the vans over there — is that the owner, or do you have someone who runs the fleet?',
+  },
+  {
+    id: 'nn-gk', when: '2 · Get the gatekeeper\'s name FIRST — the highest-value 10 seconds',
+    text: 'Before I go any further — what was your name? … Thanks, [Name]. Do me a favour and I will stop calling blind: who should I be asking for? … Perfect. Next time I call I will just ask for [Owner] and say you pointed me there.',
+  },
+  {
+    id: 'nn-perm', when: '3 · You have the decision-maker — ask permission',
+    text: 'Did I catch you in the middle of something? … I will be quick — give me thirty seconds and you can tell me to go away.',
+  },
+  {
+    id: 'nn-why', when: '4 · Why you are calling — say it straight',
+    text: 'I am MK at Mercedes-Benz of Smithtown. You did not fill anything out, I am calling you cold — I will be honest about that. The reason is we have Sprinter cargo vans physically on the ground right now, and most shops out here are still being told there is a wait. Two questions and I will know in a minute whether this is worth any more of your time.',
+  },
+  {
+    id: 'nn-qual', when: '5 · The qualifier that pays',
+    text: 'Are you independent, or do you run under a national brand? … The reason I ask is that franchisees qualify for fleet-level pricing on a single van, not just on big fleets. It is thousands off retail and most owners have never been told it exists.',
+  },
+  {
+    id: 'nn-notin', when: '6 · "He is not in" — pin down a time',
+    text: 'No problem at all. When is he usually easiest to catch — early morning before the crews roll, or end of day? … Then I will try Thursday around 7:30. And what is his name, so I am not the guy asking for "the owner" again?',
+  },
+  {
+    id: 'nn-email', when: '7 · "Just send me an email"',
+    text: 'Happy to — what is the best address? … And so it is not just one more email in the pile, what would actually be useful in it: pricing, what we have in stock, or the Section 179 side? … Got it. I will send it today and give you a call Thursday to make sure it landed.',
+  },
+  {
+    id: 'nn-no', when: '8 · "We are not interested" — one honest turn, then out',
+    text: 'Fair enough, and I am not going to push you. One thing before I let you go — when does your replacement cycle usually come around? … Then I will check back a few weeks ahead of that instead of bothering you now. Fair?',
+  },
+  {
+    id: 'nn-vm', when: '9 · Voicemail with no name — you will leave a lot of these',
+    text: 'Hi, this is MK at Mercedes-Benz of Smithtown, [your number]. I do not have a name to ask for, so I am leaving this for whoever handles the vans. Two things worth knowing: we have Sprinter cargo on the ground right now — no ordering, no waiting — and if you run under a national brand there is fleet pricing available on a single van. If that is not you, I would genuinely appreciate a call back just to tell me who it is. Thanks for the time.',
+  },
+  {
+    id: 'nn-walk', when: '10 · The walk-in — for shops that never answer the phone',
+    text: 'Hi — I am MK from Mercedes-Benz of Smithtown, right down the road. I am not here to sell you anything today. I kept missing whoever handles your vans on the phone, so I figured I would just stop in. Is that you? … Can I leave you a card and grab your name?',
+  },
+  {
+    id: 'nn-back', when: '11 · The second call — now you have a name',
+    text: 'Hi [Owner], MK at Mercedes-Benz of Smithtown. [Gatekeeper] told me you are the one to talk to about the vans, and that early morning was the way to catch you — so here I am. Two minutes?',
   },
 ];
 
