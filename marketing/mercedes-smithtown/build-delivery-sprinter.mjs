@@ -4,8 +4,8 @@
  * Beatrice and Vertieres Legacy LLC.
  *
  * A Reel/TikTok, two stories and a three-slide feed carousel built from the
- * delivery: the welcome sign, the cockpit, a pass down the seat rows, and the
- * earlier Sprinter walkaround. There are no photos of MK. The reel gets the
+ * delivery: the welcome sign, the cockpit, an HD still of the seat rows, and
+ * HD stills and a clip from the earlier Sprinter walkaround. There are no photos of MK. The reel gets the
  * Sprinter set's cool grade, glow, vignette and chrome sweep, and a soundtrack
  * scored to its cuts (score.mjs).
  *
@@ -26,10 +26,9 @@ const WHO = 'Beatrice & Vertieres Legacy LLC';
 const REEL = {
   name: '01-sprinter-delivery-day',
   scenes: [
-    { clip: 'sprinter-15-exterior-walk.mp4', start: 12.4, html: over(say(['Delivery day:', 'a Sprinter for the team'], { size: 64 })), dur: beats(4) },
+    { html: still('sprinter-hd-front.jpg', 'center 30%', say(['Delivery day:', 'a Sprinter for the team'], { size: 64 })), dur: beats(4) },
     { html: lifted('sprinter-delivery-sign.jpg', 'center top', say(['Welcome to the', 'Mercedes-Benz family'])), dur: beats(5), fx: 'fadewhite' },
-    // The last second of this clip catches a sheet of paper, so stay in the first 4s.
-    { clip: 'sprinter-delivery-rows.mp4', start: 0.1, html: over(say(['Room for', 'the whole team'], { size: 66 })), dur: beats(5), fx: 'zoomin' },
+    { html: still('sprinter-hd-delivery-rows.jpg', 'center 40%', say(['Room for', 'the whole team'], { size: 66 })), dur: beats(5), fx: 'zoomin' },
     { html: still('sprinter-delivery-cockpit.jpg', 'center 40%', say(['Ready for', 'the road ahead'])), dur: beats(4), fx: 'wipeleft' },
     { clip: 'sprinter-15-exterior-walk.mp4', start: 5.6, html: over(say(['The best', 'or nothing'], { size: 70 })), dur: beats(4), fx: 'slideleft' },
     { html: end({ kicker: 'Delivered by Mercedes-Benz of Smithtown', head: 'Congratulations,<br><em>Beatrice.</em>', sub: 'Vertieres Legacy LLC · Welcome to the family', action: TODAY }), dur: beats(6), still: true, fx: 'fadeblack' },
@@ -40,7 +39,7 @@ const STORY_TEXT = { w: 1080, h: 1920, headSize: 140, sigBottom: 250, textBottom
 const STORIES = [
   ['01-welcome-to-the-family', hero({ ...STORY_TEXT, photo: 'sprinter-delivery-sign-tall.jpg', pos: 'center top', tag: 'Delivery day',
     model: WHO, head: 'Welcome to the<br><em>family.</em>', sub: 'Here’s to the road ahead, and to delivering the best or nothing.', action: TODAY })],
-  ['02-room-for-the-whole-team', hero({ ...STORY_TEXT, photo: 'sprinter-delivery-rows.jpg', pos: 'center 35%', tag: 'Just delivered',
+  ['02-room-for-the-whole-team', hero({ ...STORY_TEXT, photo: 'sprinter-hd-delivery-rows.jpg', pos: 'center 40%', tag: 'Just delivered',
     model: MODEL, head: 'Room for the<br><em>whole team.</em>', sub: 'Delivered today to Vertieres Legacy LLC. Your fleet or passenger van is next.', action: TODAY })],
 ];
 
@@ -55,7 +54,7 @@ const signSlide = `<div class="frame" style="width:1080px;height:1350px">
 
 const FEED = [
   ['01-congratulations-sign', signSlide],
-  ['02-delivered', hero({ photo: 'sprinter-15-front.jpg', pos: 'center 30%', tag: 'Just delivered', model: MODEL,
+  ['02-delivered', hero({ photo: 'sprinter-hd-front.jpg', pos: 'center 45%', tag: 'Just delivered', model: MODEL,
     head: '<em>Delivered.</em>', headSize: 150, sub: 'A Mercedes-Benz Sprinter for Beatrice and Vertieres Legacy LLC. Welcome to the Mercedes-Benz family.' })],
   ['03-the-road-ahead', hero({ photo: 'sprinter-delivery-cockpit.jpg', pos: 'center 45%', tag: 'Mercedes-Benz of Smithtown', model: 'Your delivery day is next',
     head: 'The road <em>ahead.</em>', headSize: 140, sub: 'Fleet, shuttle or passenger van: I’ll find the right Sprinter for your business.', action: TODAY })],

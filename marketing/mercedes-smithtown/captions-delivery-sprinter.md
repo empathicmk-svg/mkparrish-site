@@ -1,8 +1,8 @@
 # Sprinter delivery: Beatrice & Vertieres Legacy LLC
 
 A Reel/TikTok, two stories and a three-slide feed carousel for the Sprinter
-delivery. They're built from the welcome sign, the cockpit, a stabilized pass
-down the seat rows and the earlier Sprinter walkaround. **There are no photos of
+delivery. They're built from the welcome sign, the cockpit, an HD still of the
+seat rows and HD stills and a clip from the earlier Sprinter walkaround. **There are no photos of
 MK.** The files are in `output/mercedes-smithtown/delivery-sprinter/`. To
 rebuild, run `node marketing/mercedes-smithtown/build-delivery-sprinter.mjs`.
 It scores the reel's soundtrack itself: the showroom track with a hit on every

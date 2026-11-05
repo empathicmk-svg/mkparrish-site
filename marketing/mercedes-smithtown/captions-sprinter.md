@@ -1,6 +1,6 @@
 # "Sprinter 15, customized"
 
-A Reel/TikTok, two stories and five feed posts. They mix MK's walkaround of the black 15-passenger Sprinter on the lot with custom upfit interiors from High Quality Custom Design. The walkaround footage is stabilized. The upfit photos were straightened from screen photos, cleaned up and shown full size, one per frame. The files are in `output/mercedes-smithtown/sprinter/`. To rebuild them, run `node marketing/mercedes-smithtown/build-sprinter.mjs`, then `node scripts/add-music.mjs`.
+A Reel/TikTok, two stories and five feed posts. They mix MK's walkaround of the black 15-passenger Sprinter on the lot with custom upfit interiors from High Quality Custom Design. The van photos are HD stills: the sharpest single frames of the walkaround, denoised and sharpened, with MK's shadow retouched out of the front-quarter shot. The upfit photos were straightened from screen photos, had the screen's moiré filtered out and were upscaled with Real-ESRGAN (`scripts/images/upscale.py`), so they stay crisp when shown full size, one per frame. The files are in `output/mercedes-smithtown/sprinter/`. To rebuild them, run `node marketing/mercedes-smithtown/build-sprinter.mjs`, then `node scripts/add-music.mjs`.
 
 The reel cuts on the beat with zoom, wipe and flash transitions. It has a cool grade, a soft glow, a vignette and a chrome light sweep. Everything ends on **Call or text MK · 347.853.4238**, with your work line too.
 

@@ -64,3 +64,8 @@ scripts/social/out/
 
 # Sales toolkit local data (may contain customer names)
 sales/data/
+
+# Real-ESRGAN upscaler (scripts/images/upscale.py)
+/.venv-upscale/
+/esrgan/
+realesrgan-ncnn-vulkan-*.zip
