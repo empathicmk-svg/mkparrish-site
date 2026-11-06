@@ -19,10 +19,16 @@ export default function Nav() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    // The drawer is mobile-only (`md:hidden`): close it, and so release the
+    // scroll lock, when the viewport grows past the md breakpoint (768px).
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const onBreakpoint = (e: MediaQueryListEvent) => e.matches && setOpen(false);
     document.addEventListener("keydown", onKey);
+    desktop.addEventListener("change", onBreakpoint);
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
+      desktop.removeEventListener("change", onBreakpoint);
       document.body.style.overflow = "";
     };
   }, [open]);
