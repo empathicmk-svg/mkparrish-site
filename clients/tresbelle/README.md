@@ -57,4 +57,4 @@ content/site.ts       all copy and data
    git push git@github.com:<owner>/tresbelle-site.git tresbelle-site:main
    ```
 
-The parent mkparrish.com build ignores `clients/` (see the root `tsconfig.json`, `eslint.config.mjs` and `.vercelignore`).
+The parent mkparrish.com typecheck and lint skip `clients/` (see the root `tsconfig.json` and `eslint.config.mjs`).

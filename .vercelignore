@@ -8,6 +8,3 @@ tsconfig.tsbuildinfo
 
 *.log
 .DS_Store
-
-# Client sites deploy as their own Vercel projects
-clients/
