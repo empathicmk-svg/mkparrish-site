@@ -27,14 +27,11 @@ npm run lint && npm run typecheck
 
 Everything the site says lives in **`content/site.ts`**: services, prices, durations, policies, address, hours and phone. Components only render that file.
 
-Before launch, fill every field marked `// VERIFY` from the live GlossGenius menu:
+The content comes from TresBelle's public GlossGenius page (pulled 2026-11-06): services, durations, address, phone, hours, team and the cancellation policy. Prices hidden on GlossGenius show as **See booking**. Only the publicly listed ones (Plasma Injections, Fibroblast, Stem Cell Microchanneling) show a figure.
 
-- `brand.location`, `brand.address`, `brand.phone`, `brand.hours`
-- each service's `duration` and `price` (a `null` price shows **See booking**, so nothing unconfirmed is ever displayed)
-- the service list itself (the current one is a starter menu, not TresBelle's actual menu)
-- `policies` wording
-
-Empty address, phone and hours fields are hidden automatically.
+Still to confirm with the business:
+- Late-cancel fee: their written policy says $50, but the GlossGenius fee setting says $20. The site uses $50.
+- The production domain (`NEXT_PUBLIC_SITE_URL`).
 
 ## Structure
 

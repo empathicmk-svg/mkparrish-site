@@ -4,7 +4,7 @@ import { BOOKING_URL, policies } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Policies",
-  description: "Booking, deposit, cancellation and pre-treatment policies for Très Belle Aesthetics.",
+  description: "Booking, cancellation and no-show policies for Tres Belle Wellness & Aesthetics.",
 };
 
 export default function PoliciesPage() {

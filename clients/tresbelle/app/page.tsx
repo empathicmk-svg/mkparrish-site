@@ -1,20 +1,28 @@
 import Section from "@/app/components/Section";
 import ServiceMenu from "@/app/components/ServiceMenu";
-import { BOOKING_URL, INSTAGRAM_HANDLE, INSTAGRAM_URL, brand, pillars } from "@/content/site";
+import { BOOKING_URL, INSTAGRAM_HANDLE, INSTAGRAM_URL, addressLine, brand, mapsUrl, pillars, team } from "@/content/site";
 
-const marquee = ["Injectables", "Lip Filler", "Skin", "Peels", "Microneedling", "Consultations"];
+const marquee = ["Botox", "Filler", "Lip Flip", "Sculptra", "Microneedling", "Kybella", "IV Therapy", "Peels"];
 
 function jsonLd() {
-  // VERIFY: fill address/phone in content/site.ts and they flow in here.
   return {
     "@context": "https://schema.org",
-    "@type": "BeautySalon",
+    "@type": "MedicalBusiness",
     name: brand.legalName,
     description: brand.description,
     url: process.env.NEXT_PUBLIC_SITE_URL,
+    telephone: brand.phone,
+    email: brand.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: brand.address.street,
+      addressLocality: brand.address.locality,
+      addressRegion: brand.address.region,
+      postalCode: brand.address.postalCode,
+      addressCountry: "US",
+    },
+    openingHours: brand.hours.flatMap((h) => (h.schema ? [h.schema] : [])),
     sameAs: [INSTAGRAM_URL, BOOKING_URL],
-    ...(brand.phone && { telephone: brand.phone }),
-    ...(brand.address && { address: brand.address }),
   };
 }
 
@@ -31,15 +39,15 @@ export default function Home() {
       <section className="relative flex min-h-[100svh] items-end overflow-hidden pb-16 pt-28 md:items-center md:pb-0">
         <Monogram />
         <div className="container-x relative">
-          <p className="eyebrow reveal mb-6">{brand.location ? `${brand.location} · ` : ""}Aesthetics Studio</p>
+          <p className="eyebrow reveal mb-6">{brand.location} · Wellness &amp; Aesthetics</p>
           <h1 className="display reveal text-[clamp(5rem,19vw,17rem)]">
-            Très <span className="gold-text">Belle</span>
+            Tres <span className="gold-text">Belle</span>
           </h1>
           <p className="serif-italic reveal mt-6 max-w-xl text-[clamp(1.35rem,2.6vw,2rem)] leading-snug text-[var(--color-blush)]">
             {brand.tagline}
           </p>
           <p className="reveal mt-5 max-w-lg text-lg leading-relaxed text-[var(--color-smoke)]">
-            Injectables and skin treatments for results that look like you, on a very good day.
+            Neurotoxins, fillers, skin rejuvenation and IV therapy from nurse practitioners who give you an honest assessment.
           </p>
           <div className="reveal mt-10 flex flex-col gap-3 sm:flex-row">
             <a href={BOOKING_URL} target="_blank" rel="noopener" className="btn btn-primary">
@@ -72,7 +80,7 @@ export default function Home() {
             Services, <span className="serif-italic text-[0.62em] text-[var(--color-petal)]">considered</span>
           </>
         }
-        lede="Every treatment begins with a consult. Live pricing and availability are always current on our booking page."
+        lede="Not sure where to start? Book a consultation. Live pricing and availability are always on our booking page."
       >
         <ServiceMenu />
         <div className="reveal mt-16 flex justify-center">
@@ -88,7 +96,7 @@ export default function Home() {
         eyebrow="Our Approach"
         title={
           <>
-            Natural, <span className="gold-text">never</span> overdone
+            Honest, <span className="gold-text">expert</span> care
           </>
         }
         className="border-t hairline bg-[var(--color-void)]"
@@ -102,6 +110,21 @@ export default function Home() {
             </li>
           ))}
         </ol>
+      </Section>
+
+      {/* ── TEAM ─────────────────────────────────────────────── */}
+      <Section id="team" eyebrow="Your providers" title={<>The <span className="serif-italic text-[0.62em] text-[var(--color-petal)]">team</span></>} lede="Licensed nurse practitioners and nurses. Choose your provider when you book.">
+        <ul className="grid gap-px bg-[rgba(217,195,160,0.18)] sm:grid-cols-2 lg:grid-cols-4">
+          {team.map((m) => (
+            <li key={m.name} className="reveal bg-[var(--color-obsidian)] p-8">
+              <p className="display text-4xl">{m.name}</p>
+              <p className="eyebrow mt-3">
+                {m.credential ? `${m.credential} · ` : ""}
+                {m.role}
+              </p>
+            </li>
+          ))}
+        </ul>
       </Section>
 
       {/* ── INSTAGRAM ────────────────────────────────────────── */}
@@ -131,22 +154,29 @@ export default function Home() {
               Your first <span className="serif-italic text-[0.62em] text-[var(--color-petal)]">appointment</span>
             </h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-[var(--color-smoke)]">
-              Book online in under a minute. New to injectables? Choose a consultation and we&apos;ll plan
-              everything together.
+              Book online in under a minute. New to injectables? Choose a consultation and we&apos;ll give you
+              an honest assessment and a plan.
             </p>
           </div>
           <div className="reveal space-y-6 md:justify-self-end">
-            {brand.address && <p className="font-mono text-sm text-[var(--color-champagne)]">{brand.address}</p>}
-            {brand.hours.length > 0 && (
-              <dl className="grid grid-cols-[auto_1fr] gap-x-8 gap-y-1 font-mono text-sm">
-                {brand.hours.map((h) => (
-                  <div key={h.days} className="contents">
-                    <dt className="text-[var(--color-ash)]">{h.days}</dt>
-                    <dd>{h.time}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
+            <address className="not-italic">
+              <a href={mapsUrl} target="_blank" rel="noopener" className="font-mono text-sm text-[var(--color-champagne)] hover:underline">
+                {addressLine}
+              </a>
+              <br />
+              <a href={`tel:+1${brand.phone.replace(/\D/g, "")}`} className="font-mono text-sm hover:text-[var(--color-champagne)]">
+                {brand.phone}
+              </a>
+            </address>
+            <dl className="grid grid-cols-[auto_1fr] gap-x-8 gap-y-1 font-mono text-sm">
+              {brand.hours.map((h) => (
+                <div key={h.days} className="contents">
+                  <dt className="text-[var(--color-ash)]">{h.days}</dt>
+                  <dd className={h.schema ? "" : "text-[var(--color-ash)]"}>{h.time}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="text-xs text-[var(--color-ash)]">Hours are by appointment and can change; booking shows live availability.</p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <a href={BOOKING_URL} target="_blank" rel="noopener" className="btn btn-primary">
                 Book now <span aria-hidden>→</span>
@@ -177,7 +207,7 @@ function Monogram() {
         </defs>
         <g className="monogram-ring" style={{ transformOrigin: "200px 200px" }}>
           <text fill="#857c74" style={{ fontFamily: "var(--font-mono)", fontSize: 13, letterSpacing: "0.42em" }}>
-            <textPath href="#tb-circle">TRÈS BELLE AESTHETICS ✦ INJECTABLES ✦ SKIN ✦ CONSULTATION ✦</textPath>
+            <textPath href="#tb-circle">TRES BELLE ✦ WELLNESS ✦ AESTHETICS ✦ OAKDALE NY ✦</textPath>
           </text>
         </g>
         <circle cx="200" cy="200" r="132" fill="none" stroke="url(#tb-gold)" strokeOpacity="0.35" />

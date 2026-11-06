@@ -5,7 +5,7 @@ import Footer from "@/app/components/Footer";
 import RevealObserver from "@/app/components/RevealObserver";
 import { brand } from "@/content/site";
 
-const title = `${brand.legalName}: Injectables & Skin`;
+const title = `${brand.legalName} | Botox, Filler & Skin in ${brand.location}`;
 
 export const metadata: Metadata = {
   title: { default: title, template: `%s | ${brand.name}` },

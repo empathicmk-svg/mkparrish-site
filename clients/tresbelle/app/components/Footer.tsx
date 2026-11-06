@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BOOKING_URL, INSTAGRAM_HANDLE, INSTAGRAM_URL, brand, nav } from "@/content/site";
+import { BOOKING_URL, INSTAGRAM_HANDLE, INSTAGRAM_URL, addressLine, brand, mapsUrl, nav } from "@/content/site";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -35,13 +35,21 @@ export default function Footer() {
                 Instagram {INSTAGRAM_HANDLE}
               </a>
             </li>
-            {brand.phone && (
-              <li>
-                <a href={`tel:${brand.phone.replace(/[^\d+]/g, "")}`} className="hover:text-[var(--color-pearl)]">
-                  {brand.phone}
-                </a>
-              </li>
-            )}
+            <li>
+              <a href={`tel:+1${brand.phone.replace(/\D/g, "")}`} className="hover:text-[var(--color-pearl)]">
+                {brand.phone}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${brand.email}`} className="break-all hover:text-[var(--color-pearl)]">
+                {brand.email}
+              </a>
+            </li>
+            <li>
+              <a href={mapsUrl} target="_blank" rel="noopener" className="hover:text-[var(--color-pearl)]">
+                {addressLine}
+              </a>
+            </li>
           </ul>
         </div>
       </div>
