@@ -64,8 +64,9 @@ export const addressLine = `${brand.address.street}, ${brand.address.locality}, 
 export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${brand.legalName}, ${addressLine}`)}`;
 
 export const nav = [
+  { href: "/about", label: "About" },
   { href: "/#services", label: "Services" },
-  { href: "/#team", label: "Team" },
+  { href: "/#faq", label: "FAQ" },
   { href: "/#visit", label: "Visit" },
   { href: "/policies", label: "Policies" },
 ];
@@ -75,6 +76,60 @@ export const team = [
   { name: "Tracey Joost-Morea", credential: "NP", role: "Nurse Practitioner" },
   { name: "Julia Dimitri", credential: "RN", role: "Registered Nurse" },
   { name: "Kassia Gonzalez", credential: null, role: "Aesthetics" },
+];
+
+/** About copy. `mission` is TresBelle's own wording from GlossGenius. */
+export const about = {
+  mission:
+    "We are committed to providing you with an honest assessment and trusted expertise toward achieving the best results for a younger looking you.",
+  signoff: "When you look good, you feel good!",
+  story: [
+    "Tres Belle Wellness & Aesthetics is a clinician-led studio on Montauk Highway in Oakdale. Our injectors are nurse practitioners and registered nurses, so every treatment is planned and performed with clinical care.",
+    "We keep the menu focused: neurotoxins and fillers, collagen-building skin treatments, and IV therapy. Every visit starts with an honest conversation about what will help, and what you don't need.",
+  ],
+  facts: [
+    { value: "4", label: "Licensed providers" },
+    { value: "15", label: "Treatments offered" },
+    { value: "6", label: "Days a week" },
+  ],
+};
+
+export const firstVisit = [
+  { n: "01", title: "Book online", body: "Choose a treatment or a consultation on GlossGenius. A card on file holds your appointment." },
+  { n: "02", title: "Consult", body: "We talk through your goals, review your health history, and recommend only what makes sense for you." },
+  { n: "03", title: "Treat", body: "Your provider performs the treatment. Most visits take under an hour." },
+  { n: "04", title: "Follow up", body: "Neurotoxin clients can book a touch-up visit two weeks later to fine-tune results." },
+];
+
+export const faqs = [
+  {
+    q: "How do I book?",
+    a: "Online through our GlossGenius booking page, any time. You can choose your treatment, your provider and a time that suits you.",
+  },
+  {
+    q: "I'm new to injectables. Where should I start?",
+    a: "Book a consultation. It's a short visit where we assess your goals and give you an honest recommendation and a plan.",
+  },
+  {
+    q: "Who performs the treatments?",
+    a: "Our team of nurse practitioners and a registered nurse. You can see each provider and their availability when you book.",
+  },
+  {
+    q: "How long does Botox last?",
+    a: "Results from Botox, Xeomin and Dysport typically last about 3 to 4 months. A touch-up visit is available two weeks after treatment.",
+  },
+  {
+    q: "Why don't you list every price?",
+    a: "Many treatments are priced to your individual plan, such as the number of units or syringes. Current pricing is on our booking page, and we can go over costs with you at your consultation.",
+  },
+  {
+    q: "What is your cancellation policy?",
+    a: "Please give at least 24 hours' notice. Late cancellations and no-shows incur a $50 nonrefundable fee charged to the card on file.",
+  },
+  {
+    q: "Do you have a birthday offer?",
+    a: "Yes. Enjoy $25 off your next treatment for your birthday.",
+  },
 ];
 
 export const pillars = [

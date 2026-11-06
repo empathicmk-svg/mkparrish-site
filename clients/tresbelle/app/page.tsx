@@ -1,6 +1,9 @@
 import Section from "@/app/components/Section";
 import ServiceMenu from "@/app/components/ServiceMenu";
-import { BOOKING_URL, INSTAGRAM_HANDLE, INSTAGRAM_URL, addressLine, brand, mapsUrl, pillars, team } from "@/content/site";
+import FirstVisit from "@/app/components/FirstVisit";
+import Faq from "@/app/components/Faq";
+import Link from "next/link";
+import { BOOKING_URL, INSTAGRAM_HANDLE, INSTAGRAM_URL, about, addressLine, brand, faqs, mapsUrl, pillars, team } from "@/content/site";
 
 const marquee = ["Botox", "Filler", "Lip Flip", "Sculptra", "Microneedling", "Kybella", "IV Therapy", "Peels"];
 
@@ -26,6 +29,18 @@ function jsonLd() {
   };
 }
 
+function faqLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}
+
 export default function Home() {
   return (
     <>
@@ -34,6 +49,7 @@ export default function Home() {
         // Static, server-built object: no user input reaches this string.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd()).replace(/</g, "\\u003c") }}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd()).replace(/</g, "\\u003c") }} />
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative flex min-h-[100svh] items-end overflow-hidden pb-16 pt-28 md:items-center md:pb-0">
@@ -70,6 +86,25 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* ── ABOUT TEASER ─────────────────────────────────────── */}
+      <section id="about" aria-labelledby="about-title" className="section-y">
+        <div className="container-x grid gap-10 md:grid-cols-[1fr_1.4fr] md:items-end md:gap-20">
+          <div className="reveal">
+            <p className="eyebrow mb-4">About us</p>
+            <h2 id="about-title" className="display text-[clamp(3rem,8vw,6.5rem)]">
+              Clinician-led, <span className="serif-italic text-[0.62em] text-[var(--color-petal)]">close to home</span>
+            </h2>
+          </div>
+          <div className="reveal">
+            <p className="serif-italic text-[clamp(1.3rem,2.2vw,1.8rem)] leading-snug text-[var(--color-blush)]">&ldquo;{about.mission}&rdquo;</p>
+            <p className="mt-6 leading-relaxed text-[var(--color-smoke)]">{about.story[0]}</p>
+            <Link href="/about" className="btn btn-ghost mt-8">
+              Our story <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* ── SERVICES ─────────────────────────────────────────── */}
       <Section
@@ -112,8 +147,23 @@ export default function Home() {
         </ol>
       </Section>
 
+      {/* ── FIRST VISIT ──────────────────────────────────────── */}
+      <Section
+        id="first-visit"
+        eyebrow="New here?"
+        title={
+          <>
+            Your first <span className="serif-italic text-[0.62em] text-[var(--color-petal)]">visit</span>
+          </>
+        }
+        lede="Four simple steps, from booking to your follow-up."
+        className="border-t hairline"
+      >
+        <FirstVisit />
+      </Section>
+
       {/* ── TEAM ─────────────────────────────────────────────── */}
-      <Section id="team" eyebrow="Your providers" title={<>The <span className="serif-italic text-[0.62em] text-[var(--color-petal)]">team</span></>} lede="Licensed nurse practitioners and nurses. Choose your provider when you book.">
+      <Section id="team" className="border-t hairline" eyebrow="Your providers" title={<>The <span className="serif-italic text-[0.62em] text-[var(--color-petal)]">team</span></>} lede="Licensed nurse practitioners and nurses. Choose your provider when you book.">
         <ul className="grid gap-px bg-[rgba(217,195,160,0.18)] sm:grid-cols-2 lg:grid-cols-4">
           {team.map((m) => (
             <li key={m.name} className="reveal bg-[var(--color-obsidian)] p-8">
@@ -125,6 +175,21 @@ export default function Home() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      {/* ── FAQ ──────────────────────────────────────────────── */}
+      <Section
+        id="faq"
+        eyebrow="Questions"
+        title={
+          <>
+            Good to <span className="serif-italic text-[0.62em] text-[var(--color-petal)]">know</span>
+          </>
+        }
+        lede="Can't find your answer? Message us on Instagram or call the studio."
+        className="border-t hairline bg-[var(--color-void)]"
+      >
+        <Faq />
       </Section>
 
       {/* ── INSTAGRAM ────────────────────────────────────────── */}
@@ -151,7 +216,7 @@ export default function Home() {
           <div className="reveal">
             <p className="eyebrow mb-4">Visit</p>
             <h2 id="visit-title" className="display text-[clamp(3rem,8vw,6.5rem)]">
-              Your first <span className="serif-italic text-[0.62em] text-[var(--color-petal)]">appointment</span>
+              Book your <span className="serif-italic text-[0.62em] text-[var(--color-petal)]">visit</span>
             </h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-[var(--color-smoke)]">
               Book online in under a minute. New to injectables? Choose a consultation and we&apos;ll give you

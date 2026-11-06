@@ -38,9 +38,10 @@ Still to confirm with the business:
 ```
 app/
   layout.tsx          fonts, metadata, nav, footer
-  page.tsx            hero · marquee · services · approach · Instagram · visit
+  page.tsx            hero · about · services · approach · first visit · team · FAQ · Instagram · visit
+  about/page.tsx      mission · story · values · team · first visit
   policies/page.tsx
-  components/         Nav (mobile drawer), Footer, Section, ServiceMenu, RevealObserver
+  components/         Nav (mobile drawer), Footer, Section, ServiceMenu, FirstVisit, Faq, RevealObserver
   robots.ts, sitemap.ts, icon.svg, not-found.tsx
 content/site.ts       all copy and data
 ```
