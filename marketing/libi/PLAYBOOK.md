@@ -9,7 +9,7 @@
 
 ## The idea in one line
 
-Every LIBI member scans, fills in 30 seconds of info, and **scratches off their own Competition Builder Pass**. It's a personal pass in Competition's sage green and white, with their name and pass number. It's valid at all five Competition stores through Dec 31, and every pass is entered to win a **48-hour Mercedes weekend**. Each pass comes with a share link, and every person who gets a pass through it adds a drawing entry for the sharer, so the room recruits for you.
+Every LIBI member scans, fills in 30 seconds of info, and **scratches off their own Competition Builder Pass**. It's a personal pass in Competition's own colors (black, white, steel blue and silver), with their name and pass number. It's valid at all five Competition stores through Dec 31, and every pass is entered to win a **48-hour Mercedes weekend**. Each pass comes with a share link, and every person who gets a pass through it adds a drawing entry for the sharer, so the room recruits for you.
 
 **Scan · Scratch · Save** is the whole pitch.
 
@@ -123,4 +123,4 @@ One builder closing 30 homes a year is 30 warm introductions a year. Five builde
 
 **Compliance notes:** the drawing has no purchase requirement, is open to adults 21+ with a license and insurance, and has one winner. That's printed on the page and in the pass email. The prize value stays far below New York's $5,000 threshold, so no registration is required. The consent checkbox covers texting, and you honor STOP right away. Get your manager's OK on any pricing or bonus before it goes out.
 
-**Brand colours:** the sage and white are sampled from the Competition Automotive Group event tent (`--color-cag-*` in `app/globals.css`, `CAG` in `app/libi/BuilderPass.tsx`, and the top of `scripts/libi/build.mjs`). Montserrat stands in for the logo type. If marketing gives you the official hex codes or logo file, swap them in those three places and rebuild.
+**Brand colors:** black, white, steel blue (`#7D96A8`) and silver (`#A9ADB1`), taken from the Competition Automotive Group Facebook header: a white COMPETITION over a steel-blue AUTOMOTIVE GROUP, with a silver swoosh that the silver flow lines echo. They live in `--color-cag-*` in `app/globals.css`, `CAG` in `app/libi/BuilderPass.tsx`, and the top of `scripts/libi/build.mjs`. Montserrat stands in for the logo type. If marketing gives you the official hex codes or the logo file, swap them in those three places and rebuild.

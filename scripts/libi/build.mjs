@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * Builds the Competition Builder Pass QR codes and printables in Competition Automotive
- * Group colours: canopy sage and white, the wordmark set in Montserrat, and the flow-line
- * art from app/libi/flowLines.js, the same JavaScript that animates the /libi page. No photos.
+ * Group's header colours (black, white, steel blue, silver), the wordmark set in Montserrat,
+ * and the silver flow-line art from app/libi/flowLines.js, the same JavaScript that animates the /libi page. No photos.
  *
  *   node scripts/libi/build.mjs
  *
@@ -75,37 +75,41 @@ for (const c of document.querySelectorAll("canvas.flow")) {
   const ctx = c.getContext("2d"); ctx.scale(s, s);
   drawFlowLines(ctx, w, h, 2, {
     focusY: +(c.dataset.y || 0.7), count: +(c.dataset.n || 28), alpha: +(c.dataset.a || 0.4),
-    origin: c.dataset.o || "left", lineWidth: +(c.dataset.lw || 1), rgb: "255,255,255",
+    origin: c.dataset.o || "left", lineWidth: +(c.dataset.lw || 1), rgb: "200,204,208",
   });
 }
 </script>`;
 
-// Competition Automotive Group palette: the sage of the group's event canopy, with white.
-const SAGE = "#6B7F74";
-const SAGE_LIGHT = "#7F9488";
-const DEEP = "#3D4B44";
+// Competition Automotive Group header colours: black, white COMPETITION, steel-blue
+// AUTOMOTIVE GROUP and a silver swoosh (echoed here by silver flow lines).
+const INK = "#0B0C0E";
+const PANEL = "#15171A";
+const CHARCOAL = "#2A2D32";
+const STEEL = "#7D96A8";
+const SILVER = "#A9ADB1";
 
 const css = `${fonts}
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Montserrat', sans-serif; color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.bg { background: linear-gradient(135deg, ${SAGE_LIGHT} 0%, ${SAGE} 48%, ${DEEP} 100%); }
+.bg { background: linear-gradient(135deg, ${CHARCOAL} 0%, ${PANEL} 45%, ${INK} 100%); }
 .k { font-weight: 600; letter-spacing: .3em; text-transform: uppercase; }
 .up { text-transform: uppercase; }
-.soft { color: rgba(255,255,255,.82); }
+.soft { color: ${SILVER}; }
+.steel { color: ${STEEL}; }
 .qr { background: #fff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
 .qr svg { display: block; width: 100%; height: 100%; }
 .flow { position: absolute; inset: 0; width: 100%; height: 100%; }
-.sheen { position: absolute; inset: 0; background: radial-gradient(ellipse at 85% 0%, rgba(255,255,255,.22), transparent 55%); }
-.frame { position: absolute; border: 1px solid rgba(255,255,255,.45); pointer-events: none; }
-.rule { width: 44px; height: 1px; background: #fff; }
-.perk { border-left: 2px solid #fff; padding-left: 10px; }
+.sheen { position: absolute; inset: 0; background: radial-gradient(ellipse at 85% 0%, rgba(125,150,168,.24), transparent 55%); }
+.frame { position: absolute; border: 1px solid rgba(169,173,177,.4); pointer-events: none; }
+.rule { width: 44px; height: 1px; background: ${STEEL}; }
+.perk { border-left: 2px solid ${STEEL}; padding-left: 10px; }
 `;
 
-// The Competition wordmark set in type: light, wide COMPETITION over spaced AUTOMOTIVE GROUP.
+// The Competition wordmark set in type: white COMPETITION over steel-blue AUTOMOTIVE GROUP.
 const mark = (pt) => `
   <div style="line-height:1;">
-    <div style="font-size:${pt}pt;font-weight:300;letter-spacing:.2em;">COMPETITION</div>
-    <div style="font-size:${pt * 0.4}pt;font-weight:500;letter-spacing:.42em;margin-top:${pt * 0.32}pt;opacity:.9;">AUTOMOTIVE GROUP</div>
+    <div style="font-size:${pt}pt;font-weight:500;letter-spacing:.07em;color:#fff;">COMPETITION</div>
+    <div style="font-size:${pt * 0.42}pt;font-weight:400;letter-spacing:.3em;margin-top:${pt * 0.3}pt;color:${STEEL};">AUTOMOTIVE GROUP</div>
   </div>`;
 
 // 5x7 sign (480x672 CSS px).
@@ -117,10 +121,10 @@ const sign = `
   <div style="position:relative;height:100%;padding:.42in .42in .36in;display:flex;flex-direction:column;">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
       ${mark(16)}
-      <p class="k" style="font-size:6.5pt;text-align:right;line-height:1.6;">LIBI<br>${DATE}</p>
+      <p class="k steel" style="font-size:6.5pt;text-align:right;line-height:1.6;">LIBI<br>${DATE}</p>
     </div>
-    <p class="k soft" style="font-size:7pt;margin-top:.44in;">For LIBI members &amp; guests</p>
-    <h1 class="up" style="font-size:34pt;line-height:1.05;letter-spacing:.06em;margin-top:8pt;"><span style="font-weight:300;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
+    <p class="k steel" style="font-size:7pt;margin-top:.44in;">For LIBI members &amp; guests</p>
+    <h1 class="up" style="font-size:34pt;line-height:1.05;letter-spacing:.06em;margin-top:8pt;"><span style="font-weight:300;color:#D5D8DB;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
     <p style="font-size:10.5pt;font-weight:500;margin-top:10pt;line-height:1.45;">${LEAD} at all five Competition Automotive Group stores.</p>
     <div class="rule" style="margin-top:12pt;"></div>
     <div style="display:flex;gap:.26in;align-items:center;margin-top:.26in;">
@@ -132,7 +136,7 @@ const sign = `
       </div>
     </div>
     <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;">
-      <p class="k" style="font-size:6.5pt;">Scan · Scratch · Save</p>
+      <p class="k steel" style="font-size:6.5pt;">Scan · Scratch · Save</p>
       <p style="font-size:8pt;font-weight:600;letter-spacing:.08em;">ASK FOR MK <span class="soft" style="font-weight:500;">· 631.366.6417</span></p>
     </div>
   </div>
@@ -140,7 +144,7 @@ const sign = `
 
 const signPage = `<!doctype html><html><head><style>${css}
 @page { size: letter; margin: 0; }
-body { width: 8.5in; height: 11in; background: ${DEEP}; overflow: hidden; }
+body { width: 8.5in; height: 11in; background: ${INK}; overflow: hidden; }
 .sign { transform: scale(1.57); transform-origin: top left; margin-left: calc((8.5in - 5in * 1.57) / 2); }
 </style></head><body>${sign}${flowRunner}</body></html>`;
 
@@ -179,10 +183,10 @@ body { width: 390px; height: 844px; overflow: hidden; position: relative; }
 <div class="frame" style="inset:12px;border-radius:38px;"></div>
 <div style="position:absolute;left:0;right:0;top:322px;text-align:center;padding:0 30px;">
   <div style="display:inline-block;text-align:left;">${mark(15)}</div>
-  <h1 class="up" style="font-size:31px;line-height:1.08;letter-spacing:.06em;margin-top:20px;"><span style="font-weight:300;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
+  <h1 class="up" style="font-size:31px;line-height:1.08;letter-spacing:.06em;margin-top:20px;"><span style="font-weight:300;color:#D5D8DB;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
   <div class="qr" style="width:212px;height:212px;margin:20px auto 0;padding:7px;">${qrSvg.phone}</div>
   <p style="font-size:13px;font-weight:600;margin-top:16px;">${LEAD} · all five stores</p>
-  <p class="k soft" style="font-size:8px;margin-top:8px;">Scan · Scratch · Save</p>
+  <p class="k steel" style="font-size:8px;margin-top:8px;">Scan · Scratch · Save</p>
 </div>${flowRunner}</body></html>`;
 
 const slide = `<!doctype html><html><head><style>${css}
@@ -194,14 +198,14 @@ body { width: 1920px; height: 1080px; overflow: hidden; position: relative; }
 <div style="position:relative;height:100%;padding:100px 130px;display:flex;justify-content:space-between;">
   <div style="display:flex;flex-direction:column;max-width:1100px;">
     ${mark(40)}
-    <p class="k soft" style="font-size:20px;margin-top:90px;">For LIBI members &amp; guests · ${DATE}</p>
-    <h1 class="up" style="font-size:112px;line-height:1.04;letter-spacing:.05em;margin-top:18px;"><span style="font-weight:300;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
+    <p class="k steel" style="font-size:20px;margin-top:90px;">For LIBI members &amp; guests · ${DATE}</p>
+    <h1 class="up" style="font-size:112px;line-height:1.04;letter-spacing:.05em;margin-top:18px;"><span style="font-weight:300;color:#D5D8DB;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
     <p style="font-size:34px;font-weight:500;margin-top:30px;">${LEAD} at all five Competition stores.</p>
     <p class="soft" style="font-size:24px;font-weight:500;margin-top:auto;">+$500 Sprinter vans for NAHB members · Free fleet equity report · Win a Mercedes weekend, drawing ${DRAW}</p>
   </div>
   <div style="align-self:center;text-align:center;">
     <div class="qr" style="width:400px;height:400px;padding:14px;border-radius:16px;">${qrSvg.slide}</div>
-    <p class="k" style="font-size:20px;margin-top:26px;">Scan · Scratch · Save</p>
+    <p class="k steel" style="font-size:20px;margin-top:26px;">Scan · Scratch · Save</p>
     <p class="soft" style="font-size:18px;font-weight:500;margin-top:12px;">Ask for MK Parrish</p>
   </div>
 </div>${flowRunner}</body></html>`;

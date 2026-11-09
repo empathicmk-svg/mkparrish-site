@@ -5,10 +5,10 @@ import BuilderPass, { savePassImage } from "./BuilderPass";
 import { MK, PAGE_PATH, PASS, PERKS, PRIZE, ROLES, SITE, STORES, TIMELINES, cleanRef, leadPerk, shareCode } from "./campaign";
 
 // Inline colour: the site's global text styles otherwise wash out dark text on white buttons.
-const ON_LIGHT = { color: "#1B2320" };
+const ON_LIGHT = { color: "#0B0C0E" };
 const CHECK_LABEL = {
   display: "inline", fontSize: "0.875rem", fontWeight: 400, letterSpacing: 0,
-  textTransform: "none", color: "#C9D3CE", marginBottom: 0, lineHeight: 1.5,
+  textTransform: "none", color: "#D5D8DB", marginBottom: 0, lineHeight: 1.5,
 } as const;
 
 const field =
@@ -289,7 +289,7 @@ export default function LibiForm() {
       </fieldset>
 
       <div className="flex items-start gap-3">
-        <input id="l-trade" type="checkbox" checked={tradeIn} onChange={(e) => setTradeIn(e.target.checked)} className="mt-0.5 shrink-0 accent-[#6B7F74]" style={{ width: 20, height: 20, padding: 0 }} />
+        <input id="l-trade" type="checkbox" checked={tradeIn} onChange={(e) => setTradeIn(e.target.checked)} className="mt-0.5 shrink-0 accent-[#7D96A8]" style={{ width: 20, height: 20, padding: 0 }} />
         <label htmlFor="l-trade" className="font-cag" style={CHECK_LABEL}>
           I have a trade-in, a lease ending, or company vehicles to replace
         </label>
@@ -308,7 +308,7 @@ export default function LibiForm() {
       <input tabIndex={-1} autoComplete="off" aria-hidden="true" value={website} onChange={(e) => setWebsite(e.target.value)} name="website" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
 
       <div className="flex items-start gap-3">
-        <input id="l-consent" type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 shrink-0 accent-[#6B7F74]" style={{ width: 20, height: 20, padding: 0 }} />
+        <input id="l-consent" type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 shrink-0 accent-[#7D96A8]" style={{ width: 20, height: 20, padding: 0 }} />
         <label htmlFor="l-consent" className="font-cag" style={CHECK_LABEL}>
           MK may call or text me about my pass and the drawing. Reply STOP any time.
         </label>

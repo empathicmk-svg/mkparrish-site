@@ -28,16 +28,17 @@
   --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
   --font-body: "DM Sans", "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
-  /* Competition Automotive Group (LIBI Builder Pass at /libi): sage canopy green and white,
-     sampled from the group's event tent. Montserrat stands in for the logo's geometric sans. */
-  --color-cag-sage: #6B7F74;
-  --color-cag-deep: #3D4B44;
-  --color-cag-panel: #26302B;
-  --color-cag-ink: #1B2320;
-  --color-cag-line: #45534C;
-  --color-cag-accent: #A9C1B4;
-  --color-cag-mist: #C9D3CE;
-  --color-cag-fog: #8C9C94;
+  /* Competition Automotive Group (LIBI Builder Pass at /libi): the group's header colours,
+     black with a white COMPETITION, steel-blue AUTOMOTIVE GROUP and a silver swoosh.
+     Montserrat stands in for the logo's geometric sans. */
+  --color-cag-ink: #0B0C0E;
+  --color-cag-panel: #15171A;
+  --color-cag-charcoal: #1D2024;
+  --color-cag-line: #2C3035;
+  --color-cag-accent: #7D96A8;
+  --color-cag-silver: #A9ADB1;
+  --color-cag-mist: #D5D8DB;
+  --color-cag-fog: #8A8F94;
   --font-cag: "Montserrat", "Helvetica Neue", Arial, sans-serif;
 }
 

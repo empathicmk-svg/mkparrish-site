@@ -13,45 +13,45 @@ type Props = {
   onRevealed?: () => void;
 };
 
-/** Competition Automotive Group palette (matches the cag-* tokens in globals.css). */
+/** Competition Automotive Group palette (matches the cag-* tokens in globals.css): the group's
+ * header is black, with a white COMPETITION, steel-blue AUTOMOTIVE GROUP and a silver swoosh. */
 export const CAG = {
-  sage: "#6B7F74",
-  sageLight: "#7F9488",
-  deep: "#3D4B44",
-  ink: "#1B2320",
-  accent: "#A9C1B4",
-  mist: "#C9D3CE",
-  fog: "#8C9C94",
+  ink: "#0B0C0E",
+  panel: "#15171A",
+  charcoal: "#2A2D32",
+  steel: "#7D96A8",
+  silver: "#A9ADB1",
+  silverRgb: "200,204,208",
 };
-const CARD_BG = `linear-gradient(135deg, ${CAG.sageLight} 0%, ${CAG.sage} 45%, ${CAG.deep} 100%)`;
+const CARD_BG = `linear-gradient(135deg, ${CAG.charcoal} 0%, ${CAG.panel} 50%, ${CAG.ink} 100%)`;
 
-/** The Competition wordmark set in type: wide, light "COMPETITION" over spaced "AUTOMOTIVE GROUP". */
+/** The Competition wordmark set in type: white COMPETITION over steel-blue AUTOMOTIVE GROUP. */
 export function CompetitionMark({ size = 1, className = "" }: { size?: number; className?: string }) {
   return (
-    <div className={`font-cag leading-none text-white ${className}`}>
-      <div style={{ fontSize: `${1.05 * size}rem`, fontWeight: 300, letterSpacing: "0.2em" }}>COMPETITION</div>
-      <div style={{ fontSize: `${0.42 * size}rem`, fontWeight: 500, letterSpacing: "0.42em", marginTop: `${0.3 * size}rem`, opacity: 0.85 }}>
+    <div className={`font-cag leading-none ${className}`}>
+      <div style={{ fontSize: `${1.05 * size}rem`, fontWeight: 500, letterSpacing: "0.07em", color: "#FFFFFF" }}>COMPETITION</div>
+      <div style={{ fontSize: `${0.44 * size}rem`, fontWeight: 400, letterSpacing: "0.3em", marginTop: `${0.28 * size}rem`, color: CAG.steel }}>
         AUTOMOTIVE GROUP
       </div>
     </div>
   );
 }
 
-/** The Competition Builder Pass card: sage member card, white type and flow lines. */
+/** The Competition Builder Pass card: black member card, white type, silver flow lines. */
 export default function BuilderPass({ holder, code, scratch = false, onRevealed }: Props) {
   const locked = !holder || !code;
   return (
     <div className="relative mx-auto w-full max-w-[440px] select-none" style={{ aspectRatio: "1.586" }}>
       <div
         className="absolute inset-0 overflow-hidden rounded-2xl"
-        style={{ background: CARD_BG, boxShadow: "0 18px 50px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.18)" }}
+        style={{ background: CARD_BG, boxShadow: "0 18px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(169,173,177,0.35)" }}
       >
-        <FlowLines className="absolute inset-0 h-full w-full" focusY={0.72} count={22} alpha={0.32} />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_90%_0%,rgba(255,255,255,0.18),transparent_55%)]" />
+        <FlowLines className="absolute inset-0 h-full w-full" focusY={0.72} count={22} alpha={0.34} rgb={CAG.silverRgb} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_90%_0%,rgba(125,150,168,0.22),transparent_55%)]" />
         <div className="relative flex h-full flex-col justify-between p-[6%] font-cag text-white">
           <div className="flex items-start justify-between gap-3">
             <CompetitionMark size={0.92} />
-            <div className="text-right text-[0.5rem] font-semibold uppercase leading-[1.6] tracking-[0.22em] text-white/85">
+            <div className="text-right text-[0.5rem] font-semibold uppercase leading-[1.6] tracking-[0.22em] text-cag-accent">
               LIBI · {EVENT.dateShort}
               <br />
               Valid thru {PASS.validShort}
@@ -61,15 +61,15 @@ export default function BuilderPass({ holder, code, scratch = false, onRevealed 
             <div className="uppercase leading-none" style={{ fontSize: "clamp(1.45rem, 7.4vw, 2.05rem)", fontWeight: 600, letterSpacing: "0.12em" }}>
               Builder Pass
             </div>
-            {PASS.bonus && <div className="mt-1 text-sm font-medium text-white/90">{PASS.bonus}</div>}
+            {PASS.bonus && <div className="mt-1 text-sm font-medium text-cag-accent">{PASS.bonus}</div>}
           </div>
           <div className="flex items-end justify-between gap-3">
             <div className="min-w-0">
-              <div className="text-[0.48rem] font-semibold uppercase tracking-[0.28em] text-white/70">Pass holder</div>
+              <div className="text-[0.48rem] font-semibold uppercase tracking-[0.28em] text-cag-silver">Pass holder</div>
               <div className="truncate text-[clamp(0.85rem,3.9vw,1.05rem)] font-medium tracking-[0.04em]">{locked ? "Your name here" : holder}</div>
             </div>
             <div className="shrink-0 text-right">
-              <div className="text-[0.48rem] font-semibold uppercase tracking-[0.28em] text-white/70">Pass №</div>
+              <div className="text-[0.48rem] font-semibold uppercase tracking-[0.28em] text-cag-silver">Pass №</div>
               <div className="text-[clamp(1rem,4.8vw,1.35rem)] font-semibold leading-tight tracking-[0.14em]">{locked ? "• • • •" : code}</div>
             </div>
           </div>
@@ -116,7 +116,7 @@ function ScratchFoil({ onRevealed }: { onRevealed?: () => void }) {
       ctx.lineTo(x + h, 0);
       ctx.stroke();
     }
-    ctx.fillStyle = CAG.deep;
+    ctx.fillStyle = CAG.ink;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     const draw = () => {
@@ -217,32 +217,33 @@ export async function savePassImage(holder: string, code: string) {
   if (!ctx) return;
   const F = "Montserrat, Arial, sans-serif";
 
-  drawFlowLines(ctx, W, H, 2, { focusY: 0.72, count: 30, alpha: 0.32, lineWidth: 2 });
+  drawFlowLines(ctx, W, H, 2, { focusY: 0.72, count: 30, alpha: 0.34, lineWidth: 2, rgb: CAG.silverRgb });
   ctx.globalCompositeOperation = "destination-over";
   const bg = ctx.createLinearGradient(0, 0, W, H);
-  bg.addColorStop(0, CAG.sageLight);
-  bg.addColorStop(0.45, CAG.sage);
-  bg.addColorStop(1, CAG.deep);
+  bg.addColorStop(0, CAG.charcoal);
+  bg.addColorStop(0.5, CAG.panel);
+  bg.addColorStop(1, CAG.ink);
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, W, H);
   ctx.globalCompositeOperation = "source-over";
   const glow = ctx.createRadialGradient(W * 0.9, 0, 0, W * 0.9, 0, W * 0.55);
-  glow.addColorStop(0, "rgba(255,255,255,0.2)");
-  glow.addColorStop(1, "rgba(255,255,255,0)");
+  glow.addColorStop(0, "rgba(125,150,168,0.24)");
+  glow.addColorStop(1, "rgba(125,150,168,0)");
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = "rgba(255,255,255,0.35)";
+  ctx.strokeStyle = "rgba(169,173,177,0.45)";
   ctx.lineWidth = 2;
   ctx.strokeRect(24, 24, W - 48, H - 48);
 
   const P = 72;
   ctx.fillStyle = "#FFFFFF";
   ctx.textBaseline = "alphabetic";
-  ctx.font = `300 46px ${F}`;
-  ctx.letterSpacing = "10px";
+  ctx.font = `500 46px ${F}`;
+  ctx.letterSpacing = "3px";
   ctx.fillText("COMPETITION", P, P + 44);
-  ctx.font = `500 17px ${F}`;
-  ctx.letterSpacing = "8px";
+  ctx.fillStyle = CAG.steel;
+  ctx.font = `400 18px ${F}`;
+  ctx.letterSpacing = "6px";
   ctx.fillText("AUTOMOTIVE GROUP", P + 2, P + 78);
   ctx.textAlign = "right";
   ctx.font = `600 18px ${F}`;
@@ -251,15 +252,16 @@ export async function savePassImage(holder: string, code: string) {
   ctx.fillText(`VALID THRU ${PASS.validShort.toUpperCase()}`, W - P, P + 52);
 
   ctx.textAlign = "left";
+  ctx.fillStyle = "#FFFFFF";
   ctx.font = `600 104px ${F}`;
   ctx.letterSpacing = "14px";
   ctx.fillText("BUILDER PASS", P - 2, 450);
   ctx.font = `500 26px ${F}`;
   ctx.letterSpacing = "2px";
-  ctx.fillStyle = "rgba(255,255,255,0.9)";
+  ctx.fillStyle = CAG.silver;
   ctx.fillText(`${leadPerk().title} · +$500 Sprinter · Mercedes weekend drawing`, P, 506);
 
-  ctx.fillStyle = "rgba(255,255,255,0.72)";
+  ctx.fillStyle = CAG.silver;
   ctx.font = `600 17px ${F}`;
   ctx.letterSpacing = "5px";
   ctx.fillText("PASS HOLDER", P, H - 130);
