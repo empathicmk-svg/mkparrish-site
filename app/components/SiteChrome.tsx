@@ -9,9 +9,10 @@ import { usePathname } from "next/navigation";
  * page is unusable on a phone with the chrome rendered. `/links` is the
  * Instagram/TikTok link-in-bio page and should open as a single clean card;
  * `/test-drive` is the Mercedes-Benz booking page it links to; `/natures-value`
- * and `/adp` are private pitch pages linked from resumes.
+ * and `/adp` are private pitch pages linked from resumes; `/libi` is the
+ * LIBI dinner QR-code entry page.
  */
-const BARE_ROUTES = ["/adp", "/desk", "/ideals", "/links", "/natures-value", "/test-drive"];
+const BARE_ROUTES = ["/adp", "/desk", "/ideals", "/libi", "/links", "/natures-value", "/test-drive"];
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

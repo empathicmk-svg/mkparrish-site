@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Parrish;Mary Kate;;;
+FN:Mary Kate Parrish (MK)
+ORG:Mercedes-Benz of Smithtown;Competition Automotive Group
+TITLE:Sales & Leasing Consultant
+TEL;TYPE=WORK,VOICE:+1-631-366-6417
+TEL;TYPE=CELL:+1-347-853-4238
+EMAIL;TYPE=WORK:mparrish@mbofsmithtown.com
+ADR;TYPE=WORK:;;630 Middle Country Road;St. James;NY;11780;USA
+URL:https://www.mkparrish.com/test-drive
+NOTE:Met at the LIBI Membership Dinner. Competition Builder Pass holders: VIP pricing at all five Competition Automotive Group stores. NAHB members: +$500 on Sprinter vans.
+END:VCARD
