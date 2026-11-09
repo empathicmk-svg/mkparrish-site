@@ -146,7 +146,7 @@ export default function LibiForm() {
               The signal in here is spotty. Text me your pass so it&apos;s on file. The message is already written.
             </div>
             <a
-              href={`sms:${MK.work}?&body=${encodeURIComponent(smsBody(done.code))}`}
+              href={`sms:${MK.cell}?&body=${encodeURIComponent(smsBody(done.code))}`}
               className="mt-4 block rounded-md bg-white px-6 py-4 text-center font-cag text-sm font-semibold uppercase tracking-[0.16em]"
               style={ON_LIGHT}
             >

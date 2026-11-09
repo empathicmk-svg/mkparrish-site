@@ -80,8 +80,6 @@ export const MK = {
   title: "Sales & Leasing Consultant",
   store: "Mercedes-Benz of Smithtown",
   group: "Competition Automotive Group",
-  work: "+16313666417",
-  workDisplay: "631.366.6417",
   cell: "+13478534238",
   cellDisplay: "347.853.4238",
   email: "mparrish@mbofsmithtown.com",

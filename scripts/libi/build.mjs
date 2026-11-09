@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 /**
- * Builds the Competition Builder Pass QR codes and printables in Competition Automotive
- * Group's header colours (black, white, steel blue, silver), the wordmark set in Montserrat,
- * and the silver flow-line art from app/libi/flowLines.js, the same JavaScript that animates the /libi page. No photos.
+ * Builds the Competition Builder Pass digital kit in Competition Automotive Group's header
+ * colours (black, white, steel blue, silver), with the wordmark set in Montserrat and the silver
+ * flow-line art from app/libi/flowLines.js (the same JavaScript that animates the /libi page).
+ * Digital only: no printed table signs or cards. No photos.
  *
  *   node scripts/libi/build.mjs
  *
  * Writes to output/libi/:
- *   qr-<source>.png / .svg          one QR per placement, tagged ?src= so MK sees which one was scanned
- *   table-sign-letter.pdf           full-page sign for an 8.5x11 acrylic table stand
- *   table-sign-5x7.pdf              the same sign at 5x7 for a small frame or easel
- *   handout-cards-10up-letter.pdf   ten 3.5x2 cards on one letter sheet (Avery 8371/5371 or cardstock)
- *   phone-lockscreen.png            set as your lock screen and hold the phone up: "scan me"
- *   slide-16x9.png                  for the room's screen or a sponsor slide
- *   table-sign-preview.png          quick look at the sign
+ *   qr-<source>.png / .svg   one QR per channel, tagged ?src= so each lead shows where it came from
+ *   phone-lockscreen.png     MK's lock screen: hold the phone up, "scan this"            (src=phone)
+ *   slide-16x9.png           the room's screen during announcements                      (src=slide)
+ *   share-card-square.png    text or AirDrop it to a guest on the spot                   (src=text)
+ *   story-9x16.png           Instagram / LinkedIn / Facebook story                        (src=social)
+ *   og.png                   the preview card when the link is texted or shared (also public/libi/og.png)
  *
- * The printables are also copied to public/libi/kit/ (mkparrish.com/libi/kit/...).
+ * The images are also copied to public/libi/kit/.
  * Offers and dates come from app/libi/campaign.ts; rebuild after changing them.
  */
 import fs from "node:fs";
@@ -42,12 +42,13 @@ const LEAD = BONUS || "VIP builder pricing";
 
 const BASE = process.env.LIBI_URL || "https://www.mkparrish.com/libi";
 const SOURCES = {
-  table: "table sign",
-  card: "handout card",
   phone: "MK's phone lock screen",
-  slide: "slide / screen",
+  slide: "room screen slide",
+  text: "QR card texted or AirDropped to a guest",
+  social: "Instagram / LinkedIn / Facebook story",
   followup: "follow-up texts and emails",
 };
+const CELL = "347.853.4238";
 const urlFor = (src) => `${BASE}?src=${src}`;
 
 const qrOpts = { errorCorrectionLevel: "Q", margin: 2, color: { dark: "#080808", light: "#FFFFFF" } };
@@ -112,68 +113,6 @@ const mark = (pt) => `
     <div style="font-size:${pt * 0.42}pt;font-weight:400;letter-spacing:.3em;margin-top:${pt * 0.3}pt;color:${STEEL};">AUTOMOTIVE GROUP</div>
   </div>`;
 
-// 5x7 sign (480x672 CSS px).
-const sign = `
-<div class="sign bg" style="width:5in;height:7in;position:relative;overflow:hidden;">
-  <canvas class="flow" data-y="0.9" data-n="30" data-a="0.42"></canvas>
-  <div class="sheen"></div>
-  <div class="frame" style="inset:.14in;"></div>
-  <div style="position:relative;height:100%;padding:.42in .42in .36in;display:flex;flex-direction:column;">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-      ${mark(16)}
-      <p class="k steel" style="font-size:6.5pt;text-align:right;line-height:1.6;">LIBI<br>${DATE}</p>
-    </div>
-    <p class="k steel" style="font-size:7pt;margin-top:.44in;">For LIBI members &amp; guests</p>
-    <h1 class="up" style="font-size:34pt;line-height:1.05;letter-spacing:.06em;margin-top:8pt;"><span style="font-weight:300;color:#D5D8DB;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
-    <p style="font-size:10.5pt;font-weight:500;margin-top:10pt;line-height:1.45;">${LEAD} at all five Competition Automotive Group stores.</p>
-    <div class="rule" style="margin-top:12pt;"></div>
-    <div style="display:flex;gap:.26in;align-items:center;margin-top:.26in;">
-      <div class="qr" style="width:1.8in;height:1.8in;padding:6px;flex-shrink:0;">${qrSvg.table}</div>
-      <div style="display:flex;flex-direction:column;gap:9pt;">
-        <div class="perk"><p class="up" style="font-size:9.5pt;font-weight:700;letter-spacing:.08em;">+$500 Sprinter vans</p><p class="soft" style="font-size:7pt;margin-top:2pt;">for NAHB members</p></div>
-        <div class="perk"><p class="up" style="font-size:9.5pt;font-weight:700;letter-spacing:.08em;">Free fleet equity report</p><p class="soft" style="font-size:7pt;margin-top:2pt;">what every truck is worth today</p></div>
-        <div class="perk"><p class="up" style="font-size:9.5pt;font-weight:700;letter-spacing:.08em;">Win a Mercedes weekend</p><p class="soft" style="font-size:7pt;margin-top:2pt;">drawing ${DRAW}</p></div>
-      </div>
-    </div>
-    <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;">
-      <p class="k steel" style="font-size:6.5pt;">Scan · Scratch · Save</p>
-      <p style="font-size:8pt;font-weight:600;letter-spacing:.08em;">ASK FOR MK <span class="soft" style="font-weight:500;">· 631.366.6417</span></p>
-    </div>
-  </div>
-</div>`;
-
-const signPage = `<!doctype html><html><head><style>${css}
-@page { size: letter; margin: 0; }
-body { width: 8.5in; height: 11in; background: ${INK}; overflow: hidden; }
-.sign { transform: scale(1.57); transform-origin: top left; margin-left: calc((8.5in - 5in * 1.57) / 2); }
-</style></head><body>${sign}${flowRunner}</body></html>`;
-
-const signSingle = `<!doctype html><html><head><style>${css}
-@page { size: 5in 7in; margin: 0; } body { width: 5in; height: 7in; }
-</style></head><body>${sign}${flowRunner}</body></html>`;
-
-// 3.5x2 handout card, ten per sheet (Avery 8371 layout: 0.75in sides, 0.5in top).
-const card = `
-<div class="bg" style="width:3.5in;height:2in;position:relative;overflow:hidden;">
-  <canvas class="flow" data-y="0.88" data-n="20" data-a="0.38"></canvas>
-  <div class="sheen"></div>
-  <div class="frame" style="inset:.07in;"></div>
-  <div style="position:relative;height:100%;display:flex;align-items:center;gap:.16in;padding:0 .2in;">
-    <div class="qr" style="width:1.3in;height:1.3in;padding:3px;flex-shrink:0;border-radius:6px;">${qrSvg.card}</div>
-    <div style="min-width:0;">
-      ${mark(8.5)}
-      <p class="up" style="font-size:12.5pt;font-weight:700;letter-spacing:.08em;margin-top:8pt;line-height:1.05;">Builder Pass</p>
-      <p style="font-size:6.3pt;font-weight:500;margin-top:4pt;line-height:1.35;">${LEAD}, all five stores</p>
-      <p class="soft" style="font-size:5.6pt;margin-top:3pt;line-height:1.4;">+$500 Sprinter · Mercedes weekend drawing</p>
-      <p class="soft" style="font-size:5.4pt;margin-top:4pt;">MK Parrish · 631.366.6417 · thru ${VALID}</p>
-    </div>
-  </div>
-</div>`;
-const cardsPage = `<!doctype html><html><head><style>${css}
-@page { size: letter; margin: 0; }
-body { width: 8.5in; height: 11in; background: #fff; padding: .5in .75in; display: grid; grid-template-columns: 3.5in 3.5in; grid-auto-rows: 2in; }
-</style></head><body>${Array(10).fill(card).join("")}${flowRunner}</body></html>`;
-
 // Phone lock screen (390x844 at 3x). The top stays clear for the clock.
 const lock = `<!doctype html><html><head><style>${css}
 body { width: 390px; height: 844px; overflow: hidden; position: relative; }
@@ -206,24 +145,59 @@ body { width: 1920px; height: 1080px; overflow: hidden; position: relative; }
   <div style="align-self:center;text-align:center;">
     <div class="qr" style="width:400px;height:400px;padding:14px;border-radius:16px;">${qrSvg.slide}</div>
     <p class="k steel" style="font-size:20px;margin-top:26px;">Scan · Scratch · Save</p>
-    <p class="soft" style="font-size:18px;font-weight:500;margin-top:12px;">Ask for MK Parrish</p>
+    <p class="soft" style="font-size:18px;font-weight:500;margin-top:12px;">Ask for MK Parrish · ${CELL}</p>
   </div>
+</div>${flowRunner}</body></html>`;
+
+// Square QR card (1080x1080) to text or AirDrop to a guest on the spot.
+const square = `<!doctype html><html><head><style>${css}
+body { width: 1080px; height: 1080px; overflow: hidden; position: relative; }
+</style></head><body class="bg">
+<canvas class="flow" data-y="0.86" data-n="34" data-a="0.45" data-lw="1.4"></canvas>
+<div class="sheen"></div>
+<div class="frame" style="inset:28px;"></div>
+<div style="position:relative;height:100%;padding:80px 90px;display:flex;flex-direction:column;align-items:center;text-align:center;">
+  <div style="display:inline-block;text-align:left;">${mark(30)}</div>
+  <h1 class="up" style="font-size:66px;line-height:1.06;letter-spacing:.05em;margin-top:44px;"><span style="font-weight:300;color:#D5D8DB;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
+  <div class="qr" style="width:400px;height:400px;margin-top:40px;padding:14px;border-radius:18px;">${qrSvg.text}</div>
+  <p style="font-size:26px;font-weight:600;margin-top:34px;">${LEAD} · all five stores</p>
+  <p class="k steel" style="font-size:16px;margin-top:12px;">For LIBI members · Valid thru ${VALID}</p>
+</div>${flowRunner}</body></html>`;
+
+// Story (1080x1920) for Instagram, LinkedIn or Facebook stories.
+const story = `<!doctype html><html><head><style>${css}
+body { width: 1080px; height: 1920px; overflow: hidden; position: relative; }
+</style></head><body class="bg">
+<canvas class="flow" data-y="0.22" data-n="40" data-a="0.55" data-o="center" data-lw="1.6"></canvas>
+<div class="sheen"></div>
+<div class="frame" style="inset:34px;border-radius:40px;"></div>
+<div style="position:absolute;left:0;right:0;top:620px;text-align:center;padding:0 90px;">
+  <div style="display:inline-block;text-align:left;">${mark(34)}</div>
+  <p class="k steel" style="font-size:22px;margin-top:60px;">For LIBI members &amp; guests</p>
+  <h1 class="up" style="font-size:92px;line-height:1.06;letter-spacing:.05em;margin-top:18px;"><span style="font-weight:300;color:#D5D8DB;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
+  <div class="qr" style="width:460px;height:460px;margin:56px auto 0;padding:16px;border-radius:20px;">${qrSvg.social}</div>
+  <p style="font-size:34px;font-weight:600;margin-top:44px;">${LEAD} · all five stores</p>
+  <p class="soft" style="font-size:26px;font-weight:500;margin-top:16px;">+$500 Sprinter vans for NAHB members · Win a Mercedes weekend</p>
+  <p class="k steel" style="font-size:20px;margin-top:40px;">Scan · Scratch · Save</p>
+</div>${flowRunner}</body></html>`;
+
+// Link-preview card (1200x630): what people see when the link is texted or shared. No QR.
+const og = `<!doctype html><html><head><style>${css}
+body { width: 1200px; height: 630px; overflow: hidden; position: relative; }
+</style></head><body class="bg">
+<canvas class="flow" data-y="0.82" data-n="36" data-a="0.5" data-lw="1.4"></canvas>
+<div class="sheen"></div>
+<div class="frame" style="inset:24px;"></div>
+<div style="position:relative;height:100%;padding:70px 84px;display:flex;flex-direction:column;">
+  ${mark(30)}
+  <h1 class="up" style="font-size:84px;line-height:1.04;letter-spacing:.05em;margin-top:56px;"><span style="font-weight:300;color:#D5D8DB;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
+  <p style="font-size:26px;font-weight:500;margin-top:24px;color:#D5D8DB;">${LEAD} at all five Competition stores · LIBI members</p>
 </div>${flowRunner}</body></html>`;
 
 // Use a local Chromium if one is set (or pre-installed), else Playwright's own.
 const exe = process.env.CHROMIUM_PATH || (fs.existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined);
 const browser = await chromium.launch(exe ? { executablePath: exe } : {});
 try {
-  const page = await browser.newPage();
-  const pdf = async (html, file, opts) => {
-    await page.setContent(html, { waitUntil: "load" });
-    await page.evaluate(() => document.fonts.ready);
-    await page.pdf({ path: path.join(OUT, file), printBackground: true, ...opts });
-  };
-  await pdf(signPage, "table-sign-letter.pdf", { format: "Letter" });
-  await pdf(signSingle, "table-sign-5x7.pdf", { width: "5in", height: "7in" });
-  await pdf(cardsPage, "handout-cards-10up-letter.pdf", { format: "Letter" });
-
   const png = async (html, file, width, height, scale) => {
     const p = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: scale });
     await p.setContent(html, { waitUntil: "load" });
@@ -233,18 +207,20 @@ try {
   };
   await png(lock, "phone-lockscreen.png", 390, 844, 3);
   await png(slide, "slide-16x9.png", 1920, 1080, 1);
-  // CSS inches are 96px on screen, so a 5x7in sign is exactly 480x672.
-  await png(signSingle, "table-sign-preview.png", 480, 672, 2);
+  await png(square, "share-card-square.png", 1080, 1080, 1);
+  await png(story, "story-9x16.png", 1080, 1920, 1);
+  await png(og, "og.png", 1200, 630, 1);
 } finally {
   await browser.close();
 }
 
-// Copy the printables to the site so MK can grab them on her phone: mkparrish.com/libi/kit/<file>.
+// Copy the images to the site so MK can grab them on her phone.
 const KIT = path.join(ROOT, "public/libi/kit");
 fs.mkdirSync(KIT, { recursive: true });
-for (const f of ["table-sign-letter.pdf", "table-sign-5x7.pdf", "handout-cards-10up-letter.pdf", "phone-lockscreen.png", "slide-16x9.png", "qr-table.png", "qr-followup.png"]) {
+for (const f of ["phone-lockscreen.png", "slide-16x9.png", "share-card-square.png", "story-9x16.png", "qr-text.png", "qr-followup.png"]) {
   fs.copyFileSync(path.join(OUT, f), path.join(KIT, f));
 }
+fs.copyFileSync(path.join(OUT, "og.png"), path.join(ROOT, "public/libi/og.png"));
 
 const lines = Object.entries(SOURCES).map(([src, where]) => `  qr-${src}.png  → ${urlFor(src)}  (${where})`);
 console.log(`Builder Pass kit built in ${path.relative(ROOT, OUT)}/\n${lines.join("\n")}`);
