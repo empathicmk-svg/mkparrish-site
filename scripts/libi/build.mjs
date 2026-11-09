@@ -11,7 +11,7 @@
  * Writes to output/libi/:
  *   qr-<source>.png / .svg   one QR per channel, tagged ?src= so each lead shows where it came from
  *   phone-lockscreen.png     MK's lock screen: hold the phone up, "scan this"            (src=phone)
- *   slide-16x9.png           the room's screen during announcements                      (src=slide)
+ *   ipad-display.png         full-screen on MK's iPad at the dinner: guests scan it        (src=ipad)
  *   share-card-square.png    text or AirDrop it to a guest on the spot                   (src=text)
  *   story-9x16.png           Instagram / LinkedIn / Facebook story                        (src=social)
  *   og.png                   the preview card when the link is texted or shared (also public/libi/og.png)
@@ -50,7 +50,7 @@ const LEAD = BONUS || "VIP builder pricing";
 const BASE = process.env.LIBI_URL || "https://www.mkparrish.com/libi";
 const SOURCES = {
   phone: "MK's phone lock screen",
-  slide: "room screen slide",
+  ipad: "MK's iPad display",
   text: "QR card texted or AirDropped to a guest",
   social: "Instagram / LinkedIn / Facebook story",
   followup: "follow-up texts and emails",
@@ -135,29 +135,26 @@ body { width: 390px; height: 844px; overflow: hidden; position: relative; }
   <div class="qr" style="width:212px;height:212px;margin:20px auto 0;padding:7px;">${qrSvg.phone}</div>
   <p style="font-size:13px;font-weight:600;margin-top:16px;">${LEAD} · all five stores</p>
   <p style="margin-top:10px;"><span class="chip" style="font-size:8.5px;padding:5px 11px;">${CERT_SHORT} inside</span></p>
-  <p class="k steel" style="font-size:8px;margin-top:10px;">Scan · Scratch · Share</p>
+  <p class="k steel" style="font-size:8px;margin-top:10px;">Scan · Swipe · Share</p>
 </div>${flowRunner}</body></html>`;
 
-const slide = `<!doctype html><html><head><style>${css}
-body { width: 1920px; height: 1080px; overflow: hidden; position: relative; }
+// iPad display (820x1180 at 2x, iPad Air portrait). Shown full screen at the dinner; guests scan it.
+const ipad = `<!doctype html><html><head><style>${css}
+body { width: 820px; height: 1180px; overflow: hidden; position: relative; }
 </style></head><body class="bg">
-<canvas class="flow" data-y="0.8" data-n="40" data-a="0.42" data-lw="1.6"></canvas>
+<canvas class="flow" data-y="0.9" data-n="36" data-a="0.45" data-lw="1.3"></canvas>
 <div class="sheen"></div>
-<div class="frame" style="inset:36px;"></div>
-<div style="position:relative;height:100%;padding:100px 130px;display:flex;justify-content:space-between;">
-  <div style="display:flex;flex-direction:column;max-width:1100px;">
-    ${mark(40)}
-    <p class="k steel" style="font-size:20px;margin-top:90px;">For LIBI members &amp; guests · ${DATE}</p>
-    <h1 class="up" style="font-size:112px;line-height:1.04;letter-spacing:.05em;margin-top:18px;"><span style="font-weight:300;color:#fff;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
-    <p style="font-size:34px;font-weight:500;margin-top:30px;">${LEAD} at all five Competition stores.</p>
-    <p style="margin-top:34px;"><span class="chip" style="font-size:22px;padding:14px 26px;">${CERT} · share your code to go <b style="padding:4px 14px;">${GOLD}</b></span></p>
-    <p class="soft" style="font-size:24px;font-weight:500;margin-top:auto;">+$500 Sprinter vans for NAHB members · Free fleet equity report · Valid thru ${VALID}</p>
-  </div>
-  <div style="align-self:center;text-align:center;">
-    <div class="qr" style="width:400px;height:400px;padding:14px;border-radius:16px;">${qrSvg.slide}</div>
-    <p class="k steel" style="font-size:20px;margin-top:26px;">Scan · Scratch · Share</p>
-    <p class="soft" style="font-size:18px;font-weight:500;margin-top:12px;">Ask for MK Parrish · ${CELL}</p>
-  </div>
+<div class="frame" style="inset:22px;border-radius:26px;"></div>
+<div style="position:relative;height:100%;padding:70px 70px 64px;display:flex;flex-direction:column;align-items:center;text-align:center;">
+  <div style="display:inline-block;text-align:left;">${mark(24)}</div>
+  <p class="k steel" style="font-size:13px;margin-top:46px;">For LIBI members &amp; guests · ${DATE}</p>
+  <h1 class="up" style="font-size:62px;line-height:1.05;letter-spacing:.05em;margin-top:14px;"><span style="font-weight:300;color:#fff;">Unlock your</span><br><span style="font-weight:700;">Builder Pass</span></h1>
+  <div class="qr" style="width:420px;height:420px;margin-top:36px;padding:14px;border-radius:18px;">${qrSvg.ipad}</div>
+  <p style="font-size:19px;font-weight:600;margin-top:24px;">Point your phone's camera here</p>
+  <p class="soft" style="font-size:16px;font-weight:500;margin-top:18px;">${LEAD} at all five stores · +$500 Sprinter vans for NAHB members · Free fleet equity report</p>
+  <p style="margin-top:20px;"><span class="chip" style="font-size:13px;padding:9px 18px;">${CERT} · share to go <b style="padding:3px 10px;">${GOLD}</b></span></p>
+  <p class="k steel" style="font-size:12px;margin-top:auto;">Scan · Swipe · Share · Valid thru ${VALID}</p>
+  <p class="soft" style="font-size:13px;font-weight:500;margin-top:10px;">Mary Kate Parrish · ${CELL}</p>
 </div>${flowRunner}</body></html>`;
 
 // Square QR card (1080x1080) to text or AirDrop to a guest on the spot.
@@ -191,7 +188,7 @@ body { width: 1080px; height: 1920px; overflow: hidden; position: relative; }
   <p style="font-size:34px;font-weight:600;margin-top:44px;">${LEAD} · all five stores</p>
   <p class="soft" style="font-size:26px;font-weight:500;margin-top:16px;">+$500 Sprinter vans for NAHB members · Free fleet equity report</p>
   <p style="margin-top:34px;"><span class="chip" style="font-size:20px;padding:13px 26px;">${CERT_SHORT} · share to go <b style="padding:4px 13px;">${GOLD}</b></span></p>
-  <p class="k steel" style="font-size:20px;margin-top:36px;">Scan · Scratch · Share</p>
+  <p class="k steel" style="font-size:20px;margin-top:36px;">Scan · Swipe · Share</p>
 </div>${flowRunner}</body></html>`;
 
 // Link-preview card (1200x630): what people see when the link is texted or shared. No QR.
@@ -294,7 +291,7 @@ try {
     await p.close();
   };
   await png(lock, "phone-lockscreen.png", 390, 844, 3);
-  await png(slide, "slide-16x9.png", 1920, 1080, 1);
+  await png(ipad, "ipad-display.png", 820, 1180, 2);
   await png(square, "share-card-square.png", 1080, 1080, 1);
   await png(story, "story-9x16.png", 1080, 1920, 1);
   await png(og, "og.png", 1200, 630, 1);
@@ -311,7 +308,7 @@ try {
 // Copy the images to the site so MK can grab them on her phone.
 const KIT = path.join(ROOT, "public/libi/kit");
 fs.mkdirSync(KIT, { recursive: true });
-for (const f of ["phone-lockscreen.png", "slide-16x9.png", "share-card-square.png", "story-9x16.png", "qr-text.png", "qr-followup.png"]) {
+for (const f of ["phone-lockscreen.png", "ipad-display.png", "share-card-square.png", "story-9x16.png", "qr-text.png", "qr-followup.png"]) {
   fs.copyFileSync(path.join(OUT, f), path.join(KIT, f));
 }
 fs.copyFileSync(path.join(OUT, "og.png"), path.join(ROOT, "public/libi/og.png"));

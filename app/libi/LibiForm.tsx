@@ -135,14 +135,14 @@ export default function LibiForm() {
             {revealed ? "Your pass is live" : "Your pass is ready"}
           </div>
           <h2 className="mt-2 font-cag text-2xl font-light uppercase leading-tight tracking-[0.08em] text-white">
-            {revealed ? <>Welcome, <span className="text-cag-accent">{first}</span></> : <>Scratch to <span className="text-cag-accent">reveal</span></>}
+            {revealed ? <>Welcome, <span className="text-cag-accent">{first}</span></> : <>Swipe to <span className="text-cag-accent">reveal</span></>}
           </h2>
         </div>
 
         <BuilderPass holder={holder} code={done.code} level={done.level} scratch={!revealed} onRevealed={() => setRevealed(true)} />
         {!revealed && (
           <button type="button" onClick={() => setRevealed(true)} className="mx-auto font-cag text-xs uppercase tracking-[0.2em] text-cag-fog underline underline-offset-4">
-            Can&apos;t scratch? Tap here
+            Or tap here to reveal
           </button>
         )}
 
@@ -247,7 +247,7 @@ export default function LibiForm() {
       <div className="mb-4">
         <BuilderPass />
         <div className="mt-4 text-center font-cag text-xs uppercase tracking-[0.22em] text-cag-fog">
-          Fill this in · scratch your pass · get your certificate
+          Fill this in · swipe to reveal your pass · get your certificate
         </div>
       </div>
 
