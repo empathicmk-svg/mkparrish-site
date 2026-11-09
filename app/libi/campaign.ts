@@ -1,11 +1,11 @@
 /**
- * LIBI November General Membership Dinner campaign: every offer, date and
- * contact in one place. Change a prize or deadline here and the page, the
- * API emails and the printed QR cards all follow.
+ * LIBI November General Membership Dinner: the Competition Builder Pass.
+ * Every offer, date and contact lives here. Change it here and the page, the
+ * API emails and the printed QR cards (after `node scripts/libi/build.mjs`) all follow.
  *
- * Before the event, confirm each offer with your sales manager. The member
- * offer repeats the $1,500-off-MSRP coupon handed out at the LIBI Golf &
- * Softball Outing (Sept 29, 2026), which runs through Nov 30, 2026.
+ * Confirm every perk with your sales manager before the event. To add a dollar
+ * bonus once it's approved, set PASS.bonus (e.g. "$1,000 Builder Bonus") and it
+ * shows on the pass, the page, the emails and the printables.
  */
 
 export const EVENT = {
@@ -15,40 +15,45 @@ export const EVENT = {
   dateShort: "Nov 10",
 };
 
-/** The grand prize: an extended weekend test drive, which costs the store little and usually sells a car. */
+export const PASS = {
+  name: "Competition Builder Pass",
+  short: "Builder Pass",
+  /** Optional manager-approved dollar incentive. Leave empty to show none. */
+  bonus: "",
+  validThrough: "December 31, 2026",
+  validShort: "Dec 31",
+};
+
+/** Every pass holder is entered. The prize is an extended weekend test drive. */
 export const PRIZE = {
   headline: "Win a Mercedes weekend",
   detail:
-    "48 hours behind the wheel of the Mercedes-Benz you choose: a G-Class, an S-Class, an AMG, or a Sprinter for the jobsite. Pick it up Friday, bring it back Sunday.",
+    "48 hours in the Mercedes-Benz you choose: a G-Class, an S-Class, an AMG, or a Sprinter for the jobsite.",
   drawDate: "Tuesday, November 17, 2026",
   drawShort: "Nov 17",
 };
 
-/** Every entrant gets these, win or not. */
-export const MEMBER_OFFER = {
-  headline: "$1,500 off MSRP",
-  sub: "on any new vehicle, for LIBI members",
-  expires: "November 30, 2026",
-  expiresShort: "Nov 30",
-  expiresIso: "2026-11-30T23:59:59-05:00",
-};
-
+/** What the pass unlocks. The first line is replaced by PASS.bonus when one is set. */
 export const PERKS = [
   {
-    title: "$1,500 off MSRP",
-    desc: `LIBI member pricing on any new vehicle, good through ${MEMBER_OFFER.expires}.`,
+    title: "VIP builder pricing",
+    desc: "Show your pass at any Competition Automotive Group store. I'll work your numbers with management myself.",
   },
   {
     title: "+$500 on Sprinter vans",
     desc: "NAHB members get an extra $500 on any new Mercedes-Benz commercial van, on top of published cash, APR and lease offers.",
   },
   {
-    title: "Free fleet equity check",
-    desc: "Send me your trucks, vans and leases. I'll tell you what each one is worth today and which ones to replace before Dec 31.",
+    title: "Free fleet equity report",
+    desc: "Send me your trucks, vans and leases. I'll tell you what each one is worth today and which ones to replace before year-end.",
+  },
+  {
+    title: "Mercedes weekend drawing",
+    desc: `Every pass is entered to win 48 hours in the Mercedes you choose. Drawing ${PRIZE.drawShort}.`,
   },
 ];
 
-/** Competition Automotive Group stores. Every lead comes to MK first and she makes the introduction. */
+/** Competition Automotive Group. Every lead comes to MK first and she makes the introduction. */
 export const STORES = [
   { key: "mb-smithtown", label: "Mercedes-Benz of Smithtown", note: "630 Middle Country Rd, St. James" },
   { key: "sprinter", label: "Sprinter work vans", note: "Cargo, crew, passenger and cab chassis" },
@@ -68,7 +73,7 @@ export const ROLES = [
   "Other",
 ] as const;
 
-export const TIMELINES = ["Now", "1–3 months", "3–6 months", "Lease ends in 2027", "Just entering"] as const;
+export const TIMELINES = ["Now", "1–3 months", "3–6 months", "Lease ends in 2027", "Just looking"] as const;
 
 export const MK = {
   name: "Mary Kate Parrish",
@@ -87,7 +92,12 @@ export const MK = {
 export const SITE = "https://www.mkparrish.com";
 export const PAGE_PATH = "/libi";
 
-/** A short, friendly share code for an entrant: first name plus three digits from their phone number. */
+/** The headline perk: the approved bonus if there is one, else VIP pricing. */
+export function leadPerk() {
+  return PASS.bonus ? { title: PASS.bonus, desc: `Your ${PASS.short} bonus, good through ${PASS.validThrough}.` } : PERKS[0];
+}
+
+/** Pass number and share code: first name plus three digits derived from the phone number. */
 export function shareCode(name: string, phone: string) {
   const first = (name.trim().split(/\s+/)[0] || "LIBI").replace(/[^a-zA-Z]/g, "").slice(0, 10).toUpperCase() || "LIBI";
   let h = 0;

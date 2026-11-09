@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
-import { EVENT, MEMBER_OFFER, MK, PAGE_PATH, PRIZE, ROLES, SITE, STORES, TIMELINES, cleanRef, shareCode } from "@/app/libi/campaign";
+import { EVENT, MK, PAGE_PATH, PASS, PERKS, PRIZE, ROLES, SITE, STORES, TIMELINES, cleanRef, leadPerk, shareCode } from "@/app/libi/campaign";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -167,14 +167,14 @@ function ownerEmail(lead: Lead, code: string, record: string) {
     ["Timeline", lead.timeline || "—"],
     ["Trade-in / lease ending", lead.tradeIn ? "YES" : "no"],
     ["Referred someone", lead.referName || lead.referPhone ? `${lead.referName} ${prettyPhone(lead.referPhone)}`.trim() : "—"],
-    ["Came from share code", lead.ref || "—"],
-    ["Their share code", code],
+    ["Came from pass link", lead.ref || "—"],
+    ["Their pass №", code],
     ["QR source", lead.src],
     ["OK to text/call", lead.consent ? "yes" : "NO, email only"],
   ];
   const tel = digits(lead.phone);
   const sms = `sms:${tel}?&body=${encodeURIComponent(
-    `Hi ${lead.name.split(" ")[0]}, it's MK from Mercedes-Benz of Smithtown. Great meeting you at LIBI tonight! You're entered for the Mercedes weekend (drawing ${PRIZE.drawShort}). Your $1,500 LIBI offer is good through ${MEMBER_OFFER.expiresShort}. Save my number!`,
+    `Hi ${lead.name.split(" ")[0]}, it's MK from Mercedes-Benz of Smithtown. Great meeting you at LIBI tonight! Your Competition Builder Pass is ${code}, good at all five Competition stores through ${PASS.validShort}, and you're in the Mercedes weekend drawing (${PRIZE.drawShort}). Save my number!`,
   )}`;
   const html = `<!doctype html><html><body style="font-family:Helvetica,Arial,sans-serif;color:#111;">
     <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#B23A59;margin:0 0 6px;">${escapeHtml(EVENT.short)} lead · ${heat(lead)}</p>
@@ -186,7 +186,7 @@ function ownerEmail(lead: Lead, code: string, record: string) {
       <a href="tel:${tel}" style="background:#111;color:#fff;padding:10px 18px;text-decoration:none;">Call</a>
       &nbsp;<a href="${escapeHtml(sms)}" style="background:#B23A59;color:#fff;padding:10px 18px;text-decoration:none;">Text them</a>
     </p>
-    <p style="font-size:12px;color:#888;">Log them in CRM tonight. Their friends who enter with code ${escapeHtml(code)} earn them an extra entry.</p>
+    <p style="font-size:12px;color:#888;">Log them in CRM tonight. Pass № ${escapeHtml(code)}: friends who get a pass through their link earn them extra drawing entries.</p>
     <p style="font-size:10px;color:#aaa;font-family:monospace;word-break:break-all;">For the drawing (scripts/libi/draw.mjs):<br>${escapeHtml(record)}</p>
   </body></html>`;
   const plain = `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nFor the drawing:\n${record}`;
@@ -195,41 +195,55 @@ function ownerEmail(lead: Lead, code: string, record: string) {
 
 function entrantEmail(lead: Lead, code: string) {
   const first = escapeHtml(lead.name.split(" ")[0]);
+  const holder = escapeHtml(lead.name);
   const shareUrl = `${SITE_URL}${PAGE_PATH}?ref=${code}`;
-  const html = `<!doctype html><html><body style="margin:0;background:#f4f2f0;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2f0;padding:28px 14px;"><tr><td align="center">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#fff;border:1px solid #e7e3df;">
-    <tr><td style="height:4px;background:#111;font-size:0;">&nbsp;</td></tr>
-    <tr><td style="padding:34px 36px 6px;">
-      <p style="margin:0 0 14px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B23A59;">${escapeHtml(EVENT.short)} · You're entered</p>
-      <h1 style="margin:0;font-family:Georgia,serif;font-size:28px;line-height:1.15;color:#0E0E0E;">${first}, you're in the drawing for a Mercedes weekend.</h1>
-      <p style="margin:14px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#2b2b2b;">${escapeHtml(PRIZE.detail)} I'll draw the winner on <strong>${escapeHtml(PRIZE.drawDate)}</strong> and call you if it's you.</p>
+  const perks = [leadPerk(), ...PERKS.slice(1)];
+  const PINK = "#FFB5D0";
+  const font = "Helvetica,Arial,sans-serif";
+  const display = "'Bebas Neue',Impact,'Arial Narrow',sans-serif";
+  const html = `<!doctype html><html><head><meta name="color-scheme" content="dark light"><style>@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital@1&display=swap');</style></head>
+  <body style="margin:0;background:#080808;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#080808;padding:28px 14px;"><tr><td align="center">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:540px;">
+    <tr><td style="padding:0 4px 18px;font-family:${display};font-size:24px;letter-spacing:4px;color:#F0F0EE;">MK PARRISH</td></tr>
+    <tr><td style="background:#111111;border:1px solid ${PINK};border-radius:16px;padding:26px 28px;">
+      <p style="margin:0;font-family:${font};font-size:10px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:#7A7A7A;">Competition Automotive Group</p>
+      <p style="margin:6px 0 0;font-family:${display};font-size:52px;line-height:1;letter-spacing:1px;color:${PINK};">BUILDER PASS</p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:22px;"><tr>
+        <td style="font-family:${font};font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#7A7A7A;">Pass holder<br><span style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:20px;letter-spacing:0;text-transform:none;color:#F0F0EE;">${holder}</span></td>
+        <td align="right" style="font-family:${font};font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#7A7A7A;">Pass №<br><span style="font-family:${display};font-size:30px;letter-spacing:3px;color:#F0F0EE;">${code}</span></td>
+      </tr></table>
+      <p style="margin:16px 0 0;font-family:${font};font-size:11px;letter-spacing:2px;text-transform:uppercase;color:${PINK};">LIBI ${escapeHtml(EVENT.dateShort)} · Valid thru ${escapeHtml(PASS.validThrough)}</p>
     </td></tr>
-    <tr><td style="padding:18px 36px 4px;">
-      <p style="margin:0 0 8px;font-family:Helvetica,Arial,sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#777;">Yours either way</p>
-      <p style="margin:0 0 8px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#2b2b2b;"><strong>${escapeHtml(MEMBER_OFFER.headline)}</strong> ${escapeHtml(MEMBER_OFFER.sub)}, through ${escapeHtml(MEMBER_OFFER.expires)}.</p>
-      <p style="margin:0 0 8px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#2b2b2b;"><strong>+$500 on Sprinter vans</strong> for NAHB members, on top of published offers.</p>
-      <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#2b2b2b;"><strong>A free fleet equity check:</strong> reply with your vehicles and I'll tell you what each is worth today.</p>
+    <tr><td style="padding:28px 4px 6px;">
+      <p style="margin:0;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:22px;line-height:1.35;color:${PINK};">${first}, your pass is live.</p>
+      <p style="margin:10px 0 0;font-family:${font};font-size:15px;line-height:1.7;color:#B0B0B0;">Show pass <strong style="color:#F0F0EE;">${code}</strong> to me, or at any Competition Automotive Group store, and you're treated as a LIBI builder. Here's what it unlocks:</p>
     </td></tr>
-    <tr><td style="padding:22px 36px 6px;">
-      <p style="margin:0 0 8px;font-family:Helvetica,Arial,sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#777;">Get extra entries</p>
-      <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#2b2b2b;">Every person who enters with your link earns you another entry. Send it to your crew, your partners, your buyers:</p>
-      <p style="margin:12px 0 0;"><a href="${shareUrl}" style="font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#B23A59;">${shareUrl}</a></p>
+    ${perks
+      .map(
+        (p) => `<tr><td style="padding:12px 4px;border-bottom:1px solid #2C2C2C;">
+      <p style="margin:0;font-family:${display};font-size:20px;letter-spacing:1px;color:#F0F0EE;">${escapeHtml(p.title.toUpperCase())}</p>
+      <p style="margin:2px 0 0;font-family:${font};font-size:14px;line-height:1.6;color:#B0B0B0;">${escapeHtml(p.desc)}</p></td></tr>`,
+      )
+      .join("")}
+    <tr><td style="padding:24px 4px 6px;">
+      <p style="margin:0;font-family:${font};font-size:11px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:#7A7A7A;">Pass it on · extra entries</p>
+      <p style="margin:8px 0 0;font-family:${font};font-size:15px;line-height:1.7;color:#B0B0B0;">Everyone who gets a pass through your link adds an entry for you in the Mercedes weekend drawing (${escapeHtml(PRIZE.drawDate)}):</p>
+      <p style="margin:10px 0 0;"><a href="${shareUrl}" style="font-family:${font};font-size:15px;color:${PINK};">${shareUrl}</a></p>
     </td></tr>
-    <tr><td align="center" style="padding:24px 36px 30px;">
-      <a href="tel:${MK.work}" style="display:inline-block;background:#0E0E0E;color:#fff;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;padding:15px 28px;">Call MK · ${MK.workDisplay}</a>
+    <tr><td align="center" style="padding:26px 4px 30px;">
+      <a href="tel:${MK.work}" style="display:inline-block;background:${PINK};color:#080808;text-decoration:none;font-family:${font};font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;padding:15px 28px;">Call MK · ${MK.workDisplay}</a>
     </td></tr>
-    <tr><td style="padding:20px 36px;border-top:1px solid #eeeae6;">
-      <p style="margin:0;font-family:Georgia,serif;font-style:italic;font-size:15px;color:#0E0E0E;">${escapeHtml(MK.name)}</p>
-      <p style="margin:4px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#888;">${escapeHtml(MK.title)} · ${escapeHtml(MK.store)}<br>${escapeHtml(MK.group)} · ${escapeHtml(MK.address)}<br>Work ${MK.workDisplay} · Cell ${MK.cellDisplay}</p>
-      <p style="margin:12px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:11px;line-height:1.5;color:#aaa;">No purchase necessary. Open to adults 21+ with a valid driver's license and insurance. One winner, drawn ${escapeHtml(PRIZE.drawDate)}. Offers subject to dealer confirmation, residency and credit approval; see MK for details.</p>
+    <tr><td style="padding:20px 4px;border-top:1px solid #2C2C2C;">
+      <p style="margin:0;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:16px;color:${PINK};">${escapeHtml(MK.name)}</p>
+      <p style="margin:4px 0 0;font-family:${font};font-size:12px;line-height:1.6;color:#7A7A7A;">${escapeHtml(MK.title)} · ${escapeHtml(MK.store)}<br>${escapeHtml(MK.group)} · ${escapeHtml(MK.address)}<br>Work ${MK.workDisplay} · Cell ${MK.cellDisplay}</p>
+      <p style="margin:12px 0 0;font-family:${font};font-size:11px;line-height:1.5;color:#4A4A4A;">No purchase necessary. Drawing open to adults 21+ with a valid driver's license and insurance; one winner, drawn ${escapeHtml(PRIZE.drawDate)}. Pass benefits subject to dealer confirmation, residency and credit approval; see MK for details.</p>
     </td></tr>
   </table></td></tr></table></body></html>`;
   const plain =
-    `${lead.name.split(" ")[0]}, you're entered to win a Mercedes weekend (drawing ${PRIZE.drawDate}).\n\n` +
-    `Yours either way: ${MEMBER_OFFER.headline} ${MEMBER_OFFER.sub}, through ${MEMBER_OFFER.expires}; +$500 on Sprinter vans for NAHB members; and a free fleet equity check.\n\n` +
-    `Extra entries: everyone who enters with your link earns you another one: ${shareUrl}\n\n` +
-    `${MK.name}, ${MK.store}\nWork ${MK.workDisplay} · Cell ${MK.cellDisplay}`;
+    `${lead.name.split(" ")[0]}, your Competition Builder Pass is live.\n\nPass №: ${code}\nValid thru ${PASS.validThrough} at all five Competition Automotive Group stores.\n\n` +
+    perks.map((p) => `- ${p.title}: ${p.desc}`).join("\n") +
+    `\n\nPass it on (extra drawing entries): ${shareUrl}\n\n${MK.name}, ${MK.store}\nWork ${MK.workDisplay} · Cell ${MK.cellDisplay}`;
   return { html, plain };
 }
 
@@ -259,7 +273,7 @@ export async function POST(req: NextRequest) {
       from: FROM,
       to: NOTIFY,
       ...(lead.email ? { reply_to: lead.email } : {}),
-      subject: `${temp} LIBI lead: ${lead.name}${lead.company ? ` (${lead.company})` : ""}`,
+      subject: `${temp} Builder Pass lead: ${lead.name}${lead.company ? ` (${lead.company})` : ""}`,
       html: owner.html,
       text: owner.plain,
       tags: [
@@ -278,7 +292,7 @@ export async function POST(req: NextRequest) {
         from: FROM,
         to: [lead.email],
         reply_to: MK.email,
-        subject: `You're entered: win a Mercedes weekend (drawing ${PRIZE.drawShort})`,
+        subject: `Your Competition Builder Pass: ${code}`,
         html: e.html,
         text: e.plain,
         tags: [{ name: "kind", value: "libi_entrant" }],

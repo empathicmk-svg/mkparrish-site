@@ -1,21 +1,22 @@
 #!/usr/bin/env node
 /**
- * Builds the LIBI dinner QR codes and printables.
+ * Builds the Competition Builder Pass QR codes and printables in MK Parrish branding:
+ * black, a fine frame line, the wordmark, pink glow type and the flow-line art from
+ * app/libi/flowLines.js, the same JavaScript that animates the /libi page. No photos.
  *
  *   node scripts/libi/build.mjs
  *
  * Writes to output/libi/:
- *   qr-<source>.png / .svg   one QR per placement, each tagged ?src= so MK sees which one people scanned
- *   table-sign-letter.pdf    full-page sign for an 8.5x11 acrylic table stand
- *   table-sign-5x7.pdf       the same sign at 5x7 for a small frame or easel
- *   handout-cards-10up-letter.pdf       ten 3.5x2 cards on one letter sheet (Avery 8371/5371 or plain cardstock)
- *   phone-lockscreen.png     set as your lock screen and hold the phone up: "scan me"
- *   slide-16x9.png           for the ask: a sponsor slide or the room's screen
+ *   qr-<source>.png / .svg          one QR per placement, tagged ?src= so MK sees which one was scanned
+ *   table-sign-letter.pdf           full-page sign for an 8.5x11 acrylic table stand
+ *   table-sign-5x7.pdf              the same sign at 5x7 for a small frame or easel
+ *   handout-cards-10up-letter.pdf   ten 3.5x2 cards on one letter sheet (Avery 8371/5371 or cardstock)
+ *   phone-lockscreen.png            set as your lock screen and hold the phone up: "scan me"
+ *   slide-16x9.png                  for the room's screen or a sponsor slide
+ *   table-sign-preview.png          quick look at the sign
  *
  * The printables are also copied to public/libi/kit/ (mkparrish.com/libi/kit/...).
- *
- * Offers, dates and contacts come from app/libi/campaign.ts. The script reads them as text so
- * it has no TypeScript step; if you change the campaign there, rebuild these.
+ * Offers and dates come from app/libi/campaign.ts; rebuild after changing them.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -29,15 +30,15 @@ fs.mkdirSync(OUT, { recursive: true });
 
 const campaign = fs.readFileSync(path.join(ROOT, "app/libi/campaign.ts"), "utf8");
 const pick = (block, key) => {
-  const m = campaign.match(new RegExp(`export const ${block} = \\{[\\s\\S]*?\\n  ${key}:\\s*\\n?\\s*"([^"]+)"`));
+  const m = campaign.match(new RegExp(`export const ${block} = \\{[\\s\\S]*?\\n  ${key}:\\s*\\n?\\s*"([^"]*)"`));
   if (!m) throw new Error(`campaign.ts: could not read ${block}.${key}`);
   return m[1];
 };
-const OFFER = pick("MEMBER_OFFER", "headline");
-const OFFER_SUB = pick("MEMBER_OFFER", "sub");
-const EXPIRES = pick("MEMBER_OFFER", "expiresShort");
+const BONUS = pick("PASS", "bonus");
+const VALID = pick("PASS", "validShort");
 const DRAW = pick("PRIZE", "drawShort");
-const DRAW_LONG = pick("PRIZE", "drawDate");
+const DATE = pick("EVENT", "dateShort");
+const LEAD = BONUS || "VIP builder pricing";
 
 const BASE = process.env.LIBI_URL || "https://www.mkparrish.com/libi";
 const SOURCES = {
@@ -49,10 +50,6 @@ const SOURCES = {
 };
 const urlFor = (src) => `${BASE}?src=${src}`;
 
-const fonts = fs.readFileSync(path.join(ROOT, "scripts/assets/fonts-embedded.css"), "utf8");
-const dataUri = (file) => `data:image/jpeg;base64,${fs.readFileSync(file).toString("base64")}`;
-const HERO = dataUri(path.join(ROOT, "public/mercedes/test-drive-g63.jpg"));
-
 const qrOpts = { errorCorrectionLevel: "Q", margin: 2, color: { dark: "#080808", light: "#FFFFFF" } };
 const qrSvg = {};
 for (const src of Object.keys(SOURCES)) {
@@ -62,105 +59,140 @@ for (const src of Object.keys(SOURCES)) {
   fs.writeFileSync(path.join(OUT, `qr-${src}.svg`), qrSvg[src]);
 }
 
+const fonts = fs.readFileSync(path.join(ROOT, "scripts/assets/fonts-embedded.css"), "utf8");
+// The page's own line-art code, run inside Chromium to paint every <canvas class="flow">.
+const flowJs = fs.readFileSync(path.join(ROOT, "app/libi/flowLines.js"), "utf8").replace(/^export /m, "");
+const flowRunner = `<script>${flowJs}
+for (const c of document.querySelectorAll("canvas.flow")) {
+  const s = 4, w = c.clientWidth, h = c.clientHeight;
+  c.width = w * s; c.height = h * s;
+  const ctx = c.getContext("2d"); ctx.scale(s, s);
+  drawFlowLines(ctx, w, h, 2, {
+    focusY: +(c.dataset.y || 0.7), count: +(c.dataset.n || 28), alpha: +(c.dataset.a || 0.55),
+    origin: c.dataset.o || "left", lineWidth: +(c.dataset.lw || 1),
+  });
+}
+</script>`;
+
 const css = `${fonts}
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'DM Sans', sans-serif; color: #F0F0EE; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.d { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; line-height: .9; letter-spacing: .01em; }
+.d { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; line-height: .88; letter-spacing: .01em; }
 .s { font-family: 'Playfair Display', serif; font-style: italic; }
-.k { font-size: 9pt; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; }
+.k { font-weight: 600; letter-spacing: .28em; text-transform: uppercase; }
 .pink { color: #FFB5D0; }
-.qr { background: #fff; padding: 6px; border-radius: 6px; }
+.glow { text-shadow: 0 0 28px rgba(242,175,198,.5); }
+.ash { color: #7A7A7A; } .smoke { color: #B0B0B0; }
+.qr { background: #fff; border-radius: 8px; box-shadow: 0 0 40px rgba(242,175,198,.25); }
 .qr svg { display: block; width: 100%; height: 100%; }
+.flow { position: absolute; inset: 0; width: 100%; height: 100%; }
+.glowbg { position: absolute; inset: 0; background: radial-gradient(ellipse at 15% 0%, rgba(255,181,208,.16), transparent 60%); }
+.frame { position: absolute; border: 1px solid #2C2C2C; pointer-events: none; }
+.rule { width: 44px; height: 2px; background: #FFB5D0; }
+.perk { border-left: 2px solid #FFB5D0; padding-left: 10px; }
 `;
 
-// 5x7 table sign, two per letter sheet.
+const mark = (size, tag = 6.5) => `
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+    <p class="d" style="font-size:${size}pt;letter-spacing:.12em;">MK Parrish</p>
+    <p class="k pink" style="font-size:${tag}pt;text-align:right;line-height:1.45;">× Competition<br>Automotive Group</p>
+  </div>`;
+
+// 5x7 sign (480x672 CSS px).
 const sign = `
-<div class="sign" style="width:5in;height:7in;background:#080808;position:relative;overflow:hidden;display:flex;flex-direction:column;">
-  <div style="height:2.3in;background:url(${HERO}) center 62%/cover;position:relative;">
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,8,.55),rgba(8,8,8,0) 35%,#080808);"></div>
-    <p class="k" style="position:absolute;top:.25in;left:.3in;font-size:7pt;">LIBI Membership Dinner</p>
-    <p class="k" style="position:absolute;top:.25in;right:.3in;font-size:7pt;opacity:.85;">Mercedes-Benz of Smithtown</p>
-  </div>
-  <div style="padding:0 .35in;margin-top:-.55in;position:relative;">
-    <p class="k pink" style="font-size:7.5pt;">Scan to enter</p>
-    <h1 class="d" style="font-size:54pt;margin-top:4pt;">Win a <span class="pink">Mercedes</span> weekend</h1>
-    <p class="s" style="font-size:11pt;color:#B0B0B0;margin-top:6pt;">48 hours in the Mercedes you choose. G-Class, AMG, S-Class or a Sprinter for the jobsite.</p>
-  </div>
-  <div style="display:flex;gap:.25in;align-items:center;padding:.22in .35in 0;">
-    <div class="qr" style="width:1.85in;height:1.85in;flex-shrink:0;">${qrSvg.table}</div>
-    <div>
-      <p class="d pink" style="font-size:30pt;">${OFFER}</p>
-      <p style="font-size:9pt;color:#B0B0B0;margin-top:3pt;">${OFFER_SUB}, through ${EXPIRES}</p>
-      <p class="d" style="font-size:19pt;margin-top:8pt;">+$500 Sprinter vans</p>
-      <p style="font-size:9pt;color:#B0B0B0;margin-top:3pt;">for NAHB members</p>
+<div class="sign" style="width:5in;height:7in;background:#080808;position:relative;overflow:hidden;">
+  <canvas class="flow" data-y="0.9" data-n="30" data-a="0.6"></canvas>
+  <div class="glowbg"></div>
+  <div class="frame" style="inset:.14in;"></div>
+  <div style="position:relative;height:100%;padding:.4in .42in .36in;display:flex;flex-direction:column;">
+    ${mark(17)}
+    <p class="k smoke" style="font-size:7pt;margin-top:.42in;">LIBI members · ${DATE}</p>
+    <h1 class="d" style="font-size:62pt;margin-top:6pt;">Unlock your<br><span class="pink glow">Builder Pass</span></h1>
+    <p class="s pink" style="font-size:12pt;margin-top:9pt;line-height:1.35;">${LEAD} at all five Competition Automotive Group stores.</p>
+    <div class="rule" style="margin-top:12pt;"></div>
+    <div style="display:flex;gap:.26in;align-items:center;margin-top:.26in;">
+      <div class="qr" style="width:1.8in;height:1.8in;padding:6px;flex-shrink:0;">${qrSvg.table}</div>
+      <div style="display:flex;flex-direction:column;gap:9pt;">
+        <div class="perk"><p class="d" style="font-size:17pt;">+$500 Sprinter vans</p><p class="smoke" style="font-size:7.5pt;margin-top:2pt;">for NAHB members</p></div>
+        <div class="perk"><p class="d" style="font-size:17pt;">Free fleet equity report</p><p class="smoke" style="font-size:7.5pt;margin-top:2pt;">what every truck is worth today</p></div>
+        <div class="perk"><p class="d" style="font-size:17pt;">Win a Mercedes weekend</p><p class="smoke" style="font-size:7.5pt;margin-top:2pt;">drawing ${DRAW}</p></div>
+      </div>
     </div>
-  </div>
-  <div style="margin-top:auto;padding:.18in .35in;border-top:1px solid #2C2C2C;display:flex;justify-content:space-between;align-items:baseline;">
-    <p class="d" style="font-size:16pt;">Ask for MK <span style="color:#7A7A7A;font-size:12pt;">· 631.366.6417</span></p>
-    <p class="k" style="font-size:6.5pt;color:#7A7A7A;">Drawing ${DRAW}</p>
+    <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;">
+      <p class="k pink" style="font-size:7pt;">Scan · Scratch · Save</p>
+      <p class="d" style="font-size:14pt;">Ask for MK <span class="ash" style="font-size:11pt;">· 631.366.6417</span></p>
+    </div>
   </div>
 </div>`;
 
-// The same sign scaled up to fill a letter page, for a standard 8.5x11 acrylic table stand.
 const signPage = `<!doctype html><html><head><style>${css}
 @page { size: letter; margin: 0; }
 body { width: 8.5in; height: 11in; background: #080808; overflow: hidden; }
 .sign { transform: scale(1.57); transform-origin: top left; margin-left: calc((8.5in - 5in * 1.57) / 2); }
-</style></head><body>${sign}</body></html>`;
+</style></head><body>${sign}${flowRunner}</body></html>`;
 
-// Full-size single sign on its own page, for a frame or a plexi stand.
 const signSingle = `<!doctype html><html><head><style>${css}
 @page { size: 5in 7in; margin: 0; } body { width: 5in; height: 7in; }
-</style></head><body>${sign}</body></html>`;
+</style></head><body>${sign}${flowRunner}</body></html>`;
 
-// 3.5x2 handout card, ten per sheet (Avery 8371 layout: 0.75in side, 0.5in top margins).
+// 3.5x2 handout card, ten per sheet (Avery 8371 layout: 0.75in sides, 0.5in top).
 const card = `
-<div style="width:3.5in;height:2in;background:#080808;display:flex;align-items:center;gap:.14in;padding:0 .16in;overflow:hidden;">
-  <div class="qr" style="width:1.45in;height:1.45in;flex-shrink:0;padding:4px;">${qrSvg.card}</div>
-  <div style="min-width:0;">
-    <p class="k pink" style="font-size:5.5pt;letter-spacing:.22em;">LIBI members · scan me</p>
-    <p class="d" style="font-size:21pt;margin-top:3pt;">Win a <span class="pink">Mercedes</span> weekend</p>
-    <p style="font-size:7pt;color:#B0B0B0;margin-top:4pt;line-height:1.35;"><b style="color:#F0F0EE;">${OFFER}</b> any new car, thru ${EXPIRES}<br><b style="color:#F0F0EE;">+$500</b> Sprinter vans, NAHB members</p>
-    <p style="font-size:6.5pt;color:#7A7A7A;margin-top:5pt;">MK Parrish · Mercedes-Benz of Smithtown<br>631.366.6417 · Drawing ${DRAW}</p>
+<div style="width:3.5in;height:2in;background:#080808;position:relative;overflow:hidden;">
+  <canvas class="flow" data-y="0.88" data-n="20" data-a="0.55"></canvas>
+  <div class="glowbg"></div>
+  <div class="frame" style="inset:.07in;border-color:#2C2C2C;"></div>
+  <div style="position:relative;height:100%;display:flex;align-items:center;gap:.15in;padding:0 .2in;">
+    <div class="qr" style="width:1.32in;height:1.32in;padding:3px;flex-shrink:0;border-radius:5px;">${qrSvg.card}</div>
+    <div style="min-width:0;">
+      <p class="d" style="font-size:9pt;letter-spacing:.14em;">MK Parrish</p>
+      <p class="k ash" style="font-size:4.6pt;margin-top:5pt;">Competition Automotive Group</p>
+      <p class="d pink glow" style="font-size:25pt;margin-top:1pt;">Builder Pass</p>
+      <p class="s pink" style="font-size:7pt;margin-top:3pt;line-height:1.3;">${LEAD}, all five stores</p>
+      <p class="smoke" style="font-size:6pt;margin-top:4pt;line-height:1.4;">+$500 Sprinter · Mercedes weekend drawing</p>
+      <p class="ash" style="font-size:5.6pt;margin-top:4pt;">631.366.6417 · valid thru ${VALID}</p>
+    </div>
   </div>
 </div>`;
 const cardsPage = `<!doctype html><html><head><style>${css}
 @page { size: letter; margin: 0; }
-body { width: 8.5in; height: 11in; background: #fff; padding: .5in .75in; display: grid; grid-template-columns: 3.5in 3.5in; grid-auto-rows: 2in; gap: 0; }
-</style></head><body>${Array(10).fill(card).join("")}</body></html>`;
+body { width: 8.5in; height: 11in; background: #fff; padding: .5in .75in; display: grid; grid-template-columns: 3.5in 3.5in; grid-auto-rows: 2in; }
+</style></head><body>${Array(10).fill(card).join("")}${flowRunner}</body></html>`;
 
-// Phone lock screen: the top third stays clear for the clock.
+// Phone lock screen (390x844 at 3x). The top stays clear for the clock.
 const lock = `<!doctype html><html><head><style>${css}
 body { width: 390px; height: 844px; background: #080808; overflow: hidden; position: relative; }
 </style></head><body>
-<div style="position:absolute;left:0;right:0;top:120px;height:330px;background:url(${HERO}) 42% 72%/auto 150%;opacity:.75;"></div>
-<div style="position:absolute;inset:0;background:linear-gradient(180deg,#080808 14%,rgba(8,8,8,0) 26%,rgba(8,8,8,.1) 40%,#080808 54%);"></div>
-<div style="position:absolute;left:0;right:0;top:330px;text-align:center;padding:0 28px;">
-  <p class="k pink" style="font-size:9px;">LIBI members · scan me</p>
-  <h1 class="d" style="font-size:52px;margin-top:6px;">Win a <span class="pink">Mercedes</span> weekend</h1>
-  <div class="qr" style="width:220px;height:220px;margin:18px auto 0;padding:8px;">${qrSvg.phone}</div>
-  <p class="d pink" style="font-size:26px;margin-top:16px;">${OFFER} · thru ${EXPIRES}</p>
-  <p style="font-size:11px;color:#B0B0B0;margin-top:6px;">MK Parrish · Mercedes-Benz of Smithtown · 631.366.6417</p>
-</div></body></html>`;
+<canvas class="flow" data-y="0.3" data-n="30" data-a="0.65" data-o="center"></canvas>
+<div class="glowbg"></div>
+<div class="frame" style="inset:12px;border-radius:38px;"></div>
+<div style="position:absolute;left:0;right:0;top:330px;text-align:center;padding:0 30px;">
+  <p class="d" style="font-size:22px;letter-spacing:.14em;">MK Parrish</p>
+  <p class="k pink" style="font-size:8px;margin-top:6px;">× Competition Automotive Group</p>
+  <h1 class="d" style="font-size:58px;margin-top:14px;">Unlock your<br><span class="pink glow">Builder Pass</span></h1>
+  <div class="qr" style="width:212px;height:212px;margin:20px auto 0;padding:7px;">${qrSvg.phone}</div>
+  <p class="s pink" style="font-size:15px;margin-top:16px;">${LEAD} · all five stores</p>
+  <p class="k ash" style="font-size:8px;margin-top:8px;">Scan · Scratch · Save</p>
+</div>${flowRunner}</body></html>`;
 
 const slide = `<!doctype html><html><head><style>${css}
-body { width: 1920px; height: 1080px; background: #080808; overflow: hidden; display: flex; }
+body { width: 1920px; height: 1080px; background: #080808; overflow: hidden; position: relative; }
 </style></head><body>
-<div style="width:58%;background:url(${HERO}) center 60%/cover;position:relative;"><div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,8,8,0) 55%,#080808);"></div></div>
-<div style="flex:1;padding:110px 100px 90px 30px;display:flex;flex-direction:column;">
-  <p class="k pink" style="font-size:20px;">LIBI members &amp; guests</p>
-  <h1 class="d" style="font-size:150px;margin-top:16px;">Win a <span class="pink">Mercedes</span> weekend</h1>
-  <div style="display:flex;gap:44px;align-items:center;margin-top:40px;">
-    <div class="qr" style="width:330px;height:330px;padding:12px;flex-shrink:0;">${qrSvg.slide}</div>
-    <div>
-      <p class="d pink" style="font-size:64px;">${OFFER}</p>
-      <p style="font-size:22px;color:#B0B0B0;margin-top:8px;">${OFFER_SUB}<br>through ${EXPIRES}</p>
-      <p class="d" style="font-size:40px;margin-top:22px;">+$500 Sprinter vans</p>
-      <p style="font-size:22px;color:#B0B0B0;margin-top:6px;">for NAHB members</p>
-    </div>
+<canvas class="flow" data-y="0.78" data-n="40" data-a="0.6" data-lw="1.6"></canvas>
+<div class="glowbg"></div>
+<div class="frame" style="inset:36px;"></div>
+<div style="position:relative;height:100%;padding:100px 130px;display:flex;justify-content:space-between;">
+  <div style="display:flex;flex-direction:column;max-width:1060px;">
+    <p class="d" style="font-size:52px;letter-spacing:.12em;">MK Parrish <span class="k pink" style="font-family:'DM Sans';font-size:18px;letter-spacing:.3em;vertical-align:middle;margin-left:18px;">× Competition Automotive Group</span></p>
+    <p class="k smoke" style="font-size:20px;margin-top:90px;">LIBI members · ${DATE}</p>
+    <h1 class="d" style="font-size:190px;margin-top:16px;">Unlock your<br><span class="pink glow">Builder Pass</span></h1>
+    <p class="s pink" style="font-size:40px;margin-top:26px;">${LEAD} at all five Competition stores.</p>
+    <p class="smoke" style="font-size:26px;margin-top:auto;">+$500 Sprinter vans for NAHB members · Free fleet equity report · Win a Mercedes weekend, drawing ${DRAW}</p>
   </div>
-  <p style="margin-top:auto;font-size:24px;color:#7A7A7A;">MK Parrish · Mercedes-Benz of Smithtown · Competition Automotive Group · Drawing ${DRAW_LONG}</p>
-</div></body></html>`;
+  <div style="align-self:center;text-align:center;">
+    <div class="qr" style="width:400px;height:400px;padding:14px;border-radius:16px;">${qrSvg.slide}</div>
+    <p class="k pink" style="font-size:20px;margin-top:26px;">Scan · Scratch · Save</p>
+  </div>
+</div>${flowRunner}</body></html>`;
 
 // Use a local Chromium if one is set (or pre-installed), else Playwright's own.
 const exe = process.env.CHROMIUM_PATH || (fs.existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined);
@@ -199,4 +231,4 @@ for (const f of ["table-sign-letter.pdf", "table-sign-5x7.pdf", "handout-cards-1
 }
 
 const lines = Object.entries(SOURCES).map(([src, where]) => `  qr-${src}.png  → ${urlFor(src)}  (${where})`);
-console.log(`LIBI kit built in ${path.relative(ROOT, OUT)}/\n${lines.join("\n")}`);
+console.log(`Builder Pass kit built in ${path.relative(ROOT, OUT)}/\n${lines.join("\n")}`);
