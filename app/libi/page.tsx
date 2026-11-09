@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { CAG, CompetitionMark } from "./BuilderPass";
+import { CAG, Certificate, CompetitionMark } from "./BuilderPass";
 import FlowLines from "./FlowLines";
 import LibiForm from "./LibiForm";
-import { EVENT, MK, PASS, PERKS, STORES, leadPerk } from "./campaign";
+import { CERT, EVENT, GOLD, MK, PASS, PERKS, STORES, leadPerk } from "./campaign";
 
 // Competition-branded metadata: overrides the site's "— MK Parrish" title template, name and share image,
 // so a texted or shared link previews as Competition Automotive Group.
 const TITLE = "Competition Builder Pass · LIBI Members";
-const DESCRIPTION = `VIP builder pricing at all five Competition Automotive Group stores, +$500 on Sprinter vans for NAHB members, and a shot at a Mercedes weekend. Valid through ${PASS.validThrough}.`;
+const DESCRIPTION = `VIP builder pricing at all five Competition Automotive Group stores, +$500 on Sprinter vans for NAHB members, and a ${CERT.name} for the Mercedes you choose. Valid through ${PASS.validThrough}.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -31,7 +31,7 @@ const groupStores = STORES.filter((s) => !["sprinter", "amg"].includes(s.key));
 
 export default function LibiPage() {
   return (
-    <div className="min-h-screen bg-cag-ink font-cag text-white">
+    <div className="libi-root min-h-screen bg-cag-ink font-cag text-white">
       {/* Montserrat stands in for the Competition logo type, on this page only; React hoists this into <head>. */}
       {/* eslint-disable-next-line @next/next/no-page-custom-font */}
       <link
@@ -42,7 +42,7 @@ export default function LibiPage() {
 
       <section className="relative overflow-hidden border-b border-cag-line bg-cag-ink">
         <FlowLines className="absolute inset-0 h-full w-full" focusY={0.82} count={30} alpha={0.42} rgb={CAG.silverRgb} />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(125,150,168,0.22),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(94,176,255,0.38),transparent_60%)]" />
         <div className="relative mx-auto max-w-2xl px-6 pb-14 pt-9 md:px-4">
           <div className="flex items-start justify-between gap-4">
             <CompetitionMark size={1.05} />
@@ -54,15 +54,15 @@ export default function LibiPage() {
           </div>
           <div className="mt-16 text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-cag-accent">For LIBI members &amp; guests</div>
           <h1 className="mt-4 uppercase text-white" style={{ fontSize: "clamp(1.9rem, 8.4vw, 4.2rem)", lineHeight: 1.08, letterSpacing: "0.05em" }}>
-            <span style={{ fontWeight: 300, color: "#D5D8DB" }}>Unlock your</span>
+            <span style={{ fontWeight: 300, color: "#DCE6F5" }}>Unlock your</span>
             <br />
             <span style={{ fontWeight: 700 }}>Builder Pass</span>
           </h1>
           <div className="mt-5 max-w-xl text-base font-medium leading-7 text-cag-mist md:text-lg">
-            {leadPerk().title} at all five Competition Automotive Group stores, +$500 on Sprinter vans, and a shot at a Mercedes
-            weekend.
+            {leadPerk().title} at all five Competition Automotive Group stores, +$500 on Sprinter vans, and a {CERT.short} for the
+            Mercedes you choose. Share your code and it goes <span className="font-semibold" style={{ color: CAG.gold }}>{GOLD.label}</span>.
           </div>
-          <div className="mt-6 h-px w-16 bg-cag-accent" />
+          <div className="mt-6 h-[3px] w-16 bg-white" />
         </div>
       </section>
 
@@ -75,10 +75,20 @@ export default function LibiPage() {
         <div className="grid gap-px overflow-hidden rounded-xl bg-cag-line sm:grid-cols-2">
           {[leadPerk(), ...PERKS.slice(1)].map((p) => (
             <div key={p.title} className="bg-cag-panel p-6">
-              <h2 className="font-cag text-base font-semibold uppercase tracking-[0.1em] text-white">{p.title}</h2>
+              <h2 className="font-cag text-base font-bold uppercase tracking-[0.1em] text-white">{p.title}</h2>
               <div className="mt-2 text-sm leading-6 text-cag-mist">{p.desc}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* A preview of the certificate; hidden once the guest has their own (see .libi-root in globals.css). */}
+      <section id="libi-cert-preview" className="mx-auto max-w-2xl px-4 pb-10">
+        <div className="mb-4 text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-cag-accent">Your certificate · share it to go {GOLD.label}</div>
+        <Certificate />
+        <div className="mx-auto mt-4 max-w-[440px] text-center text-sm font-medium leading-6 text-cag-mist">
+          Every pass has its own code. When a colleague activates a pass with yours, you both go{" "}
+          <span className="font-semibold" style={{ color: CAG.gold }}>{GOLD.label}</span>: {GOLD.reward.toLowerCase()} when you come in for your drive.
         </div>
       </section>
 

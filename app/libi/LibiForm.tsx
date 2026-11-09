@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import BuilderPass, { savePassImage } from "./BuilderPass";
-import { MK, PAGE_PATH, PASS, PERKS, PRIZE, ROLES, SITE, STORES, TIMELINES, cleanRef, leadPerk, shareCode } from "./campaign";
+import BuilderPass, { Certificate, savePassImage } from "./BuilderPass";
+import { CERT, GOLD, MK, PAGE_PATH, PASS, PERKS, ROLES, SITE, STORES, TIMELINES, cleanRef, leadPerk, levelLabel, shareCode, type Level } from "./campaign";
 
 // Inline colour: the site's global text styles otherwise wash out dark text on white buttons.
-const ON_LIGHT = { color: "#0B0C0E" };
+const ON_LIGHT = { color: "#06142E" };
 const CHECK_LABEL = {
   display: "inline", fontSize: "0.875rem", fontWeight: 400, letterSpacing: 0,
-  textTransform: "none", color: "#D5D8DB", marginBottom: 0, lineHeight: 1.5,
+  textTransform: "none", color: "#DCE6F5", marginBottom: 0, lineHeight: 1.5,
 } as const;
 
 const field =
@@ -17,7 +17,7 @@ const label = "mb-2 block font-cag text-[0.7rem] font-semibold uppercase trackin
 const chip = (on: boolean) =>
   `rounded-md border px-3 py-2 text-left font-cag text-sm transition-colors ${on ? "border-white bg-white font-semibold" : "border-cag-line bg-cag-ink text-cag-mist hover:border-white/60"}`;
 
-type Done = { code: string; notified: boolean; emailed: boolean };
+type Done = { code: string; level: Level; notified: boolean; emailed: boolean };
 
 export default function LibiForm() {
   const [name, setName] = useState("");
@@ -68,16 +68,18 @@ export default function LibiForm() {
       (referName || referPhone) && `Referral: ${referName} ${referPhone}`.trim(),
       ref && `Referred by code: ${ref}`,
       `Pass №: ${code}`,
+      `Certificate: ${levelLabel(ref && ref !== code ? "gold" : "silver")}`,
     ]
       .filter(Boolean)
       .join("\n");
 
   const submit = async () => {
     if (!name.trim()) return setError("Add your name. It goes on your pass.");
-    if (phone.replace(/\D/g, "").length < 10) return setError("Add a 10-digit mobile number. It's how I reach you if you win.");
+    if (phone.replace(/\D/g, "").length < 10) return setError("Add a 10-digit mobile number. It's how I book your drive.");
     setError("");
     setSending(true);
     const fallbackCode = shareCode(name, phone);
+    const fallbackLevel: Level = ref && ref !== fallbackCode ? "gold" : "silver";
     try {
       const res = await fetch("/api/libi", {
         method: "POST",
@@ -91,10 +93,15 @@ export default function LibiForm() {
         setError(data.error || "Check your details and try again.");
         return;
       }
-      setDone({ code: data.code || fallbackCode, notified: Boolean(data.notified), emailed: Boolean(data.emailed) });
+      setDone({
+        code: data.code || fallbackCode,
+        level: data.level === "gold" || data.level === "silver" ? data.level : fallbackLevel,
+        notified: Boolean(data.notified),
+        emailed: Boolean(data.emailed),
+      });
     } catch {
       // Offline or the API is down: the entry still goes through by text on the next screen.
-      setDone({ code: fallbackCode, notified: false, emailed: false });
+      setDone({ code: fallbackCode, level: fallbackLevel, notified: false, emailed: false });
     } finally {
       setSending(false);
     }
@@ -104,7 +111,7 @@ export default function LibiForm() {
     const first = name.trim().split(/\s+/)[0];
     const holder = name.trim().replace(/\s+/g, " ").slice(0, 28);
     const shareUrl = `${SITE}${PAGE_PATH}?ref=${done.code}`;
-    const shareText = `I just got my Competition Builder Pass at the LIBI dinner: VIP pricing at all five Competition Automotive Group stores and a shot at a Mercedes weekend. Get yours:`;
+    const shareText = `I just got my Competition Builder Pass at the LIBI dinner: VIP pricing at all five Competition Automotive Group stores, plus a ${CERT.short} for the Mercedes you choose. Use my link and yours starts at ${GOLD.label}:`;
     const share = async () => {
       if (navigator.share) {
         try {
@@ -132,7 +139,7 @@ export default function LibiForm() {
           </h2>
         </div>
 
-        <BuilderPass holder={holder} code={done.code} scratch={!revealed} onRevealed={() => setRevealed(true)} />
+        <BuilderPass holder={holder} code={done.code} level={done.level} scratch={!revealed} onRevealed={() => setRevealed(true)} />
         {!revealed && (
           <button type="button" onClick={() => setRevealed(true)} className="mx-auto font-cag text-xs uppercase tracking-[0.2em] text-cag-fog underline underline-offset-4">
             Can&apos;t scratch? Tap here
@@ -157,6 +164,12 @@ export default function LibiForm() {
 
         {revealed && (
           <>
+            <div>
+              <div className="mb-3 text-center font-cag text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-cag-accent">
+                Your certificate · {levelLabel(done.level)}
+              </div>
+              <Certificate code={done.code} level={done.level} />
+            </div>
             <ul className="grid gap-px overflow-hidden rounded-xl bg-cag-line">
               {[leadPerk(), ...PERKS.slice(1)].map((p) => (
                 <li key={p.title} className="flex gap-3 bg-cag-panel px-5 py-4">
@@ -176,7 +189,7 @@ export default function LibiForm() {
             <div className="grid gap-3 sm:grid-cols-2">
               <button
                 type="button"
-                onClick={() => void savePassImage(holder, done.code)}
+                onClick={() => void savePassImage(holder, done.code, done.level)}
                 className="rounded-md bg-white px-6 py-4 font-cag text-sm font-semibold uppercase tracking-[0.16em]"
                 style={ON_LIGHT}
               >
@@ -190,21 +203,29 @@ export default function LibiForm() {
               </a>
             </div>
 
-            <div className="rounded-xl border border-cag-line bg-cag-panel p-6">
-              <div className="font-cag text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-cag-fog">Pass it on · extra entries</div>
+            <div className="rounded-xl border-2 border-white bg-cag-panel p-6">
+              <div className="font-cag text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-cag-accent">
+                {done.level === "gold" ? "Pass it on" : `Share your code · go ${GOLD.label}`}
+              </div>
               <div className="mt-2 font-cag text-xl font-semibold uppercase leading-tight tracking-[0.08em] text-white">
-                Give your crew a <span className="text-cag-accent">pass</span>
+                {done.level === "gold" ? (
+                  <>Give your crew a <span style={{ color: "#F2C14E" }}>{GOLD.label}</span> start</>
+                ) : (
+                  <>Share it. You both go <span style={{ color: "#F2C14E" }}>{GOLD.label}</span></>
+                )}
               </div>
               <div className="mt-3 font-cag text-sm leading-6 text-cag-mist">
-                Everyone who gets a pass through your link adds an entry for you in the Mercedes weekend drawing, with no limit. Send it to
-                partners, foremen and buyers at closing.
+                {done.level === "gold"
+                  ? `Your certificate is already ${GOLD.label}. Anyone who activates a pass with your code starts at ${GOLD.label} too. Send it to partners, foremen and buyers at closing.`
+                  : `When a colleague activates a pass with your code, both certificates upgrade to ${GOLD.label}: ${GOLD.reward.toLowerCase()} when you come in for your drive. I'll text you when your upgrade lands.`}
               </div>
               <button
                 type="button"
                 onClick={share}
-                className="mt-4 w-full rounded-md border border-white/70 px-6 py-4 font-cag text-sm font-semibold uppercase tracking-[0.16em] text-cag-accent hover:bg-white/5"
+                className="mt-4 w-full rounded-md bg-white px-6 py-4 font-cag text-sm font-semibold uppercase tracking-[0.16em] hover:opacity-90"
+                style={ON_LIGHT}
               >
-                {copied ? "Link copied" : "Share my link"}
+                {copied ? "Link copied" : `Share my code · ${done.code}`}
               </button>
               <div className="mt-3 break-all font-cag text-xs text-cag-fog">{shareUrl}</div>
             </div>
@@ -226,13 +247,14 @@ export default function LibiForm() {
       <div className="mb-4">
         <BuilderPass />
         <div className="mt-4 text-center font-cag text-xs uppercase tracking-[0.22em] text-cag-fog">
-          Fill this in · scratch your pass · valid thru {PASS.validShort}
+          Fill this in · scratch your pass · get your certificate
         </div>
       </div>
 
       {ref && (
         <div className="rounded-md border border-cag-line bg-cag-panel px-4 py-3 font-cag text-sm text-cag-mist">
-          A friend passed this on (pass <span className="font-semibold text-cag-accent">{ref}</span>). You both get an entry in the drawing.
+          A friend passed this on (code <span className="font-semibold text-white">{ref}</span>). Your certificate starts at{" "}
+          <span className="font-semibold" style={{ color: "#F2C14E" }}>{GOLD.label}</span>: {GOLD.reward.toLowerCase()} when you come in.
         </div>
       )}
 
@@ -293,15 +315,15 @@ export default function LibiForm() {
       </fieldset>
 
       <div className="flex items-start gap-3">
-        <input id="l-trade" type="checkbox" checked={tradeIn} onChange={(e) => setTradeIn(e.target.checked)} className="mt-0.5 shrink-0 accent-[#7D96A8]" style={{ width: 20, height: 20, padding: 0 }} />
+        <input id="l-trade" type="checkbox" checked={tradeIn} onChange={(e) => setTradeIn(e.target.checked)} className="mt-0.5 shrink-0 accent-[#5EB0FF]" style={{ width: 20, height: 20, padding: 0 }} />
         <label htmlFor="l-trade" className="font-cag" style={CHECK_LABEL}>
           I have a trade-in, a lease ending, or company vehicles to replace
         </label>
       </div>
 
       <div className="rounded-xl border border-cag-line bg-cag-panel p-5">
-        <div className="font-cag text-base font-semibold uppercase tracking-[0.1em] text-white">Who else needs a car? <span className="text-cag-accent">+1 entry</span></div>
-        <div className="mt-1 font-cag text-sm leading-6 text-cag-mist">A partner, a foreman, a buyer who just closed. I&apos;ll take good care of them.</div>
+        <div className="font-cag text-base font-semibold uppercase tracking-[0.1em] text-white">Who else needs a car? <span style={{ color: "#F2C14E" }}>Go {GOLD.label}</span></div>
+        <div className="mt-1 font-cag text-sm leading-6 text-cag-mist">A partner, a foreman, a buyer who just closed. I&apos;ll send them their own pass, and you both go {GOLD.label} when they activate it.</div>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <input aria-label="Their name" className={field} value={referName} onChange={(e) => setReferName(e.target.value)} placeholder="Their name" />
           <input aria-label="Their phone" className={field} value={referPhone} onChange={(e) => setReferPhone(e.target.value)} type="tel" inputMode="tel" placeholder="Their phone" />
@@ -312,9 +334,9 @@ export default function LibiForm() {
       <input tabIndex={-1} autoComplete="off" aria-hidden="true" value={website} onChange={(e) => setWebsite(e.target.value)} name="website" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
 
       <div className="flex items-start gap-3">
-        <input id="l-consent" type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 shrink-0 accent-[#7D96A8]" style={{ width: 20, height: 20, padding: 0 }} />
+        <input id="l-consent" type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 shrink-0 accent-[#5EB0FF]" style={{ width: 20, height: 20, padding: 0 }} />
         <label htmlFor="l-consent" className="font-cag" style={CHECK_LABEL}>
-          MK may call or text me about my pass and the drawing. Reply STOP any time.
+          MK may call or text me about my pass and certificate. Reply STOP any time.
         </label>
       </div>
 
@@ -329,9 +351,10 @@ export default function LibiForm() {
         {sending ? "Unlocking…" : "Unlock my pass"}
       </button>
       <div className="font-cag text-xs leading-5 text-cag-fog">
-        No purchase necessary. Drawing open to adults 21+ with a valid driver&apos;s license and insurance; one winner, drawn {PRIZE.drawDate}.
-        Extra entries: one per person who gets a pass through your link or whom you refer. Pass benefits are valid through {PASS.validThrough},
-        subject to dealer confirmation, residency and credit approval, and can&apos;t be combined where prohibited. See MK for details.
+        No purchase necessary. One {CERT.short} per person, redeemed in the showroom by appointment through {PASS.validThrough}; no cash
+        value, not transferable. Test drives need a valid driver&apos;s license and are subject to vehicle availability. {GOLD.label} upgrade
+        ({GOLD.reward.toLowerCase()}): one per person, when someone activates a pass with your code or you activate with theirs. Pass benefits
+        are subject to dealer confirmation, residency and credit approval, and can&apos;t be combined where prohibited. See MK for details.
       </div>
     </form>
   );

@@ -10,7 +10,7 @@
 
 /* ── TAILWIND v4 THEME ─────────────────────────────────────────── */
 @theme inline {
-  --color-void: #080808;
+  --color-void: #06142E;
   --color-obsidian: #111111;
   --color-carbon: #1A1A1A;
   --color-graphite: #2C2C2C;
@@ -28,17 +28,16 @@
   --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, serif;
   --font-body: "DM Sans", "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
-  /* Competition Automotive Group (LIBI Builder Pass at /libi): the group's header colours,
-     black with a white COMPETITION, steel-blue AUTOMOTIVE GROUP and a silver swoosh.
-     Montserrat stands in for the logo's geometric sans. */
-  --color-cag-ink: #0B0C0E;
-  --color-cag-panel: #15171A;
-  --color-cag-charcoal: #1D2024;
-  --color-cag-line: #2C3035;
-  --color-cag-accent: #7D96A8;
-  --color-cag-silver: #A9ADB1;
-  --color-cag-mist: #D5D8DB;
-  --color-cag-fog: #8A8F94;
+  /* Competition Automotive Group (LIBI Builder Pass at /libi): dark navy and white, with a
+     bright blue accent. Montserrat stands in for the logo's geometric sans. */
+  --color-cag-ink: #06142E;
+  --color-cag-panel: #0C2247;
+  --color-cag-charcoal: #12305F;
+  --color-cag-line: #24467F;
+  --color-cag-accent: #5EB0FF;
+  --color-cag-silver: #B9C9E4;
+  --color-cag-mist: #DCE6F5;
+  --color-cag-fog: #8FA5C8;
   --font-cag: "Montserrat", "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -1171,3 +1170,6 @@ label {
 /* ── MOBILE MAIN PADDING ────────────────────────────────────────── */
 .main-mobile-pad { padding-bottom: 4rem; }
 @media (min-width: 768px) { .main-mobile-pad { padding-bottom: 0; } }
+
+/* /libi: once a guest has unlocked their pass, drop the sample certificate further down the page. */
+.libi-root:has(#libi-scratch) #libi-cert-preview { display: none; }

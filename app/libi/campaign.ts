@@ -3,7 +3,8 @@
  * Every offer, date and contact lives here. Change it here and the page, the
  * API emails and the printed QR cards (after `node scripts/libi/build.mjs`) all follow.
  *
- * Confirm every perk with your sales manager before the event. To add a dollar
+ * Confirm every perk with your sales manager before the event (the one-page approval sheet is
+ * output/libi/manager-one-pager.pdf). To add a dollar
  * bonus once it's approved, set PASS.bonus (e.g. "$1,000 Builder Bonus") and it
  * shows on the pass, the page, the emails and the printables.
  */
@@ -24,14 +25,32 @@ export const PASS = {
   validShort: "Dec 31",
 };
 
-/** Every pass holder is entered. The prize is an extended weekend test drive. */
-export const PRIZE = {
-  headline: "Win a Mercedes weekend",
+/**
+ * Every pass carries a certificate (a coupon, not a drawing): a private test drive that is
+ * redeemed in the showroom, so each one is an appointment. Nothing leaves the lot overnight.
+ */
+export const CERT = {
+  name: "VIP Test Drive Certificate",
+  short: "Test Drive Certificate",
+  headline: "Drive the Mercedes you choose",
   detail:
-    "48 hours in the Mercedes-Benz you choose: a G-Class, an S-Class, an AMG, or a Sprinter for the jobsite.",
-  drawDate: "Tuesday, November 17, 2026",
-  drawShort: "Nov 17",
+    "A private, by-appointment drive in the Mercedes-Benz you choose: a G-Class, an S-Class, an AMG, or a Sprinter for the jobsite. I'll have it pulled up and ready, and your trade or fleet appraised in writing while you drive.",
+  redeem: "Redeem in the showroom with MK, by appointment",
 };
+
+/**
+ * Sharing upgrades the certificate. When a colleague activates a pass with your code, you both
+ * go Gold. Confirm GOLD.reward with your sales manager; change it here and everything follows.
+ */
+export const GOLD = {
+  label: "Gold",
+  base: "Silver",
+  reward: "Complimentary detail",
+  desc: "We detail the vehicle you arrive in while you take your drive.",
+};
+
+export type Level = "silver" | "gold";
+export const levelLabel = (level: Level) => (level === "gold" ? GOLD.label : GOLD.base);
 
 /** What the pass unlocks. The first line is replaced by PASS.bonus when one is set. */
 export const PERKS = [
@@ -48,8 +67,8 @@ export const PERKS = [
     desc: "Send me your trucks, vans and leases. I'll tell you what each one is worth today and which ones to replace before year-end.",
   },
   {
-    title: "Mercedes weekend drawing",
-    desc: `Every pass is entered to win 48 hours in the Mercedes you choose. Drawing ${PRIZE.drawShort}.`,
+    title: CERT.name,
+    desc: `A private drive in the Mercedes you choose, by appointment. Share your code and it upgrades to ${GOLD.label}: ${GOLD.reward.toLowerCase()}.`,
   },
 ];
 
