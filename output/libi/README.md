@@ -8,7 +8,7 @@ Everything for the LIBI Membership Dinner (Tuesday, Nov 10, 2026) in one place.
 | --- | --- |
 | `manager-one-pager.pdf` (and `.png`) | The whole offer on one page: what changed, what members get, what it costs the store, and approval checkboxes. |
 | `previews/page-silver-1-landing.png` | The page a guest sees after scanning. |
-| `previews/page-silver-2-scratch.png` | The scratch-off moment. |
+| `previews/page-silver-2-scratch.png` | The swipe-to-reveal moment. |
 | `previews/page-silver-3-pass.png` | Their pass and Silver certificate, with the share-to-go-Gold prompt. |
 | `previews/page-gold-*.png` | The same three screens for a guest who arrives on a colleague's share code (starts at Gold). |
 
@@ -17,7 +17,7 @@ Everything for the LIBI Membership Dinner (Tuesday, Nov 10, 2026) in one place.
 | File | Where it goes |
 | --- | --- |
 | `phone-lockscreen.png` | Your lock screen. Hold it up: "Scan this, it's your Builder Pass." |
-| `slide-16x9.png` | The room's screen during announcements. |
+| `ipad-display.png` | Full screen on the iPad at the dinner. Guests scan it with their own phones. |
 | `share-card-square.png` | Text or AirDrop it to anyone you meet. |
 | `story-9x16.png` | Instagram, LinkedIn and Facebook stories. |
 | `og.png` | The preview that shows when the link is texted (already wired into the site). |

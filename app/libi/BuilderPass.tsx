@@ -183,7 +183,7 @@ function ScratchFoil({ onRevealed }: { onRevealed?: () => void }) {
     const draw = () => {
       ctx.font = `600 ${Math.round(w * 0.052)}px Montserrat, Arial, sans-serif`;
       ctx.letterSpacing = `${Math.round(w * 0.012)}px`;
-      ctx.fillText("SCRATCH TO REVEAL", w / 2, h / 2 - w * 0.03);
+      ctx.fillText("SWIPE TO REVEAL", w / 2, h / 2 - w * 0.03);
       ctx.font = `500 ${Math.round(w * 0.026)}px Montserrat, Arial, sans-serif`;
       ctx.letterSpacing = `${Math.round(w * 0.01)}px`;
       ctx.fillText("YOUR COMPETITION BUILDER PASS", w / 2, h / 2 + w * 0.045);
@@ -240,7 +240,7 @@ function ScratchFoil({ onRevealed }: { onRevealed?: () => void }) {
       ref={ref}
       role="button"
       tabIndex={0}
-      aria-label="Scratch to reveal your Builder Pass, or press Enter"
+      aria-label="Swipe to reveal your Builder Pass, or press Enter"
       className="absolute inset-0 h-full w-full cursor-pointer touch-none rounded-2xl transition-opacity duration-500"
       style={{ opacity: fading ? 0 : 1 }}
       onPointerDown={(e) => {

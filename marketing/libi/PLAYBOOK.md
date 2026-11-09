@@ -11,9 +11,9 @@
 
 ## The idea in one line
 
-Every LIBI member scans, fills in 30 seconds of info, and **scratches off their own Competition Builder Pass**. It's a personal pass in Competition's colors (dark navy and white), with their name and pass number, valid at all five Competition stores through Dec 31. Every pass carries a **VIP Test Drive Certificate**: a private, by-appointment drive in the Mercedes they choose, redeemed in the showroom. Each pass also has a share code. When a colleague activates a pass with it, **both certificates upgrade to Gold** (a complimentary detail when they come in), so the room recruits for you.
+Every LIBI member scans, fills in 30 seconds of info, and **swipes to reveal their own Competition Builder Pass** on their phone. It's a personal pass in Competition's colors (dark navy and white), with their name and pass number, valid at all five Competition stores through Dec 31. Every pass carries a **VIP Test Drive Certificate**: a private, by-appointment drive in the Mercedes they choose, redeemed in the showroom. Each pass also has a share code. When a colleague activates a pass with it, **both certificates upgrade to Gold** (a complimentary detail when they come in), so the room recruits for you.
 
-**Scan · Scratch · Share** is the whole pitch.
+**Scan · Swipe · Share** is the whole pitch.
 
 ### Why a certificate instead of the Mercedes weekend
 
@@ -37,7 +37,7 @@ The weekend drawing asked management for a demo car off the lot for 48 hours and
 
 ### Why it works
 
-- **People keep it.** A scratched pass with their name on it gets saved to their camera roll (the "Save my pass" button). A business card gets thrown away.
+- **People keep it.** A revealed pass with their name on it gets saved to their camera roll (the "Save my pass" button). A business card gets thrown away.
 - **One person for the whole group.** You're the LIBI contact for all five stores. Whatever their spouse, kids or foreman wants, you make the introduction. Ask your manager about split or referral credit.
 - **Year-end.** Business owners line up vehicle purchases in Nov–Dec. You mention the timing, and their CPA decides. Never give tax advice yourself: say "ask your CPA about Section 179."
 
@@ -46,19 +46,19 @@ The weekend drawing asked management for a demo car off the lot for 48 hours and
 ## ✅ Tonight (Nov 9)
 
 1. **Get your manager's yes first.** Send `output/libi/manager-one-pager.pdf`. If they change the Gold reward or add a dollar bonus, it's one line each in `app/libi/campaign.ts`, then `node scripts/libi/build.mjs`.
-1. **Merge the PR.** Then open `mkparrish.com/libi` on your phone, unlock a pass for yourself, and scratch it. The lead email should reach both of your inboxes within a minute. Email is already set up on the live site.
+1. **Merge the PR.** Then open `mkparrish.com/libi` on your phone, unlock a pass for yourself, and swipe to reveal it. The lead email should reach both of your inboxes within a minute. Email is already set up on the live site.
 2. **Set your lock screen** to `phone-lockscreen.png`. When someone asks for your card, hold up your phone: "Scan this, it's your Builder Pass."
 3. **Save `share-card-square.png` to your photos.** Text or AirDrop it to anyone you talk to; they scan it right off their own phone or tap the link.
 4. **Text your sales manager with the one-pager attached:**
    > "Morning! For the LIBI dinner tonight I have a 'Competition Builder Pass' for members. No loaner and no drawing: every pass has a VIP Test Drive Certificate they redeem in the showroom by appointment, plus the VIP pricing review, the NAHB $500 Sprinter bonus and a fleet equity report. If they share their code and bring in a colleague, both get a complimentary detail when they come in. One-pager attached. OK to run it? And can we add a dollar Builder Bonus through 12/31?"
-5. **Optional:** ask the LIBI office to put `slide-16x9.png` on the room screen during announcements.
+5. **Bring the iPad.** Open `ipad-display.png` full screen (brightness up, auto-lock off) and stand it at your seat or the registration table. Guests scan it with their own phones.
 
 ---
 
 ## 🎤 At the dinner
 
 **Opener (10 seconds):**
-> "Hi, I'm MK with Competition Automotive Group. We made LIBI members a Builder Pass. Scan this, scratch it, and it's yours. It works at all five of our stores."
+> "Hi, I'm MK with Competition Automotive Group. We made LIBI members a Builder Pass. Scan this, swipe to reveal it, and it's yours. It works at all five of our stores."
 
 **When they ask what it does:**
 > "It gets you VIP builder pricing. I work your numbers with management myself. If you run vans, NAHB members get another $500 on a Sprinter, and most people in this room don't know that. And your pass has a certificate on it: pick any Mercedes, I'll have it pulled up for a private drive."
@@ -70,12 +70,12 @@ The weekend drawing asked management for a demo car off the lot for 48 hours and
 > "Your pass has a share code. When someone activates a pass with it, you both go Gold: we detail your car while you take your drive. Send it to your foreman, your partner, whoever."
 
 **30-second podium version (if offered):**
-> "Good evening, I'm Mary Kate Parrish with Competition Automotive Group: Mercedes-Benz, BMW, Genesis and Subaru, a Long Island family business for over 65 years. Tonight every LIBI member gets a Builder Pass. Scan the code on the screen and scratch it off. It's VIP builder pricing at all five of our stores, and every pass comes with a private drive in the Mercedes you choose. Share your code with a colleague and you both go Gold. Thank you!"
+> "Good evening, I'm Mary Kate Parrish with Competition Automotive Group: Mercedes-Benz, BMW, Genesis and Subaru, a Long Island family business for over 65 years. Tonight every LIBI member gets a Builder Pass. Scan the code on my iPad and swipe to reveal it. It's VIP builder pricing at all five of our stores, and every pass comes with a private drive in the Mercedes you choose. Share your code with a colleague and you both go Gold. Thank you!"
 
 **How the QR reaches people (no printing):**
 - **Your phone:** the lock screen is the QR. Hold it up mid-conversation.
 - **AirDrop or text:** send the square QR card to everyone you meet, so they can scan it later or pass it to a partner.
-- **The room's screen:** ask the LIBI office to show the slide during announcements.
+- **Your iPad:** the QR full screen at your seat or the registration table.
 - **Social:** post the story image to Instagram, LinkedIn and Facebook tonight, tagged with LIBI.
 
 **On the spot:** if someone mentions a lease ending, a truck problem, or "my wife wants...", star their contact in your phone and call them first tomorrow.
@@ -92,7 +92,7 @@ Subject: `🔥 HOT Builder Pass lead: Pat Builder (Acme Homes)`. HOT means they'
 
 The entrant also gets an email that looks like their pass, with their pass number, their certificate, the perks, and their share link. If the room's signal is bad, the page has a backup: a pre-written text to your cell (347.853.4238) with every detail filled in, so no lead gets lost. Every pass is also saved in the Vercel logs (search `LIBI_LEAD`).
 
-The `src` on each lead shows which QR they scanned: `phone` (lock screen), `slide`, `text` (QR card you sent), `social`, `followup`, or `share` for a friend's link.
+The `src` on each lead shows which QR they scanned: `phone` (lock screen), `ipad`, `text` (QR card you sent), `social`, `followup`, or `share` for a friend's link.
 
 ---
 
@@ -129,7 +129,7 @@ One builder closing 30 homes a year is 30 warm introductions a year. Five builde
 | What | Where |
 | --- | --- |
 | Pass name, bonus, valid-through date, perks, the certificate (`CERT`), the Gold reward (`GOLD`), stores, phone numbers | `app/libi/campaign.ts` |
-| The page, the scratch-off pass and the certificate coupon | `app/libi/page.tsx`, `app/libi/LibiForm.tsx`, `app/libi/BuilderPass.tsx` |
+| The page, the swipe-to-reveal pass and the certificate coupon | `app/libi/page.tsx`, `app/libi/LibiForm.tsx`, `app/libi/BuilderPass.tsx` |
 | The flow-line art (the page and the images both use it) | `app/libi/flowLines.js` |
 | Lead emails (to you and to the entrant) | `app/api/libi/route.ts` |
 | Where leads go | Vercel env `LIBI_NOTIFY_EMAILS` (comma-separated). Default: your `LEAD_NOTIFY_EMAIL` inbox + `mparrish@mbofsmithtown.com` |
