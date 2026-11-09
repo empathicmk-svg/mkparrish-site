@@ -40,6 +40,11 @@ export default function LibiForm() {
   const [copied, setCopied] = useState(false);
   const [revealed, setRevealed] = useState(false);
 
+  // After submitting, bring the scratch card itself into view, not the top of the page.
+  useEffect(() => {
+    if (done) document.getElementById("libi-scratch")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [done]);
+
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
     // Reading the URL after mount keeps the page static; nothing renders differently on the server.
@@ -93,7 +98,6 @@ export default function LibiForm() {
     } finally {
       setSending(false);
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (done) {
@@ -119,6 +123,22 @@ export default function LibiForm() {
     };
     return (
       <div className="flex flex-col gap-6" aria-live="polite">
+        <div id="libi-scratch" className="scroll-mt-6 text-center">
+          <div className="font-cag text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-cag-accent">
+            {revealed ? "Your pass is live" : "Your pass is ready"}
+          </div>
+          <h2 className="mt-2 font-cag text-2xl font-light uppercase leading-tight tracking-[0.08em] text-white">
+            {revealed ? <>Welcome, <span className="text-cag-accent">{first}</span></> : <>Scratch to <span className="text-cag-accent">reveal</span></>}
+          </h2>
+        </div>
+
+        <BuilderPass holder={holder} code={done.code} scratch={!revealed} onRevealed={() => setRevealed(true)} />
+        {!revealed && (
+          <button type="button" onClick={() => setRevealed(true)} className="mx-auto font-cag text-xs uppercase tracking-[0.2em] text-cag-fog underline underline-offset-4">
+            Can&apos;t scratch? Tap here
+          </button>
+        )}
+
         {!done.notified && (
           <div className="rounded-xl border border-white/70 bg-white/5 p-5">
             <div className="font-cag text-base font-semibold uppercase tracking-[0.12em] text-cag-accent">One more tap to lock it in</div>
@@ -133,22 +153,6 @@ export default function LibiForm() {
               Text my pass to MK
             </a>
           </div>
-        )}
-
-        <div className="text-center">
-          <div className="font-cag text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-cag-accent">
-            {revealed ? "Your pass is live" : "Your pass is ready"}
-          </div>
-          <h2 className="mt-2 font-cag text-2xl font-light uppercase leading-tight tracking-[0.08em] text-white">
-            {revealed ? <>Welcome, <span className="text-cag-accent">{first}</span></> : <>Scratch to <span className="text-cag-accent">reveal</span></>}
-          </h2>
-        </div>
-
-        <BuilderPass holder={holder} code={done.code} scratch={!revealed} onRevealed={() => setRevealed(true)} />
-        {!revealed && (
-          <button type="button" onClick={() => setRevealed(true)} className="mx-auto font-cag text-xs uppercase tracking-[0.2em] text-cag-fog underline underline-offset-4">
-            Can&apos;t scratch? Tap here
-          </button>
         )}
 
         {revealed && (
