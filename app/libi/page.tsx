@@ -2,17 +2,29 @@ import type { Metadata } from "next";
 import { CAG, CompetitionMark } from "./BuilderPass";
 import FlowLines from "./FlowLines";
 import LibiForm from "./LibiForm";
-import { EVENT, MK, PASS, PERKS, PRIZE, STORES, leadPerk } from "./campaign";
+import { EVENT, MK, PASS, PERKS, STORES, leadPerk } from "./campaign";
+
+// Competition-branded metadata: overrides the site's "— MK Parrish" title template, name and share image,
+// so a texted or shared link previews as Competition Automotive Group.
+const TITLE = "Competition Builder Pass · LIBI Members";
+const DESCRIPTION = `VIP builder pricing at all five Competition Automotive Group stores, +$500 on Sprinter vans for NAHB members, and a shot at a Mercedes weekend. Valid through ${PASS.validThrough}.`;
 
 export const metadata: Metadata = {
-  title: "Competition Builder Pass for LIBI Members",
-  description: `For ${EVENT.name} guests: unlock your Competition Builder Pass. VIP pricing at all five Competition Automotive Group stores, +$500 on Sprinter vans for NAHB members, and a shot at a Mercedes weekend.`,
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  applicationName: "Competition Automotive Group",
   alternates: { canonical: "/libi" },
   robots: { index: false, follow: false },
   openGraph: {
-    title: "Competition Builder Pass for LIBI Members",
-    description: `VIP builder pricing across Competition Automotive Group, valid through ${PASS.validThrough}. Drawing ${PRIZE.drawDate}.`,
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/libi",
+    siteName: "Competition Automotive Group",
+    type: "website",
+    images: [{ url: "/libi/og.png", width: 1200, height: 630, alt: "Competition Automotive Group: Unlock your Builder Pass" }],
   },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/libi/og.png"] },
+  appleWebApp: { title: "Competition Builder Pass", statusBarStyle: "black-translucent" },
 };
 
 const groupStores = STORES.filter((s) => !["sprinter", "amg"].includes(s.key));
@@ -109,8 +121,7 @@ export default function LibiPage() {
             {MK.address}
           </a>
           <br />
-          Work <a href={`tel:${MK.work}`} className="text-white">{MK.workDisplay}</a> · Cell{" "}
-          <a href={`tel:${MK.cell}`} className="text-white">{MK.cellDisplay}</a> ·{" "}
+          Call or text <a href={`tel:${MK.cell}`} className="text-white">{MK.cellDisplay}</a> ·{" "}
           <a href="/libi/mk-parrish.vcf" className="text-cag-accent underline underline-offset-4">Save contact</a>
         </div>
       </footer>

@@ -6,7 +6,9 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || SITE).replace(/\/+$/, "");
-const FROM = process.env.LEAD_FROM_EMAIL || "MK Parrish <hello@mkparrish.com>";
+// Send from the site's verified address, but under the Competition program's name.
+const FROM_ADDRESS = (process.env.LEAD_FROM_EMAIL || "hello@mkparrish.com").match(/<([^>]+)>/)?.[1] ?? (process.env.LEAD_FROM_EMAIL || "hello@mkparrish.com");
+const FROM = `Competition Builder Pass <${FROM_ADDRESS}>`;
 // Every entry goes to MK's personal inbox and her dealership inbox unless LIBI_NOTIFY_EMAILS overrides it.
 const NOTIFY = (process.env.LIBI_NOTIFY_EMAILS || [process.env.LEAD_NOTIFY_EMAIL || "mkp414@icloud.com", MK.email].join(","))
   .split(",")
@@ -238,19 +240,19 @@ function entrantEmail(lead: Lead, code: string) {
       <div style="margin-top:10px;"><a href="${shareUrl}" style="font-size:15px;font-weight:600;color:#5D7686;">${shareUrl}</a></div>
     </td></tr>
     <tr><td align="center" style="padding:26px 4px 30px;">
-      <a href="tel:${MK.work}" style="display:inline-block;background:${INK};color:#FFFFFF;text-decoration:none;font-family:${font};font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:15px 28px;border-radius:6px;">Call MK · ${MK.workDisplay}</a>
+      <a href="tel:${MK.cell}" style="display:inline-block;background:${INK};color:#FFFFFF;text-decoration:none;font-family:${font};font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:15px 28px;border-radius:6px;">Call or text MK · ${MK.cellDisplay}</a>
     </td></tr>
     <tr><td style="padding:20px 4px;border-top:1px solid #DDE0E3;font-family:${font};">
       <div style="font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:${STEEL};">Your LIBI contact</div>
       <div style="margin-top:4px;font-size:15px;font-weight:600;color:${INK};">${escapeHtml(MK.name)}</div>
-      <div style="margin-top:4px;font-size:12px;line-height:1.6;color:#6A7076;">${escapeHtml(MK.title)} · ${escapeHtml(MK.store)}<br>${escapeHtml(MK.group)} · ${escapeHtml(MK.address)}<br>Work ${MK.workDisplay} · Cell ${MK.cellDisplay}</div>
+      <div style="margin-top:4px;font-size:12px;line-height:1.6;color:#6A7076;">${escapeHtml(MK.title)} · ${escapeHtml(MK.store)}<br>${escapeHtml(MK.group)} · ${escapeHtml(MK.address)}<br>Cell ${MK.cellDisplay}</div>
       <div style="margin-top:12px;font-size:11px;line-height:1.5;color:#9AA0A6;">No purchase necessary. Drawing open to adults 21+ with a valid driver's license and insurance; one winner, drawn ${escapeHtml(PRIZE.drawDate)}. Pass benefits subject to dealer confirmation, residency and credit approval; see MK for details.</div>
     </td></tr>
   </table></td></tr></table></body></html>`;
   const plain =
     `${lead.name.split(" ")[0]}, your Competition Builder Pass is live.\n\nPass №: ${code}\nValid thru ${PASS.validThrough} at all five Competition Automotive Group stores.\n\n` +
     perks.map((p) => `- ${p.title}: ${p.desc}`).join("\n") +
-    `\n\nPass it on (extra drawing entries): ${shareUrl}\n\n${MK.name}, ${MK.store}\nWork ${MK.workDisplay} · Cell ${MK.cellDisplay}`;
+    `\n\nPass it on (extra drawing entries): ${shareUrl}\n\n${MK.name}, ${MK.store}\nCell ${MK.cellDisplay}`;
   return { html, plain };
 }
 

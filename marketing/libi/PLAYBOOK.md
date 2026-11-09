@@ -3,7 +3,8 @@
 **Event:** LIBI November General Membership Dinner, Tuesday Nov 10, 2026
 **Brand:** Competition Automotive Group (Mercedes-Benz of Smithtown, Mercedes-Benz of Huntington, Competition BMW, Genesis of Smithtown, Competition Subaru), with MK Parrish as the LIBI contact
 **Landing page:** https://www.mkparrish.com/libi (it goes live when the PR merges)
-**Printables:** `output/libi/`, also online at `mkparrish.com/libi/kit/` (e.g. `/libi/kit/phone-lockscreen.png`, `/libi/kit/table-sign-letter.pdf`). Rebuild with `node scripts/libi/build.mjs`.
+**Distribution:** digital only. No printed signs or cards: QR codes on your phone's lock screen, the room's screen, a square QR card you text or AirDrop, and a story image for social. Files are in `output/libi/` (rebuild with `node scripts/libi/build.mjs`).
+**Contact on every asset:** MK's cell, 347.853.4238
 
 ---
 
@@ -34,10 +35,8 @@ Every LIBI member scans, fills in 30 seconds of info, and **scratches off their 
 ## ✅ Tonight (Nov 9)
 
 1. **Merge the PR.** Then open `mkparrish.com/libi` on your phone, unlock a pass for yourself, and scratch it. The lead email should reach both of your inboxes within a minute. Email is already set up on the live site.
-2. **Print** at Staples or at home on heavy cardstock:
-   - `table-sign-letter.pdf`: 2–4 copies for 8.5x11 acrylic stands.
-   - `handout-cards-10up-letter.pdf`: 5–10 sheets (50–100 cards). Use Avery 8371/5371 card stock or cut cardstock.
-3. **Set your lock screen** to `phone-lockscreen.png`. When someone asks for your card, hold up your phone: "Scan this, it's your Builder Pass."
+2. **Set your lock screen** to `phone-lockscreen.png`. When someone asks for your card, hold up your phone: "Scan this, it's your Builder Pass."
+3. **Save `share-card-square.png` to your photos.** Text or AirDrop it to anyone you talk to; they scan it right off their own phone or tap the link.
 4. **Text your sales manager first thing tomorrow:**
    > "Morning! I'm at the LIBI dinner tonight with a 'Competition Builder Pass': VIP pricing review at all five stores, the NAHB $500 Sprinter bonus, a free fleet equity report, and one winner gets a 48-hour weekend test drive (drawing 11/17). Is the weekend loaner OK? And can we add a dollar Builder Bonus for pass holders through 12/31?"
 5. **Optional:** ask the LIBI office to put `slide-16x9.png` on the room screen during announcements.
@@ -59,11 +58,15 @@ Every LIBI member scans, fills in 30 seconds of info, and **scratches off their 
 > "Your pass has a share link. Everyone who gets a pass through it adds an entry for you. Send it to your foreman, your partner, whoever."
 
 **30-second podium version (if offered):**
-> "Good evening, I'm Mary Kate Parrish with Competition Automotive Group: Mercedes-Benz, BMW, Genesis and Subaru, a Long Island family business for over 65 years. Tonight every LIBI member gets a Builder Pass. Scan the code on your table and scratch it off. It's VIP builder pricing at all five of our stores, and one of you is going to drive a Mercedes for a weekend. Drawing's next Tuesday. Thank you!"
+> "Good evening, I'm Mary Kate Parrish with Competition Automotive Group: Mercedes-Benz, BMW, Genesis and Subaru, a Long Island family business for over 65 years. Tonight every LIBI member gets a Builder Pass. Scan the code on the screen and scratch it off. It's VIP builder pricing at all five of our stores, and one of you is going to drive a Mercedes for a weekend. Drawing's next Tuesday. Thank you!"
 
-**Placement:** a sign on every table you can reach, one at check-in, and one at the bar. People scan while they wait.
+**How the QR reaches people (no printing):**
+- **Your phone:** the lock screen is the QR. Hold it up mid-conversation.
+- **AirDrop or text:** send the square QR card to everyone you meet, so they can scan it later or pass it to a partner.
+- **The room's screen:** ask the LIBI office to show the slide during announcements.
+- **Social:** post the story image to Instagram, LinkedIn and Facebook tonight, tagged with LIBI.
 
-**On the spot:** if someone mentions a lease ending, a truck problem, or "my wife wants...", write a ⭐ on the back of their business card and call them first tomorrow.
+**On the spot:** if someone mentions a lease ending, a truck problem, or "my wife wants...", star their contact in your phone and call them first tomorrow.
 
 ---
 
@@ -75,9 +78,9 @@ Subject: `🔥 HOT Builder Pass lead: Pat Builder (Acme Homes)`. HOT means they'
 
 **Send that text to every lead before you go to sleep tomorrow.** Speed is the whole game.
 
-The entrant also gets an email that looks like their pass, with their pass number, the perks, and their share link. If the room's signal is bad, the page has a backup: a pre-written text to your work line with every detail filled in, so no lead gets lost. Every pass is also saved in the Vercel logs (search `LIBI_LEAD`).
+The entrant also gets an email that looks like their pass, with their pass number, the perks, and their share link. If the room's signal is bad, the page has a backup: a pre-written text to your cell (347.853.4238) with every detail filled in, so no lead gets lost. Every pass is also saved in the Vercel logs (search `LIBI_LEAD`).
 
-The `src` on each lead shows which QR they scanned: `table`, `card`, `phone`, `slide`, `followup`, or `share` for a friend's link.
+The `src` on each lead shows which QR they scanned: `phone` (lock screen), `slide`, `text` (QR card you sent), `social`, `followup`, or `share` for a friend's link.
 
 ---
 
@@ -115,10 +118,10 @@ One builder closing 30 homes a year is 30 warm introductions a year. Five builde
 | --- | --- |
 | Pass name, bonus, valid-through date, perks, prize, stores, phone numbers | `app/libi/campaign.ts` |
 | The page and the scratch-off pass | `app/libi/page.tsx`, `app/libi/LibiForm.tsx`, `app/libi/BuilderPass.tsx` |
-| The flow-line art (page and printables both use it) | `app/libi/flowLines.js` |
+| The flow-line art (the page and the images both use it) | `app/libi/flowLines.js` |
 | Lead emails (to you and to the entrant) | `app/api/libi/route.ts` |
 | Where leads go | Vercel env `LIBI_NOTIFY_EMAILS` (comma-separated). Default: your `LEAD_NOTIFY_EMAIL` inbox + `mparrish@mbofsmithtown.com` |
-| QR codes and printables | `node scripts/libi/build.mjs` → `output/libi/` and `public/libi/kit/` |
+| QR codes and images | `node scripts/libi/build.mjs` → `output/libi/` and `public/libi/kit/` |
 | Drawing tally | `node scripts/libi/draw.mjs entries.txt [--draw]` |
 
 **Compliance notes:** the drawing has no purchase requirement, is open to adults 21+ with a license and insurance, and has one winner. That's printed on the page and in the pass email. The prize value stays far below New York's $5,000 threshold, so no registration is required. The consent checkbox covers texting, and you honor STOP right away. Get your manager's OK on any pricing or bonus before it goes out.
