@@ -3,51 +3,54 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import FlowLines from "./FlowLines";
 import { drawFlowLines } from "./flowLines";
-import { EVENT, PASS, leadPerk } from "./campaign";
+import { CERT, EVENT, GOLD, PASS, leadPerk, levelLabel, type Level } from "./campaign";
 
 type Props = {
   holder?: string;
   code?: string;
+  /** Certificate level: Silver, or Gold once a share code is involved. */
+  level?: Level;
   /** Show the scratch-off foil over the pass until the holder scratches it away. */
   scratch?: boolean;
   onRevealed?: () => void;
 };
 
-/** Competition Automotive Group palette (matches the cag-* tokens in globals.css): the group's
- * header is black, with a white COMPETITION, steel-blue AUTOMOTIVE GROUP and a silver swoosh. */
+/** Competition Automotive Group palette (matches the cag-* tokens in globals.css): dark navy and
+ * white, with a bright blue accent and gold for the upgraded certificate. */
 export const CAG = {
-  ink: "#0B0C0E",
-  panel: "#15171A",
-  charcoal: "#2A2D32",
-  steel: "#7D96A8",
-  silver: "#A9ADB1",
-  silverRgb: "200,204,208",
+  ink: "#06142E",
+  panel: "#0C2247",
+  charcoal: "#1B3F7A",
+  steel: "#5EB0FF",
+  silver: "#B9C9E4",
+  silverRgb: "214,228,255",
+  gold: "#F2C14E",
 };
 const CARD_BG = `linear-gradient(135deg, ${CAG.charcoal} 0%, ${CAG.panel} 50%, ${CAG.ink} 100%)`;
 
-/** The Competition wordmark set in type: white COMPETITION over steel-blue AUTOMOTIVE GROUP. */
+/** The Competition wordmark set in type: white COMPETITION over bright-blue AUTOMOTIVE GROUP. */
 export function CompetitionMark({ size = 1, className = "" }: { size?: number; className?: string }) {
   return (
     <div className={`font-cag leading-none ${className}`}>
-      <div style={{ fontSize: `${1.05 * size}rem`, fontWeight: 500, letterSpacing: "0.07em", color: "#FFFFFF" }}>COMPETITION</div>
-      <div style={{ fontSize: `${0.44 * size}rem`, fontWeight: 400, letterSpacing: "0.3em", marginTop: `${0.28 * size}rem`, color: CAG.steel }}>
+      <div style={{ fontSize: `${1.05 * size}rem`, fontWeight: 700, letterSpacing: "0.07em", color: "#FFFFFF" }}>COMPETITION</div>
+      <div style={{ fontSize: `${0.44 * size}rem`, fontWeight: 600, letterSpacing: "0.3em", marginTop: `${0.28 * size}rem`, color: CAG.steel }}>
         AUTOMOTIVE GROUP
       </div>
     </div>
   );
 }
 
-/** The Competition Builder Pass card: black member card, white type, silver flow lines. */
-export default function BuilderPass({ holder, code, scratch = false, onRevealed }: Props) {
+/** The Competition Builder Pass card: navy member card, white type, pale-blue flow lines. */
+export default function BuilderPass({ holder, code, level = "silver", scratch = false, onRevealed }: Props) {
   const locked = !holder || !code;
   return (
     <div className="relative mx-auto w-full max-w-[440px] select-none" style={{ aspectRatio: "1.586" }}>
       <div
         className="absolute inset-0 overflow-hidden rounded-2xl"
-        style={{ background: CARD_BG, boxShadow: "0 18px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(169,173,177,0.35)" }}
+        style={{ background: CARD_BG, boxShadow: "0 18px 50px rgba(2,8,22,0.6), inset 0 0 0 1.5px rgba(255,255,255,0.55)" }}
       >
         <FlowLines className="absolute inset-0 h-full w-full" focusY={0.72} count={22} alpha={0.34} rgb={CAG.silverRgb} />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_90%_0%,rgba(125,150,168,0.22),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_90%_0%,rgba(94,176,255,0.22),transparent_55%)]" />
         <div className="relative flex h-full flex-col justify-between p-[6%] font-cag text-white">
           <div className="flex items-start justify-between gap-3">
             <CompetitionMark size={0.92} />
@@ -62,6 +65,15 @@ export default function BuilderPass({ holder, code, scratch = false, onRevealed 
               Builder Pass
             </div>
             {PASS.bonus && <div className="mt-1 text-sm font-medium text-cag-accent">{PASS.bonus}</div>}
+            <div className="mt-2 flex items-center gap-2 text-[0.52rem] font-semibold uppercase tracking-[0.2em]">
+              <span
+                className="rounded-full px-2 py-[0.2rem]"
+                style={{ background: level === "gold" ? CAG.gold : "#FFFFFF", color: CAG.ink, borderRadius: 999 }}
+              >
+                {levelLabel(level)}
+              </span>
+              <span className="text-white">{CERT.short}</span>
+            </div>
           </div>
           <div className="flex items-end justify-between gap-3">
             <div className="min-w-0">
@@ -76,6 +88,55 @@ export default function BuilderPass({ holder, code, scratch = false, onRevealed 
         </div>
       </div>
       {scratch && !locked && <ScratchFoil onRevealed={onRevealed} />}
+    </div>
+  );
+}
+
+/** The certificate itself, drawn as a tear-off coupon: white stock, navy type, a perforated stub with the code. */
+export function Certificate({ code, level = "silver" }: { code?: string; level?: Level }) {
+  const gold = level === "gold";
+  return (
+    <div
+      className="mx-auto flex w-full max-w-[440px] overflow-hidden rounded-2xl bg-white font-cag"
+      style={{ color: CAG.ink, boxShadow: "0 14px 40px rgba(2,8,22,0.55)" }}
+    >
+      <div className="min-w-0 flex-1 p-5">
+        <div className="flex items-center gap-2 text-[0.58rem] font-bold uppercase tracking-[0.24em]" style={{ color: "#1557C0" }}>
+          Certificate
+          <span className="rounded-full px-2 py-[0.15rem] tracking-[0.18em]" style={{ background: gold ? CAG.gold : CAG.ink, color: gold ? CAG.ink : "#FFFFFF", borderRadius: 999 }}>
+            {levelLabel(level)}
+          </span>
+        </div>
+        <div className="mt-2 text-lg font-bold uppercase leading-tight tracking-[0.04em]" style={{ color: CAG.ink }}>
+          {CERT.headline}
+        </div>
+        <div className="mt-2 text-[0.8rem] font-medium leading-5" style={{ color: "#33415C" }}>
+          {CERT.detail}
+        </div>
+        <div className="mt-3 text-[0.8rem] font-semibold leading-5" style={{ color: CAG.ink }}>
+          {gold ? (
+            <>
+              <span style={{ background: CAG.gold, padding: "0 0.3rem" }}>{GOLD.label}</span> {GOLD.reward}. {GOLD.desc}
+            </>
+          ) : (
+            <>
+              Share your code to go {GOLD.label}: {GOLD.reward.toLowerCase()}.
+            </>
+          )}
+        </div>
+      </div>
+      <div
+        className="flex w-[30%] shrink-0 flex-col items-center justify-center gap-1 px-2 py-5 text-center"
+        style={{ borderLeft: `2px dashed ${CAG.ink}`, background: "#EEF3FA" }}
+      >
+        <div className="text-[0.5rem] font-bold uppercase tracking-[0.22em]" style={{ color: "#1557C0" }}>Code</div>
+        <div className="text-base font-bold tracking-[0.1em]" style={{ color: CAG.ink }}>{code || "• • • •"}</div>
+        <div className="mt-1 text-[0.5rem] font-semibold uppercase leading-4 tracking-[0.16em]" style={{ color: "#33415C" }}>
+          In showroom
+          <br />
+          thru {PASS.validShort}
+        </div>
+      </div>
     </div>
   );
 }
@@ -206,8 +267,8 @@ function ScratchFoil({ onRevealed }: { onRevealed?: () => void }) {
 }
 
 /** Draws the pass as a 1200x756 PNG for the holder's camera roll. */
-export async function savePassImage(holder: string, code: string) {
-  await Promise.all(["300", "500", "600"].map((w) => document.fonts.load(`${w} 40px Montserrat`))).catch(() => undefined);
+export async function savePassImage(holder: string, code: string, level: Level = "silver") {
+  await Promise.all(["300", "500", "600", "700"].map((w) => document.fonts.load(`${w} 40px Montserrat`))).catch(() => undefined);
   const W = 1200;
   const H = 756;
   const c = document.createElement("canvas");
@@ -227,18 +288,18 @@ export async function savePassImage(holder: string, code: string) {
   ctx.fillRect(0, 0, W, H);
   ctx.globalCompositeOperation = "source-over";
   const glow = ctx.createRadialGradient(W * 0.9, 0, 0, W * 0.9, 0, W * 0.55);
-  glow.addColorStop(0, "rgba(125,150,168,0.24)");
-  glow.addColorStop(1, "rgba(125,150,168,0)");
+  glow.addColorStop(0, "rgba(94,176,255,0.24)");
+  glow.addColorStop(1, "rgba(94,176,255,0)");
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = "rgba(169,173,177,0.45)";
+  ctx.strokeStyle = "rgba(255,255,255,0.6)";
   ctx.lineWidth = 2;
   ctx.strokeRect(24, 24, W - 48, H - 48);
 
   const P = 72;
   ctx.fillStyle = "#FFFFFF";
   ctx.textBaseline = "alphabetic";
-  ctx.font = `500 46px ${F}`;
+  ctx.font = `700 46px ${F}`;
   ctx.letterSpacing = "3px";
   ctx.fillText("COMPETITION", P, P + 44);
   ctx.fillStyle = CAG.steel;
@@ -255,11 +316,26 @@ export async function savePassImage(holder: string, code: string) {
   ctx.fillStyle = "#FFFFFF";
   ctx.font = `600 104px ${F}`;
   ctx.letterSpacing = "14px";
-  ctx.fillText("BUILDER PASS", P - 2, 450);
-  ctx.font = `500 26px ${F}`;
-  ctx.letterSpacing = "2px";
+  ctx.fillText("BUILDER PASS", P - 2, 430);
+  // Level pill, then what the pass carries.
+  const pill = levelLabel(level).toUpperCase();
+  ctx.font = `700 22px ${F}`;
+  ctx.letterSpacing = "5px";
+  const pw = ctx.measureText(pill).width + 44;
+  ctx.fillStyle = level === "gold" ? CAG.gold : "#FFFFFF";
+  ctx.beginPath();
+  ctx.roundRect(P, 462, pw, 44, 22);
+  ctx.fill();
+  ctx.fillStyle = CAG.ink;
+  ctx.fillText(pill, P + 22, 492);
+  ctx.fillStyle = "#FFFFFF";
+  ctx.font = `600 24px ${F}`;
+  ctx.letterSpacing = "3px";
+  ctx.fillText(CERT.name.toUpperCase(), P + pw + 20, 492);
+  ctx.font = `500 22px ${F}`;
+  ctx.letterSpacing = "1px";
   ctx.fillStyle = CAG.silver;
-  ctx.fillText(`${leadPerk().title} · +$500 Sprinter · Mercedes weekend drawing`, P, 506);
+  ctx.fillText(`${leadPerk().title} · +$500 Sprinter${level === "gold" ? ` · ${GOLD.reward}` : ""} · Redeem in the showroom`, P, 548);
 
   ctx.fillStyle = CAG.silver;
   ctx.font = `600 17px ${F}`;
