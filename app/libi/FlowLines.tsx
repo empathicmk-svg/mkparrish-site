@@ -13,7 +13,7 @@ type Props = {
   rgb?: string;
 };
 
-/** Animated flow lines on a canvas (white by default, for the Competition sage). Holds still for people who prefer reduced motion. */
+/** Animated flow lines on a canvas (white by default; the pass uses Competition silver). Holds still for people who prefer reduced motion. */
 export default function FlowLines({ className, origin = "left", focusY = 0.6, count = 28, alpha = 0.55, rgb = "255,255,255" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
 
