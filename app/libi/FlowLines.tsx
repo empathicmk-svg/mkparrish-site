@@ -9,10 +9,12 @@ type Props = {
   focusY?: number;
   count?: number;
   alpha?: number;
+  /** Line colour as "r,g,b". */
+  rgb?: string;
 };
 
-/** Animated MK Parrish flow lines on a canvas. Holds still for people who prefer reduced motion. */
-export default function FlowLines({ className, origin = "left", focusY = 0.6, count = 28, alpha = 0.55 }: Props) {
+/** Animated flow lines on a canvas (white by default, for the Competition sage). Holds still for people who prefer reduced motion. */
+export default function FlowLines({ className, origin = "left", focusY = 0.6, count = 28, alpha = 0.55, rgb = "255,255,255" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function FlowLines({ className, origin = "left", focusY = 0.6, co
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     const frame = (ms: number) => {
-      drawFlowLines(ctx, w, h, still ? 2 : ms / 1000, { origin, focusY, count, alpha });
+      drawFlowLines(ctx, w, h, still ? 2 : ms / 1000, { origin, focusY, count, alpha, rgb });
       if (!still) raf = requestAnimationFrame(frame);
     };
 
@@ -49,7 +51,7 @@ export default function FlowLines({ className, origin = "left", focusY = 0.6, co
       cancelAnimationFrame(raf);
       ro.disconnect();
     };
-  }, [origin, focusY, count, alpha]);
+  }, [origin, focusY, count, alpha, rgb]);
 
   return <canvas ref={ref} aria-hidden="true" className={className} />;
 }

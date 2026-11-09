@@ -5,9 +5,6 @@ import FlowLines from "./FlowLines";
 import { drawFlowLines } from "./flowLines";
 import { EVENT, PASS, leadPerk } from "./campaign";
 
-// The site's global .font-serif is bold; the pass uses regular Playfair italic.
-const SERIF = { fontWeight: 400 } as const;
-
 type Props = {
   holder?: string;
   code?: string;
@@ -16,46 +13,64 @@ type Props = {
   onRevealed?: () => void;
 };
 
-const PINK = "#FFB5D0";
+/** Competition Automotive Group palette (matches the cag-* tokens in globals.css). */
+export const CAG = {
+  sage: "#6B7F74",
+  sageLight: "#7F9488",
+  deep: "#3D4B44",
+  ink: "#1B2320",
+  accent: "#A9C1B4",
+  mist: "#C9D3CE",
+  fog: "#8C9C94",
+};
+const CARD_BG = `linear-gradient(135deg, ${CAG.sageLight} 0%, ${CAG.sage} 45%, ${CAG.deep} 100%)`;
 
-/** The Competition Builder Pass card: MK Parrish black, a fine pink frame and flow lines. */
+/** The Competition wordmark set in type: wide, light "COMPETITION" over spaced "AUTOMOTIVE GROUP". */
+export function CompetitionMark({ size = 1, className = "" }: { size?: number; className?: string }) {
+  return (
+    <div className={`font-cag leading-none text-white ${className}`}>
+      <div style={{ fontSize: `${1.05 * size}rem`, fontWeight: 300, letterSpacing: "0.2em" }}>COMPETITION</div>
+      <div style={{ fontSize: `${0.42 * size}rem`, fontWeight: 500, letterSpacing: "0.42em", marginTop: `${0.3 * size}rem`, opacity: 0.85 }}>
+        AUTOMOTIVE GROUP
+      </div>
+    </div>
+  );
+}
+
+/** The Competition Builder Pass card: sage member card, white type and flow lines. */
 export default function BuilderPass({ holder, code, scratch = false, onRevealed }: Props) {
   const locked = !holder || !code;
   return (
     <div className="relative mx-auto w-full max-w-[440px] select-none" style={{ aspectRatio: "1.586" }}>
       <div
-        className="absolute inset-0 overflow-hidden rounded-2xl border border-petal/50 bg-void"
-        style={{ boxShadow: "0 0 50px rgba(242,175,198,0.18), inset 0 0 0 1px rgba(255,255,255,0.04)" }}
+        className="absolute inset-0 overflow-hidden rounded-2xl"
+        style={{ background: CARD_BG, boxShadow: "0 18px 50px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.18)" }}
       >
-        <FlowLines className="absolute inset-0 h-full w-full" focusY={0.7} count={22} alpha={0.5} />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_85%_0%,rgba(255,181,208,0.16),transparent_60%)]" />
-        <div className="relative flex h-full flex-col justify-between p-[6%]">
-          <div className="flex items-start justify-between">
-            <div className="font-display text-[clamp(1rem,4.6vw,1.35rem)] uppercase leading-none tracking-[0.12em] text-pearl">MK Parrish</div>
-            <div className="text-right font-body text-[0.55rem] font-semibold uppercase leading-[1.5] tracking-[0.22em] text-petal">
+        <FlowLines className="absolute inset-0 h-full w-full" focusY={0.72} count={22} alpha={0.32} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_90%_0%,rgba(255,255,255,0.18),transparent_55%)]" />
+        <div className="relative flex h-full flex-col justify-between p-[6%] font-cag text-white">
+          <div className="flex items-start justify-between gap-3">
+            <CompetitionMark size={0.92} />
+            <div className="text-right text-[0.5rem] font-semibold uppercase leading-[1.6] tracking-[0.22em] text-white/85">
               LIBI · {EVENT.dateShort}
               <br />
-              <span className="text-ash">Valid thru {PASS.validShort}</span>
+              Valid thru {PASS.validShort}
             </div>
           </div>
           <div>
-            <div className="font-body text-[0.55rem] font-semibold uppercase tracking-[0.3em] text-ash">Competition Automotive Group</div>
-            <div
-              className="font-display uppercase leading-[0.9] text-petal"
-              style={{ fontSize: "clamp(1.9rem, 9.5vw, 2.75rem)", textShadow: "0 0 26px rgba(242,175,198,0.45)" }}
-            >
+            <div className="uppercase leading-none" style={{ fontSize: "clamp(1.45rem, 7.4vw, 2.05rem)", fontWeight: 600, letterSpacing: "0.12em" }}>
               Builder Pass
             </div>
-            {PASS.bonus && <div className="mt-1 font-serif text-sm italic text-pearl" style={SERIF}>{PASS.bonus}</div>}
+            {PASS.bonus && <div className="mt-1 text-sm font-medium text-white/90">{PASS.bonus}</div>}
           </div>
           <div className="flex items-end justify-between gap-3">
             <div className="min-w-0">
-              <div className="font-body text-[0.5rem] font-semibold uppercase tracking-[0.28em] text-ash">Pass holder</div>
-              <div className="truncate font-serif text-[clamp(0.95rem,4.2vw,1.2rem)] italic text-pearl" style={SERIF}>{locked ? "Your name here" : holder}</div>
+              <div className="text-[0.48rem] font-semibold uppercase tracking-[0.28em] text-white/70">Pass holder</div>
+              <div className="truncate text-[clamp(0.85rem,3.9vw,1.05rem)] font-medium tracking-[0.04em]">{locked ? "Your name here" : holder}</div>
             </div>
             <div className="shrink-0 text-right">
-              <div className="font-body text-[0.5rem] font-semibold uppercase tracking-[0.28em] text-ash">Pass №</div>
-              <div className="font-display text-[clamp(1.2rem,5.6vw,1.6rem)] leading-none tracking-[0.08em] text-pearl">{locked ? "• • • •" : code}</div>
+              <div className="text-[0.48rem] font-semibold uppercase tracking-[0.28em] text-white/70">Pass №</div>
+              <div className="text-[clamp(1rem,4.8vw,1.35rem)] font-semibold leading-tight tracking-[0.14em]">{locked ? "• • • •" : code}</div>
             </div>
           </div>
         </div>
@@ -65,7 +80,7 @@ export default function BuilderPass({ holder, code, scratch = false, onRevealed 
   );
 }
 
-/** A pink foil layer drawn on a canvas. Finger or mouse strokes erase it; past ~40% it dissolves. */
+/** A brushed-silver foil layer drawn on a canvas. Finger or mouse strokes erase it; past ~40% it dissolves. */
 function ScratchFoil({ onRevealed }: { onRevealed?: () => void }) {
   const ref = useRef<HTMLCanvasElement>(null);
   const [gone, setGone] = useState(false);
@@ -85,11 +100,11 @@ function ScratchFoil({ onRevealed }: { onRevealed?: () => void }) {
     ctx.scale(dpr, dpr);
 
     const foil = ctx.createLinearGradient(0, 0, w, h);
-    foil.addColorStop(0, "#F58CAD");
-    foil.addColorStop(0.35, "#FFE0EC");
-    foil.addColorStop(0.55, "#FFB5D0");
-    foil.addColorStop(0.8, "#FAFAF8");
-    foil.addColorStop(1, "#F58CAD");
+    foil.addColorStop(0, "#AEB8B3");
+    foil.addColorStop(0.3, "#EEF2F0");
+    foil.addColorStop(0.52, "#C3CDC8");
+    foil.addColorStop(0.75, "#F7F9F8");
+    foil.addColorStop(1, "#9FAAA4");
     ctx.fillStyle = foil;
     ctx.fillRect(0, 0, w, h);
     // Fine diagonal sheen so it reads as foil, not a flat block.
@@ -101,16 +116,18 @@ function ScratchFoil({ onRevealed }: { onRevealed?: () => void }) {
       ctx.lineTo(x + h, 0);
       ctx.stroke();
     }
-    ctx.fillStyle = "#080808";
+    ctx.fillStyle = CAG.deep;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     const draw = () => {
-      ctx.font = `${Math.round(w * 0.09)}px "Bebas Neue", Impact, sans-serif`;
-      ctx.fillText("SCRATCH TO REVEAL", w / 2, h / 2 - w * 0.035);
-      ctx.font = `600 ${Math.round(w * 0.028)}px "DM Sans", sans-serif`;
-      ctx.fillText("YOUR BUILDER PASS", w / 2, h / 2 + w * 0.045);
+      ctx.font = `600 ${Math.round(w * 0.052)}px Montserrat, Arial, sans-serif`;
+      ctx.letterSpacing = `${Math.round(w * 0.012)}px`;
+      ctx.fillText("SCRATCH TO REVEAL", w / 2, h / 2 - w * 0.03);
+      ctx.font = `500 ${Math.round(w * 0.026)}px Montserrat, Arial, sans-serif`;
+      ctx.letterSpacing = `${Math.round(w * 0.01)}px`;
+      ctx.fillText("YOUR COMPETITION BUILDER PASS", w / 2, h / 2 + w * 0.045);
     };
-    document.fonts.load('40px "Bebas Neue"').then(draw, draw);
+    document.fonts.load('600 40px Montserrat').then(draw, draw);
   }, []);
 
   const clearedRatio = () => {
@@ -190,11 +207,7 @@ function ScratchFoil({ onRevealed }: { onRevealed?: () => void }) {
 
 /** Draws the pass as a 1200x756 PNG for the holder's camera roll. */
 export async function savePassImage(holder: string, code: string) {
-  await Promise.all([
-    document.fonts.load('80px "Bebas Neue"'),
-    document.fonts.load('italic 40px "Playfair Display"'),
-    document.fonts.load('600 20px "DM Sans"'),
-  ]).catch(() => undefined);
+  await Promise.all(["300", "500", "600"].map((w) => document.fonts.load(`${w} 40px Montserrat`))).catch(() => undefined);
   const W = 1200;
   const H = 756;
   const c = document.createElement("canvas");
@@ -202,68 +215,65 @@ export async function savePassImage(holder: string, code: string) {
   c.height = H;
   const ctx = c.getContext("2d");
   if (!ctx) return;
+  const F = "Montserrat, Arial, sans-serif";
 
-  ctx.fillStyle = "#080808";
-  ctx.fillRect(0, 0, W, H);
-  drawFlowLines(ctx, W, H, 2, { focusY: 0.7, count: 30, alpha: 0.5, lineWidth: 2 });
+  drawFlowLines(ctx, W, H, 2, { focusY: 0.72, count: 30, alpha: 0.32, lineWidth: 2 });
   ctx.globalCompositeOperation = "destination-over";
-  ctx.fillStyle = "#080808";
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, CAG.sageLight);
+  bg.addColorStop(0.45, CAG.sage);
+  bg.addColorStop(1, CAG.deep);
+  ctx.fillStyle = bg;
   ctx.fillRect(0, 0, W, H);
   ctx.globalCompositeOperation = "source-over";
-  const glow = ctx.createRadialGradient(W * 0.85, 0, 0, W * 0.85, 0, W * 0.6);
-  glow.addColorStop(0, "rgba(255,181,208,0.18)");
-  glow.addColorStop(1, "rgba(255,181,208,0)");
+  const glow = ctx.createRadialGradient(W * 0.9, 0, 0, W * 0.9, 0, W * 0.55);
+  glow.addColorStop(0, "rgba(255,255,255,0.2)");
+  glow.addColorStop(1, "rgba(255,255,255,0)");
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = "rgba(255,181,208,0.5)";
+  ctx.strokeStyle = "rgba(255,255,255,0.35)";
   ctx.lineWidth = 2;
   ctx.strokeRect(24, 24, W - 48, H - 48);
 
   const P = 72;
+  ctx.fillStyle = "#FFFFFF";
   ctx.textBaseline = "alphabetic";
-  ctx.fillStyle = "#F0F0EE";
-  ctx.font = '56px "Bebas Neue", Impact, sans-serif';
+  ctx.font = `300 46px ${F}`;
+  ctx.letterSpacing = "10px";
+  ctx.fillText("COMPETITION", P, P + 44);
+  ctx.font = `500 17px ${F}`;
   ctx.letterSpacing = "8px";
-  ctx.fillText("MK PARRISH", P, P + 48);
+  ctx.fillText("AUTOMOTIVE GROUP", P + 2, P + 78);
   ctx.textAlign = "right";
-  ctx.font = '600 20px "DM Sans", sans-serif';
+  ctx.font = `600 18px ${F}`;
   ctx.letterSpacing = "5px";
-  ctx.fillStyle = PINK;
   ctx.fillText(`LIBI · ${EVENT.dateShort.toUpperCase()}`, W - P, P + 22);
-  ctx.fillStyle = "#7A7A7A";
   ctx.fillText(`VALID THRU ${PASS.validShort.toUpperCase()}`, W - P, P + 52);
 
   ctx.textAlign = "left";
-  ctx.fillStyle = "#7A7A7A";
-  ctx.fillText("COMPETITION AUTOMOTIVE GROUP", P, 360);
+  ctx.font = `600 104px ${F}`;
+  ctx.letterSpacing = "14px";
+  ctx.fillText("BUILDER PASS", P - 2, 450);
+  ctx.font = `500 26px ${F}`;
   ctx.letterSpacing = "2px";
-  ctx.fillStyle = PINK;
-  ctx.shadowColor = "rgba(242,175,198,0.6)";
-  ctx.shadowBlur = 40;
-  ctx.font = '150px "Bebas Neue", Impact, sans-serif';
-  ctx.fillText("BUILDER PASS", P - 4, 500);
-  ctx.shadowBlur = 0;
-  const perk = leadPerk().title;
-  ctx.font = 'italic 34px "Playfair Display", Georgia, serif';
-  ctx.fillStyle = "#F0F0EE";
-  ctx.letterSpacing = "0px";
-  ctx.fillText(`${perk} · +$500 Sprinter · Mercedes weekend drawing`, P, 556);
+  ctx.fillStyle = "rgba(255,255,255,0.9)";
+  ctx.fillText(`${leadPerk().title} · +$500 Sprinter · Mercedes weekend drawing`, P, 506);
 
-  ctx.fillStyle = "#7A7A7A";
-  ctx.font = '600 18px "DM Sans", sans-serif';
+  ctx.fillStyle = "rgba(255,255,255,0.72)";
+  ctx.font = `600 17px ${F}`;
   ctx.letterSpacing = "5px";
   ctx.fillText("PASS HOLDER", P, H - 130);
   ctx.textAlign = "right";
   ctx.fillText("PASS №", W - P, H - 130);
+  ctx.fillStyle = "#FFFFFF";
   ctx.textAlign = "left";
-  ctx.letterSpacing = "0px";
-  ctx.fillStyle = "#F0F0EE";
-  ctx.font = 'italic 46px "Playfair Display", Georgia, serif';
-  ctx.fillText(holder, P, H - 76);
+  ctx.font = `500 42px ${F}`;
+  ctx.letterSpacing = "2px";
+  ctx.fillText(holder, P, H - 78);
   ctx.textAlign = "right";
-  ctx.font = '72px "Bebas Neue", Impact, sans-serif';
-  ctx.letterSpacing = "6px";
-  ctx.fillText(code, W - P, H - 74);
+  ctx.font = `600 56px ${F}`;
+  ctx.letterSpacing = "8px";
+  ctx.fillText(code, W - P, H - 76);
 
   const name = `builder-pass-${code}.png`;
   // On phones, the share sheet offers "Save Image" straight to Photos.

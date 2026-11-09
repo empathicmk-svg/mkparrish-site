@@ -1,5 +1,5 @@
 /**
- * MK Parrish "flow lines": a bundle of fine pink lines that fans out like a road
+ * "Flow lines": a bundle of fine lines that fans out like a road
  * at speed. Plain JavaScript, so the /libi page animates it on a canvas and
  * scripts/libi/build.mjs draws the same art into the printed signs and cards.
  *
@@ -10,7 +10,7 @@
  */
 export function drawFlowLines(ctx, w, h, t = 0, o = {}) {
   const count = o.count ?? 28;
-  const rgb = o.rgb ?? "255,181,208";
+  const rgb = o.rgb ?? "255,255,255";
   const alpha = o.alpha ?? 0.55;
   const focusY = o.focusY ?? 0.6;
   const spread = o.spread ?? 0.95;
