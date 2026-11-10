@@ -12,9 +12,8 @@
  *                          once, then the sign hums over MK's "soft" bed
  * plus posts.json and CAPTIONS.md with the captions, links and hashtags.
  *
- * Typeface: Proxima Nova when its font files are in
- * scripts/assets/fonts/proxima-nova/ (it's a licensed font, so it isn't in the
- * repo); otherwise Montserrat, its closest open-licence match.
+ * Typefaces match mkparrish.com: the quote glows in Playfair Display italic,
+ * the name is Bebas Neue and the small print is DM Sans.
  *
  * Run:  PUPPETEER_EXECUTABLE_PATH=/path/to/chrome node scripts/build-neon-quotes.mjs [slug ...] [--no-video]
  * Needs ffmpeg, numpy (for scripts/audio/mix-timed.py) and output/audio/soft.wav.
@@ -29,7 +28,6 @@ import { NEON_QUOTES } from './neon-quotes.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'output', 'neon-quotes');
-const PROXIMA_DIR = path.join(ROOT, 'scripts', 'assets', 'fonts', 'proxima-nova');
 const FPS = 30;
 
 const args = process.argv.slice(2);
@@ -37,28 +35,16 @@ const withVideo = !args.includes('--no-video');
 const only = args.filter((a) => !a.startsWith('--'));
 
 // ── Typeface ─────────────────────────────────────────────────────────────────
-function proximaFaces() {
-  if (!fs.existsSync(PROXIMA_DIR)) return '';
-  const files = fs.readdirSync(PROXIMA_DIR).filter((f) => /\.(woff2?|otf|ttf)$/i.test(f));
-  const weight = (f) => (/black|extrabold/i.test(f) ? 800 : /bold/i.test(f) && !/semi/i.test(f) ? 700 : /semi/i.test(f) ? 600 : /medium/i.test(f) ? 500 : /light/i.test(f) ? 300 : 400);
-  const fmt = { woff2: 'woff2', woff: 'woff', otf: 'opentype', ttf: 'truetype' };
-  return files
-    .filter((f) => !/italic|it\./i.test(f))
-    .map((f) => {
-      const ext = f.split('.').pop().toLowerCase();
-      const data = fs.readFileSync(path.join(PROXIMA_DIR, f)).toString('base64');
-      return `@font-face{font-family:'Proxima Nova';font-weight:${weight(f)};src:url(data:font/${ext};base64,${data}) format('${fmt[ext]}');}`;
-    })
-    .join('\n');
-}
-const PROXIMA = proximaFaces();
-const FONT_STACK = `${PROXIMA ? "'Proxima Nova', " : ''}'Montserrat', sans-serif`;
-const MONTSERRAT = PROXIMA ? '' : await inlineGoogleFonts('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
-console.log(`Typeface: ${PROXIMA ? 'Proxima Nova' : 'Montserrat (add Proxima Nova files to scripts/assets/fonts/proxima-nova/ to use it)'}`);
+// The website's own fonts (app/globals.css): Playfair Display italic for the
+// quote, Bebas Neue for the name, DM Sans for the small print.
+const FONTS = await inlineGoogleFonts('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@1,500;1,600&family=DM+Sans:wght@500;600&display=swap');
+const SERIF = "'Playfair Display', Georgia, serif";
+const DISPLAY = "'Bebas Neue', Impact, sans-serif";
+const BODY = "'DM Sans', system-ui, sans-serif";
 
 // ── Template ─────────────────────────────────────────────────────────────────
 const FORMATS = {
-  reel: { w: 1080, h: 1920, frame: 64, pad: 150, size: 118, maxH: 880, kicker: 250, foot: 330, from: 26 },
+  reel: { w: 1080, h: 1920, frame: 64, pad: 120, size: 118, maxH: 880, kicker: 250, foot: 330, from: 26 },
   feed: { w: 1080, h: 1350, frame: 48, pad: 120, size: 104, maxH: 660, kicker: 120, foot: 112, from: 24 },
 };
 const BRICK = "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='168' height='76'><g fill='none' stroke='%23ffffff' stroke-width='2'><path d='M0 1H168M0 39H168M1 1V39M85 39V76'/></g></svg>\")";
@@ -75,8 +61,7 @@ function html(q, format, state) {
       return `<div class="l${on ? ` on ${pink ? 'p' : 'w'}` : ''}">${esc(text)}</div>`;
     })
     .join('');
-  return `<!doctype html><html><head><meta charset="utf-8">${MONTSERRAT}<style>
-${PROXIMA}
+  return `<!doctype html><html><head><meta charset="utf-8">${FONTS}<style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:${f.w}px;height:${f.h}px;overflow:hidden;background:#07050a}
 .wall,.brick,.wash,.vig{position:absolute;inset:0}
@@ -86,17 +71,17 @@ html,body{width:${f.w}px;height:${f.h}px;overflow:hidden;background:#07050a}
 .vig{background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.72) 100%)}
 .frame{position:absolute;inset:${f.frame}px;border-radius:46px;border:5px solid rgba(255,255,255,.06)}
 .frame.on{border-color:#ffd3ea;box-shadow:0 0 3px #fff,0 0 12px #ff5fb0,0 0 30px #ff2d95,0 0 64px rgba(255,45,149,.6),inset 0 0 12px #ff5fb0,inset 0 0 34px rgba(255,45,149,.45)}
-.kicker{position:absolute;top:${f.kicker}px;left:0;right:0;text-align:center;font:600 22px/1 ${FONT_STACK};letter-spacing:.42em;text-transform:uppercase;color:#7d7d7d}
+.kicker{position:absolute;top:${f.kicker}px;left:0;right:0;text-align:center;font:400 36px/1 ${DISPLAY};letter-spacing:.3em;color:#8a8a8a}
 .stage{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 ${f.pad}px}
 .q{width:100%;display:flex;flex-direction:column;align-items:center}
-.l{white-space:nowrap;font-family:${FONT_STACK};font-weight:600;font-size:${f.size}px;line-height:1.16;letter-spacing:-.005em;color:rgba(255,255,255,.085);text-shadow:0 0 1px rgba(255,255,255,.1)}
+.l{white-space:nowrap;font-family:${SERIF};font-style:italic;font-weight:600;font-size:${f.size}px;line-height:1.2;color:rgba(255,255,255,.085);text-shadow:0 0 1px rgba(255,255,255,.1)}
 .l.on.w{color:#ffffff;text-shadow:0 0 2px #fff,0 0 7px #fff,0 0 16px rgba(255,240,248,.9),0 0 34px rgba(255,190,225,.55),0 0 70px rgba(255,95,176,.35)}
 .l.on.p{color:#ff8fca;text-shadow:0 0 2px #ffe0f0,0 0 6px #ff6fbc,0 0 14px #ff2d95,0 0 28px #ff2d95,0 0 54px #ff1f8e,0 0 110px rgba(255,31,142,.85)}
-.from{margin-top:1.3em;font:600 ${f.from}px/1 ${FONT_STACK};letter-spacing:.34em;text-transform:uppercase;color:rgba(242,175,198,${state.frame ? 0.9 : 0.25})}
+.from{margin-top:1.3em;font:600 ${f.from}px/1 ${BODY};letter-spacing:.34em;text-transform:uppercase;color:rgba(242,175,198,${state.frame ? 0.9 : 0.25})}
 .foot{position:absolute;bottom:${f.foot}px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:22px}
-.heart{font:600 50px/1 ${FONT_STACK};color:rgba(255,255,255,.08)}
+.heart{font:600 50px/1 ${BODY};color:rgba(255,255,255,.08)}
 .heart.on{color:#ffe2f1;text-shadow:0 0 4px #fff,0 0 12px #ff5fb0,0 0 28px #ff2d95,0 0 54px #ff2d95}
-.handle{font:600 21px/1 ${FONT_STACK};letter-spacing:.32em;text-transform:uppercase;color:#6c6c6c}
+.handle{font:600 21px/1 ${BODY};letter-spacing:.32em;text-transform:uppercase;color:#6c6c6c}
 </style></head><body>
 <div class="wall"></div><div class="brick"></div><div class="wash"></div><div class="vig"></div>
 <div class="frame${state.frame ? ' on' : ''}"></div>
