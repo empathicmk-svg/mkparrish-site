@@ -8,6 +8,8 @@ every cut and a low hit on the beat it lands on. Everything is synthesised here
 Cue sheet (JSON, times in seconds from the start of the reel):
   {"duration": 18.2, "bed": "output/audio/showroom.wav",
    "cuts": [2.03, 4.07], "keys": [0.4, 0.43], "outs": [3.1], "duck": [[0.2, 3.4]]}
+Neon reels also use "zaps" (a tube striking, one per flicker-on) and
+"hum" ([start, end] ranges of a lit sign's low buzz).
 
 Run: python3 scripts/audio/mix-timed.py cues.json out.wav   (needs numpy)
 """
@@ -67,6 +69,25 @@ def hit():
     return (sub + snap) * 0.7
 
 
+def zap():
+    """A neon tube striking: a crackle of filtered noise over a decaying 120 Hz buzz."""
+    n = int(0.28 * SR)
+    t = np.arange(n) / SR
+    noise = rng.standard_normal(n)
+    crackle = (noise - lowpass(noise, 1800)) * decay(n, 0.012) * 0.55
+    buzz = sum(np.sin(2 * np.pi * 120 * k * t) / k for k in (1, 2, 3, 5)) * decay(n, 0.07) * 0.32
+    return crackle + buzz
+
+
+def hum(seconds):
+    """The steady mains buzz of a lit sign, with a slow flutter so it doesn't sit still."""
+    n = int(seconds * SR)
+    t = np.arange(n) / SR
+    tone = sum(np.sin(2 * np.pi * 120 * k * t) / k ** 1.5 for k in (1, 2, 3, 4))
+    flutter = 1 + 0.15 * np.sin(2 * np.pi * 0.7 * t)
+    return tone * flutter * 0.035
+
+
 def place(track, sound, at, gain=1.0, pan=0.0):
     i = int(round(at * SR))
     if i >= track.shape[0]:
@@ -108,6 +129,10 @@ def main(cue_file, out_file):
         place(fx, click(), t, gain=rng.uniform(0.7, 1.0), pan=rng.uniform(-0.25, 0.25))
     for t in cues.get("outs", []):
         place(fx, chime(), t)
+    for t in cues.get("zaps", []):
+        place(fx, zap(), t, gain=rng.uniform(0.75, 1.0), pan=rng.uniform(-0.15, 0.15))
+    for a, b in cues.get("hum", []):
+        place(fx, hum(b - a), a)
     w = whoosh()
     for t in cues.get("cuts", []):
         place(fx, w, t - len(w) / SR + 0.02)
