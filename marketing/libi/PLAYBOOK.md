@@ -90,7 +90,7 @@ Subject: `🔥 HOT Builder Pass lead: Pat Builder (Acme Homes)`. HOT means they'
 
 **Send that text to every lead before you go to sleep tomorrow.** Speed is the whole game.
 
-The entrant also gets an email that looks like their pass, with their pass number, their certificate, the perks, and their share link. If the room's signal is bad, the page has a backup: a pre-written text to your cell (347.853.4238) with every detail filled in, so no lead gets lost. Every pass is also saved in the Vercel logs (search `LIBI_LEAD`).
+The entrant also gets an email that looks like their pass, with their pass number, their certificate, the perks, and their share link. If the room's signal is bad, the page has a backup: a pre-written text to your cell (347.853.4238) with every detail filled in, so no lead gets lost. The server log keeps only the pass code, level and QR channel (search `LIBI_LEAD`), never contact details.
 
 The `src` on each lead shows which QR they scanned: `phone` (lock screen), `ipad`, `text` (QR card you sent), `social`, `followup`, or `share` for a friend's link.
 
@@ -132,7 +132,7 @@ One builder closing 30 homes a year is 30 warm introductions a year. Five builde
 | The page, the swipe-to-reveal pass and the certificate coupon | `app/libi/page.tsx`, `app/libi/LibiForm.tsx`, `app/libi/BuilderPass.tsx` |
 | The flow-line art (the page and the images both use it) | `app/libi/flowLines.js` |
 | Lead emails (to you and to the entrant) | `app/api/libi/route.ts` |
-| Where leads go | Vercel env `LIBI_NOTIFY_EMAILS` (comma-separated). Default: your `LEAD_NOTIFY_EMAIL` inbox + `mparrish@mbofsmithtown.com` |
+| Where leads go | Your work inbox only, `mparrish@mbofsmithtown.com` (or Vercel env `LIBI_NOTIFY_EMAILS`, comma-separated). Customer information never goes to a personal account. |
 | QR codes, images and the manager one-pager | `node scripts/libi/build.mjs` → `output/libi/` and `public/libi/kit/` |
 | Who has gone Gold | `node scripts/libi/upgrades.mjs entries.txt` |
 

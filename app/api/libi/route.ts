@@ -10,7 +10,8 @@ const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || SITE).replace(/\/+$/, "");
 const FROM_ADDRESS = (process.env.LEAD_FROM_EMAIL || "hello@mkparrish.com").match(/<([^>]+)>/)?.[1] ?? (process.env.LEAD_FROM_EMAIL || "hello@mkparrish.com");
 const FROM = `Competition Builder Pass <${FROM_ADDRESS}>`;
 // Every entry goes to MK's personal inbox and her dealership inbox unless LIBI_NOTIFY_EMAILS overrides it.
-const NOTIFY = (process.env.LIBI_NOTIFY_EMAILS || [process.env.LEAD_NOTIFY_EMAIL || "mkp414@icloud.com", MK.email].join(","))
+// Customer information goes to the dealership work inbox only, never a personal account (FTC Safeguards Rule).
+const NOTIFY = (process.env.LIBI_NOTIFY_EMAILS || MK.email)
   .split(",")
   .map((s) => s.trim())
   .filter(Boolean);
@@ -296,9 +297,10 @@ export async function POST(req: NextRequest) {
   const level: Level = lead.ref ? "gold" : "silver";
   const temp = heat(lead);
 
-  // Backup record: if an email ever fails, every entry is still in the Vercel runtime logs (search "LIBI_LEAD").
+  // The full record goes only to the work inbox (in the lead email). The server log keeps no contact details:
+  // just enough to count passes and Gold upgrades by channel.
   const record = logLine(lead, code, level);
-  console.log(record);
+  console.log(`LIBI_LEAD ${JSON.stringify({ at: new Date().toISOString(), heat: temp, code, level, src: lead.src, ref: lead.ref })}`);
 
   const owner = ownerEmail(lead, code, level, record);
   const notified = await send(
