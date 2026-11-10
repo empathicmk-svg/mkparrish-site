@@ -267,7 +267,7 @@ function entrantEmail(lead: Lead, code: string, level: Level) {
       <div style="font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:${BLUE};">Your LIBI contact</div>
       <div style="margin-top:4px;font-size:15px;font-weight:600;color:${INK};">${escapeHtml(MK.name)}</div>
       <div style="margin-top:4px;font-size:12px;line-height:1.6;color:#6A7076;">${escapeHtml(MK.title)} · ${escapeHtml(MK.store)}<br>${escapeHtml(MK.group)} · ${escapeHtml(MK.address)}<br>Cell ${MK.cellDisplay}</div>
-      <div style="margin-top:12px;font-size:11px;line-height:1.5;color:#9AA0A6;">No purchase necessary. One certificate per person, by appointment through ${escapeHtml(PASS.validThrough)}; no cash value, not transferable. Test drives need a valid driver's license and are subject to vehicle availability. Pass and certificate benefits are subject to dealer confirmation, residency and credit approval; see MK for details.</div>
+      <div style="margin-top:12px;font-size:11px;line-height:1.5;color:#9AA0A6;">No purchase necessary. One certificate per person, by appointment through ${escapeHtml(PASS.validThrough)}; no cash value, not transferable. Test drives need a valid driver's license and are subject to vehicle availability. Pass and certificate benefits are subject to dealer confirmation, residency and credit approval; see MK for details. To stop emails or have your information deleted, reply &quot;unsubscribe&quot; or &quot;delete&quot;.</div>
     </td></tr>
   </table></td></tr></table></body></html>`;
   const plain =

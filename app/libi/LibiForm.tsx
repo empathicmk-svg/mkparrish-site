@@ -356,6 +356,10 @@ export default function LibiForm() {
         ({GOLD.reward.toLowerCase()}): one per person, when someone activates a pass with your code or you activate with theirs. Pass benefits
         are subject to dealer confirmation, residency and credit approval, and can&apos;t be combined where prohibited. See MK for details.
       </div>
+      <div className="font-cag text-xs leading-5 text-cag-fog">
+        Privacy: what you enter goes only to {MK.name}, {MK.store} ({MK.group}), to send your pass, arrange your drive and follow up about
+        vehicles. We don&apos;t sell it. Unsubscribe from any email, reply STOP to any text, or email {MK.email} to have it deleted.
+      </div>
     </form>
   );
 }
