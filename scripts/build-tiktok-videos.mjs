@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * Converts Instagram square PNGs → TikTok vertical MP4s (1080×1920, 9:16).
- * Each video is 6 seconds with fade-in/fade-out — silent so you can add
- * your own audio in TikTok Studio or CapCut.
+ * Each video is 6 seconds with fade-in/fade-out. It's built silent; run
+ * scripts/add-music.mjs afterwards to give it MK's "soft" music bed.
  *
  * Input:  output/instagram-v2/*.png
  * Output: output/tiktok/*.mp4

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "listen-before-build",
+    "title": "Listen before you build",
+    "short": "Understand the real problem and buyer behavior before designing the solution.",
+    "narrative": "The US localization example shows this clearly: global messaging was precise, but it wasn't resonant because it was designed without listening. Real solutions come from deep understanding of who your buyer is, how they actually buy, and what keeps them up at night. That listening shapes everything downstream—positioning, channels, cadence, message hierarchy. You can't optimize your way out of misunderstanding your buyer."
+  },
+  {
+    "id": "invest-in-visibility",
+    "title": "Invest in visibility first",
+    "short": "Make spend measurable before you scale it.",
+    "narrative": "The Atlantic UV and Vonage examples both hinge on this: I cut unmeasured spend (print, directory) and built tracked spend (digital, ABM, ERP analytics) because you can only optimize what you can see. That eight percent of budget spent on infrastructure felt wasteful until the data started answering questions. Now it's the foundation everything else rests on. Visibility isn't overhead—it's the prerequisite for intelligent scaling."
+  },
+  {
+    "id": "accept-calculated-risk",
+    "title": "Accept calculated risk early",
+    "short": "Fund what will compound, even before it proves itself.",
+    "narrative": "Incentivizing distributors before they'd earned revenue was the highest-risk decision at Atlantic UV. So was investing in organic SEO before paid scale. So was protecting analytics budget when questioned quarterly. But these were calculated risks—we had a hypothesis, we had data to test it, and we had visibility into the outcome. That's different from gambling. The principle is: identify what will compound over time, fund it despite short-term skepticism, and defend it with data until it proves itself."
+  },
+  {
+    "id": "focus-beats-breadth",
+    "title": "Focus beats breadth",
+    "short": "One strong presence beats many weak ones.",
+    "narrative": "Every program teaches this: I cut from five regional shows down to one flagship event that actually drew the right accounts. I narrowed the market instead of chasing every segment. I concentrated the distributor network on tier definition instead of flat pricing. Breadth dilutes. Focus compounds. The hard part is having the conviction to walk away from revenue you could technically win but doesn't fit your model."
+  },
+  {
+    "id": "defend-what-compounds",
+    "title": "Defend what compounds against quarterly pressure",
+    "short": "Protect programs that build long-term value, even when they're questioned quarter to quarter.",
+    "narrative": "Partner enablement at Vonage looked like a cost line every Q1. Analytics at Atlantic UV was the first thing questioned in reviews. These aren't flashy programs with immediate payoff. But they compound. Every distributor you didn't lose this quarter means margin at scale. Every data point you collected this quarter means smarter decisions next quarter. The principle: know which parts of your engine compound, and protect them fiercely from quarterly whimsy."
+  },
+  {
+    "id": "change-meaning-not-words",
+    "title": "Change meaning, not words",
+    "short": "Reposition by shifting context and emphasis, not by starting from scratch.",
+    "narrative": "The US value prop didn't get rewritten from zero. It got recontextualized around buyer-centric value. That's a far more powerful move than a fresh deck because you're keeping what's true while shifting what resonates. It works because it's believable—you're not inventing new claims, you're emphasizing different truths depending on who you're talking to. This is the difference between spin and positioning."
+  }
+]

@@ -431,6 +431,11 @@
       background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
       opacity: 1;
     }
+    /* The markdown "---" separators always sit just before a section heading,
+       and every section already starts a fresh page — so a rule landing right
+       before a heading is redundant and can strand alone on a near-empty page.
+       Hide those; keep any genuine in-content rule (one not followed by H2). */
+    hr:has(+ h2) { display: none; }
 
     /* ── FOOTER: white page, black signature ── */
     .footer { background: #ffffff; border-top: 1px solid #dddddd; }

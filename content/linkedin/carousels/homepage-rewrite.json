@@ -1,0 +1,56 @@
+{
+  "slug": "homepage-rewrite",
+  "brand": "MK PARRISH",
+  "signature": "/in/mkparrish ♡",
+  "slides": [
+    {
+      "type": "cover",
+      "eyebrow": "Messaging teardown",
+      "title": ["Rewrite your", "homepage"],
+      "body": "Five words up top are quietly losing you deals. Your pipeline tells a better story than your copy does. Here is how to close the gap in an afternoon."
+    },
+    {
+      "type": "statement",
+      "eyebrow": "The problem",
+      "title": ["Your homepage isn't", "broken. It's {{vague.}}"],
+      "body": "Buyers rarely reject you. They fail to understand you fast enough, and then they leave. **Vague copy reads as a vague company.** Below are three lines doing the damage, and the fix for each."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Teardown 01",
+      "before": "We provide comprehensive digital solutions for businesses of all sizes.",
+      "after": ["We get B2B teams from “what do you", "even do” to a homepage that closes."],
+      "takeaway": "Name the outcome, not the category."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Teardown 02",
+      "before": "A platform that helps teams manage their workflows more efficiently.",
+      "after": ["The system your ops team stops", "dreading on Monday."],
+      "takeaway": "Say who breaks without you."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "Teardown 03",
+      "before": "Innovative, scalable, best-in-class technology you can trust.",
+      "after": ["Onboarding cut from six weeks to six", "days."],
+      "takeaway": "Proof beats adjectives. Every time."
+    },
+    {
+      "type": "statement",
+      "eyebrow": "The principle",
+      "title": ["Say what you do.", "Say who breaks without it.", "Say it like a human."],
+      "size": "small",
+      "body": "Do that and your copy stops sounding like everyone else's. Same company. Completely different signal."
+    },
+    {
+      "type": "cta",
+      "eyebrow": "Your move",
+      "title": ["Find your five words."],
+      "body": "Get the free Positioning Checklist, the 12-point audit I run on every client before we rewrite a single word. Know exactly where your copy is losing people.",
+      "cta": "Get the checklist →",
+      "url": "mkparrish.com",
+      "footer": "VISIT →"
+    }
+  ]
+}

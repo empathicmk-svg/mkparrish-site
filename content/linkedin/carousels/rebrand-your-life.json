@@ -1,0 +1,48 @@
+{
+  "slug": "rebrand-your-life",
+  "brand": "MK PARRISH",
+  "signature": "mkparrish.com ♡",
+  "slides": [
+    {
+      "type": "cover",
+      "eyebrow": "REWRITE YOUR STORY",
+      "title": ["Your {{life}}", "does not need", "a softer caption"],
+      "body": "It needs a clearer position. The same rule applies to a brand, a business, and a woman rebuilding her life."
+    },
+    {
+      "eyebrow": "THE PROBLEM",
+      "title": ["Most people", "keep explaining", "the wrong thing"],
+      "body": "They defend the old version. They overexplain the gap. They shrink the ambition so nobody asks questions. That is not strategy. That is self-protection in a blazer."
+    },
+    {
+      "type": "teardown",
+      "eyebrow": "BEFORE AND AFTER",
+      "before": "I have been through a lot, so I am trying to figure out what comes next.",
+      "after": ["I turned survival", "into a system", "for sharper work"],
+      "takeaway": "Do not lead with the wound. Lead with the proof that you know how to transform it."
+    },
+    {
+      "eyebrow": "BRAND RULE 01",
+      "title": ["Clarity beats", "constant {{reinvention}}"],
+      "body": "You do not need a new identity every week. You need one honest through-line that can hold your writing, your offers, your portfolio, and your next chapter."
+    },
+    {
+      "eyebrow": "BRAND RULE 02",
+      "title": ["Your mess", "is not the message"],
+      "body": "The message is what you learned, what you built, and what someone else can now use because you lived through it and made it useful."
+    },
+    {
+      "eyebrow": "THE RULE",
+      "title": ["A strong brand", "is a decision", "repeated in public"],
+      "body": "Same point of view. Same visual world. Same promise. Same standard. That is how people start to remember you."
+    },
+    {
+      "type": "cta",
+      "eyebrow": "NEXT MOVE",
+      "title": ["Want your next", "chapter to sound", "like a {{strategy}}?"],
+      "body": "Start with the Rewrite Your Story audit. I will help you turn scattered experience into sharper positioning, cleaner copy, and a brand people understand fast.",
+      "cta": "VISIT MKPARRISH.COM",
+      "url": "mkparrish.com"
+    }
+  ]
+}

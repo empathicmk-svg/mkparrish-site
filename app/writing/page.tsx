@@ -85,7 +85,7 @@ export default function WritingPage() {
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BtnPrimary href="/book">Work With Me</BtnPrimary>
-            <BtnGhost href="/shelf">Shop the Writing</BtnGhost>
+            <BtnGhost href="/shop">Shop the Writing</BtnGhost>
           </div>
         </div>
       </section>
@@ -144,7 +144,7 @@ export default function WritingPage() {
               Shared by thousands of women navigating identity transitions, career pivots, and reinvention. It is what the brand voice work is actually about.
             </p>
             <div className="mt-8 space-y-3">
-              <BtnPrimary href="/shelf">Shop the Writing</BtnPrimary>
+              <BtnPrimary href="/shop">Shop the Writing</BtnPrimary>
               <div className="pt-1">
                 <ArrowLink href={SUBSTACK_URL}>More in The Margins</ArrowLink>
               </div>
@@ -217,7 +217,7 @@ export default function WritingPage() {
 
         <div className="mt-8 flex flex-wrap gap-4">
           <BtnPrimary href="/book">Book a Strategy Call</BtnPrimary>
-          <BtnGhost href="/shelf">Shop the Writing</BtnGhost>
+          <BtnGhost href="/shop">Shop the Writing</BtnGhost>
         </div>
       </RevealSection>
 
