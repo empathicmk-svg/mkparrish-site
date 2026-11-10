@@ -30,7 +30,7 @@ export default function LibiForm() {
   const [tradeIn, setTradeIn] = useState(false);
   const [referName, setReferName] = useState("");
   const [referPhone, setReferPhone] = useState("");
-  const [consent, setConsent] = useState(true);
+  const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState("");
   const [ref, setRef] = useState("");
   const [src, setSrc] = useState("direct");
@@ -336,7 +336,7 @@ export default function LibiForm() {
       <div className="flex items-start gap-3">
         <input id="l-consent" type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 shrink-0 accent-[#5EB0FF]" style={{ width: 20, height: 20, padding: 0 }} />
         <label htmlFor="l-consent" className="font-cag" style={CHECK_LABEL}>
-          MK may call or text me about my pass and certificate. Reply STOP any time.
+          Optional: Mary Kate Parrish and Competition Automotive Group may call or text me at this number about my pass, certificate and vehicle offers. Consent is not a condition of any purchase. Msg &amp; data rates may apply. Reply STOP to opt out.
         </label>
       </div>
 
