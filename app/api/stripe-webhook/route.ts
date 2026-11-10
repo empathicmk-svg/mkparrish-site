@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
-import { getShopProduct, productDeliveryLinks } from "@/app/lib/config";
+import { getShopProduct } from "@/app/lib/config";
+import { gatedDeliveryLinks, signDownloadToken } from "@/app/lib/downloads";
+import { EBOOK_LINKS, PAPERBACK_LINKS, PRINT_LINKS } from "@/app/lib/stripe-links";
 import { findShelfProduct } from "@/app/lib/shelf-catalog";
 
 export const runtime = "nodejs";
@@ -11,57 +13,6 @@ const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.mkparrish.com
 const FROM = process.env.LEAD_FROM_EMAIL || "MK Parrish <hello@mkparrish.com>";
 const OWNER_EMAIL = process.env.LEAD_NOTIFY_EMAIL || "mkp414@icloud.com";
 const MAX_WEBHOOK_BYTES = 256 * 1024;
-
-// Map each live payment link to the product it sells, so the email knows what
-// to deliver. Unknown links still trigger an order notification to the owner.
-const EBOOK_LINKS: Record<string, string> = {
-  plink_1Tq0o0JICEFzVEU9PHbP7s8I: "still-here-still-hers",
-  plink_1Tq0o2JICEFzVEU9J4mlFhqn: "street-smarts",
-  plink_1Tq0o3JICEFzVEU9oBKPjscB: "make-my-own-light",
-  plink_1Tq0o4JICEFzVEU94PK0Ild1: "the-invisible-bruise",
-  plink_1Tq0o5JICEFzVEU9qEeryjJX: "decoding-angel-numbers",
-  plink_1Tn0zxJICEFzVEU9gncWmsAr: "rebecoming",
-  plink_1TmgtDJICEFzVEU9oKhP76GL: "reinvention-workbook",
-  plink_1Tmgt7JICEFzVEU9jlMVHqAC: "write-yourself-into-the-room",
-  plink_1TmgtAJICEFzVEU9q5c8wGhH: "brand-voice-playbook",
-  plink_1TlCZNJICEFzVEU9mHVtB8fi: "the-linkedin-bio-fix-kit",
-  plink_1Td8tLJICEFzVEU9sRUsSds6: "the-edit-guide",
-  plink_1Td8ttJICEFzVEU9tslM6aeS: "before-the-session",
-  plink_1Td8uWJICEFzVEU9Vf2zXQSe: "the-rewrite-playbook",
-  plink_1Td8vTJICEFzVEU9XKsiOwdd: "the-new-chapter-workbook",
-  plink_1Td8vvJICEFzVEU9lRg5OlwR: "the-byline-method",
-  plink_1Td8wSJICEFzVEU9jVpK8ggP: "the-build-copy-guide",
-  plink_1TnJJvJICEFzVEU9fyC66LCl: "the-social-strategy-playbook",
-  plink_1Tl8L3JICEFzVEU9XaRmKOuQ: "the-prompt-vault",
-};
-const PAPERBACK_LINKS: Record<string, string> = {
-  plink_1Tq0o1JICEFzVEU9QOEjF0RT: "still-here-still-hers",
-  plink_1Tq0o2JICEFzVEU9xDndgSzk: "street-smarts",
-  plink_1Tq0o3JICEFzVEU9uD35jmbb: "make-my-own-light",
-  plink_1Tq0o4JICEFzVEU9rKOB1rfY: "the-invisible-bruise",
-  plink_1Tq0o5JICEFzVEU9JU28fLmt: "decoding-angel-numbers",
-  plink_1Tmgz6JICEFzVEU9j3eBWsqA: "rebecoming",
-  plink_1TmgzEJICEFzVEU9SKjd8vUC: "reinvention-workbook",
-  plink_1Tmgz8JICEFzVEU9JwRgrvmN: "write-yourself-into-the-room",
-  plink_1TmgzBJICEFzVEU9GqXLg9rj: "brand-voice-playbook",
-  plink_1Tn10pJICEFzVEU9EXukmman: "the-edit-guide",
-  plink_1Tn10sJICEFzVEU9VyCugic5: "before-the-session",
-  plink_1Tn10yJICEFzVEU9OI5Ja2g8: "the-rewrite-playbook",
-  plink_1Tn112JICEFzVEU9FPoFQaJn: "the-new-chapter-workbook",
-  plink_1Tn115JICEFzVEU9HAOUq02x: "the-byline-method",
-  plink_1Tn118JICEFzVEU9u4gJLLjo: "the-build-copy-guide",
-  plink_1Tn11CJICEFzVEU96rsJK3LV: "the-social-strategy-playbook",
-  plink_1Tn11FJICEFzVEU9DW2jsN3X: "the-prompt-vault",
-};
-const PRINT_LINKS: Record<string, string> = {
-  plink_1Td8xXJICEFzVEU9hmiCBkOY: "promise-me",
-  plink_1Td8y2JICEFzVEU9NxdCQ8p9: "the-rewrite-print",
-  plink_1Td8z3JICEFzVEU9qwlHV3dv: "selected-lines",
-  plink_1Tn0g3JICEFzVEU9XzVHfUan: "live-out-loud-print",
-  plink_1Tn0gbJICEFzVEU9B13LgsmX: "not-afraid-of-storms-print",
-  plink_1Tn0hJJICEFzVEU9dsa4dTuh: "never-too-late-print",
-  plink_1Tq0qvJICEFzVEU9x6UbPTXB: "custom-quote-print",
-};
 
 // Verify Stripe's signature without the SDK (HMAC-SHA256 over `${t}.${body}`).
 function verify(rawBody: string, sigHeader: string | null, secret: string): boolean {
@@ -314,19 +265,29 @@ export async function POST(req: NextRequest) {
     const product = getShopProduct(ebookSlug);
     const title = product?.title || "your book";
     const safeTitle = escapeHtml(title);
-    const links = (product ? productDeliveryLinks(product) : [])
+    // The receipt is the delivery mechanism for paid files, so its links carry
+    // a signed token. Without a signing secret no link can be honoured, so send
+    // the buyer an honest note instead of buttons that would 403 on them.
+    const token = product ? signDownloadToken(ebookSlug) : null;
+    const links = (product && token ? gatedDeliveryLinks(product, token) : [])
       .map(
         (l) =>
           `<a href="${SITE_URL}${escapeHtml(l.href)}" style="color:#B23A59;">Download ${escapeHtml(l.label)} &rarr;</a>`,
       )
       .join("<br>");
+    if (!token) {
+      console.error("DOWNLOAD_TOKEN_SECRET is not set — sent a manual-delivery receipt instead of download links.");
+    }
     await sendEmail(
       email,
       `Your copy of ${title}`,
       shell(
-        `<p style="margin:0 0 14px;">Thank you so much for buying <strong>${safeTitle}</strong>. Here are your files, yours to keep:</p>
+        links
+          ? `<p style="margin:0 0 14px;">Thank you so much for buying <strong>${safeTitle}</strong>. Here are your files, yours to keep:</p>
          <p style="margin:0 0 14px;">${links}</p>
-         <p style="margin:0;">If a link ever gives you trouble, just reply to this email and I will send them directly.</p>`,
+         <p style="margin:0;">These links are tied to your order. If one ever gives you trouble, just reply to this email and I will send your files directly.</p>`
+          : `<p style="margin:0 0 14px;">Thank you so much for buying <strong>${safeTitle}</strong>.</p>
+         <p style="margin:0;">Reply to this email and I will send your files straight over.</p>`,
       ),
       {
         idempotencyKey: idempotencyKey("stripe", eventId, "ebook"),

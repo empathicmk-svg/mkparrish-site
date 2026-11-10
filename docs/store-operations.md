@@ -9,7 +9,9 @@ step, and how to fulfill a paperback on Lulu. Keep this handy.
 
 - **Ebooks** → fully automatic. After checkout the buyer is sent to a page that
   auto-downloads both the **PDF and the EPUB**, and they also get an email with
-  the same links. Nothing for you to do.
+  the same links. Nothing for you to do. Those links are personal to the order
+  and stop working after a year; the files are not reachable any other way, so
+  a link posted on a forum does not give your book away for long.
 - **Paperbacks** → automatic *except* the printing. The buyer pays and gets a
   "ships in 5–7 days" confirmation; **you place the matching order on Lulu** and
   ship it (see below).
@@ -42,6 +44,30 @@ step, and how to fulfill a paperback on Lulu. Keep this handy.
 1. **dashboard.stripe.com → Settings (gear) → Personal → Notifications.**
 2. Turn **on** email for **"Successful payments."**
 3. Confirm the email there is correct, and check **spam** for "Stripe."
+
+### C) The download secret (required — paid files do not send without it)
+
+Paid books and templates are no longer public files. They sit outside the
+website's public folder, and the site only hands one over to someone holding a
+signed link. Those links are signed with one secret value you set once.
+
+1. Make a long random value. On a Mac, open Terminal and run
+   `openssl rand -base64 32`, then copy the output.
+2. **vercel.com → mkparrish-site → Settings → Environment Variables.**
+3. Add: **Name** `DOWNLOAD_TOKEN_SECRET`, **Value** what you copied,
+   **Environment** Production (tick Preview too if you test there). Save.
+4. **Redeploy:** Deployments tab → top deployment → ⋯ → Redeploy.
+5. Test with a real £/$ purchase of the cheapest title, or a Stripe test-mode
+   one, and check the receipt email's download button actually opens the PDF.
+
+**If you skip this**, nothing becomes public — it fails the safe way. But every
+paid receipt will say "reply to this email and I will send your files" instead
+of carrying download buttons, and you will be mailing books out by hand. The
+server log will say `DOWNLOAD_TOKEN_SECRET is not set`.
+
+**Changing the secret** invalidates every link already emailed. Buyers who come
+back to an old link get a page telling them to reply to their receipt. Only
+change it if a link has leaked somewhere public.
 
 ---
 

@@ -80,10 +80,29 @@ async function waitForFonts(page) {
   try { await page.evaluate(() => document.fonts.ready); } catch {}
 }
 
+// Paid manuscripts live in protected-downloads/, outside public/, so that the
+// file is not readable without a purchase (see app/lib/downloads.ts). The pairs
+// above are written as public/downloads/... paths; redirect each one to
+// wherever the source actually is, so a rebuild never republishes a paid book
+// into public/. Free lead magnets stay where they are.
+const PROTECTED_DIR = 'protected-downloads';
+
+function relocate(rel) {
+  const tail = rel.replace(/^public\/downloads\//, '');
+  return path.join(PROTECTED_DIR, tail);
+}
+
+function resolvePair([src, dest]) {
+  const protectedSrc = relocate(src);
+  return fs.existsSync(path.join(ROOT, protectedSrc))
+    ? [protectedSrc, relocate(dest)]
+    : [src, dest];
+}
+
 // Optional CLI filter: `node scripts/build-pdfs.mjs reinvention` renders only
 // files whose source path contains the argument. No argument renders all.
 const only = process.argv[2];
-const TARGETS = only ? FILES.filter(([s]) => s.includes(only)) : FILES;
+const TARGETS = (only ? FILES.filter(([s]) => s.includes(only)) : FILES).map(resolvePair);
 for (const [src, dest] of TARGETS) {
   const srcPath  = path.join(ROOT, src);
   const destPath = path.join(ROOT, dest);
@@ -107,4 +126,4 @@ for (const [src, dest] of TARGETS) {
 }
 
 await browser.close();
-console.log('\nAll PDFs written to public/downloads/\n');
+console.log('\nPDFs written: paid titles to protected-downloads/, free ones to public/downloads/\n');

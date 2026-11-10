@@ -46,8 +46,17 @@ function assetSlugFor(slug: string): string {
   return COVER_SLUG_OVERRIDES[slug] ?? slug;
 }
 
-export function assetLinksForSlug(slug: string, download?: string): readonly ShelfAssetLink[] {
+export function assetLinksForSlug(
+  slug: string,
+  download?: string,
+  free = false,
+): readonly ShelfAssetLink[] {
   if (!download) return [];
+
+  // Cover art is the only one of these that is still a public URL. A paid
+  // product's manuscript, EPUB and KDP sheet live outside public/ and are
+  // served by /api/download to buyers only, so do not advertise paths here.
+  if (!free) return [{ label: "Cover JPG", href: coverForSlug(slug) }];
 
   const assetSlug = assetSlugFor(slug);
   const pdf = download.endsWith(".pdf") ? download : download.replace(/\.(zip|html|epub)$/, ".pdf");
@@ -187,13 +196,16 @@ function normalizeDigital(product: DigitalSource, collection: Exclude<ShelfColle
     collection,
     kind: "digital",
     highlight: product.highlight,
-    href: href.startsWith("/shop/") ? download ?? href : href,
+    // Only free products may link straight at their file. Paid ones must go
+    // through Stripe: substituting `download` here for a paid product would
+    // publish the file path as its buy button.
+    href: free && href.startsWith("/shop/") ? download ?? href : href,
     stripe,
     download,
     free,
     limitedFree,
     cover: coverForSlug(product.slug),
-    assetLinks: assetLinksForSlug(product.slug, download),
+    assetLinks: assetLinksForSlug(product.slug, download, free),
   };
 }
 

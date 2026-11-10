@@ -48,17 +48,53 @@ const securityHeaders = [
   },
 ];
 
+// Pages that are deliberately unlisted. Each already carries a `robots`
+// metadata block, but a meta tag only covers the HTML document — it says
+// nothing about a PDF, and it is lost on any non-HTML response. The header is
+// what actually keeps these out of search, so set both.
+const NOINDEX_PATHS = [
+  "/desk",
+  "/desk/:path*",
+  "/download/:path*",
+  "/order-confirmed",
+  "/portfolio",
+  "/partners",
+  "/ideals",
+  "/natures-value",
+  "/maintenance",
+  // Portfolio PDFs, client deliverables, resumes, free lead magnets: shared by
+  // link, not meant to be search results in their own right.
+  "/downloads/:path*",
+  // The gate itself. It only ever answers a buyer with a token.
+  "/api/download/:path*",
+];
+
+const noindexHeader = { key: "X-Robots-Tag", value: "noindex, nofollow" };
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: projectRoot,
   },
   allowedDevOrigins: ["127.0.0.1", "localhost"],
+  // Paid files live outside public/ so the CDN cannot serve them directly, which
+  // means the download route reads them off the function's own filesystem. They
+  // are not imported anywhere, so tracing cannot infer them — list them here or
+  // the route 404s in production. Only the delivered formats; the HTML sources
+  // in the same folder are build inputs and would add ~47MB for nothing.
+  outputFileTracingIncludes: {
+    "/api/download/[...path]": [
+      "./protected-downloads/**/*.pdf",
+      "./protected-downloads/**/*.epub",
+      "./protected-downloads/**/*.zip",
+    ],
+  },
   async headers() {
     return [
       {
         source: "/:path*",
         headers: securityHeaders,
       },
+      ...NOINDEX_PATHS.map((source) => ({ source, headers: [noindexHeader] })),
       {
         // Static files in public/ are served as octet-stream by default;
         // browsers need the manifest MIME type to honour start_url.

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "check:downloads": "node scripts/check-protected-downloads.mjs",
+    "build": "npm run check:downloads && next build",
     "start": "next start",
     "lint": "eslint",
     "linkedin:carousel": "node scripts/build-linkedin-carousel.mjs",

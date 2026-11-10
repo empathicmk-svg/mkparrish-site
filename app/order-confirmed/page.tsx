@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getShopProduct, productCover, productDeliveryLinks, CONTACT } from "@/app/lib/config";
+import { getShopProduct, isFreeProduct, productCover, CONTACT } from "@/app/lib/config";
+import { gatedDeliveryLinks, signDownloadToken, stripeSessionGrants } from "@/app/lib/downloads";
 import { Eyebrow, H1 } from "@/app/components/ui";
 import AutoDownload from "@/app/download/[slug]/AutoDownload";
 
@@ -14,17 +15,40 @@ export const dynamic = "force-dynamic";
 export default async function OrderConfirmedPage({
   searchParams,
 }: {
-  searchParams: Promise<{ slug?: string; format?: string }>;
+  searchParams: Promise<{ slug?: string; format?: string; session_id?: string }>;
 }) {
-  const { slug, format } = await searchParams;
+  const { slug, format, session_id: sessionId } = await searchParams;
   const product = slug ? getShopProduct(slug) : undefined;
   const isPaperback = format === "paperback";
   const title = product?.title ?? "your order";
-  const links = !isPaperback && product ? productDeliveryLinks(product) : [];
+
+  // Stripe sends buyers here with the session id. Verify the payment actually
+  // went through before handing over files — the slug alone is a query param
+  // anyone can type, so trusting it would give the books away.
+  let links: { label: string; href: string }[] = [];
+  let paidButUndeliverable = false;
+
+  if (!isPaperback && product && slug) {
+    if (isFreeProduct(product)) {
+      links = gatedDeliveryLinks(product);
+    } else if (sessionId && (await stripeSessionGrants(sessionId, slug))) {
+      const token = signDownloadToken(slug);
+      if (token) {
+        links = gatedDeliveryLinks(product, token);
+      } else {
+        // Payment is good but the signing secret is missing, so no link can be
+        // honoured. Tell them it is coming by email instead of showing a
+        // button that will 403.
+        paidButUndeliverable = true;
+      }
+    }
+  }
+
+  const showFiles = links.length > 0;
 
   return (
     <section className="relative flex min-h-[80vh] flex-col justify-center bg-void py-28">
-      {links.length > 0 && <AutoDownload hrefs={links.map((l) => l.href)} />}
+      {showFiles && <AutoDownload hrefs={links.map((l) => l.href)} />}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-0 h-[60vh] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.14),transparent_65%)]" />
       </div>
@@ -62,11 +86,25 @@ export default async function OrderConfirmedPage({
         ) : (
           <>
             <p className="mt-8 font-body text-base font-light leading-8 text-smoke">
-              Your order for <span className="text-pearl">{title}</span>{" "}is confirmed. Your download is
-              starting now — if it doesn&apos;t, use the buttons below. Both the PDF and the Kindle-ready
-              EPUB are included, yours to keep.
+              Your order for <span className="text-pearl">{title}</span>{" "}is confirmed.{" "}
+              {showFiles ? (
+                <>
+                  Your download is starting now — if it doesn&apos;t, use the buttons below. Both the
+                  PDF and the Kindle-ready EPUB are included, yours to keep.
+                </>
+              ) : paidButUndeliverable ? (
+                <>
+                  Your files are on their way to your inbox — download links are emailed with every
+                  receipt.
+                </>
+              ) : (
+                <>
+                  Your download links are in the receipt email on its way to your inbox. They are tied
+                  to your order, so they only work for you.
+                </>
+              )}
             </p>
-            {links.length > 0 && (
+            {showFiles && (
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 {links.map((l) => (
                   <a

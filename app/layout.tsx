@@ -21,6 +21,14 @@ export const metadata: Metadata = {
     "Websites, outbound, and messaging that turn how you're seen into revenue. Senior growth strategy for B2B SaaS, agencies, and growth-stage teams.",
   applicationName: "MK Parrish",
   metadataBase: new URL("https://www.mkparrish.com"),
+  // Names the author and reserves rights explicitly. Aggregators and readers
+  // pick this up; it is an assertion of ownership, not an access control.
+  authors: [{ name: "MK Parrish", url: "https://www.mkparrish.com" }],
+  creator: "MK Parrish",
+  publisher: "MK Parrish",
+  other: {
+    copyright: `© ${new Date().getFullYear()} MK Parrish. All rights reserved.`,
+  },
   openGraph: {
     title: "MK Parrish — Growth Strategy, Websites & Messaging",
     description:
