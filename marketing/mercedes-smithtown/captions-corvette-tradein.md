@@ -1,6 +1,6 @@
 # "Corvette, just traded in"
 
-A Reel/TikTok, a five-slide carousel, a feed post and two stories. They come from MK's 20-second walkaround video and two photos of the red Corvette that came in on trade, plus a photo of MK with her face blurred. The files are in `output/mercedes-smithtown/corvette-tradein/`. To rebuild them, run `node marketing/mercedes-smithtown/build-tradein-corvette.mjs`.
+A Reel/TikTok, a five-slide carousel, a feed post and two stories. They come from MK's 20-second walkaround video and two photos of the red Corvette that came in on trade. There are no photos of MK in this set. The files are in `output/mercedes-smithtown/corvette-tradein/`. To rebuild them, run `node marketing/mercedes-smithtown/build-tradein-corvette.mjs`.
 
 The reel cuts on the beat over MK's showroom music bed, with a cool grade, a soft glow, a vignette and a chrome light sweep. It ends on **Call or text MK · 347.853.4238**, with the work line and the store address.
 
@@ -8,7 +8,7 @@ The reel cuts on the beat over MK's showroom music bed, with a cool grade, a sof
 
 - **Specs and price.** The posts only claim what the photos show: red paint, a rear wing, four exhaust tips, a wide stance, the crossed-flags badge, a black splitter and grille, and the store's plate frame. They don't give the year, trim, mileage, horsepower or price. Check the Buyers Guide and window sticker on the windshield before adding any of that in replies.
 - **OK to post.** Get your manager's OK to post a trade-in unit. The posts don't name the previous owner, and no plate number or VIN is visible.
-- **Your face.** It's blurred in every post. The unblurred selfie isn't in GitHub: only the blurred version is (`media/mk-tradein-faceless.jpg`). The seated woman and the people standing behind the SUV in the front photo are softened too.
+- **No photos of you.** The "Got a trade?" feed post, story 02 and the reel's closing scene show the Corvette with a white Mercedes behind it (`media/corvette-and-mercedes.jpg`, a still from your walkaround). The seated woman and the people standing behind the SUV in the front photo are softened.
 - **Availability.** It's one car, so archive the posts once it sells.
 - **The video's color.** The walkaround was shot in HDR, so it was tone-mapped when it was converted. A plain conversion turns the red orange.
 - **The video's own sound.** It's only showroom noise, so the reel uses your music bed instead.

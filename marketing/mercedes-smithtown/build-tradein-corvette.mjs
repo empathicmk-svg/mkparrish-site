@@ -4,10 +4,10 @@
  *
  * A Reel/TikTok, a five-slide carousel (Instagram carousel or TikTok photo mode),
  * a feed post and two stories from MK's walkaround video and photos of the red
- * Corvette that came in on trade. MK appears with her face blurred
- * (media/mk-tradein-faceless.jpg): the blur is baked into that file, and the
- * unblurred originals are not in the repo. Background staff in the photos are
- * softened too.
+ * Corvette that came in on trade. There are no photos of MK in this set: the
+ * "Got a trade?" pieces use a still from the walkaround with a white Mercedes
+ * behind the Corvette (media/corvette-and-mercedes.jpg). Background staff in the
+ * photos are softened.
  *
  * The walkaround was shot in HDR (HLG), so it was tone-mapped to SDR when it was
  * converted to media/corvette-walk.mp4; a plain conversion turns the red orange.
@@ -21,12 +21,14 @@ import { chromium } from 'playwright';
 import { execFileSync } from 'child_process';
 import path from 'path';
 import { work, hero, topbar, sig, cta, endCard, img, render, buildReel, dir, cleanup } from './lib.mjs';
-import { beats, say, still, lifted, fitted, over, end, PHONES } from './trend.mjs';
+import { beats, say, fitted, over, end, PHONES } from './trend.mjs';
 import { cutTimes, scoreReel } from './score.mjs';
 
 const TODAY = ['Call or text MK', '347.853.4238'];
 const WALK = 'corvette-walk.mp4';
 const TAG = 'Just traded in';
+// A still from the walkaround: the Corvette's nose with a white Mercedes behind it.
+const TRADE = 'corvette-and-mercedes.jpg';
 
 // Scenes are four beats (about 2.4s) at 118 BPM; the walkaround runs rear, driver's side, then the front.
 const REEL = {
@@ -38,7 +40,7 @@ const REEL = {
     { clip: WALK, start: 6.6, html: over(say(['Look at', 'that stance'])), dur: beats(4), fx: 'slideleft' },
     { clip: WALK, start: 10.0, html: over(say(['Now the', 'front end'])), dur: beats(4), fx: 'fadewhite' },
     { html: fitted('corvette-front.jpg', say(['Crossed flags.', 'Showroom shine.']), 480), dur: beats(4), fx: 'smoothup' },
-    { html: lifted('mk-tradein-faceless.jpg', 'center 18%', say(['Got a trade?', 'Bring it to MK.'], { top: 260 })), dur: beats(4), fx: 'circleopen' },
+    { clip: WALK, start: 12.5, html: over(say(['Got a trade?', 'Bring it to MK.'])), dur: beats(4), fx: 'circleopen' },
     { html: end({ kicker: 'Mercedes-Benz of Smithtown', head: 'Trade it<br><em>in.</em>', sub: PHONES, action: TODAY }), dur: beats(6), still: true, fx: 'fadeblack' },
   ],
 };
@@ -57,14 +59,14 @@ const story = ({ photo: name, tag, model, head }) => `<div class="frame" style="
   ${sig(250)}
 </div>`;
 
-/** hero() with a stronger dark fade at the top, for MK's photo (her wall is bright behind the top bar). */
+/** hero() with a stronger dark fade at the top, for the walkaround still (the wall is bright behind the top bar). */
 const darkTop = html => html.replace('<div class="vignette"></div>',
   '<div class="vignette"></div><div class="shade" style="background:linear-gradient(180deg, rgba(8,8,8,.7) 0%, rgba(8,8,8,0) 24%)"></div>');
 
 const STORIES = [
   ['01-corvette-just-traded-in', story({ photo: 'corvette-front.jpg', tag: TAG, model: 'Corvette · On the floor in St. James', head: 'Just traded <em>in.</em>' })],
   ['02-got-a-trade', darkTop(hero({
-    w: 1080, h: 1920, photo: 'mk-tradein-faceless.jpg', pos: 'center 30%', tag: 'Trade-ins',
+    w: 1080, h: 1920, photo: TRADE, pos: 'center', tag: 'Trade-ins',
     model: 'Mercedes-Benz of Smithtown', head: 'Got a<br><em>trade?</em>', headSize: 170,
     sub: 'Bring it to me. I’ll bring the numbers.', action: TODAY, sigBottom: 250, textBottom: 380, top: 250,
   }))],
@@ -72,7 +74,7 @@ const STORIES = [
 
 const FEED = [
   ['01-got-a-trade', darkTop(hero({
-    photo: 'mk-tradein-faceless.jpg', pos: 'center 24%', tag: 'Trade-ins', model: 'Mercedes-Benz of Smithtown',
+    photo: TRADE, pos: 'center 22%', tag: 'Trade-ins', model: 'Mercedes-Benz of Smithtown',
     head: 'Got a <em>trade?</em>', headSize: 150, sub: 'Bring it to me. I’ll bring the numbers.', action: TODAY,
   }))],
 ];
