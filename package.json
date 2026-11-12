@@ -14,6 +14,7 @@
     "social:all": "npm run social && npm run social:carousel && npm run social:video",
     "lead-magnet": "node scripts/lead-magnet/build.mjs",
     "portfolio-pages": "node scripts/build-portfolio-pages.mjs",
+    "resume": "node scripts/build-master-resume.mjs",
     "stripe:books": "node scripts/create-stripe-payment-links.mjs --write"
   },
   "dependencies": {

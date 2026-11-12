@@ -23,8 +23,8 @@ const featuredDocs = [
   },
   {
     label: "Resume",
-    title: "MK Parrish Resume 2026",
-    href: "/downloads/portfolio/public/mk-parrish-resume-2026.pdf",
+    title: "MK Parrish Resume",
+    href: "/resumes/master/mk-parrish-resume-signature.pdf",
     meta: "Current resume PDF",
   },
 ];
