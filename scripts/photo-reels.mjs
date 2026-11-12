@@ -10,6 +10,7 @@
  *
  * Output: output/photo-reels/<name>.mp4
  * Run:    node scripts/photo-reels.mjs   (after scripts/audio/make-music-beds.py)
+ *         node scripts/photo-reels.mjs quote-shadow   (only jobs whose name contains it)
  */
 import { execFileSync } from 'child_process';
 import fs from 'fs';
@@ -71,6 +72,9 @@ const JOBS = {
   'quote-the-way-through': [[`${Q}/philosophy/post-10-the-way-through.jpg`], 'soft'],
   'quote-what-you-seek': [[`${Q}/bold/post-14-what-you-seek.jpg`], 'soft'],
   'quote-the-words-he-gave-you': [[`${Q}/fifty/post-09-the-words-he-gave-you.jpg`], 'soft'],
+  // Shadow & detachment quote set (scripts/build-instagram-editorial.mjs shadow)
+  ...Object.fromEntries(fs.readdirSync(path.join(ROOT, Q, 'shadow')).filter(f => f.endsWith('.jpg')).sort()
+    .map(f => [`quote-shadow-${f.replace(/^post-/, '').replace(/\.jpg$/, '')}`, [[`${Q}/shadow/${f}`], 'soft']])),
   // The Parktronic poll story, as a video story so it has sound too (the poll sticker still goes on in the app)
   'story-poll-park-itself': [[`${MB}/parktronic/stories/01-poll-park-itself.jpg`], 'showroom'],
 };
@@ -91,7 +95,10 @@ function segment(img, dur, out) {
 
 fs.mkdirSync(OUT, { recursive: true });
 const tmp = fs.mkdtempSync(path.join(OUT, '.work-'));
+// Optional name filter: `node scripts/photo-reels.mjs quote-shadow` builds only matching jobs.
+const only = process.argv.slice(2);
 for (const [name, [imgs, bed]] of Object.entries(JOBS)) {
+  if (only.length && !only.some(o => name.includes(o))) continue;
   for (const i of imgs) if (!fs.existsSync(path.join(ROOT, i))) throw new Error(`Missing ${i}`);
   const dur = imgs.length === 1 ? SINGLE : SLIDE;
   const segs = imgs.map((img, i) => { const s = path.join(tmp, `${name}-${i}.mp4`); segment(img, dur, s); return s; });
