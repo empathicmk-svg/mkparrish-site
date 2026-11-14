@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "**/build/**",
     "next-env.d.ts",
+    // Client sites are standalone Next.js apps with their own lint config.
+    "clients/**",
   ]),
   ...nextVitals,
   ...nextTs,

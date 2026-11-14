@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* Brand palette. Swap these values for the client's official colors when supplied. */
+@theme inline {
+  --color-forest: #0d3b24;
+  --color-moss: #12673a;
+  --color-leaf: #1f9e55;
+  --color-lime: #c4e53b;
+  --color-citrus: #ff9a1f;
+  --color-sage: #e2f3e6;
+  --color-cream: #f5f8ec;
+  --color-paper: #fffef9;
+  --color-ink: #12201a;
+  --color-stone: #52625a;
+  --color-line: #e0e8da;
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-citrus);
+  outline-offset: 3px;
+}
+
+/* Popups */
+dialog[open] {
+  animation: pop-in 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+dialog::backdrop {
+  background: rgb(13 59 36 / 0.55);
+  backdrop-filter: blur(4px);
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+}
+
+.toast {
+  animation: toast-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+/* Scroll reveal: only hides content once the observer is running. */
+[data-reveal] {
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  transition-delay: var(--d, 0ms);
+}
+.reveal-ready [data-reveal]:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+/* Hero decoration */
+.float-slow {
+  animation: float 7s ease-in-out infinite;
+}
+.float-fast {
+  animation: float 5s ease-in-out infinite reverse;
+}
+@keyframes float {
+  50% {
+    transform: translateY(-18px) rotate(6deg);
+  }
+}
+
+.marquee {
+  animation: marquee 35s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after,
+  dialog[open] {
+    animation: none !important;
+    transition: none !important;
+  }
+}
