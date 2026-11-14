@@ -2,18 +2,50 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import LegacyOfferingsRedirect from "@/app/components/LegacyOfferingsRedirect";
 import { Marquee } from "@/app/components/ui";
-import { STRIPE_AUDIT } from "@/app/lib/config";
+import InlineLeadCapture from "@/app/components/InlineLeadCapture";
+import { CONTACT, SOCIALS, STRIPE_AUDIT } from "@/app/lib/config";
 import { featuredTestimonials } from "@/app/lib/testimonials";
 
 const HOME_TESTIMONIALS = featuredTestimonials();
 
 export const metadata: Metadata = {
-  title: "MK Parrish — Web Design, Development & Marketing",
+  title: "The Blonde Broker | MK Parrish: Cars, Content & Consulting",
   description:
-    "Conversion websites designed, written, and built fast, plus the marketing that fills them: outbound, full-funnel growth, and social. One senior operator. Start with the $97 audit or book a call.",
+    "The Blonde Broker is MK Parrish: Mercedes-Benz sales at Smithtown, content that gets seen, and consulting that turns it into revenue. Test drive a car, follow the content, or book a call.",
 };
 
+const BROKER_PILLARS = [
+  {
+    n: "01",
+    title: "Cars",
+    line: "Mercedes-Benz, brokered with a straight answer.",
+    text: "I sell and lease Mercedes-Benz at Mercedes-Benz of Smithtown. Test drive, trade-in, or a first lease: ask for MK and I'll walk you through it without the runaround.",
+    href: "/test-drive",
+    cta: "Book a test drive",
+  },
+  {
+    n: "02",
+    title: "Content",
+    line: "Reels, books and words people actually finish.",
+    text: "Showroom reels, quote cards, poems and books. The content that builds trust before anyone ever walks in or books a call.",
+    href: "/posts",
+    cta: "See the content",
+  },
+  {
+    n: "03",
+    title: "Consulting",
+    line: "Sites, copy and growth that turn attention into revenue.",
+    text: "Positioning, conversion websites and the marketing that fills them, built by the same operator who writes the content.",
+    href: "/services",
+    cta: "Work with me",
+  },
+] as const;
+
 const MARQUEE_ITEMS = [
+  "The Blonde Broker",
+  "Cars",
+  "Content",
+  "Consulting",
   "Website Design",
   "Web Development",
   "The Build · From $6,000",
@@ -78,32 +110,34 @@ export default function HomePage() {
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-void pb-16 pt-32 md:pb-24 md:pt-40">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-0 h-[70vh] w-[90vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.16),transparent_60%)]" />
-          <div className="absolute bottom-0 right-0 h-[40vh] w-[50vw] bg-[radial-gradient(ellipse_at_bottom_right,rgba(217,79,124,0.08),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,#080808_0%,#161616_45%,#2a1720_78%,#080808_100%)]" />
+          <div className="absolute left-1/2 top-0 h-[70vh] w-[90vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.20),transparent_60%)]" />
+          <div className="absolute bottom-0 right-0 h-[50vh] w-[60vw] bg-[radial-gradient(ellipse_at_bottom_right,rgba(217,79,124,0.14),transparent_60%)]" />
+          <div className="absolute bottom-0 left-0 h-[30vh] w-[40vw] bg-[radial-gradient(ellipse_at_bottom_left,rgba(176,176,176,0.08),transparent_60%)]" />
         </div>
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
           <p className="font-body text-[0.68rem] font-bold uppercase tracking-[0.32em] text-petal">
-            Web design · Development · Marketing
+            Cars · Content · Consulting
           </p>
           <h1 className="mt-5 max-w-5xl font-display text-6xl uppercase leading-[0.88] tracking-[0.01em] text-pearl md:text-8xl lg:text-9xl">
-            Websites that sell. <span className="text-petal text-glow">Marketing that fills them.</span>
+            The Blonde <span className="bg-gradient-to-r from-blush via-petal to-carmine bg-clip-text text-transparent">Broker.</span>
           </h1>
           <p className="mt-7 max-w-3xl font-serif text-xl italic leading-9 text-smoke md:text-2xl">
-            I design, write, and build fast conversion websites for B2B companies and service businesses, then run the marketing that sends qualified people to them. One senior operator handles both.
+            I&apos;m MK Parrish. I sell Mercedes-Benz, make content people stop scrolling for, and consult on the websites and marketing that turn attention into revenue. Three jobs, one operator, zero runaround.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Link href="/book" className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
-              Book a Call →
+            <Link href="/test-drive" className="btn-primary inline-flex justify-center px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+              Book a Test Drive →
             </Link>
-            <Link href="/redesign" className="inline-flex justify-center border border-petal/60 px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:border-petal hover:bg-petal/5">
-              Founding Redesign Offer
+            <Link href="/book" className="inline-flex justify-center border border-petal/60 px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:border-petal hover:bg-petal/5">
+              Book a Consulting Call
             </Link>
-            <Link href="/audit" className="inline-flex justify-center border border-graphite px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
-              Start with the $97 Audit
-            </Link>
+            <a href={`tel:${CONTACT.phone.replace(/\D/g, "")}`} className="inline-flex justify-center border border-graphite px-7 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-ash transition hover:border-petal hover:text-petal">
+              Call or text {CONTACT.phone}
+            </a>
           </div>
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
-            {["Custom sites in 3–4 weeks", "Mobile-first & SEO-ready", "Outbound & full-funnel growth", "$97 async entry point"].map((t) => (
+            {["Mercedes-Benz of Smithtown", "Reels, books & quote cards", "Websites & growth consulting", "$97 async audit"].map((t) => (
               <div key={t} className="flex items-center gap-3">
                 <span className="h-1 w-1 bg-petal" />
                 <span className="font-body text-xs font-light text-smoke">{t}</span>
@@ -115,6 +149,70 @@ export default function HomePage() {
 
       {/* ── TICKER ── */}
       <Marquee items={MARQUEE_ITEMS} />
+
+      {/* ── THE BRAND: CARS / CONTENT / CONSULTING ── */}
+      <section className="relative overflow-hidden bg-obsidian py-16 md:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,#111111_0%,#1a1a1a_55%,#241219_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(242,175,198,0.10),transparent_55%)]" />
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <div className="mb-10 max-w-3xl">
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">One broker, three ways to work together</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              Cars. Content. <span className="text-petal">Consulting.</span>
+            </h2>
+          </div>
+          <div className="grid gap-px bg-graphite lg:grid-cols-3">
+            {BROKER_PILLARS.map((p) => (
+              <article key={p.title} className="relative flex flex-col bg-void p-7 md:p-10">
+                <div className="gradient-rule absolute inset-x-0 top-0" />
+                <span className="font-display text-5xl text-petal/60">{p.n}</span>
+                <h3 className="mt-3 font-display text-5xl uppercase tracking-[0.02em] text-pearl">{p.title}</h3>
+                <p className="mt-3 font-serif text-lg italic leading-8 text-petal">{p.line}</p>
+                <p className="mt-4 font-body text-sm font-light leading-7 text-smoke">{p.text}</p>
+                <div className="mt-auto pt-8">
+                  <Link href={p.href} className="btn-primary inline-flex w-full justify-center px-5 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
+                    {p.cta} →
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOLLOW + LEAD CAPTURE ── */}
+      <section className="relative overflow-hidden bg-void py-16 md:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,#080808_0%,#1d1d1d_50%,#2a1720_100%)]" />
+        <div className="relative mx-auto grid max-w-[1400px] gap-10 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
+          <div>
+            <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Follow along</p>
+            <h2 className="mt-4 font-display text-5xl uppercase leading-[0.95] tracking-[0.02em] text-pearl md:text-6xl">
+              See it <span className="text-petal">before you ask.</span>
+            </h2>
+            <p className="mt-5 max-w-md font-body text-base font-light leading-8 text-smoke">
+              New cars, showroom reels, quotes and writing go up on these accounts first. Follow where you like to scroll.
+            </p>
+            <ul className="mt-7 grid gap-px bg-graphite sm:grid-cols-2">
+              {SOCIALS.map((s) => (
+                <li key={s.label} className="bg-obsidian">
+                  <a href={s.href} target="_blank" rel="noreferrer" className="flex h-full flex-col px-5 py-4 transition hover:bg-carbon">
+                    <span className="font-display text-2xl uppercase tracking-[0.02em] text-pearl">{s.label}</span>
+                    <span className="font-body text-xs font-light text-petal">{s.handle}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 font-body text-sm font-light text-smoke">
+              Or skip the scroll:{" "}
+              <a href={`tel:${CONTACT.phone.replace(/\D/g, "")}`} className="text-petal underline underline-offset-4 transition hover:text-blush">
+                call or text {CONTACT.phone}
+              </a>
+              .
+            </p>
+          </div>
+          <InlineLeadCapture source="home-blonde-broker" />
+        </div>
+      </section>
 
       {/* ── TWO PILLARS: BUILD + GROW ── */}
       <section id="offerings" className="relative overflow-hidden bg-obsidian py-16 md:py-24">
