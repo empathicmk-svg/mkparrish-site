@@ -1,0 +1,206 @@
+/* ═══════════════════════════════════════════════════════════════
+   TRESBELLE — design tokens
+   Built on the mkparrish.com type system:
+   Bebas Neue (display) · Playfair Display (serif) · DM Sans (body) · JetBrains Mono (labels)
+   Palette re-tuned from noir/pink to warm noir × champagne × blush.
+   ═══════════════════════════════════════════════════════════════ */
+
+@import "tailwindcss";
+
+@theme inline {
+  --color-void: #0a0908;
+  --color-obsidian: #12100f;
+  --color-carbon: #1c1917;
+  --color-graphite: #2e2925;
+  --color-ash: #857c74;
+  --color-smoke: #bdb4ab;
+  --color-pearl: #f4efe9;
+  --color-blush: #f6dcd5;
+  --color-petal: #e8b4a8;
+  --color-rose: #d68f80;
+  --color-champagne: #d9c3a0;
+  --color-gold: #b89766;
+  --font-display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --section-y: clamp(5rem, 10vw, 9rem);
+  --container-x: clamp(1rem, 5vw, 3rem);
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(232, 180, 168, 0.09), transparent 34rem),
+    radial-gradient(ellipse at 90% 15%, rgba(217, 195, 160, 0.07), transparent 30rem),
+    var(--color-obsidian);
+  background-attachment: fixed;
+  color: var(--color-pearl);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-petal);
+  color: var(--color-void);
+}
+
+.container-x {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--container-x);
+}
+
+.section-y {
+  padding-block: var(--section-y);
+}
+
+/* Display type: Bebas ships one weight; block synthetic bold. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: 0.01em;
+  line-height: 0.88;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-champagne);
+}
+
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.gold-text {
+  background: linear-gradient(100deg, var(--color-champagne), var(--color-blush) 45%, var(--color-petal) 70%, var(--color-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hairline {
+  border-color: rgba(217, 195, 160, 0.18);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0 1.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition:
+    background-color 300ms var(--ease-luxury),
+    color 300ms var(--ease-luxury),
+    border-color 300ms var(--ease-luxury),
+    transform 300ms var(--ease-luxury);
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-champagne);
+  outline-offset: 3px;
+}
+.btn-primary {
+  background: var(--color-pearl);
+  color: var(--color-void);
+}
+.btn-primary:hover {
+  background: var(--color-blush);
+}
+.btn-ghost {
+  border: 1px solid rgba(244, 239, 233, 0.35);
+  color: var(--color-pearl);
+}
+.btn-ghost:hover {
+  border-color: var(--color-champagne);
+  color: var(--color-champagne);
+}
+
+/* Service rows */
+.service-row {
+  transition: background-color 400ms var(--ease-luxury);
+}
+.service-row:hover {
+  background: rgba(232, 180, 168, 0.05);
+}
+
+/* Reveal on scroll (progressive: content is visible without JS) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 900ms var(--ease-luxury),
+    transform 900ms var(--ease-luxury);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Marquee */
+@keyframes tb-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: tb-marquee 38s linear infinite;
+}
+
+/* Hero monogram ring */
+@keyframes tb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.monogram-ring {
+  animation: tb-spin 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track,
+  .monogram-ring {
+    animation: none;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
