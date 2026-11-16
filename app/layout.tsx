@@ -14,27 +14,27 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
-    default: "MK Parrish — Growth Strategy, Websites & Messaging",
+    default: "MK Parrish · Luxury Concierge for Cars, Code, Content & Creative",
     template: "%s — MK Parrish",
   },
   description:
-    "Websites, outbound, and messaging that turn how you're seen into revenue. Senior growth strategy for B2B SaaS, agencies, and growth-stage teams.",
+    "The Four C's, one concierge: Mercedes-Benz at Smithtown, websites engineered to convert, content and growth that get finished, and brand and copy people remember.",
   applicationName: "MK Parrish",
   metadataBase: new URL("https://www.mkparrish.com"),
   openGraph: {
-    title: "MK Parrish — Growth Strategy, Websites & Messaging",
+    title: "MK Parrish · Luxury Concierge for Cars, Code, Content & Creative",
     description:
-      "Websites, outbound, and messaging that turn how you're seen into revenue. Senior growth strategy for B2B SaaS, agencies, and growth-stage teams.",
+      "The Four C's, one concierge: Mercedes-Benz at Smithtown, websites engineered to convert, content and growth that get finished, and brand and copy people remember.",
     url: "https://www.mkparrish.com",
     siteName: "MK Parrish",
     type: "website",
-    images: [{ url: "/og/default.png", width: 1200, height: 630, alt: "MK Parrish — Turn how you're seen into revenue." }],
+    images: [{ url: "/og/default.png", width: 1200, height: 630, alt: "MK Parrish, Luxury Concierge" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MK Parrish — Growth Strategy, Websites & Messaging",
+    title: "MK Parrish · Luxury Concierge for Cars, Code, Content & Creative",
     description:
-      "Websites, outbound, and messaging that turn how you're seen into revenue. Senior growth strategy for B2B SaaS, agencies, and growth-stage teams.",
+      "The Four C's, one concierge: Mercedes-Benz at Smithtown, websites engineered to convert, content and growth that get finished, and brand and copy people remember.",
     images: ["/og/default.png"],
   },
   appleWebApp: {

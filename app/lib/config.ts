@@ -53,8 +53,10 @@ export const CONTACT = {
 // Rendered as petal-pink chips with black text in the footer.
 export const SOCIALS = [
   { label: "Instagram", handle: "@mk_parrish", href: "https://www.instagram.com/mk_parrish" },
+  { label: "TikTok",    handle: "@mk_parrish", href: "https://www.tiktok.com/@mk_parrish" },
   { label: "Substack",  handle: "The Margins", href: SUBSTACK_URL },
   { label: "LinkedIn",  handle: "/in/mkparrish", href: "https://www.linkedin.com/in/mkparrish" },
+  { label: "YouTube",   handle: "@mk.parrish", href: "https://www.youtube.com/@mk.parrish" },
   { label: "Amazon",    handle: "Author Page", href: AMAZON_AUTHOR_URL },
 ];
 
