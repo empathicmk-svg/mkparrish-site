@@ -2,65 +2,26 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { FOUR_CS, type LaneId } from "@/app/lib/brand";
 
-type Topic = "cars" | "website" | "marketing" | "content";
+type Topic = LaneId;
 
-const TOPICS: {
-  id: Topic;
-  label: string;
-  kicker: string;
-  title: string;
-  text: string;
-  points: string[];
-  href: string;
-  cta: string;
-  placeholder: string;
-}[] = [
-  {
-    id: "cars",
-    label: "A Mercedes-Benz",
-    kicker: "Cars",
-    title: "Let's find your car.",
-    text: "New, a lease, or a trade-in. I'll walk you through the numbers and hand you the key.",
-    points: ["Test drives, any day", "Trade-in values explained", "Straight answers on payments"],
-    href: "/test-drive",
-    cta: "Book a test drive",
-    placeholder: "Which model, or what are you driving now?",
-  },
-  {
-    id: "website",
-    label: "A website",
-    kicker: "Consulting · Web",
-    title: "A site built to convert.",
-    text: "Strategy, copy, design and code in one engagement. Fast, mobile-first, and yours to keep.",
-    points: ["Custom builds from $6,000", "Launch in 3–4 weeks", "Hosting and upkeep from $300/mo"],
-    href: "/studio",
-    cta: "See web services",
-    placeholder: "What does the site need to do for you?",
-  },
-  {
-    id: "marketing",
-    label: "Marketing & growth",
-    kicker: "Consulting · Growth",
-    title: "Qualified calls, not just traffic.",
-    text: "Outbound, full-funnel growth and social, run as one motion by the person who built the pages.",
-    points: ["Outbound from $2,500/mo", "Full-funnel from $6,500/mo", "Social from $2,000/mo"],
-    href: "/growth",
-    cta: "See growth services",
-    placeholder: "Who do you want to reach, and where are leads stalling?",
-  },
-  {
-    id: "content",
-    label: "Content",
-    kicker: "Content",
-    title: "Words and video that get finished.",
-    text: "Reels, posts, books and brand voice. Content that builds trust before anyone calls.",
-    points: ["Short-form video and carousels", "Brand voice and copy", "Books and long-form writing"],
-    href: "/posts",
-    cta: "See the content",
-    placeholder: "What do you want your content to do?",
-  },
-];
+const LABELS: Record<LaneId, { label: string; title: string; placeholder: string }> = {
+  cars: { label: "A Mercedes-Benz", title: "Let's find your car.", placeholder: "Which model, or what are you driving now?" },
+  code: { label: "A website", title: "A site built to convert.", placeholder: "What does the site need to do for you?" },
+  content: { label: "Content & growth", title: "Get seen. Get booked.", placeholder: "Who do you want to reach, and where are leads stalling?" },
+  creative: { label: "Brand & copy", title: "Be the obvious choice.", placeholder: "What do you want people to remember about you?" },
+};
+
+const TOPICS = FOUR_CS.map((l) => ({
+  id: l.id,
+  kicker: l.word,
+  text: l.text,
+  points: l.points,
+  href: l.href,
+  cta: l.cta,
+  ...LABELS[l.id],
+}));
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -201,9 +162,9 @@ export default function Concierge({ email, phoneHref }: { email: string; phoneHr
             <button
               type="submit"
               disabled={status === "sending"}
-              className="btn-primary w-full px-6 py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.18em] text-void disabled:cursor-not-allowed disabled:opacity-60"
+              className="btn-primary mk-glow-btn w-full px-6 py-4 font-body text-[0.75rem] font-bold uppercase tracking-[0.18em] text-void disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {status === "sending" ? "Sending…" : "Send to MK →"}
+              {status === "sending" ? "Sending…" : "Send to your concierge →"}
             </button>
             <p className="font-body text-[0.65rem] leading-5 text-iron">
               Your details go only to MK, to answer this inquiry. No list, no spam.

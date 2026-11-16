@@ -31,10 +31,10 @@ export default function Footer() {
         <div className="mb-10 grid gap-6 border border-petal/25 bg-carbon/55 p-6 shadow-[0_0_70px_rgba(255,181,208,0.09)] md:grid-cols-[1fr_auto] md:items-center md:p-8">
           <div>
             <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.32em] text-petal">
-              Cars · Content · Consulting
+              Luxury Concierge · Cars · Code · Content · Creative
             </p>
             <p className="mt-3 max-w-2xl font-serif text-xl italic leading-8 text-pearl md:text-2xl">
-              A Mercedes-Benz, content people finish, and websites and marketing that keep the calendar full. One person, start to finish.
+              The Four C&apos;s, one concierge: a Mercedes-Benz, websites engineered to convert, content that gets you booked, and creative people remember.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row md:flex-col xl:flex-row">
@@ -42,7 +42,7 @@ export default function Footer() {
               href="/book"
               className="btn-primary justify-center px-5 py-3 font-body text-[0.68rem] font-bold uppercase tracking-[0.18em] text-void"
             >
-              Book a Call
+              Book Your Concierge Call
             </Link>
             <Link
               href="/audit"
@@ -57,7 +57,7 @@ export default function Footer() {
           <div>
             <p className="font-display text-2xl uppercase tracking-[0.02em] text-pearl">MK Parrish</p>
             <p className="mt-1 font-serif text-base italic text-smoke" style={{ fontWeight: 500 }}>
-              Cars. Content. Consulting.
+              Cars. Code. Content. Creative.
             </p>
             <div className="mt-4 flex flex-col gap-1.5">
               <a href={`mailto:${CONTACT.email}`} className="font-body text-[0.72rem] tracking-[0.08em] text-smoke transition hover:text-petal">
@@ -109,7 +109,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-graphite pt-8">
           <p className="font-body text-[0.7rem] font-light tracking-[0.1em] text-iron">
-            Websites and marketing that turn how you&apos;re seen into revenue.
+            Luxury concierge for cars, code, content and creative.
           </p>
           <p className="font-body text-[0.7rem] font-light tracking-[0.06em] text-iron">
             &copy; {new Date().getFullYear()} MK Parrish

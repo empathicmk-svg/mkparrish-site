@@ -1281,3 +1281,53 @@ label {
   .mk-reveal:not(.mk-reveal-in) { opacity: 1 !important; transform: none !important; }
   .mk-grad-text { background-position: 0 0; }
 }
+
+/* ── Neon motifs: hearts, thin crosses, anchors ─────────────────── */
+.mk-motif { display: block; overflow: visible; }
+.mk-motif-white { color: #fafaf8; filter: drop-shadow(0 0 2px rgba(255,255,255,.9)) drop-shadow(0 0 8px rgba(255,255,255,.45)) drop-shadow(0 0 18px rgba(255,181,208,.25)); opacity: .8; }
+.mk-motif-pink { color: #ffb5d0; filter: drop-shadow(0 0 2px rgba(255,224,236,.95)) drop-shadow(0 0 9px rgba(255,181,208,.85)) drop-shadow(0 0 22px rgba(217,79,124,.6)); opacity: .95; }
+.mk-motif-big { opacity: .55; }
+
+@keyframes mk-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: .35; }
+}
+.mk-flicker { animation: mk-flicker 5.5s linear infinite; }
+
+@keyframes mk-float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-12px) rotate(3deg); } }
+.mk-float { animation: mk-float 7s ease-in-out infinite; animation-delay: var(--mk-delay, 0s); }
+
+.mk-ornament { display: flex; align-items: center; justify-content: center; gap: 1.25rem; max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
+.mk-ornament-line { flex: 1; max-width: 18rem; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,181,208,.55)); }
+.mk-ornament-line-r { background: linear-gradient(90deg, rgba(255,181,208,.55), transparent); }
+
+/* ── Neon type ──────────────────────────────────────────────────── */
+.mk-neon-title { text-shadow: 0 0 1px #fff, 0 0 18px rgba(255,255,255,.18), 0 0 46px rgba(255,181,208,.18); }
+.mk-neon-white { color: #fff; text-shadow: 0 0 4px rgba(255,255,255,.9), 0 0 14px rgba(255,255,255,.5), 0 0 34px rgba(255,181,208,.45), 0 0 70px rgba(217,79,124,.25); }
+.mk-neon-pink { color: #ffb5d0 !important; text-shadow: 0 0 4px rgba(255,224,236,.95), 0 0 16px rgba(255,181,208,.9), 0 0 38px rgba(245,140,173,.75), 0 0 80px rgba(217,79,124,.55) !important; }
+@keyframes mk-strike {
+  0% { opacity: 0; } 8% { opacity: .9; } 12% { opacity: .1; } 18% { opacity: 1; } 22% { opacity: .3; } 30%, 100% { opacity: 1; }
+}
+.mk-neon-line { opacity: 0; animation: mk-strike 0.9s steps(1, end) forwards; }
+.mk-neon-hover { transition: text-shadow .4s, color .4s; }
+.mk-panel:hover .mk-neon-hover, .mk-panel-open .mk-neon-hover { text-shadow: 0 0 6px rgba(255,255,255,.6), 0 0 26px rgba(255,181,208,.55); }
+
+/* The neon sign */
+.mk-sign-frame { border: 1px solid rgba(255,181,208,.55); box-shadow: 0 0 6px rgba(255,181,208,.6), 0 0 24px rgba(255,181,208,.35), inset 0 0 24px rgba(255,181,208,.18), 0 0 90px rgba(217,79,124,.18); animation: mk-hum 4s ease-in-out infinite; }
+@keyframes mk-hum { 0%, 100% { box-shadow: 0 0 6px rgba(255,181,208,.6), 0 0 24px rgba(255,181,208,.35), inset 0 0 24px rgba(255,181,208,.18), 0 0 90px rgba(217,79,124,.18); } 50% { box-shadow: 0 0 8px rgba(255,181,208,.75), 0 0 32px rgba(255,181,208,.45), inset 0 0 30px rgba(255,181,208,.24), 0 0 110px rgba(217,79,124,.24); } }
+.mk-sign-btn { border: 1px solid rgba(255,181,208,.4); color: #ffb5d0; width: 2.4rem; height: 2.4rem; display: inline-flex; align-items: center; justify-content: center; transition: box-shadow .3s, background .3s; }
+.mk-sign-btn:hover { background: rgba(255,181,208,.08); box-shadow: 0 0 16px rgba(255,181,208,.45); }
+.mk-brick { opacity: .12; background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 72px 36px, 144px 72px; mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%); }
+
+/* Glowing buttons */
+.mk-glow-btn { transition: box-shadow .35s var(--ease-luxury), transform .35s var(--ease-luxury); }
+.mk-glow-btn:hover { box-shadow: 0 0 10px rgba(255,181,208,.7), 0 0 34px rgba(255,181,208,.45), 0 12px 40px rgba(217,79,124,.3); }
+
+/* Content lane: a phone frame */
+.mk-content-bg { background: radial-gradient(ellipse at 50% 25%, #2a1720 0%, #0d0d0d 70%); }
+.mk-phone { border: 1px solid rgba(255,255,255,.55); border-radius: 1.4rem !important; box-shadow: 0 0 4px rgba(255,255,255,.5), 0 0 22px rgba(255,181,208,.35), 0 30px 60px rgba(0,0,0,.6); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-flicker, .mk-float, .mk-sign-frame { animation: none !important; }
+  .mk-neon-line { animation: none !important; opacity: 1 !important; }
+}

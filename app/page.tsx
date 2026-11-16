@@ -10,15 +10,19 @@ import Concierge from "@/app/components/home/Concierge";
 import Estimators from "@/app/components/home/Estimators";
 import ContentWall from "@/app/components/home/ContentWall";
 import ContactDock from "@/app/components/home/ContactDock";
+import NeonQuotes from "@/app/components/home/NeonQuotes";
+import PromoRail from "@/app/components/home/PromoRail";
+import { MotifField, Ornament } from "@/app/components/home/Motifs";
+import { BRAND, CTA } from "@/app/lib/brand";
 import { CONTACT, SOCIALS, STRIPE_AUDIT } from "@/app/lib/config";
 import { featuredTestimonials } from "@/app/lib/testimonials";
 
 const HOME_TESTIMONIALS = featuredTestimonials();
 
 export const metadata: Metadata = {
-  title: "MK Parrish | Cars. Content. Consulting.",
+  title: { absolute: "MK Parrish · Luxury Concierge for Cars, Code, Content & Creative" },
   description:
-    "One person for the car, the content and the consulting: Mercedes-Benz at Smithtown, content people finish, and websites and marketing that turn attention into revenue. Book a test drive or a call.",
+    "The Four C's, one concierge: Mercedes-Benz at Smithtown, websites engineered to convert, content and growth that get finished, and brand and copy people remember. Book your concierge call.",
 };
 
 const DIGITS = CONTACT.phone.replace(/\D/g, "");
@@ -27,21 +31,21 @@ const SMS = `sms:+1${DIGITS}`;
 
 const MARQUEE_ITEMS = [
   "MK Parrish",
+  "Luxury Concierge",
   "Cars",
+  "Code",
   "Content",
-  "Consulting",
+  "Creative",
   "Mercedes-Benz of Smithtown",
-  "Test Drives",
-  "Trade-Ins",
-  "Reels & Books",
-  "Website Design & Development",
-  "Outbound & Full-Funnel Growth",
+  "Websites Engineered to Convert",
+  "Reels, Social & Growth",
+  "Brand, Voice & Books",
   "The 48-Hour Audit · $97",
 ];
 
 const ONE_PERSON = [
-  { title: "One person, start to finish", text: "The person you meet on the first call is the person who does the work. No account managers, no juniors, no telephone game." },
-  { title: "No handoffs", text: "The car, the content and the consulting come from the same desk, so nothing gets lost between a brief and a build." },
+  { title: "One concierge, start to finish", text: "The person you meet on the first call is the person who does the work. No account managers, no juniors, no telephone game." },
+  { title: "Four C's, one desk", text: "The car, the code, the content and the creative come from the same desk, so nothing gets lost between a brief and a build." },
   { title: "Straight answers", text: "Numbers explained before you sign, scopes agreed before work starts, and plain answers when the answer is no." },
   { title: "Yours to keep", text: "You own the code, the domain, the content and the keys. There is no proprietary builder and no lock-in." },
 ] as const;
@@ -78,14 +82,35 @@ export default function HomePage() {
 
       <Marquee items={MARQUEE_ITEMS} />
 
+      <PromoRail />
+
+      {/* ── NEON QUOTES ── */}
+      <section className="relative overflow-hidden bg-[radial-gradient(ellipse_at_center,#1f1218_0%,#0b0b0b_65%)] py-16 md:py-24">
+        <div className="mk-brick pointer-events-none absolute inset-0" aria-hidden="true" />
+        <MotifField
+          items={[
+            { kind: "heart", x: 6, y: 18, size: 34, pink: true },
+            { kind: "cross", x: 90, y: 14, size: 40 },
+            { kind: "anchor", x: 8, y: 72, size: 40 },
+            { kind: "heart", x: 88, y: 70, size: 28, pink: true },
+          ]}
+        />
+        <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
+          <Reveal>
+            <p className="text-center font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Words that light up</p>
+          </Reveal>
+          <NeonQuotes />
+        </div>
+      </section>
+
       {/* ── THREE LANES ── */}
       <section className="relative overflow-hidden bg-obsidian py-16 md:py-24">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,#111111_0%,#1a1a1a_55%,#241219_100%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(242,175,198,0.10),transparent_55%)]" />
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
           <Reveal>
-            <SectionHead kicker="Three lanes, one desk" sub="Point at a lane to open it. Whichever you start with, the others are one conversation away.">
-              Cars. Content. <span className="text-petal">Consulting.</span>
+            <SectionHead kicker="The Four C's" sub="Point at a lane to open it. Start with one; the other three are a conversation away.">
+              Cars. Code. Content. <span className="text-petal">Creative.</span>
             </SectionHead>
           </Reveal>
           <Reveal delay={120}>
@@ -94,13 +119,16 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="bg-void py-6"><Ornament /></div>
+
       {/* ── CONCIERGE ── */}
       <section id="concierge" className="relative scroll-mt-20 overflow-hidden bg-void py-16 md:py-24">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,#080808_0%,#1d1d1d_50%,#2a1720_100%)]" />
+        <MotifField items={[{ kind: "cross", x: 93, y: 8, size: 42 }, { kind: "heart", x: 80, y: 16, size: 24, pink: true }]} />
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
           <Reveal>
-            <SectionHead kicker="Concierge" sub="Pick what you need and tell me a little. I read every message myself and reply personally.">
-              What can I <span className="text-petal">do for you?</span>
+            <SectionHead kicker="Your concierge" sub="Choose a C, tell me a little, and I'll reply personally, usually within one business day.">
+              What can I <span className="text-petal">handle for you?</span>
             </SectionHead>
           </Reveal>
           <Reveal delay={120}>
@@ -124,11 +152,13 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="bg-void py-6"><Ornament /></div>
+
       {/* ── CONTENT ── */}
       <section className="relative overflow-hidden bg-void py-16 md:py-24">
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
           <Reveal>
-            <SectionHead kicker="Recent content" sub="Showroom reels, quote cards and poems. Tap any tile to see where it lives.">
+            <SectionHead kicker="Content" sub="Showroom reels, quote cards and poems. Tap any tile to see where it lives.">
               Seen on the <span className="text-petal">feed.</span>
             </SectionHead>
           </Reveal>
@@ -141,8 +171,8 @@ export default function HomePage() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(242,175,198,0.07),transparent_55%)]" />
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
           <Reveal>
-            <SectionHead kicker="Why one person" sub="Big brands and small businesses get the same thing: a senior person who owns the outcome.">
-              Not an agency. <span className="text-petal">Just MK.</span>
+            <SectionHead kicker="Why a concierge" sub="Global brands and small businesses get the same thing: one senior person who owns the outcome.">
+              Not an agency. <span className="text-petal">Your concierge.</span>
             </SectionHead>
           </Reveal>
           <div className="grid gap-px bg-graphite sm:grid-cols-2 lg:grid-cols-4">
@@ -163,7 +193,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-void py-16 md:py-24">
         <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
           <Reveal>
-            <SectionHead kicker="Every site ships with">
+            <SectionHead kicker="Every Code build ships with">
               Built to perform, <span className="text-petal">not just to look good.</span>
             </SectionHead>
           </Reveal>
@@ -180,6 +210,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <div className="bg-void py-6"><Ornament /></div>
 
       {/* ── CLIENT TESTIMONIALS ── */}
       <section className="relative overflow-hidden bg-obsidian py-16 md:py-24">
@@ -243,7 +275,7 @@ export default function HomePage() {
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href={STRIPE_AUDIT} target="_blank" rel="noreferrer" className="btn-primary inline-flex justify-center px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
-                Get the Audit, $97
+                {CTA.audit}
               </Link>
               <Link href="/audit" className="inline-flex justify-center border border-graphite bg-void/40 px-6 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-pearl transition hover:border-petal hover:text-petal">
                 How it works
@@ -254,8 +286,9 @@ export default function HomePage() {
       </section>
 
       {/* ── FOLLOW + LEAD CAPTURE ── */}
-      <section className="relative overflow-hidden bg-void py-16 md:py-24">
+      <section id="follow" className="relative scroll-mt-20 overflow-hidden bg-void py-16 md:py-24">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,#080808_0%,#1d1d1d_50%,#2a1720_100%)]" />
+        <MotifField items={[{ kind: "anchor", x: 92, y: 12, size: 38 }, { kind: "heart", x: 46, y: 86, size: 26, pink: true }]} />
         <div className="relative mx-auto grid max-w-[1400px] gap-10 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
           <Reveal>
             <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Follow along</p>
@@ -282,23 +315,25 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="bg-void py-6"><Ornament /></div>
+
       {/* ── CLOSING CTA ── */}
       <section className="relative overflow-hidden py-20 md:py-28 gradient-pink-grey">
         <div className="relative mx-auto max-w-[1400px] px-6 text-center lg:px-10">
           <Reveal>
             <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.3em] text-petal">Ready when you are</p>
             <h2 className="mx-auto mt-5 max-w-4xl font-display text-5xl uppercase leading-[0.92] tracking-[0.02em] text-white md:text-7xl">
-              Cars. Content. Consulting. <span className="text-petal text-glow">One call.</span>
+              The Four C&apos;s. <span className="text-petal text-glow">One concierge.</span>
             </h2>
             <p className="mx-auto mt-6 max-w-2xl font-serif text-lg italic leading-8 text-smoke md:text-xl">
-              Tell me what you need and I&apos;ll tell you where I&apos;d start.
+              {BRAND.line} Tell me what you need and I&apos;ll tell you where I&apos;d start.
             </p>
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href="/test-drive" className="btn-primary inline-flex justify-center px-8 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-void">
-                Book a Test Drive →
+                {CTA.testDrive} →
               </Link>
               <Link href="/book" className="inline-flex justify-center border border-petal/60 bg-void/30 px-8 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-petal transition hover:bg-petal/5">
-                Book a Consulting Call
+                {CTA.concierge}
               </Link>
               <a href={TEL} className="inline-flex justify-center border border-graphite bg-void/30 px-8 py-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.18em] text-pearl transition hover:border-petal hover:text-petal">
                 Call or text {CONTACT.phone}

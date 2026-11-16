@@ -11,7 +11,7 @@ const NOTIFY_EMAIL = process.env.LEAD_NOTIFY_EMAIL || "mkp414@icloud.com";
 const MAX_BODY_BYTES = 12 * 1024;
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS_PER_IP = 8;
-const TOPICS = new Set(["cars", "website", "marketing", "content", "other"]);
+const TOPICS = new Set(["cars", "code", "content", "creative", "website", "marketing", "other"]);
 
 const recentByIp = new Map<string, { count: number; expiresAt: number }>();
 
