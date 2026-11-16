@@ -18,6 +18,43 @@ export function NeonHeart({ size = 28, className = "", style }: MotifProps) {
   );
 }
 
+/** A thin white outline heart, for the linked chains that run down the page edges. */
+export function WhiteHeart({ size = 14, className = "" }: MotifProps) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} className={`mk-motif mk-motif-white ${className}`} aria-hidden="true">
+      <path
+        d="M12 20.6 10.8 19.5C6.1 15.3 3 12.5 3 9.1 3 6.3 5.2 4.2 7.9 4.2c1.6 0 3.1.7 4.1 1.9 1-1.2 2.5-1.9 4.1-1.9 2.7 0 4.9 2.1 4.9 4.9 0 3.4-3.1 6.2-7.8 10.4L12 20.6z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="0.9"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/**
+ * A column of thin white hearts joined by hairlines, fixed to one edge of the viewport
+ * so it runs down the page as you scroll. Desktop only; decorative.
+ */
+export function HeartChain({ side = "left", hearts = 7 }: { side?: "left" | "right"; hearts?: number }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`mk-chain pointer-events-none fixed inset-y-0 z-[5] hidden flex-col items-center py-24 md:flex ${
+        side === "left" ? "left-2 lg:left-5" : "right-2 lg:right-5"
+      }`}
+    >
+      {Array.from({ length: hearts }, (_, i) => (
+        <div key={i} className="flex flex-1 flex-col items-center">
+          <WhiteHeart size={13} />
+          {i < hearts - 1 && <span className="mk-chain-link mt-1.5 w-px flex-1" />}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function ThinCross({ size = 28, className = "", style }: MotifProps) {
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} className={`mk-motif mk-motif-white ${className}`} style={style} aria-hidden="true">

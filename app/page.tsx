@@ -12,7 +12,7 @@ import ContentWall from "@/app/components/home/ContentWall";
 import ContactDock from "@/app/components/home/ContactDock";
 import NeonQuotes from "@/app/components/home/NeonQuotes";
 import PromoRail from "@/app/components/home/PromoRail";
-import { MotifField, Ornament } from "@/app/components/home/Motifs";
+import { HeartChain, MotifField, Ornament } from "@/app/components/home/Motifs";
 import { BRAND, CTA } from "@/app/lib/brand";
 import { CONTACT, SOCIALS, STRIPE_AUDIT } from "@/app/lib/config";
 import { featuredTestimonials } from "@/app/lib/testimonials";
@@ -77,6 +77,9 @@ export default function HomePage() {
   return (
     <>
       <LegacyOfferingsRedirect />
+
+      <HeartChain side="left" />
+      <HeartChain side="right" />
 
       <HeroStage phone={CONTACT.phone} phoneHref={TEL} />
 

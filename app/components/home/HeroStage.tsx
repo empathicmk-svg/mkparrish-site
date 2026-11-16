@@ -63,7 +63,7 @@ export default function HeroStage({ phone, phoneHref }: { phone: string; phoneHr
 
       {/* Floating neon motifs */}
       <div className="pointer-events-none absolute inset-0 -z-10 hidden md:block" aria-hidden="true">
-        <span className="mk-float absolute right-[9%] top-[22%]" style={{ "--mk-delay": "0s" } as React.CSSProperties}>
+        <span className="mk-float absolute right-[10%] top-[40%]" style={{ "--mk-delay": "0s" } as React.CSSProperties}>
           <NeonHeart size={110} className="mk-flicker mk-motif-big" />
         </span>
         <span className="mk-float absolute right-[24%] top-[58%]" style={{ "--mk-delay": "1.2s" } as React.CSSProperties}>
@@ -81,7 +81,10 @@ export default function HeroStage({ phone, phoneHref }: { phone: string; phoneHr
         </p>
 
         <h1 className="mt-6 font-display uppercase leading-[0.86] tracking-[0.01em] text-pearl">
-          <span className="mk-neon-title block text-[clamp(4.2rem,15vw,12.5rem)]">MK Parrish</span>
+          <span className="mk-neon-title relative block text-[clamp(4.2rem,15vw,12.5rem)]">
+            MK Parrish
+            <span className="mk-concierge">concierge</span>
+          </span>
           <span
             className="mt-2 block min-h-[1em] text-[clamp(2.6rem,9vw,7.4rem)]"
             onPointerEnter={() => setPaused(true)}

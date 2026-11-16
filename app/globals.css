@@ -1331,3 +1331,41 @@ label {
   .mk-flicker, .mk-float, .mk-sign-frame { animation: none !important; }
   .mk-neon-line { animation: none !important; opacity: 1 !important; }
 }
+
+/* ── "concierge", tucked against MK Parrish like a handwritten tag ── */
+.mk-concierge {
+  position: absolute;
+  right: 0.02em;
+  top: -0.42em;
+  transform: rotate(-7deg);
+  transform-origin: right bottom;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1;
+  font-size: clamp(1.4rem, 3.6vw, 3.1rem);
+  white-space: nowrap;
+  color: #ffb5d0;
+  text-shadow: 0 0 4px rgba(255, 224, 236, 0.9), 0 0 16px rgba(255, 181, 208, 0.85), 0 0 36px rgba(217, 79, 124, 0.6);
+  pointer-events: none;
+}
+.mk-concierge::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 0.12em;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+}
+
+/* ── Linked white hearts along both edges ── */
+.mk-chain-link {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.18));
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.45);
+}
+.mk-chain .mk-motif-white {
+  color: #ffffff;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 10px rgba(255, 181, 208, 0.35));
+}
