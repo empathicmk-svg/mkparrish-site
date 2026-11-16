@@ -31,10 +31,10 @@ export default function Footer() {
         <div className="mb-10 grid gap-6 border border-petal/25 bg-carbon/55 p-6 shadow-[0_0_70px_rgba(255,181,208,0.09)] md:grid-cols-[1fr_auto] md:items-center md:p-8">
           <div>
             <p className="font-body text-[0.65rem] font-bold uppercase tracking-[0.32em] text-petal">
-              Websites · Marketing · Growth
+              Cars · Content · Consulting
             </p>
             <p className="mt-3 max-w-2xl font-serif text-xl italic leading-8 text-pearl md:text-2xl">
-              Fast sites, clear messaging, and marketing that keeps the calendar full. Built and run by one senior operator.
+              A Mercedes-Benz, content people finish, and websites and marketing that keep the calendar full. One person, start to finish.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row md:flex-col xl:flex-row">
@@ -57,7 +57,7 @@ export default function Footer() {
           <div>
             <p className="font-display text-2xl uppercase tracking-[0.02em] text-pearl">MK Parrish</p>
             <p className="mt-1 font-serif text-base italic text-smoke" style={{ fontWeight: 500 }}>
-              Web design, development, and marketing.
+              Cars. Content. Consulting.
             </p>
             <div className="mt-4 flex flex-col gap-1.5">
               <a href={`mailto:${CONTACT.email}`} className="font-body text-[0.72rem] tracking-[0.08em] text-smoke transition hover:text-petal">
