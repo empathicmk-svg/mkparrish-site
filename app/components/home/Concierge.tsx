@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FOUR_CS, type LaneId } from "@/app/lib/brand";
+import { CONTACT } from "@/app/lib/config";
 
 type Topic = LaneId;
 
@@ -23,7 +24,7 @@ const TOPICS = FOUR_CS.map((l) => ({
   ...LABELS[l.id],
 }));
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "sent" | "drafted" | "error";
 
 export default function Concierge({ email, phoneHref }: { email: string; phoneHref: string }) {
   const [topic, setTopic] = useState<Topic>("cars");
@@ -62,10 +63,11 @@ export default function Concierge({ email, phoneHref }: { email: string; phoneHr
         setStatus("sent");
         return;
       }
-      // Sending isn't set up here, or it failed: open a ready-made email instead.
+      // Sending isn't set up here, or it failed: open a ready-made email instead. Nothing is
+      // delivered until the visitor sends that email, so this is a draft, not a confirmation.
       const body = `Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone}\n\n${payload.message}`;
       window.location.href = `mailto:${email}?subject=${encodeURIComponent(`${t.kicker} inquiry from ${payload.name}`)}&body=${encodeURIComponent(body)}`;
-      setStatus("sent");
+      setStatus("drafted");
     } catch {
       setError("That did not go through. Try again, or call or text me.");
       setStatus("error");
@@ -154,6 +156,15 @@ export default function Concierge({ email, phoneHref }: { email: string; phoneHr
                 <input name="website" tabIndex={-1} autoComplete="off" />
               </label>
             </div>
+            {status === "drafted" && (
+              <p className="font-body text-xs leading-5 text-smoke" aria-live="polite">
+                Your email app should open with your details. Nothing is sent until you send it. If nothing opens, email{" "}
+                <a href={`mailto:${email}`} className="text-petal underline underline-offset-4">
+                  {email}
+                </a>{" "}
+                or call or text {CONTACT.phone}.
+              </p>
+            )}
             {error && (
               <p className="font-body text-xs leading-5 text-petal" aria-live="polite">
                 {error}
