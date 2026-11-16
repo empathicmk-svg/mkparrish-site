@@ -103,3 +103,23 @@ export const NEON_LINES: { lines: string[]; pink: number; from: string }[] = [
   { lines: ["i wanted to be chosen", "so badly that i kept", "mistaking attention", "for care."], pink: 2, from: "Still Here, Still Hers" },
   { lines: ["to be continued", "is just a longer way", "of saying", "i survived."], pink: 3, from: "Make My Own Light" },
 ];
+
+/**
+ * The lines that carry the brand across every page. They are short, always said
+ * in this order, and they run in the ambient background behind each page.
+ */
+export const BRAND_BEATS: string[] = [
+  BRAND.line,
+  BRAND.promise,
+  "The Four C's, one concierge.",
+  "No handoffs. No account managers. You get MK.",
+];
+
+/**
+ * The ambient background quotes: MK's own lines from NEON_LINES, with a brand beat
+ * after every third one so the Four C's keep returning, never out of order.
+ */
+export const BACKGROUND_QUOTES: string[] = NEON_LINES.flatMap((q, n) => {
+  const line = q.lines.join(" ");
+  return n % 3 === 2 ? [line, BRAND_BEATS[Math.floor(n / 3) % BRAND_BEATS.length]] : [line];
+});
