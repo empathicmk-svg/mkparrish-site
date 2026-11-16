@@ -1369,3 +1369,20 @@ label {
   opacity: 0.9;
   filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 10px rgba(255, 181, 208, 0.35));
 }
+
+/* ── Ambient background quotes (every page) ────────────────────── */
+.site-bgq-line {
+  max-width: min(92vw, 26ch);
+  font-size: clamp(2.1rem, 6vw, 5.2rem);
+  line-height: 1.12;
+  color: rgba(255, 240, 246, 0.075);
+  text-shadow: 0 0 24px rgba(255, 181, 208, 0.12), 0 0 60px rgba(217, 79, 124, 0.08);
+  animation: site-bgq-in 2.2s ease-out both;
+}
+@keyframes site-bgq-in {
+  from { opacity: 0; filter: blur(8px); transform: translateY(12px); }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-bgq-line { animation: none; }
+}

@@ -8,6 +8,7 @@ import LeadCapture from "@/app/components/LeadCapture";
 import SiteChrome from "@/app/components/SiteChrome";
 import MonetizationDrawer from "@/app/components/MonetizationDrawer";
 import SiteQuoteRail from "@/app/components/SiteQuoteRail";
+import BackgroundQuotes from "@/app/components/BackgroundQuotes";
 import { Analytics } from "@vercel/analytics/next";
 import ConversionTracking from "@/app/components/ConversionTracking";
 import Script from "next/script";
@@ -60,6 +61,7 @@ export default function RootLayout({
       </head>
       <body className="site-body flex min-h-full flex-col overflow-x-hidden">
         <SiteChrome>
+          <BackgroundQuotes />
           <CursorGlow />
           <Nav />
         </SiteChrome>
