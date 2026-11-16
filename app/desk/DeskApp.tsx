@@ -14,14 +14,14 @@ import {
 } from './deskData';
 
 const CSS = `
-.dk{--bg:#f2f4f6;--sf:#fff;--sf2:#e9ecf0;--ink:#14181c;--ink2:#4d545c;--ink3:#7b838c;--line:#dde1e6;
- --acc:#1f5f7d;--accs:#e2eef4;--good:#2c7a4f;--goods:#e2efe8;--hot:#b04329;--hots:#f7e7e3;
+.dk{--bg:#f3f2f2;--sf:#fff;--sf2:#ebe9ea;--ink:#141414;--ink2:#4f4b4d;--ink3:#7c7779;--line:#e1dedf;
+ --acc:#b43259;--accs:#fbe6ee;--good:#2c7a4f;--goods:#e2efe8;--hot:#b04329;--hots:#f7e7e3;
  --sh:0 1px 2px rgba(0,0,0,.05),0 4px 14px rgba(0,0,0,.05);--tabh:60px;
  background:var(--bg);color:var(--ink);min-height:100vh;
  font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
  -webkit-font-smoothing:antialiased;padding-bottom:calc(var(--tabh) + env(safe-area-inset-bottom))}
-@media (prefers-color-scheme:dark){.dk{--bg:#0d1013;--sf:#171b20;--sf2:#1f252b;--ink:#eef1f4;--ink2:#b0b8c1;
- --ink3:#7d858e;--line:#293038;--acc:#6bbcdd;--accs:#16303c;--good:#5fbf8a;--goods:#143024;--hot:#e08a72;--hots:#3a1f19;
+@media (prefers-color-scheme:dark){.dk{--bg:#0b0b0b;--sf:#161616;--sf2:#1f1f1f;--ink:#f0f0ee;--ink2:#b3b0b1;
+ --ink3:#807c7e;--line:#2c2a2b;--acc:#ffb5d0;--accs:#2a1720;--good:#5fbf8a;--goods:#143024;--hot:#e08a72;--hots:#3a1f19;
  --sh:0 1px 2px rgba(0,0,0,.35),0 6px 20px rgba(0,0,0,.4)}}
 .dk *,.dk *::before,.dk *::after{box-sizing:border-box}
 .dk .pane{padding:14px 14px 30px;max-width:640px;margin:0 auto}
