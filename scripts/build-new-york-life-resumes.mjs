@@ -29,7 +29,7 @@ const role = "Financial Professional";
 const title = `${role} · New York Life`;
 
 const summary =
-  "Relationship-driven seller with nearly two decades earning the trust of business owners and executives, from multimillion-dollar Fortune 500 partnerships at DEFY Media to $200M+ in partner-influenced revenue at Ericsson. I learned the benefits conversation at Mercer, the HR and benefits consulting firm, working with CHROs and Fortune 50 leaders. Today I run the full sales cycle at Mercedes-Benz of Smithtown and build my own book of business as the founder of a consultancy, where I prospect, pitch and close every client myself and work with Long Island's builders and trade owners through the Long Island Builders Institute. I'd bring that to New York Life: an entrepreneur who already knows how to build a client base from scratch, ready to help Long Island families and business owners protect what they've built.";
+  "Direct, curious and a finisher: a sales professional who loves the money conversation, what a family or business owner wants to protect and how to plan for it. Nearly two decades selling to executives and business owners, from multimillion-dollar partnerships at DEFY Media and $200M+ in partner-influenced revenue at Ericsson to the benefits conversation with CHROs at Mercer. Today I run the full sales cycle at Mercedes-Benz of Smithtown and build my own consultancy from scratch. I'd rather earn a client for life than close one sale, and I want to bring that to New York Life's Long Island office to help families and owners protect what they've built.";
 
 const expertise = [
   "Client Acquisition & Prospecting",

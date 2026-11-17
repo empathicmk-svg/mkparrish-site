@@ -31,6 +31,7 @@ const SOURCES = {
   philosophy: 'mk_philosophy_positivity_posts.csv',
   fifty:      'mk_50_posts.csv',
   bold:       'mk_bold_posts.csv',
+  shadow:     'mk_shadow_detachment_posts.csv',
 };
 
 // ── Brand palette (from app/globals.css) ─────────────────────────────────────────
@@ -171,6 +172,7 @@ function buildHTML(post) {
     justify-content:center;
   }
   .qline {
+    white-space:nowrap;
     font-family:'Playfair Display', serif;
     font-style:italic; font-weight:500;
     font-size:${fsz}px; line-height:1.18;
@@ -280,6 +282,17 @@ async function shoot(html, dest) {
     await page.setViewport({ width: 1080, height: 1350, deviceScaleFactor: 2 });
     await page.setContent(html, { waitUntil: 'load', timeout: 30000 });
     await page.evaluate(() => document.fonts.ready);
+    // Each quote line stays on one line: if the size picked from character
+    // counts is too wide for the frame, step it down until every line fits.
+    await page.evaluate(() => {
+      const lines = [...document.querySelectorAll('.qline')];
+      if (!lines.length) return;
+      let size = parseFloat(getComputedStyle(lines[0]).fontSize);
+      while (size > 40 && lines.some(l => l.scrollWidth > l.clientWidth)) {
+        size -= 2;
+        lines.forEach(l => { l.style.fontSize = `${size}px`; });
+      }
+    });
     await new Promise(r => setTimeout(r, 300));
     await page.screenshot({ path: dest, type: 'png' });
     await page.close().catch(() => {});

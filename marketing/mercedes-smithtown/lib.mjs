@@ -239,7 +239,9 @@ async function scene(page, s, file) {
   const png = file.replace(/\.mp4$/, '.png');
   if (s.clip) {
     await render(page, s.html, 1080, 1920, png, true);
-    execFileSync('ffmpeg', ['-v', 'error', '-y', '-ss', String(s.start), '-t', String(s.dur), '-i', path.join(MEDIA, s.clip), '-i', png,
+    // Generated clips (e.g. code animations) live outside media/ and come in as absolute paths.
+    const src = path.isAbsolute(s.clip) ? s.clip : path.join(MEDIA, s.clip);
+    execFileSync('ffmpeg', ['-v', 'error', '-y', '-ss', String(s.start), '-t', String(s.dur), '-i', src, '-i', png,
       '-filter_complex', '[0:v]eq=contrast=1.07:saturation=1.15:brightness=0.01,unsharp=5:5:0.6[g];[g][1:v]overlay,setsar=1[v]',
       '-map', '[v]', '-an', ...enc, file]);
     return;
@@ -266,7 +268,8 @@ async function buildReel(page, r, outDir) {
   r.scenes.slice(0, -1).forEach((s, i) => {
     offset += s.dur - XFADE;
     const out = i === r.scenes.length - 2 ? '[v]' : `[x${i}]`;
-    chain += `${prev}[${i + 1}:v]xfade=transition=fade:duration=${XFADE}:offset=${offset.toFixed(3)}${out};`;
+    // A scene's `fx` picks the xfade transition into it (default: fade).
+    chain += `${prev}[${i + 1}:v]xfade=transition=${r.scenes[i + 1].fx || 'fade'}:duration=${XFADE}:offset=${offset.toFixed(3)}${out};`;
     prev = out;
   });
   const out = path.join(outDir, `${r.name}.mp4`);
@@ -280,7 +283,7 @@ const dir = d => { const p = path.join(OUT, d); fs.rmSync(p, { recursive: true, 
 const cleanup = () => fs.rmSync(work, { recursive: true, force: true });
 
 export {
-  ROOT, MEDIA, OUT, VOID, PEARL, SMOKE, PETAL, HANDLE, STORE, GROUP, work,
+  ROOT, MEDIA, OUT, VOID, PEARL, SMOKE, PETAL, HANDLE, STORE, GROUP, work, XFADE,
   enhance, dataUri, img, ribbon, BASE_CSS, PINK_TAG, topbar, sig, cta,
   photo, hero, pinkPanel, intro, slide, endCard, tiktokOverlay, tiktokTag,
   render, buildReel, dir, cleanup,
