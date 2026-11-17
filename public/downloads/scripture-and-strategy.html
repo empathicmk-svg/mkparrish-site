@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scripture & Strategy — MK Parrish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --obsidian: #111111;
+    --carbon: #1A1A1A;
+    --graphite: #2C2C2C;
+    --iron: #4A4A4A;
+    --ash: #7A7A7A;
+    --smoke: #B0B0B0;
+    --pearl: #F0F0EE;
+    --white: #FAFAF8;
+    --blush: #FFD6E4;
+    --petal: #F2AFC6;
+    --rose: #E0869F;
+    --carmine: #C75B78;
+    --font-display: 'Bebas Neue', Impact, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    /* Reusable gray → pink gradients */
+    --grad-pink: linear-gradient(120deg, var(--rose), var(--petal) 55%, var(--blush));
+    --grad-rule: linear-gradient(90deg, transparent, var(--petal), transparent);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(242,175,198,0.06), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, rgba(199,91,120,0.05), transparent 55%),
+      linear-gradient(180deg, var(--obsidian) 0%, var(--void) 38%);
+    background-attachment: fixed;
+    color: var(--pearl);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.78;
+    position: relative;
+  }
+  /* Grain overlay — the site's signature texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9998;
+    mix-blend-mode: screen;
+  }
+  ::selection { background: var(--petal); color: var(--void); }
+
+  /* ── COVER ─────────────────────────────────────────── */
+  .cover {
+    position: relative;
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--graphite);
+    padding: 104px 48px 84px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% -10%, rgba(242,175,198,0.20) 0%, transparent 62%),
+      radial-gradient(ellipse 50% 50% at 88% 108%, rgba(199,91,120,0.12) 0%, transparent 60%),
+      linear-gradient(160deg, rgba(176,176,176,0.06), transparent 45%);
+    pointer-events: none;
+  }
+  /* Thin gray→pink gradient hairline across the very top */
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--iron), var(--petal) 50%, var(--blush));
+    opacity: 0.7;
+  }
+  .cover > * { position: relative; z-index: 1; }
+  .cover-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--petal);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .cover h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7.5vw, 4.6rem);
+    letter-spacing: 0.04em;
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    color: var(--white);
+  }
+  /* Soft gray→white→pink gradient fill on the lead words */
+  .cover h1 .grad {
+    background: linear-gradient(135deg, var(--pearl) 0%, var(--pearl) 50%, var(--blush) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--pearl);
+    filter: drop-shadow(0 0 16px rgba(242,175,198,0.14));
+  }
+  .cover h1 .outline {
+    -webkit-text-stroke: 1px rgba(242,175,198,0.5);
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  /* Subtitle — matches the live site tagline: Playfair italic, petal */
+  .cover .subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+    color: rgba(242, 175, 198, 0.8);
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.5;
+  }
+  .cover-rule {
+    width: 90px;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, var(--rose), var(--petal), var(--blush), transparent);
+  }
+  .cover-meta {
+    margin-top: 30px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+
+  /* ── CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    counter-reset: section;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    letter-spacing: 0.03em;
+    line-height: 1.04;
+    color: var(--pearl);
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  /* Section headings get an editorial mono counter, like the site's section numbers */
+  h2 {
+    counter-increment: section;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.3vw, 1.95rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--pearl);
+    margin: 68px 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--graphite);
+    position: relative;
+  }
+  h2::before {
+    content: counter(section, decimal-leading-zero);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--rose), var(--petal));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--petal);
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 88px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--petal), rgba(242,175,198,0));
+  }
+  /* Sub-section labels — live-site accent: Playfair italic, petal */
+  h3 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--petal);
+    margin: 40px 0 12px;
+  }
+  p { margin: 0 0 1.25em; color: var(--smoke); }
+  strong { color: var(--pearl); font-weight: 500; }
+  /* Emphasis — live-site accent: Playfair italic, petal */
+  em { font-family: var(--font-serif); font-style: italic; color: var(--petal); }
+  a { color: var(--petal); text-decoration: none; }
+  a:hover { color: var(--blush); text-decoration: underline; }
+
+  ul, ol { padding-left: 1.4em; margin: 0 0 1.6em; color: var(--smoke); }
+  li { margin-bottom: 0.55em; padding-left: 0.35em; }
+  ul li::marker { color: var(--petal); }
+  ol li::marker { color: var(--petal); font-family: var(--font-mono); font-size: 0.85em; }
+
+  blockquote {
+    position: relative;
+    border-left: 2px solid var(--petal);
+    margin: 40px 0;
+    padding: 26px 30px 26px 40px;
+    background: linear-gradient(110deg, rgba(242,175,198,0.10), rgba(176,176,176,0.04) 55%, transparent 90%);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.08rem;
+    color: rgba(242, 175, 198, 0.9);
+    line-height: 1.6;
+  }
+  blockquote::before {
+    content: '\201C';
+    position: absolute;
+    top: 0.08em;
+    left: 0.14em;
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    line-height: 1;
+    color: rgba(242,175,198,0.22);
+    pointer-events: none;
+  }
+
+  pre {
+    background: var(--carbon);
+    border: 1px solid var(--graphite);
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  code { font-family: var(--font-mono); font-size: 0.86rem; color: var(--petal); white-space: pre; }
+  p > code, li > code {
+    background: var(--carbon);
+    padding: 2px 6px;
+    font-size: 0.82em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.9rem; }
+  thead tr { background: linear-gradient(90deg, rgba(242,175,198,0.12), rgba(176,176,176,0.04) 70%, transparent); }
+  th {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--petal);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--graphite); color: var(--smoke); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--iron) 25%, var(--petal) 50%, var(--iron) 75%, transparent);
+    opacity: 0.6;
+    margin: 52px 0;
+  }
+
+  /* ── FOOTER ────────────────────────────────────────── */
+  .footer {
+    border-top: 1px solid var(--graphite);
+    padding: 48px 24px;
+    text-align: center;
+    background: var(--obsidian);
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .footer-legal {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--iron);
+  }
+  .footer-legal a { color: var(--ash); }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PRINT EDITION — light, publisher-style layout for the PDF.
+     The screen stays dark; the printed book inverts to a white page
+     with black header boxes and pink/white titles.
+     ═══════════════════════════════════════════════════════════════ */
+  @media print {
+    @page { margin: 0; }
+
+    html, body {
+      background: #ffffff !important;
+      color: #232323 !important;
+    }
+    body::before { display: none !important; }   /* no grain in print */
+
+    /* ── COVER: a full-page black panel on a white sheet ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      background: #ffffff !important;
+      border-bottom: none;
+      padding: 0;
+      break-after: page;
+    }
+    .cover::before, .cover::after { display: none !important; }
+    /* The panel fills the printable page and centres the title block,
+       instead of floating as a thin band in the middle of the sheet. */
+    .cover-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 52px;
+      background: #0E0E0E;
+      border: 1px solid rgba(242, 175, 198, 0.45);
+    }
+    .cover-kicker { color: var(--petal); }
+    .cover h1 { color: #ffffff; font-size: clamp(3rem, 8vw, 4rem); }
+    /* Solid fills only. background-clip:text and text-stroke rasterise as
+       opaque boxes / vanish entirely in print — that is what turned the old
+       title into a white rectangle. Keep the white + pink two-tone with
+       plain fills so it renders identically everywhere. */
+    .cover h1 .grad {
+      background: none;
+      -webkit-background-clip: border-box; background-clip: border-box;
+      -webkit-text-fill-color: #ffffff; color: #ffffff;
+      filter: none;
+    }
+    .cover h1 .outline {
+      -webkit-text-stroke: 0;
+      -webkit-text-fill-color: var(--petal); color: var(--petal);
+    }
+    .cover .subtitle { color: var(--petal); }
+    .cover-meta { color: #B0B0B0; }
+
+    /* ── BODY: black text on white ── */
+    .content { padding-top: 64px; color: #232323; }
+    p { color: #2b2b2b; }
+    /* Black highlighter — strong emphasis & labels ("Instructions:", names) */
+    strong {
+      background: #0E0E0E;
+      color: #FAFAF8;
+      font-weight: 600;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    a { color: #B23A59; }
+    ul li::marker, ol li::marker { color: #B23A59; }
+
+    /* ── SECTION HEADERS: black boxes, pink number + white title ── */
+    h2 {
+      background: #0E0E0E;
+      color: #ffffff;
+      padding: 24px 30px;
+      margin: 40px 0 42px;
+      border: none;
+      break-before: page;          /* every Part / section starts a fresh page */
+    }
+    /* …except the first section, which follows the cover (and any intro/metadata
+       block) on page 2 instead of forcing a near-empty page before it. */
+    .content h2:first-of-type { break-before: auto; }
+    h2::before {
+      background: none;
+      -webkit-text-fill-color: var(--petal);
+      color: var(--petal);
+      margin-bottom: 10px;
+    }
+    h2::after { display: none; }
+
+    /* Exercise titles — pink, with extra breathing room above each */
+    h3 { color: #B23A59; margin: 58px 0 18px; }
+    /* Petal-pink highlighter — emphasis & labels ("Example:", key words) */
+    em {
+      background: var(--petal);
+      color: #1A1008;
+      font-style: italic;
+      padding: 0.05em 0.34em;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    /* ── PULL QUOTES: soft panel, pink rule + mark, dark text ── */
+    blockquote {
+      background: #F5F2F0;
+      border-left: 3px solid #B23A59;
+      color: #232323;
+    }
+    blockquote::before { color: rgba(178, 58, 89, 0.3); }
+
+    /* ── TABLES: black header band ── */
+    thead tr { background: #0E0E0E; }
+    th { color: #ffffff; border-bottom: 1px solid #0E0E0E; }
+    td { color: #2b2b2b; border-bottom: 1px solid #e3e3e3; }
+
+    /* ── CODE: light chip ── */
+    pre { background: #f3f3f1; border: 1px solid #e3e3e3; }
+    pre code { color: #A8344F; }
+    p > code, li > code { background: #f0eeec; color: #A8344F; }
+
+    hr {
+      background: linear-gradient(90deg, transparent, #cfcfcf 25%, #B23A59 50%, #cfcfcf 75%, transparent);
+      opacity: 1;
+    }
+    /* The markdown "---" separators always sit just before a section heading,
+       and every section already starts a fresh page — so a rule landing right
+       before a heading is redundant and can strand alone on a near-empty page.
+       Hide those; keep any genuine in-content rule (one not followed by H2). */
+    hr:has(+ h2) { display: none; }
+
+    /* ── FOOTER: white page, black signature ── */
+    .footer { background: #ffffff; border-top: 1px solid #dddddd; }
+    .footer-logo { color: #0A0A0A; }
+    .footer-legal { color: #8a8a8a; }
+    .footer-legal a { color: #B23A59; }
+
+    /* ── PAGINATION — natural flow; just avoid bad breaks ── */
+    h1, h2, h3 { break-after: avoid-page; break-inside: avoid; }
+    p, li { orphans: 3; widows: 3; }
+    h2, h3, li, tr, blockquote, pre, table, figure, img { break-inside: avoid; }
+    ul, ol { break-before: avoid-page; }
+    .footer { break-before: avoid-page; }
+  }
+  *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-kicker">MK Parrish · mkparrish.com</div>
+    <h1><span class="grad">Scripture &</span> <span class="outline">Strategy</span></h1>
+    <p class="subtitle">A complete faith-based business curriculum — from study practice to sustainable income.</p>
+    <div class="cover-rule"></div>
+    <div class="cover-meta">By MK Parrish · $497</div>
+  </div>
+</div>
+
+<div class="content">
+<h2>Start here</h2>
+
+<p>Most faith-driven women are told to pick a lane.</p>
+
+<p>Be spiritual <em>or</em> be strategic. Serve <em>or</em> sell. Stay humble <em>or</em> build something that pays. As if conviction and competence can't live in the same body. As if the woman who studies Scripture on Sunday can't run a sharp business on Monday.</p>
+
+<p>That split is the reason so much faith-based work sounds either preachy or hollow — and why so many gifted women undercharge, overgive, and burn out trying to do the right thing the wrong way.</p>
+
+<p><strong>Scripture &amp; Strategy is the course that refuses the split.</strong></p>
+
+<p>It's the spine that connects what you believe to what you build. Real Bible study, taught in plain language. Real positioning, brand voice, offers, content, and growth — taught by someone who has done it for clients paying five and six figures. You bring the calling. This course gives you the craft.</p>
+
+<hr>
+
+<h2>Who this is for</h2>
+
+<ul><li>The woman with a Bible study habit and a business idea, who has never let them touch.</li><li>The faith creator posting into the void, wondering why nothing converts.</li><li>The coach, writer, or teacher who knows she's called to <em>something</em> but can't name it in a sentence.</li><li>The founder who wants income and integrity in the same sentence — and is tired of being told she can't have both.</li></ul>
+
+<p>This is <strong>not</strong> for people looking to manipulate faith into a funnel. If you want to weaponize Scripture for conversions, this isn't your course. Everything here leads with mission. The money follows the meaning — not the other way around.</p>
+
+<hr>
+
+<h2>What you'll walk away with</h2>
+
+<p>By the end, you will have built — not just learned, <em>built</em> — the following:</p>
+
+<ol><li><strong>A Bible study practice that actually sticks.</strong> A repeatable method you'll use long after the course ends.</li><li><strong>A one-sentence calling statement</strong> — what you do, who it's for, and why it's you.</li><li><strong>A documented brand voice</strong> that sounds like you and your faith, not a template.</li><li><strong>At least one real offer</strong> people will pay for, priced without apology.</li><li><strong>A study-to-content pipeline</strong> that turns one passage into a month of material.</li><li><strong>A launch and growth plan</strong> you can run without burning out or selling your soul.</li></ol>
+
+<hr>
+
+<h2>How the course works</h2>
+
+<p>Eight modules. Twenty-eight lessons. Each lesson is short enough to do in a sitting and built around a single action step — because a course you only <em>watch</em> changes nothing. Every module ends with a build assignment that moves a real asset forward.</p>
+
+<table><thead><tr><th>Module</th><th>Title</th><th>What you build</th></tr></thead><tbody><tr><td>0</td><td>Welcome &amp; The Frame</td><td>Your commitment and your starting line</td></tr>
+<tr><td>1</td><td>The Source — A Study Practice That Sticks</td><td>Your repeatable study method</td></tr>
+<tr><td>2</td><td>The Calling — Clarity Before Content</td><td>Your one-sentence calling statement</td></tr>
+<tr><td>3</td><td>The Voice — Sounding Like Yourself</td><td>Your brand voice document</td></tr>
+<tr><td>4</td><td>The Offer — Something Worth Paying For</td><td>Your first real, priced offer</td></tr>
+<tr><td>5</td><td>The Pipeline — Study Into Content</td><td>A month of content from one passage</td></tr>
+<tr><td>6</td><td>The Engine — Launch, Grow, Sustain</td><td>Your launch and growth plan</td></tr>
+<tr><td>7</td><td>The Long Obedience — Staying In It</td><td>Your sustainability system</td></tr></tbody></table>
+
+<hr>
+
+<h2>The companion library</h2>
+
+<p>This course is the spine. The <em>Scripture &amp; Strategy</em> ebook line goes deeper on each vertebra — buy them as you need them:</p>
+
+<ul><li><strong>The Study</strong> ($18) — the full Bible-study-methods deep dive (expands Module 1)</li><li><strong>Gospel &amp; Grind</strong> ($28) — faith-to-brand alignment &amp; monetization (expands Modules 2 &amp; 4)</li><li><strong>The Sermon Notes</strong> ($25) — the study-to-content system (expands Module 5)</li><li><strong>The Calling Card</strong> ($35) — faith brand voice, built from scratch (expands Module 3)</li><li><strong>Ministry, Monetized</strong> ($42) — community launch &amp; growth (expands Module 6)</li><li><strong>The Scripture &amp; Strategy Bundle</strong> ($97) — all five</li></ul>
+
+<p>You don't need them to complete the course. They're there when you want to go further.</p>
+
+<hr>
+
+<h2>A word before you start</h2>
+
+<p>You were not given a calling so you could keep it quiet. You were not given a gift so you could give it away until there's nothing left. Stewardship is not the same as self-erasure.</p>
+
+<p>This course will ask you to take your work seriously enough to build it well — and to take your faith seriously enough to let it lead. Both. At the same time. On purpose.</p>
+
+<p>Let's begin.</p>
+
+<p>→ Continue to <strong>Module 0: Welcome &amp; The Frame</strong></p>
+
+<p><em>All checkout and updates: mkparrish.com · Gumroad: mkparrish.gumroad.com</em></p>
+
+<h2>Module 0 — Welcome &amp; The Frame</h2>
+
+<p><em>3 lessons · ~25 minutes · You'll leave with your commitment, your starting line, and the one mindset that makes the rest of this work.</em></p>
+
+<hr>
+
+<h3>Lesson 0.1 — Why "or" is a lie</h3>
+
+<p>You've been handed a false choice your whole life, and you may not have noticed because the people handing it to you meant well.</p>
+
+<p>Spiritual <em>or</em> strategic. Generous <em>or</em> paid. Faithful <em>or</em> ambitious. The "or" sounds like humility. It's actually a tax — one that gets charged almost exclusively to women, and disproportionately to women of faith.</p>
+
+<p>Here's the truth the "or" is hiding: <strong>strategy is just stewardship with a plan.</strong> When you price your work fairly, you're stewarding the gift. When you write clearly, you're stewarding the message. When you build a business that runs without draining you, you're stewarding your own life — which, last I checked, was also entrusted to you.</p>
+
+<p>The Proverbs 31 woman everyone quotes at weddings? She bought a field. She ran a business. She traded. She was, by any honest reading, a sharp operator who happened to fear God. Nobody told <em>her</em> to pick a lane.</p>
+
+<blockquote>Conviction without competence stays small. Competence without conviction stays hollow. You're here to refuse both.</blockquote>
+
+<p><strong>Action step</strong></p>
+<p>Write down the "or" you've been living under. The specific one. ("I can serve people <em>or</em> charge them." "I can be a woman of faith <em>or</em> be visible.") Name it in writing. You can't dismantle a belief you won't look at.</p>
+
+<hr>
+
+<h3>Lesson 0.2 — The order of operations</h3>
+
+<p>Most people build a faith-based business in exactly the wrong order. They start with the <em>thing they'll sell</em> — a course, a coaching package, a planner — and then try to reverse-engineer a reason it matters.</p>
+
+<p>We're going to do it backwards from how you've been taught, which is to say: forwards.</p>
+
+<ol><li><strong>Source first.</strong> Your study practice is the well. Everything you'll eventually say, sell, and build draws from it. A dry well produces dry content. (Module 1)</li><li><strong>Calling second.</strong> Before you make anything, you name what you're for. (Module 2)</li><li><strong>Voice third.</strong> How you say it. (Module 3)</li><li><strong>Offer fourth.</strong> <em>Now</em> you build the thing — because now it has a foundation. (Module 4)</li><li><strong>Pipeline fifth.</strong> How the work gets seen. (Module 5)</li><li><strong>Engine sixth.</strong> How it grows and sustains. (Modules 6 &amp; 7)</li></ol>
+
+<p>If you've ever launched something that flopped, there's a good chance you started at step 4 and skipped 1 through 3. We're not skipping anything.</p>
+
+<p><strong>Action step</strong></p>
+<p>Look at the order above. Be honest: where did you start last time? Where are you actually starting now? Write one sentence: <em>"Last time I began with ___. This time I begin with the Source."</em></p>
+
+<hr>
+
+<h3>Lesson 0.3 — Your starting line</h3>
+
+<p>This course only works if it produces assets, not just notes. So before you go further, mark your starting line. Not to shame it — to measure from it.</p>
+
+<p>Answer these in writing. Keep them somewhere you'll see them at the end:</p>
+
+<ul><li>What do I currently do (in one messy sentence — no editing yet)?</li><li>Who do I think it's for?</li><li>What do I currently charge, if anything? How does naming that number make me feel?</li><li>How many people hear from me in a normal week?</li><li>What's the gap between the work I'm doing and the work I believe I'm called to?</li></ul>
+
+<p>That last question is the whole course, really. The gap between what you're doing and what you're for. We're going to close it — with Scripture as the source and strategy as the structure.</p>
+
+<p><strong>Action step</strong></p>
+<p>Complete the five questions above. Then make one commitment in writing, with a date: <em>"By [date], I will have completed this course and shipped [one real thing]."</em> Tell one person. Calling thrives in the light and dies in the private tab you never reopen.</p>
+
+<hr>
+
+<p>→ Continue to <strong>Module 1: The Source — A Study Practice That Sticks</strong></p>
+
+<h2>Module 1 — The Source: A Study Practice That Sticks</h2>
+
+<p><em>4 lessons · ~45 minutes · You'll leave with a repeatable Bible study method you'll actually keep using.</em></p>
+
+<p>Everything downstream — your calling, your voice, your offers, your content — draws from one well. If the well is dry, you'll feel it: content that sounds like everyone else's, offers with no soul, a business that takes more than it gives back. This module builds the well.</p>
+
+<hr>
+
+<h3>Lesson 1.1 — Why most study habits fail</h3>
+
+<p>You've probably tried before. A read-the-Bible-in-a-year plan you abandoned in Leviticus. A devotional that felt like someone else's leftovers. A burst of intensity after a hard season that faded when life got loud again.</p>
+
+<p>The habit didn't fail because you lack discipline. It failed for three structural reasons:</p>
+
+<ol><li><strong>No method.</strong> You opened the book and hoped. Hope is not a system.</li><li><strong>No output.</strong> You read, felt something, closed the book, forgot it by lunch. Nothing stuck because nothing was captured.</li><li><strong>Too big.</strong> You aimed for an hour and got zero, instead of aiming for ten honest minutes and getting them.</li></ol>
+
+<p>We fix all three. A method (this module), an output (you'll write something every time), and a scale small enough to survive a hard week.</p>
+
+<blockquote>A study practice isn't measured by how impressive it looks. It's measured by whether you'll still be doing it in March.</blockquote>
+
+<p><strong>Action step</strong></p>
+<p>Write down your last three attempts at a study habit and which of the three failures killed each one. Patterns will show up fast.</p>
+
+<hr>
+
+<h3>Lesson 1.2 — Five methods, plainly</h3>
+
+<p>You don't need seminary. You need a handful of reliable methods you can reach for depending on the day and the passage. Here are five. Learn all five; you'll naturally favor two.</p>
+
+<p><strong>1. SOAP</strong> — <em>Scripture, Observation, Application, Prayer.</em> Write the verse. Note what you observe. Name how it applies. Pray it back. The best all-purpose default.</p>
+
+<p><strong>2. Verse Mapping</strong> — Take one verse. Look up key words in their original language (free tools exist), cross-reference where else those ideas appear, paraphrase it in your own words. Best when one verse won't let you go.</p>
+
+<p><strong>3. Inductive Study</strong> — Observation (<em>what does it say?</em>), Interpretation (<em>what did it mean to them?</em>), Application (<em>what does it mean for me?</em>). Best for working through a whole book or chapter without importing your assumptions.</p>
+
+<p><strong>4. Character Study</strong> — Follow one person across the text. Their choices, failures, turns. Best when you're in a season that rhymes with someone else's story.</p>
+
+<p><strong>5. Lectio Divina</strong> — Read slowly, four times, listening for the word or phrase that catches. Less analysis, more presence. Best when you're depleted and need to receive before you produce.</p>
+
+<p><strong>Action step</strong></p>
+<p>Pick one passage you already love. Run it through SOAP today. Notice how having a structure changes what you see.</p>
+
+<hr>
+
+<h3>Lesson 1.3 — The ten-minute rule (and the weekly anchor)</h3>
+
+<p>Consistency beats intensity, and it isn't close. Ten honest minutes, five days a week, will form you more than a three-hour binge once a month — the same way ten clear sentences a day will outwrite a heroic all-nighter you never repeat.</p>
+
+<p>Build it in two layers:</p>
+
+<ul><li><strong>Daily (10 minutes):</strong> One short passage, one method, one written output. That's it. On the worst days, Lectio Divina and a single sentence count. The streak matters more than the size.</li><li><strong>Weekly (45–60 minutes):</strong> One longer sit-down where you go deeper on one passage — usually with Verse Mapping or Inductive. This is the session that will eventually feed your content (Module 5). Protect it like a client meeting, because it's more important than one.</li></ul>
+
+<p><strong>Action step</strong></p>
+<p>Open your calendar. Block ten minutes, five mornings this week, and one 45-minute weekly anchor. Name them. A block without a name is a wish.</p>
+
+<hr>
+
+<h3>Lesson 1.4 — Capture, or it didn't happen</h3>
+
+<p>Here's the move almost no one makes, and it's the one that turns a study habit into a body of work: <strong>capture everything in one place.</strong></p>
+
+<p>Every output — every SOAP entry, every mapped verse, every phrase that caught you in Lectio — goes into a single running document or notebook. Call it your Source File.</p>
+
+<p>Two things happen when you do this. First, the studying compounds; you start to see threads across weeks. Second — and this is the strategic payoff — <strong>you build a content and offer reservoir without trying.</strong> In Module 5 you'll learn to turn this file into a month of content from a single entry. But that only works if the file exists. The woman who captures for ninety days has more raw material than she'll know what to do with. The woman who doesn't starts from zero every time she sits down to create.</p>
+
+<blockquote>You are not just studying. You are quietly building the archive your future work will be made from.</blockquote>
+
+<p><strong>Action step</strong></p>
+<p>Create your Source File right now — a doc, a Notion page, a paper notebook, doesn't matter. Title it. Paste in today's SOAP entry from Lesson 1.2 as entry #1. The well now exists. Keep filling it.</p>
+
+<hr>
+
+<p><strong>Module 1 build assignment</strong></p>
+<p>By the end of this module you should have: (1) a named daily + weekly study block on your calendar, (2) a Source File with at least three entries in it, and (3) one method you've decided is your default. Don't move to Module 2 until the file exists and has something in it. The Source comes first for a reason.</p>
+
+<p><em>Want the full method library — all five methods with templates and a 30-day plan? That's <strong>The Study</strong> ($18) in the companion library.</em></p>
+
+<p>→ Continue to <strong>Module 2: The Calling — Clarity Before Content</strong></p>
+
+<h2>Module 2 — The Calling: Clarity Before Content</h2>
+
+<p><em>4 lessons · ~45 minutes · You'll leave with a one-sentence calling statement: what you do, who it's for, and why it's you.</em></p>
+
+<p>You cannot build a brand, write an offer, or make content that lands if you can't say what you're for in a sentence. Vagueness isn't humility — it's just expensive. This module ends the vagueness.</p>
+
+<hr>
+
+<h3>Lesson 2.1 — Calling is not a feeling</h3>
+
+<p>We've spiritualized "calling" into something so mystical that women wait years for a lightning bolt that never comes. Then they feel faithless for not knowing.</p>
+
+<p>Calling, in practice, is far more ordinary and far more findable. It usually lives at the intersection of three things:</p>
+
+<ol><li><strong>What you keep coming back to</strong> — the subject, the people, the problem you can't stop thinking about.</li><li><strong>What you're actually good at</strong> — the thing others ask you for, often without you noticing it's a skill.</li><li><strong>What the world in front of you needs</strong> — a real gap, in real people, that you're positioned to meet.</li></ol>
+
+<p>Frederick Buechner put it famously: your calling is where your deep gladness meets the world's deep hunger. That's not a feeling to wait for. It's an intersection to <em>map.</em> And mapping is a skill — which means it's learnable, which means you can do it this week.</p>
+
+<blockquote>Stop waiting to feel called. Start working to get clear. Clarity is the form faithfulness takes when you're paying attention.</blockquote>
+
+<p><strong>Action step</strong></p>
+<p>List five things people consistently come to you for. Then five subjects you can't stop reading/thinking/talking about. Circle anything that appears on both lists. The overlap is your raw material.</p>
+
+<hr>
+
+<h3>Lesson 2.2 — The clarity questions</h3>
+
+<p>Clarity comes from better questions, asked in writing. Answer these slowly. Don't perform — excavate.</p>
+
+<ul><li>When have I felt most useful to another person? What was I doing?</li><li>What problem do I understand from the inside because I lived it?</li><li>Who was I, five years ago, who I'm now equipped to help?</li><li>What makes me angry on someone else's behalf?</li><li>If I could only teach one thing for the rest of my life, what would it be?</li><li>What does Scripture keep pressing on in me — the theme that won't leave my Source File alone?</li></ul>
+
+<p>That last question matters more than the rest combined. The thread that keeps surfacing in your study is rarely random. Follow it.</p>
+
+<p><strong>Action step</strong></p>
+<p>Answer all six in your Source File. Then read your answers out loud. You're listening for the sentence you didn't know you were going to say.</p>
+
+<hr>
+
+<h3>Lesson 2.3 — The calling statement formula</h3>
+
+<p>Now we make it a sentence. Not a paragraph, not a mission statement that could belong to anyone — a single, specific line. Use this scaffold and then make it human:</p>
+
+<pre><code>I help [specific person]
+<p>[achieve specific outcome / make specific shift]</p>
+<p>through [your particular approach],</p>
+<p>because [the conviction underneath it].</p>
+<p></code></pre></p>
+
+<p><strong>Weak:</strong> "I help women grow in their faith and become their best selves."</p>
+<p>(Could be anyone. Outcome is fog. No one is excluded, so no one is gripped.)</p>
+
+<p><strong>Sharp:</strong> "I help burned-out faith-based coaches build offers that pay them fairly, using a study-rooted clarity process, because I believe stewardship includes stewarding yourself."</p>
+
+<p>Notice: a <em>specific</em> person, a <em>specific</em> outcome, a <em>named</em> method, and a conviction that picks a side. The sharp version repels the wrong people on purpose — which is exactly why the right people lean in.</p>
+
+<p><strong>Action step</strong></p>
+<p>Draft your calling statement using the scaffold. Write it badly first. Then cut every word that could belong to someone else. Specificity is the edit.</p>
+
+<hr>
+
+<h3>Lesson 2.4 — Testing it against resistance</h3>
+
+<p>A real calling statement survives contact with three pressures. Run yours through each:</p>
+
+<ol><li><strong>The "so what" test.</strong> Say it to an imaginary stranger. Would they ask a follow-up question, or politely nod? If they'd nod, it's too safe.</li><li><strong>The exclusion test.</strong> Does it clearly <em>not</em> describe some people? If it fits everyone, it grips no one. Who does yours rule out? Good.</li><li><strong>The conviction test.</strong> Could you defend the "because" clause in a room of people who disagree? If the conviction is mush, the whole statement will drift.</li></ol>
+
+<p>A statement that passes all three will feel slightly scary to publish. That's correct. Clarity always costs the comfort of being vaguely acceptable to everyone.</p>
+
+<p><strong>Action step</strong></p>
+<p>Run your statement through all three tests. Revise once. Then put it at the top of your Source File where you'll see it every day. Everything you build from here gets checked against this sentence.</p>
+
+<hr>
+
+<p><strong>Module 2 build assignment</strong></p>
+<p>You should now have <strong>one calling statement</strong> — specific person, specific outcome, named approach, real conviction — tested against resistance and written where you'll see it daily. This is the most important sentence in the course. Don't rush past it. The Voice (Module 3) and the Offer (Module 4) are both built on top of it.</p>
+
+<p><em>Want the deeper faith-to-brand alignment work — finding the business model that fits the calling? That's <strong>Gospel &amp; Grind</strong> ($28).</em></p>
+
+<p>→ Continue to <strong>Module 3: The Voice — Sounding Like Yourself</strong></p>
+
+<h2>Module 3 — The Voice: Sounding Like Yourself</h2>
+
+<p><em>4 lessons · ~45 minutes · You'll leave with a documented brand voice that sounds like you and your faith — not a template.</em></p>
+
+<p>You now know what you're for (Module 2). This module is about <em>how you say it.</em> Because the fastest way to be ignored is to sound like everyone else who's ever made faith-based content. Your voice is your fingerprint. We're going to document it so it stops being an accident.</p>
+
+<hr>
+
+<h3>Lesson 3.1 — Why faith content all sounds the same</h3>
+
+<p>Open any faith creator's feed and you'll hear the same dialect: gentle, vague, heavy on "friend" and "sweet friend," allergic to a strong claim, terrified of being too much. It's the verbal equivalent of beige.</p>
+
+<p>It comes from a good place — humility, not wanting to seem arrogant about holy things. But beige doesn't read as humble. It reads as forgettable. And forgettable work can't serve anyone, because no one remembers it long enough to be served.</p>
+
+<p>The women whose words actually stick — Zora Neale Hurston, the Psalmist, the prophets, the friend who tells you the truth at the kitchen table — share one trait: they <em>sound like a specific human being.</em> Specificity is the whole game. "God is faithful" is true and weightless. "God showed up the week the account hit $42 and I didn't tell anyone how scared I was" is true and <em>unforgettable.</em></p>
+
+<blockquote>Your voice is not a style you put on. It's the residue of telling the truth in your own words. Stop borrowing. Start excavating.</blockquote>
+
+<p><strong>Action step</strong></p>
+<p>Find three faith creators whose voices blur together. Write down the exact phrases that make them interchangeable. Now you know what to avoid.</p>
+
+<hr>
+
+<h3>Lesson 3.2 — The tone spectrum</h3>
+
+<p>Voice isn't one setting. It's a position on several sliders. Map yours by placing an X on each:</p>
+
+<pre><code>Warm  ●────────────  Cool
+<p>Plain ────●────────  Lyrical</p>
+<p>Gentle ──────●──────  Direct</p>
+<p>Reverent ──●────────  Irreverent</p>
+<p>Calm  ────────●────  Urgent</p>
+<p>Polished ──────●────  Raw</p>
+<p></code></pre></p>
+
+<p>There's no right position — only <em>your</em> position. The point is to choose on purpose. A voice that's warm + direct + raw lands completely differently than warm + lyrical + reverent. Both can be deeply faithful. They are not interchangeable, and pretending you have no position is how you end up beige.</p>
+
+<p>A note for faith content specifically: you're allowed to be funny. You're allowed to be direct. You're allowed to have an edge. Reverence is about the heart, not the tone — and some of the most reverent people in Scripture were also the bluntest.</p>
+
+<p><strong>Action step</strong></p>
+<p>Place yourself on all six sliders. Then write the one-line version: "My voice is ___, ___, and ___." Three adjectives, chosen on purpose.</p>
+
+<hr>
+
+<h3>Lesson 3.3 — The do/don't vocabulary list</h3>
+
+<p>This is the single most practical voice tool there is, and almost no one builds it. Two columns: words and phrases you <em>use</em>, and words and phrases you <em>refuse.</em> It turns voice from a vibe into a checklist your future self (and any ghostwriter or VA) can follow.</p>
+
+<table><thead><tr><th>Words I use</th><th>Words I refuse</th></tr></thead><tbody><tr><td>build, steward, the work, clarity, refuse, on purpose</td><td>sweet friend, hustle, manifest, crush it, just</td></tr>
+<tr><td>name it, the gap, well, source</td><td>unlock your best self, game-changer, secret sauce</td></tr>
+<tr><td><em>(your specifics)</em></td><td><em>(your specifics)</em></td></tr></tbody></table>
+
+<p>The "refuse" column is where your voice gets its spine. Every banned word is a small act of resistance against sounding like the feed. Mine includes "just" (it apologizes) and "content" when I mean "the work." Yours will be different — that's the point.</p>
+
+<p><strong>Action step</strong></p>
+<p>Build your two columns. Minimum ten words each. Pull the "use" words from your Source File — your real study language is your most honest vocabulary.</p>
+
+<hr>
+
+<h3>Lesson 3.4 — The voice document</h3>
+
+<p>Now assemble it into one page you'll actually reference. Your Voice Document has five parts:</p>
+
+<ol><li><strong>The three adjectives</strong> (from 3.2).</li><li><strong>The tone sliders</strong>, marked.</li><li><strong>The do/don't vocabulary</strong> (from 3.3).</li><li><strong>Two or three sentences of "sounds like me"</strong> — actual lines you've written that feel unmistakably yours. Your north stars.</li><li><strong>One "before/after"</strong> — a beige sentence rewritten in your voice, so the difference is visible.</li></ol>
+
+<p>Example of part 5:</p>
+<blockquote><strong>Before:</strong> "I'm so excited to share some tips to help you grow in your faith journey, sweet friends!"
+<strong>After:</strong> "Most study habits fail for one reason: no method. Here's the one I use — and why it survives a hard week."</blockquote>
+
+<p>That contrast <em>is</em> your brand. Keep the document one page. A voice guide nobody reads protects nothing.</p>
+
+<p><strong>Action step</strong></p>
+<p>Build your one-page Voice Document with all five parts. Save it next to your calling statement. From here on, everything you publish gets checked against it.</p>
+
+<hr>
+
+<p><strong>Module 3 build assignment</strong></p>
+<p>You should now have a <strong>one-page Voice Document</strong>: three adjectives, marked tone sliders, a do/don't list of at least ten words each, your "sounds like me" north-star lines, and one before/after. This document will do more for the quality of your work than any amount of strategy. Use it on everything.</p>
+
+<p><em>Want the full faith brand-voice build — audience language mapping, platform calibration, and a complete annotated example? That's <strong>The Calling Card</strong> ($35).</em></p>
+
+<p>→ Continue to <strong>Module 4: The Offer — Something Worth Paying For</strong></p>
+
+<h2>Module 4 — The Offer: Something Worth Paying For</h2>
+
+<p><em>4 lessons · ~50 minutes · You'll leave with at least one real, priced offer — built on your calling and ready to sell.</em></p>
+
+<p>Now we build the thing. Not before clarity, not before voice — now, when it has a foundation. This is where stewardship and strategy meet most directly, because nothing tests your beliefs about money and worth like naming a price out loud.</p>
+
+<hr>
+
+<h3>Lesson 4.1 — Monetization without manipulation</h3>
+
+<p>Let's name the fear directly: you're afraid that charging for faith-adjacent work makes you a fraud, a Pharisee, a merchant in the temple.</p>
+
+<p>So let's separate two things that get fused. <strong>Manipulation</strong> is using fear, false scarcity, or spiritual pressure to make someone buy something that doesn't serve them. That's the temple-merchant problem, and it's real. <strong>Exchange</strong> is offering something genuinely valuable and being paid fairly for it. That's not just permitted — it's the model running through all of Scripture, where the worker is worthy of their wages and the one who refuses to provide for their household has, in Paul's startling phrase, "denied the faith."</p>
+
+<p>The line isn't <em>whether</em> you charge. The line is <em>how.</em> Lead with the person's good. Price for sustainability so you can keep serving. Never make someone feel spiritually deficient for not buying. Do that, and you can charge with a clear conscience and a straight spine.</p>
+
+<blockquote>Undercharging is not humility. It's often just fear wearing humility's coat. The most generous thing you can do is build something sustainable enough to still exist next year.</blockquote>
+
+<p><strong>Action step</strong></p>
+<p>Write your honest belief about money and your work — the real one, not the polished one. Then write the truer sentence you want to operate from. Tape the second one up.</p>
+
+<hr>
+
+<h3>Lesson 4.2 — The offer ladder</h3>
+
+<p>You don't need a big complicated suite. You need a clear ladder — a few offers at different prices and depths, so people can start where they are.</p>
+
+<p>A simple, proven shape:</p>
+
+<ul><li><strong>Free</strong> — your content (Module 5). Builds trust, demonstrates the voice.</li><li><strong>Entry ($15–$45)</strong> — a digital product. A guide, a workbook, a template. Low risk, high value, scalable.</li><li><strong>Core ($100–$500)</strong> — your signature offer. A course, a small group, a focused service.</li><li><strong>Premium ($1,000+)</strong> — high-touch. 1:1 work, a mastermind, done-for-you.</li></ul>
+
+<p>Most women try to start at Premium because it sounds like the goal, or stay stuck at Free because it feels safe. The move is to <strong>build the Entry and Core rungs first.</strong> They're where trust converts into income without requiring you to trade every hour for a dollar.</p>
+
+<p><strong>Action step</strong></p>
+<p>Sketch your ladder. What's your Free, Entry, Core, Premium? You won't build all four now — but seeing the ladder tells you which rung to build first. (Hint: usually Entry or Core.)</p>
+
+<hr>
+
+<h3>Lesson 4.3 — Designing the first offer</h3>
+
+<p>Pick one rung — most likely Entry or Core — and design it now. A real offer answers five questions crisply:</p>
+
+<ol><li><strong>Who is it for?</strong> (Pulled straight from your calling statement.)</li><li><strong>What specific outcome does it create?</strong> Not "growth" — a named, before/after shift.</li><li><strong>What's actually included?</strong> The concrete deliverables. People buy clarity, not mystery.</li><li><strong>What does it cost?</strong> A real number. (Lesson 4.4.)</li><li><strong>Why you?</strong> The conviction and competence only you bring.</li></ol>
+
+<p>Then name it using the "The [Noun]" convention if it fits your voice — <em>The Study, The Reset, The Anchor.</em> A named offer feels like a thing, not a vague service. Things get bought.</p>
+
+<p><strong>Action step</strong></p>
+<p>Run your first offer through all five questions in writing. If you can't answer #2 and #3 in plain language, the offer isn't ready — and that's useful to know now, not after launch.</p>
+
+<hr>
+
+<h3>Lesson 4.4 — Pricing without flinching</h3>
+
+<p>Here's the pricing process that gets women unstuck:</p>
+
+<ol><li><strong>Start from sustainability, not comparison.</strong> What do you need this to earn to be worth your time and to keep existing? Comparison pricing ("what does everyone else charge?") races to the bottom.</li><li><strong>Price the transformation, not the hours.</strong> A $300 offer that saves someone two years of confusion is cheap. Stop pricing your minutes; price the gap you close.</li><li><strong>Add 20% to the number that scares you.</strong> The number that makes you slightly queasy is usually closer to right than the one that feels comfortable. Comfortable is almost always too low.</li><li><strong>Hold it without apology.</strong> No discount in the first sentence. No "but if that's too much…" The flinch is contagious; so is the calm.</li></ol>
+
+<p>You will feel resistance here. That resistance is the exact thing this module exists to break. Name the price. Out loud. Today.</p>
+
+<p><strong>Action step</strong></p>
+<p>Set the price for your first offer using the four steps. Say it out loud to one person without apologizing or explaining. Notice the flinch — then do it anyway.</p>
+
+<hr>
+
+<p><strong>Module 4 build assignment</strong></p>
+<p>You should now have <strong>one real offer</strong>: a named product or service, a clear who/outcome/inclusions, and a price you've said out loud without flinching. This is the asset everything else now points toward. You don't need it to be perfect. You need it to <em>exist</em> and to be priced. Done beats theoretical.</p>
+
+<p><em>Want the full monetization deep dive, or the pricing and tier frameworks for a membership? See <strong>Gospel &amp; Grind</strong> ($28) and <strong>Ministry, Monetized</strong> ($42).</em></p>
+
+<p>→ Continue to <strong>Module 5: The Pipeline — Study Into Content</strong></p>
+
+<h2>Module 5 — The Pipeline: Study Into Content</h2>
+
+<p><em>4 lessons · ~50 minutes · You'll leave with a full month of content mapped from a single Source File entry — and a posting system you can sustain.</em></p>
+
+<p>Your study practice is no longer just personal formation. It's infrastructure. This module is where the Source File becomes a content engine — not by turning Scripture into marketing copy, but by letting what's genuinely formed you speak to people who need forming the same way.</p>
+
+<hr>
+
+<h3>Lesson 5.1 — The difference between content and noise</h3>
+
+<p>Most faith-based content is technically content the way a parking ticket is technically mail. It arrives. It doesn't move anything.</p>
+
+<p>Content does one of three things: it illuminates something the reader already felt but couldn't name, it gives them a tool they can use today, or it makes them feel less alone in a specific fight. Everything else is just volume.</p>
+
+<p>The reason your Source File is the right starting point isn't strategy — it's that <strong>what genuinely moved you in study will move other people.</strong> The verse that caught in Lectio, the question from 2.2 you answered and then rewrote, the moment in a character study when you saw yourself in the failure of someone three thousand years dead — that's the raw material of content that lands. Not trends, not templates. Genuine encounter, translated.</p>
+
+<p>The move isn't <em>"how do I make this palatable for the internet?"</em> The move is <em>"what do I actually have to say about this, and to whom?"</em></p>
+
+<blockquote>The best content doesn't feel like content. It feels like correspondence — like someone wrote it for one specific person and that person found it.</blockquote>
+
+<p><strong>Action step</strong></p>
+<p>Pull out your Source File. Find the one entry from the last two weeks that most surprised you — the observation you didn't expect to make, or the application that stung. That's your next piece of content. Mark it.</p>
+
+<hr>
+
+<h3>Lesson 5.2 — The content waterfall</h3>
+
+<p>One deep study session, done well, produces far more than one post. Here's the waterfall: how one Source File entry becomes a month of content without writing anything new from scratch.</p>
+
+<p><strong>Source</strong>: One passage, one 45-minute session, full method.</p>
+
+<p><strong>From that one session:</strong></p>
+<ul><li><strong>The Long Piece</strong> (1/month) — a 700–1,200 word essay or devotional. The whole arc: the passage, what you saw, where it stung, what shifted. This is the anchor for everything else.</li><li><strong>The Lesson</strong> (1–2/week) — one insight pulled out, taught plainly in 150–300 words. "Here's what I learned about X" without the full context. Works as email, LinkedIn, Instagram caption.</li><li><strong>The Prompt</strong> (1–2/week) — a reflection question or journal prompt for your audience, drawn from your action steps or your clarity questions. Highest engagement, least effort.</li><li><strong>The Quote</strong> (2–3/week) — a line from the passage or your study, with one sentence from you. Done.</li><li><strong>The Thread</strong> (1/week) — five short posts in a row, each one expanding a single idea from the passage. Mapped once, posted across five days.</li></ul>
+
+<p>That is 10–15 pieces of content from one session. You don't need to create more. You need to extract more from what you already have.</p>
+
+<p><strong>Action step</strong></p>
+<p>Take the Source File entry you marked in 5.1. Map it through the waterfall: one Long Piece title, two Lessons, two Prompts, three Quotes, one Thread outline. Don't write them yet — just name each one in a list. You now have a month of content.</p>
+
+<hr>
+
+<h3>Lesson 5.3 — The posting architecture</h3>
+
+<p>Content without a system isn't a pipeline — it's a vague intention. Your posting architecture is three decisions made once:</p>
+
+<p><strong>1. How often?</strong> Less than you think. Two to three times a week is sustainable and sufficient for audience building. The creator who posts twice a week for a year outperforms the one who posts daily for three weeks and then disappears. Decide, and stop negotiating with yourself every time you open Instagram.</p>
+
+<p><strong>2. Where first?</strong> One primary platform, one secondary. Primary is where your audience actually lives and where you'll put the Long Piece. Secondary is shorter derivatives. Trying to be everywhere before you've built anything is how you burn out with nothing to show for it.</p>
+
+<p><strong>3. What's the rhythm?</strong> For faith-based content creators, a simple rhythm that works: Monday (The Lesson — practical, actionable), Wednesday (The Quote or Prompt — short, contemplative), Friday (The Long Piece or Thread — deeper, the real thing). Your rhythm will be different. The point is <em>having one</em>, so you're deciding the category, not staring at a blank screen.</p>
+
+<p>Platform note: <strong>email is not optional.</strong> You don't own your Instagram following. You own your list. From day one, every piece of content should be building toward a reason to subscribe. Your Long Piece lives in the email first, then everywhere else.</p>
+
+<p><strong>Action step</strong></p>
+<p>Make the three decisions: how often, where first, what rhythm. Write them in a single line: <em>"I post [X times/week], primarily on [platform], with this rhythm: [Mon / Wed / Fri schedule]."</em> Put it next to your calling statement.</p>
+
+<hr>
+
+<h3>Lesson 5.4 — The batch and the buffer</h3>
+
+<p>The final piece is the work habit, not the content. Two practices that separate creators who sustain from those who flame out:</p>
+
+<p><strong>Batching</strong>: Do all your content creation in one block, once a week. After your weekly anchor study session, while the material is still alive in you, spend 45–60 minutes writing the week's posts from the waterfall. Don't trickle-create throughout the week — it saps mental energy and introduces decision fatigue. One concentrated block produces more and better than scattered attempts.</p>
+
+<p><strong>The buffer</strong>: Always be at least one week ahead. If you're posting this Tuesday, it was written last Tuesday. When life intervenes (it will), you have a week of grace before the pipeline empties. A two-week buffer is better. A creator with a buffer publishes calmly. One without publishes frantically or not at all.</p>
+
+<p>Setting up the buffer: for the first two weeks, double your output. Write two weeks of content from two Source File entries. Don't post the second week — bank it. Now you're buffered. Never let the buffer drop below three days.</p>
+
+<p><strong>Action step</strong></p>
+<p>This week: batch. After your weekly anchor session, write the full week's content from the waterfall you mapped in 5.2. Then write one more Long Piece and two Lessons from your second-oldest Source File entry. That's your buffer. Bank it.</p>
+
+<hr>
+
+<p><strong>Module 5 build assignment</strong></p>
+<p>You should now have: <strong>one month of content mapped</strong> from a single Source File entry, <strong>three platform/rhythm decisions</strong> made and written, and <strong>a one-week buffer</strong> built and banked. You're not creating from zero anymore. You're extracting from a well that refills every week.</p>
+
+<p><em>Want the full content-from-Scripture system — 90-day Source File protocol, platform-specific adaptation guides, and a complete waterfall template? See <strong>The Sermon Notes</strong> ($22) in the companion library.</em></p>
+
+<p>→ Continue to <strong>Module 6: The Engine — Launch, Grow, Sustain</strong></p>
+
+<h2>Module 6 — The Engine: Launch, Grow, Sustain</h2>
+
+<p><em>4 lessons · ~55 minutes · You'll leave with a launch plan for your first offer and a growth system that compounds without requiring more hours.</em></p>
+
+<p>You have a Source File, a calling statement, a voice document, a real offer, and a content pipeline. This module is where those pieces become a working business — one with an actual launch, an actual audience-growth strategy, and a financial model built to last.</p>
+
+<hr>
+
+<h3>Lesson 6.1 — What a launch actually is</h3>
+
+<p>A launch is not a moment. It's a runway — a structured period of increasing visibility that ends in a door opening. Most creators either skip it (they just "post the thing" one day and wonder why nothing happened) or overcomplicate it (a 10-day email sequence with countdown timers and a webinar they haven't built). The truth is between those.</p>
+
+<p>A simple, repeatable launch arc for a faith-based digital product:</p>
+
+<p><strong>Week 1 — The Why</strong>: Your content that week addresses the problem your offer solves, from a genuine personal angle. You're not selling anything. You're building the context for why the thing matters. This is where the Source File earns its keep — because the conviction underneath your offer has to be real before anyone will pay for the resolution.</p>
+
+<p><strong>Week 2 — The What</strong>: Now you describe the transformation. What does someone look like before your offer and after? What specifically shifts? You can mention that something is coming — a course, a guide, a program — without a hard sell.</p>
+
+<p><strong>Week 3 — The Door Opens</strong>: Email your list on Monday. Post publicly on Tuesday. Door closes in 5–7 days. Simple, no manufactured urgency. Real scarcity (early-bird price, limited coaching spots) is honest. Fake scarcity is manipulation we already named.</p>
+
+<p><strong>Week 4 — The Follow-through</strong>: One more email to non-openers. One recap post about what students/buyers are already experiencing. Then stop. The follow-through respects both the buyer and the person who didn't buy yet.</p>
+
+<blockquote>A launch is an act of service before it's an act of selling. You are surfacing something genuinely useful for people who genuinely need it. Say it that way, and it will land that way.</blockquote>
+
+<p><strong>Action step</strong></p>
+<p>Map your launch. Four columns: Week 1 / Week 2 / Week 3 / Week 4. In each, write the one central content piece that carries that week's arc. You now have a launch plan in one sheet.</p>
+
+<hr>
+
+<h3>Lesson 6.2 — Growing the audience</h3>
+
+<p>Audience growth happens through one of three mechanisms: discovery (people find you for the first time), distribution (your existing audience shares you), or trust compounding (people go deeper because you gave them something worth keeping).</p>
+
+<p>Most advice about audience growth focuses on discovery — posting volume, hashtags, SEO, trending audio. Discovery matters, but it's the most expensive mechanism. <strong>Trust compounding is the cheapest and most durable.</strong> The person who has genuinely been helped by your content becomes an unpaid ambassador; they share without being asked because sharing is a form of saying <em>"I found someone useful, you will too."</em></p>
+
+<p>Build trust faster with:</p>
+<ul><li><strong>Specificity over breadth.</strong> The creator who consistently serves one type of person deeply grows more reliably than the one who tries to speak to everyone.</li><li><strong>Email above everything.</strong> A list of 500 warm subscribers who open your emails is more valuable than 5,000 Instagram followers who scroll past you. Build toward 500 engaged before you chase 5,000 anything.</li><li><strong>One collaboration per month.</strong> Guest in someone else's audience — a guest post, a podcast appearance, a cross-promotion swap. One qualified collaboration beats 30 solo posts for discovery.</li></ul>
+
+<p>The number that matters most in your first year: <strong>email open rate, not follower count.</strong> A 45% open rate on 500 subscribers means 225 people are genuinely listening every time you speak. That is more than enough to build a real business.</p>
+
+<p><strong>Action step</strong></p>
+<p>Write down your list-building mechanic: what is the free thing someone gets when they subscribe? It should be something you could make in an afternoon — a one-page guide, a condensed version of a module, a resource list. This is your lead magnet. Name it. ("The [Noun]" convention, naturally.) Build it this week.</p>
+
+<hr>
+
+<h3>Lesson 6.3 — The financial model</h3>
+
+<p>Strategy without math is hope. Let's do the math.</p>
+
+<p>Scenario A — A simple, sustainable starting model:</p>
+
+<ul><li>1 entry offer at $35 × 20 buyers/month = $700/month</li><li>1 core offer at $297 × 4 buyers/month = $1,188/month</li><li><strong>Total: ~$1,888/month</strong> on 24 buyers</li></ul>
+
+<p>That's not life-changing income. It's a real, built thing. And it requires 24 buyers — not 24,000 followers.</p>
+
+<p>Scenario B — Adding one high-touch element:</p>
+
+<ul><li>Same entry and core = $1,888/month</li><li>2 premium clients at $500/month each = $1,000/month</li><li><strong>Total: ~$2,888/month</strong></li></ul>
+
+<p>On 26 buyers and 2 clients.</p>
+
+<p>The number almost no one asks: <em>what does it take to make this sustainable, not impressive?</em> Impressive is $10K months on a screenshot. Sustainable is a model that keeps you in the work you're called to without exhausting you. Start with sustainable. Impressive has a way of arriving when you're not chasing it.</p>
+
+<p><strong>Revenue targets by stage:</strong></p>
+
+<table><thead><tr><th>Stage</th><th>Monthly Revenue</th><th>What gets you there</th></tr></thead><tbody><tr><td>Proof</td><td>$500–$1,000</td><td>First 5–10 buyers of Entry offer</td></tr>
+<tr><td>Traction</td><td>$1,500–$3,000</td><td>Entry + Core running simultaneously</td></tr>
+<tr><td>Foundation</td><td>$3,000–$6,000</td><td>Core + email list over 500 + recurring</td></tr>
+<tr><td>Scale</td><td>$6,000+</td><td>Premium tier added, affiliate/collab layer</td></tr></tbody></table>
+
+<p>Don't skip Proof to get to Scale. The Proof stage teaches you what your audience actually buys, which is different from what you think they want.</p>
+
+<p><strong>Action step</strong></p>
+<p>Run your own scenario. Fill in your three offer prices and the number of buyers per month you'd need to reach your Foundation target. Write out the sentence: <em>"I need [X] entry buyers and [Y] core buyers per month to hit $[goal]."</em> Suddenly the goal is a number, not a dream.</p>
+
+<hr>
+
+<h3>Lesson 6.4 — Making it last without burning out</h3>
+
+<p>The business that doesn't drain you is the one that's still there in year three. Here's what separates the creators still in the room after a few years from the ones who quit with impressive launch stats and nothing left:</p>
+
+<p><strong>Boundaries on output.</strong> More content is not always more growth. Set a ceiling: I publish X times a week, no more. I batch on this day. I close the laptop at this time. The ceiling isn't laziness — it's what makes it sustainable.</p>
+
+<p><strong>Recurring revenue as the goal, not the prize.</strong> A membership, a recurring coaching container, a subscription newsletter — even a small one — removes the feast-and-famine cycle. When a fixed amount hits your account every month without a new launch, you can make decisions from abundance rather than anxiety. Build toward one recurring revenue stream within six months.</p>
+
+<p><strong>The work that refills you.</strong> Keep the study practice. Not because it makes better content — though it does — but because the faith part of your faith-based business is the part that keeps you from becoming a content machine with a Bible verse in the bio. Protect the practice before the income justifies it, or it will never survive once the income demands are real.</p>
+
+<p><strong>The review rhythm.</strong> Monthly: look at your numbers. What sold, what didn't, what content got traction. Quarterly: look at your offers. Is the ladder still right? Is the pricing still right? Annually: look at your calling statement. Has it sharpened? Revise accordingly. A business that never reviews itself drifts.</p>
+
+<p><strong>Action step</strong></p>
+<p>Write one recurring revenue option you could launch within six months. It doesn't need to be ready yet — just named and scoped. A monthly membership at $[price] for [who] getting [what]. Put a date on when you'll decide to build it.</p>
+
+<hr>
+
+<p><strong>Module 6 build assignment</strong></p>
+<p>You should now have: <strong>a four-week launch plan</strong> mapped, <strong>a lead magnet named and scoped</strong>, <strong>your financial scenario written in numbers</strong>, and <strong>one recurring revenue option dated</strong>. The business is no longer theoretical. It has a launch, a growth mechanism, a financial model, and a plan to last.</p>
+
+<p><em>Want the full launch playbook — pre-launch content calendar, email sequence templates, and a post-launch debrief framework? See <strong>Ministry, Monetized</strong> ($42) in the companion library.</em></p>
+
+<p>→ Continue to <strong>Module 7: The Long Obedience — Staying In It</strong></p>
+
+<h2>Module 7 — The Long Obedience: Staying In It</h2>
+
+<p><em>3 lessons · ~35 minutes · You'll leave with a framework for sustaining the work over years — and a clearer sense of what you're actually building toward.</em></p>
+
+<p>Every strategy in this course only matters if you're still doing it next year. This final module is less about tactics and more about the roots — why the work is worth doing slowly, how to hold the tension between faithfulness and results, and what it looks like to stay called when the metrics are discouraging and the algorithm has moved on.</p>
+
+<hr>
+
+<h3>Lesson 7.1 — The long obedience</h3>
+
+<p>Eugene Peterson wrote about "a long obedience in the same direction" — the Psalms of Ascent, pilgrim songs sung on the road up to Jerusalem, not fast and not glamorous. The destination was real. The journey was long. And the songs were for the road, not for arriving.</p>
+
+<p>That is the most honest description of a faith-based business I've found.</p>
+
+<p>The culture you're building in tells you the opposite. It tells you: fast proof, fast income, fast following, fast exit. It tells you that six months with modest numbers means you haven't found your niche, you're not using the right hook, you need a rebrand. It is allergic to slow and relentless about speed.</p>
+
+<p>Here is what slow actually looks like: a creator who writes for two years to an audience of 300 and then, in month 25, publishes the piece that gets shared 12,000 times and doubles the list in a week — because two years of consistent work built something worth sharing. A service business that serves five clients in year one, ten in year two, and is fully booked with a waitlist in year three from referrals alone. A course that sells to 8 people in the first launch, 22 in the second, 61 in the third — and 8 years later has graduated over a thousand.</p>
+
+<p><strong>None of those happen by starting fast. They happen by not quitting.</strong></p>
+
+<p>The discouraging stretch you're either in now or will enter within six months is not evidence that the calling is wrong. It is the road. The Psalms of Ascent are not about arriving — they're about having enough to make it to the next camp. Measure accordingly.</p>
+
+<blockquote>The question is never "is this working yet?" The question is "am I still going in the right direction?" Stay oriented. Keep walking.</blockquote>
+
+<p><strong>Action step</strong></p>
+<p>Name the specific metric you've been using to evaluate whether this is "working." Now name a better one — one that measures faithfulness and direction rather than speed. Write both. Retire the first one.</p>
+
+<hr>
+
+<h3>Lesson 7.2 — When to adjust and when to hold</h3>
+
+<p>Not everything slow is perseverance. Some things slow are broken and should be changed. Knowing which is which is the most underrated skill in this work.</p>
+
+<p><strong>Hold when:</strong></p>
+<ul><li>You've been doing this for less than 90 days and results feel thin. Ninety days is not a real test.</li><li>The feedback is <em>absent</em> rather than <em>negative</em>. Crickets often mean insufficient reach, not insufficient offer.</li><li>You feel a pull to pivot because something <em>new</em> sounds exciting. New is almost always a distraction until the current thing has been genuinely tested.</li><li>The thing you'd pivot to is easier. Easier is a signal, and usually not a good one.</li></ul>
+
+<p><strong>Adjust when:</strong></p>
+<ul><li>You've asked 20 people who match your calling statement to look at your offer, and 15 said it didn't resonate. That is data.</li><li>The pricing feels wrong to you and you've been under-delivering because of it. Pricing affects the quality of your belief in what you're selling.</li><li>Your audience is responding enthusiastically to one thing but you're building something different. Follow the signal.</li><li>The calling statement has sharpened through doing the work, and the offer no longer matches it. Alignment isn't a one-time fix — it's a practice.</li></ul>
+
+<p>The rule of thumb: <strong>adjust the offer before you abandon the calling. Abandon the platform before you abandon the practice. Simplify the model before you blow up the business.</strong></p>
+
+<p>Most people quit at the wrong layer. They abandon the calling because the offer didn't work in its first version, when the real fix was a pricing adjustment or a different audience segment.</p>
+
+<p><strong>Action step</strong></p>
+<p>Look at what you've built. For each element — the calling statement, the voice document, the offer, the content strategy — ask: should I hold this or adjust it? Write one sentence per element. Then make only the changes that belong in the Adjust column.</p>
+
+<hr>
+
+<h3>Lesson 7.3 — The whole thing, held together</h3>
+
+<p>Here is what you have now, if you did the work in each module:</p>
+
+<ol><li><strong>A Source File</strong> — a growing archive of what the text has shown you, compounding over time.</li><li><strong>A calling statement</strong> — one sentence that says what you're for, who it's for, and why it's you.</li><li><strong>A voice document</strong> — your fingerprint on the page, documented and repeatable.</li><li><strong>At least one real offer</strong> — named, priced, with a clear who/outcome/inclusions.</li><li><strong>A content pipeline</strong> — a waterfall that turns study into a month of content from a single session.</li><li><strong>A launch plan</strong> — four weeks mapped, a lead magnet built, a financial model in numbers.</li><li><strong>A framework for staying in it</strong> — the long obedience, the adjustment criteria, the review rhythm.</li></ol>
+
+<p>That is a business. Not a plan, not a mood board, not a goals journal. A business.</p>
+
+<p>What you do with it from here is a stewardship question, not a strategy question. The strategy is done. The obedience is what comes next — showing up to the Source File in the mornings even when the content didn't perform, pricing the offer again even when the first buyer doesn't come, sending the email even when the open rate is humbling.</p>
+
+<p><strong>The Proverbs 31 woman didn't build everything in a day.</strong> She considered a field and bought it. She planted. She got up while it was still dark. She made things and traded them. She was clothed with strength and dignity — and she laughed at the days to come, not because she had certainty, but because she had practice.</p>
+
+<p>You now have the practice. That is enough to begin.</p>
+
+<blockquote>You are not building a platform. You are building a body of work. Platforms come and go. The work stays. Make the work worth staying.</blockquote>
+
+<p><strong>Final action step</strong></p>
+<p>Go back to your Module 0 starting line. Read the five questions you answered about where you were when you began. Then answer the same five questions now. Look at the gap you've already closed.</p>
+
+<p>Write the final commitment: <em>"By [date], I will have launched [specific offer] to [specific person], using the tools this course gave me. I will measure success by [faithfulness metric, not speed metric]. I will still be in it in a year."</em></p>
+
+<p>Sign it. Date it. Tape it up next to the pricing sentence.</p>
+
+<hr>
+
+<p><strong>Module 7 build assignment</strong></p>
+<p>You have completed <em>Scripture &amp; Strategy</em>. Your assignment is not to produce anything new — it's to <strong>go back and finish</strong> anything in Modules 1–6 that's still theoretical. The Source File that needs three more entries. The calling statement that's still too vague. The offer price you haven't said out loud yet.</p>
+
+<p>The course ends. The work doesn't.</p>
+
+<hr>
+
+<h3>Graduation note</h3>
+
+<p><em>You finished. That is not nothing — most people who start a course this honest don't finish it, because honesty has costs and the action steps have teeth. You stayed. That matters.</em></p>
+
+<p><em>The companion library is here when you're ready to go deeper on any single layer: The Study, The Calling Card, Gospel &amp; Grind, The Sermon Notes, Ministry, Monetized. Each one is what it says — a deep dive on one piece of what this course built.</em></p>
+
+<p><em>But you don't need more information. You need to go do the thing you built.</em></p>
+
+<p><em>Go do it.</em></p>
+
+<p>— MK</p>
+</div>
+
+<div class="footer">
+  <div class="footer-logo">MK Parrish</div>
+  <p class="footer-legal">© MK Parrish · <a href="https://mkparrish.com">mkparrish.com</a> · All rights reserved</p>
+</div>
+
+</body>
+</html>

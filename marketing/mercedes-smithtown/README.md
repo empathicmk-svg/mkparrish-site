@@ -1,0 +1,65 @@
+# MK × Mercedes-Benz of Smithtown social kit
+
+These are social posts for **Instagram @mk_parrish**, **TikTok @mk_parrish** and
+**Facebook MK Parrish**.
+
+| Script | Builds |
+| --- | --- |
+| `build.mjs` | Volume 1: 7 feed posts, the Pick Your Bow carousel, 2 stories, 2 reels |
+| `build-vol2.mjs` | Volume 2: 6 feed posts, 2 carousels, 2 stories, 5 reels |
+| `build-vol3.mjs` | Volume 3: fleet vans, custom 2027 orders, community and MK: 10 feed posts, 2 carousels, 1 story, 6 reels |
+| `build-gls-tiktok.mjs` | The GLS selfie-camera TikTok |
+| `build-parktronic.mjs` | The Parktronic self-parking reel and poll story |
+| `build-viral.mjs` | Six trend-format reels (pick one, costume reveal, fall edit, day in my life, rate it, things that make sense). Captions and sounds are in `captions-viral.md` |
+| `build-vol4.mjs` | Volume 4 "Walk in with me": five reels (walk-in POV, GLE walkaround, BOO-tiful, member savings, pray on it) and four feed posts. Captions in `captions-vol4.md`. Shared reel templates live in `trend.mjs` |
+| `build-vol5.mjs` | Volume 5 "Your Mercedes girl": a showroom reel and two "Ask for MK" feed posts from MK's retouched black-dress selfies. Captions in `captions-vol5.md` |
+| `build-vol6.mjs` | Volume 6 "Book it": green flags, book-in-30-seconds and things-nobody-tells-you reels plus a link-sticker story, all driving to mkparrish.com/test-drive. Captions and strategy in `captions-vol6.md` |
+| `build-delivery-sprinter.mjs` | Sprinter delivery for Beatrice & Vertieres Legacy LLC: a reel scored to its cuts (`score.mjs`), two stories and a three-slide carousel from the welcome sign, cockpit, HD seat-row still and Sprinter walkaround (no photos of MK). Captions in `captions-delivery-sprinter.md` |
+| `build-vol7.mjs` | Volume 7 "Code & Chrome": four code-driven reels (POV Mercedes girl codes, lease math in JavaScript, F1 AMG energy, day in my life) with JavaScript typed out on screen (`code.mjs`). Each reel has a soundtrack scored to its cuts and keystrokes (`scripts/audio/mix-timed.py`), plus two feed posts and a beat map. Captions in `captions-vol7.md`, strategy in `PLAYBOOK-code-and-chrome.md` |
+| `build-friday.mjs` | Friday reels ("Friday night vibes" and "POV: Friday at my desk"): showroom AMG GT, desk roses and "Make it happen" desk mat with a night grade, glow and pink sparkles, ending on a weekend test-drive CTA. Captions in `captions-friday.md` |
+| `build-gwagon.mjs` | "2027 G-Wagon, today": walkaround reel with a chrome light sweep, a story and two feed posts, all ending on a call-or-text-today CTA. Captions in `captions-gwagon.md` |
+| `build-g63.mjs` | "AMG G 63, red and black": matte G 63 photos plus a stabilized red-interior walkaround (no photos of MK), with a chrome light sweep, a story and three feed posts, ending on call or text MK and mbofsmithtown.com. Captions in `captions-g63.md` |
+| `build-sprinter.mjs` | "Sprinter 15, customized": HD stills of the 15-passenger Sprinter (`media/sprinter-hd-*.jpg`, the sharpest walkaround frames, cleaned up) plus full-frame High Quality Custom Design upfit interiors (de-moiréd and upscaled with `scripts/images/upscale.py`), with a chrome light sweep, two stories and five feed posts, all ending on a call-or-text-today CTA. Captions in `captions-sprinter.md` |
+| `build-g580.mjs` | "The G-Wagon went electric": MK's door-sill photo and two HDR walkaround clips of the electric G 580 (tone-mapped to SDR as `media/g580-*.mp4`), with a Reel scored to its cuts, a five-slide carousel, a feed post and two stories, all ending on a call-or-text-today CTA. There are no photos of MK, and the clip stretches with staff or her reflection are left out. Captions in `captions-g580.md` |
+| `build-tradein-corvette.mjs` | "Corvette, just traded in": MK's HDR walkaround video (tone-mapped to SDR as `media/corvette-walk.mp4`) and photos of the red Corvette that came in on trade, with a Reel scored to its cuts, a five-slide carousel, a feed post and two stories, all ending on a call-or-text-today CTA. There are no photos of MK: the "Got a trade?" pieces use a still from the walkaround (`media/corvette-and-mercedes.jpg`). Background staff in the photos are softened. Captions in `captions-corvette-tradein.md` |
+| `schedule.mjs` | Metricool schedule for all three volumes (Oct 12 – Nov 6) |
+
+After building any reels, run `node scripts/add-music.mjs`. It gives every
+silent video MK's own music bed (made by `scripts/audio/make-music-beds.py`),
+so nothing posts without sound.
+Photo and carousel posts go out as short Reels with music: `node
+scripts/photo-reels.mjs` builds them into `output/photo-reels/`, because
+Instagram can't add a song to a scheduled photo post.
+
+`lib.mjs` holds the shared brand, photo retouch and templates. Source photos
+and clips live in `media/`. Captions are in `captions.md`,
+`captions-vol2.md`, `captions-vol3.md` and `schedule.mjs`.
+
+## Automating the posting with Metricool
+
+Metricool posts to Instagram, Facebook and TikTok for you on schedule.
+
+1. **Connect the accounts (one time).** In Metricool, create a brand called
+   "MK Parrish" and connect:
+   - Instagram @mk_parrish. It must be a Business or Creator account linked
+     to the MK Parrish Facebook Page. Personal profiles can't auto-publish.
+   - The MK Parrish Facebook **Page**. Facebook only allows scheduling to
+     Pages, not personal profiles.
+   - TikTok @mk_parrish.
+   - Set the brand's time zone to **America/New_York**.
+2. **Make the media public.** The CSVs point at the files on GitHub `main`,
+   so merge the PR first. Metricool downloads each image and video from those
+   links.
+3. **Import.** Go to Metricool → Planner → **Import CSV**. Upload
+   `output/mercedes-smithtown/metricool-schedule-1.csv`, then
+   `metricool-schedule-2.csv`. Choose date format **DD/MM/YYYY** and time
+   **HH:MM**.
+4. **Review and approve.** Rows import as **drafts**. Open each one, check the
+   preview and the model name, and for Instagram videos pick **Reel** as the
+   post type. Then switch the draft to scheduled. To skip review, set
+   `DRAFT = 'FALSE'` in `schedule.mjs` and rebuild.
+5. **Stories.** Stories aren't in the CSV. Post them from your phone so you
+   can add the poll and question stickers.
+
+To change dates, times or captions, edit `CALENDAR` or `POSTS` in
+`schedule.mjs`, then run `node marketing/mercedes-smithtown/schedule.mjs`.

@@ -1,0 +1,129 @@
+# The Cosmos Starter Kit
+
+## Start Here
+
+Welcome. This is a short, free field guide to the two languages people reach for when they want to understand themselves better: numerology and astrology.
+
+I'm a growth strategist, not a psychic, and I want to be honest about how I use these tools. I read a chart the way I read a positioning brief — as a *mirror,* not a map. Nothing in here decides your future or replaces your judgment. What it does is give you language for how you're wired, what season you're in, and the voice that's already yours. That's more useful than a prediction, and it's a lot more honest.
+
+This kit covers the three most-searched starting points — your life-path number, your Big Three, and angel numbers — plus a quick read on personal-year timing and one way to turn all of it into something practical. Read it in one sitting. Keep what resonates. Leave the rest.
+
+> You don't need the stars to be sending secret codes for this to be useful. You need a better language for paying attention to yourself. That's rarer, and it's real.
+
+Let's begin.
+
+---
+
+## Your Life-Path Number
+
+Numerology's most useful starting point is your life-path number — a single digit (1–9, or the master numbers 11, 22, 33) that offers a surprisingly sharp read on your natural edge and your natural trap.
+
+### How to calculate it
+
+Add every digit of your full birth date, then keep reducing until you reach a single digit. Example: born 14 March 1990 → 1+4+3+1+9+9+0 = 27 → 2+7 = 9. (If you land on 11, 22, or 33 along the way, those are 'master numbers' — they don't reduce; they carry the intensity of both digits.)
+
+### What each number tends to mean
+
+- **1 — The Initiator.** Built to start things. Edge: originality. Trap: going it alone.
+- **2 — The Diplomat.** Wired for partnership and nuance. Edge: trust. Trap: disappearing to keep the peace.
+- **3 — The Communicator.** Made to express. Edge: voice. Trap: scattering it across ten ideas.
+- **4 — The Builder.** Systems and follow-through. Edge: reliability. Trap: rigidity.
+- **5 — The Free Agent.** Change and reinvention. Edge: adaptability. Trap: finishing nothing.
+- **6 — The Caretaker.** Responsibility and craft. Edge: care. Trap: over-giving.
+- **7 — The Seeker.** Depth and analysis. Edge: insight. Trap: hiding in research.
+- **8 — The Executive.** Power and results. Edge: ambition. Trap: measuring only in money.
+- **9 — The Old Soul.** Vision and meaning. Edge: perspective. Trap: martyrdom.
+
+Read your number as a description, not a sentence. The 'trap' isn't a curse — it's the growth edge. Knowing it is half the work of not falling into it.
+
+---
+
+## The Big Three
+
+In astrology, the three placements that do the most work are your sun, moon, and rising signs — your Big Three. Together they're a better introduction to a person than most résumés.
+
+### Sun — the work
+
+Your sun sign is your core self, your essential drive, the thing you're here to develop. It's the answer to 'who am I becoming?' In brand terms, it's the substance — the actual work you do and why it matters to you.
+
+### Moon — the why
+
+Your moon sign is your inner life: what you need to feel safe, how you process emotion, what quietly drives you underneath the doing. It's the private engine. Most people lead with their sun and are secretly run by their moon.
+
+### Rising — the first impression
+
+Your rising sign (or ascendant) is the mask you meet the world in — how you come across before you've said a word. In brand terms, it's your packaging: the first impression your presence, your site, your voice makes. When the rising and the sun are aligned, people trust you faster, because what they see matches what they get.
+
+You'll need your birth time for an accurate rising sign — a free birth-chart calculator will give you all three in a minute. Read them as a stack: substance (sun), motive (moon), and first impression (rising).
+
+---
+
+## Angel Numbers
+
+Repeated number sequences — 111 on the clock, 444 on a receipt — are the most-searched spiritual pattern there is. Read them as a nudge toward something you already know, not a lottery result. The number isn't the message; your attention is.
+
+| Sequence | A grounded read |
+| --- | --- |
+| 111 | A doorway. An idea worth acting on before you talk yourself out of it. |
+| 222 | Alignment. Keep going on what you just committed to. |
+| 333 | Expression. Say the true thing you've been editing down. |
+| 444 | Foundation. The unglamorous work is the work. |
+| 555 | Change. A season is ending; stop clinging to the old version. |
+| 777 | Confirmation. You're on the path — don't outsmart it. |
+| 888 | Momentum. Effort is compounding; don't quit before the curve bends. |
+| 999 | Completion. Something is finishing so the next thing can begin. |
+
+When a number keeps finding you, treat it as a prompt: what have I been avoiding deciding? The pattern is just the tap on the shoulder. The decision is yours.
+
+---
+
+## Your Personal Year
+
+Numerology also offers a simple read on timing: your personal year. It tells you the theme of the twelve months you're in — useful for deciding whether this is a season to plant, build, or release.
+
+### How to calculate it
+
+Add your birth month + birth day + the current year, then reduce to a single digit. Example: born March 14, in 2026 → 3 + 14 + 2026 = 2043 → 2+0+4+3 = 9. That's a personal year 9.
+
+### The nine-year cycle, briefly
+
+- **1 — Begin.** New chapter, plant seeds, start the thing.
+- **2 — Partner.** Patience, relationships, quiet development.
+- **3 — Express.** Creativity, visibility, put your voice out.
+- **4 — Build.** Systems, discipline, do the foundational work.
+- **5 — Change.** Freedom, movement, expect the unexpected.
+- **6 — Tend.** Responsibility, home, care for what you've built.
+- **7 — Reflect.** Study, rest, go inward before the next push.
+- **8 — Harvest.** Ambition and reward; a power year for money and results.
+- **9 — Release.** Completion; let go of what's finished to make room.
+
+Timing isn't destiny, but it's useful. Launching hard in a 7 year can feel like pushing a rope; the same effort in an 8 year tends to pay. Work with the season you're in.
+
+---
+
+## A Mirror, Not a Map
+
+Here's the honest part, and the whole point of this guide. None of this decides anything. Its value is that it gets you past the rehearsed answer about who you are and into the real one — faster than another self-assessment quiz ever could.
+
+Use it as a mirror. If your life-path number names a trap you recognize, that's information you can act on. If your rising sign and your actual first impression don't match, that's a positioning problem worth fixing. If a personal year says 'release' and you've been white-knuckling something finished, maybe listen. The chart doesn't move your life. It just helps you say the true thing sooner — and saying the true thing, out loud, is where every kind of change actually starts.
+
+> The most useful thing a chart can do isn't predict your future. It's hand you language honest enough to change it.
+
+---
+
+## Where to Next
+
+If this gave you a clearer mirror, here's how to go deeper:
+
+- **Read more free insights** at [mkparrish.com/cosmos](https://www.mkparrish.com/cosmos) — the full Cosmos line: numerology and astrology, read like strategy.
+- **Turn insight into action** with [The Manifest](https://www.mkparrish.com/shop/the-manifest) — manifesting for business, minus the magical thinking.
+- **Get the whole library** in [The Manifestation Vault](https://www.mkparrish.com/shop/the-manifestation-vault) — four books on manifesting, money, micro habits, and mornings.
+- **Work with me directly** — book a reading + strategy call at [mkparrish.com/book](https://www.mkparrish.com/book).
+
+Thank you for reading. Keep noticing. Take your own attention seriously.
+
+> Your chart is a first draft. What you do with it is the rewrite.
+
+Rewrite your story. ♡
+
+— MK
