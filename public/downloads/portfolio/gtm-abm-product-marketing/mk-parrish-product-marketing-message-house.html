@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product Marketing Message House - MK Parrish</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600;1,800&display=swap');
+    :root {
+      --void: #080808;
+      --obsidian: #111111;
+      --carbon: #1a1a1a;
+      --graphite: #2c2c2c;
+      --iron: #666666;
+      --smoke: #b0b0b0;
+      --pearl: #f0f0ee;
+      --white: #fafaf8;
+      --petal: #f2afc6;
+      --blush: #ffd6e4;
+      --rose: #e0869f;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--void); color: var(--pearl); }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse 80% 48% at 50% 0%, rgba(242, 175, 198, 0.16), transparent 68%),
+        linear-gradient(180deg, var(--obsidian), var(--void) 44%);
+      color: var(--pearl);
+      font-family: "DM Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    a { color: var(--petal); text-decoration: none; }
+    .wrap { width: min(1080px, calc(100vw - 40px)); margin: 0 auto; padding: 64px 0 88px; }
+    .kicker {
+      color: var(--petal);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+    h1 { margin-top: 20px; max-width: 920px; color: var(--white); font-size: clamp(4rem, 10vw, 8rem); }
+    h2 { color: var(--petal); font-size: clamp(2.3rem, 6vw, 4.2rem); }
+    h3 { color: var(--pearl); font-size: 2rem; }
+    .deck {
+      max-width: 760px;
+      margin-top: 24px;
+      color: var(--smoke);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.45rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .pill {
+      border: 1px solid rgba(242, 175, 198, 0.35);
+      color: var(--petal);
+      padding: 8px 10px;
+      font-size: 0.64rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .section {
+      margin-top: 34px;
+      border-top: 1px solid var(--graphite);
+      padding-top: 28px;
+    }
+    p, li { color: var(--smoke); font-size: 0.98rem; }
+    p { margin: 14px 0 0; max-width: 78ch; }
+    ul { margin: 18px 0 0; padding: 0; list-style: none; }
+    li {
+      position: relative;
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.68em;
+      width: 6px;
+      height: 6px;
+      background: var(--petal);
+    }
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+      margin-top: 20px;
+      background: transparent;
+    }
+    .asset {
+      display: flex;
+      min-height: 160px;
+      flex-direction: column;
+      border: 1px solid var(--graphite);
+      background: rgba(8, 8, 8, 0.92);
+      padding: 20px;
+    }
+    .asset span {
+      color: var(--petal);
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .asset strong {
+      margin-top: 10px;
+      color: var(--pearl);
+      font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+    .asset p { margin-top: 10px; font-size: 0.88rem; line-height: 1.55; }
+    .footer-note {
+      margin-top: 48px;
+      border-top: 1px solid var(--graphite);
+      padding-top: 18px;
+      color: var(--iron);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      margin-top: 36px;
+      background: transparent;
+    }
+    .index-card {
+      min-height: 230px;
+      border: 1px solid var(--graphite);
+      background: rgba(17, 17, 17, 0.94);
+      padding: 24px;
+    }
+    .index-card p { font-size: 0.9rem; }
+    .button {
+      display: inline-flex;
+      margin-top: 18px;
+      border: 1px solid var(--petal);
+      background: var(--petal);
+      color: var(--void);
+      padding: 12px 14px;
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    
+    @media (max-width: 780px) {
+      .link-grid, .index-grid { grid-template-columns: 1fr; }
+      .wrap { width: min(100% - 32px, 1080px); padding-top: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="kicker">MK Parrish / PMM system</div>
+    <h1>Product Marketing Message House</h1>
+    <p class="deck">A product marketing framework that turns POV, pains, proof, claims, and objections into usable launch language.</p>
+    <div class="meta-row">
+      <span class="pill">GTM</span>
+      <span class="pill">ABM</span>
+      <span class="pill">Product Marketing</span>
+      <span class="pill">Bebas Neue</span>
+    </div>
+    <section class="section"><h2>Core POV</h2><p>A message house should not be a prettier positioning doc. It should be the operating system for what sales, marketing, founder content, and product launch copy all say when the buyer asks: why this, why now, and why you?</p></section><section class="section"><h2>Message architecture</h2><ul><li>Market shift: what changed for the buyer.</li><li>Buyer pain: what the old way now costs.</li><li>Category claim: the point of view competitors avoid saying clearly.</li><li>Product promise: the outcome stated in buyer language.</li><li>Proof bank: numbers, examples, before-after, customer language, and credible specificity.</li><li>Objection handling: what the buyer worries about and the honest answer.</li><li>CTA map: what to ask for at each level of intent.</li></ul></section><section class="section"><h2>Enablement outputs</h2><ul><li>Homepage and landing page copy blocks.</li><li>Launch email and LinkedIn announcement copy.</li><li>Sales talk tracks and proof snippets.</li><li>Founder POV posts and category narrative.</li><li>Partner or customer-facing one-pagers.</li></ul></section>
+    <p class="footer-note">MK Parrish / mkparrish.com / mkp414@icloud.com</p>
+  </main>
+</body>
+</html>

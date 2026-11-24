@@ -1,33 +1,42 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./font-fixes.css";
 import Nav from "@/app/components/Nav";
 import Footer from "@/app/components/Footer";
 import CursorGlow from "@/app/components/CursorGlow";
 import LeadCapture from "@/app/components/LeadCapture";
+import SiteChrome from "@/app/components/SiteChrome";
+import MonetizationDrawer from "@/app/components/MonetizationDrawer";
+import SiteQuoteRail from "@/app/components/SiteQuoteRail";
+import BackgroundQuotes from "@/app/components/BackgroundQuotes";
 import { Analytics } from "@vercel/analytics/next";
+import ConversionTracking from "@/app/components/ConversionTracking";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
-    default: "MK Parrish — Rewrite Your Story",
+    default: "MK Parrish · Luxury Concierge for Cars, Code, Content & Creative",
     template: "%s — MK Parrish",
   },
   description:
-    "Websites, outbound, and messaging that turn how you're seen into revenue. A senior growth operator and writer for B2B SaaS, agencies, and growth-stage teams.",
+    "The Four C's, one concierge: Mercedes-Benz at Smithtown, websites engineered to convert, content and growth that get finished, and brand and copy people remember.",
   applicationName: "MK Parrish",
   metadataBase: new URL("https://www.mkparrish.com"),
   openGraph: {
-    title: "MK Parrish — Rewrite Your Story",
+    title: "MK Parrish · Luxury Concierge for Cars, Code, Content & Creative",
     description:
-      "Websites, outbound, and messaging that turn how you're seen into revenue. A senior growth operator and writer for B2B SaaS, agencies, and growth-stage teams.",
+      "The Four C's, one concierge: Mercedes-Benz at Smithtown, websites engineered to convert, content and growth that get finished, and brand and copy people remember.",
     url: "https://www.mkparrish.com",
     siteName: "MK Parrish",
     type: "website",
+    images: [{ url: "/og/default.png", width: 1200, height: 630, alt: "MK Parrish, Luxury Concierge" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MK Parrish — Rewrite Your Story",
+    title: "MK Parrish · Luxury Concierge for Cars, Code, Content & Creative",
     description:
-      "Websites, outbound, and messaging that turn how you're seen into revenue. A senior growth operator and writer for B2B SaaS, agencies, and growth-stage teams.",
+      "The Four C's, one concierge: Mercedes-Benz at Smithtown, websites engineered to convert, content and growth that get finished, and brand and copy people remember.",
+    images: ["/og/default.png"],
   },
   appleWebApp: {
     title: "MK Parrish",
@@ -50,13 +59,24 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="flex min-h-full flex-col overflow-x-hidden">
-        <CursorGlow />
-        <Nav />
-        <main className="flex-1 pb-16 md:pb-0">{children}</main>
-        <Footer />
-        <LeadCapture />
+      <body className="site-body flex min-h-full flex-col overflow-x-hidden">
+        <SiteChrome>
+          <BackgroundQuotes />
+          <CursorGlow />
+          <Nav />
+        </SiteChrome>
+        <main className="site-main flex-1 pb-20 md:pb-0">{children}</main>
+        <SiteChrome>
+          <SiteQuoteRail />
+          <MonetizationDrawer />
+          <LeadCapture />
+          <Footer />
+        </SiteChrome>
         <Analytics />
+        <ConversionTracking />
+        <Script id="metricool-tracker" strategy="afterInteractive">
+          {`function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"9cdfb02654dbeaea53c4119175b6e129"})});`}
+        </Script>
       </body>
     </html>
   );

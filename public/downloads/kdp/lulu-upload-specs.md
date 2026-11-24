@@ -1,0 +1,110 @@
+# Lulu Upload Spec Sheets — MK Parrish Paperbacks
+
+Everything you need to create each paperback on Lulu. Print-ready files are in
+the repo and live at `https://www.mkparrish.com/downloads/print/`.
+
+---
+
+## Universal settings (pick these for every book)
+
+On Lulu, choose **Create a Print Book**, then:
+
+- **Book size / trim:** 6 x 9 in (US Trade)
+- **Binding:** Perfect Bound
+- **Interior color:** Black & White
+- **Interior paper:** 60# Cream (uncoated)
+- **Cover finish:** Glossy (or Matte — your preference; glossy pops, matte is softer)
+- **Bleed:** Included. The interior is built full-bleed and the cover is a full
+  wraparound with 0.125 in bleed on every edge, so do **not** let Lulu add or
+  scale margins — upload the PDFs as-is ("print-ready / I have my own files").
+
+**Files for each book** (replace `<slug>`):
+- Interior: `https://www.mkparrish.com/downloads/print/<slug>-interior.pdf`
+- Cover (wraparound): `https://www.mkparrish.com/downloads/print/<slug>-cover.pdf`
+
+The cover PDF already includes the back cover, spine text, and front, sized to
+the exact page count below. If Lulu asks for the page count or spine width
+manually, use the numbers in each book's row.
+
+**Author:** MK Parrish · **Language:** English · **Category:** Memoir
+(REBECOMING, Still Here, Street Smarts) / Poetry (Make My Own Light) /
+Religion & Christian Living (Her Story, Rewritten + the faith line) /
+Juvenile Fiction — Fairy Tales (The Princess Who Rescued Herself) /
+Self-Help & Business (the guides).
+
+After upload: order **one proof copy** of each before making it public. Once it
+looks right, you can keep selling through the Stripe buttons on
+mkparrish.com/shop (you place the matching Lulu order with the buyer's shipping
+address) or turn on Lulu's own distribution.
+
+---
+
+## Per-book specs
+
+| Book | Trim | Pages | Spine | Full cover (W x H) | Your retail price |
+| :--- | :--- | :---- | :---- | :----------------- | :---------------- |
+| REBECOMING: From Fear to Faith | 6 x 9 | 77 | 0.193 in | 12.443 x 9.25 in | $39 |
+| Still Here, Still Hers | 6 x 9 | 52 | 0.130 in | 12.380 x 9.25 in | $44 |
+| Street Smarts | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $54 |
+| Make My Own Light | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $44 |
+| The Invisible Bruise | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $54 |
+| Decoding Angel Numbers | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $44 |
+| Write Yourself Into the Room | 6 x 9 | 40 | 0.100 in | 12.350 x 9.25 in | $44 |
+| The Reinvention Workbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $34 |
+| The Brand Voice Playbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $49 |
+| The Edit | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $29 |
+| Before the Session | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $26 |
+| The Rewrite Playbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
+| The New Chapter Workbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $42 |
+| The Byline Method | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $45 |
+| The Build Copy Guide | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
+| The Social Strategy Playbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $45 |
+| The Prompt Vault | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $41 |
+| The Meantime | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $44 |
+| The Redesign Playbook | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
+| The Study | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $26 |
+| The Sermon Notes | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $32 |
+| Gospel & Grind | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $38 |
+| The Calling Card | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $42 |
+| Ministry, Monetized | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $52 |
+| Her Story, Rewritten | 6 x 9 | 38 | 0.095 in | 12.345 x 9.25 in | $32 |
+| Her Story, Rewritten: Volume Two | 6 x 9 | 39 | 0.098 in | 12.348 x 9.25 in | $32 |
+
+### File slugs (for the URLs above)
+
+- REBECOMING: From Fear to Faith → `rebecoming`
+- Still Here, Still Hers → `still-here-still-hers`
+- Street Smarts → `street-smarts`
+- Make My Own Light → `make-my-own-light`
+- The Invisible Bruise → `the-invisible-bruise`
+- Decoding Angel Numbers → `decoding-angel-numbers`
+- Write Yourself Into the Room → `write-yourself-into-the-room`
+- The Reinvention Workbook → `reinvention-workbook`
+- The Brand Voice Playbook → `brand-voice-playbook`
+- The Edit → `the-edit-diy`
+- Before the Session → `before-the-session`
+- The Rewrite Playbook → `the-rewrite-playbook`
+- The New Chapter Workbook → `the-new-chapter-workbook`
+- The Byline Method → `the-byline-method`
+- The Build Copy Guide → `the-build-copy-guide`
+- The Social Strategy Playbook → `the-social-strategy-playbook`
+- The Prompt Vault → `the-prompt-vault`
+- The Meantime → `the-meantime`
+- The Redesign Playbook → `the-redesign-playbook`
+- The Study → `the-study`
+- The Sermon Notes → `the-sermon-notes`
+- Gospel & Grind → `gospel-and-grind`
+- The Calling Card → `the-calling-card`
+- Ministry, Monetized → `ministry-monetized`
+- Her Story, Rewritten → `her-story-rewritten`
+- Her Story, Rewritten: Volume Two → `her-story-rewritten-volume-two`
+
+---
+
+## Cost & margin reminder
+
+Lulu prints these (6 x 9, B&W, perfect bound) for roughly **$2.80–$3.05** per
+copy. With ~$5 shipping, you net about **$17–$46** per book at the prices above
+(shipping is baked into your listed price, so the buyer isn't charged extra).
+Ordering author copies in bulk lowers the per-unit cost and lets you control
+shipping yourself.

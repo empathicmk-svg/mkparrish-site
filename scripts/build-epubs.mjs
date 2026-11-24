@@ -31,8 +31,34 @@ const BOOKS = [
     subtitle: 'A guided writing workbook for people in the middle of becoming someone new.' },
   { src: 'ebooks/write-yourself-into-the-room.md',    out: 'ebooks/write-yourself-into-the-room.epub' },
   { src: 'ebooks/brand-voice-playbook.md',            out: 'ebooks/brand-voice-playbook.epub' },
+  { src: 'ebooks/rebecoming.md',                      out: 'ebooks/rebecoming.epub' },
+  { src: 'ebooks/still-here-still-hers.md',           out: 'ebooks/still-here-still-hers.epub',
+    subtitle: 'Essays on losing yourself, surviving the in-between, and learning to belong to your own life.' },
+  { src: 'ebooks/the-sentence-that-sells.md',         out: 'ebooks/the-sentence-that-sells.epub' },
+  { src: 'ebooks/evidence-not-vibes.md',              out: 'ebooks/evidence-not-vibes.epub' },
+  { src: 'ebooks/the-quiet-launch.md',                out: 'ebooks/the-quiet-launch.epub' },
+  { src: 'ebooks/the-meantime.md',                    out: 'ebooks/the-meantime.epub' },
   { src: 'ebooks/the-invisible-bruise.md',            out: 'ebooks/the-invisible-bruise.epub' },
   { src: 'ebooks/decoding-angel-numbers.md',          out: 'ebooks/decoding-angel-numbers.epub' },
+  { src: 'ebooks/the-manifest.md',                    out: 'ebooks/the-manifest.epub',
+    title: 'The Manifest', subtitle: 'Manifesting for business, minus the magical thinking.' },
+  { src: 'ebooks/the-compound.md',                    out: 'ebooks/the-compound.epub',
+    title: 'The Compound', subtitle: 'A guide to micro habits — the smallest change that rebuilds everything.' },
+  { src: 'ebooks/manifest-the-money.md',              out: 'ebooks/manifest-the-money.epub',
+    title: 'Manifest the Money', subtitle: 'Manifesting money, where mindset ends and math begins.' },
+  { src: 'ebooks/the-morning-blueprint.md',           out: 'ebooks/the-morning-blueprint.epub',
+    title: 'The Morning Blueprint', subtitle: 'A morning routine that survives real life.' },
+  { src: 'ebooks/the-cosmos-starter-kit.md',          out: 'ebooks/the-cosmos-starter-kit.epub',
+    title: 'The Cosmos Starter Kit', subtitle: 'Your free field guide to numerology & astrology.' },
+  { src: 'ebooks/scripture/her-story-rewritten.md',   out: 'ebooks/her-story-rewritten.epub' },
+  { src: 'ebooks/scripture/her-story-rewritten-volume-two.md', out: 'ebooks/her-story-rewritten-volume-two.epub' },
+  { src: 'ebooks/kids/the-princess-who-rescued-herself.md', out: 'ebooks/the-princess-who-rescued-herself.epub' },
+  { src: 'ebooks/kids/the-boy-who-talked-to-the-stars.md', out: 'ebooks/the-boy-who-talked-to-the-stars.epub' },
+  { src: 'ebooks/kids/the-quietest-kid-in-the-kingdom.md', out: 'ebooks/the-quietest-kid-in-the-kingdom.epub' },
+  { src: 'ebooks/kids/the-one-who-sat-alone.md',    out: 'ebooks/the-one-who-sat-alone.epub' },
+  { src: 'ebooks/kids/the-girl-who-found-her-words.md', out: 'ebooks/the-girl-who-found-her-words.epub' },
+  { src: 'ebooks/kids/the-kid-with-two-homes.md',   out: 'ebooks/the-kid-with-two-homes.epub' },
+  { src: 'ebooks/kids/the-girl-who-loved-gray.md',  out: 'ebooks/the-girl-who-loved-gray.epub' },
   { src: 'ebooks/scripture/the-study.md',             out: 'ebooks/the-study.epub' },
   { src: 'ebooks/scripture/gospel-and-grind.md',      out: 'ebooks/gospel-and-grind.epub' },
   { src: 'ebooks/scripture/the-sermon-notes.md',      out: 'ebooks/the-sermon-notes.epub' },
@@ -45,8 +71,20 @@ const BOOKS = [
   { src: 'templates/the-byline-method.md',            out: 'templates/the-byline-method.epub' },
   { src: 'templates/the-build-copy-guide.md',         out: 'templates/the-build-copy-guide.epub' },
   { src: 'templates/the-social-strategy-playbook.md', out: 'templates/the-social-strategy-playbook.epub' },
+  { src: 'templates/the-redesign-playbook.md',        out: 'templates/the-redesign-playbook.epub' },
+  { src: 'templates/the-brand-deal-room.md',          out: 'templates/the-brand-deal-room.epub' },
+  { src: 'templates/the-ugc-brief-bank.md',           out: 'templates/the-ugc-brief-bank.epub' },
+  { src: 'templates/the-tiktok-shop-sprint.md',       out: 'templates/the-tiktok-shop-sprint.epub' },
+  { src: 'templates/the-repurposing-engine.md',       out: 'templates/the-repurposing-engine.epub' },
+  { src: 'templates/the-ai-content-twin.md',          out: 'templates/the-ai-content-twin.epub' },
+  { src: 'templates/the-creator-owned-funnel.md',     out: 'templates/the-creator-owned-funnel.epub' },
+  { src: 'templates/the-prompt-vault.md',             out: 'templates/the-prompt-vault.epub' },
+  { src: 'templates/the-linkedin-bio-fix-kit.md',     out: 'templates/the-linkedin-bio-fix-kit.epub' },
   // Course — assembled from its module files (no single source file).
   { raw: courseMarkdown(ROOT), out: `${COURSE.slug}.epub`, title: COURSE.title, subtitle: COURSE.subtitle },
+  // Bundles — the "what's inside" intro ebook for each bundle product.
+  { src: 'bundles/the-vault.md',          out: 'the-vault.epub' },
+  { src: 'bundles/the-services-vault.md', out: 'the-services-vault.epub' },
 ];
 
 // ── Markdown → HTML (kept in sync with build-downloads.mjs) ───────────────────
@@ -234,6 +272,18 @@ async function buildEpub(book, page) {
 
   // optional intro/details block (content before first ## — e.g. Pattern-B metadata)
   if (pre) add('details', 'details.xhtml', 'About', `<div class="details">${xhtmlify(md(pre))}</div>`, false);
+
+  // visible Contents page in the linear reading flow (so it shows while reading,
+  // not only in the reader's own navigation menu)
+  add('contents', 'contents.xhtml', 'Contents',
+    `<h2 class="section"><span class="num">&#8212;</span>Contents</h2>` +
+    `<ol style="list-style:none;margin:0;padding:0;">` +
+    secs.map((s, i) =>
+      `<li style="border-bottom:1px solid #e3e3e3;padding:0.55em 0;font-family:'DM Sans',sans-serif;">` +
+      `<a href="sec${i + 1}.xhtml" style="text-decoration:none;color:#232323;">` +
+      `<span style="color:#B23A59;font-weight:600;margin-right:0.8em;font-size:0.85em;">${String(i + 1).padStart(2, '0')}</span>` +
+      `${esc(s.heading)}</a></li>`).join('') +
+    `</ol>`, false);
 
   // numbered sections
   secs.forEach((s, i) => {
